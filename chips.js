@@ -4,16 +4,16 @@ const readline = require('readline')
 
 const prefix = "-";
 
-client.login("Mjk2NDA4NDIwMDg3NjI3Nzc2.C7xzXQ.GAtbiTb2jmdPzm3IkUnlrBwvWtY");
+client.login("Mjk2ODU1NDI1MjU1NDczMTU0.C74TrQ.Zg3gySQraotlmkO1jsg6APQO-tg");
 
 const stdin = process.openStdin();
-let content = '';
+let content = '=';
 
 var testC;
 
 stdin.addListener('data', d => {
   if(d.toString()=="="){
-    console.log(content);
+    //console.log(content);
     //client.channels.get("296420294678020107").sendMessage(content);
     send(content.substring(1),testC);
     content="";
@@ -32,15 +32,16 @@ const send = (message, c) => {
 }
 
 client.on('ready', () => {
-  console.log('Pepper is ready!');
+  console.log('Chips is ready!');
 });
 
 client.on("message", (message) => {
   if (message.author.bot) return;
   if (!message.content.startsWith(prefix)) return;
+  c = message.channel;
 
   if (message.content.startsWith(prefix+"help")) {
-    message.channel.sendMessage("-help for this help message.");
+    send("-help for this help message.",c);
   }else if (message.content.startsWith(prefix+ "ping")) {
     send("pong! " + message.channel.guild.member(message.author).displayName, message.channel);
     console.log("ping pong!" + message.author.username)
@@ -51,7 +52,7 @@ client.on("message", (message) => {
       send(answer, channel);
       //rl.close();
     });
-  }else if(message.content.startsWith(prefix+"setOutput")){
+  }else if(message.content.toLowerCase().startsWith(prefix+"setoutput")){
     testC=message.channel;
     send("Channel set!",testC);
   }
