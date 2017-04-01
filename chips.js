@@ -92,8 +92,7 @@ client.on("message", (message) => {
 
   //console.log(monitorMode);
   if(monitorMode&&message.channel==testC){
-    console.log("\x1b[1m","\nSocial spy: ");
-    console.log("\x1b[0m", "\t[" + message.channel.guild.member(message.author).displayName + "] Msg content: " + message.content);
+    console.log("\n"+Bright+BgBlue,"Social spy: ",Reset+BgBlack, "\n\t[" + message.channel.guild.member(message.author).displayName + "] Msg content: " + message.content);
   }
 
   if (!message.content.startsWith(prefix)) return;
