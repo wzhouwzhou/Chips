@@ -23,10 +23,14 @@ stdin.addListener('data', d =>
 
       rl.question("Input? ", function(txt) {
         console.log("Console input:", txt);
-        txt=evalConsoleCommand(txt);
-        send(txt, testC);
-        //rl.close();
-        consoleTyping=false;
+        if(txt==""){
+          consoleTyping=false;
+        }else{
+          txt=evalConsoleCommand(txt);
+          send(txt, testC);
+          //rl.close();
+          consoleTyping=false;
+        }
       });
     }
 
