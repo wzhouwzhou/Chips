@@ -7,18 +7,36 @@ const prefix = "-";
 client.login("Mjk2ODU1NDI1MjU1NDczMTU0.C74TrQ.Zg3gySQraotlmkO1jsg6APQO-tg");
 
 const stdin = process.openStdin();
-let content = '=';
+var d="";
 
 var testC;
+var consoleTyping = false;
+stdin.addListener('data', d =>
+{
+    if(testC==null){
+      console.log("YOU HAVEN'T DEFINED AN OUTPUT CHANNEL");
+      return;
+    }
+    if(consoleTyping==false){
+      //d+=d.toString();
+      consoleTyping=true;
 
-stdin.addListener('data', d => {
-  if(d.toString()=="="){
+      rl.question("Input? ", function(answer) {
+        console.log("Console input:", answer);
+        send(answer, testC);
+        //rl.close();
+        consoleTyping=false;
+      });
+    }
+
+  /*if(d.toString()=="botoff"){
     //console.log(content);
     //client.channels.get("296420294678020107").sendMessage(content);
     send(content.substring(1),testC);
     content="";
+    console.log("\n");
   }
-  content += d.toString();
+  content += d.toString();*/
 });
 
 
