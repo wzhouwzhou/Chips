@@ -5,8 +5,6 @@ const readline = require('readline')
 const prefix = "-";
 
 client.login("Mjk2ODU1NDI1MjU1NDczMTU0.C74TrQ.Zg3gySQraotlmkO1jsg6APQO-tg");
-client.user.setStatus("online");
-client.user.setGame("Do -help");
 
 if(client.channels.get("296414980679532544")==null){console.log("ERRR");}
 
@@ -67,6 +65,8 @@ const send = (message, c) => {
 
 client.on('ready', () => {
   console.log('Chips is ready!');
+  client.user.setStatus("online");
+  client.user.setGame("Do -help");
 });
 
 const evalConsoleCommand = (txt) => {
