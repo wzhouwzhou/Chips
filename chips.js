@@ -21,9 +21,10 @@ stdin.addListener('data', d =>
       //d+=d.toString();
       consoleTyping=true;
 
-      rl.question("Input? ", function(answer) {
-        console.log("Console input:", answer);
-        send(answer, testC);
+      rl.question("Input? ", function(txt) {
+        console.log("Console input:", txt);
+        txt=evalConsoleCommand(txt);
+        send(txt, testC);
         //rl.close();
         consoleTyping=false;
       });
@@ -39,6 +40,11 @@ stdin.addListener('data', d =>
   content += d.toString();*/
 });
 
+const pastes = [
+  ["/shrug","¯\\_(ツ)_/¯"],
+  ["/tableflip","(╯°□°）╯︵ ┻━┻"],
+  ["/unflip","┬─┬﻿ ノ( ゜-゜ノ)"]
+];
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -52,6 +58,17 @@ const send = (message, c) => {
 client.on('ready', () => {
   console.log('Chips is ready!');
 });
+
+const evalConsoleCommand = (txt) => {
+  for(var i = 0; i<pastes.length;i++){
+    if(txt==pastes[i][0])
+    {
+      console.log("paste "+i + " found!");
+      return pastes[i][1];
+    }
+  }
+  return txt;
+}
 
 client.on("message", (message) => {
   if (message.author.bot) return;
