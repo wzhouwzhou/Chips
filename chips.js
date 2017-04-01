@@ -5,6 +5,8 @@ const readline = require('readline')
 const prefix = "-";
 
 client.login("Mjk2ODU1NDI1MjU1NDczMTU0.C74TrQ.Zg3gySQraotlmkO1jsg6APQO-tg");
+client.user.setStatus("online");
+client.user.setGame("Do -help");
 
 if(client.channels.get("296414980679532544")==null){console.log("ERRR");}
 
@@ -125,7 +127,7 @@ client.on("message", (message) => {
   c = message.channel;
 
   if (message.content.startsWith(prefix+"help")) {
-    send("-help for this help message.\n-ping for a pong.\n-aboooose or -aboose for aboose (any number of o's).",c);
+    send("-help for this help message.\n-ping for a pong.\n-aboooose or -aboose for aboose (any number of o's larger than two, s's, or e's).\n-setoutput to let me speak.",c);
   }else if (message.content.startsWith(prefix+ "ping")) {
     send("pong! " + message.channel.guild.member(message.author).displayName, message.channel);
     console.log("ping pong!" + message.author.username)
@@ -141,7 +143,7 @@ client.on("message", (message) => {
       testC=message.channel;
       send("Channel set!",testC);
     }else{
-      send("You must be approved to use this command!",message.channel);
+      send("You must be approved to use this command! "+message.channel.guild.member(message.author).displayName,message.channel);
     }
   }else if(message.content.toLowerCase().startsWith(prefix+"ban")){
     send("NO bans 4 U "+message.channel.guild.member(message.author).displayName,message.channel);
