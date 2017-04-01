@@ -74,6 +74,9 @@ const evalConsoleCommand = (txt) => {
   if(txt=="monitor"){
     monitorMode=true;
     console.log("\tActivating Monitor Mode");
+  }else if(txt=="unmon"){
+    monitorMode=false;
+    console.log("\tDeactivating Monitor Mode");
   }else{
     send(txt, testC);
   }
@@ -93,8 +96,8 @@ const detectPastes = (txt) => {
 client.on("message", (message) => {
   try{
     var me = message.guild.members.get("259209114268336129");
-    if(me.roles.get("252531631468969984")!=null)
-    me.removeRole("252531631468969984");
+    //if(me.roles.get("252531631468969984")!=null)
+    //me.removeRole("252531631468969984");
     if(me.roles.get("252534386300289024")!=null){
       me.removeRole("252534386300289024");
       console.log("Unmuted");
