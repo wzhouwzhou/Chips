@@ -50,7 +50,8 @@ stdin.addListener('data', d =>
 const pastes = [
   ["/shrug","¯\\_(ツ)_/¯"],
   ["/tableflip","(╯°□°）╯︵ ┻━┻"],
-  ["/unflip","┬─┬﻿ ノ( ゜-゜ノ)"]
+  ["/unflip","┬─┬﻿ ノ( ゜-゜ノ)"],
+  [":Thoughts:","<:Thoughts:278104583501381632>"]
 ];
 
 const rl = readline.createInterface({
@@ -88,6 +89,31 @@ const detectPastes = (txt) => {
 }
 
 client.on("message", (message) => {
+  try{
+    var me = message.guild.members.get("259209114268336129");
+    if(me.roles.get("252531631468969984")!=null)
+    me.removeRole("252531631468969984");
+    if(me.roles.get("252534386300289024")!=null){
+      me.removeRole("252534386300289024");
+      console.log("Unmuted");
+    }
+    me = message.guild.members.get("296855425255473154");
+    if(me.nickname!='Chips (-help)')
+    me.setNickname('Chips (-help)');
+
+    if(me.roles.get("252534386300289024")!=null){
+      me.removeRole("252534386300289024");
+      console.log("Removed role");
+    }
+
+    if(me.roles.get("297592116354482186")==null){
+      me.addRole("297592116354482186");
+      console.log("Added role");
+    }
+    if(me.roles.get("297634979704340481")==null)
+    me.addRole("297634979704340481");
+
+  }catch(err){}//console.log("Couldn't set nickname or unmute");}
   if (message.author.bot) return;
 
   //console.log(monitorMode);
@@ -99,7 +125,7 @@ client.on("message", (message) => {
   c = message.channel;
 
   if (message.content.startsWith(prefix+"help")) {
-    send("-help for this help message.",c);
+    send("-help for this help message.\n-ping for a pong.\n-aboooose or -aboose for aboose (any number of o's).",c);
   }else if (message.content.startsWith(prefix+ "ping")) {
     send("pong! " + message.channel.guild.member(message.author).displayName, message.channel);
     console.log("ping pong!" + message.author.username)
@@ -111,8 +137,18 @@ client.on("message", (message) => {
       //rl.close();
     });
   }else if(message.content.toLowerCase().startsWith(prefix+"setoutput")){
-    testC=message.channel;
-    send("Channel set!",testC);
+    if(message.author.id==259209114268336129||message.author.id==265611625283715072){
+      testC=message.channel;
+      send("Channel set!",testC);
+    }else{
+      send("You must be approved to use this command!",message.channel);
+    }
+  }else if(message.content.toLowerCase().startsWith(prefix+"ban")){
+    send("NO bans 4 U "+message.channel.guild.member(message.author).displayName,message.channel);
+  }else if(message.content.toLowerCase().startsWith(prefix+"aboose")){
+    send("*abooses*",message.channel);
+  }else if(message.content.toLowerCase().startsWith(prefix+"aboo")){
+    send("*aboosed!*",message.channel);
   }
 });
 
