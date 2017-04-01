@@ -9,6 +9,8 @@ client.login("Mjk2ODU1NDI1MjU1NDczMTU0.C74TrQ.Zg3gySQraotlmkO1jsg6APQO-tg");
 const stdin = process.openStdin();
 var d="";
 
+var monitorMode=false;
+
 var testC;
 var consoleTyping = false;
 stdin.addListener('data', d =>
@@ -26,8 +28,7 @@ stdin.addListener('data', d =>
         if(txt==""){
           consoleTyping=false;
         }else{
-          txt=evalConsoleCommand(txt);
-          send(txt, testC);
+          evalConsoleCommand(txt);
           //rl.close();
           consoleTyping=false;
         }
@@ -64,6 +65,16 @@ client.on('ready', () => {
 });
 
 const evalConsoleCommand = (txt) => {
+  txt=detectPastes(txt);
+  if(txt=="monitor"){
+    monitorMode=true;
+    console.log("Activating Monitor Mode");
+    txt=" ";
+  }
+  send(txt, testC);
+}
+
+const detectPastes = (txt) => {
   for(var i = 0; i<pastes.length;i++){
     if(txt==pastes[i][0])
     {
@@ -76,6 +87,12 @@ const evalConsoleCommand = (txt) => {
 
 client.on("message", (message) => {
   if (message.author.bot) return;
+
+  //console.log(monitorMode);
+  if(monitorMode){//&&message.channel==testC){
+    console.log("Social spy: [" + message.channel.guild.member(message.author).displayName + "] Msg content: " + message.content);
+  }
+
   if (!message.content.startsWith(prefix)) return;
   c = message.channel;
 
