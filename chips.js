@@ -4,7 +4,7 @@ const readline = require('readline')
 
 const prefix = "-";
 
-client.login("Mjk2ODU1NDI1MjU1NDczMTU0.C74TrQ.Zg3gySQraotlmkO1jsg6APQO-tg");
+client.login("token");
 
 if(client.channels.get("296414980679532544")==null){console.log("ERRR");}
 
