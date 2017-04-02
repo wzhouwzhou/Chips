@@ -38,6 +38,7 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error', { type: err.status || 500 });
+  if (!err.status || err.status == 500) console.error("Internal error: " + err);
 });
 
 app.set('port', (process.env.PORT || 5000));
