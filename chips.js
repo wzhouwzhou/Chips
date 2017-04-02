@@ -131,13 +131,13 @@ stdin.addListener('data', d => {
   content + = d.toString();*/
 });
 
-const pastes = [
-  ["/shrug", "¯\\_(ツ)_/¯"],
-  ["/tableflip", "(╯°□°）╯︵ ┻━┻"],
-  ["/unflip", "┬─┬﻿ ノ( ゜-゜ノ)"],
-  [":Thoughts:", "<:Thoughts:278104583501381632>"],
-  [":Thonkang:","<:Thonkang:279512732892659713>"]
-];
+const pastes = {
+  "/shrug": "¯\\_(ツ)_/¯",
+  "/tableflip": "(╯°□°）╯︵ ┻━┻",
+  "/unflip": "┬─┬﻿ ノ( ゜-゜ノ)",
+  ":Thoughts:": "<:Thoughts:278104583501381632>",
+  ":Thonkang:": "<:Thonkang:279512732892659713>"
+};
 
 global.rl = readline.createInterface({
   input: process.stdin,
@@ -162,10 +162,11 @@ const evalConsoleCommand = txt => {
 };
 
 const detectPastes = txt => {
-  for (const i in pastes) {
-    if (txt == pastes[i][0]) {
+  const pairPastes = _.toPairs(pastes);
+  for (const i in pairPastes) {
+    if (txt == pairpastes[i][0]) {
       console.log("paste " + i + " found!");
-      return pastes[i][1];
+      return pairPastes[i][1];
     }
   }
   return txt;
