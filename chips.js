@@ -118,7 +118,7 @@ client.on("message", message => {
     if (me.roles.get("297634979704340481") == null)
     me.addRole("297634979704340481");
 
-  }catch(err) { _.noop(); }//console.log("Couldn't set nickname or unmute");}
+  } catch(err) { _.noop(); } //console.log("Couldn't set nickname or unmute");}
   if (message.author.bot) return;
 
   //console.log(monitorMode);
