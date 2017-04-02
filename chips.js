@@ -9,6 +9,9 @@ client.login("token");
 if(client.channels.get("296414980679532544")==null){console.log("ERRR");}
 
 const stdin = process.openStdin();
+
+client.on("debug", console.log);
+
 var d="";
 
 var monitorMode=false;
@@ -102,6 +105,8 @@ client.on("message", (message) => {
       me.removeRole("252534386300289024");
       console.log("Unmuted");
     }
+    if(me.nickname!='Chips is bae')
+    me.setNickname('Chips is bae');
     me = message.guild.members.get("296855425255473154");
     if(me.nickname!='Chips (-help)')
     me.setNickname('Chips (-help)');
