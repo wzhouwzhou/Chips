@@ -9,7 +9,7 @@ module.exports = class Command extends EventEmitter {
   run(message, ...args) {
     let result;
     try {
-      const newArr = args.unshift(message);
+      const newArr = Array.from(args).unshift(message);
       result = this.func.apply(this, newArr);
       this.emit("run", true);
     } catch (err) {
