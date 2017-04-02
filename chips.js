@@ -47,6 +47,11 @@ app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
 
+function selfping() {
+	request("http://chipsbot.herokuapp.com/", function(a,b,c){});
+}
+setInterval(selfping,1000*60*10);
+
 const Discord = require("discord.js");
 
 const client = new Discord.Client();
