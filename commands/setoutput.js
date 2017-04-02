@@ -8,11 +8,15 @@ module.exports = {
       default:
         return send("You must be approved to use this command! " + member.displayName);
     }
+    let sentmsg;
+    try {
+      sentmsg = await send("Setting output...");
+    } catch (err) { console.error(`Error at sending message of SetOutput: ${err}`); }
     try {
       await doEval("testC = channel");
-      send("Channel set!");
+      sentmsg && sentmsg.edit("Channel set!");
     } catch (err) {
-      send("There was an error setting output channel! (It has been logged)");
+      sentmsg && sentmsg.edit("There was an error setting output channel! (It has been logged)");
       console.error("Error setting output channel: " + err);
     }
   }
