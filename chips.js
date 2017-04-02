@@ -135,7 +135,8 @@ const pastes = [
   ["/shrug", "¯\\_(ツ)_/¯"],
   ["/tableflip", "(╯°□°）╯︵ ┻━┻"],
   ["/unflip", "┬─┬﻿ ノ( ゜-゜ノ)"],
-  [":Thoughts:", "<:Thoughts:278104583501381632>"]
+  [":Thoughts:", "<:Thoughts:278104583501381632>"],
+  [":Thonkang:","<:Thonkang:279512732892659713>"]
 ];
 
 global.rl = readline.createInterface({
