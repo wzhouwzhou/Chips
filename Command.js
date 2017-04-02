@@ -6,11 +6,13 @@ module.exports = class Command extends EventEmitter {
     Object.entries(obj).map(([k, v]) => this[k] = v);
   }
 
-  run(message, ...args) {
+  run() {
+    const args = Array.from(arguments);
+    const message = args[0];
+    if (!message) throw new TypeError(`Message not provided to command ${this.name || "< with no name >"}.`);
     let result;
     try {
-      const newArr = Array.from(args).unshift(message);
-      result = this.func.apply(this, newArr);
+      result = this.func.apply(this, args);
       this.emit("run", true);
     } catch (err) {
       console.error(err);
