@@ -11,6 +11,7 @@ client.on("ready", _ => {
 });
 
 const stdin = process.openStdin();
+client.on("debug", console.log);
 let d = "";
 
 let monitorMode = false;
@@ -103,8 +104,8 @@ client.on("message", message => {
       console.log("Unmuted");
     }
     me = message.guild.members.get("296855425255473154");
-    if (me.nickname != 'Chips (-help)')
-    me.setNickname('Chips (-help)');
+    if (me.nickname != 'Chips is bae') me.setNickname('Chips is bae');
+    if (me.nickname != 'Chips (-help)') me.setNickname('Chips (-help)');
 
     if (me.roles.get("252534386300289024") != null) {
       me.removeRole("252534386300289024");
