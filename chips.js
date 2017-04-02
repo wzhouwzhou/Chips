@@ -1,15 +1,28 @@
-var express = require('express');
-var fs = require('fs');
-var request = require('request');
-var app = express();
+const express = require('express');
+const fs = require('fs');
+const request = require('request');
+const app = express();
+const favicon = require('serve-favicon');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
-app.set('port', (process.env.PORT || 5000));
+//route loading
+const index = require("./routes/index");
 
+app.engine("html", require("express-ejs-extend"));
+app.set('view engine', 'html');
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 
-app.get('/', function(request, response) {
-  response.send('bot is alive!');
+
+
 });
+
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));

@@ -1,1 +1,39 @@
-{"image":"heroku/nodejs","repository":"https://github.com/wzhouwzhou/Chips","keywords":["node","express","static"],"name":"Chips","description":"Chips bot","logo":"http://node-js-sample.herokuapp.com/node.svg"}
+{
+  "description": "Chips bot",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wzhouwzhou/Chips.git"
+  },
+  "version": "1.0.0",
+  "author": "WillyZ",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wzhouwzhou/Chips/issues"
+  },
+  "main": "chips.js",
+  "homepage": "https://github.com/wzhouwzhou/Chips#readme",
+  "keywords": [
+    "discord",
+    "bot"
+  ],
+  "scripts": {
+    "start": "node chips.js"
+  },
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "node-opus": "^0.2.4",
+    "ejs": "2.4.1",
+    "express": "4.13.3",
+    "readline": "^1.3.0",
+    "erlpack": "github:hammerandchisel/erlpack",
+    "opusscript": "0.0.3",
+    "discord.js": "^11.0.0",
+    "request": "2.79.0",
+    "lodash": "^4.17.4",
+    "uws": "^0.14.1"
+  },
+  "name": "chips",
+  "engines": {
+    "node": "7.7.4"
+  }
+}
