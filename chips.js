@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const _ = require("lodash");
-const chalk = require("chalk");
+global._ = require("lodash");
+global.chalk = require("chalk");
 const readline = require('readline');
 
 const prefix = "-";
