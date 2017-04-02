@@ -169,7 +169,7 @@ const evalConsoleCommand = txt => {
 const detectPastes = txt => {
   const pairPastes = _.toPairs(pastes);
   for (const i in pairPastes) {
-    if (txt == pairpastes[i][0]) {
+    if (txt == pairPastes[i][0]) {
       console.log("paste " + i + " found!");
       return pairPastes[i][1];
     }
