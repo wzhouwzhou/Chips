@@ -58,12 +58,14 @@ const readline = require('readline');
 
 Messager.on("eval", ({ evalContent, vars, timestamp }) => {
   const { msg, message, channel, guild, send, reply, content, noprefix, prefix, c, author, member } = vars;
+  console.log("Messager received some eval of " + evalContent);
   try {
     Messager.emit("dideval" + timestamp, {
       result: eval(evalContent),
       err: false
     });
   } catch(err) {
+    console.log("Error at eval Messager: " + err);
     Messager.emit("dideval" + timestamp, {
       result: err,
       err: true
