@@ -60,6 +60,7 @@ Messager.on("eval", ({ evalContent, vars, timestamp }) => {
   const { msg, message, channel, guild, send, reply, content, noprefix, prefix, c, author, member } = vars;
   console.log("Messager received some eval of " + evalContent);
   try {
+    console.log("Messager part: dideval" + timestamp);
     Messager.emit("dideval" + timestamp, {
       result: eval(evalContent),
       err: false

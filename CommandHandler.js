@@ -10,13 +10,14 @@ module.exports = function(Discord, client) {
       doEval: stuff => {
         const timestamp = Date.now();
         return new Promise((res, rej) => {
-          Messager.emit("eval", { evalContent: stuff, vars: context, timestamp });
-          console.log("Emitted eval");
+          console.log("doEval part: dideval" + timestamp);
           Messager.once("dideval" + timestamp, ({ err, result }) => {
             console.log("Received doEval");
             if (err) rej(result);
             else res(result);
           });
+          Messager.emit("eval", { evalContent: stuff, vars: context, timestamp });
+          console.log("Emitted eval");
         });
       },
     };
