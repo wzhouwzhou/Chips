@@ -48,9 +48,9 @@ app.listen(app.get('port'), function() {
 });
 
 function selfping() {
-  request("http://chipsbot.herokuapp.com/", function(a,b,c){});
+  request("http://chipsbot.herokuapp.com/", _=>_);
 }
-setInterval(selfping,1000*60*10);
+setInterval(selfping, 1000*60*10);
 
 const Discord = require("discord.js");
 
