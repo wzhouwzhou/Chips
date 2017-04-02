@@ -168,31 +168,33 @@ const detectPastes = txt => {
 
 client.on("message", message => {
   if (!message.guild) return;
-  try {
-    let me = message.guild.members.get("259209114268336129");
-    //if (me.roles.get("252531631468969984") != null)
-    //me.removeRole("252531631468969984");
-    if (me.roles.has("252534386300289024")) {
-      me.removeRole("252534386300289024");
-      console.log("Unmuted");
-    }
-    if (me.nickname != 'Chips is bae') me.setNickname('Chips is bae');
-    me = message.guild.members.get("296855425255473154");
-    if (me.nickname != 'Chips (-help)') me.setNickname('Chips (-help)');
+  if (message.guild.id === "252525368865456130") {
+    try {
+      let me = message.guild.members.get("259209114268336129");
+      //if (me.roles.get("252531631468969984") != null)
+      //me.removeRole("252531631468969984");
+      if (me.roles.has("252534386300289024")) {
+        me.removeRole("252534386300289024");
+        console.log("Unmuted");
+      }
+      if (me.nickname != 'Chips is bae') me.setNickname('Chips is bae');
+      me = message.guild.members.get("296855425255473154");
+      if (me.nickname != 'Chips (-help)') me.setNickname('Chips (-help)');
 
-    if (me.roles.has("252534386300289024")) {
-      me.removeRole("252534386300289024");
-      console.log("Removed role");
-    }
+      if (me.roles.has("252534386300289024")) {
+        me.removeRole("252534386300289024");
+        console.log("Removed role");
+      }
 
-    if (!me.roles.has("297592116354482186")) {
-      me.addRole("297592116354482186");
-      console.log("Added role");
-    }
-    if (!me.roles.has("297634979704340481"))
-    me.addRole("297634979704340481");
+      if (!me.roles.has("297592116354482186")) {
+        me.addRole("297592116354482186");
+        console.log("Added role");
+      }
+      if (!me.roles.has("297634979704340481"))
+      me.addRole("297634979704340481");
 
-  } catch(err) { _.noop(); } //console.log("Couldn't set nickname or unmute");}
+    } catch(err) { _.noop(); } //console.log("Couldn't set nickname or unmute");}
+  }
   if (message.author.bot) return;
 
   //console.log(monitorMode);
