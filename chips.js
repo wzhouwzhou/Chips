@@ -156,4 +156,4 @@ client.on("message", message => {
   const c = message.channel;
   CommandHandler(message, prefix);
 });
-client.login("token");
+client.login(process.env.TOKEN);
