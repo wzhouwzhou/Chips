@@ -62,6 +62,18 @@ global.Command = require("./Command");
 global.CommandHandler = require("./CommandHandler")(Discord, client);
 const readline = require('readline');
 
+let sequelize = new Sequelize('botdata', null , null , {
+  dialect: 'sqlite',
+  host: "localhost",
+  storage: "botdata.sqlite",
+  logging(query) {
+    fs.appendFile("sqlLog.log", "\n[SQL] " + query, (err)=>{
+        if (err) return console.error("[SQL] Error at logging query: " + err);
+    });
+  },
+  sync: { force: true },
+} );
+
 Messager.on("eval", ({ evalContent, vars, timestamp }) => {
   const { msg, message, channel, guild, send, reply, content, noprefix, prefix, c, author, member } = vars;
   console.log("Messager received some eval of " + evalContent);
