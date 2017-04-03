@@ -1,12 +1,13 @@
 module.exports = {
   name: "setoutput",
-  async func(msg, { send, member, doEval }) {
-    switch (member.id) {
+  async func(msg, { send, member, author, doEval }) {
+    const used = member || author;
+    switch (used.id) {
       case "259209114268336129":
       case "265611625283715072":
         break;
       default:
-        return send("You must be approved to use this command! " + member.displayName);
+        return send("You must be approved to use this command! " + member ? member.displayName : author.username);
     }
     let sentmsg;
     try {
