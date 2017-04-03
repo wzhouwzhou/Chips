@@ -141,7 +141,8 @@ const pastes = {
   "/tableflip": "(╯°□°）╯︵ ┻━┻",
   "/unflip": "┬─┬﻿ ノ( ゜-゜ノ)",
   ":Thoughts:": "<:Thoughts:278104583501381632>",
-  ":Thonkang:": "<:Thonkang:279512732892659713>"
+  ":Thonkang:": "<:Thonkang:279512732892659713>",
+  ":chips": "<:chips:298308614022627329>"
 };
 
 global.rl = readline.createInterface({
