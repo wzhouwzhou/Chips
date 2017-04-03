@@ -5,6 +5,7 @@ const app = express();
 const favicon = require('serve-favicon');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const Sequelize = require('sequelize');
 
 //route loading
 const index = require("./routes/index");
