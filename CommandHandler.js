@@ -23,7 +23,7 @@ module.exports = function(Discord, client) {
     };
     for (const cmdn in client.commands) {
       const cmd = client.commands[cmdn];
-      if (new RegExp(_.escapeRegExp(cmdn)).test(noprefix.split` `[0])) return cmd.run(msg, context);
+      if (new RegExp(`^${_.escapeRegExp(cmdn)}$`).test(noprefix.split` `[0])) return cmd.run(msg, context);
     }
   };
 };
