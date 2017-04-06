@@ -2,6 +2,8 @@
 const express = require('express');
 const router = express.Router();
 
+router.use(express.static(__dirname + '/public'));
+
 // "/" in this case would be the route's main place. Example:
 // If the route is being used on /something/somestuff, then "/" here would be /something/somestuff
 
@@ -23,4 +25,3 @@ router.post("/", (req, res) => {
 // And then export the router, and you're done!
 
 module.exports = router;
-
