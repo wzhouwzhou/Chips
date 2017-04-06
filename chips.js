@@ -181,7 +181,7 @@ const detectPastes = txt => {
 
 client.on("message", message => {
   if (!message.guild) return;
-  if (message.guild.id === "252525368865456130") {
+  /*if (message.guild.id === "252525368865456130") {
     try {
       let me = message.guild.members.get("259209114268336129");
       //if (me.roles.get("252531631468969984") != null)
@@ -207,7 +207,7 @@ client.on("message", message => {
       me.addRole("297634979704340481");
 
     } catch(err) { _.noop(); } //console.log("Couldn't set nickname or unmute");}
-  }
+  }*/
   if (message.author.bot) return;
 
   //console.log(monitorMode);
