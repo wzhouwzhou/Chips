@@ -12,7 +12,7 @@ const stylesheets = [
 ];
 
 const plugins = [
-  "vendor/bootstrap/js/bootstrap.min.js",
+  "/vendor/bootstrap/js/bootstrap.min.js",
   "https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js",
   "/vendor/scrollreveal/scrollreveal.js",
   "/vendor/magnific-popup/jquery.magnific-popup.min.js",
