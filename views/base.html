@@ -10,6 +10,14 @@
       href="https://cdn.discordapp.com/attachments/288802426905952258/299551735574429696/IMG_8110.PNG"/>
     <title>Sun Knights</title>
     <%# Place for Scripts, Stylesheets and Images loading %>
+
+    <%# Custom stylesheets loading %>
+    <% if (typeof sheets !== 'undefined') { %>
+      <% for (let sheet of sheets) { %>
+        <link rel="stylesheet" href="<%= sheet.toString() %>"/>
+      <% } %>
+    <% } %>
+
     <%# Jquery %>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <%# Bootstrap %>
@@ -23,12 +31,6 @@
       <% } %>
     <% } %>
 
-    <%# Custom stylesheets loading %>
-    <% if (typeof sheets !== 'undefined') { %>
-      <% for (let sheet of sheets) { %>
-        <link rel="stylesheet" href="<%= sheet.toString() %>"/>
-      <% } %>
-    <% } %>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
