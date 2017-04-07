@@ -24,6 +24,13 @@
       <% } %>
     <% } %>
 
+    <%# Custom stylesheets loading %>
+    <% if (typeof sheets !== 'undefined') { %>
+      <% for (let sheet of sheets) { %>
+        <link rel="stylesheet" href="<%= sheet.toString() %>"/>
+      <% } %>
+    <% } %>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -36,14 +43,6 @@
   <% } else { %>
   <body>
   <% } %>
-
-    <%# Custom stylesheets loading %>
-    <% if (typeof sheets !== 'undefined') { %>
-      <% for (let sheet of sheets) { %>
-        <link rel="stylesheet" href="<%= sheet.toString() %>"/>
-      <% } %>
-    <% } %>
-
     <%- content %>
     <%# Above is where the content of the website goes, make sure all pages extend this: Their contents will be placed above %>
   </body>
