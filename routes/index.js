@@ -7,7 +7,6 @@ router.get("/", (req, res) => {
     "https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js",
     "/vendor/magnific-popup/jquery.magnific-popup.min.js",
     "/vendor/scrollreveal/scrollreveal.js",
-    "/js/creative.min.js",
   ], stylesheets: [
     "/vendor/font-awesome/css/font-awesome.min.css", 
     "https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800",
