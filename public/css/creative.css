@@ -406,6 +406,12 @@ fieldset[disabled] .btn-primary.active {
 .btn-xl {
   padding: 15px 30px;
 }
+.contributors {
+  border: 12px solid #B22222;
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
 ::-moz-selection {
   color: white;
   text-shadow: none;
