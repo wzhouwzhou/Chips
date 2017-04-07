@@ -1,7 +1,7 @@
 // index
 const express = require('express');
 const router = express.Router();
-const stylesheets= [
+const stylesheets = [
   "/vendor/font-awesome/css/font-awesome.min.css",
   "/vendor/magnific-popup/magnific-popup.css",
   "/css/creative.min.css",
@@ -10,8 +10,20 @@ const stylesheets= [
   "https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic"
 ];
 
+const plugins = [
+  "vendor/bootstrap/js/bootstrap.min.js",
+  "https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js",
+  "/vendor/scrollreveal/scrollreveal.js",
+  "/vendor/magnific-popup/jquery.magnific-popup.min.js",
+  "/js/creative.min.js"
+]
+
 router.get("/", (req, res) => {
-  res.render("index", { timestamp: new Date().toString(),sheets: stylesheets });
+  res.render("index", {
+    timestamp: new Date().toString(),
+    sheets: stylesheets,
+    scripts: plugins
+  });
 });
 
 module.exports = router;
