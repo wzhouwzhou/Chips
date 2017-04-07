@@ -9,15 +9,38 @@
     <link rel="icon" type="image/png"
       href="https://cdn.discordapp.com/attachments/288802426905952258/299551735574429696/IMG_8110.PNG"/>
     <title>Sun Knights</title>
-
     <%# Place for Scripts, Stylesheets and Images loading %>
     <%# Jquery%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <%# Bootstrap%>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <%# Custom scripts loading %>
+    <% if (typeof scripts !== 'undefined') { %>
+      <% for (let script of scripts) { %>
+        <script src="<%= script.toString() %>"></script>
+      <% } %>
+    <% } %>
+
+    <%# Custom stylesheets loading %>
+    <% if (typeof sheets !== 'undefined') { %>
+      <% for (let sheet of sheets) { %>
+        <link rel="stylesheet" href="<%= sheet.toString() %>"/>
+      <% } %>
+    <% } %>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
   </head>
+  <% if (typeof bodyid !== 'undefined') { %>
+  <body id="<%= bodyid %>">
+  <% } else { %>
   <body>
+  <% } %>
     <%- content %>
     <%# Above is where the content of the website goes, make sure all pages extend this: Their contents will be placed above %>
   </body>
