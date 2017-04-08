@@ -1,4 +1,273 @@
-<% extend("base.html") %>
-<h1>Hi</h1>
+<% extend('base.html') %>
 
-Right now, it's <%= timestamp %>.
+<%# Willy plz the HTML5 shiv is already on base.html %>
+
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand page-scroll" href="#page-top">Sun Knights</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="page-scroll" href="#about">About us</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#highlights">Highlights</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#youtubers">Youtubers</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#contributors">Devs</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#login">Login</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+<header>
+  <script>
+    $(function(){
+      var includes = $('[data-include]');
+      jQuery.each(includes, function(){
+        var file = 'snips/' + $(this).data('include') + '.html';
+        $(this).load(file);
+      });
+    });
+  </script>
+
+  <div class="header-content">
+      <div class="header-content-inner">
+          <h1 id="homeHeading">Welcome to Sun Knights</h1>
+          <br>
+          <a href="https://discord.gg/37euua2" class="btn btn-primary btn-xl page-scroll" aria-hidden="true">Join our Discord</a>
+          <hr>
+          <a href="#about" class="btn btn-primary btn-xl page-scroll" aria-hidden="true">Find Out More</a>
+      </div>
+  </div>
+</header>
+
+<section class="bg-primary" id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <h2 class="section-heading" aria-hidden="true">Join us!</h2>
+                <hr class="light">
+                <p class="text-faded">
+                  We are a diep.io clan on Discord,
+                  but we're not limited to only diep.io and play other games too!
+                  Join us to enhance your skills, play with experienced players,
+                  take part in huge events,
+                  complete quests and unravel the gamer in you!
+                  Be sure to use the Sun Symbol in game -> ❂
+                </p>
+                <a href="#highlights" class="page-scroll btn btn-default btn-xl sr-button">Our Highlights</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="highlights">
+  <!--<div data-include="header"></div>-->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Exciting highlights!</h2>
+                <hr class="primary">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 text-center">
+                <div class="service-box">
+                    <i class="fa fa-4x fa-tachometer text-primary sr-icons" aria-hidden="true"></i>
+                    <h3>Established Points systems!</h3>
+                    <p class="text-muted">Gain points by submitting scores or talking in our discord chat to gain cool perks in our server!</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 text-center">
+                <div class="service-box">
+                    <i class="fa fa-4x fa-sun-o text-primary sr-icons" aria-hidden="true"></i>
+                    <h3>Events!</h3>
+                    <p class="text-muted">We host weekly events such as takeovers, civil wars, and many more which are fun and exciting to participate in!</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 text-center">
+                <div class="service-box">
+                    <i class="fa fa-4x fa-newspaper-o text-primary sr-icons" aria-hidden="true"></i>
+                    <h3>Daily quests!</h3>
+                    <p class="text-muted">To keep things fresh, we have different quests uploaded every day for you to complete and earn points!</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 text-center">
+                <div class="service-box">
+                    <i class="fa fa-4x fa-heart text-primary sr-icons" aria-hidden="true"></i>
+                    <h3>Supportive Community!</h3>
+                    <p class="text-muted">Ask for tips from experienced players! We have over 35 members holding various world records!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="no-padding" id="youtubers">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Featured Youtubers!</h2>
+                <hr class="primary">
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row no-gutter popup-gallery">
+            <div class="col-sm-6">
+                <a href="img/portfolio/fullsize/1.jpg" class="portfolio-box">
+                    <img src="img/portfolio/thumbnails/1.jpg" class="img-responsive" alt="">
+                    <div class="portfolio-box-caption">
+                        <div class="portfolio-box-caption-content">
+                            <div class="project-category text-faded">
+                                Category
+                            </div>
+                            <div class="project-name">
+                                Project Name
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-6">
+                <a href="img/portfolio/fullsize/2.jpg" class="portfolio-box">
+                    <img src="img/portfolio/thumbnails/2.jpg" class="img-responsive" alt="">
+                    <div class="portfolio-box-caption">
+                        <div class="portfolio-box-caption-content">
+                            <div class="project-category text-faded">
+                                Category
+                            </div>
+                            <div class="project-name">
+                                Project Name
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-6">
+                <a href="img/portfolio/fullsize/3.jpg" class="portfolio-box">
+                    <img src="img/portfolio/thumbnails/3.jpg" class="img-responsive" alt="">
+                    <div class="portfolio-box-caption">
+                        <div class="portfolio-box-caption-content">
+                            <div class="project-category text-faded">
+                                Category
+                            </div>
+                            <div class="project-name">
+                                Project Name
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-6">
+                <a href="img/portfolio/fullsize/4.jpg" class="portfolio-box">
+                    <img src="img/portfolio/thumbnails/4.jpg" class="img-responsive" alt="">
+                    <div class="portfolio-box-caption">
+                        <div class="portfolio-box-caption-content">
+                            <div class="project-category text-faded">
+                                Category
+                            </div>
+                            <div class="project-name">
+                                Project Name
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-6">
+                <a href="img/portfolio/fullsize/5.jpg" class="portfolio-box">
+                    <img src="img/portfolio/thumbnails/5.jpg" class="img-responsive" alt="">
+                    <div class="portfolio-box-caption">
+                        <div class="portfolio-box-caption-content">
+                            <div class="project-category text-faded">
+                                Category
+                            </div>
+                            <div class="project-name">
+                                Project Name
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-6">
+                <a href="img/portfolio/fullsize/6.jpg" class="portfolio-box">
+                    <img src="img/portfolio/thumbnails/6.jpg" class="img-responsive" alt="">
+                    <div class="portfolio-box-caption">
+                        <div class="portfolio-box-caption-content">
+                            <div class="project-category text-faded">
+                                Category
+                            </div>
+                            <div class="project-name">
+                                Project Name
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<aside class="bg-dark">
+    <div class="container text-center">
+        <div class="call-to-action">
+            <h2>Join our Discord chat today!</h2>
+            <a href="https://discord.gg/37euua2" class="btn btn-default btn-xl sr-button">Click here!</a>
+        </div>
+    </div>
+</aside>
+
+<section id="contributors">
+    <div class="container contributors">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+              <hr class="primary">
+                <h2 class="section-heading">Website and Bot Contributors</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <p>WillyZ</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <p>PgSuper/PgBiel</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <p>Xzlq/Xanthi</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <p>Got'em</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <p>Rjt</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <p>Potatos</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="/js/creative.min.js"></script>
