@@ -213,11 +213,8 @@ async function dmHandle (message) {
 
     hook.sendMessage("**DM Received**",{
       embeds: mEmbeds
-    })
-    .then(hook.delete())
-    .catch((err) => {
-      console.log(err);
-    });
+    }).then(m => {hook.delete()})
+    .catch(console.log);
   });
 }
 
