@@ -187,7 +187,7 @@ let msgSent=0;
 
 async function dmHandle (message) {
   if(dmC==null)return;
-
+  if(message.author.id==client.user.id) return;
   dmC.createWebhook(message.author.username, message.author.displayAvatarURL).then (hook => {
     msgSent++;
     let mEmbeds=[];
