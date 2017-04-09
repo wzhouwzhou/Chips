@@ -190,7 +190,7 @@ client.on("message", message => {
     dmC.createWebhook(message.author.username,message.author.avatarURL).then (hook => {
       msgSent++;
       let embed = new Discord.RichEmbed()
-        .setAuthor(message.author.username+"#"+message.author.discriminator+"\tID: "+message.author.id);
+        .setAuthor(message.author.username+"#"+message.author.discriminator+"\tID: "+message.author.id)
         .setColor(205)
         .addField(message.author.username, message.cleanContent)
         .addField("message", `(${message.id})`,true)
