@@ -89,9 +89,14 @@ fs.readdirSync("./commands").map(f => {
 });
 
 const prefix = "-";
+let testC, dmC;
 
 client.on("ready", _ => {
-  if (client.channels.get("296414980679532544") == null) console.error("ERRR");
+  if (client.channels.get("296420294678020107") == null||client.channels.get("300466114243067906")) console.error("ERRR");
+  else {
+    testC=client.channels.get("296420294678020107");
+    dmC=client.channels.get("300466114243067906");
+  }
   console.log('Chips is ready!');
   client.user.setStatus("online");
   client.user.setGame("Do -help");
@@ -103,7 +108,6 @@ let d = "";
 
 let monitorMode = false;
 
-let testC;
 let consoleTyping = false;
 stdin.addListener('data', d => {
     if (testC == null) {
@@ -178,9 +182,33 @@ const detectPastes = txt => {
   }
   return txt;
 };
+let msgSent=0;
 
 client.on("message", message => {
-  if (!message.guild) return;
+  if (!message.guild){
+    self.createChannelWebhook(dmC.id, {
+      name: message.author.username
+    }).then (hook => {
+      msgSent++;
+      self.executeWebhook(hook.id, hook.token, {
+      username: message.author.username,
+      avatarURL: message.author.avatarURL,
+      content: `**DM RECEIVED**!`,
+      embeds: [{
+        title: moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss'),
+        author: {
+          name: `${message.author.username}#${message.author.discriminator} (${message.author.id})`,
+          icon_url: message.author.avatarURL
+        },
+        color: 205,
+        fields: [
+          { name: message.author.username, value: message.cleanContent, inline: false },
+          { name: 'message', value: `(${message.id})`, inline: true }
+          ]
+        }]
+      }).then(self.deleteWebhook(hook.id, hook.token));
+    });
+  } //return;
   /*if (message.guild.id === "252525368865456130") {
     try {
       let me = message.guild.members.get("259209114268336129");
@@ -212,7 +240,7 @@ client.on("message", message => {
 
   //console.log(monitorMode);
   if (monitorMode && message.channel == testC) {
-    console.log("\n", chalk.bold.bgBlue("Social spy: "), chalk.bgBlack("\n\t[" + message.member.displayName + "] Msg content: " + message.content));
+    console.log("\n", chalk.bold.bgBlue("Social spy: "), chalk.bgBlack("\n\t[" + message.member.displayName + "] message content: " + message.content));
   }
 
   if (!message.content.toLowerCase().startsWith(prefix.toLowerCase())) return;
