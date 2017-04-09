@@ -187,20 +187,26 @@ let msgSent=0;
 
 async function dmHandle (message) {
   if(dmC==null)return;
-  dmC.createWebhook(message.author.username, `(${message.author.avatarURL})`).then (hook => {
+
+  dmC.createWebhook(message.author.username, message.author.displayAvatarURL).then (hook => {
     msgSent++;
-    let embed = new Discord.RichEmbed()
+    let mEmbeds=[];
+
+    let main = new Discord.RichEmbed()
       .setAuthor(message.author.username+"#"+message.author.discriminator+"\tID: "+message.author.id)
       .setColor(205)
       .addField(message.author.username, message.cleanContent)
-      .addField("message", `(${message.id})`,true)
+      .addField("message id:", `(${message.id})`,true)
       .setThumbnail(message.author.avatarURL)
       .setTitle(moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss'));
+    mEmbeds=mEmbeds.push(main);
 
-    hook.sendMessage("**DM RECEIVED**",{
-      embeds: [
-        embed
-      ]
+    let msgembeds=message.embeds();
+    for(var i = 0; i<msgembeds.length; i++)
+      mEmbeds=mEmbeds.push(msgembeds[i]);
+
+    hook.sendMessage("**DM Received**",{
+      mEmbeds
     })
     .then(hook.delete())
     .catch((err) => {
