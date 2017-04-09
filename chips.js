@@ -187,27 +187,22 @@ let msgSent=0;
 
 client.on("message", message => {
   if (!message.guild){
-    dmC.createChannelWebhook(dmC.id, {
-      name: message.author.username
-    }).then (hook => {
+    dmC.createWebhook(message.author.username,message.author.avatarURL).then (hook => {
       msgSent++;
-      self.executeWebhook(hook.id, hook.token, {
-      username: message.author.username,
-      avatarURL: message.author.avatarURL,
-      content: `**DM RECEIVED**!`,
-      embeds: [{
-        title: moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss'),
-        author: {
-          name: `${message.author.username}#${message.author.discriminator} (${message.author.id})`,
-          icon_url: message.author.avatarURL
-        },
-        color: 205,
-        fields: [
-          { name: message.author.username, value: message.cleanContent, inline: false },
-          { name: 'message', value: `(${message.id})`, inline: true }
-          ]
-        }]
-      }).then(self.deleteWebhook(hook.id, hook.token));
+      hook.sendMessage("**DM RECEIVED**",{
+        embed: {
+          title: moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss'),
+          color: 205,
+          author: {
+            name: `${message.author.username}#${message.author.discriminator} (${message.author.id})`,
+            icon_url: message.author.avatarURL
+          },
+          fields: [
+            { name: message.author.username, value: message.cleanContent, inline: false },
+            { name: 'message', value: `(${message.id})`, inline: true }
+            ]
+        }
+      }).then(hook.delete());
     });
   } //return;
   /*if (message.guild.id === "252525368865456130") {
