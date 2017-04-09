@@ -195,12 +195,17 @@ async function dmHandle (message) {
     let main = new Discord.RichEmbed()
       .setAuthor(message.author.username+"#"+message.author.discriminator+"\tID: "+message.author.id)
       .setColor(205)
-      .addField(message.author.username, message.cleanContent)
       .addField("message id:", `(${message.id})`,true)
       .setThumbnail(message.author.avatarURL)
       .setTitle(moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss'));
+
+    if(message.cleanContent=="")
+      main.addField(message.author.username, "[ERR]--No Content in Message--");
+    else {
+      main.addField(message.author.username, message.cleanContent);
+    }
     mEmbeds.push(main);
-    
+
     let msgembeds=message.embeds;
     msgembeds.forEach(function (item){
       mEmbeds.push(item);
