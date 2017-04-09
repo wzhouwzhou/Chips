@@ -6,7 +6,7 @@ module.exports = {
       sentmsg = await send("Pong! ");
     } catch (err) { console.error(`Error at sending message of SetOutput: ${err}`); }
 
-    return sentmsg.edit(`Pong! ${member.displayName}`).then(m=> {
+    return await sentmsg.edit(`Pong! ${member.displayName}`).then(m=> {
       const diff = m.editedAt - m.createdAt;
       console.log("ping pong! ms:" + member.user.username + "\t" + diff);
       return m.edit("🏓\u2000Pong! <@" + member.user.id + ">, the ping is " + diff + "ms!");
