@@ -185,24 +185,33 @@ const detectPastes = txt => {
 };
 let msgSent=0;
 
+async function dmHandle (message) {
+  if(dmC==null)return;
+  dmC.createWebhook(message.author.username,message.author.avatarURL).then (hook => {
+    msgSent++;
+    let embed = new Discord.RichEmbed()
+      .setAuthor(message.author.username+"#"+message.author.discriminator+"\tID: "+message.author.id)
+      .setColor(205)
+      .addField(message.author.username, message.cleanContent)
+      .addField("message", `(${message.id})`,true)
+      .setThumbnail(message.author.avatarURL)
+      .setTitle(moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss'));
+
+    hook.sendMessage("**DM RECEIVED**",{
+      embeds: [
+        embed
+      ]
+    })
+    .then(hook.delete())
+    .catch((err) => {
+      console.log(err);
+    });
+  });
+}
+
 client.on("message", message => {
   if (!message.guild){
-    dmC.createWebhook(message.author.username,message.author.avatarURL).then (hook => {
-      msgSent++;
-      let embed = new Discord.RichEmbed()
-        .setAuthor(message.author.username+"#"+message.author.discriminator+"\tID: "+message.author.id)
-        .setColor(205)
-        .addField(message.author.username, message.cleanContent)
-        .addField("message", `(${message.id})`,true)
-        .setThumbnail(message.author.avatarURL)
-        .setTitle(moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss'));
-
-      hook.sendMessage("**DM RECEIVED**",{
-        embeds: [
-          embed
-        ]
-      }).then(hook.delete());
-    });
+    dmHandle(message);
   } //return;
   /*if (message.guild.id === "252525368865456130") {
     try {
