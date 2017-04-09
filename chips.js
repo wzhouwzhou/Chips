@@ -201,7 +201,7 @@ async function dmHandle (message) {
       .setTitle(moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss'));
     mEmbeds=mEmbeds.push(main);
 
-    let msgembeds=message.embeds();
+    let msgembeds=message.embeds;
     for(var i = 0; i<msgembeds.length; i++)
       mEmbeds=mEmbeds.push(msgembeds[i]);
 
