@@ -199,11 +199,11 @@ async function dmHandle (message) {
       .addField("message id:", `(${message.id})`,true)
       .setThumbnail(message.author.avatarURL)
       .setTitle(moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss'));
-    mEmbeds=mEmbeds.push(main);
+    mEmbeds.push(main);
     
     let msgembeds=message.embeds;
-    msgembeds.forEach(function (item,index,array){
-      mEmbeds=mEmbeds.push(item);
+    msgembeds.forEach(function (item){
+      mEmbeds.push(item);
     });
 
     hook.send("**DM Received**",{
