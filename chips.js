@@ -189,19 +189,18 @@ client.on("message", message => {
   if (!message.guild){
     dmC.createWebhook(message.author.username,message.author.avatarURL).then (hook => {
       msgSent++;
+      let embed = new Discord.RichEmbed()
+        .setAuthor(message.author.username+"#"+message.author.discriminator+"\tID: "+message.author.id);
+        .setColor(205)
+        .addField(message.author.username, message.cleanContent)
+        .addField("message", `(${message.id})`,true)
+        .setThumbnail(message.author.avatarURL)
+        .setTitle(moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss'));
+
       hook.sendMessage("**DM RECEIVED**",{
-        embed: {
-          title: moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss'),
-          color: 205,
-          author: {
-            name: `${message.author.username}#${message.author.discriminator} (${message.author.id})`,
-            icon_url: message.author.avatarURL
-          },
-          fields: [
-            { name: message.author.username, value: message.cleanContent, inline: false },
-            { name: 'message', value: `(${message.id})`, inline: true }
-            ]
-        }
+        embeds: [
+          embed
+        ]
       }).then(hook.delete());
     });
   } //return;
