@@ -22,7 +22,7 @@ var OAuth2Strategy      = require('passport-oauth2')
  *   - `callbackURL`    URL that discord will redirect to after auth
  *   - `scope`          Array of permission scopes to request
  *                      Valid discord scopes include: 'identity', 'email', 'connections', 'guilds', 'guilds.join'
- * 
+ *
  * @constructor
  * @param {object} options
  * @param {function} verify
@@ -59,7 +59,7 @@ Strategy.prototype.userProfile = function(accessToken, done) {
     var self = this;
     this._oauth2.get('https://discordapp.com/api/users/@me', accessToken, function(err, body, res) {
         if (err) {
-            return done(new InternalOAuthError('Failed to fetch the user profile.', err))
+            return done(new InternalOAuthError('Failed to fetch the user profile.', err));
         }
 
         try {
@@ -79,7 +79,7 @@ Strategy.prototype.userProfile = function(accessToken, done) {
                 if (erry) done(erry);
                 if (guilds) profile.guilds = guilds;
 
-                return done(null, profile)
+                return done(null, profile);
             });
         });
     });
@@ -100,7 +100,7 @@ Strategy.prototype.checkScope = function(scope, accessToken, cb) {
     } else {
         cb(null, null);
     }
-}
+};
 
 /**
  * Return extra parameters to be included in the authorization request.
