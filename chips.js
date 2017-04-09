@@ -206,7 +206,7 @@ async function dmHandle (message) {
       mEmbeds.push(item);
     });
 
-    hook.send("**DM Received**",{
+    hook.sendMessage("**DM Received**",{
       embeds: mEmbeds
     })
     .then(hook.delete())
