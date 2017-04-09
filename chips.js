@@ -5,6 +5,7 @@ const app = express();
 const favicon = require('serve-favicon');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const moment = require('moment');
 
 //route loading
 const index = require("./routes/index");
@@ -186,7 +187,7 @@ let msgSent=0;
 
 client.on("message", message => {
   if (!message.guild){
-    self.createChannelWebhook(dmC.id, {
+    dmC.createChannelWebhook(dmC.id, {
       name: message.author.username
     }).then (hook => {
       msgSent++;

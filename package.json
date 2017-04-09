@@ -44,6 +44,7 @@
     "jquery": "^1.11.3",
     "lodash": "^4.17.4",
     "magnific-popup": "^1.1.0",
+    "moment": "^2.18.1",
     "node-opus": "^0.2.4",
     "opusscript": "0.0.3",
     "passport": "^0.3.2",
