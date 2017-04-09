@@ -202,9 +202,10 @@ async function dmHandle (message) {
     mEmbeds=mEmbeds.push(main);
 
     let msgembeds=message.embeds;
-    for(var i = 0; i<msgembeds.length; i++)
-      mEmbeds=mEmbeds.push(msgembeds[i]);
-
+    msgembeds.forEach(function (item,index,array){
+      mEmbeds=mEmbeds.push(item);
+    });
+    
     hook.sendMessage("**DM Received**",{
       embeds: mEmbeds
     })
