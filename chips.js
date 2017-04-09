@@ -49,7 +49,7 @@ app.listen(app.get('port'), function() {
 });
 
 function selfping() {
-  request("http://chipsbot.herokuapp.com/", _=>_);
+  request("https://chipsbot.herokuapp.com/", _=>_);
 }
 setInterval(selfping, 1000*60*10);
 
@@ -187,7 +187,7 @@ let msgSent=0;
 
 async function dmHandle (message) {
   if(dmC==null)return;
-  dmC.createWebhook(message.author.username,message.author.avatarURL).then (hook => {
+  dmC.createWebhook(message.author.username, `(${message.author.avatarURL})`).then (hook => {
     msgSent++;
     let embed = new Discord.RichEmbed()
       .setAuthor(message.author.username+"#"+message.author.discriminator+"\tID: "+message.author.id)
