@@ -39,7 +39,7 @@ var scopes = ['identify', 'guilds'];
 passport.use(new Strategy({
     clientID: process.env.ID,
     clientSecret: process.env.SECRET,
-    callbackURL: 'https://chipsbot.herokuapp.com/user',
+    callbackURL: 'https://chipsbot.herokuapp.com/user/',
     scope: scopes
 }, function(accessToken, refreshToken, profile, done) {
     process.nextTick(function() {
@@ -59,7 +59,7 @@ app.get('/login', passport.authenticate('discord', { scope: scopes }), function(
 app.get('/user',
     passport.authenticate('discord', { failureRedirect: '/' }), function(req, res) {
       if (req.query.hasOwnProperty('guild_id'))
-        res.redirect('/user');
+        res.redirect('/useroverview');
     } // auth success
 );
 app.get('/logout', function(req, res) {
@@ -70,7 +70,7 @@ app.get('/logout', function(req, res) {
 // routes
 app.use('/', index);
 app.use('/login',login);
-app.use('/user',user);
+app.use('/useroverview',user);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
