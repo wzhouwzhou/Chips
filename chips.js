@@ -191,7 +191,7 @@ async function dmHandle (message) {
   //{{{
     msgSent++;
     let mEmbeds=[];
-    dmC.sendMessage("**DM Received");
+    dmC.sendMessage("**DM Received**");
 
     let main = new Discord.RichEmbed()
       .setAuthor(message.author.username+"#"+message.author.discriminator+"\tID: "+message.author.id)
@@ -207,7 +207,7 @@ async function dmHandle (message) {
 
     if(message.attachments.first()!=null)
       main.addField("Attachment URL: ", message.attachments.first().url);
-      
+
     mEmbeds.push(main);
 
     let msgembeds=message.embeds;
@@ -216,7 +216,7 @@ async function dmHandle (message) {
     });
 
     mEmbeds.forEach(function (emb){
-      dmC.send(emb);
+      dmC.sendEmbed(emb);
     });
 
   //}}}
