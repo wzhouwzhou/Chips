@@ -32,7 +32,7 @@ router.use(session({
 }));
 router.use(passport.initialize());
 router.use(passport.session());
-router.get('/login', passport.authenticate('discord', { scope: scopes }), function(req, res) {});
+router.get('/', passport.authenticate('discord', { scope: scopes }), function(req, res) {});
 router.get('/callback',
     passport.authenticate('discord', { failureRedirect: '/loginfailed' }), function(req, res) {
       if (req.query.hasOwnProperty('guild_id'))

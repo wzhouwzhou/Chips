@@ -1,5 +1,8 @@
 global.Constants = require("./Constants");
 const express = require('express');
+const session = require('express-session');
+const passport = require('passport');
+const Strategy = require('../lib').Strategy;
 const fs = require('fs');
 const request = require('request');
 const app = express();
@@ -10,6 +13,8 @@ const moment = require('moment');
 
 //route loading
 const index = require("./routes/index");
+const login = require("./routes/login");
+const user = require("./routes/user");
 
 app.engine(Constants.express.ENGINE, require("express-ejs-extend"));
 app.set('view engine', Constants.express.ENGINE);
@@ -21,8 +26,59 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
+
+var scopes = ['identify', 'guilds'];
+
+passport.use(new Strategy({
+    clientID: process.env.ID,
+    clientSecret: process.env.SECRET,
+    callbackURL: 'https://chipsbot.herokuapp.com/user',
+    scope: scopes
+}, function(accessToken, refreshToken, profile, done) {
+    process.nextTick(function() {
+        return done(null, profile);
+    });
+}));
+
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.get('/login', passport.authenticate('discord', { scope: scopes }), function(req, res) {});
+app.get('/user',
+    passport.authenticate('discord', { failureRedirect: '/' }), function(req, res) {
+      if (req.query.hasOwnProperty('guild_id'))
+        res.redirect('/user');
+    } // auth success
+);
+app.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+});
+app.get('/user', checkAuth, function(req, res) {
+    //console.log(req.user)
+    res.json(req.user);
+});
+
+function checkAuth(req, res, next) {
+    if (req.isAuthenticated()) return next();
+    res.send('not logged in :(');
+}
 // routes
 app.use('/', index);
+app.use('/login',login);
+app.use('/user',user);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
