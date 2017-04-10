@@ -17,7 +17,7 @@ var scopes = ['identify', 'guilds'];
 passport.use(new Strategy({
     clientID: process.env.ID,
     clientSecret: process.env.SECRET,
-    callbackURL: 'https://chipsbot.herokuapp.com/user',
+    callbackURL: 'https://chipsbot.herokuapp.com/callback',
     scope: scopes
 }, function(accessToken, refreshToken, profile, done) {
     process.nextTick(function() {
@@ -33,7 +33,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.get('/login', passport.authenticate('discord', { scope: scopes }), function(req, res) {});
-app.get('/user',
+app.get('/callback',
     passport.authenticate('discord', { failureRedirect: '/loginfailed' }), function(req, res) {
       if (req.query.hasOwnProperty('guild_id'))
         res.redirect('/user');
