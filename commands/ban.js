@@ -10,8 +10,8 @@ module.exports = {
       default:
         return send(`No bans for you! ${member.displayName}`);
     }
-
-    const target = args.match(Constants.patterns.MENTION)[1];
+    if (!args[0]) return send("No user given :(");
+    const target = args[0].match(Constants.patterns.MENTION)[1];
     // console.log("Target: "+target);
 
     const user = gMember(target).user.username;
