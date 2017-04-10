@@ -14,6 +14,10 @@ exports.avatars = {
   MEE6: "https://cdn.discordapp.com/avatars/159985870458322944/675866cce22f49524a5d25e61859d23e.jpg"
 };
 
+exports.images = {
+  WARNING: "https://i.ppy.sh/2dabc46c70a032cdeac21093ac8c4b9204f04e75/687474703a2f2f692e696d6775722e636f6d2f5a4e4f7445494e2e706e67"
+};
+
 exports.channels = {
   TEST: "296420294678020107",
   DMS: "300466114243067906"
