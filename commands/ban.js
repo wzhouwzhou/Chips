@@ -10,10 +10,11 @@ module.exports = {
         return send(`No bans for you! ${member.displayName}`);
     }
 
-    let target = content.split(' ')[1].substring(1);
+    let target = content.split(' ')[1];
+    target=target.substring(3,target.length-1);
     console.log("Target: "+target);
 
-    let user = guild.members.find(target).user.username;
+    let user = guild.members.get(target).user.username;
 
     target=target.substring(1,target.length-5);
 
