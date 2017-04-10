@@ -1,3 +1,4 @@
+global.Constants = require("./Constants");
 const express = require('express');
 const fs = require('fs');
 const request = require('request');

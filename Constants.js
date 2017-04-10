@@ -1,0 +1,23 @@
+exports.users = {
+  WILLY: "259209114268336129",
+  WILLYZ: "259209114268336129",
+  WILLY_Z: "259209114268336129",
+  XZLQ: "208736038577897473",
+  XANTHI: "208736038577897473",
+  PG: "180813971853410305",
+  PGSUPER: "180813971853410305",
+  PG_SUPER: "180813971853410305",
+  ZALGO: "213312750703607808",
+};
+
+exports.avatars = {
+  MEE6: "https://cdn.discordapp.com/avatars/159985870458322944/675866cce22f49524a5d25e61859d23e.jpg"
+};
+
+exports.patterns = {
+  MENTION: /^[^]*<@!?(\d+)>[^]*$/
+};
+
+exports.express = {
+  ENGINE: "html"
+};

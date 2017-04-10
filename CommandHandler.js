@@ -7,6 +7,7 @@ module.exports = function(Discord, client) {
       message: msg, channel: msg.channel, content: msg.content, guild: msg.guild, send: msg.channel.send.bind(msg.channel),
       reply: msg.reply.bind(msg), member: msg.member, author: msg.author, args: _.drop(msg.content.split` `), bot: client,
       c: msg.channel,
+      gMember: msg.guild.member.bind(msg.guild), getUser: client.users.get.bind(client.users),
       doEval: stuff => {
         const timestamp = Date.now();
         return new Promise((res, rej) => {

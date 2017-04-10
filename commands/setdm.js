@@ -3,8 +3,8 @@ module.exports = {
   async func(msg, { send, member, author, doEval }) {
     const used = member || author;
     switch (used.id) {
-      case "259209114268336129":
-      case "265611625283715072":
+      case Constants.users.WILLYZ:
+      case Constants.users.PGSUPER:
         break;
       default:
         return send("You must be approved to use this command! " + member ? member.displayName : author.username);
