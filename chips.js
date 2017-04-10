@@ -188,22 +188,26 @@ let msgSent=0;
 async function dmHandle (message) {
   if(dmC==null)return;
   if(message.author.id==client.user.id) return;
-  dmC.createWebhook(message.author.username, message.author.displayAvatarURL).then (hook => {
+  //{{{
     msgSent++;
     let mEmbeds=[];
+    dmC.sendMessage("**DM Received");
 
     let main = new Discord.RichEmbed()
       .setAuthor(message.author.username+"#"+message.author.discriminator+"\tID: "+message.author.id)
       .setColor(205)
       .addField("message id:", `(${message.id})`,true)
-      .setThumbnail(message.author.avatarURL)
+      .setThumbnail(message.author.displayAvatarURL)
       .setTitle(moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss'));
 
     if(message.cleanContent=="")
       main.addField(message.author.username, "[ERR]--No Content in Message--");
-    else {
+    else
       main.addField(message.author.username, message.cleanContent);
-    }
+
+    if(message.attachments.first()!=null)
+      main.addField("Attachment URL: ", message.attachments.first().url);
+      
     mEmbeds.push(main);
 
     let msgembeds=message.embeds;
@@ -211,11 +215,11 @@ async function dmHandle (message) {
       mEmbeds.push(item);
     });
 
-    hook.sendMessage("**DM Received**",{
-      embeds: mEmbeds
-    }).then(m => {hook.delete()})
-    .catch(console.log);
-  });
+    mEmbeds.forEach(function (emb){
+      dmC.send(emb);
+    });
+
+  //}}}
 }
 
 client.on("message", message => {
