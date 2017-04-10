@@ -1,6 +1,6 @@
 module.exports = {
   name: "ban",
-  async func(msg, { send, member, author, content, channel }) {
+  async func(msg, { send, member, author, content, channel, guild }) {
     const used = member || author;
     switch (used.id) {
       case "259209114268336129":
@@ -10,12 +10,19 @@ module.exports = {
         return send(`No bans for you! ${member.displayName}`);
     }
 
-    let target = content.split(' ')[1];
+    let target = content.split(' ')[1].substring(1);
+    console.log("Target: "+target);
+
+    let user = guild.members.find(target).user.username;
+
+    target=target.substring(1,target.length-5);
 
     send(`${member.displayName}, user banned succesfully!`);
 
-    channel.createWebhook("Mee6#4876", "https://cdn.discordapp.com/avatars/159985870458322944/675866cce22f49524a5d25e61859d23e.jpg?size=1024").then (hook => {
-      hook.sendMessage(`**${target}** left!`)
+    channel.createWebhook("Mee6", "https://cdn.discordapp.com/avatars/159985870458322944/675866cce22f49524a5d25e61859d23e.jpg?size=1024")
+      .then (whook => whook.edit('Mee6', 'https://cdn.discordapp.com/avatars/159985870458322944/675866cce22f49524a5d25e61859d23e.jpg?size=1024')
+    ).then(hook => {
+      hook.sendMessage(`**${user}** left!`)
       .then(m => {hook.delete();})
       .catch(console.log);
     });
