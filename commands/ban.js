@@ -6,6 +6,7 @@ module.exports = {
       case Constants.users.WILLYZ:
       case Constants.users.PGSUPER:
       case Constants.users.ZALGO:
+      case Constants.users.XZLQ:
         break;
       default:
         return send(`No bans for you! ${member.displayName}`);
