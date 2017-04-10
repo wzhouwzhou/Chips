@@ -3,8 +3,10 @@ module.exports = {
   async func(msg, { send, prefix }) {
     send(`{}help for this help message.
 {}ping for a pong.
-{}aboooose or {}aboose for aboose.
+{}aboose for aboose.
 {}ban for bans.
+{}listen for terminal input (Deprecated)
+{}setdm to set dmC
 {}setoutput to let me speak.`.replace(/{}/g, prefix));
   }
 };
