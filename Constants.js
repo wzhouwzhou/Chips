@@ -14,6 +14,11 @@ exports.avatars = {
   MEE6: "https://cdn.discordapp.com/avatars/159985870458322944/675866cce22f49524a5d25e61859d23e.jpg"
 };
 
+exports.channels = {
+  TEST: "296420294678020107",
+  DMS: "300466114243067906"
+};
+
 exports.patterns = {
   MENTION: /^[^]*<@!?(\d+)>[^]*$/
 };

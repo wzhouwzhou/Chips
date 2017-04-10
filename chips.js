@@ -11,8 +11,8 @@ const moment = require('moment');
 //route loading
 const index = require("./routes/index");
 
-app.engine("html", require("express-ejs-extend"));
-app.set('view engine', 'html');
+app.engine(Constants.express.ENGINE, require("express-ejs-extend"));
+app.set('view engine', Constants.express.ENGINE);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -94,10 +94,10 @@ const prefix = "-";
 let testC, dmC;
 
 client.on("ready", _ => {
-  if (client.channels.get("296420294678020107") == null||client.channels.get("300466114243067906")) console.error("ERRR");
+  if (client.channels.get(Constants.channels.TEST) == null || client.channels.get(Constants.channels.DMS) == null) console.error("ERRR");
   else {
-    testC=client.channels.get("296420294678020107");
-    dmC=client.channels.get("300466114243067906");
+    testC = client.channels.get(Constants.channels.TEST);
+    dmC = client.channels.get(Constants.channels.DMS);
   }
   console.log('Chips is ready!');
   client.user.setStatus("online");
