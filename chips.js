@@ -14,7 +14,7 @@ const moment = require('moment');
 //route loading
 const index = require("./routes/index");
 const login = require("./routes/login");
-const user = require("./routes/user");
+const useroverview = require("./routes/useroverview");
 
 app.engine(Constants.express.ENGINE, require("express-ejs-extend"));
 app.set('view engine', Constants.express.ENGINE);
@@ -58,7 +58,7 @@ app.use(passport.session());
 app.get('/login', passport.authenticate('discord', { scope: scopes }), function(req, res) {});
 app.get('/user',
     passport.authenticate('discord', { failureRedirect: '/' }), function(req, res) {
-      if (req.query.hasOwnProperty('guild_id'))
+      //if (req.query.hasOwnProperty('guild_id'))
         res.redirect('/useroverview');
     } // auth success
 );
@@ -70,7 +70,7 @@ app.get('/logout', function(req, res) {
 // routes
 app.use('/', index);
 app.use('/login',login);
-app.use('/useroverview',user);
+app.use('/useroverview',useroverview);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
