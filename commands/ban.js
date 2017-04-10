@@ -1,6 +1,6 @@
 module.exports = {
   name: "ban",
-  async func(msg, { send, member, author, content, channel, guild, args, gMember}) {
+  async func(msg, { send, member, author, content, channel, guild, args, gMember, Discord}) {
     const used = member || author;
     switch (used.id) {
       case Constants.users.WILLYZ:
