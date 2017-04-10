@@ -66,15 +66,7 @@ app.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
 });
-app.get('/user', checkAuth, function(req, res) {
-    console.log(req.user);
-    res.json(req.user);
-});
 
-function checkAuth(req, res, next) {
-    if (req.isAuthenticated()) return next();
-    res.send('not logged in :(');
-}
 // routes
 app.use('/', index);
 app.use('/login',login);
