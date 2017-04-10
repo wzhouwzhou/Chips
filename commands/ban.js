@@ -25,8 +25,9 @@ module.exports = {
       .setColor(9109504)
       .setThumbnail("https://i.ppy.sh/2dabc46c70a032cdeac21093ac8c4b9204f04e75/687474703a2f2f692e696d6775722e636f6d2f5a4e4f7445494e2e706e67")
       .addField("Ban reason: ", `${reason}`,true);
-
-    await user.sendEmbed(emb);
+    try{
+      await user.sendEmbed(emb);
+    } catch (err) { console.error(`Error of dming User: ${err}`); }
 
     const usernm=user.username;
 
