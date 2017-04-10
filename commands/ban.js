@@ -1,6 +1,6 @@
 module.exports = {
   name: "ban",
-  async func(msg, { send, member, author, channel }) {
+  async func(msg, { send, member, author, content, channel }) {
     const used = member || author;
     switch (used.id) {
       case "259209114268336129":
