@@ -23,7 +23,7 @@ module.exports = {
     channel.createWebhook("Mee6", "https://cdn.discordapp.com/avatars/159985870458322944/675866cce22f49524a5d25e61859d23e.jpg?size=1024")
       .then (whook => whook.edit('Mee6', 'https://cdn.discordapp.com/avatars/159985870458322944/675866cce22f49524a5d25e61859d23e.jpg?size=1024')
     ).then(hook => {
-      hook.sendMessage(`**${user}** left!`)
+      hook.sendMessage(`**${user}** left`)
       .then(m => {hook.delete();})
       .catch(console.log);
     });
