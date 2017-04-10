@@ -1,4 +1,5 @@
-<html>
+<% extend('base.html') %>
+
 Userview
 <% if (!isAuthenticated) { %>
     <a id="signIn" href="/login">Sign In</a>
@@ -6,4 +7,3 @@ Userview
     <h2 id="welcomeMsg"><%=user.id%></h2>
     <a href="/logout">Log Out</a>
 <% } %>
-</html>
