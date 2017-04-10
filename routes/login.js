@@ -1,7 +1,7 @@
 var express  = require('express')
   , session  = require('express-session')
   , passport = require('passport')
-  , Strategy = require('../lib').Strategy
+  , Strategy = require('/lib').Strategy
   , app      = express()
   , router   = express().router;
 
