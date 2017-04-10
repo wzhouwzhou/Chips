@@ -1,3 +1,10 @@
 <html>
 Userview
+<% if (!isAuthenticated) { %>
+    <a id="signIn" href="/login">Sign In</a>
+<% } else { %>
+    <h3 id="welcomeMsg"><%=user.id%></h3>
+    <h2>User json: <%=ujson%></h2>
+    <a href="/logout">Log Out</a>
+<% } %>
 </html>

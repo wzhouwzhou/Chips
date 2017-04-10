@@ -67,7 +67,7 @@ app.get('/logout', function(req, res) {
     res.redirect('/');
 });
 app.get('/user', checkAuth, function(req, res) {
-    //console.log(req.user)
+    console.log(req.user);
     res.json(req.user);
 });
 
