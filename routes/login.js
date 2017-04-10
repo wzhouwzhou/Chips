@@ -3,7 +3,7 @@ var express  = require('express')
   , passport = require('passport')
   , Strategy = require('/lib').Strategy
   , app      = express()
-  , router   = express().router;
+  , router   = express().Router();
 
 passport.serializeUser(function(user, done) {
   done(null, user);
