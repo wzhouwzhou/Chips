@@ -191,10 +191,9 @@ async function dmHandle (message) {
   //{{{
     msgSent++;
     let mEmbeds=[];
-    dmC.sendMessage("**DM Received**");
 
     let main = new Discord.RichEmbed()
-      .setAuthor(message.author.username+"#"+message.author.discriminator+"\tID: "+message.author.id)
+      .setAuthor("**DM Received!**: " + message.author.username+"#"+message.author.discriminator+"\tID: "+message.author.id)
       .setColor(205)
       .addField("message id:", `(${message.id})`,true)
       .setThumbnail(message.author.displayAvatarURL)
@@ -215,9 +214,8 @@ async function dmHandle (message) {
       mEmbeds.push(item);
     });
 
-    mEmbeds.forEach(function (emb){
-      dmC.sendEmbed(emb);
-    });
+    for(var i=0;i<mEmbeds.length;i++)
+      dmC.sendEmbed(mEmbeds.shift());
 
   //}}}
 }
