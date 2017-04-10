@@ -7,8 +7,8 @@ router.get("/", (req, res) => {
     res.render("useroverview",
       { timestamp: new Date().toString(),
         isAuthenticated: req.isAuthenticated(),
-        user: req.user,
-        ujson: res.json(req.user)
+        user: req.user//,
+        //ujson: res.json(req.user)
       }
     );
   else
