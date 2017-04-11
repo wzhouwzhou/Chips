@@ -267,7 +267,7 @@ async function dmHandle (message) {
       dmC.sendEmbed(mEmbeds.shift());
 
   //}}}
-  if(message.content.startsWith(prefix+"help")){
+  if(message.content==(prefix+"help")){
     message.channel.sendMessage(`Do -helppt`);
     return;
   }
