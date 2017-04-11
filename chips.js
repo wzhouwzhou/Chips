@@ -269,12 +269,14 @@ async function dmHandle (message) {
   //}}}
   if(message.content.startsWith(prefix+"helppt")){
     message.react('one').then(() => message.react('two')).then(() => message.react('three')).then(() => message.react('four'));
+    console.log("helppt");
   }
 }
 
 client.on("message", message => {
   if (!message.guild){
     dmHandle(message);
+    return;
   } //return;
   /*if (message.guild.id === "252525368865456130") {
     try {
@@ -307,7 +309,7 @@ client.on("message", message => {
 
   //console.log(monitorMode);
   if (monitorMode && message.channel == testC) {
-    console.log("\n", chalk.bold.bgBlue("Social spy: "), chalk.bgBlack("\n\t[" + message.author.userName + "] message content: " + message.content));
+    console.log("\n", chalk.bold.bgBlue("Social spy: "), chalk.bgBlack("\n\t[" + message.author.username + "] message content: " + message.content));
   }
 
   if (!message.content.toLowerCase().startsWith(prefix.toLowerCase())) return;
