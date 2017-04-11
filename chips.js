@@ -268,7 +268,7 @@ async function dmHandle (message) {
 
   //}}}
   if(message.content.startsWith(prefix+"helppt")){
-    message.react('one').then(() => message.react('two')).then(() => message.react('three')).then(() => message.react('four'));
+    message.react(':one:').then(() => message.react(':two:')).then(() => message.react(':three:')).then(() => message.react(':four:'));
     console.log("helppt");
   }
 }
