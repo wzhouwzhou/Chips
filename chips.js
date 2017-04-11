@@ -272,13 +272,14 @@ async function dmHandle (message) {
     return;
   }
   if(message.content.startsWith(prefix+"helppt")){
-    let msg = await message.channel.send("You requested -helppt");
-    await reactOptions(msg,4);
-    console.log("helppt, 4choices");
+    await reactOptions(msg,4, );
+    console.log("helppt, 4choices", "You requested -helppt");
   }
 }
 
-async function reactOptions(msg, numChoices) {
+async function reactOptions(message, numChoices, text) {
+  let msg = await message.channel.send(text);
+
   if (numChoices>9) numChoices=9;
   await msg.react("◀️");
   let choices = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
