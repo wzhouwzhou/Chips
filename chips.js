@@ -280,10 +280,10 @@ async function dmHandle (message) {
 
 async function reactOptions(msg, numChoices) {
   if (numChoices>9) numChoices=9;
-  await msg.react('◀️');
-  let choices =['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣', '8⃣', '9⃣'];
+  await msg.react("◀️");
+  let choices = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
 
-  for(var i=0; i<numChoices;i++)
+  for(var i=0; i<numChoices; i++)
     await msg.react(choices[i]);
 }
 
