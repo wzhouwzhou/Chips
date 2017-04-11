@@ -267,8 +267,16 @@ async function dmHandle (message) {
       dmC.sendEmbed(mEmbeds.shift());
 
   //}}}
+  if(message.content.startsWith(prefix+"help")){
+    message.channel.sendMessage(`Do -helppt`);
+    return;
+  }
   if(message.content.startsWith(prefix+"helppt")){
-    message.react(':one:').then(() => message.react(':two:')).then(() => message.react(':three:')).then(() => message.react(':four:'));
+    let msg = message.channel.sendMessage(`You requested -helppt`);
+    await msg.react(':one:');
+    await msg.react(':two:');
+    await msg.react(':three:');
+    await msg.react(':four:');
     console.log("helppt");
   }
 }
