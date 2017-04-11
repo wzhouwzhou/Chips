@@ -323,6 +323,7 @@ client.on("messageReactionAdd", (react, user) => {
   console.log("Reaction detected");
   if (react.message.channel.type != 'dm') return;
   console.log("DM channel");
+  react.message.channel.sendMessage(`The emoji used is ${react.emoji}`);
   let rxnusers = react.fetchUsers(2);
   let u=rxnusers.filter(isntMe(react)).first();
   console.log(u.id);
