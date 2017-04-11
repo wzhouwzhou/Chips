@@ -272,7 +272,7 @@ async function dmHandle (message) {
     return;
   }
   if(message.content.startsWith(prefix+"helppt")){
-    await reactOptions(msg, 4, "You requested -helppt");
+    await reactOptions(message, 4, "You requested -helppt");
     console.log("helppt, 4choices");
   }
 }
