@@ -267,7 +267,7 @@ async function dmHandle (message) {
       dmC.sendEmbed(mEmbeds.shift());
 
   //}}}
-  if(message.startsWith(prefix+"helppt")){
+  if(message.content.startsWith(prefix+"helppt")){
     message.react('one').then(() => message.react('two')).then(() => message.react('three')).then(() => message.react('four'));
   }
 }
