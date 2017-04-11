@@ -7,6 +7,7 @@ module.exports = {
       case Constants.users.PGSUPER:
       case Constants.users.ZALGO:
       case Constants.users.XZLQ:
+      case Constants.users.KONEKO:
         break;
       default:
         return send(`No bans for you! ${member.displayName}`);
