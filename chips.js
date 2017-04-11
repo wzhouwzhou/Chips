@@ -273,12 +273,18 @@ async function dmHandle (message) {
   }
   if(message.content.startsWith(prefix+"helppt")){
     let msg = await message.channel.send("You requested -helppt");
-    await msg.react('1⃣');
-    await msg.react(':two:');
-    await msg.react(':three:');
-    await msg.react(':four:');
-    console.log("helppt");
+    await reactOptions(msg,4);
+    console.log("helppt, 4choices");
   }
+}
+
+async function reactOptions(msg, numChoices) {
+  if (numChoices>9) numChoices=9;
+  await msg.react('◀️');
+  let choices =['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣', '8⃣', '9⃣'];
+
+  for(var i=0; i<numChoices;i++)
+    await msg.react(choices[i]);
 }
 
 client.on("message", message => {
