@@ -272,7 +272,8 @@ async function dmHandle (message) {
     return;
   }
   if(message.content.startsWith(prefix+"helppt")){
-    let msg = message.channel.sendMessage(`You requested -helppt`);
+    let msg;
+    await message.channel.send("You requested -helppt").then(msgz => {msg = msgz;});
     await msg.react(':one:');
     await msg.react(':two:');
     await msg.react(':three:');
