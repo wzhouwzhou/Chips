@@ -334,10 +334,11 @@ client.on("messageReactionAdd", (react, user) => {
   console.log("DM channel emoji: " + react.emoji);
   react.message.channel.sendMessage(`The emoji used is ${react.emoji}`);
 
-  console.log(user.id);
-  user.sendMessage(`The emoji used is ${react.emoji}`);
+  console.log("userid: " + user.id);
   console.log(`The emoji used is ${react.emoji}`);
-  if(react.emoji.toString()=="one"){react.message.channel.sendMessage("Hi");}
+  if(react.emoji.toString()==":one:"){react.message.channel.sendMessage("Hi: one");}
+  else if(react.emoji.toString()==":two:"){react.message.channel.sendMessage("Hi: two");}
+  else if(react.emoji.toString()==":three:"){react.message.channel.sendMessage("Hi: three");}
 });
 
 client.login(process.env.TOKEN);
