@@ -311,4 +311,20 @@ client.on("message", message => {
   const c = message.channel;
   CommandHandler(message, prefix);
 });
+
+let submStep = {id0: "-1"};
+const step1 = {id0: "1"};
+
+async function isntMe(react){
+  return react.me;
+}
+
+client.on("messageReactionAdd", (react, user) => {
+  if (react.message.channel.type !== 'dm') return;
+  let rxnusers = react.fetchUsers(2);
+  let u=rxnusers.filter(isntMe(react)).first();
+  react.message.channel.sendMessage(`The emoji used is ${react.emoji}`);
+  if(react.emoji.toString()=="1"){react.message.channel.sendMessage("Hi");}
+});
+
 client.login(process.env.TOKEN);
