@@ -320,11 +320,11 @@ async function isntMe(react){
 }
 
 client.on("messageReactionAdd", (react, user) => {
-  if (react.message.channel.type !== 'dm') return;
+  if (react.message.channel.type != 'dm') return;
   let rxnusers = react.fetchUsers(2);
   let u=rxnusers.filter(isntMe(react)).first();
   react.message.channel.sendMessage(`The emoji used is ${react.emoji}`);
-  if(react.emoji.toString()=="1"){react.message.channel.sendMessage("Hi");}
+  if(react.emoji.toString()=="one"){react.message.channel.sendMessage("Hi");}
 });
 
 client.login(process.env.TOKEN);
