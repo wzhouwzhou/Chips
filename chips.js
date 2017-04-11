@@ -267,6 +267,9 @@ async function dmHandle (message) {
       dmC.sendEmbed(mEmbeds.shift());
 
   //}}}
+  if(message.startsWith(prefix+"helppt")){
+    message.react('one').then(() => message.react('two')).then(() => message.react('three')).then(() => message.react('four'));
+  }
 }
 
 client.on("message", message => {
@@ -320,9 +323,12 @@ async function isntMe(react){
 }
 
 client.on("messageReactionAdd", (react, user) => {
-  if(user.id==this.client.user.id)return;
+  if(user.id==client.user.id)return;
   console.log("Reaction detected");
-  if (react.message.channel.type != 'dm') return;
+  if (react.message.channel.type != 'dm') {
+    console.console.log("Not in DM");
+    return;
+  }
   console.log("DM channel emoji: " + react.emoji);
   react.message.channel.sendMessage(`The emoji used is ${react.emoji}`);
 
