@@ -307,7 +307,7 @@ client.on("message", message => {
 
   //console.log(monitorMode);
   if (monitorMode && message.channel == testC) {
-    console.log("\n", chalk.bold.bgBlue("Social spy: "), chalk.bgBlack("\n\t[" + message.member.displayName + "] message content: " + message.content));
+    console.log("\n", chalk.bold.bgBlue("Social spy: "), chalk.bgBlack("\n\t[" + message.author.userName + "] message content: " + message.content));
   }
 
   if (!message.content.toLowerCase().startsWith(prefix.toLowerCase())) return;
