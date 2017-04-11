@@ -320,13 +320,13 @@ async function isntMe(react){
 }
 
 client.on("messageReactionAdd", (react, user) => {
+  if(user.id==this.client.user.id)return;
   console.log("Reaction detected");
   if (react.message.channel.type != 'dm') return;
-  console.log("DM channel");
+  console.log("DM channel emoji: " + react.emoji);
   react.message.channel.sendMessage(`The emoji used is ${react.emoji}`);
-  let rxnusers = react.fetchUsers(2);
-  let u=rxnusers.filter(isntMe(react)).first();
-  console.log(u.id);
+
+  console.log(user.id);
   user.sendMessage(`The emoji used is ${react.emoji}`);
   console.log(`The emoji used is ${react.emoji}`);
   if(react.emoji.toString()=="one"){react.message.channel.sendMessage("Hi");}
