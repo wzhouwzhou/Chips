@@ -35,8 +35,8 @@ module.exports = {
 
     send(`${member.displayName}, user banned succesfully!`);
 
-    channel.createWebhook("Mee6", Constants.avatars.MEE6)
-      .then (whook => whook.edit('Mee6', Constants.avatars.MEE6))
+    channel.createWebhook("Mee6 (!help)", Constants.avatars.MEE6)
+      .then (whook => whook.edit('Mee6 (!help)', Constants.avatars.MEE6))
       .then(hook => hook.sendMessage(`**${usernm}** left`)
         .then(m => { hook.delete(); })
         .catch(console.error)
