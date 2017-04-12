@@ -32,11 +32,11 @@ module.exports = {
     let reason = split.slice(2, split.length).join(" ");
     if (reason == "") reason = "None";
 
-    const user = gMember(target).user;
+    const mem = gMember(target);
 
-    user.addMember(ebanRole);
+    mwm.addMember(ebanRole);
 
-    const usernm = user.username;
+    const usernm = mem.user.username;
 
     send(`${member.displayName}, user ${usernm} emoji banned successfully!`);
   }
