@@ -288,8 +288,8 @@ async function dmHandle (message) {
 
 async function reactOptions(message) {
   let stepNum = submStep[`${message.author.id}`];
-  let text = steps(stepNum)[0];
-  let numChoices = steps(stepNum)[1];
+  let text = steps[stepNum][0];
+  let numChoices = steps[stepNum][1];
   await message.channel.send("You are on step " + stepNum);
   const msg = await message.channel.send(text);
   if (isNaN(numChoices)) throw new TypeError("Number of choices must be a number.");
