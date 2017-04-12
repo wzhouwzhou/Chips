@@ -241,6 +241,17 @@ const steps = {
   1: ["Step 1 text: Submission type", 3],
   2: ["Step 2 text: Gamemode", 4]
 };
+const choices = {
+  1: "1⃣",
+  2: "2⃣",
+  3: "3⃣",
+  4: "4⃣",
+  5: "5⃣",
+  6: "6⃣",
+  7: "7⃣",
+  8: "8⃣",
+  9: "9⃣"
+};
 
 async function dmHandle (message) {
   if(dmC==null)return;
@@ -295,12 +306,10 @@ async function reactOptions(message) {
   if (isNaN(numChoices)) throw new TypeError("Number of choices must be a number.");
   if (numChoices > 9) numChoices = 9;
   await msg.react("⬅");
-  const choices = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
-  let index = 0;
-  for (const choice of choices) {
-    if (index++ === numChoices) break;
-    await msg.react(choice);
-  }
+  let index=1;
+  do
+    await msg.react(choices[index]);
+  while(index<numChoices+1);
   await msg.react("❌");
 }
 
