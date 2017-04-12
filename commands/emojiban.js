@@ -21,7 +21,7 @@ module.exports = {
 
     let serverChannels=guild.channels.array;
     for(var i=0;i<serverChannels.length;i++)
-      serverChannels[i].overwritePermissions(ebanRole, {
+      await serverChannels[i].overwritePermissions(ebanRole, {
         EXTERNAL_EMOJIS: false
       });
 
@@ -34,7 +34,7 @@ module.exports = {
 
     const mem = gMember(target);
 
-    mwm.addMember(ebanRole);
+    mem.addMember(ebanRole);
 
     const usernm = mem.user.username;
 
