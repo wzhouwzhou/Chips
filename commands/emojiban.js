@@ -34,7 +34,7 @@ module.exports = {
     if(serverChannels==null)console.log("Error getting channels");
     for(var i=0;i<serverChannels.length;i++)
       await serverChannels[i].overwritePermissions(mem, {
-        'EXTERNAL_EMOJIS': false
+        EXTERNAL_EMOJIS: false
       });
 
     mem.addRole(ebanRole);
