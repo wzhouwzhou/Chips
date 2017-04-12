@@ -13,7 +13,7 @@ module.exports = {
         return send(`No bans for you! ${member.displayName}`);
     }
     let ebanRole;
-    if (!message.guild.roles.has("name", "Emoji Banned"))
+    if (!guild.roles.has("name", "Emoji Banned"))
       guild.createRole({ name: 'Emoji Banned' })
         .then(role => ebanRole=role)
         .catch(console.error);
