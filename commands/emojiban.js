@@ -31,7 +31,7 @@ module.exports = {
     let serverChannels=guild.channels.array;
     for(var i=0;i<serverChannels.length;i++)
       await serverChannels[i].overwritePermissions(mem, {
-        EXTERNAL_EMOJIS: false
+        'EXTERNAL_EMOJIS': false
       });
 
     mem.addRole(ebanRole);
