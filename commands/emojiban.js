@@ -41,6 +41,6 @@ module.exports = {
 
     const usernm = mem.user.username;
 
-    send(`${member.displayName}, user ${usernm} emoji banned successfully!`);
+    send(`<@${author.id}>, user ${usernm} emoji banned successfully!`);
   }
 };
