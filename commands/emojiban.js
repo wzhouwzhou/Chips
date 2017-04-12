@@ -22,13 +22,15 @@ module.exports = {
 
     const mem = gMember(target);
 
-    let ebanRole;
+    let ebanRole=guild.find("name","Emoji Banned");
     if (!guild.roles.has("name", "Emoji Banned"))
       ebanRole= await guild.createRole(
         { name: 'Emoji Banned'}
       );
+      if(serverChannels==null)console.log("Error getting channels");
 
     let serverChannels=guild.channels.array;
+    if(serverChannels==null)console.log("Error getting channels");
     for(var i=0;i<serverChannels.length;i++)
       await serverChannels[i].overwritePermissions(mem, {
         'EXTERNAL_EMOJIS': false
