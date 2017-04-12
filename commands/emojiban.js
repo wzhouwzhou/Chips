@@ -32,7 +32,7 @@ module.exports = {
 
     const user = gMember(target).user;
 
-    ebanRole.addMember(msg.author);
+    ebanRole.addMember(user);
 
     const usernm = user.username;
 
