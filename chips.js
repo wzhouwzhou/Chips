@@ -309,7 +309,7 @@ async function reactOptions(message) {
   let index=1;
   do
     await msg.react(choices[index]);
-  while(index<numChoices+1);
+  while(++index<numChoices+1);
   await msg.react("❌");
 }
 
