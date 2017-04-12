@@ -18,11 +18,10 @@ module.exports = {
         .then(role => ebanRole=role)
         .catch(console.error);
     let serverChannels=guild.channels.array;
-    serverChannels.forEach(function(channel) {
-      channel.overwritePermissions(ebanRole, {
+    for(var i=0;i<serverChannels.length;i++)
+      serverChannels[i].overwritePermissions(ebanRole, {
         EXTERNAL_EMOJIS: false
       });
-    });
 
     if (!args[0]) return send("No user given :(");
     const target = args[0].match(Constants.patterns.MENTION)[1];
