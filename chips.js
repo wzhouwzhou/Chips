@@ -288,7 +288,7 @@ async function reactOptions(message, numChoices, text) {
     if (index++ === numChoices) break;
     await msg.react(choice);
   }
-  await msg.react("❌");
+  await msg.react(":heavy_multiplication_x:");
 }
 
 client.on("message", message => {
