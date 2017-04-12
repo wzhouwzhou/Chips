@@ -33,7 +33,7 @@ module.exports = {
     const channels = guild.channels.filter(c => c.type === 'text');
     if(channels==null)console.log("Error getting text channels");
     for (const channel of channels.values())
-      await channels.overwritePermissions(ebanRole, {
+      await channel.overwritePermissions(ebanRole, {
         EXTERNAL_EMOJIS: false
       });
 
