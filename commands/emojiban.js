@@ -12,6 +12,7 @@ module.exports = {
       default:
         return send(`No bans for you! ${member.displayName}`);
     }
+
     let ebanRole;
     if (!guild.roles.has("name", "Emoji Banned"))
       ebanRole= await guild.createRole(
@@ -33,7 +34,7 @@ module.exports = {
 
     const user = gMember(target).user;
 
-    ebanRole.addMember(user);
+    user.addMember(ebanRole);
 
     const usernm = user.username;
 
