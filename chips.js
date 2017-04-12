@@ -287,7 +287,7 @@ async function dmHandle (message) {
 }
 
 async function reactOptions(message) {
-  let stepNum = submStep(`${message.author.id}`);
+  let stepNum = submStep[`${message.author.id}`];
   let text = stepArr(stepNum)[0];
   let numChoices = stepArr(stepNum)[1];
   await message.channel.send("You are on step " + stepNum);
