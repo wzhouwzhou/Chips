@@ -278,8 +278,8 @@ async function dmHandle (message) {
 }
 
 async function reactOptions(message, numChoices, text) {
-  let msg;
-   await message.channel.send(text).then(msgz => {msg = msgz;});
+  var msg;
+  await message.channel.send(text).then(msgz => {msg = msgz;});
 
   if (numChoices>9) numChoices=9;
   await msg.react("◀️");
