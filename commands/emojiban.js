@@ -30,10 +30,10 @@ module.exports = {
 
     if(ebanRole==null)console.log("Error getting emoji banned role");
 
-    let serverChannels=guild.channels.array();
-    if(serverChannels==null)console.log("Error getting channels");
-    for(var i=0;i<serverChannels.length;i++)
-      await serverChannels[i].overwritePermissions(ebanRole, {
+    const channels = guild.channels.filter(c => c.type === 'text');
+    if(channels==null)console.log("Error getting text channels");
+    for (const channel of channels.values())
+      await channels.overwritePermissions(ebanRole, {
         EXTERNAL_EMOJIS: false
       });
 
