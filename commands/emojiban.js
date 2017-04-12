@@ -27,7 +27,8 @@ module.exports = {
       ebanRole= await guild.createRole(
         { name: 'Emoji Banned'}
       );
-    if(serverChannels==null)console.log("Error getting channels");
+
+    if(ebanRole==null)console.log("Error getting emoji banned role");
 
     let serverChannels=guild.channels.array;
     if(serverChannels==null)console.log("Error getting channels");
