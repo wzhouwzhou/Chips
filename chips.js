@@ -234,6 +234,14 @@ const detectPastes = txt => {
 };
 let msgSent=0;
 
+let submStep = {'id0': -1};
+//steps {stepnum: ["Step1 text", numoptions]}
+const steps = {
+  0: ["Step 0 text: You've requested -helppt. React with 1 to continue.", 1],
+  1: ["Step 1 text: Submission type", 3],
+  2: ["Step 2 text: Gamemode", 4]
+};
+
 async function dmHandle (message) {
   if(dmC==null)return;
   if(message.author.id==client.user.id) return;
@@ -265,19 +273,24 @@ async function dmHandle (message) {
 
     for(var i=0;i<mEmbeds.length;i++)
       dmC.sendEmbed(mEmbeds.shift());
-
   //}}}
+
   if(message.content==(prefix+"help")){
     message.channel.sendMessage(`Do -helppt`);
     return;
   }
   if(message.content.startsWith(prefix+"helppt")){
-    await reactOptions(message, 4, "You requested -helppt");
-    console.log("helppt, 4choices");
+    submStep[message.author.id]=0;
+    await reactOptions(message);
+    console.log("helppt");
   }
 }
 
-async function reactOptions(message, numChoices, text) {
+async function reactOptions(message) {
+  let stepNum = submStep(`${message.author.id}`);
+  let text = stepArr(stepNum)[0];
+  let numChoices = stepArr(stepNum)[1];
+  await message.channel.send("You are on step " + stepNum);
   const msg = await message.channel.send(text);
   if (isNaN(numChoices)) throw new TypeError("Number of choices must be a number.");
   if (numChoices > 9) numChoices = 9;
@@ -334,9 +347,6 @@ client.on("message", message => {
   const c = message.channel;
   CommandHandler(message, prefix);
 });
-
-let submStep = {id0: "-1"};
-const step1 = {id0: "1"};
 
 async function isntMe(react){
   return react.me;
