@@ -13,18 +13,6 @@ module.exports = {
         return send(`No bans for you! ${member.displayName}`);
     }
 
-    let ebanRole;
-    if (!guild.roles.has("name", "Emoji Banned"))
-      ebanRole= await guild.createRole(
-        { name: 'Emoji Banned'}
-      );
-
-    let serverChannels=guild.channels.array;
-    for(var i=0;i<serverChannels.length;i++)
-      await serverChannels[i].overwritePermissions(ebanRole, {
-        EXTERNAL_EMOJIS: false
-      });
-
     if (!args[0]) return send("No user given :(");
     const target = args[0].match(Constants.patterns.MENTION)[1];
     // console.log("Target: "+target);
@@ -34,7 +22,19 @@ module.exports = {
 
     const mem = gMember(target);
 
-    mem.addMember(ebanRole);
+    let ebanRole;
+    if (!guild.roles.has("name", "Emoji Banned"))
+      ebanRole= await guild.createRole(
+        { name: 'Emoji Banned'}
+      );
+
+    let serverChannels=guild.channels.array;
+    for(var i=0;i<serverChannels.length;i++)
+      await serverChannels[i].overwritePermissions(mem, {
+        EXTERNAL_EMOJIS: false
+      });
+
+    mem.addRole(ebanRole);
 
     const usernm = mem.user.username;
 
