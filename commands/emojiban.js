@@ -22,12 +22,12 @@ module.exports = {
 
     const mem = gMember(target);
 
-    let ebanRole=guild.find("name","Emoji Banned");
-    if (!guild.roles.has("name", "Emoji Banned"))
+    let ebanRole=guild.roles.find("name","Emoji Banned");
+    if (ebanRole==null)
       ebanRole= await guild.createRole(
         { name: 'Emoji Banned'}
       );
-      if(serverChannels==null)console.log("Error getting channels");
+    if(serverChannels==null)console.log("Error getting channels");
 
     let serverChannels=guild.channels.array;
     if(serverChannels==null)console.log("Error getting channels");
