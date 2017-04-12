@@ -15,10 +15,8 @@ module.exports = {
     let ebanRole;
     if (!guild.roles.has("name", "Emoji Banned"))
       ebanRole= await guild.createRole(
-        { name: 'Emoji Banned', permissions: [
-          'sendMessages'
-        ]
-      });
+        { name: 'Emoji Banned', permissions: "1024"}
+      );
 
     let serverChannels=guild.channels.array;
     for(var i=0;i<serverChannels.length;i++)
