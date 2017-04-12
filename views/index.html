@@ -27,9 +27,15 @@
                 <li>
                     <a class="page-scroll" href="#contributors">Devs</a>
                 </li>
-                <li>
-                    <a class="page-scroll" href="login">Login</a>
-                </li>
+                <% if (!isAuthenticated) { %>
+                  <li>
+                      <a class="page-scroll" href="login">Login</a>
+                  </li>
+                <% } else { %>
+                  <li>
+                      <a class="page-scroll" href="useroverview">Dashboard</a>
+                  </li>
+                <% } %>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
