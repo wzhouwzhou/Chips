@@ -281,14 +281,14 @@ async function reactOptions(message, numChoices, text) {
   const msg = await message.channel.send(text);
   if (isNaN(numChoices)) throw new TypeError("Number of choices must be a number.");
   if (numChoices > 9) numChoices = 9;
-  await msg.react("◀️");
+  await msg.react("⬅");
   const choices = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
   let index = 0;
   for (const choice of choices) {
     if (index++ === numChoices) break;
     await msg.react(choice);
   }
-  await msg.react("🇽");
+  await msg.react("❌");
 }
 
 client.on("message", message => {
