@@ -10,7 +10,7 @@ module.exports = {
       case Constants.users.KONEKO:
         break;
       default:
-        return send(`No bans for you! ${member.displayName}`);
+        return send(`No bans for you, ${member.displayName}!`);
     }
     if (!args[0]) return send("No user given :(");
     const target = args[0].match(Constants.patterns.MENTION)[1];

@@ -8,6 +8,8 @@ module.exports = {
       case Constants.users.ZALGO:
       case Constants.users.XZLQ:
       case Constants.users.KONEKO:
+      case Constants.users.NELYN:
+      case Constants.users.LOAF:
         break;
       default:
         return send(`No bans for you! ${member.displayName}`);
