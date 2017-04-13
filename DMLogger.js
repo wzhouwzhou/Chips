@@ -1,10 +1,10 @@
 module.exports = function(Discord, client, dmC) {
   return async (message) => {
-    await log(message);
+    await log(message ,Discord, client, dmC);
   };
 };
 
-async function log(message) {
+async function log(message, Discord, client, dmC) {
   if(dmC==null||message.author.id==client.user.id)return;
   let mEmbeds=[];
 
