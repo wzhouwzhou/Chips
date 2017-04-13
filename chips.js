@@ -190,16 +190,6 @@ stdin.addListener('data', d => {
   content + = d.toString();*/
 });
 
-const pastes = {
-  "/shrug": "¯\\_(ツ)_/¯",
-  "/tableflip": "(╯°□°）╯︵ ┻━┻",
-  "/unflip": "┬─┬﻿ ノ( ゜-゜ノ)",
-  ":Thoughts:": "<:Thoughts:278104583501381632>",
-  ":Thonkang:": "<:Thonkang:279512732892659713>",
-  ":chips:": "<:chips:298308614022627329>",
-  ":PagChomp:": "<:PagChomp:280631029960802305>"
-};
-
 global.rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -223,7 +213,7 @@ const evalConsoleCommand = txt => {
 };
 
 const detectPastes = txt => {
-  const pairPastes = _.toPairs(pastes);
+  const pairPastes = _.toPairs(Constants.PASTES);
   for (const i in pairPastes) {
     if (txt == pairPastes[i][0]) {
       console.log("paste " + i + " found!");
@@ -240,17 +230,6 @@ const steps = {
   0: ["Step 0 text: You've requested -helppt. React with 1 to continue.", 1],
   1: ["Step 1 text: Submission type", 3],
   2: ["Step 2 text: Gamemode", 4]
-};
-const choices = {
-  1: "1⃣",
-  2: "2⃣",
-  3: "3⃣",
-  4: "4⃣",
-  5: "5⃣",
-  6: "6⃣",
-  7: "7⃣",
-  8: "8⃣",
-  9: "9⃣"
 };
 
 async function dmHandle (message) {
@@ -308,7 +287,7 @@ async function reactOptions(message) {
   await msg.react("⬅");
   let index=1;
   do
-    await msg.react(choices[index]);
+    await msg.react(Constants.CHOICES[index]);
   while(++index<numChoices+1);
   await msg.react("❌");
 }
@@ -317,34 +296,8 @@ client.on("message", message => {
   if (!message.guild){
     dmHandle(message);
     return;
-  } //return;
-  /*if (message.guild.id === "252525368865456130") {
-    try {
-      let me = message.guild.members.get("259209114268336129");
-      //if (me.roles.get("252531631468969984") != null)
-      //me.removeRole("252531631468969984");
-      if (me.roles.has("252534386300289024")) {
-        me.removeRole("252534386300289024");
-        console.log("Unmuted");
-      }
-      if (me.nickname != 'Chips is bae') me.setNickname('Chips is bae');
-      me = message.guild.members.get("296855425255473154");
-      if (me.nickname != 'Chips (-help)') me.setNickname('Chips (-help)');
+  }
 
-      if (me.roles.has("252534386300289024")) {
-        me.removeRole("252534386300289024");
-        console.log("Removed role");
-      }
-
-      if (!me.roles.has("297592116354482186")) {
-        me.addRole("297592116354482186");
-        console.log("Added role");
-      }
-      if (!me.roles.has("297634979704340481"))
-      me.addRole("297634979704340481");
-
-    } catch(err) { _.noop(); } //console.log("Couldn't set nickname or unmute");}
-  }*/
   if (message.author.bot) return;
 
   //console.log(monitorMode);
@@ -353,7 +306,7 @@ client.on("message", message => {
   }
 
   if (!message.content.toLowerCase().startsWith(prefix.toLowerCase())) return;
-  const c = message.channel;
+
   CommandHandler(message, prefix);
 });
 
@@ -362,13 +315,14 @@ async function isntMe(react){
 }
 
 client.on("messageReactionAdd", (react, user) => {
-  if(user.id==client.user.id)return;
-  if(react.message.author.id!=client.user.id)return;
+  if(user.id == client.user.id || react.message.author.id != client.user.id) return;
+
   console.log("Reaction detected");
   if (react.message.channel.type != 'dm') {
     console.console.log("Not in DM");
     return;
   }
+
   console.log("DM channel emoji: " + react.emoji);
   react.message.channel.sendMessage(`The emoji used is ${react.emoji}`);
 
@@ -377,7 +331,7 @@ client.on("messageReactionAdd", (react, user) => {
   if(react.emoji.toString()=="1⃣"){react.message.channel.sendMessage("Hi: one");}
   else if(react.emoji.toString()==":two:"){react.message.channel.sendMessage("Hi: two");}
   else if(react.emoji.toString()==":three:"){react.message.channel.sendMessage("Hi: three");}
-  message.delete();
+  react.message.delete();
 });
 
 client.login(process.env.TOKEN);
