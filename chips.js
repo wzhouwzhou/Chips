@@ -110,6 +110,7 @@ global.chalk = require("chalk");
 global.Messager = new (require("events"));
 global.Command = require("./Command");
 global.CommandHandler = require("./CommandHandler")(Discord, client);
+global.DMLogger;
 const readline = require('readline');
 
 Messager.on("eval", ({ evalContent, vars, timestamp }) => {
@@ -150,6 +151,7 @@ client.on("ready", _ => {
   console.log('Chips is ready!');
   client.user.setStatus("online");
   client.user.setGame("Do -help");
+  DMLogger = require("./DMLogger")(Discord, client);
 });
 
 const stdin = process.openStdin();
@@ -233,38 +235,7 @@ const steps = {
 };
 
 async function dmHandle (message) {
-  if(dmC==null)return;
-  if(message.author.id==client.user.id) return;
-  //{{{
-    msgSent++;
-    let mEmbeds=[];
-
-    let main = new Discord.RichEmbed()
-      .setAuthor("**DM Received!**: " + message.author.username+"#"+message.author.discriminator+"\tID: "+message.author.id)
-      .setColor(205)
-      .addField("message id:", `(${message.id})`,true)
-      .setThumbnail(message.author.displayAvatarURL)
-      .setTitle(moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss'));
-
-    if(message.cleanContent=="")
-      main.addField(message.author.username, "[ERR]--No Content in Message--");
-    else
-      main.addField(message.author.username, message.cleanContent);
-
-    if(message.attachments.first()!=null)
-      main.addField("Attachment URL: ", message.attachments.first().url);
-
-    mEmbeds.push(main);
-
-    let msgembeds=message.embeds;
-    msgembeds.forEach(function (item){
-      mEmbeds.push(item);
-    });
-
-    for(var i=0;i<mEmbeds.length;i++)
-      dmC.sendEmbed(mEmbeds.shift());
-  //}}}
-
+  DMLogger(message);
   if(message.content==(prefix+"help")){
     message.channel.sendMessage(`Do -helppt`);
     return;
@@ -294,8 +265,7 @@ async function reactOptions(message) {
 
 client.on("message", message => {
   if (!message.guild){
-    dmHandle(message);
-    return;
+    return dmHandle(message);
   }
 
   if (message.author.bot) return;
