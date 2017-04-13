@@ -28,7 +28,7 @@ async function log(message, Discord, client, dmC, moment) {
   });
 
   for(var i=0;i<mEmbeds.length;i++)
-    dmC.sendEmbed(mEmbeds.shift());
+    dmC.sendEmbed(mEmbeds[i]);
 }
 
 async function duplicateEmbed(me, Discord) {
