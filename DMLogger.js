@@ -24,14 +24,14 @@ async function log(message, Discord, client, dmC, moment) {
 
   let msgembeds=message.embeds;
   msgembeds.forEach(function (item){
-    mEmbeds.push(duplicateEmbed(item));
+    mEmbeds.push(duplicateEmbed(item, Discord));
   });
 
   for(var i=0;i<mEmbeds.length;i++)
     dmC.sendEmbed(mEmbeds.shift());
 }
 
-async function duplicateEmbed(me) {
+async function duplicateEmbed(me, Discord) {
     var bad = new Discord.RichEmbed();
     if (me.author) bad.setAuthor(me.author.name,me.author.iconURL);
     if (me.color) bad.setColor(me.color);
