@@ -1,4 +1,4 @@
-module.exports = function(Discord, client, dmC) {
+module.exports = function(Discord, client, dmC, moment) {
   return async (message) => {
     await log(message ,Discord, client, dmC);
   };

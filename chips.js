@@ -151,7 +151,7 @@ client.on("ready", _ => {
   console.log('Chips is ready!');
   client.user.setStatus("online");
   client.user.setGame("Do -help");
-  DMLogger = require("./DMLogger")(Discord, client, dmC);
+  DMLogger = require("./DMLogger")(Discord, client, dmC, moment);
 });
 
 const stdin = process.openStdin();
