@@ -1,3 +1,5 @@
+const exports = {};
+
 exports.users = {
   WILLY: "259209114268336129",
   WILLYZ: "259209114268336129",
@@ -36,3 +38,5 @@ exports.patterns = {
 exports.express = {
   ENGINE: "html"
 };
+
+module.exports = exports;
