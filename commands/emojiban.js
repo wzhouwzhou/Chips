@@ -42,5 +42,12 @@ module.exports = {
     const usernm = mem.user.username;
 
     send(`<@${author.id}>, user ${usernm} emoji banned successfully!`);
+
+    let emb = new Discord.RichEmbed()
+      .setAuthor("Emoji Ban Log")
+      .setTitle(`<@${mem.user.id}> was emoji banned by <@${author.id}>`)
+      .setColor(9109504)
+      .setThumbnail(Constants.images.WARNING)
+      .addField("Emoji Ban reason: ", `${reason}`, true);
   }
 };
