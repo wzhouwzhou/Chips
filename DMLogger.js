@@ -6,7 +6,6 @@ module.exports = function(Discord, client, dmC, moment) {
 
 async function log(message, Discord, client, dmC, moment) {
   if(dmC==null||message.author.id==client.user.id)return;
-  let mEmbeds=[];
 
   let mainContent = new Discord.RichEmbed()
     .setAuthor(`DM Received!: ${message.author.username}#${message.author.discriminator}\nUser ID: ${message.author.id}`)
@@ -20,15 +19,12 @@ async function log(message, Discord, client, dmC, moment) {
     mainContent.addField(message.author.username, message.cleanContent);
   if(message.attachments.length>1) main.addField("More than one attachment received..");
   if(message.attachments.first()!=null) main.addField("Attachment URL: ", message.attachments.first().url);
-  mEmbeds.push(mainContent);
+  dmC.sendEmbed(mainContent);
 
   let msgembeds=message.embeds;
   msgembeds.forEach(function (item){
-    mEmbeds.push(duplicateEmbed(item, Discord));
+    dmC.sendEmbed(duplicateEmbed(item, Discord));
   });
-
-  for(var i=0;i<mEmbeds.length;i++)
-    dmC.sendEmbed(mEmbeds[i]);
 }
 
 async function duplicateEmbed(me, Discord) {
