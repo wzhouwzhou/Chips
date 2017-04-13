@@ -39,4 +39,6 @@ ex.express = {
   ENGINE: "html"
 };
 
+ex.CHOICES = ['1⃣','2⃣','3⃣','4⃣'];
+
 module.exports = ex;
