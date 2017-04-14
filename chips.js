@@ -35,7 +35,6 @@ global.rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
-global.logDB=database.sheets[`botlog`];
 /** End Global Constants **/
 
 // uncomment after placing your favicon in /public
@@ -79,7 +78,8 @@ client.on("ready", _ => {
   client.user.setStatus("online");
   client.user.setGame("Do -help");
   DMLogger = require("./DMLogger")(Discord, client, dmC, moment);
-  //logDB.addRow({userid: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "restart"},(err) => {console.log(err);});
+  if(database.sheets[`botlog`]!=null)
+    database.sheets[`botlog`].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "restart (faulty)"},(err) => {console.log(err);});
 });
 
 const stdin = process.openStdin();
@@ -143,6 +143,7 @@ const steps = {
 };
 
 async function dmHandle (message) {
+  if(database.sheets[`botlog`]!=null) return message.channel.send("Bot is still starting up...");
   DMLogger(message);
   if(message.content==(prefix+"help")){
     message.channel.sendMessage(`Do -helppt`);
