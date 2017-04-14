@@ -17,13 +17,13 @@ const fs = require('fs');
 const request = require('request');
 const app = require("./AppSetup")(bodyParser, cookieParser, passport, express, express(), Strategy, session);
 const favicon = require('serve-favicon');
-const moment = require('moment');
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const prefix = "-";
 /** End Constants **/
 
 /** Other Global Constants **/
+global.moment = require('moment');
 global._ = require("lodash");
 global.chalk = require("chalk");
 global.Messager = new (require("events"));

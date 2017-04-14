@@ -16,6 +16,7 @@ module.exports = {
     try {
       await doEval("testC = channel");
       sentmsg && sentmsg.edit("Channel set!");
+      database.sheets[`botlog`].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "setOutput"},(err) => {console.log(err);});
     } catch (err) {
       sentmsg && sentmsg.edit("There was an error setting output channel! (It has been logged)");
       console.error("Error setting output channel: " + err);
