@@ -3,11 +3,6 @@ const GoogleSpreadsheet = require('google-spreadsheet');
 
 const doc = new GoogleSpreadsheet(process.env.SPREADSHEET_ID);
 
-const ex = module.exports = { // module exports
-	ready: false,
-	// more stuff here
-};
-
 const sheets = {};
 let numloads = -1;
 
@@ -47,3 +42,10 @@ doc.useServiceAccountAuth(login_info,() => {
 		}
 	});
 });
+
+
+const ex = module.exports = { // module exports
+	ready: false,
+	sheets: sheets
+	// more stuff here
+};
