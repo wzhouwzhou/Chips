@@ -74,5 +74,7 @@ module.exports = function(bodyParser, cookieParser, passport, express, app, Stra
   app.listen(app.get('port'), function() {
     console.log('Node app is running on port', app.get('port'));
   });
+
+  //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
   return app;
 };
