@@ -1,110 +1,28 @@
-global.Constants = require("./Constants");
+//Chips.js
+/** Constants **/
+const readline = require('readline');
 const express = require('express');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 const passport = require('passport');
 const Strategy = require('./lib').Strategy;
 const fs = require('fs');
 const request = require('request');
-const app = express();
+const app = require("./AppSetup")(bodyParser, passport, express, Strategy);
 const favicon = require('serve-favicon');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
 const moment = require('moment');
-
+const Discord = require("discord.js");
+const client = new Discord.Client();
 //route loading
 const index = require("./routes/index");
 const login = require("./routes/login");
 const useroverview = require("./routes/useroverview");
+const prefix = "-";
+/** End Constants **/
 
-app.engine(Constants.express.ENGINE, require("express-ejs-extend"));
-app.set('view engine', Constants.express.ENGINE);
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(__dirname + '/public'));
-
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-passport.deserializeUser(function(obj, done) {
-  done(null, obj);
-});
-
-
-var scopes = ['identify', 'guilds'];
-
-passport.use(new Strategy({
-    clientID: process.env.ID,
-    clientSecret: process.env.SECRET,
-    callbackURL: 'https://chipsbot.herokuapp.com/user/',
-    scope: scopes
-}, function(accessToken, refreshToken, profile, done) {
-    process.nextTick(function() {
-        return done(null, profile);
-    });
-}));
-
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-app.get('/login', passport.authenticate('discord', { scope: scopes }), function(req, res) {});
-app.get('/user',
-    passport.authenticate('discord', { failureRedirect: '/' }), function(req, res) {
-      //if (req.query.hasOwnProperty('guild_id'))
-        res.redirect('/useroverview');
-    } // auth success
-);
-app.get('/logout', function(req, res) {
-    req.logout();
-    res.redirect('/');
-});
-
-// routes
-app.use('/', index);
-app.use('/login',login);
-app.use('/useroverview',useroverview);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error', { type: err.status || 500 });
-  if (!err.status || err.status == 500) console.error("Internal error: " + err);
-});
-
-app.set('port', (process.env.PORT || 5000));
-
-app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
-});
-
-function selfping() {
-  request("https://chipsbot.herokuapp.com/", _=>_);
-}
-setInterval(selfping, 1000*60*10);
-
-const Discord = require("discord.js");
-
-const client = new Discord.Client();
+/** Global Constants **/
+global.Constants = require("./Constants");
 global._ = require("lodash");
 global.chalk = require("chalk");
 global.Messager = new (require("events"));
@@ -112,7 +30,14 @@ global.Command = require("./Command");
 global.CommandHandler = require("./CommandHandler")(Discord, client);
 global.database = require("./DatabaseLoader");
 global.DMLogger;
-const readline = require('readline');
+global.rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+/** End Global Constants **/
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 Messager.on("eval", ({ evalContent, vars, timestamp }) => {
   const { msg, message, channel, guild, send, reply, content, noprefix, prefix, c, author, member } = vars;
@@ -140,7 +65,6 @@ fs.readdirSync("./commands").map(f => {
   }
 });
 
-const prefix = "-";
 let testC, dmC;
 
 client.on("ready", _ => {
@@ -164,43 +88,23 @@ let monitorMode = false;
 let consoleTyping = false;
 stdin.addListener('data', d => {
     if (testC == null) {
-      console.log("YOU HAVEN'T DEFINED AN OUTPUT CHANNEL");
-      return;
+      return console.log("YOU HAVEN'T DEFINED AN OUTPUT CHANNEL");
     }
     if (consoleTyping == false) {
-      //d + = d.toString();
       consoleTyping = true;
-
       rl.question("\x1b[1mInput? \x1b[0m", txt => {
         console.log("\x1b[0m", "\tConsole input:", txt);
         if (txt == "") {
           consoleTyping = false;
         } else {
           evalConsoleCommand(txt);
-          //rl.close();
           consoleTyping = false;
         }
       });
     }
-
-  /*if (d.toString() == "botoff") {
-    //console.log(content);
-    //client.channels.get("296420294678020107").sendMessage(content);
-    send(content.substring(1), testC);
-    content = "";
-    console.log("\n");
-  }
-  content + = d.toString();*/
 });
 
-global.rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
-const send = (message, c) => {
-  c.sendMessage(message);
-};
+const send = (message, c) => { c.sendMessage(message); };
 
 const evalConsoleCommand = txt => {
   txt = detectPastes(txt);
@@ -225,9 +129,9 @@ const detectPastes = txt => {
   }
   return txt;
 };
-let msgSent=0;
 
 let submStep = {'id0': -1};
+
 //steps {stepnum: ["Step1 text", numoptions]}
 const steps = {
   0: ["Step 0 text: You've requested -helppt. React with 1 to continue.", 1],
@@ -304,5 +208,10 @@ client.on("messageReactionAdd", (react, user) => {
   else if(react.emoji.toString()==":three:"){react.message.channel.sendMessage("Hi: three");}
   react.message.delete();
 });
+
+function selfping() {
+  request("https://chipsbot.herokuapp.com/", _=>_);
+}
+setInterval(selfping, 1000*60*10);
 
 client.login(process.env.TOKEN);

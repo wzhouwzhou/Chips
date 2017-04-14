@@ -18,6 +18,7 @@ async function log(message, Discord, client, dmC, moment) {
   else
     mainContent.addField(message.author.username, message.cleanContent);
   if(message.attachments.length>1) main.addField("More than one attachment received..");
+  message.reply("Please only send one attachment at a time.");
   if(message.attachments.first()!=null) main.addField("Attachment URL: ", message.attachments.first().url);
   dmC.sendEmbed(mainContent);
 
@@ -27,8 +28,8 @@ async function log(message, Discord, client, dmC, moment) {
   });
 }
 
-async function duplicateEmbed(me, Discord) {
-    var bad = new Discord.RichEmbed();
+const duplicateEmbed = (me, Discord) => {
+    let bad = new Discord.RichEmbed();
     if (me.author) bad.setAuthor(me.author.name,me.author.iconURL);
     if (me.color) bad.setColor(me.color);
     if (me.createdTimestamp);
