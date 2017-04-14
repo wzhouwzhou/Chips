@@ -32,6 +32,8 @@ const loadsheet = function(sheet) {
 			ex.ready = true;
 		}
 	});
+	if(sheets[`botlog`]!=null)
+    sheets[`botlog`].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "restart+load"},(err) => {console.log(err);});
 };
 
 doc.useServiceAccountAuth(login_info,() => {
