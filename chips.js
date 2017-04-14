@@ -110,6 +110,7 @@ global.chalk = require("chalk");
 global.Messager = new (require("events"));
 global.Command = require("./Command");
 global.CommandHandler = require("./CommandHandler")(Discord, client);
+global.database = require("./DatabaseLoader");
 global.DMLogger;
 const readline = require('readline');
 
