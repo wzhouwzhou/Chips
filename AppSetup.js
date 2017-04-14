@@ -1,4 +1,4 @@
-module.exports = function(bodyParser, passport, express, Strategy) {
+module.exports = function(bodyParser, cookieParser, passport, express, Strategy) {
   app=express();
   app.engine(Constants.express.ENGINE, require("express-ejs-extend"));
   app.set('view engine', Constants.express.ENGINE);
