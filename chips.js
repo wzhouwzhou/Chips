@@ -35,6 +35,7 @@ global.rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
+global.logDb=database.sheets.botlog;
 /** End Global Constants **/
 
 // uncomment after placing your favicon in /public
@@ -78,6 +79,7 @@ client.on("ready", _ => {
   client.user.setStatus("online");
   client.user.setGame("Do -help");
   DMLogger = require("./DMLogger")(Discord, client, dmC, moment);
+  logDB.addRow({userid: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "restart"},(err) => {console.log(err);});
 });
 
 const stdin = process.openStdin();
