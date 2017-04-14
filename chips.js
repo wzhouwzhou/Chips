@@ -1,6 +1,10 @@
 //Chips.js
 /** Constants **/
 global.Constants = require("./Constants");
+//route loading
+global.index = require("./routes/index");
+global.login = require("./routes/login");
+global.useroverview = require("./routes/useroverview");
 
 const readline = require('readline');
 const express = require('express');
@@ -16,10 +20,6 @@ const favicon = require('serve-favicon');
 const moment = require('moment');
 const Discord = require("discord.js");
 const client = new Discord.Client();
-//route loading
-const index = require("./routes/index");
-const login = require("./routes/login");
-const useroverview = require("./routes/useroverview");
 const prefix = "-";
 /** End Constants **/
 
