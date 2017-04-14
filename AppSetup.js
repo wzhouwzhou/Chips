@@ -1,5 +1,5 @@
-module.exports = function(bodyParser, cookieParser, passport, express, Strategy) {
-  app=express();
+module.exports = function(bodyParser, cookieParser, passport, express, app, Strategy) {
+  let botScopes = ['identify', 'guilds'];
   app.engine(Constants.express.ENGINE, require("express-ejs-extend"));
   app.set('view engine', Constants.express.ENGINE);
 
