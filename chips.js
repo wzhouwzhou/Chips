@@ -35,7 +35,7 @@ global.rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
-global.logDb=database.sheets[`botlog`];
+global.logDB=database.sheets[`botlog`];
 /** End Global Constants **/
 
 // uncomment after placing your favicon in /public
