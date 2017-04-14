@@ -1,5 +1,7 @@
 //Chips.js
 /** Constants **/
+global.Constants = require("./Constants");
+
 const readline = require('readline');
 const express = require('express');
 const session = require('express-session');
@@ -21,8 +23,7 @@ const useroverview = require("./routes/useroverview");
 const prefix = "-";
 /** End Constants **/
 
-/** Global Constants **/
-global.Constants = require("./Constants");
+/** Other Global Constants **/
 global._ = require("lodash");
 global.chalk = require("chalk");
 global.Messager = new (require("events"));
