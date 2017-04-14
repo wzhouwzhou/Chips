@@ -79,7 +79,7 @@ client.on("ready", _ => {
   client.user.setGame("Do -help");
   DMLogger = require("./DMLogger")(Discord, client, dmC, moment);
   if(database.sheets[`botlog`]!=null)
-    database.sheets[`botlog`].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "restart (faulty)"},(err) => {console.log(err);});
+    database.sheets[`botlog`].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "restart"},(err) => {console.log(err);});
 });
 
 const stdin = process.openStdin();
