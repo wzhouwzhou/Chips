@@ -1,6 +1,6 @@
 module.exports = {
   name: "botpanic",
-  async func(msg, { send, member, author, content, channel, guild, args, gMember, Discord }) {
+  async func(msg, { reply, member, author, content, channel, guild, args, gMember, Discord }) {
     const used = member || author;
     switch (used.id) {
       case Constants.users.WILLYZ:
@@ -10,11 +10,10 @@ module.exports = {
       case Constants.users.KONEKO:
         break;
       default:
-        return send(`No I am not having a panic attack, ${member.displayName}!`);
+        return reply(`No!`);
     }
-
-    await send(`${member.displayName}, panic mode activated! Chips shutting down...`);
     database.sheets[`botlog`].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "PANIC", mainvalue: "SIGTERM"},(err) => {console.log(`Error : ${err}`);});
+    await send(`${member.displayName}, panic mode activated! Chips forcibly shutting down... (5 seconds)`);
     process.exit(-100);
   }
 };
