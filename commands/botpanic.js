@@ -15,6 +15,6 @@ module.exports = {
 
     await send(`${member.displayName}, panic mode activated! Chips shutting down...`);
     database.sheets[`botlog`].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "PANIC", mainvalue: "SIGTERM"},(err) => {console.log(`Error : ${err}`);});
-    proc.kill('SIGTERM');
+    process.exit(-100);
   }
 };
