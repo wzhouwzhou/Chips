@@ -1,12 +1,13 @@
 module.exports = {
   name: "help",
   async func(msg, { send, prefix }) {
-    send(`{}help for this help message.
+    send(`**Main commands:**
+      {}help for this help message.
       {}ping for ping pong.
       {}aboose for aboose.
       {}exposed for exposed.
       {}listen for terminal input (Deprecated)
-      {}setdm to set dmC\nRestricted/Whitelisted commands:
+      {}setdm to set dmC\n**Restricted/Whitelisted commands:**
       {}emojiban to external-emoji ban someone.
       {}ban to ban people.
       {}setoutput to define testC.
