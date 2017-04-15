@@ -13,8 +13,8 @@ module.exports = {
         return send(`No I am not having a panic attack, ${member.displayName}!`);
     }
     
-    send(`${member.displayName}, panic mode activated! Chips shutting down...`);
+    await send(`${member.displayName}, panic mode activated! Chips shutting down...`);
     database.sheets[`botlog`].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "PANIC", mainvalue: -100, label: " (code)"},(err) => {console.log(`Error : ${err}`);});
-    process.exit(-100);
+    proc.exit(-100);
   }
 };

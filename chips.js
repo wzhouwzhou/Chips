@@ -5,6 +5,7 @@ global.Constants = require("./Constants");
 global.index = require("./routes/index");
 global.login = require("./routes/login");
 global.useroverview = require("./routes/useroverview");
+global.proc;
 //Chips constants
 const child_process = require('child_process');
 const stdin = process.openStdin();
@@ -217,8 +218,7 @@ function start(nodefile) {
   });
 
   console.log('Master process is running.');
-  var proc = child_process.spawn('node', nodefile);
-
+  proc = child_process.spawn('node', nodefile);
   proc.stdout.on('data', function (data) {
     console.log(data.toString());
   });
