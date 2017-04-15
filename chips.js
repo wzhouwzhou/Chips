@@ -5,7 +5,9 @@ global.Constants = require("./Constants");
 global.index = require("./routes/index");
 global.login = require("./routes/login");
 global.useroverview = require("./routes/useroverview");
-
+//Chips constants
+const child_process = require('child_process');
+const stdin = process.openStdin();
 const readline = require('readline');
 const express = require('express');
 const session = require('express-session');
@@ -19,7 +21,17 @@ const app = require("./AppSetup")(bodyParser, cookieParser, passport, express, e
 const favicon = require('serve-favicon');
 const Discord = require("discord.js");
 const client = new Discord.Client();
+client.commands = {};
 const prefix = "-";
+//user submission step stored by id
+let submStep = {'id0': -1};
+
+//steps {stepnum: ["Step1 text", numoptions]}
+const steps = {
+  0: ["Step 0 text: You've requested -helppt. React with 1 to continue.", 1],
+  1: ["Step 1 text: Submission type", 3],
+  2: ["Step 2 text: Gamemode", 4]
+};
 /** End Constants **/
 
 /** Other Global Constants **/
@@ -36,10 +48,10 @@ global.rl = readline.createInterface({
   output: process.stdout
 });
 /** End Global Constants **/
+let testC, dmC, d = "", monitorMode = false, consoleTyping = false;
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-
+/** Events **/
+//Messenger events
 Messager.on("eval", ({ evalContent, vars, timestamp }) => {
   const { msg, message, channel, guild, send, reply, content, noprefix, prefix, c, author, member } = vars;
   console.log("Messager received some eval of " + evalContent);
@@ -58,15 +70,8 @@ Messager.on("eval", ({ evalContent, vars, timestamp }) => {
   }
 });
 
-client.commands = {};
-fs.readdirSync("./commands").map(f => {
-  if (/\.js/.test(f)) {
-    const precmd = require(`./commands/${f}`);
-    client.commands[precmd.name] = new Command(precmd);
-  }
-});
-
-let testC, dmC;
+// Client Events
+client.on("debug", console.log);
 
 client.on("ready", _ => {
   if (client.channels.get(Constants.channels.TEST) == null || client.channels.get(Constants.channels.DMS) == null) console.error("ERRR");
@@ -80,13 +85,44 @@ client.on("ready", _ => {
   DMLogger = require("./DMLogger")(Discord, client, dmC, moment);
 });
 
-const stdin = process.openStdin();
-client.on("debug", console.log);
-let d = "";
+client.on("message", message => {
+  if (!message.guild){
+    return dmHandle(message);
+  }
 
-let monitorMode = false;
+  if (message.author.bot) return;
 
-let consoleTyping = false;
+  //console.log(monitorMode);
+  if (monitorMode && message.channel == testC) {
+    console.log("\n", chalk.bold.bgBlue("Social spy: "), chalk.bgBlack("\n\t[" + message.author.username + "] message content: " + message.content));
+  }
+
+  if (!message.content.toLowerCase().startsWith(prefix.toLowerCase())) return;
+
+  CommandHandler(message, prefix);
+});
+
+client.on("messageReactionAdd", (react, user) => {
+  if(user.id == client.user.id || react.message.author.id != client.user.id) return;
+
+  console.log("Reaction detected");
+  if (react.message.channel.type != 'dm') {
+    console.console.log("Not in DM");
+    return;
+  }
+
+  console.log("DM channel emoji: " + react.emoji);
+  react.message.channel.sendMessage(`The emoji used is ${react.emoji}`);
+
+  console.log("userid: " + user.id);
+  console.log(`The emoji used is ${react.emoji}`);
+  if(react.emoji.toString()=="1⃣"){react.message.channel.sendMessage("Hi: one");}
+  else if(react.emoji.toString()==":two:"){react.message.channel.sendMessage("Hi: two");}
+  else if(react.emoji.toString()==":three:"){react.message.channel.sendMessage("Hi: three");}
+  react.message.delete();
+});
+
+//Console events
 stdin.addListener('data', d => {
     if (testC == null) {
       return console.log("YOU HAVEN'T DEFINED AN OUTPUT CHANNEL");
@@ -105,6 +141,7 @@ stdin.addListener('data', d => {
     }
 });
 
+//Functions
 const send = (message, c) => { c.sendMessage(message); };
 
 const evalConsoleCommand = txt => {
@@ -129,15 +166,6 @@ const detectPastes = txt => {
     }
   }
   return txt;
-};
-
-let submStep = {'id0': -1};
-
-//steps {stepnum: ["Step1 text", numoptions]}
-const steps = {
-  0: ["Step 0 text: You've requested -helppt. React with 1 to continue.", 1],
-  1: ["Step 1 text: Submission type", 3],
-  2: ["Step 2 text: Gamemode", 4]
 };
 
 async function dmHandle (message) {
@@ -170,50 +198,42 @@ async function reactOptions(message) {
   await msg.react("❌");
 }
 
-client.on("message", message => {
-  if (!message.guild){
-    return dmHandle(message);
-  }
-
-  if (message.author.bot) return;
-
-  //console.log(monitorMode);
-  if (monitorMode && message.channel == testC) {
-    console.log("\n", chalk.bold.bgBlue("Social spy: "), chalk.bgBlack("\n\t[" + message.author.username + "] message content: " + message.content));
-  }
-
-  if (!message.content.toLowerCase().startsWith(prefix.toLowerCase())) return;
-
-  CommandHandler(message, prefix);
-});
-
 async function isntMe(react){
   return react.me;
 }
 
-client.on("messageReactionAdd", (react, user) => {
-  if(user.id == client.user.id || react.message.author.id != client.user.id) return;
-
-  console.log("Reaction detected");
-  if (react.message.channel.type != 'dm') {
-    console.console.log("Not in DM");
-    return;
-  }
-
-  console.log("DM channel emoji: " + react.emoji);
-  react.message.channel.sendMessage(`The emoji used is ${react.emoji}`);
-
-  console.log("userid: " + user.id);
-  console.log(`The emoji used is ${react.emoji}`);
-  if(react.emoji.toString()=="1⃣"){react.message.channel.sendMessage("Hi: one");}
-  else if(react.emoji.toString()==":two:"){react.message.channel.sendMessage("Hi: two");}
-  else if(react.emoji.toString()==":three:"){react.message.channel.sendMessage("Hi: three");}
-  react.message.delete();
-});
-
 function selfping() {
   request("https://chipsbot.herokuapp.com/", _=>_);
 }
-setInterval(selfping, 1000*60*10);
 
-client.login(process.env.TOKEN);
+let nodefile="chips.js";
+//setup + start
+function start(nodefile) {
+  fs.readdirSync("./commands").map(f => {
+    if (/\.js/.test(f)) {
+      const precmd = require(`./commands/${f}`);
+      client.commands[precmd.name] = new Command(precmd);
+    }
+  });
+
+  console.log('Master process is running.');
+  var proc = child_process.spawn('node', [nodefile]);
+
+  proc.stdout.on('data', function (data) {
+    console.log(data.toString());
+  });
+  proc.stderr.on('data', function (data) {
+    console.log(data.toString());
+  });
+
+  setInterval(selfping, 1000*60*10);
+
+  client.login(process.env.TOKEN);
+
+  proc.on('exit', function (code) {
+       console.log('child process exited with code ' + code);
+       delete(proc);
+       setTimeout(start, 5000);
+   });
+}
+start();
