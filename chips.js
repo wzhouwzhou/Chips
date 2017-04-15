@@ -87,11 +87,10 @@ client.on("ready", _ => {
 });
 
 client.on("message", message => {
+  if (message.author.bot) return;
   if (!message.guild){
     return dmHandle(message);
   }
-
-  if (message.author.bot) return;
 
   //console.log(monitorMode);
   if (monitorMode && message.channel == testC) {
