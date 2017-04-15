@@ -206,7 +206,7 @@ function selfping() {
   request("https://chipsbot.herokuapp.com/", _=>_);
 }
 
-let nodefile="chips.js";
+let nodefile="./chips.js";
 //setup + start
 function start(nodefile) {
   fs.readdirSync("./commands").map(f => {
@@ -217,7 +217,7 @@ function start(nodefile) {
   });
 
   console.log('Master process is running.');
-  var proc = child_process.spawn('node', [nodefile]);
+  var proc = child_process.spawn('node', nodefile);
 
   proc.stdout.on('data', function (data) {
     console.log(data.toString());
