@@ -3,6 +3,8 @@ module.exports = {
   async func(msg, {send, member, author, content, channel, guild, args, gMember, Discord, reply, bot}) {
     const used = member || author;
 
+    if (!args[0]) return send("No user given :(");
+    const target = args[0].match(Constants.patterns.MENTION)[1];
     const split = content.replace(/\s+/g, ' ').trim().split(" ");
     let reason = split.slice(2, split.length).join(" ");
     if (reason == "") reason = "None";
@@ -19,8 +21,6 @@ module.exports = {
       default:
         return send(`No bans for you, <@${used.id}>!`);
     }
-    if (!args[0]) return send("No user given :(");
-    const target = args[0].match(Constants.patterns.MENTION)[1];
     // console.log("Target: "+target);
 
     let emb = new Discord.RichEmbed()
