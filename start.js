@@ -16,7 +16,7 @@ function start(nodefile) {
   proc.on('exit', function (code) {
     console.log('child process exited with code ' + code);
     delete(proc);
-    setTimeout(start, 5000);
+    setTimeout(start(nodefile), 5000);
   });
 }
 start(nodefile);
