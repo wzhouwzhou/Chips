@@ -5,7 +5,7 @@ global.Constants = require("./Constants");
 global.index = require("./routes/index");
 global.login = require("./routes/login");
 global.useroverview = require("./routes/useroverview");
-global.proc;
+
 //Chips constants
 const child_process = require('child_process');
 const stdin = process.openStdin();
@@ -207,33 +207,13 @@ function selfping() {
   request("https://chipsbot.herokuapp.com/", _=>_);
 }
 
-let nodefile="./chips.js";
-//setup + start
-function start(nodefile) {
-  fs.readdirSync("./commands").map(f => {
-    if (/\.js/.test(f)) {
-      const precmd = require(`./commands/${f}`);
-      client.commands[precmd.name] = new Command(precmd);
-    }
-  });
+fs.readdirSync("./commands").map(f => {
+  if (/\.js/.test(f)) {
+    const precmd = require(`./commands/${f}`);
+    client.commands[precmd.name] = new Command(precmd);
+  }
+});
 
-  console.log('Master process is running.');
-  proc = child_process.spawn('node', nodefile);
-  proc.stdout.on('data', function (data) {
-    console.log(data.toString());
-  });
-  proc.stderr.on('data', function (data) {
-    console.log(data.toString());
-  });
+setInterval(selfping, 1000*60*10);
 
-  setInterval(selfping, 1000*60*10);
-
-  client.login(process.env.TOKEN);
-
-  proc.on('exit', function (code) {
-       console.log('child process exited with code ' + code);
-       delete(proc);
-       setTimeout(start, 5000);
-   });
-}
-start();
+client.login(process.env.TOKEN);

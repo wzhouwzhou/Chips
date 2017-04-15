@@ -1,1 +1,1 @@
-web: node chips.js
+web: node start.js
