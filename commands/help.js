@@ -12,6 +12,6 @@ module.exports = {
       {}ban to ban people.
       {}setoutput to define testC.
       {}setDM to define dmC.
-      {}botpanic to force shutdown`.replace(/{}/g, prefix));
+      {}botpanic to force shutdown (Auto restart)`.replace(/{}/g, prefix));
   }
 };

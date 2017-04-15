@@ -5,6 +5,7 @@ module.exports = {
     switch (used.id) {
       case Constants.users.WILLYZ:
       case Constants.users.PGSUPER:
+      case Constants.users.XZLQ:
         break;
       default:
         return send("You must be approved to use this command! " + member ? member.displayName : author.username);

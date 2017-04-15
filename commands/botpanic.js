@@ -8,12 +8,15 @@ module.exports = {
       case Constants.users.ZALGO:
       case Constants.users.XZLQ:
       case Constants.users.KONEKO:
+      case Constants.users.NELYN:
+      case Constants.users.LOAF:
+      case Constants.users.ARX:
         break;
       default:
         return reply(`No!`);
     }
     database.sheets[`botlog`].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "PANIC", mainvalue: "SIGTERM"},(err) => {console.log(`Error : ${err}`);});
-    await send(`${member.displayName}, panic mode activated! Chips forcibly shutting down... (5 seconds)`);
+    await send(`${member.displayName}, panic mode activated! Chips forcibly shutting down... (Attempting restart in 4 seconds)`);
     process.exit(-100);
   }
 };
