@@ -1,6 +1,6 @@
 module.exports = {
   name: "botpanic",
-  async func(msg, { reply, member, author, content, channel, guild, args, gMember, Discord }) {
+  async func(msg, { send, reply, member, author, content, channel, guild, args, gMember, Discord }) {
     const used = member || author;
     switch (used.id) {
       case Constants.users.WILLYZ:
