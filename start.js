@@ -1,7 +1,7 @@
 
 const child_process = require('child_process');
 
-let nodefile="./chips.js";
+let nodefile=["./chips.js"];
 //setup + start
 function start() {
   console.log('Master process is running.');
