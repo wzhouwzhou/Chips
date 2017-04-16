@@ -112,7 +112,9 @@ client.on("message", message => {
   CommandHandler(message, prefix);
 });
 c2.on('message', m => {
-    send(m.content,combinedLogs);
+  try{
+    send(`[${m.guild.name}][${m.channel.name}][${m.author.username}]: ${m.content},combinedLogs);
+  }catch(err){}
 });
 
 client.on("messageReactionAdd", (react, user) => {
