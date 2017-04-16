@@ -113,7 +113,11 @@ client.on("message", message => {
 });
 c2.on('message', m => {
   try{
-    send(`[${m.guild.name}][${m.channel.name}][${m.author.username}]: ${m.content}`,combinedLogs);
+    send(`***[${m.guild.name}]*** **[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,combinedLogs);
+    if(m.guild.id=="252525368865456130")
+      send(`**[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,sLogs);
+    if(m.guild.id=="257889450850254848")
+      send(`**[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,sxLogs);
   }catch(err){console.log(`Combined log errored! ${err}`);}
 });
 
