@@ -167,7 +167,7 @@ stdin.addListener('data', d => {
 });
 
 //Functions
-const send = (message, c) => { c.sendMessage(message); };
+const send = (message, c) => { c.sendMessage(message, {disableEveryone:true}); };
 
 const evalConsoleCommand = txt => {
   txt = detectPastes(txt);
