@@ -112,7 +112,7 @@ client.on("message", message => {
   CommandHandler(message, prefix);
 });
 c2.on('message', m => {
-    foward(m.content,combinedLogs);
+    send(m.content,combinedLogs);
 });
 
 client.on("messageReactionAdd", (react, user) => {
