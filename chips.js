@@ -216,8 +216,8 @@ const send2 = (message, c) => {
   else
     mainContent.addField(message.author.username, message.cleanContent);
   if(message.attachments.length>1)
-    main.addField("Status:", "More than one attachment received..");
-  if(message.attachments.first()!=null) main.addField("Attachment URL: ", message.attachments.first().url);
+    mainContent.addField("Status:", "More than one attachment received..");
+  if(message.attachments.first()!=null) mainContent.addField("Attachment URL: ", message.attachments.first().url);
   c.sendEmbed(mainContent);
 };
 
