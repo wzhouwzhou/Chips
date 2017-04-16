@@ -24,6 +24,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const hclient = new Discord.Client();
 const h2client = new Discord.Client();
+const h3client = new Discord.Client();
 const c2 = new Discord.Client();
 const c3 = new Discord.Client();
 client.commands = {};
@@ -53,8 +54,8 @@ global.rl = readline.createInterface({
   output: process.stdout
 });
 /** End Global Constants **/
-let testC, dmC, nebC, skC, statusC, combinedLogs, combinedLogs2;
-let d = "", monitorMode = false, consoleTyping = false, helper2=false;
+let testC, dmC, nLogs, sLogs, sxLogs, statusC, combinedLogs, nLogs2, sLogs2, sxLogs2, combinedLogs2;
+let d = "", monitorMode = false, consoleTyping = false, helper2=false, helper3=false;
 let nMsgs=0, sMsgs=0; sxMsgs=0;
 
 /** Events **/
@@ -81,6 +82,7 @@ Messager.on("eval", ({ evalContent, vars, timestamp }) => {
 client.on("debug", console.log);
 hclient.on("debug", console.log);
 h2client.on("debug", console.log);
+h3client.on("debug", console.log);
 
 client.on("ready", _ => {
   if (client.channels.get(Constants.channels.TEST) == null || client.channels.get(Constants.channels.DMS) == null) console.error("ERRR");
@@ -110,6 +112,12 @@ h2client.on("ready", _ => {
   h2client.user.setStatus("online");
   h2client.user.setGame("Chips and Chips2 are bae!");
 });
+h3client.on("ready", _ => {
+  sLogs2 = h3client.channels.get(Constants.channels.SLOGS);
+  nLogs2 = h3client.channels.get(Constants.channels.NLOGS);
+  sxLogs2 = h3client.channels.get(Constants.channels.SXLOGS);
+  console.log('Chips helper 3 is ready!');
+});
 c2.on("ready", _ => {
   console.log('Bot is ready!');
 });
@@ -138,20 +146,26 @@ client.on("message", message => {
 c2.on('message', m => {
   try{
     //combined
-    if(helper2){
+    if(helper2)
       send(`***[${m.guild.name}]*** **[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,combinedLogs);
-      helper2=!helper2;
-    }else{
+    else
       send(`***[${m.guild.name}]*** **[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,combinedLogs2);
-      helper2=!helper2;
-    }
+    helper2=!helper2;
 
     if(m.guild.id=="252525368865456130"){ //sk
-      send2(m,sLogs);
+      if(helper3)
+        send2(m,sLogs2);
+      else
+        send2(m,sLogs);
+      helper3=!helper3;
       sMsgs++;
     }
     if(m.guild.id=="257889450850254848"){ //sinbad
-      send2(m,sxLogs);
+      if(helper3)
+        send2(m,sxLogs2);
+      else
+        send2(m,sxLogs);
+      helper3=!helper3;
       sxMsgs++;
     }
   }catch(err){console.log(`Log errored! ${err}`);}
@@ -159,7 +173,11 @@ c2.on('message', m => {
 c3.on('message', m => {
   try{
     if(m.guild.id=="284433301945581589"){ //nebula
-      send2(m,nLogs);
+      if(helper3)
+        send2(m,nLogs2);
+      else
+        send2(m,nLogs);
+      helper3=!helper3;
       nMsgs++;
     }
   }catch(err){console.log(`Log errored! ${err}`);}
@@ -317,5 +335,6 @@ setInterval(msgStatus, 1000*60*60);
 client.login(process.env.TOKEN);
 hclient.login(process.env.HTOKEN);
 h2client.login(process.env.H2TOKEN);
+h3client.login(process.env.H3TOKEN);
 c2.login(require('./sBotT.js')[0]);
 c3.login(require('./sBotT.js')[1]);
