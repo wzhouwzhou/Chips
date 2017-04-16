@@ -89,7 +89,7 @@ client.on("ready", _ => {
 client.on("message", message => {
   if (message.author.bot) return;
 
-  if(message.content=="wowbleach") message.channel.send(" \ _ \ _ \<:Bleach:274628490844962826>\n\ <:WOW:290865903384657920>");
+  if(message.content.toLowerCase().indexOf("wowbleach")>-1) message.channel.send(" \ _ \ _ \<:Bleach:274628490844962826>\n\ <:WOW:290865903384657920>");
 
   if (!message.guild){
     return dmHandle(message);
