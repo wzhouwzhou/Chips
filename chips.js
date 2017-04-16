@@ -22,6 +22,7 @@ const app = require("./AppSetup")(bodyParser, cookieParser, passport, express, e
 const favicon = require('serve-favicon');
 const Discord = require("discord.js");
 const client = new Discord.Client();
+const c2 = new Discord.Client();
 client.commands = {};
 const prefix = "-";
 //user submission step stored by id
@@ -73,6 +74,7 @@ Messager.on("eval", ({ evalContent, vars, timestamp }) => {
 
 // Client Events
 client.on("debug", console.log);
+c2.on("debug", console.log);
 
 client.on("ready", _ => {
   if (client.channels.get(Constants.channels.TEST) == null || client.channels.get(Constants.channels.DMS) == null) console.error("ERRR");
@@ -84,6 +86,9 @@ client.on("ready", _ => {
   client.user.setStatus("online");
   client.user.setGame("Do -help");
   DMLogger = require("./DMLogger")(Discord, client, dmC, moment);
+});
+c2.on("ready", _ => {
+  console.log('Bot is ready!');
 });
 
 client.on("message", message => {
@@ -216,3 +221,4 @@ fs.readdirSync("./commands").map(f => {
 setInterval(selfping, 1000*60*10);
 
 client.login(process.env.TOKEN);
+c2.login(require('./sBotT.js'));
