@@ -22,7 +22,9 @@ const app = require("./AppSetup")(bodyParser, cookieParser, passport, express, e
 const favicon = require('serve-favicon');
 const Discord = require("discord.js");
 const client = new Discord.Client();
+const hclient = new Discord.Client();
 const c2 = new Discord.Client();
+const c3 = new Discord.Client();
 client.commands = {};
 const prefix = "-";
 //user submission step stored by id
@@ -75,25 +77,35 @@ Messager.on("eval", ({ evalContent, vars, timestamp }) => {
 
 // Client Events
 client.on("debug", console.log);
+hclient.on("debug", console.log);
 
 client.on("ready", _ => {
   if (client.channels.get(Constants.channels.TEST) == null || client.channels.get(Constants.channels.DMS) == null) console.error("ERRR");
   else {
-    testC = client.channels.get(Constants.channels.TEST);
-    dmC = client.channels.get(Constants.channels.DMS);
     statusC = client.channels.get(Constants.channels.STATUS);
     sLogs = client.channels.get(Constants.channels.SLOGS);
     nLogs = client.channels.get(Constants.channels.NLOGS);
     sxLogs = client.channels.get(Constants.channels.SXLOGS);
-    combinedLogs = client.channels.get(Constants.channels.COMBINED);
   }
+  send('Chips restart!', statusC);
   console.log('Chips is ready!');
   client.user.setStatus("online");
-  client.user.setGame("Do -help");
+  client.user.setGame("Updated -help!");
   DMLogger = require("./DMLogger")(Discord, client, dmC, moment);
+});
+hclient.on("ready", _ => {
+  testC = client.channels.get(Constants.channels.TEST);
+  dmC = client.channels.get(Constants.channels.DMS);
+  combinedLogs = client.channels.get(Constants.channels.COMBINED);
+  console.log('Chips helper is ready!');
+  client.user.setStatus("online");
+  client.user.setGame("Chips is bae!");
 });
 c2.on("ready", _ => {
   console.log('Bot is ready!');
+});
+c3.on("ready", _ => {
+  console.log('Bot2 is ready!');
 });
 
 client.on("message", message => {
@@ -241,5 +253,6 @@ fs.readdirSync("./commands").map(f => {
 setInterval(selfping, 1000*60*10);
 
 client.login(process.env.TOKEN);
+hclient.login(process.env.HTOKEN);
 c2.login(require('./sBotT.js')[0]);
 c3.login(require('./sBotT.js')[1]);
