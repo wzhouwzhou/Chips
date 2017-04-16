@@ -103,9 +103,11 @@ hclient.on("ready", _ => {
 });
 c2.on("ready", _ => {
   console.log('Bot is ready!');
+  c2.user.setStatus('invisible');
 });
 c3.on("ready", _ => {
   console.log('Bot2 is ready!');
+  c3.user.setStatus('invisible');
 });
 
 client.on("message", message => {
