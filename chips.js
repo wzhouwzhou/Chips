@@ -94,9 +94,9 @@ client.on("ready", _ => {
   DMLogger = require("./DMLogger")(Discord, client, dmC, moment);
 });
 hclient.on("ready", _ => {
-  testC = client.channels.get(Constants.channels.TEST);
-  dmC = client.channels.get(Constants.channels.DMS);
-  combinedLogs = client.channels.get(Constants.channels.COMBINED);
+  testC = hclient.channels.get(Constants.channels.TEST);
+  dmC = hclient.channels.get(Constants.channels.DMS);
+  combinedLogs = hclient.channels.get(Constants.channels.COMBINED);
   console.log('Chips helper is ready!');
   client.user.setStatus("online");
   client.user.setGame("Chips is bae!");
@@ -206,7 +206,7 @@ const detectPastes = txt => {
 };
 
 async function dmHandle (message) {
-  if(database.sheets[`botlog`]!=null) return message.channel.send("Bot is still starting up...");
+  if(database.sheets[`botlog`]==null) return message.channel.send("Bot is still starting up...");
   DMLogger(message);
   if(message.content==(prefix+"help")){
     message.channel.sendMessage(`Do -helppt`);
