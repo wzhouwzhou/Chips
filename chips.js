@@ -52,7 +52,7 @@ global.rl = readline.createInterface({
   output: process.stdout
 });
 /** End Global Constants **/
-let testC, dmC, nebC, skC, statusC;
+let testC, dmC, nebC, skC, statusC, combinedLogs;
 let d = "", monitorMode = false, consoleTyping = false;
 
 /** Events **/
