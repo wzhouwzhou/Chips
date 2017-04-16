@@ -98,8 +98,8 @@ hclient.on("ready", _ => {
   dmC = hclient.channels.get(Constants.channels.DMS);
   combinedLogs = hclient.channels.get(Constants.channels.COMBINED);
   console.log('Chips helper is ready!');
-  client.user.setStatus("online");
-  client.user.setGame("Chips is bae!");
+  hclient.user.setStatus("online");
+  hclient.user.setGame("Chips is bae!");
 });
 c2.on("ready", _ => {
   console.log('Bot is ready!');
