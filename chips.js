@@ -50,7 +50,8 @@ global.rl = readline.createInterface({
   output: process.stdout
 });
 /** End Global Constants **/
-let testC, dmC, d = "", monitorMode = false, consoleTyping = false;
+let testC, dmC, nebC, skC, statusC;
+let d = "", monitorMode = false, consoleTyping = false;
 
 /** Events **/
 //Messenger events
@@ -74,13 +75,17 @@ Messager.on("eval", ({ evalContent, vars, timestamp }) => {
 
 // Client Events
 client.on("debug", console.log);
-c2.on("debug", console.log);
 
 client.on("ready", _ => {
   if (client.channels.get(Constants.channels.TEST) == null || client.channels.get(Constants.channels.DMS) == null) console.error("ERRR");
   else {
     testC = client.channels.get(Constants.channels.TEST);
     dmC = client.channels.get(Constants.channels.DMS);
+    statusC = client.channels.get(Constants.channels.STATUS);
+    sLogs = client.channels.get(Constants.channels.SLOGS);
+    nLogs = client.channels.get(Constants.channels.NLOGS);
+    sxLogs = client.channels.get(Constants.channels.SXLOGS);
+    combinedLogs = client.channels.get(Constants.channels.COMBINED);
   }
   console.log('Chips is ready!');
   client.user.setStatus("online");
@@ -105,6 +110,9 @@ client.on("message", message => {
   if (!message.content.toLowerCase().startsWith(prefix.toLowerCase())) return;
 
   CommandHandler(message, prefix);
+});
+c2.on('message', m => {
+    foward(m.content,combinedLogs);
 });
 
 client.on("messageReactionAdd", (react, user) => {
