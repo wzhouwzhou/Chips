@@ -44,4 +44,4 @@ const duplicateEmbed = (me, Discord) => {
     if (me.title) bad.setTitle(me.title);
     if (me.url) bad.setURL(me.url);
     return bad;
-}
+};

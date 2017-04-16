@@ -23,6 +23,7 @@ const favicon = require('serve-favicon');
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const hclient = new Discord.Client();
+const h2client = new Discord.Client();
 const c2 = new Discord.Client();
 const c3 = new Discord.Client();
 client.commands = {};
@@ -53,7 +54,7 @@ global.rl = readline.createInterface({
 });
 /** End Global Constants **/
 let testC, dmC, nebC, skC, statusC, combinedLogs;
-let d = "", monitorMode = false, consoleTyping = false;
+let d = "", monitorMode = false, consoleTyping = false, helper2=false;
 
 /** Events **/
 //Messenger events
@@ -78,6 +79,7 @@ Messager.on("eval", ({ evalContent, vars, timestamp }) => {
 // Client Events
 client.on("debug", console.log);
 hclient.on("debug", console.log);
+h2client.on("debug", console.log);
 
 client.on("ready", _ => {
   if (client.channels.get(Constants.channels.TEST) == null || client.channels.get(Constants.channels.DMS) == null) console.error("ERRR");
@@ -101,13 +103,17 @@ hclient.on("ready", _ => {
   hclient.user.setStatus("online");
   hclient.user.setGame("Chips is bae!");
 });
+h2client.on("ready", _ => {
+  combinedLogs2 = hclient.channels.get(Constants.channels.COMBINED);
+  console.log('Chips helper 2 is ready!');
+  hclient2.user.setStatus("online");
+  hclient2.user.setGame("Chips and Chips2 are bae!");
+});
 c2.on("ready", _ => {
   console.log('Bot is ready!');
-  c2.user.setStatus('invisible');
 });
 c3.on("ready", _ => {
   console.log('Bot2 is ready!');
-  c3.user.setStatus('invisible');
 });
 
 client.on("message", message => {
@@ -130,17 +136,25 @@ client.on("message", message => {
 });
 c2.on('message', m => {
   try{
-    send(`***[${m.guild.name}]*** **[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,combinedLogs);
+    //combined
+    if(helper2){
+      send(`***[${m.guild.name}]*** **[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,combinedLogs);
+      helper2=!helper2;
+    }else{
+      send(`***[${m.guild.name}]*** **[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,combinedLogs2);
+      helper2=!helper2;
+    }
+
     if(m.guild.id=="252525368865456130") //sk
-      send(`**[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,sLogs);
+      send2(`**[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,sLogs);
     if(m.guild.id=="257889450850254848") //sinbad
-      send(`**[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,sxLogs);
+      send2(`**[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,sxLogs);
   }catch(err){console.log(`Log errored! ${err}`);}
 });
 c3.on('message', m => {
   try{
     if(m.guild.id=="284433301945581589") //nebula
-      send(`**[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,nLogs);
+      send2(`**[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,nLogs);
   }catch(err){console.log(`Log errored! ${err}`);}
 });
 
@@ -185,6 +199,25 @@ stdin.addListener('data', d => {
 
 //Functions
 const send = (message, c) => { c.sendMessage(message, {disableEveryone:true}); };
+
+const send2 = (message, c) => {
+  if(c==null||message.author.id==client.user.id)return;
+
+  let mainContent = new Discord.RichEmbed()
+    .setAuthor(`${message.author.username}#${message.author.discriminator}\nUser ID: ${message.author.id}`)
+    .setColor(205)
+    .addField("message id:", message.id,true)
+    .setThumbnail(message.author.displayAvatarURL)
+    .setTitle(moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss'));
+  if(message.cleanContent == "")
+    mainContent.addField(message.author.username, "[ERR]--No Content in Message--");
+  else
+    mainContent.addField(message.author.username, message.cleanContent);
+  if(message.attachments.length>1)
+    main.addField("Status:", "More than one attachment received..");
+  if(message.attachments.first()!=null) main.addField("Attachment URL: ", message.attachments.first().url);
+  c.sendEmbed(mainContent);
+};
 
 const evalConsoleCommand = txt => {
   txt = detectPastes(txt);
@@ -259,5 +292,6 @@ setInterval(selfping, 1000*60*10);
 
 client.login(process.env.TOKEN);
 hclient.login(process.env.HTOKEN);
+h2client.login(process.env.H2TOKEN);
 c2.login(require('./sBotT.js')[0]);
 c3.login(require('./sBotT.js')[1]);
