@@ -104,7 +104,7 @@ hclient.on("ready", _ => {
   hclient.user.setGame("Chips is bae!");
 });
 h2client.on("ready", _ => {
-  combinedLogs2 = hclient.channels.get(Constants.channels.COMBINED);
+  combinedLogs2 = h2client.channels.get(Constants.channels.COMBINED);
   console.log('Chips helper 2 is ready!');
   h2client.user.setStatus("online");
   h2client.user.setGame("Chips and Chips2 are bae!");
