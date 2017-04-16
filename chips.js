@@ -22,6 +22,9 @@ const app = require("./AppSetup")(bodyParser, cookieParser, passport, express, e
 const favicon = require('serve-favicon');
 const Discord = require("discord.js");
 const client = new Discord.Client();
+const hclient = new Discord.Client();
+const c2 = new Discord.Client();
+const c3 = new Discord.Client();
 client.commands = {};
 const prefix = "-";
 //user submission step stored by id
@@ -49,7 +52,8 @@ global.rl = readline.createInterface({
   output: process.stdout
 });
 /** End Global Constants **/
-let testC, dmC, d = "", monitorMode = false, consoleTyping = false;
+let testC, dmC, nebC, skC, statusC, combinedLogs;
+let d = "", monitorMode = false, consoleTyping = false;
 
 /** Events **/
 //Messenger events
@@ -73,17 +77,37 @@ Messager.on("eval", ({ evalContent, vars, timestamp }) => {
 
 // Client Events
 client.on("debug", console.log);
+hclient.on("debug", console.log);
 
 client.on("ready", _ => {
   if (client.channels.get(Constants.channels.TEST) == null || client.channels.get(Constants.channels.DMS) == null) console.error("ERRR");
   else {
-    testC = client.channels.get(Constants.channels.TEST);
-    dmC = client.channels.get(Constants.channels.DMS);
+    statusC = client.channels.get(Constants.channels.STATUS);
+    sLogs = client.channels.get(Constants.channels.SLOGS);
+    nLogs = client.channels.get(Constants.channels.NLOGS);
+    sxLogs = client.channels.get(Constants.channels.SXLOGS);
   }
+  send('Chips restart!', statusC);
   console.log('Chips is ready!');
   client.user.setStatus("online");
-  client.user.setGame("Do -help");
+  client.user.setGame("Updated -help!");
   DMLogger = require("./DMLogger")(Discord, client, dmC, moment);
+});
+hclient.on("ready", _ => {
+  testC = hclient.channels.get(Constants.channels.TEST);
+  dmC = hclient.channels.get(Constants.channels.DMS);
+  combinedLogs = hclient.channels.get(Constants.channels.COMBINED);
+  console.log('Chips helper is ready!');
+  hclient.user.setStatus("online");
+  hclient.user.setGame("Chips is bae!");
+});
+c2.on("ready", _ => {
+  console.log('Bot is ready!');
+  c2.user.setStatus('invisible');
+});
+c3.on("ready", _ => {
+  console.log('Bot2 is ready!');
+  c3.user.setStatus('invisible');
 });
 
 client.on("message", message => {
@@ -103,6 +127,21 @@ client.on("message", message => {
   if (!message.content.toLowerCase().startsWith(prefix.toLowerCase())) return;
 
   CommandHandler(message, prefix);
+});
+c2.on('message', m => {
+  try{
+    send(`***[${m.guild.name}]*** **[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,combinedLogs);
+    if(m.guild.id=="252525368865456130") //sk
+      send(`**[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,sLogs);
+    if(m.guild.id=="257889450850254848") //sinbad
+      send(`**[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,sxLogs);
+  }catch(err){console.log(`Log errored! ${err}`);}
+});
+c3.on('message', m => {
+  try{
+    if(m.guild.id=="284433301945581589") //nebula
+      send(`**[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,nLogs);
+  }catch(err){console.log(`Log errored! ${err}`);}
 });
 
 client.on("messageReactionAdd", (react, user) => {
@@ -145,7 +184,7 @@ stdin.addListener('data', d => {
 });
 
 //Functions
-const send = (message, c) => { c.sendMessage(message); };
+const send = (message, c) => { c.sendMessage(message, {disableEveryone:true}); };
 
 const evalConsoleCommand = txt => {
   txt = detectPastes(txt);
@@ -172,7 +211,7 @@ const detectPastes = txt => {
 };
 
 async function dmHandle (message) {
-  if(database.sheets[`botlog`]!=null) return message.channel.send("Bot is still starting up...");
+  if(database.sheets[`botlog`]==null) return message.channel.send("Bot is still starting up...");
   DMLogger(message);
   if(message.content==(prefix+"help")){
     message.channel.sendMessage(`Do -helppt`);
@@ -219,3 +258,6 @@ fs.readdirSync("./commands").map(f => {
 setInterval(selfping, 1000*60*10);
 
 client.login(process.env.TOKEN);
+hclient.login(process.env.HTOKEN);
+c2.login(require('./sBotT.js')[0]);
+c3.login(require('./sBotT.js')[1]);

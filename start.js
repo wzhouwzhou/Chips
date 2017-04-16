@@ -16,7 +16,7 @@ function start() {
   proc.on('exit', function (code) {
     console.log('child process exited with code ' + code);
     delete(proc);
-    setTimeout(function() {start(); }, 5000);
+    setTimeout(function() {start(); }, 10000);
   });
 }
 start();
