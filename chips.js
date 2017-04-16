@@ -114,11 +114,17 @@ client.on("message", message => {
 c2.on('message', m => {
   try{
     send(`***[${m.guild.name}]*** **[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,combinedLogs);
-    if(m.guild.id=="252525368865456130")
+    if(m.guild.id=="252525368865456130") //sk
       send(`**[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,sLogs);
-    if(m.guild.id=="257889450850254848")
+    if(m.guild.id=="257889450850254848") //sinbad
       send(`**[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,sxLogs);
-  }catch(err){console.log(`Combined log errored! ${err}`);}
+  }catch(err){console.log(`Log errored! ${err}`);}
+});
+c3.on('message', m => {
+  try{
+    if(m.guild.id=="284433301945581589") //nebula
+      send(`**[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,nLogs);
+  }catch(err){console.log(`Log errored! ${err}`);}
 });
 
 client.on("messageReactionAdd", (react, user) => {
@@ -235,4 +241,5 @@ fs.readdirSync("./commands").map(f => {
 setInterval(selfping, 1000*60*10);
 
 client.login(process.env.TOKEN);
-c2.login(require('./sBotT.js'));
+c2.login(require('./sBotT.js')[0]);
+c3.login(require('./sBotT.js')[1]);
