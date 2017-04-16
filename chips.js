@@ -113,8 +113,8 @@ client.on("message", message => {
 });
 c2.on('message', m => {
   try{
-    send(`[${m.guild.name}][${m.channel.name}][${m.author.username}]: ${m.content},combinedLogs);
-  }catch(err){}
+    send(`[${m.guild.name}][${m.channel.name}][${m.author.username}]: ${m.content}`,combinedLogs);
+  }catch(err){console.log(`Combined log errored! ${err}`);}
 });
 
 client.on("messageReactionAdd", (react, user) => {
