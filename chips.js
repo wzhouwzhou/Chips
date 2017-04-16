@@ -146,15 +146,15 @@ c2.on('message', m => {
     }
 
     if(m.guild.id=="252525368865456130") //sk
-      send2(`**[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,sLogs);
+      send2(m,sLogs);
     if(m.guild.id=="257889450850254848") //sinbad
-      send2(`**[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,sxLogs);
+      send2(m,sxLogs);
   }catch(err){console.log(`Log errored! ${err}`);}
 });
 c3.on('message', m => {
   try{
     if(m.guild.id=="284433301945581589") //nebula
-      send2(`**[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,nLogs);
+      send2(m,nLogs);
   }catch(err){console.log(`Log errored! ${err}`);}
 });
 
