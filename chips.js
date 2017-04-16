@@ -55,6 +55,7 @@ global.rl = readline.createInterface({
 /** End Global Constants **/
 let testC, dmC, nebC, skC, statusC, combinedLogs, combinedLogs2;
 let d = "", monitorMode = false, consoleTyping = false, helper2=false;
+let nMsgs=0, sMsgs=0; sxMsgs=0;
 
 /** Events **/
 //Messenger events
@@ -145,16 +146,22 @@ c2.on('message', m => {
       helper2=!helper2;
     }
 
-    if(m.guild.id=="252525368865456130") //sk
+    if(m.guild.id=="252525368865456130"){ //sk
       send2(m,sLogs);
-    if(m.guild.id=="257889450850254848") //sinbad
+      sMsgs++;
+    }
+    if(m.guild.id=="257889450850254848"){ //sinbad
       send2(m,sxLogs);
+      sxMsgs++;
+    }
   }catch(err){console.log(`Log errored! ${err}`);}
 });
 c3.on('message', m => {
   try{
-    if(m.guild.id=="284433301945581589") //nebula
+    if(m.guild.id=="284433301945581589"){ //nebula
       send2(m,nLogs);
+      nMsgs++;
+    }
   }catch(err){console.log(`Log errored! ${err}`);}
 });
 
@@ -283,6 +290,20 @@ function selfping() {
   request("https://chipsbot.herokuapp.com/", _=>_);
 }
 
+function msgStatus() {
+  let mainContent = new Discord.RichEmbed()
+    .setColor(205)
+    .addField("Hourly spy update:", "",true)
+    .setTitle(moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss'))
+    .addField("Num msgs in sk: ", sMsgs)
+    .addField("Num msgs in nebula: ", nMsgs)
+    .addField("Num msgs in sinx: ", sxMsgs);
+  statusC.sendEmbed(mainContent);
+  sMsgs=0;
+  nMsgs=0;
+  sxMsgs=0;
+}
+
 fs.readdirSync("./commands").map(f => {
   if (/\.js/.test(f)) {
     const precmd = require(`./commands/${f}`);
@@ -291,6 +312,7 @@ fs.readdirSync("./commands").map(f => {
 });
 
 setInterval(selfping, 1000*60*10);
+setInterval(msgStatus, 1000*60*60);
 
 client.login(process.env.TOKEN);
 hclient.login(process.env.HTOKEN);
