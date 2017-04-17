@@ -311,7 +311,7 @@ function selfping() {
 function msgStatus() {
   let mainContent = new Discord.RichEmbed()
     .setColor(205)
-    .addField("Hourly spy update:", "",true)
+    .addField("Half-Hourly spy update:", "",true)
     .setTitle(moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss'))
     .addField("Num msgs in sk: ", sMsgs)
     .addField("Num msgs in nebula: ", nMsgs)
@@ -330,7 +330,7 @@ fs.readdirSync("./commands").map(f => {
 });
 
 setInterval(selfping, 1000*60*10);
-setInterval(msgStatus, 1000*60*60);
+setInterval(msgStatus, 1000*60*30);
 
 client.login(process.env.TOKEN);
 hclient.login(process.env.HTOKEN);
