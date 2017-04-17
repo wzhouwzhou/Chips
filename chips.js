@@ -147,9 +147,9 @@ c2.on('message', m => {
   try{
     //combined
     if(helper2)
-      send(`***[${m.guild.name}]*** **[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,combinedLogs);
+      send(`***[${m.guild.name}]*** **[${m.channel.name}]** *[${m.author.username}]*: ${m.cleanContent}`,combinedLogs);
     else
-      send(`***[${m.guild.name}]*** **[${m.channel.name}]** *[${m.author.username}]*: ${m.content}`,combinedLogs2);
+      send(`***[${m.guild.name}]*** **[${m.channel.name}]** *[${m.author.username}]*: ${m.cleanContent}`,combinedLogs2);
     helper2=!helper2;
 
     if(m.guild.id=="252525368865456130"){ //sk
