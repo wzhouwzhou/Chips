@@ -53,10 +53,13 @@ global.rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
+global.statusC;
+global.nMsgs=0;
+global.sMsgs=0;
+global.sxMsgs=0;
 /** End Global Constants **/
-let testC, dmC, nLogs, sLogs, sxLogs, statusC, combinedLogs, nLogs2, sLogs2, sxLogs2, combinedLogs2;
+let testC, dmC, nLogs, sLogs, sxLogs, combinedLogs, nLogs2, sLogs2, sxLogs2, combinedLogs2;
 let d = "", monitorMode = false, consoleTyping = false, helper2=false, helper3=false;
-let nMsgs=0, sMsgs=0; sxMsgs=0;
 
 /** Events **/
 //Messenger events
