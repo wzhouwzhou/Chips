@@ -315,7 +315,7 @@ async function msgStatus() {
   let statsE = new Discord.RichEmbed()
     .setColor(205)
     .addField("Spy update:", "Message counts: ",true)
-    .setTitle(moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss:SSS'))
+    .setTitle(moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss.SSS'))
     .addField("Num msgs in sk: ", `${sMsgs} msgs`)
     .addField("Num msgs in nebula: ", `${nMsgs} msgs`)
     .addField("Num msgs in sinx: ", `${sxMsgs} msgs`);
