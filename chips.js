@@ -314,11 +314,11 @@ function selfping() {
 function msgStatus() {
   let mainContent = new Discord.RichEmbed()
     .setColor(205)
-    .addField("Half-Hourly spy update:", "",true)
+    .addField("Half-Hourly spy update:", "Message count: ",true)
     .setTitle(moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss'))
-    .addField("Num msgs in sk: ", sMsgs)
-    .addField("Num msgs in nebula: ", nMsgs)
-    .addField("Num msgs in sinx: ", sxMsgs);
+    .addField("Num msgs in sk: ", `${sMsgs} msgs`)
+    .addField("Num msgs in nebula: ", `${nMsgs} msgs`)
+    .addField("Num msgs in sinx: ", `${sxMsgs} msgs`);
   statusC.sendEmbed(mainContent);
   sMsgs=0;
   nMsgs=0;
