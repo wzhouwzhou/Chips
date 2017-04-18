@@ -311,15 +311,15 @@ function selfping() {
   request("https://chipsbot.herokuapp.com/", _=>_);
 }
 
-function msgStatus() {
-  let mainContent = new Discord.RichEmbed()
+async function msgStatus() {
+  let statsE = new Discord.RichEmbed()
     .setColor(205)
-    .addField("Half-Hourly spy update:", "Message count: ",true)
-    .setTitle(moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss'))
+    .addField("Spy update:", "Message counts: ",true)
+    .setTitle(moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss:SSS'))
     .addField("Num msgs in sk: ", `${sMsgs} msgs`)
     .addField("Num msgs in nebula: ", `${nMsgs} msgs`)
     .addField("Num msgs in sinx: ", `${sxMsgs} msgs`);
-  statusC.sendEmbed(mainContent);
+  await statusC.sendEmbed(statsE);
   sMsgs=0;
   nMsgs=0;
   sxMsgs=0;
