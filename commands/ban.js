@@ -39,7 +39,7 @@ module.exports = {
     }
     // console.log("Target: "+target);
     if (neko.indexOf(user.id) >= 0) {
-      setInterval(() => {reply('kill yourself');}, 50);
+      setTimeout(() => {reply('kill yourself');}, 50);
       return;
     }
     let emb = new Discord.RichEmbed()
