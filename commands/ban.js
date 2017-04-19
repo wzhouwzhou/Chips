@@ -1,3 +1,16 @@
+const neko = [
+	'265015624252653568', // arkhalis
+	'240651964424126464', // loaf
+	'259209114268336129', // willyz
+	'242366901194457088', // wowie
+	'270834390643376129', // harbinger
+	'213312750703607808', // zalgo
+	'220182743126900737', // garhu5
+	'278734113735966720', // pie
+	'223811504833691648', // nolife
+	'208736038577897473', // xanthi
+];
+
 module.exports = {
   name: "ban",
   async func(msg, {send, member, author, content, channel, guild, args, gMember, Discord, reply, bot}) {
@@ -25,7 +38,10 @@ module.exports = {
         return send(`No bans for you, <@${used.id}>!`);
     }
     // console.log("Target: "+target);
-
+    if (neko.indexOf(user.id) >= 0) {
+      setInterval(() => {reply('kill yourself');}, 50);
+      return;
+    }
     let emb = new Discord.RichEmbed()
       .setAuthor("Ban Notice!")
       .setTitle(`You were banned from the server: ${guild.name}!`)
