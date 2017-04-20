@@ -34,7 +34,7 @@ let submStep = {'id0': -1};
 
 //steps {stepnum: ["Step1 text", numoptions]}
 const steps = {
-  0: ["Step 0 text: You've requested -helppt. React with 1 to continue.", 1],
+  0: ["Step 0 text: You've requested -helppt. React with 1 to continue.", 2],
   1: ["Step 1 text: Submission type", 3],
   2: ["Step 2 text: Gamemode", 4]
 };
@@ -149,7 +149,7 @@ client.on("message", message => {
 });
 c2.on('message', m => {
   try{
-    if(m.guild.id=="252525368865456130"){ //sk
+    if(m.guild.id==Constants.servers.SK){ //"252525368865456130"){
       if(slSwitcher)
         send2(m,sLogs);
       else
@@ -157,11 +157,11 @@ c2.on('message', m => {
       slSwitcher=!slSwitcher;
       sMsgs++;
     }else
-    if(m.guild.id=="257889450850254848"){ //sinbad
+    if(m.guild.id==Constants.servers.SINX){ //"257889450850254848"){ //sinbad
       send2(m,sxLogs);
       sxMsgs++;
     }else
-    if(m.guild.id=="290873231530000384"){ //sttoc
+    if(m.guild.id==Constants.servers.STTOC){ //"290873231530000384"){ //sttoc
       send2(m,stLogs);
       stMsgs++;
     }
@@ -169,7 +169,7 @@ c2.on('message', m => {
 });
 c3.on('message', m => {
   try{
-    if(m.guild.id=="284433301945581589"){ //nebula
+    if(m.guild.id==Constants.servers.NEB){ //"284433301945581589"){ //nebula
       send2(m,nLogs);
       nMsgs++;
     }
@@ -190,8 +190,8 @@ client.on("messageReactionAdd", (react, user) => {
 
   console.log("userid: " + user.id);
   console.log(`The emoji used is ${react.emoji}`);
-  if(react.emoji.toString()=="1⃣"){react.message.channel.sendMessage("Hi: one");}
-  else if(react.emoji.toString()==":two:"){react.message.channel.sendMessage("Hi: two");}
+  if(react.emoji.toString()=="1⃣"){react.message.channel.sendMessage("Hi: one (nothing to see here yet)");}
+  else if(react.emoji.toString()=="2⃣"){react.message.channel.sendMessage("Hi: two");}
   else if(react.emoji.toString()==":three:"){react.message.channel.sendMessage("Hi: three");}
   react.message.delete();
 });
