@@ -311,7 +311,7 @@ function selfping() {
   request("https://chipsbot.herokuapp.com/", _=>_);
 }
 
-async function msgStatus() {
+function msgStatus() {
   let statsE = new Discord.RichEmbed()
     .setColor(205)
     .addField("Spy update:", "Message counts: ",true)
@@ -319,7 +319,7 @@ async function msgStatus() {
     .addField("Num msgs in sk: ", `${sMsgs} msgs`)
     .addField("Num msgs in nebula: ", `${nMsgs} msgs`)
     .addField("Num msgs in sinx: ", `${sxMsgs} msgs`);
-  await statusC.sendEmbed(statsE);
+  statusC.sendEmbed(statsE);
   sMsgs=0;
   nMsgs=0;
   sxMsgs=0;
