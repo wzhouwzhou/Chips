@@ -37,6 +37,10 @@ ex.channels = {
   COMBINED: "302995818397564937"
 };
 
+ex.serverIDs = {
+  SK: "252525368865456130"
+}
+
 ex.patterns = {
   MENTION: /^[^]*<@!?(\d+)>[^]*$/
 };

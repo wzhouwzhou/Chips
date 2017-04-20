@@ -88,38 +88,39 @@ h2client.on("debug", console.log);
 h3client.on("debug", console.log);
 
 client.on("ready", _ => {
-  if (client.channels.get(Constants.channels.TEST) == null || client.channels.get(Constants.channels.DMS) == null) console.error("ERRR");
-  else {
-    statusC = client.channels.get(Constants.channels.STATUS);
-    sLogs = client.channels.get(Constants.channels.SLOGS);
-    nLogs = client.channels.get(Constants.channels.NLOGS);
-    sxLogs = client.channels.get(Constants.channels.SXLOGS);
-  }
+  statusC = client.channels.get(Constants.channels.STATUS);
+
   send('Chips restart!', statusC);
+
   console.log('Chips is ready!');
   client.user.setStatus("online");
   client.user.setGame("Updated -help!");
+
   DMLogger = require("./DMLogger")(Discord, client, dmC, moment);
 });
 hclient.on("ready", _ => {
   testC = hclient.channels.get(Constants.channels.TEST);
   dmC = hclient.channels.get(Constants.channels.DMS);
-  combinedLogs = hclient.channels.get(Constants.channels.COMBINED);
+  sLogs = hclient.channels.get(Constants.channels.SLOGS);
+
   console.log('Chips helper is ready!');
   hclient.user.setStatus("online");
   hclient.user.setGame("Chips is bae!");
 });
 h2client.on("ready", _ => {
-  combinedLogs2 = h2client.channels.get(Constants.channels.COMBINED);
+  sxLogs = h2client.channels.get(Constants.channels.SXLOGS);
+
   console.log('Chips helper 2 is ready!');
   h2client.user.setStatus("online");
-  h2client.user.setGame("Chips and Chips2 are bae!");
+  h2client.user.setGame("Chips and Chips helper are bae!");
 });
 h3client.on("ready", _ => {
-  sLogs2 = h3client.channels.get(Constants.channels.SLOGS);
-  nLogs2 = h3client.channels.get(Constants.channels.NLOGS);
-  sxLogs2 = h3client.channels.get(Constants.channels.SXLOGS);
+  nLogs = h3client.channels.get(Constants.channels.NLOGS);
+  stLogs = h3client.channels.get(Constants.channels.STLOGS);
+
   console.log('Chips helper 3 is ready!');
+  h2client.user.setStatus("online");
+  h2client.user.setGame("Chips, Chips2 and Chips3 are bae!");
 });
 c2.on("ready", _ => {
   console.log('Bot is ready!');
@@ -131,56 +132,39 @@ c3.on("ready", _ => {
 client.on("message", message => {
   if (message.author.bot) return;
 
+  //wowbleach trigger
   if(message.content.toLowerCase().indexOf("wowbleach")>-1) message.channel.send(" \ _ \ _ \<:Bleach:274628490844962826>\n\ <:WOW:290865903384657920>");
 
-  if (!message.guild){
+  if (!message.guild)
     return dmHandle(message);
-  }
 
   //console.log(monitorMode);
-  if (monitorMode && message.channel == testC) {
+  if (monitorMode && message.channel == testC)
     console.log("\n", chalk.bold.bgBlue("Social spy: "), chalk.bgBlack("\n\t[" + message.author.username + "] message content: " + message.content));
-  }
 
-  if (!message.content.toLowerCase().startsWith(prefix.toLowerCase())) return;
-
-  CommandHandler(message, prefix);
+  if (message.content.toLowerCase().startsWith(prefix.toLowerCase()))
+    CommandHandler(message, prefix);
 });
 c2.on('message', m => {
   try{
-    //combined
-    if(helper2)
-      send(`***[${m.guild.name}]*** **[${m.channel.name}]** *[${m.author.username}]*: ${m.cleanContent}`,combinedLogs);
-    else
-      send(`***[${m.guild.name}]*** **[${m.channel.name}]** *[${m.author.username}]*: ${m.cleanContent}`,combinedLogs2);
-    helper2=!helper2;
-
     if(m.guild.id=="252525368865456130"){ //sk
-      if(helper3)
-        send2(m,sLogs2);
-      else
-        send2(m,sLogs);
-      helper3=!helper3;
+      send2(m,sLogs);
       sMsgs++;
-    }
+    }else
     if(m.guild.id=="257889450850254848"){ //sinbad
-      if(helper3)
-        send2(m,sxLogs2);
-      else
-        send2(m,sxLogs);
-      helper3=!helper3;
+      send2(m,sxLogs);
       sxMsgs++;
+    }else
+    if(m.guild.id=="290873231530000384"){ //sttoc
+      send2(m,stLogs);
+      stMsgs++;
     }
   }catch(err){console.log(`Log errored! ${err}`);}
 });
 c3.on('message', m => {
   try{
     if(m.guild.id=="284433301945581589"){ //nebula
-      if(helper3)
-        send2(m,nLogs2);
-      else
-        send2(m,nLogs);
-      helper3=!helper3;
+      send2(m,nLogs);
       nMsgs++;
     }
   }catch(err){console.log(`Log errored! ${err}`);}
