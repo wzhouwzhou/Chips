@@ -8,7 +8,8 @@ module.exports = {
       .setTitle(moment(msg.timestamp).format('ddd, Do of MMM @ HH:mm:ss.SSS'))
       .addField("Num msgs in sk: ", `${sMsgs} msgs`)
       .addField("Num msgs in nebula: ", `${nMsgs} msgs`)
-      .addField("Num msgs in sinx: ", `${sxMsgs} msgs`);
+      .addField("Num msgs in sinx: ", `${sxMsgs} msgs`)
+      .addField("Num msgs in sttoc: ", `${stMsgs} msgs`);
     statusC.sendEmbed(emb);
   }
 };

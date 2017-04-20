@@ -57,9 +57,11 @@ global.statusC;
 global.nMsgs=0;
 global.sMsgs=0;
 global.sxMsgs=0;
+global.stMsgs=0;
 /** End Global Constants **/
-let testC, dmC, nLogs, sLogs, sxLogs, combinedLogs, nLogs2, sLogs2, sxLogs2, combinedLogs2;
-let d = "", monitorMode = false, consoleTyping = false, helper2=false, helper3=false;
+let testC, dmC, nLogs, sLogs, sxLogs, stLogs;
+let sLogs2;
+let d = "", monitorMode = false, consoleTyping = false, slSwitcher=false, helper3=false;
 
 /** Events **/
 //Messenger events
@@ -89,6 +91,8 @@ h3client.on("debug", console.log);
 
 client.on("ready", _ => {
   statusC = client.channels.get(Constants.channels.STATUS);
+  nLogs = h3client.channels.get(Constants.channels.NLOGS);
+  stLogs = h3client.channels.get(Constants.channels.STLOGS);
 
   send('Chips restart!', statusC);
 
@@ -100,7 +104,6 @@ client.on("ready", _ => {
 });
 hclient.on("ready", _ => {
   testC = hclient.channels.get(Constants.channels.TEST);
-  dmC = hclient.channels.get(Constants.channels.DMS);
   sLogs = hclient.channels.get(Constants.channels.SLOGS);
 
   console.log('Chips helper is ready!');
@@ -115,9 +118,8 @@ h2client.on("ready", _ => {
   h2client.user.setGame("Chips and Chips helper are bae!");
 });
 h3client.on("ready", _ => {
-  nLogs = h3client.channels.get(Constants.channels.NLOGS);
-  stLogs = h3client.channels.get(Constants.channels.STLOGS);
-
+  sLogs2 = hclient.channels.get(Constants.channels.SLOGS);
+  dmC = hclient.channels.get(Constants.channels.DMS);
   console.log('Chips helper 3 is ready!');
   h2client.user.setStatus("online");
   h2client.user.setGame("Chips, Chips2 and Chips3 are bae!");
@@ -148,7 +150,11 @@ client.on("message", message => {
 c2.on('message', m => {
   try{
     if(m.guild.id=="252525368865456130"){ //sk
-      send2(m,sLogs);
+      if(slSwitcher)
+        send2(m,sLogs);
+      else
+        send2(m,sLogs2);
+      slSwitcher=!slSwitcher;
       sMsgs++;
     }else
     if(m.guild.id=="257889450850254848"){ //sinbad
@@ -299,10 +305,11 @@ function msgStatus() {
   let statsE = new Discord.RichEmbed()
     .setColor(205)
     .addField("Spy update:", "Message counts: ",true)
-    .setTitle(moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss.SSS'))
+    .setTitle(moment().format('ddd, Do of MMM @ HH:mm:ss.SSS'))
     .addField("Num msgs in sk: ", `${sMsgs} msgs`)
     .addField("Num msgs in nebula: ", `${nMsgs} msgs`)
-    .addField("Num msgs in sinx: ", `${sxMsgs} msgs`);
+    .addField("Num msgs in sinx: ", `${sxMsgs} msgs`)
+    .addField("Num msgs in sttoc: ", `${stMsgs} msgs`);
   statusC.sendEmbed(statsE);
   sMsgs=0;
   nMsgs=0;
