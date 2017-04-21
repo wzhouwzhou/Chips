@@ -1,9 +1,23 @@
 <% extend('base.html') %>
 
+<header>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/octicons/2.0.2/octicons.min.css">
+    <link rel="stylesheet" href="github-activity-0.1.4.min.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
+    <script type="text/javascript" src="github-activity-0.1.4.min.js"></script>
+</header>
 Userview
 <% if (!isAuthenticated) { %>
-    <a id="signIn" href="/login">Sign In</a>
+    <a id="signIn" href="/login">You aren't signed in, Click here!</a>
 <% } else { %>
-    <b id="welcomeMsg"><%=user.id%></b>
-    <a href="/logout">Log Out</a>
+    <b id="Welcome back, user #"><%=user.id%></b>
+    <p>Willy's work:</p>
+    <div id="feed"></div>
+    <script>
+        GitHubActivity.feed({
+          	username: "wzhouwzhou",
+          	selector: "#feed"
+            });
+    </script>
+    <a href="/logout">Click me to Log Out</a>
 <% } %>
