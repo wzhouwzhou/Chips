@@ -119,10 +119,11 @@ h2client.on("ready", _ => {
 });
 h3client.on("ready", _ => {
   sLogs2 = hclient.channels.get(Constants.channels.SLOGS);
-  dmC = hclient.channels.get(Constants.channels.DMS);
+  dmC = h3client.channels.get(Constants.channels.DMS);
+
   console.log('Chips helper 3 is ready!');
-  h2client.user.setStatus("online");
-  h2client.user.setGame("Chips, Chips2 and Chips3 are bae!");
+  h3client.user.setStatus("online");
+  h3client.user.setGame("Chips, Chips2 and Chips3 are bae!");
 });
 c2.on("ready", _ => {
   console.log('Bot is ready!');
