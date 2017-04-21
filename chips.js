@@ -312,9 +312,11 @@ function msgStatus() {
     .addField("Num msgs in sinx: ", `${sxMsgs} msgs`)
     .addField("Num msgs in sttoc: ", `${stMsgs} msgs`);
   statusC.sendEmbed(statsE);
+  
   sMsgs=0;
   nMsgs=0;
   sxMsgs=0;
+  stMsgs=0;
 }
 
 fs.readdirSync("./commands").map(f => {
