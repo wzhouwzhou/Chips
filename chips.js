@@ -26,7 +26,7 @@ const hclient = new Discord.Client();
 const h2client = new Discord.Client();
 const h3client = new Discord.Client();
 const c2 = new Discord.Client();
-const c3 = new Discord.Client();
+global.c3 = new Discord.Client();
 client.commands = {};
 const prefix = "-";
 //user submission step stored by id
@@ -133,8 +133,10 @@ c3.on("ready", _ => {
 });
 
 client.on("message", message => {
+  //rekt
   if(message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1))
     return message.channel.send("Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE");
+
   if (message.author.bot) return;
 
   //wowbleach trigger
