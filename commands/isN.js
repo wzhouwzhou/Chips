@@ -21,11 +21,11 @@ module.exports = {
     // console.log("Target: "+target);
 
     const mem = gMember(target);
-
     let neb=c3.guilds.get(Constants.servers.NEB);
-    if(neb.members.get(mem.user.id)==null)
-      return send("0");
-    else if(neb.members.get(mem.user.id)!=null)
-      return send("1");
+    neb.fetchMember(mem.user.id).then(u => {
+      return send(mem.user.id + ": 1");
+    }).catch(err => {
+      return send(mem.user.id + ": 0");
+    });
   }
 };
