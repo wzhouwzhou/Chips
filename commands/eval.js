@@ -12,19 +12,10 @@ module.exports = {
 		let result = await send("Evaluating...");
 		try {
 			let evaled = doEval(content.slice('-eval '.length));
-			let r = (typeof evaled !== "string") ? r = require("util").inspect(evaled): evaled;
+			let r = (typeof evaled !== "string") ? require("util").inspect(evaled): evaled;
   		result.edit(r);
 		} catch (err) {
   		result.edit(err);
 		}
-
-		/*try {
-			let evaled = eval(content.slice('-eval '.length));
-			if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
-			channel.sendCode("xl", evaled).catch(console.error);
-		}
-		catch(err) {
-			channel.sendCode("xl", err.toString()).catch(console.error);
-		}*/
 	}
 };
