@@ -15,6 +15,7 @@ module.exports = {
       default:
         return;
     }
+    let QUIET = true;
 
     if (!args[0]) return send("No user given :(");
     const target = args[0];
@@ -22,7 +23,8 @@ module.exports = {
 
     let neb=c3.guilds.get(Constants.servers.NEB);
     neb.fetchMember(target).then(u => {
-      return send(target + ": 1");
+      if(!QUIET)
+        return send(target + ": 1");
     }).catch(err => {
       return send(target + ": 0");
     });
