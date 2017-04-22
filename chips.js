@@ -133,12 +133,13 @@ c3.on("ready", _ => {
 });
 
 client.on("message", message => {
+  if(message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1))
+    return message.channel.send("Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE");
   if (message.author.bot) return;
 
   //wowbleach trigger
   if(message.content.toLowerCase().indexOf("wowbleach")>-1) message.channel.send(" \ _ \ _ \<:Bleach:274628490844962826>\n\ <:WOW:290865903384657920>");
-  if(message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1))
-    message.channel.send("Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE");
+
   if (!message.guild)
     return dmHandle(message);
 
@@ -313,7 +314,7 @@ function msgStatus() {
     .addField("Num msgs in sinx: ", `${sxMsgs} msgs`)
     .addField("Num msgs in sttoc: ", `${stMsgs} msgs`);
   statusC.sendEmbed(statsE);
-  
+
   sMsgs=0;
   nMsgs=0;
   sxMsgs=0;
