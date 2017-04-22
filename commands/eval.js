@@ -12,11 +12,11 @@ module.exports = {
 
 		let result = await send("Evaluating...");
 		try {
-			let evaled = doEval(content.slice('-eval '.length));
+			let evaled = await doEval(content.slice('-eval '.length));
 			let r = (typeof evaled !== "string") ? require("util").inspect(evaled): evaled;
-  		result.edit(r);
+  		await result.edit(r);
 		} catch (err) {
-  		result.edit(err);
+  		await result.edit(err);
 		}
 	}
 };
