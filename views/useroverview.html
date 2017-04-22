@@ -8,12 +8,15 @@
 </header>
 Userview
 <br></br>
-<a href="/logout">Click me to Log Out</a>
+<iframe src="http://challonge.com/SKtournamentV1/module" width="100%" height="500" frameborder="0" scrolling="auto" allowtransparency="true"></iframe>
 <br></br>
 <% if (!isAuthenticated) { %>
     <a id="signIn" href="/login">You aren't signed in, Click here!</a>
 <% } else { %>
     <b id="Welcome back, user #"><%=user.id%></b>
+    <br></br>
+    <a href="/logout">Click me to Log Out</a>
+    <br></br>
     <p>Willy's feed:</p>
     <div id="feed"></div>
     <script>
