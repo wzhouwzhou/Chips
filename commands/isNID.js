@@ -23,7 +23,7 @@ module.exports = {
 
     let neb=c3.guilds.get(Constants.servers.NEB);
     neb.fetchMember(target).then(u => {
-      if(!QUIET)
+      //if(!QUIET)
         return send(target + ": 1");
     }).catch(err => {
       return send(target + ": 0");
