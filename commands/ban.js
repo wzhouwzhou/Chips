@@ -43,6 +43,8 @@ module.exports = {
 	    if (neko.indexOf(user.id) >= 0) {
 				if(!author.id==Constants.users.WILLYZ)
 	      	return setTimeout(() => {reply('kill yourself');}, 50);
+				else 
+					console.log("-ban immunity override");
 	    }
     let emb = new Discord.RichEmbed()
       .setAuthor("Ban Notice!")
