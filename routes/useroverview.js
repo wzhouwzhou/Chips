@@ -19,7 +19,9 @@ router.get("/", (req, res) => {
           "/assets/font-awesome/css/font-awesome.css",
           "/assets/plugins/pace/pace-theme-big-counter.css",
           "/assets/css/style.css",
-          "/assets/css/main-style.css"
+          "/assets/css/main-style.css",
+          //Page level css
+          "/assets/plugins/morris/morris-0.4.3.min.css"
         ]//,
         //ujson: res.json(req.user)
       }
