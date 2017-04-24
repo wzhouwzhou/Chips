@@ -14,7 +14,12 @@ router.get("/", (req, res) => {
           "/activity/github-activity.js"
         ], sheets: [
           "https://cdnjs.cloudflare.com/ajax/libs/octicons/2.0.2/octicons.min.css",
-          "/activity/github-activity.css"
+          "/activity/github-activity.css",
+          "/assets/plugins/bootstrap/bootstrap.css",
+          "/assets/font-awesome/css/font-awesome.css",
+          "/assets/plugins/pace/pace-theme-big-counter.css",
+          "/assets/css/style.css",
+          "/assets/css/main-style.css"
         ]//,
         //ujson: res.json(req.user)
       }
