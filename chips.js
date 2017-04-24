@@ -98,7 +98,7 @@ client.on("ready", _ => {
 
   console.log('Chips is ready!');
   client.user.setStatus("online");
-  client.user.setGame("Updated -help!");
+  client.user.setGame("Do -help","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
 
   DMLogger = require("./DMLogger")(Discord, client, dmC, moment);
 });
