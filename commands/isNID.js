@@ -1,5 +1,5 @@
 module.exports = {
-  name: "isN",
+  name: "isNID",
   async func(msg, { send, member, author, content, channel, guild, args, gMember, Discord }) {
     const used = member || author;
     switch (used.id) {
@@ -18,21 +18,20 @@ module.exports = {
     let QUIET = false;
 
     if (!args[0]) return send("No user given :(");
-    const target = args[0].match(Constants.patterns.MENTION)[1];
+    const target = args[0];
     // console.log("Target: "+target);
 
-    const mem = gMember(target);
     let neb=c3.guilds.get(Constants.servers.NEB);
-    neb.fetchMember(mem.user.id).then(u => {
+    neb.fetchMember(target).then(u => {
       if(!QUIET)
-        return send(mem.user.id + ": 1");
+        return send(target + ": 1");
       else
-        return console.log(mem.user.id + ": 1");
+        return console.log(target + ": 1");
     }).catch(err => {
       if(!QUIET)
-        return send(mem.user.id + ": 0");
+        return send(target + ": 0");
       else
-        return console.log(mem.user.id + ": 0");
+        return console.log(target + ": 0");
     });
   }
 };
