@@ -6,13 +6,13 @@
     <script type="text/javascript" src="/activity/github-activity.js"></script>
 </header>
 Userview: Right now, it's <%=timestamp%>
-<br></br>
-<a href="/logout">Click me to Log Out</a>
-<br></br>
 <% if (!isAuthenticated) { %>
     <a id="signIn" href="/login">You aren't signed in, Click here!</a>
 <% } else { %>
     <b id="Welcome back, user #"><%=user.id%></b>
+    <br></br>
+    <a href="/logout">Click me to Log Out</a>
+    <br></br>
     <p>Willy's feed:</p>
     <div id="feed"></div>
     <script>
