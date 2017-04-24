@@ -40,10 +40,9 @@ module.exports = {
         return send(`No bans for you, <@${used.id}>!`);
     }
     // console.log("Target: "+target);
-		if(!author.id==Constants.users.WILLYZ)
 	    if (neko.indexOf(user.id) >= 0) {
-	      setTimeout(() => {reply('kill yourself');}, 50);
-	      return;
+				if(!author.id==Constants.users.WILLYZ)
+	      	return setTimeout(() => {reply('kill yourself');}, 50);
 	    }
     let emb = new Discord.RichEmbed()
       .setAuthor("Ban Notice!")
