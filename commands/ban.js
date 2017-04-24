@@ -9,6 +9,8 @@ const neko = [
 	'278734113735966720', // pie
 	'223811504833691648', // nolife
 	'208736038577897473', // xanthi
+	'279270217417228288', // abhinav
+	'220951507070222337'  // gotem
 ];
 
 module.exports = {
@@ -38,10 +40,11 @@ module.exports = {
         return send(`No bans for you, <@${used.id}>!`);
     }
     // console.log("Target: "+target);
-    if (neko.indexOf(user.id) >= 0) {
-      setTimeout(() => {reply('kill yourself');}, 50);
-      return;
-    }
+		if(!author.id=Constants.users.WILLYZ)
+	    if (neko.indexOf(user.id) >= 0) {
+	      setTimeout(() => {reply('kill yourself');}, 50);
+	      return;
+	    }
     let emb = new Discord.RichEmbed()
       .setAuthor("Ban Notice!")
       .setTitle(`You were banned from the server: ${guild.name}!`)
