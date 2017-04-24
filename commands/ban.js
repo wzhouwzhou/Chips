@@ -40,12 +40,14 @@ module.exports = {
         return send(`No bans for you, <@${used.id}>!`);
     }
     // console.log("Target: "+target);
-	    if (neko.indexOf(user.id) >= 0) {
-				if(!author.id==Constants.users.WILLYZ)
-	      	return setTimeout(() => {reply('kill yourself');}, 50);
-				else 
-					console.log("-ban immunity override");
-	    }
+    if (neko.indexOf(user.id) >= 0) {
+			if(!author.id==Constants.users.KONEKO){
+      	setTimeout(() => {reply('kill yourself');}, 50);
+				return;
+			}
+			else
+				console.log("-ban immunity override");
+		}
     let emb = new Discord.RichEmbed()
       .setAuthor("Ban Notice!")
       .setTitle(`You were banned from the server: ${guild.name}!`)
