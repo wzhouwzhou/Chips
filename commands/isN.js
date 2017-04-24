@@ -15,6 +15,7 @@ module.exports = {
       default:
         return;
     }
+    let QUIET = false;
 
     if (!args[0]) return send("No user given :(");
     const target = args[0].match(Constants.patterns.MENTION)[1];
@@ -23,9 +24,15 @@ module.exports = {
     const mem = gMember(target);
     let neb=c3.guilds.get(Constants.servers.NEB);
     neb.fetchMember(mem.user.id).then(u => {
-      return send(mem.user.id + ": 1");
+      if(!QUIET)
+        return send(mem.user.id + ": 1");
+      else
+        return console.log(mem.user.id + ": 1");
     }).catch(err => {
-      return send(mem.user.id + ": 0");
+      if(!QUIET)
+        return send(mem.user.id + ": 0");
+      else
+        return console.log(mem.user.id + ": 0");
     });
   }
 };
