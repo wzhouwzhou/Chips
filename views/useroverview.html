@@ -1,15 +1,9 @@
 <% extend('base.html') %>
 
-Userview: Right now, it's <%=timestamp%>
 <br></br>
 <% if (!isAuthenticated) { %>
     <a id="signIn" href="/login">You aren't signed in, Click here!</a>
 <% } else { %>
-    <b id="Welcome back, user #"><%=user.id%></b>
-    <br></br>
-    <a href="/logout">Click me to Log Out</a>
-    <br></br>
-
     <body>
         <div id="wrapper">
           <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="navbar">
@@ -22,7 +16,7 @@ Userview: Right now, it's <%=timestamp%>
                       <span class="icon-bar"></span>
                   </button>
                   <a class="navbar-brand" href="index.html">
-                      <img src="assets/img/logo.png" alt="" />
+                      <img src= <%=avatarURL%> alt="" />
                   </a>
               </div>
               <!-- end navbar-header -->
@@ -243,7 +237,14 @@ Userview: Right now, it's <%=timestamp%>
               <!-- end navbar-top-links -->
           </nav>
           <!-- end navbar top -->
+          <b>Welcome back, user #<%=user.id%></b>
+          <br></br>
+          Userview: Right now, it's <%=timestamp%>
+          <br></br>
+          <a href="/logout">Click me to Log Out</a>
+          <br></br>
         </div>
+        <!-- end wrapper -->
     </body>
 
 
