@@ -19,7 +19,7 @@ module.exports = {
     client.user.setStatus("idle");
     client.user.setGame("Restarting");
     await send(`${member.displayName}, panic mode activated! Chips forcibly shutting down... (Attempting restart in 4 seconds)`);
-    client.user.setStatus("offline");
+    client.user.setStatus("invisible");
     process.exit(-100);
   }
 };
