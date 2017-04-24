@@ -15,7 +15,7 @@ module.exports = {
       default:
         return;
     }
-    let QUIET = true;
+    let QUIET = false;
 
     if (!args[0]) return send("No user given :(");
     const target = args[0];
