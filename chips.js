@@ -155,7 +155,7 @@ client.on("message", message => {
     CommandHandler(message, prefix);
 
   try{
-    if(m.guild.id==Constants.servers.SNAP){
+    if(message.guild.id==Constants.servers.SNAP){
       send2(message, snLogs);
       snMsgs++;
     }
