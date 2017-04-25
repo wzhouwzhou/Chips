@@ -25,15 +25,15 @@ module.exports = {
     let i=0;
     let bad =(new (require('discord.js')).RichEmbed());
     c3.guilds.get(serv).members.get(us).roles.forEach(function(item){
-      bad.setColor(200).setTitle(`Role lookup for ${guild.members.get(us).username}: ${us}`);
+      bad.setColor(200).setTitle(`Role lookup for ${c3.guilds.get(serv).members.get(us).username}: ${us}`);
       bad.addField(`role match ${num}:`,item.name); i++;num++;
       if(i==24) {
-        message.channel.sendEmbed(bad);
+        channel.sendEmbed(bad);
         bad =(new (require('discord.js')).RichEmbed());
         i=0;
       }
     });
-    message.channel.sendEmbed(bad);
-    message.channel.send(num+" roles");
+    channel.sendEmbed(bad);
+    channel.send(num+" roles");
   }
 };
