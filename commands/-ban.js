@@ -17,7 +17,7 @@ const neko = [
 ];
 
 module.exports = {
-  name: "ban",
+  name: "-ban",
   async func(msg, {send, member, author, content, channel, guild, args, gMember, Discord, reply, bot}) {
     const used = member || author;
 
