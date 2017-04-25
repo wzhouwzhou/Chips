@@ -240,7 +240,7 @@ const send2 = (message, c) => {
     .setColor(205)
     .addField("message id:", message.id,true)
     .setThumbnail(message.author.displayAvatarURL)
-    .setTitle(moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss'))
+    .setTitle(moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss.SSSS'))
     .addField("channel name: ", message.channel.name)
     .addField("channel id: ", message.channel.id);
   if(message.cleanContent == "")
