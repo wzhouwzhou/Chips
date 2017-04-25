@@ -58,8 +58,9 @@ global.nMsgs=0;
 global.sMsgs=0;
 global.sxMsgs=0;
 global.stMsgs=0;
+global.snMsgs=0;
 /** End Global Constants **/
-let testC, dmC, nLogs, sLogs, sxLogs, stLogs;
+let testC, dmC, nLogs, sLogs, sxLogs, stLogs, snLogs;
 let sLogs2;
 let d = "", monitorMode = false, consoleTyping = false, slSwitcher=false, helper3=false;
 
@@ -91,8 +92,6 @@ h3client.on("debug", console.log);
 
 client.on("ready", _ => {
   statusC = client.channels.get(Constants.channels.STATUS);
-  nLogs = h3client.channels.get(Constants.channels.NLOGS);
-  stLogs = h3client.channels.get(Constants.channels.STLOGS);
 
   send('Chips restart!', statusC);
 
@@ -105,6 +104,8 @@ client.on("ready", _ => {
 hclient.on("ready", _ => {
   testC = hclient.channels.get(Constants.channels.TEST);
   sLogs = hclient.channels.get(Constants.channels.SLOGS);
+  dmC = hclient.channels.get(Constants.channels.DMS);
+  snLogs = hclient.channels.get(Constants.channels.SNLOGS);
 
   console.log('Chips helper is ready!');
   hclient.user.setStatus("online");
@@ -118,12 +119,13 @@ h2client.on("ready", _ => {
   h2client.user.setGame("Chips and Chips helper are bae!");
 });
 h3client.on("ready", _ => {
-  sLogs2 = hclient.channels.get(Constants.channels.SLOGS);
-  dmC = h3client.channels.get(Constants.channels.DMS);
+  sLogs2 = h3client.channels.get(Constants.channels.SLOGS);
+  nLogs = h3client.channels.get(Constants.channels.NLOGS);
+  stLogs = h3client.channels.get(Constants.channels.STLOGS);
 
   console.log('Chips helper 3 is ready!');
-  h3client.user.setStatus("online");
-  h3client.user.setGame("Chips, Chips2 and Chips3 are bae!");
+  h2client.user.setStatus("online");
+  h2client.user.setGame("Chips, Chips2 and Chips3 are bae!");
 });
 c2.on("ready", _ => {
   console.log('Bot is ready!');
@@ -151,6 +153,13 @@ client.on("message", message => {
 
   if (message.content.toLowerCase().startsWith(prefix.toLowerCase()))
     CommandHandler(message, prefix);
+
+  try{
+    if(m.guild.id==Constants.servers.SNAP){
+      send2(message, snLogs);
+      snMsgs++;
+    }
+  }catch(err){console.log(`Log errored! ${err}`);}
 });
 c2.on('message', m => {
   try{
@@ -231,7 +240,7 @@ const send2 = (message, c) => {
     .setColor(205)
     .addField("message id:", message.id,true)
     .setThumbnail(message.author.displayAvatarURL)
-    .setTitle(moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss'))
+    .setTitle(moment(message.timestamp).format('ddd, Do of MMM @ HH:mm:ss.SSSS'))
     .addField("channel name: ", message.channel.name)
     .addField("channel id: ", message.channel.id);
   if(message.cleanContent == "")
@@ -314,13 +323,14 @@ function msgStatus() {
     .addField("Num msgs in sk: ", `${sMsgs} msgs`)
     .addField("Num msgs in nebula: ", `${nMsgs} msgs`)
     .addField("Num msgs in sinx: ", `${sxMsgs} msgs`)
-    .addField("Num msgs in sttoc: ", `${stMsgs} msgs`);
+    .addField("Num msgs in sttoc: ", `${stMsgs} msgs`)
+    .addField("Num msgs in snap: ", `${snMsgs} msgs`);
   statusC.sendEmbed(statsE);
-
   sMsgs=0;
   nMsgs=0;
   sxMsgs=0;
   stMsgs=0;
+  snMsgs=0;
 }
 
 fs.readdirSync("./commands").map(f => {
