@@ -329,6 +329,7 @@ function msgStatus() {
   sMsgs=0;
   nMsgs=0;
   sxMsgs=0;
+  stMsgs=0;
   snMsgs=0;
 }
 
