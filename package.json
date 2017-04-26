@@ -46,6 +46,7 @@
     "gulp-uglify": "^1.5.4",
     "jquery": "^1.11.3",
     "lodash": "^4.17.4",
+    "long-timeout": "^0.1.1",
     "magnific-popup": "^1.1.0",
     "moment": "^2.18.1",
     "node-opus": "^0.2.4",
@@ -60,6 +61,7 @@
     "serve-favicon": "~2.4.2",
     "sodium": "^2.0.1",
     "sqlite3": "^3.1.8",
+    "underscore": "^1.8.3",
     "uws": "^0.14.1"
   },
   "name": "chips",
