@@ -6,10 +6,11 @@ module.exports = {
       {}ping for ping pong.
       {}aboose for aboose.
       {}exposed for exposed.
+      {}happy (new command, credits to Tani)
       {}listen for terminal input (Deprecated)
       {}setdm to set dmC\n**Restricted/Whitelisted commands:**
       {}emojiban to external-emoji ban someone.
-      {}ban to ban people.
+      {}-ban to ban people.
       {}setoutput to define testC.
       {}setDM to define dmC.
       {}botpanic to force shutdown (Auto restart)`.replace(/{}/g, prefix));
