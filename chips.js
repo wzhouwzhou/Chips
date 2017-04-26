@@ -47,7 +47,7 @@ global.chalk = require("chalk");
 global.Messager = new (require("events"));
 global.Command = require("./handlers/Command");
 global.CommandHandler = require("./handlers/CommandHandler")(Discord, client);
-global.database = require('./setup/db').Loader;
+global.database = require('./setup/db/DatabaseLoader');
 global.DMLogger;
 global.rl = readline.createInterface({
   input: process.stdin,
