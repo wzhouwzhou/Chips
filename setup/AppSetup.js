@@ -1,7 +1,4 @@
 module.exports = function(bodyParser, cookieParser, passport, express, app, Strategy, session) {
-  const ExpressBrute = require('express-brute');
-  let bruteforce = new ExpressBrute(new ExpressBrute.MemoryStore());
-
   let botScopes = ['identify', 'guilds'];
   app.engine(Constants.express.ENGINE, require("express-ejs-extend"));
   app.set('view engine', Constants.express.ENGINE);
@@ -49,14 +46,10 @@ module.exports = function(bodyParser, cookieParser, passport, express, app, Stra
       res.redirect('/');
   });
   // routes
-  app.use('/', index);
+  const secure = require('./Security');
+  let globalBruteforce = new secure();
 
-  app.post('/',
-    bruteforce.prevent, // error 429 if we hit this route too often
-    function (req, res, next) {
-      res.send('Success!');
-    }
-  );
+  app.use('/', index, globalBruteforce.prevent);
 
   app.use('/login',login);
   app.use('/useroverview',useroverview);
