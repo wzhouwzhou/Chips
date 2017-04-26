@@ -6,7 +6,7 @@ module.exports = function(bodyParser, cookieParser, passport, express, app, Stra
   app.engine(Constants.express.ENGINE, require("express-ejs-extend"));
   app.set('view engine', Constants.express.ENGINE);
   console.log(__dirname);
-  app.use(express.static(__dirname + '/public'));
+  app.use(express.static('/app/public'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());
