@@ -50,12 +50,12 @@ module.exports = function(bodyParser, cookieParser, passport, express, app, Stra
   // routes
   app.use('/', index);
 
-  app.post('/',
+/*  app.post('/',
     bruteforce.prevent, // error 429 if we hit this route too often
     function (req, res, next) {
       res.send('Success!');
     }
-  );
+  );*/
 
   app.use('/login',login);
   app.use('/useroverview',useroverview);
