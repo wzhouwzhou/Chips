@@ -32,4 +32,12 @@ router.get("/", (req, res) => {
     ], bodyid: "page-top"});
 });
 
+const ExpressBrute = require('express-brute');
+let bruteforce = new ExpressBrute(new ExpressBrute.MemoryStore());
+router.post('/',
+  bruteforce.prevent, // error 429 if we hit this route too often
+  function (req, res, next) {
+    res.send('Success!');
+  }
+);
 module.exports = router;
