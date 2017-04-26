@@ -1,6 +1,6 @@
 //Chips.js
 /** Constants **/
-global.Constants = require("./Constants");
+global.Constants = require("./setup/Constants");
 //route loading
 global.index = require("./routes/index");
 global.login = require("./routes/login");
