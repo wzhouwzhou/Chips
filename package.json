@@ -33,6 +33,7 @@
     "ejs": "^2.4.1",
     "erlpack": "github:hammerandchisel/erlpack",
     "express": "~4.15.2",
+    "express-brute": "^1.0.1",
     "express-ejs-extend": "0.0.1",
     "express-session": "^1.15.2",
     "font-awesome": "^4.6.3",
