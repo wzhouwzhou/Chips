@@ -45,8 +45,8 @@ global.moment = require('moment');
 global._ = require("lodash");
 global.chalk = require("chalk");
 global.Messager = new (require("events"));
-global.Command = require("./Command");
-global.CommandHandler = require("./CommandHandler")(Discord, client);
+global.Command = require("./handlers/Command");
+global.CommandHandler = require("./handlers/CommandHandler")(Discord, client);
 global.database = require('./setup/db').Loader;
 global.DMLogger;
 global.rl = readline.createInterface({
@@ -99,7 +99,7 @@ client.on("ready", _ => {
   client.user.setStatus("online");
   client.user.setGame("Do -help","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
 
-  DMLogger = require("./DMLogger")(Discord, client, dmC, moment);
+  DMLogger = require("./handlers/DMLogger")(Discord, client, dmC, moment);
 });
 hclient.on("ready", _ => {
   testC = hclient.channels.get(Constants.channels.TEST);
