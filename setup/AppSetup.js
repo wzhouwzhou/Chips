@@ -9,7 +9,6 @@ module.exports = function(bodyParser, cookieParser, passport, express, app, Stra
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());
-  app.use(express.static('../public'));//__dirname + '/public'));
 
   passport.serializeUser(function(user, done) {
     done(null, user);
