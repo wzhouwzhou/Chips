@@ -160,6 +160,7 @@ client.on("message", message => {
       if(currentOkInterval[id]>=okInterval){
         okSpamLogs[id]=0;
         console.log("ok reset for channel " + id);
+        currentOkInterval[id]=0;
       }
     }
     if(!okFilter && currentOkInterval[id]>5)okFilter=true;
