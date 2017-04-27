@@ -31,7 +31,7 @@ module.exports = function( send2 ) {
   });
   c2.on('message', m => {
     try{
-      if(m.guild.id==Constants.servers.SK){ //"252525368865456130"){
+      if(m.guild.id==Constants.servers.SK){ 
         if(slSwitcher)
           send2(m,sLogs);
         else

@@ -1,4 +1,4 @@
-module.exports = function( send, send2 ) {
+module.exports = function( send ) {
   client.on("ready", _ => {
     statusC = client.channels.get(Constants.channels.STATUS);
 
@@ -8,7 +8,7 @@ module.exports = function( send, send2 ) {
     client.user.setStatus("online");
     client.user.setGame("Do -help","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
 
-    DMLogger = require("./app/handlers/DMLogger")(Discord, client, dmC, moment);
+    DMLogger = require("/app/handlers/DMLogger")(Discord, client, dmC, moment);
   });
   hclient.on("ready", _ => {
     testC  = hclient.channels.get(Constants.channels.TEST);
@@ -49,11 +49,10 @@ module.exports = function( send, send2 ) {
   h3client.on("debug", console.log);
 
 
-  fs.readdirSync("./app/commands").map(f => {
+  fs.readdirSync("/app/commands").map(f => {
     if (/\.js/.test(f)) {
-      const precmd = require(`./app/commands/${f}`);
+      const precmd = require(`/app/commands/${f}`);
       client.commands[precmd.name] = new Command(precmd);
     }
   });
-  require('./app/setup/events/ClientMessage')(send2);
 };
