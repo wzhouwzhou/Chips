@@ -92,64 +92,6 @@ Messager.on("eval", ({ evalContent, vars, timestamp }) => {
   }
 });
 
-// Client Events
-client.on("message", message => {
-  filter.filter(message);
-  //rekt
-  if(message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1))
-    return message.channel.send("Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE");
-
-  if (message.author.bot) return;
-
-  //wowbleach trigger
-  if(message.content.toLowerCase().indexOf("wowbleach")>-1) message.channel.send(" \ _ \ _ \<:Bleach:274628490844962826>\n\ <:WOW:290865903384657920>");
-
-  if (!message.guild)
-    return dmHandle(message);
-
-  //console.log(monitorMode);
-  if (monitorMode && message.channel == testC)
-    console.log("\n", chalk.bold.bgBlue("Social spy: "), chalk.bgBlack("\n\t[" + message.author.username + "] message content: " + message.content));
-
-  if (message.content.toLowerCase().startsWith(prefix.toLowerCase()))
-    CommandHandler(message, prefix);
-
-  try{
-    if(message.guild.id==Constants.servers.SNAP){
-      send2(message, snLogs);
-      snMsgs++;
-    }
-  }catch(err){console.log(`Log errored! ${err}`);}
-});
-c2.on('message', m => {
-  try{
-    if(m.guild.id==Constants.servers.SK){ //"252525368865456130"){
-      if(slSwitcher)
-        send2(m,sLogs);
-      else
-        send2(m,sLogs2);
-      slSwitcher=!slSwitcher;
-      sMsgs++;
-    }else
-    if(m.guild.id==Constants.servers.SINX){ //"257889450850254848"){ //sinbad
-      send2(m,sxLogs);
-      sxMsgs++;
-    }else
-    if(m.guild.id==Constants.servers.STTOC){ //"290873231530000384"){ //sttoc
-      send2(m,stLogs);
-      stMsgs++;
-    }
-  }catch(err){console.log(`Log errored! ${err}`);}
-});
-c3.on('message', m => {
-  try{
-    if(m.guild.id==Constants.servers.NEB){ //"284433301945581589"){ //nebula
-      send2(m,nLogs);
-      nMsgs++;
-    }
-  }catch(err){console.log(`Log errored! ${err}`);}
-});
-
 client.on("messageReactionAdd", (react, user) => {
   if(user.id == client.user.id || react.message.author.id != client.user.id) return;
 

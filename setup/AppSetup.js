@@ -46,7 +46,7 @@ module.exports = function(bodyParser, cookieParser, passport, express, app, Stra
       res.redirect('/');
   });
   // routes
-  const secure = require('../Security');
+  const secure = require('/app/Security');
   let globalBruteforce = new secure();
 
   app.use('/', index, globalBruteforce.prevent);
