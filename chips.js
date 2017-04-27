@@ -140,7 +140,8 @@ c3.on("ready", _ => {
 });
 
 client.on("message", message => {
-  message.replace('​',""); //remove 0 width joiner
+  message = message.replace(/[\u200B-\u200D\uFEFF]/g, '');
+  message=message.replace('​',""); //remove 0 width joiner
   let id=message.channel.id;
   if(currentOkInterval[id]==null){currentOkInterval[id]=1; console.log("new interval entry for channel " + id);}
   if(okSpamLogs[id]==null){okSpamLogs[id]=1; console.log("new entry for channel " + id);}
