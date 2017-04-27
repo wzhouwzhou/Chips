@@ -64,7 +64,7 @@ global.currentOkInterval = {"0":0};
 global.maxOk = 5;
 global.okInterval = 2;
 global.okFilter=true;
-global.filter=require('./setup/Filter');
+global.filter=require('./handlers/Filter');
 /** End Global Constants **/
 let testC, dmC, nLogs, sLogs, sxLogs, stLogs, snLogs;
 let sLogs2;
@@ -91,55 +91,6 @@ Messager.on("eval", ({ evalContent, vars, timestamp }) => {
 });
 
 // Client Events
-client.on("debug", console.log);
-hclient.on("debug", console.log);
-h2client.on("debug", console.log);
-h3client.on("debug", console.log);
-
-client.on("ready", _ => {
-  statusC = client.channels.get(Constants.channels.STATUS);
-
-  send('Chips restart!', statusC);
-
-  console.log('Chips is ready!');
-  client.user.setStatus("online");
-  client.user.setGame("Do -help","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
-
-  DMLogger = require("./handlers/DMLogger")(Discord, client, dmC, moment);
-});
-hclient.on("ready", _ => {
-  testC = hclient.channels.get(Constants.channels.TEST);
-  sLogs = hclient.channels.get(Constants.channels.SLOGS);
-  dmC = hclient.channels.get(Constants.channels.DMS);
-  snLogs = hclient.channels.get(Constants.channels.SNLOGS);
-
-  console.log('Chips helper is ready!');
-  hclient.user.setStatus("online");
-  hclient.user.setGame("Chips is bae!");
-});
-h2client.on("ready", _ => {
-  sxLogs = h2client.channels.get(Constants.channels.SXLOGS);
-
-  console.log('Chips helper 2 is ready!');
-  h2client.user.setStatus("online");
-  h2client.user.setGame("Chips and Chips helper are bae!");
-});
-h3client.on("ready", _ => {
-  sLogs2 = h3client.channels.get(Constants.channels.SLOGS);
-  nLogs = h3client.channels.get(Constants.channels.NLOGS);
-  stLogs = h3client.channels.get(Constants.channels.STLOGS);
-
-  console.log('Chips helper 3 is ready!');
-  h2client.user.setStatus("online");
-  h2client.user.setGame("Chips, Chips2 and Chips3 are bae!");
-});
-c2.on("ready", _ => {
-  console.log('Bot is ready!');
-});
-c3.on("ready", _ => {
-  console.log('Bot2 is ready!');
-});
-
 client.on("message", message => {
   filter.filter(message);
   //rekt
@@ -340,12 +291,7 @@ function msgStatus() {
   snMsgs=0;
 }
 
-fs.readdirSync("./commands").map(f => {
-  if (/\.js/.test(f)) {
-    const precmd = require(`./commands/${f}`);
-    client.commands[precmd.name] = new Command(precmd);
-  }
-});
+require('./setup/events/Ready')(Discord, fs, dmC, moment, hclient, h2client, h3client, c2, c3);
 
 setInterval(selfping, 1000*60*10);
 setInterval(msgStatus, 1000*60*30);
