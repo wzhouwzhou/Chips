@@ -1,5 +1,5 @@
 // Client Message Events
-slSwitcher=false, helper3=false;
+let slSwitcher=false, helper3=false;
 module.exports = function( send2 ) {
   client.on("message", message => {
     filter.filter(message);
@@ -51,7 +51,7 @@ module.exports = function( send2 ) {
   });
   c3.on('message', m => {
     try{
-      if(m.guild.id==Constants.servers.NEB){ 
+      if(m.guild.id==Constants.servers.NEB){
         send2(m,nLogs);
         nMsgs++;
       }
