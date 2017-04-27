@@ -61,3 +61,17 @@ module.exports = function( send2 ) {
     }catch(err){console.log(`Log errored! ${err}`);}
   });
 };
+
+async function dmHandle (message) {
+  if(database.sheets[`botlog`]==null) return message.channel.send("Bot is still starting up...");
+  DMLogger(message);
+  if(message.content==(prefix+"help")){
+    message.channel.sendMessage(`Do -helppt`);
+    return;
+  }
+  if(message.content.startsWith(prefix+"helppt")){
+    submStep[message.author.id]=0;
+    await reactOptions(message);
+    console.log("helppt");
+  }
+}
