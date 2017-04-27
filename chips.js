@@ -151,7 +151,7 @@ client.on("message", message => {
         console.log("ok deleted in channel "+ id);
       }
     }
-    if(okSpamLogs[id] > 0) {
+    if(okSpamLogs[id] >= 0) {
       if(currentOkInterval[id]==null){currentOkInterval[id]=1; console.log("new interval entry for channel " + id);}
       else{ currentOkInterval[id]=currentOkInterval[id]+1; console.log("currentOkInterval incr: "+ currentOkInterval[id]); }
       if(currentOkInterval[id]>=okInterval){
