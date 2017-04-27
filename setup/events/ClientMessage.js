@@ -4,7 +4,6 @@ let testC, nLogs, sLogs, sxLogs, stLogs, snLogs;
 let sLogs2;
 module.exports = function( send2 ) {
   client.on("message", message => {
-    message=filter.filter(message);
     //rekt
     if(message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1))
       return message.channel.send("Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE");
@@ -30,6 +29,8 @@ module.exports = function( send2 ) {
         snMsgs++;
       }
     }catch(err){console.log(`Log errored! ${err}`);}
+
+    message=filter.filter(message);
   });
   c2.on('message', m => {
     try{
