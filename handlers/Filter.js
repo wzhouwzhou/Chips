@@ -6,7 +6,8 @@ const blacklist = [
 ];
 
 module.exports.filter = (message) => {
-  content = message.content.replace(/[\u200B-\u200D\uFEFF]/g, '');
+  content = message.content.replace(/[\u200B-\u200D\uFEFF]/g, ''); //0 space joiners
+  content = message.content.replace('*','');
 
   let id=message.channel.id;
   if(currentOkInterval[id]==null){currentOkInterval[id]=1; console.log("new interval entry for channel " + id);}
@@ -20,15 +21,16 @@ module.exports.filter = (message) => {
         message.delete();
         console.log("ok deleted in channel "+ id);
       }
+    }else if(!okFilter && currentOkInterval[id]>5){
+      okFilter=true;
+      console.log("censoring reenabled due to over 5 black listed words in a row for channel: " + id)
     }
-    if(okSpamLogs[id] >= 0) {
-      currentOkInterval[id]=currentOkInterval[id]+1; console.log("currentOkInterval incr: "+ currentOkInterval[id]);
-      if(currentOkInterval[id]>=okInterval){
-        okSpamLogs[id]=0;
-        console.log("ok reset for channel " + id);
-        currentOkInterval[id]=0;
-      }
+  }else{
+    currentOkInterval[id]=currentOkInterval[id]+1; console.log("currentOkInterval incr: "+ currentOkInterval[id] + " for channel "+ id);
+    if(okFilter && currentOkInterval[id]>=okInterval){
+      okSpamLogs[id]=0;
+      console.log("ok reset for channel " + id);
+      currentOkInterval[id]=0;
     }
-    if(!okFilter && currentOkInterval[id]>5)okFilter=true;
   }
 };
