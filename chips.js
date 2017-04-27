@@ -16,19 +16,19 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const Strategy = require('./setup/lib').Strategy;
-const fs = require('fs');
+global.fs = require('fs');
 const request = require('request');
 const app = require("./setup/AppSetup")(bodyParser, cookieParser, passport, express, express(), Strategy, session);
 const favicon = require('serve-favicon');
-const Discord = require("discord.js");
+global.Discord = require("discord.js");
 global.client = new Discord.Client();
-const hclient = new Discord.Client();
-const h2client = new Discord.Client();
-const h3client = new Discord.Client();
-const c2 = new Discord.Client();
+global.hclient = new Discord.Client();
+global.h2client = new Discord.Client();
+global.h3client = new Discord.Client();
+global.c2 = new Discord.Client();
 global.c3 = new Discord.Client();
 client.commands = {};
-const prefix = "-";
+global.prefix = "-";
 //user submission step stored by id
 let submStep = {'id0': -1};
 
@@ -65,8 +65,10 @@ global.maxOk = 5;
 global.okInterval = 2;
 global.okFilter=true;
 global.filter=require('./handlers/Filter');
+
+global.dmC;
 /** End Global Constants **/
-let testC, dmC, nLogs, sLogs, sxLogs, stLogs, snLogs;
+let testC, nLogs, sLogs, sxLogs, stLogs, snLogs;
 let sLogs2;
 let d = "", monitorMode = false, consoleTyping = false, slSwitcher=false, helper3=false;
 
@@ -291,7 +293,7 @@ function msgStatus() {
   snMsgs=0;
 }
 
-require('./setup/events/Ready')(Discord, fs, dmC, moment, hclient, h2client, h3client, c2, c3, send);
+require('./setup/events/Ready')(send);
 
 setInterval(selfping, 1000*60*10);
 setInterval(msgStatus, 1000*60*30);
