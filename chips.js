@@ -141,13 +141,13 @@ client.on("message", message => {
   if(message.content.toLowerCase()=="ok")
   {
     console.log("ok received");
-    if(log==null){log=1; console.log("null entry for channel " + id);}
+    if(log==null){okSpamLogs[id]=1; console.log("null entry for channel " + id);}
     else {log++;console.log("ok num increased: " + log); }
     if(log>=3){
       message.delete();
       console.log("ok deleted");
     }
-  }else {
+  }else if(log > 0) {
     log=0;
     console.log("ok reset");
   }
