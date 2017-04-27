@@ -160,10 +160,9 @@ client.on("message", message => {
       if(currentOkInterval[id]>=okInterval){
         okSpamLogs[id]=0;
         console.log("ok reset for channel " + id);
-      }else{
-        if(currentOkInterval[id]>5)okFilter=true;
       }
     }
+    if(!okFilter && currentOkInterval[id]>5)okFilter=true;
   }
   //rekt
   if(message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1))
