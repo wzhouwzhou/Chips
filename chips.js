@@ -137,17 +137,17 @@ c3.on("ready", _ => {
 
 client.on("message", message => {
   let id=message.channel.id;
-  let log = okSpamLogs[id];
+
   if(message.content.toLowerCase()=="ok")
   {
     console.log("ok received");
-    if(log==null){okSpamLogs[id]=1; console.log("null entry for channel " + id);}
-    else {log++;console.log("ok num increased: " + log); }
-    if(log>=3){
+    if(okSpamLogs[id]==null){okSpamLogs[id]=1; console.log("new entry for channel " + id);}
+    else {okSpamLogs[id]=okSpamLogs[id]+1;console.log("ok num increased: " + okSpamLogs[id]); }
+    if(okSpamLogs[id]>=3){
       message.delete();
       console.log("ok deleted");
     }
-  }else if(log > 0) {
+  }else if(okSpamLogs[id] > 0) {
     log=0;
     console.log("ok reset");
   }
