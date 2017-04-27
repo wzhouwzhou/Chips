@@ -136,13 +136,15 @@ c3.on("ready", _ => {
 });
 
 client.on("message", message => {
+  let log = okSpamLogs[message.channel.id];
   if(message.content.toLowerCase()=="ok")
   {
-    let log = okSpamLogs[message.channel];
     if(log==null)log=1;
     else log++;
     if(log>=3)
       message.delete();
+  }else {
+    log=0;
   }
   //rekt
   if(message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1))
