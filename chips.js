@@ -59,6 +59,11 @@ global.sMsgs=0;
 global.sxMsgs=0;
 global.stMsgs=0;
 global.snMsgs=0;
+global.okSpamLogs = {"0":0};
+global.currentOkInterval = {"0":0};
+global.maxOk = 5;
+global.okInterval = 2;
+global.okFilter=true;
 /** End Global Constants **/
 let testC, dmC, nLogs, sLogs, sxLogs, stLogs, snLogs;
 let sLogs2;
@@ -135,6 +140,31 @@ c3.on("ready", _ => {
 });
 
 client.on("message", message => {
+  content = message.content.replace(/[\u200B-\u200D\uFEFF]/g, '');
+
+  let id=message.channel.id;
+  if(currentOkInterval[id]==null){currentOkInterval[id]=1; console.log("new interval entry for channel " + id);}
+  if(okSpamLogs[id]==null){okSpamLogs[id]=1; console.log("new entry for channel " + id);}
+
+  if(content.toLowerCase()=="ok"||content.toLowerCase()=="k"){
+    if(okFilter){
+      console.log("ok received: " + content);
+      okSpamLogs[id]=okSpamLogs[id]+1;currentOkInterval[id] = 0; console.log("ok num increase in channel: " + id +  " new: " + okSpamLogs[id]);
+      if(okSpamLogs[id]>=maxOk){
+        message.delete();
+        console.log("ok deleted in channel "+ id);
+      }
+    }
+    if(okSpamLogs[id] >= 0) {
+      currentOkInterval[id]=currentOkInterval[id]+1; console.log("currentOkInterval incr: "+ currentOkInterval[id]);
+      if(currentOkInterval[id]>=okInterval){
+        okSpamLogs[id]=0;
+        console.log("ok reset for channel " + id);
+        currentOkInterval[id]=0;
+      }
+    }
+    if(!okFilter && currentOkInterval[id]>5)okFilter=true;
+  }
   //rekt
   if(message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1))
     return message.channel.send("Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE");
