@@ -136,12 +136,12 @@ c3.on("ready", _ => {
 });
 
 client.on("message", message => {
-  if(message.content.toLowerCase=="ok")
+  if(message.content.toLowerCase()=="ok")
   {
     let log = okSpamLogs[message.channel];
     if(log==null)log=1;
     else log++;
-    if(log>=5)
+    if(log>=3)
       message.delete();
   }
   //rekt
