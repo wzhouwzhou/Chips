@@ -137,15 +137,19 @@ c3.on("ready", _ => {
 
 client.on("message", message => {
   let id=message.channel.id;
-  let log = okSpamLogs.id;
+  let log = okSpamLogs[id];
   if(message.content.toLowerCase()=="ok")
   {
-    if(log==null)log=1;
-    else log++;
-    if(log>=3)
+    console.log("ok received");
+    if(log==null){log=1; console.log("null entry for channel " + id);}
+    else {log++;console.log("ok num increased: " + log); }
+    if(log>=3){
       message.delete();
+      console.log("ok deleted");
+    }
   }else {
     log=0;
+    console.log("ok reset");
   }
   //rekt
   if(message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1))
