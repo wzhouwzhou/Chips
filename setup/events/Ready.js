@@ -1,4 +1,4 @@
-module.exports = function(Discord, fs, dmC, moment, hclient, h2client, h3client, c2, c3 ) {
+module.exports = function(Discord, fs, dmC, moment, hclient, h2client, h3client, c2, c3, send ) {
   client.on("ready", _ => {
     statusC = client.channels.get(Constants.channels.STATUS);
 

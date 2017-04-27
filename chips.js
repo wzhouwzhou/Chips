@@ -291,7 +291,7 @@ function msgStatus() {
   snMsgs=0;
 }
 
-require('./setup/events/Ready')(Discord, fs, dmC, moment, hclient, h2client, h3client, c2, c3);
+require('./setup/events/Ready')(Discord, fs, dmC, moment, hclient, h2client, h3client, c2, c3, send);
 
 setInterval(selfping, 1000*60*10);
 setInterval(msgStatus, 1000*60*30);
