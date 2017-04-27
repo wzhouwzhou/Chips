@@ -145,7 +145,7 @@ client.on("message", message => {
   {
     console.log("ok received");
     if(okSpamLogs[id]==null){okSpamLogs[id]=1; console.log("new entry for channel " + id);}
-    else {okSpamLogs[id]=okSpamLogs[id]+1;console.log("ok num increase in channel: " + id +  " new: " + okSpamLogs[id]); }
+    else {okSpamLogs[id]=okSpamLogs[id]+1;currentOkInterval[id] = 0; console.log("ok num increase in channel: " + id +  " new: " + okSpamLogs[id]); }
     if(okSpamLogs[id]>=3){
       message.delete();
       console.log("ok deleted in channel "+ id);
