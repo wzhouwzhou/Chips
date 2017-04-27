@@ -136,7 +136,8 @@ c3.on("ready", _ => {
 });
 
 client.on("message", message => {
-  let log = okSpamLogs[message.channel.id];
+  let id=message.channel.id;
+  let log = okSpamLogs.id;
   if(message.content.toLowerCase()=="ok")
   {
     if(log==null)log=1;
