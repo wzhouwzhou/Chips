@@ -61,6 +61,7 @@ global.stMsgs=0;
 global.snMsgs=0;
 global.okSpamLogs = {"0":0};
 global.currentOkInterval = {"0":0};
+global.maxOk = 5;
 global.okInterval = 2;
 global.okFilter=true;
 /** End Global Constants **/
@@ -140,22 +141,24 @@ c3.on("ready", _ => {
 
 client.on("message", message => {
   let id=message.channel.id;
-
-  if(okFilter && message.content.toLowerCase()=="ok")
-  {
-    console.log("ok received");
-    if(okSpamLogs[id]==null){okSpamLogs[id]=1; console.log("new entry for channel " + id);}
-    else {okSpamLogs[id]=okSpamLogs[id]+1;currentOkInterval[id] = 0; console.log("ok num increase in channel: " + id +  " new: " + okSpamLogs[id]); }
-    if(okSpamLogs[id]>=3){
-      message.delete();
-      console.log("ok deleted in channel "+ id);
-    }
-  }else if(okFilter && okSpamLogs[id] > 0) {
-    if(currentOkInterval[id]==null){currentOkInterval[id]=1; console.log("new interval entry for channel " + id);}
-    else{ currentOkInterval[id]=currentOkInterval[id]+1; console.log("currentOkInterval incr: "+ currentOkInterval[id]); }
-    if(currentOkInterval[id]>=okInterval){
-      okSpamLogs[id]=0;
-      console.log("ok reset for channel " + id);
+  if(message.content.toLowerCase()=="ok"||message.content.toLowerCase()=="k"){
+    if(okFilter){
+      console.log("ok received: " + message.content);
+      if(okSpamLogs[id]==null){okSpamLogs[id]=1; console.log("new entry for channel " + id);}
+      else {okSpamLogs[id]=okSpamLogs[id]+1;currentOkInterval[id] = 0; console.log("ok num increase in channel: " + id +  " new: " + okSpamLogs[id]); }
+      if(okSpamLogs[id]>=maxOk){
+        message.delete();
+        console.log("ok deleted in channel "+ id);
+      }
+    }else if(okSpamLogs[id] > 0) {
+      if(currentOkInterval[id]==null){currentOkInterval[id]=1; console.log("new interval entry for channel " + id);}
+      else{ currentOkInterval[id]=currentOkInterval[id]+1; console.log("currentOkInterval incr: "+ currentOkInterval[id]); }
+      if(okFilter && currentOkInterval[id]>=okInterval){
+        okSpamLogs[id]=0;
+        console.log("ok reset for channel " + id);
+      }else{
+        if(currentOkInterval[id]>5)okFilter=true;
+      }
     }
   }
   //rekt
