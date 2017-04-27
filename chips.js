@@ -142,14 +142,14 @@ client.on("message", message => {
   {
     console.log("ok received");
     if(okSpamLogs[id]==null){okSpamLogs[id]=1; console.log("new entry for channel " + id);}
-    else {okSpamLogs[id]=okSpamLogs[id]+1;console.log("ok num increased: " + okSpamLogs[id]); }
+    else {okSpamLogs[id]=okSpamLogs[id]+1;console.log("ok num increase in channel: " id +  " new: " + okSpamLogs[id]); }
     if(okSpamLogs[id]>=3){
       message.delete();
-      console.log("ok deleted");
+      console.log("ok deleted in channel "+ id);
     }
   }else if(okSpamLogs[id] > 0) {
-    log=0;
-    console.log("ok reset");
+    okSpamLogs[id]=0;
+    console.log("ok reset for channel " + id);
   }
   //rekt
   if(message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1))
