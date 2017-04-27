@@ -51,7 +51,7 @@ module.exports = function(Discord, fs, dmC, moment, hclient, h2client, h3client,
 
   fs.readdirSync("../../commands").map(f => {
     if (/\.js/.test(f)) {
-      const precmd = require(`./commands/${f}`);
+      const precmd = require(`../../commands/${f}`);
       client.commands[precmd.name] = new Command(precmd);
     }
   });
