@@ -55,5 +55,5 @@ module.exports = function( send ) {
       client.commands[precmd.name] = new Command(precmd);
     }
   });
-  require('/app/setup/events/ClientMessage')();
+  require('./ClientMessage')();
 };
