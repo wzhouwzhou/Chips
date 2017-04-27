@@ -60,6 +60,7 @@ global.sxMsgs=0;
 global.stMsgs=0;
 global.snMsgs=0;
 global.okSpamLogs = {"0":0};
+global.okFilter=true;
 /** End Global Constants **/
 let testC, dmC, nLogs, sLogs, sxLogs, stLogs, snLogs;
 let sLogs2;
@@ -138,7 +139,7 @@ c3.on("ready", _ => {
 client.on("message", message => {
   let id=message.channel.id;
 
-  if(message.content.toLowerCase()=="ok")
+  if(okFilter && message.content.toLowerCase()=="ok")
   {
     console.log("ok received");
     if(okSpamLogs[id]==null){okSpamLogs[id]=1; console.log("new entry for channel " + id);}
@@ -147,7 +148,7 @@ client.on("message", message => {
       message.delete();
       console.log("ok deleted in channel "+ id);
     }
-  }else if(okSpamLogs[id] > 0) {
+  }else if(okFilter && okSpamLogs[id] > 0) {
     okSpamLogs[id]=0;
     console.log("ok reset for channel " + id);
   }
