@@ -150,10 +150,11 @@ client.on("message", message => {
         message.delete();
         console.log("ok deleted in channel "+ id);
       }
-    }else if(okSpamLogs[id] > 0) {
+    }
+    if(okSpamLogs[id] > 0) {
       if(currentOkInterval[id]==null){currentOkInterval[id]=1; console.log("new interval entry for channel " + id);}
       else{ currentOkInterval[id]=currentOkInterval[id]+1; console.log("currentOkInterval incr: "+ currentOkInterval[id]); }
-      if(okFilter && currentOkInterval[id]>=okInterval){
+      if(currentOkInterval[id]>=okInterval){
         okSpamLogs[id]=0;
         console.log("ok reset for channel " + id);
       }else{
