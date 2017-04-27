@@ -1,4 +1,4 @@
-module.exports = function( send ) {
+module.exports = function( send, send2 ) {
   client.on("ready", _ => {
     statusC = client.channels.get(Constants.channels.STATUS);
 
@@ -55,5 +55,5 @@ module.exports = function( send ) {
       client.commands[precmd.name] = new Command(precmd);
     }
   });
-  require('./ClientMessage')();
+  require('./ClientMessage')(send2);
 };

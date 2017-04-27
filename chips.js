@@ -235,7 +235,7 @@ function msgStatus() {
   snMsgs=0;
 }
 
-require('./setup/events/Ready')(send);
+require('./setup/events/Ready')(send, send2);
 
 setInterval(selfping, 1000*60*10);
 setInterval(msgStatus, 1000*60*30);
