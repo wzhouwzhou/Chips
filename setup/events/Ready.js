@@ -8,7 +8,7 @@ module.exports = function( send, send2 ) {
     client.user.setStatus("online");
     client.user.setGame("Do -help","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
 
-    DMLogger = require("../../handlers/DMLogger")(Discord, client, dmC, moment);
+    DMLogger = require("/app/handlers/DMLogger")(Discord, client, dmC, moment);
   });
   hclient.on("ready", _ => {
     testC  = hclient.channels.get(Constants.channels.TEST);

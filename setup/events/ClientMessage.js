@@ -1,4 +1,5 @@
 // Client Message Events
+slSwitcher=false, helper3=false;
 module.exports = function( send2 ) {
   client.on("message", message => {
     filter.filter(message);
@@ -9,7 +10,7 @@ module.exports = function( send2 ) {
     if (message.author.bot) return;
 
     //wowbleach trigger
-    if(message.content.toLowerCase().indexOf("wowbleach")>-1) message.channel.send(" \ _ \ _ \ se<:Bleach:274628490844962826>\n\ <:WOW:290865903384657920>");
+    if(message.content.toLowerCase().indexOf("wowbleach")>-1) message.channel.send(" \ _ \ _ \ <:Bleach:274628490844962826>\n\ <:WOW:290865903384657920>");
 
     if (!message.guild)
       return dmHandle(message);
@@ -38,11 +39,11 @@ module.exports = function( send2 ) {
         slSwitcher=!slSwitcher;
         sMsgs++;
       }else
-      if(m.guild.id==Constants.servers.SINX){ //"257889450850254848"){ //sinbad
+      if(m.guild.id==Constants.servers.SINX){
         send2(m,sxLogs);
         sxMsgs++;
       }else
-      if(m.guild.id==Constants.servers.STTOC){ //"290873231530000384"){ //sttoc
+      if(m.guild.id==Constants.servers.STTOC){
         send2(m,stLogs);
         stMsgs++;
       }
@@ -50,7 +51,7 @@ module.exports = function( send2 ) {
   });
   c3.on('message', m => {
     try{
-      if(m.guild.id==Constants.servers.NEB){ //"284433301945581589"){ //nebula
+      if(m.guild.id==Constants.servers.NEB){ 
         send2(m,nLogs);
         nMsgs++;
       }

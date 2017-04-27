@@ -70,7 +70,7 @@ global.dmC;
 /** End Global Constants **/
 let testC, nLogs, sLogs, sxLogs, stLogs, snLogs;
 let sLogs2;
-let d = "", monitorMode = false, consoleTyping = false, slSwitcher=false, helper3=false;
+let d = "", monitorMode = false, consoleTyping = false;
 
 /** Events **/
 //Messenger events
