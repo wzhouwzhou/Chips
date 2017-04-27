@@ -140,15 +140,15 @@ c3.on("ready", _ => {
 });
 
 client.on("message", message => {
-  message = message.replace(/[\u200B-\u200D\uFEFF]/g, '');
-  message=message.replace('​',""); //remove 0 width joiner
+  content = message.content.replace(/[\u200B-\u200D\uFEFF]/g, '');
+
   let id=message.channel.id;
   if(currentOkInterval[id]==null){currentOkInterval[id]=1; console.log("new interval entry for channel " + id);}
   if(okSpamLogs[id]==null){okSpamLogs[id]=1; console.log("new entry for channel " + id);}
 
-  if(message.content.toLowerCase()=="ok"||message.content.toLowerCase()=="k"){
+  if(content.toLowerCase()=="ok"||content.toLowerCase()=="k"){
     if(okFilter){
-      console.log("ok received: " + message.content);
+      console.log("ok received: " + content);
       okSpamLogs[id]=okSpamLogs[id]+1;currentOkInterval[id] = 0; console.log("ok num increase in channel: " + id +  " new: " + okSpamLogs[id]);
       if(okSpamLogs[id]>=maxOk){
         message.delete();
