@@ -151,8 +151,12 @@ client.on("message", message => {
       console.log("ok deleted in channel "+ id);
     }
   }else if(okFilter && okSpamLogs[id] > 0) {
-    okSpamLogs[id]=0;
-    console.log("ok reset for channel " + id);
+    if(currentOkInterval[id]==null){currentOkInterval[id]=1; console.log("new interval entry for channel " + id);}
+    else{ currentOkInterval[id]=currentOkInterval[id]+1; console.log("currentOkInterval incr: "+ currentOkInterval[id]); }
+    if(currentOkInterval[id]>=okInterval){
+      okSpamLogs[id]=0;
+      console.log("ok reset for channel " + id);
+    }
   }
   //rekt
   if(message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1))
