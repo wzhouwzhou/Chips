@@ -27,4 +27,5 @@ module.exports.filter = (message) => {
       currentOkInterval[id]=0;
     }
   }
+  return message;
 };

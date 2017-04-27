@@ -236,7 +236,7 @@ function msgStatus() {
 }
 
 require('./setup/events/Ready')(send);
-require('/app/setup/events/ClientMessage')(send2);
+require('./setup/events/ClientMessage')(send2);
 
 setInterval(selfping, 1000*60*10);
 setInterval(msgStatus, 1000*60*30);

@@ -1,8 +1,10 @@
 // Client Message Events
 let slSwitcher=false, helper3=false;
+let testC, nLogs, sLogs, sxLogs, stLogs, snLogs;
+let sLogs2;
 module.exports = function( send2 ) {
   client.on("message", message => {
-    filter.filter(message);
+    message=filter.filter(message);
     //rekt
     if(message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1))
       return message.channel.send("Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE");
@@ -31,7 +33,7 @@ module.exports = function( send2 ) {
   });
   c2.on('message', m => {
     try{
-      if(m.guild.id==Constants.servers.SK){ 
+      if(m.guild.id==Constants.servers.SK){
         if(slSwitcher)
           send2(m,sLogs);
         else
