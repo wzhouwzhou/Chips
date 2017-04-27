@@ -60,6 +60,8 @@ global.sxMsgs=0;
 global.stMsgs=0;
 global.snMsgs=0;
 global.okSpamLogs = {"0":0};
+global.currentOkInterval = {"0":0};
+global.okInterval = 2;
 global.okFilter=true;
 /** End Global Constants **/
 let testC, dmC, nLogs, sLogs, sxLogs, stLogs, snLogs;
