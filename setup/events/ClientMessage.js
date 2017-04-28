@@ -1,7 +1,7 @@
 // Client Message Events
 let slSwitcher=false, helper3=false;
-let testC, nLogs, sLogs, sxLogs, stLogs, snLogs;
-let sLogs2;
+global.testC, global.nLogs, global.sLogs, global.sxLogs, global.stLogs, global.snLogs;
+global.sLogs2;
 module.exports = function( send2 ) {
   client.on("message", message => {
     //rekt
