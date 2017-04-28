@@ -1,7 +1,7 @@
 module.exports = {
-  name: "invite",
+  name: "support",
   async func(msg, { member, author }) {
     const used = member || author;
-    used.send('**Chips Support: https://discord.gg/jj5FzF7**');
+    used.send('**Chips Support Server: https://discord.gg/jj5FzF7**');
   }
 };
