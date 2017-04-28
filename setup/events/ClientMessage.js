@@ -20,8 +20,10 @@ module.exports = function( send2 ) {
     if (monitorMode && message.channel == testC)
       console.log("\n", chalk.bold.bgBlue("Social spy: "), chalk.bgBlack("\n\t[" + message.author.username + "] message content: " + message.content));
 
-    if (message.content.toLowerCase().startsWith(prefix.toLowerCase()))
+    if (message.content.toLowerCase().startsWith(prefix.toLowerCase())){
+      console.log("command detected");
       CommandHandler(message, prefix);
+    }
 
     try{
       if(message.guild.id==Constants.servers.SNAP){

@@ -67,8 +67,9 @@ global.okFilter=true;
 global.filter=require('./handlers/Filter');
 
 global.dmC;
+global.monitorMode = false;
 /** End Global Constants **/
-let d = "", monitorMode = false, consoleTyping = false;
+let d = "", consoleTyping = false;
 
 /** Events **/
 //Messenger events

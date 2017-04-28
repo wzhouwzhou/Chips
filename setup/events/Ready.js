@@ -33,8 +33,8 @@ module.exports = function( send ) {
     stLogs = h3client.channels.get(Constants.channels.STLOGS);
 
     console.log('Chips helper 3 is ready!');
-    h2client.user.setStatus("online");
-    h2client.user.setGame("Chips, Chips2 and Chips3 are bae!");
+    h3client.user.setStatus("online");
+    h3client.user.setGame("Chips, Chips2 and Chips3 are bae!");
   });
   c2.on("ready", _ => {
     console.log('Bot is ready!');
@@ -48,9 +48,9 @@ module.exports = function( send ) {
   h2client.on("debug", console.log);
   h3client.on("debug", console.log);
 
-
   fs.readdirSync("/app/commands").map(f => {
     if (/\.js/.test(f)) {
+      console.log("New command loaded!: " + f);
       const precmd = require(`/app/commands/${f}`);
       client.commands[precmd.name] = new Command(precmd);
     }

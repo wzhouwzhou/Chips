@@ -1,7 +1,8 @@
 
 module.exports.filter = (message) => {
-  content = message.content.replace(/[\u200B-\u200D\uFEFF]/g, ''); //0 space joiners
-  content = message.content.replace('*','');
+  let content = message.content;
+  content = content.replace(/[\u200B-\u200D\uFEFF]/g, ''); //0 space joiners
+  content = content.replace('*','');
 
   let id=message.channel.id;
   if(currentOkInterval[id]==null){currentOkInterval[id]=1; console.log("new interval entry for channel " + id);}
@@ -27,5 +28,4 @@ module.exports.filter = (message) => {
       currentOkInterval[id]=0;
     }
   }
-  return message;
 };
