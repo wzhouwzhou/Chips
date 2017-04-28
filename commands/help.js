@@ -14,6 +14,6 @@ module.exports = {
       {}setoutput to define testC.
       {}setDM to define dmC.
       {}botpanic to force shutdown (Auto restart)
-      **Chips Support: https://discord.gg/jj5FzF7**`.replace(/{}/g, prefix));
+      {}support for chips' support server.`.replace(/{}/g, prefix));
   }
 };
