@@ -1,17 +1,17 @@
 let f = {};
 
 f.filter = (message) => {
-  let content = message.content;
-  content = content.replace(/[\u200B-\u200D\uFEFF]/g, ''); //0 space joiners
-  content = content.replace('*','');
-
+  let mContent = message.content.replace(/[\|&;\$%@"<>\(\)\+,]/g, "");
+  mContent = mContent.replace(/[\u200B-\u200D\uFEFF]/g, ""); //0 space joiners
+  mContent = mContent.replace('*',"");
+  console.log("[SPAMMYDEBUG]: mContent " + mContent);
   let id=message.channel.id;
   if(currentOkInterval[id]==null){currentOkInterval[id]=1; console.log("new interval entry for channel " + id);}
   if(okSpamLogs[id]==null){okSpamLogs[id]=1; console.log("new entry for channel " + id);}
 
-  if(Constants.skblacklist.indexOf(content.toLowerCase())>-1){
+  if(Constants.skblacklist.indexOf(mContent.toLowerCase())>-1){
     if(okFilter){
-      console.log("ok received: " + content);
+      console.log("ok received: " + mContent);
       okSpamLogs[id]=okSpamLogs[id]+1;currentOkInterval[id] = 0; console.log("ok num increase in channel: " + id +  " new: " + okSpamLogs[id]);
       if(okSpamLogs[id]>=maxOk){
         message.delete();
