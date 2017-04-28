@@ -3,13 +3,19 @@ let f = {};
 f.filter = (message) => {
   let mContent = message.content.replace(/[\|&;\$%@"<>\(\)\+,]/g, "");
   mContent = mContent.replace(/[\u200B-\u200D\uFEFF]/g, ""); //0 space joiners
-  mContent = mContent.replace('*',"");
+  mContent = mContent.replace('*',"").toLowerCase();
   console.log("[SPAMMYDEBUG]: mContent " + mContent);
   let id=message.channel.id;
   if(currentOkInterval[id]==null){currentOkInterval[id]=1; console.log("new interval entry for channel " + id);}
   if(okSpamLogs[id]==null){okSpamLogs[id]=1; console.log("new entry for channel " + id);}
 
-  if(Constants.skblacklist.indexOf(mContent.toLowerCase())>-1){
+  if(Constants.SKBLACKLIST[message.guild.id]==null){
+    console.log("Creating new blacklist for guild " + message.guild.id)
+    Constants.SKBLACKLIST[message.guild.id]=['ok'];
+  }
+
+  if(Constants.SKBLACKLIST[message.guild.id].indexOf(mContent)>-1){
+    console.log("Blacklisted content found!");
     if(okFilter){
       console.log("ok received: " + mContent);
       okSpamLogs[id]=okSpamLogs[id]+1;currentOkInterval[id] = 0; console.log("ok num increase in channel: " + id +  " new: " + okSpamLogs[id]);

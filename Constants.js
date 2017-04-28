@@ -56,11 +56,14 @@ ex.express = {
 
 ex.CHOICES = ['0⃣','1⃣','2⃣','3⃣','4⃣','5⃣','6⃣','7⃣','8⃣','9⃣'];
 
-ex.skblacklist = [
-  "ok",
-  "k",
-  "xani",
-  "ko"
-];
+ex.SKBLACKLIST = {
+  "252525368865456130": [
+      'ok',
+      'k',
+      'xani',
+      'ko',
+      'ok*'
+    ]
+};
 
 module.exports = ex;
