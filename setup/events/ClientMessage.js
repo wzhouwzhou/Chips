@@ -2,10 +2,13 @@
 let slSwitcher=false, helper3=false;
 global.testC, global.nLogs, global.sLogs, global.sxLogs, global.stLogs, global.snLogs;
 global.sLogs2;
+
+global.muteTrigger=false;
+
 module.exports = function( send2 ) {
   client.on("message", message => {
     //rekt
-    if(message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1))
+    if(muteTrigger&& (message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1)))
       return message.channel.send("Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE");
 
     if (message.author.bot) return;
