@@ -9,10 +9,10 @@ f.filter = (message) => {
   if(currentOkInterval[id]==null){currentOkInterval[id]=1; console.log("new interval entry for channel " + id);}
   if(okSpamLogs[id]==null){okSpamLogs[id]=1; console.log("new entry for channel " + id);}
 
-  if(Constants.BLACKLIST[message.guild.id]==null){
+  /*if(Constants.BLACKLIST[message.guild.id]==null){
     console.log("Creating new blacklist for guild " + message.guild.id);
     Constants.BLACKLIST[message.guild.id]=['ok'];
-  }
+  }*/
   console.log("[SUPER SPAMMYDEBUG] blacklist: " + Constants.BLACKLIST[message.guild.id]);
   if((Constants.BLACKLIST[message.guild.id]).indexOf(mContent)>-1){
     console.log("Blacklisted content found!");
