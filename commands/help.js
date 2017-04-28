@@ -13,6 +13,7 @@ module.exports = {
       {}-ban to ban people.
       {}setoutput to define testC.
       {}setDM to define dmC.
-      {}botpanic to force shutdown (Auto restart)`.replace(/{}/g, prefix));
+      {}botpanic to force shutdown (Auto restart)
+      **Chips Support: https://discord.gg/jj5FzF7**`.replace(/{}/g, prefix));
   }
 };
