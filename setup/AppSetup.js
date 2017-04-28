@@ -2,11 +2,11 @@ module.exports = function(bodyParser, cookieParser, passport, express, app, Stra
   let botScopes = ['identify', 'guilds'];
   app.engine(Constants.express.ENGINE, require("express-ejs-extend"));
   app.set('view engine', Constants.express.ENGINE);
-
+  console.log(__dirname);
+  app.use(express.static('/app/public'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());
-  app.use(express.static(__dirname + '/public'));
 
   passport.serializeUser(function(user, done) {
     done(null, user);
@@ -46,7 +46,11 @@ module.exports = function(bodyParser, cookieParser, passport, express, app, Stra
       res.redirect('/');
   });
   // routes
-  app.use('/', index);
+  const secure = require('/app/Security');
+  let globalBruteforce = new secure();
+
+  app.use('/', index, globalBruteforce.prevent);
+
   app.use('/login',login);
   app.use('/useroverview',useroverview);
 

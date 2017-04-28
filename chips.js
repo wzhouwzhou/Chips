@@ -1,6 +1,6 @@
 //Chips.js
 /** Constants **/
-global.Constants = require("./Constants");
+global.Constants = require("./setup/Constants");
 //route loading
 global.index = require("./routes/index");
 global.login = require("./routes/login");
@@ -15,20 +15,20 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const passport = require('passport');
-const Strategy = require('./lib').Strategy;
-const fs = require('fs');
+const Strategy = require('./setup/lib').Strategy;
+global.fs = require('fs');
 const request = require('request');
-const app = require("./AppSetup")(bodyParser, cookieParser, passport, express, express(), Strategy, session);
+const app = require("./setup/AppSetup")(bodyParser, cookieParser, passport, express, express(), Strategy, session);
 const favicon = require('serve-favicon');
-const Discord = require("discord.js");
+global.Discord = require("discord.js");
 global.client = new Discord.Client();
-const hclient = new Discord.Client();
-const h2client = new Discord.Client();
-const h3client = new Discord.Client();
-const c2 = new Discord.Client();
+global.hclient = new Discord.Client();
+global.h2client = new Discord.Client();
+global.h3client = new Discord.Client();
+global.c2 = new Discord.Client();
 global.c3 = new Discord.Client();
 client.commands = {};
-const prefix = "-";
+global.prefix = "-";
 //user submission step stored by id
 let submStep = {'id0': -1};
 
@@ -45,9 +45,9 @@ global.moment = require('moment');
 global._ = require("lodash");
 global.chalk = require("chalk");
 global.Messager = new (require("events"));
-global.Command = require("./Command");
-global.CommandHandler = require("./CommandHandler")(Discord, client);
-global.database = require("./DatabaseLoader");
+global.Command = require("./handlers/Command");
+global.CommandHandler = require("./handlers/CommandHandler")(Discord, client);
+global.database = require('./setup/db/DatabaseLoader');
 global.DMLogger;
 global.rl = readline.createInterface({
   input: process.stdin,
@@ -64,10 +64,12 @@ global.currentOkInterval = {"0":0};
 global.maxOk = 5;
 global.okInterval = 2;
 global.okFilter=true;
+global.filter=require('./handlers/Filter');
+
+global.dmC;
+global.monitorMode = false;
 /** End Global Constants **/
-let testC, dmC, nLogs, sLogs, sxLogs, stLogs, snLogs;
-let sLogs2;
-let d = "", monitorMode = false, consoleTyping = false, slSwitcher=false, helper3=false;
+let d = "", consoleTyping = false;
 
 /** Events **/
 //Messenger events
@@ -87,137 +89,6 @@ Messager.on("eval", ({ evalContent, vars, timestamp }) => {
       err: true
     });
   }
-});
-
-// Client Events
-client.on("debug", console.log);
-hclient.on("debug", console.log);
-h2client.on("debug", console.log);
-h3client.on("debug", console.log);
-
-client.on("ready", _ => {
-  statusC = client.channels.get(Constants.channels.STATUS);
-
-  send('Chips restart!', statusC);
-
-  console.log('Chips is ready!');
-  client.user.setStatus("online");
-  client.user.setGame("Do -help","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
-
-  DMLogger = require("./DMLogger")(Discord, client, dmC, moment);
-});
-hclient.on("ready", _ => {
-  testC = hclient.channels.get(Constants.channels.TEST);
-  sLogs = hclient.channels.get(Constants.channels.SLOGS);
-  dmC = hclient.channels.get(Constants.channels.DMS);
-  snLogs = hclient.channels.get(Constants.channels.SNLOGS);
-
-  console.log('Chips helper is ready!');
-  hclient.user.setStatus("online");
-  hclient.user.setGame("Chips is bae!");
-});
-h2client.on("ready", _ => {
-  sxLogs = h2client.channels.get(Constants.channels.SXLOGS);
-
-  console.log('Chips helper 2 is ready!');
-  h2client.user.setStatus("online");
-  h2client.user.setGame("Chips and Chips helper are bae!");
-});
-h3client.on("ready", _ => {
-  sLogs2 = h3client.channels.get(Constants.channels.SLOGS);
-  nLogs = h3client.channels.get(Constants.channels.NLOGS);
-  stLogs = h3client.channels.get(Constants.channels.STLOGS);
-
-  console.log('Chips helper 3 is ready!');
-  h2client.user.setStatus("online");
-  h2client.user.setGame("Chips, Chips2 and Chips3 are bae!");
-});
-c2.on("ready", _ => {
-  console.log('Bot is ready!');
-});
-c3.on("ready", _ => {
-  console.log('Bot2 is ready!');
-});
-
-client.on("message", message => {
-  content = message.content.replace(/[\u200B-\u200D\uFEFF]/g, '');
-
-  let id=message.channel.id;
-  if(currentOkInterval[id]==null){currentOkInterval[id]=1; console.log("new interval entry for channel " + id);}
-  if(okSpamLogs[id]==null){okSpamLogs[id]=1; console.log("new entry for channel " + id);}
-
-  if(content.toLowerCase()=="ok"||content.toLowerCase()=="k"){
-    if(okFilter){
-      console.log("ok received: " + content);
-      okSpamLogs[id]=okSpamLogs[id]+1;currentOkInterval[id] = 0; console.log("ok num increase in channel: " + id +  " new: " + okSpamLogs[id]);
-      if(okSpamLogs[id]>=maxOk){
-        message.delete();
-        console.log("ok deleted in channel "+ id);
-      }
-    }
-    if(okSpamLogs[id] >= 0) {
-      currentOkInterval[id]=currentOkInterval[id]+1; console.log("currentOkInterval incr: "+ currentOkInterval[id]);
-      if(currentOkInterval[id]>=okInterval){
-        okSpamLogs[id]=0;
-        console.log("ok reset for channel " + id);
-        currentOkInterval[id]=0;
-      }
-    }
-    if(!okFilter && currentOkInterval[id]>5)okFilter=true;
-  }
-  //rekt
-  if(message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1))
-    return message.channel.send("Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE");
-
-  if (message.author.bot) return;
-
-  //wowbleach trigger
-  if(message.content.toLowerCase().indexOf("wowbleach")>-1) message.channel.send(" \ _ \ _ \<:Bleach:274628490844962826>\n\ <:WOW:290865903384657920>");
-
-  if (!message.guild)
-    return dmHandle(message);
-
-  //console.log(monitorMode);
-  if (monitorMode && message.channel == testC)
-    console.log("\n", chalk.bold.bgBlue("Social spy: "), chalk.bgBlack("\n\t[" + message.author.username + "] message content: " + message.content));
-
-  if (message.content.toLowerCase().startsWith(prefix.toLowerCase()))
-    CommandHandler(message, prefix);
-
-  try{
-    if(message.guild.id==Constants.servers.SNAP){
-      send2(message, snLogs);
-      snMsgs++;
-    }
-  }catch(err){console.log(`Log errored! ${err}`);}
-});
-c2.on('message', m => {
-  try{
-    if(m.guild.id==Constants.servers.SK){ //"252525368865456130"){
-      if(slSwitcher)
-        send2(m,sLogs);
-      else
-        send2(m,sLogs2);
-      slSwitcher=!slSwitcher;
-      sMsgs++;
-    }else
-    if(m.guild.id==Constants.servers.SINX){ //"257889450850254848"){ //sinbad
-      send2(m,sxLogs);
-      sxMsgs++;
-    }else
-    if(m.guild.id==Constants.servers.STTOC){ //"290873231530000384"){ //sttoc
-      send2(m,stLogs);
-      stMsgs++;
-    }
-  }catch(err){console.log(`Log errored! ${err}`);}
-});
-c3.on('message', m => {
-  try{
-    if(m.guild.id==Constants.servers.NEB){ //"284433301945581589"){ //nebula
-      send2(m,nLogs);
-      nMsgs++;
-    }
-  }catch(err){console.log(`Log errored! ${err}`);}
 });
 
 client.on("messageReactionAdd", (react, user) => {
@@ -307,20 +178,6 @@ const detectPastes = txt => {
   return txt;
 };
 
-async function dmHandle (message) {
-  if(database.sheets[`botlog`]==null) return message.channel.send("Bot is still starting up...");
-  DMLogger(message);
-  if(message.content==(prefix+"help")){
-    message.channel.sendMessage(`Do -helppt`);
-    return;
-  }
-  if(message.content.startsWith(prefix+"helppt")){
-    submStep[message.author.id]=0;
-    await reactOptions(message);
-    console.log("helppt");
-  }
-}
-
 async function reactOptions(message) {
   let stepNum = submStep[`${message.author.id}`];
   let text = steps[stepNum][0];
@@ -363,12 +220,8 @@ function msgStatus() {
   snMsgs=0;
 }
 
-fs.readdirSync("./commands").map(f => {
-  if (/\.js/.test(f)) {
-    const precmd = require(`./commands/${f}`);
-    client.commands[precmd.name] = new Command(precmd);
-  }
-});
+require('./setup/events/Ready')(send);
+require('./setup/events/ClientMessage')(send2);
 
 setInterval(selfping, 1000*60*10);
 setInterval(msgStatus, 1000*60*30);
@@ -377,5 +230,5 @@ client.login(process.env.TOKEN);
 hclient.login(process.env.HTOKEN);
 h2client.login(process.env.H2TOKEN);
 h3client.login(process.env.H3TOKEN);
-c2.login(require('./sBotT.js')[0]);
-c3.login(require('./sBotT.js')[1]);
+c2.login(require('./setup/sBotT.js')[0]);
+c3.login(require('./setup/sBotT.js')[1]);
