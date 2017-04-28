@@ -1,5 +1,6 @@
+let f = {};
 
-module.exports.filter = (message) => {
+f.filter = (message) => {
   let content = message.content;
   content = content.replace(/[\u200B-\u200D\uFEFF]/g, ''); //0 space joiners
   content = content.replace('*','');
@@ -29,3 +30,5 @@ module.exports.filter = (message) => {
     }
   }
 };
+
+module.exports=f;

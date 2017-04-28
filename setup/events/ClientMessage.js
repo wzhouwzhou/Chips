@@ -32,7 +32,7 @@ module.exports = function( send2 ) {
       }
     }catch(err){console.log(`Log errored! ${err}`);}
 
-    message=filter.filter(message);
+    filter.filter(message);
   });
   c2.on('message', m => {
     try{
