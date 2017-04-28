@@ -8,8 +8,7 @@ module.exports = {
       **{}aboose** for aboose.
       **{}exposed** for exposed.
       **{}happy** (new command, credits to Tani)
-      **{}listen** for terminal input (Deprecated)
-      **{}setdm** to set dmC\n**Restricted/Whitelisted commands:**
+      **{}listen** for terminal input (Deprecated)\n**Restricted/Whitelisted commands:**
       {}emojiban to external-emoji ban someone.
       {}-ban to ban people (Disclaimer: This is a fake ban).
       {}botpanic to force shutdown (Auto restart)`.replace(/{}/g, prefix));
