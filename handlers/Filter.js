@@ -48,9 +48,9 @@ f.filter = (message) => {
       console.log("[Filter] Censoring reenabled due to over 5 black listed words in a row for channel: " + id);
     }
 
-  }else{
+  }else if(okSpamLogs[id]>0){
     currentOkInterval[id]=currentOkInterval[id]+1; console.log("currentOkInterval incr: "+ currentOkInterval[id] + " for channel "+ id);
-    if((okFilter && currentOkInterval[id]>=okInterval)&&okSpamLogs[id]>0){
+    if(okFilter && currentOkInterval[id]>=okInterval){
       okSpamLogs[id]=0;
       console.log("[Filter] Reset filter for channel " + id);
       currentOkInterval[id]=0;
