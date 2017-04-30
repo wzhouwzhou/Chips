@@ -1,3 +1,14 @@
+
+let blacklist = {
+  252525368865456130: [
+      'ok',
+      'k',
+      'xani',
+      'ko',
+      'ok*'
+    ]
+};
+
 let f = {};
 
 f.filter = (message) => {
