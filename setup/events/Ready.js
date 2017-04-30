@@ -6,7 +6,7 @@ module.exports = function( send ) {
 
     console.log('Chips is ready!');
     client.user.setStatus("online");
-    client.user.setGame("Do -help","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
+    client.user.setGame("Do -support","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
 
     DMLogger = require("/app/handlers/DMLogger")(Discord, client, dmC, moment);
   });
@@ -75,7 +75,7 @@ module.exports = function( send ) {
         console.log("[SK] adding role...");
         member.addRole(memberguild.roles.find('name',"lollipop-unverified"));
         console.log("[SK] sending welcome msg...");
-        client.channels.get("307342989783728131").send(`<@${userid}>, Welcome! Please read #information and become acquainted with the rules here, then contact a staff member to be able to speak in other channels!`);
+        client.channels.get("303587467515396107").send(`<@${userid}>, Welcome! Please read #information and become acquainted with the rules here, then contact a staff member to be able to speak in other channels!`);
       }
     } catch (err) {
       console.log("could not add unverified role");
