@@ -24,13 +24,15 @@ module.exports = {
         case Constants.users.ARX:
           break;
         default:
-          return send(`No bans for you, <@${used.id}>!`);
+          return;
       }
     }
     console.log("[VS] Target: "+target);
     let targetMember = guild.members.get(user.id);
 
     if(args[0]=="ok"){
+      if(targetMember.roles.find('name','lollipop-unverified')==null)
+        return reply(`User does not have the unverified role!`);
       try{
         targetMember.removeRole(guild.roles.find('name','lollipop-unverified'));
         reply(`User verified successfully!`);
