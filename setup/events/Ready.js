@@ -55,4 +55,23 @@ module.exports = function( send ) {
       client.commands[precmd.name] = new Command(precmd);
     }
   });
+
+  client.on("guildMemberAdd",  (member) => {
+    /*jshint sub:true*/
+    try {
+      let memberguild = member.guild;
+      let userid= member.user.id;
+      if(memberguild.id=="257889450850254848"){
+        member.addRole(memberguild.roles.get("305302877641900052"));
+        client.channels.get().send(`<@${userid}>, Welcome to Sinbadx Knights! If you would like to get verified and be able to speak in the other channels, please answer the following questions!
+1. How did you hear about this server?
+2. Why did you join this server?
+3. Do you promise to read #information?
+4. What is your favorite diep.io tank?
+(you can answer these with just a sentence or two, no need to write an essay!)`);
+      }
+    } catch (err) {
+      console.log("could not add unverified role");
+    }
+  });
 };
