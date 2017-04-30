@@ -12,6 +12,7 @@ module.exports = {
         case Constants.users.NELYN:
         case Constants.users.LOAF:
         case Constants.users.ARX:
+        case Constants.users.GOTEM:
           break;
         default:
           return;
@@ -36,6 +37,6 @@ module.exports = {
       }
     });
     channel.sendEmbed(bad);
-    channel.send(num+" roles");
+    channel.send(`${--num} roles`);
   }
 };
