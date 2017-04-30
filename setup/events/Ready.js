@@ -62,15 +62,20 @@ module.exports = function( send ) {
       let memberguild = member.guild;
       let userid= member.user.id;
       if(memberguild.id=="257889450850254848"){
-        console.log("adding role...");
-        member.addRole(memberguild.roles.get("305302877641900052"));
-        console.log("sending welcome msg...");
+        console.log("[SINX] adding role...");
+        member.addRole(memberguild.roles.find('name',"lollipop-unverified"));
+        console.log("[SINX] sending welcome msg...");
         client.channels.get("307342989783728131").send(`<@${userid}>, Welcome to Sinbadx Knights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!**
           1. How did you hear about this server?
           2. Why did you join this server?
           3. Do you promise to read #information?
           4. What is your favorite diep.io tank?
           (you can answer these with just a sentence or two, no need to write an essay!)`);
+      }else if(memberguild.id=="252525368865456130"){
+        console.log("[SK] adding role...");
+        member.addRole(memberguild.roles.find('name',"lollipop-unverified"));
+        console.log("[SK] sending welcome msg...");
+        client.channels.get("307342989783728131").send(`<@${userid}>, Welcome! Please read #information and become acquainted with the rules here, then contact a staff member to be able to speak in other channels!`);
       }
     } catch (err) {
       console.log("could not add unverified role");
