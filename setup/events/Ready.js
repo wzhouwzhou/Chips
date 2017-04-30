@@ -62,20 +62,24 @@ module.exports = function( send ) {
       let memberguild = member.guild;
       let userid= member.user.id;
       if(memberguild.id=="257889450850254848"){
-        console.log("[SINX] adding role...");
-        member.addRole(memberguild.roles.find('name',"lollipop-unverified"));
-        console.log("[SINX] sending welcome msg...");
-        client.channels.get("307342989783728131").send(`<@${userid}>, Welcome to Sinbadx Knights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!**
-          1. How did you hear about this server?
-          2. Why did you join this server?
-          3. Do you promise to read #information?
-          4. What is your favorite diep.io tank?
-          (you can answer these with just a sentence or two, no need to write an essay!)`);
+        setTimeout(_ =>{
+          console.log("[SINX] adding role...");
+          member.addRole(memberguild.roles.find('name',"lollipop-unverified"));
+          console.log("[SINX] sending welcome msg...");
+          client.channels.get("307342989783728131").send(`<@${userid}>, Welcome to Sinbadx Knights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!**
+            1. How did you hear about this server?
+            2. Why did you join this server?
+            3. Do you promise to read <#308361914923089940>?
+            4. What is your favorite diep.io tank?
+            (you can answer these with just a sentence or two, no need to write an essay!)`);
+        }, 500);
       }else if(memberguild.id=="252525368865456130"){
-        console.log("[SK] adding role...");
-        member.addRole(memberguild.roles.find('name',"lollipop-unverified"));
-        console.log("[SK] sending welcome msg...");
-        client.channels.get("303587467515396107").send(`<@${userid}>, Welcome! Please read <#308356199613595658> and become acquainted with the rules here, then contact a staff member to be able to speak in other channels!`);
+        setTimeout(_ => {
+          console.log("[SK] adding role...");
+          member.addRole(memberguild.roles.find('name',"lollipop-unverified"));
+          console.log("[SK] sending welcome msg...");
+          client.channels.get("303587467515396107").send(`<@${userid}>, Welcome! Please read <#308356199613595658> and become acquainted with the rules here, then contact a staff member to be able to speak in other channels!`);
+        },500);
       }
     } catch (err) {
       console.log("could not add unverified role");
