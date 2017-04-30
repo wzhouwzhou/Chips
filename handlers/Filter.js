@@ -1,21 +1,22 @@
 
-let blacklist = {
+global.blacklist = {
   252525368865456130: [
       'ok',
       'k',
       'xani',
       'ko',
       'ok*'
-    ]
+    ],
+
 };
 
 let f = {};
 
 f.filter = (message) => {
   let mContent = message.content.toLowerCase();//.replace(/[\|&;\$%@"<>\(\)\+,]/g, "");
-/*  mContent = mContent.replace(/[\u200B-\u200D\uFEFF]/g, ""); //0 space joiners
-  mContent = mContent.replace('*',"").toLowerCase();*/
-  console.log("[SPAMMYDEBUG]: mContent: " + mContent);
+  mContent = mContent.replace(/[\u200B-\u200D\uFEFF]/g, ""); //0 space joiners
+  mContent = mContent.replace('*',"").toLowerCase();
+  //console.log("[SPAMMYDEBUG]: mContent: " + mContent);
   let id=message.channel.id;
   if(currentOkInterval[id]==null){currentOkInterval[id]=1; console.log("new interval entry for channel " + id);}
   if(okSpamLogs[id]==null){okSpamLogs[id]=1; console.log("new entry for channel " + id);}
