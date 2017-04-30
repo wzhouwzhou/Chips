@@ -2,7 +2,7 @@ module.exports = function( send ) {
   client.on("ready", _ => {
     statusC = client.channels.get(Constants.channels.STATUS);
 
-    send('Chips restart!', statusC);
+    send('Chips restart! **' + moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')+'**', statusC);
 
     console.log('Chips is ready!');
     client.user.setStatus("online");
