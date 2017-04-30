@@ -28,7 +28,7 @@ f.filter = (message) => {
   //console.log("[SUPER SPAMMYDEBUG] blacklist: " + Constants.BLACKLIST[message.guild.id]);
 
   //detect blacklisted content
-  if(mContent=="ok"||mContent=="ko"){//(Constants.BLACKLIST[message.guild.id]).indexOf(mContent)>-1){
+  if(blacklist[message.guild.id].indexOf(mContent)>-1){ //=="ok"||mContent=="ko"){//(Constants.BLACKLIST[message.guild.id]).indexOf(mContent)>-1){
     console.log("Blacklisted content found!");
     console.log("message content: " + mContent);
 
