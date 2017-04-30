@@ -7,7 +7,6 @@ global.blacklist = {
       'ko',
       'ok*'
     ],
-
 };
 
 let f = {};
@@ -18,42 +17,42 @@ f.filter = (message) => {
   mContent = mContent.replace('*',"").toLowerCase();
   //console.log("[SPAMMYDEBUG]: mContent: " + mContent);
   let id=message.channel.id;
-  if(currentOkInterval[id]==null){currentOkInterval[id]=1; console.log("new interval entry for channel " + id);}
-  if(okSpamLogs[id]==null){okSpamLogs[id]=1; console.log("new entry for channel " + id);}
+  if(currentOkInterval[id]==null){currentOkInterval[id]=1; console.log("[Filter] New interval entry for channel " + id);}
+  if(okSpamLogs[id]==null){okSpamLogs[id]=1; console.log("[Filter] New entry for channel " + id);}
 
-  /*if(Constants.BLACKLIST[message.guild.id]==null){
-    console.log("Creating new blacklist for guild " + message.guild.id);
-    Constants.BLACKLIST[message.guild.id]=['ok'];
-  }*/
-  //console.log("[SUPER SPAMMYDEBUG] blacklist: " + Constants.BLACKLIST[message.guild.id]);
+  if(blacklist[message.guild.id]==null){
+    console.log("[Filter] Creating new blacklist for guild " + message.guild.id);
+    blacklist[message.guild.id]=['ok'];
+  }
+  //console.log("[Filter][SUPER SPAMMYDEBUG] blacklist: " + Constants.BLACKLIST[message.guild.id]);
 
   //detect blacklisted content
   if(blacklist[message.guild.id].indexOf(mContent)>-1){ //=="ok"||mContent=="ko"){//(Constants.BLACKLIST[message.guild.id]).indexOf(mContent)>-1){
-    console.log("Blacklisted content found!");
-    console.log("message content: " + mContent);
+    console.log("[Filter] Blacklisted content found!");
+    //console.log("[Filter] Message content: " + mContent);
 
     //increment blacklist occurence
     okSpamLogs[id]=okSpamLogs[id]+1;
     //reset interval
     currentOkInterval[id] = 0;
-    console.log("ok num increase in channel: " + id +  " new: " + okSpamLogs[id]);
+    console.log("[Filter] Match num increase in channel: " + id +  " new: " + okSpamLogs[id]);
 
     if(okFilter){
       if(okSpamLogs[id]>=maxOk){
         message.delete();
-        console.log("ok deleted in channel "+ id);
+        console.log("[Filter] Blacklisted content deleted in channel "+ id);
       }
     }else if(!okFilter && okSpamLogs[id]>5){
       //reenable filter
       okFilter=true;
-      console.log("censoring reenabled due to over 5 black listed words in a row for channel: " + id);
+      console.log("[Filter] Censoring reenabled due to over 5 black listed words in a row for channel: " + id);
     }
 
   }else{
     currentOkInterval[id]=currentOkInterval[id]+1; console.log("currentOkInterval incr: "+ currentOkInterval[id] + " for channel "+ id);
-    if(okFilter && currentOkInterval[id]>=okInterval){
+    if((okFilter && currentOkInterval[id]>=okInterval)&&okSpamLogs[id]>0){
       okSpamLogs[id]=0;
-      console.log("ok reset for channel " + id);
+      console.log("[Filter] Reset filter for channel " + id);
       currentOkInterval[id]=0;
     }
   }
