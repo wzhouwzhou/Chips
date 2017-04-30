@@ -13,7 +13,7 @@ f.filter = (message) => {
     console.log("Creating new blacklist for guild " + message.guild.id);
     Constants.BLACKLIST[message.guild.id]=['ok'];
   }*/
-  console.log("[SUPER SPAMMYDEBUG] blacklist: " + Constants.BLACKLIST[message.guild.id]);
+  //console.log("[SUPER SPAMMYDEBUG] blacklist: " + Constants.BLACKLIST[message.guild.id]);
   if(mContent=="ok"||mContent=="ko"){//(Constants.BLACKLIST[message.guild.id]).indexOf(mContent)>-1){
     console.log("Blacklisted content found!");
     if(okFilter){
