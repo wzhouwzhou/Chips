@@ -5,7 +5,7 @@ global.sLogs2;
 
 global.muteTrigger=false;
 
-module.exports = function( send2 ) {
+module.exports = function() {
   client.on("message", message => {
     //rekt
     if(muteTrigger&& (message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1)))
