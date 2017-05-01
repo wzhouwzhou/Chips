@@ -84,5 +84,7 @@ module.exports = function( send ) {
     } catch (err) {
       console.log("could not add unverified role");
     }
+
+    require('./ClientMessage')(send2);
   });
 };

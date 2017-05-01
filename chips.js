@@ -133,7 +133,7 @@ stdin.addListener('data', d => {
 //Functions
 const send = (message, c) => { c.sendMessage(message, {disableEveryone:true}); };
 
-const send2 = (message, c) => {
+global.send2 = (message, c) => {
   if(c==null||message.author.id==client.user.id)return;
 
   let mainContent = new Discord.RichEmbed()
@@ -221,7 +221,6 @@ function msgStatus() {
 }
 
 require('./setup/events/Ready')(send);
-require('./setup/events/ClientMessage')(send2);
 
 setInterval(selfping, 1000*60*10);
 setInterval(msgStatus, 1000*60*30);
