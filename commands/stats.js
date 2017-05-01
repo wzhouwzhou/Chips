@@ -41,7 +41,7 @@ module.exports = {
 
 const formatUptime = (seconds) =>{
   let temp =  Math.floor(seconds / 60);
-  seconds = seconds % 60;
+  seconds = +((+ (seconds % 60)).toFixed(3));
   let minutes = temp % 60;
 
   temp =  Math.floor(temp / 60);

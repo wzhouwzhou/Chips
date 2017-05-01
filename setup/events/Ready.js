@@ -78,7 +78,7 @@ module.exports = function( send ) {
           console.log("[SK] adding role...");
           member.addRole(memberguild.roles.find('name',"lollipop-unverified"));
           console.log("[SK] sending welcome msg...");
-          client.channels.get("303587467515396107").send(`<@${userid}>, Welcome! Please read <#308356199613595658> and become acquainted with the rules here, then contact a staff member to be able to speak in other channels!`);
+          client.channels.get("303587467515396107").send(`<@${userid}>, Welcome! Please read <#307895557815402496> and become acquainted with the rules here, then contact a staff member to be able to speak in other channels!`);
         },500);
       }
     } catch (err) {
