@@ -41,7 +41,7 @@ module.exports = {
 
 const formatUptime = (seconds) =>{
   let temp =  Math.floor(seconds / 60);
-  seconds = seconds % 60
+  seconds = seconds % 60;
   let minutes = temp % 60;
 
   temp =  Math.floor(temp / 60);
@@ -49,7 +49,7 @@ const formatUptime = (seconds) =>{
 
   let days = Math.floor(temp / 24);
 
-  seconds = `${'0'.repeat(2 - seconds.toString().length)}${seconds}`;
+  seconds = `${'0'.repeat(3 - seconds.toString().length)}${seconds}`;
   minutes = `${'0'.repeat(2 - minutes.toString().length)}${minutes}`;
   hours = `${'0'.repeat(2 - hours.toString().length)}${hours}`;
   days = `${'0'.repeat(Math.max(0, 2 - days.toString().length))}${days}`;
