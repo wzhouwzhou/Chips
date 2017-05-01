@@ -64,7 +64,7 @@ module.exports = function( send ) {
       if(memberguild.id=="257889450850254848"){
         setTimeout(_ =>{
           console.log("[SINX] adding role...");
-          member.addRole(memberguild.roles.find('name',"lollipop-unverified"));
+          member.addRole(memberguild.roles.find('name',"unverified"));
           console.log("[SINX] sending welcome msg...");
           client.channels.get("307342989783728131").send(`<@${userid}>, Welcome to Sinbadx Knights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!**
             1. How did you hear about this server?
@@ -84,7 +84,5 @@ module.exports = function( send ) {
     } catch (err) {
       console.log("could not add unverified role");
     }
-
-    require('/app/setup/events/ClientMessage')();
   });
 };
