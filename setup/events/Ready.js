@@ -64,7 +64,7 @@ module.exports = function( send ) {
       if(memberguild.id=="257889450850254848"){
         setTimeout(_ =>{
           console.log("[SINX] adding role...");
-          member.addRole(memberguild.roles.find('name',"unverified"));
+          member.addRole(memberguild.roles.get("305302877641900052")||memberguild.roles.find('name',"unverified"));
           console.log("[SINX] sending welcome msg...");
           client.channels.get("307342989783728131").send(`<@${userid}>, Welcome to Sinbadx Knights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!**
             1. How did you hear about this server?
@@ -76,7 +76,7 @@ module.exports = function( send ) {
       }else if(memberguild.id=="252525368865456130"){
         setTimeout(_ => {
           console.log("[SK] adding role...");
-          member.addRole(memberguild.roles.find('name',"lollipop-unverified"));
+          member.addRole(memberguild.roles.get("303587467741757440")||memberguild.roles.find('name',"lollipop-unverified"));
           console.log("[SK] sending welcome msg...");
           client.channels.get("303587467515396107").send(`<@${userid}>, Welcome! Please read <#307895557815402496> and become acquainted with the rules here, then contact a staff member to be able to speak in other channels!`);
         },500);
