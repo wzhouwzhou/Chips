@@ -49,10 +49,10 @@ const formatUptime = (seconds) =>{
 
   let days = Math.floor(temp / 24);
 
-  seconds = `${'0'.repeat(3 - seconds.toString().length)}${seconds}`;
-  minutes = `${'0'.repeat(2 - minutes.toString().length)}${minutes}`;
-  hours = `${'0'.repeat(2 - hours.toString().length)}${hours}`;
-  days = `${'0'.repeat(Math.max(0, 2 - days.toString().length))}${days}`;
+  seconds = `${seconds}`;
+  minutes = `${minutes}`;
+  hours   = `${hours}`;
+  days    = `${days}`;
 
-  return `${days !== '00' ? `${days}:` : ''}${hours}:${minutes}:${seconds}`;
+  return `${days !== '0' ? `${days}:` : ''}${hours}:${minutes}:${seconds}`;
 };
