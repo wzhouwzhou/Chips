@@ -24,7 +24,7 @@ module.exports = {
     bad.addField("Memory usage:", `${memory}`, true);
 
     let hrTime = process.hrtime()[0];
-    bad.addField("CPU hrtime:", `${htTime}`, true);
+    bad.addField("CPU hrtime:", `${hrTime}`, true);
 
     let cpuUsage = process.cpuUsage().user;
     bad.addField("CPU usage:", `${cpuUsage}`, true);
