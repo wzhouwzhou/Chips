@@ -26,8 +26,8 @@ module.exports = {
 
     console.log("[Blacklist] Action: "+action);
     if(blacklist[guild.id]==null){
-      console.log("[Filter] Creating new blacklist for guild " + row.guildid);
-      blacklist[row.guild.id]=['ok'];
+      console.log("[Filter] Creating new blacklist for guild " + guild.id);
+      blacklist[guild.id]=['ok'];
     }
 
     if(action=="add"){
