@@ -25,6 +25,10 @@ module.exports = {
     else action = args[0];
 
     console.log("[Blacklist] Action: "+action);
+    if(blacklist[guild.id]==null){
+      console.log("[Filter] Creating new blacklist for guild " + row.guildid);
+      blacklist[row.guild.id]=['ok'];
+    }
 
     if(action=="add"){
       if (!args[1]) return send("No keyword given to add to the blacklist");
