@@ -2,6 +2,7 @@
 let f = {};
 
 f.filter = (message) => {
+
   let mContent = message.content.toLowerCase();//.replace(/[\|&;\$%@"<>\(\)\+,]/g, "");
   mContent = mContent.replace(/[\u200B-\u200D\uFEFF]/g, ""); //0 space joiners
   mContent = mContent.replace('*',"").toLowerCase();
@@ -15,7 +16,7 @@ f.filter = (message) => {
     blacklist[message.guild.id]=['ok'];
   }
   //console.log("[Filter][SUPER SPAMMYDEBUG] blacklist: " + Constants.BLACKLIST[message.guild.id]);
-
+  let blacklist = blacklist;
   //detect blacklisted content
   if(blacklist[message.guild.id].indexOf(mContent)>-1){ //=="ok"||mContent=="ko"){//(Constants.BLACKLIST[message.guild.id]).indexOf(mContent)>-1){
     console.log("[Filter] Blacklisted content found!");
