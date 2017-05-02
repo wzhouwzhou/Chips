@@ -24,6 +24,8 @@ module.exports = {
     if (!args[0]) return send("No action given :(");
     else action = args[0];
 
+    console.log("[Blacklist] Action: "+action);
+
     if(action=="add"){
       if (!args[1]) return send("No keyword given to add to the blacklist");
       else{
@@ -31,22 +33,7 @@ module.exports = {
         blacklist[guild.id].push(keyword);
         console.log(`New blacklist: ${blacklist}`);
         database.sheets['filter'].addRow({guildid: guild.id, keyword: keyword});
-        return reply(`Keyword ${keyword} blacklisted successfullly`);
-      }
-    }
-
-    console.log("[Blacklist] Action: "+action);
-    let targetMember = guild.members.get(user.id);
-
-    if(args[0]=="ok"){
-      if(targetMember.roles.find('name','lollipop-unverified')==null)
-        return reply(`User does not have the unverified role!`);
-      try{
-        targetMember.removeRole(guild.roles.find('name','lollipop-unverified'));
-        reply(`User verified successfully!`);
-      } catch (err) {
-        console.log("could not remove unverified role");
-        reply(`User not unverified :< Something went wrong..`);
+        return reply(`Keyword ${keyword} blacklisted successfully`);
       }
     }
   }
