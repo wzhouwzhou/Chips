@@ -1,4 +1,13 @@
 
+global.blacklist = {
+  252525368865456130: [
+      'ok',
+      'xani',
+      'ko',
+      'ok*'
+    ],
+};
+
 const GoogleSpreadsheet = require('google-spreadsheet');
 
 const doc = new GoogleSpreadsheet(process.env.SPREADSHEET_ID);
@@ -23,6 +32,19 @@ const loadsheet = function(sheet) {
 		else if (sheet.title == 'quests') {
 			// fdsa
 		}
+		else if (sheet.title == 'botlog') {
+			sheets[`botlog`].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "restart+load"},(err) => {console.log(err);});
+		}
+		else if (sheet.title == 'filter') {
+			rows.forEach(row =>{
+					if(blacklist[row.guildid]==null){
+						console.log("[Filter] Creating new blacklist for guild " + message.guild.id);
+						blacklist[message.guild.id]=['ok'];
+					}
+					blacklist[row.guildid].push(row.keyword);
+					console.log("[Filter] Added keyword to guild " + row.guildid + ": " + row.keyword);
+				});
+		}
 		else {
 			console.log('useless sheet found: '+sheet.title);
 		}
@@ -32,8 +54,6 @@ const loadsheet = function(sheet) {
 			ex.ready = true;
 		}
 	});
-	if(sheets[`botlog`]!=null)
-    sheets[`botlog`].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "restart+load"},(err) => {console.log(err);});
 };
 
 doc.useServiceAccountAuth(login_info,() => {
