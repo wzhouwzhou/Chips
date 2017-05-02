@@ -46,6 +46,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.5.4",
     "jquery": "^1.11.3",
+    "jsonfile": "^3.0.0",
     "lodash": "^4.17.4",
     "long-timeout": "^0.1.1",
     "magnific-popup": "^1.1.0",
@@ -63,6 +64,7 @@
     "sodium": "^2.0.1",
     "sqlite3": "^3.1.8",
     "underscore": "^1.8.3",
+    "url-download": "0.0.8",
     "uws": "^0.14.1"
   },
   "name": "chips",
