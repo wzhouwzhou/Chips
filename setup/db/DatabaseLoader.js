@@ -38,8 +38,8 @@ const loadsheet = function(sheet) {
 		else if (sheet.title == 'filter') {
 			rows.forEach(row =>{
 					if(blacklist[row.guildid]==null){
-						console.log("[Filter] Creating new blacklist for guild " + row.guild.id);
-						blacklist[row.guild.id]=['ok'];
+						console.log("[Filter] Creating new blacklist for guild " + row.guildid);
+						blacklist[row.guildid]=['ok'];
 					}
 					blacklist[row.guildid].push(row.keyword);
 					console.log("[Filter] Added keyword to guild " + row.guildid + ": " + row.keyword);
