@@ -1,5 +1,6 @@
 const gifs = [
-  "https://media.giphy.com/media/aNdsZjp5EKcM0/source.gif"
+  "https://media.giphy.com/media/aNdsZjp5EKcM0/source.gif",
+  "http://gph.is/28VYYmU"
 ];
 
 module.exports = {
