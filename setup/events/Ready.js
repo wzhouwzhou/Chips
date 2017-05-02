@@ -6,7 +6,7 @@ module.exports = function( send ) {
 
     console.log('Chips is ready!');
     client.user.setStatus("online");
-    client.user.setGame("Do -support","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
+    client.user.setGame("Do -stats","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
 
     DMLogger = require("/app/handlers/DMLogger")(Discord, client, dmC, moment);
   });

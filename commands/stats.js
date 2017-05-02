@@ -2,7 +2,7 @@ module.exports = {
   name: "stats",
   async func(msg, { channel }) {
     let bad = new Discord.RichEmbed();
-    bad.setColor("1503").setAuthor("Chips stats report!");
+    bad.setColor("1503").setAuthor("Chips (-help) stats report!");
 
     bad.setTitle(`Current time: ${moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')}!`);
 
