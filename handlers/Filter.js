@@ -18,6 +18,7 @@ f.filter = (message) => {
     console.log("[Filter] Creating new blacklist for guild " + message.guild.id);
     blacklist[message.guild.id]=['ok'];
     onFilter[message.guild.id]=true;
+    autoOverride[message.guild.id]=false;
   }
   //console.log("[Filter][SUPER SPAMMYDEBUG] blacklist: " + Constants.BLACKLIST[message.guild.id]);
   let blacklist = blacklist;
@@ -38,9 +39,11 @@ f.filter = (message) => {
         console.log("[Filter] Blacklisted content deleted in channel "+ id);
       }
     }else if(!onFilter[message.guild.id] && okSpamLogs[id]>5){
-      //reenable filter
-      onFilter[message.guild.id]=true;
-      console.log("[Filter] Censoring reenabled due to over 5 black listed words in a row for channel: " + id);
+      if(!autoOverride[message.guild.id]){
+        //reenable filter if not being overriden
+        onFilter[message.guild.id]=true;
+        console.log("[Filter] Censoring reenabled due to over 5 black listed words in a row for channel: " + id);
+      }
     }
 
   }else if(okSpamLogs[id]>0){
