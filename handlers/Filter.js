@@ -21,7 +21,7 @@ f.filter = (message) => {
     autoOverride[message.guild.id]=false;
   }
   //console.log("[Filter][SUPER SPAMMYDEBUG] blacklist: " + Constants.BLACKLIST[message.guild.id]);
-  let blacklist = blacklist;
+  //let blacklist = blacklist;
   //detect blacklisted content
   if(blacklist[message.guild.id].indexOf(mContent)>-1){ //=="ok"||mContent=="ko"){//(Constants.BLACKLIST[message.guild.id]).indexOf(mContent)>-1){
     console.log("[Filter] Blacklisted content found!");
