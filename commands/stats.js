@@ -10,7 +10,7 @@ module.exports = {
     let guildCount = 0;
 
     for(g of client.guilds.array()) {
-      userCount+=g.members.array().length;
+      userCount+=g.memberCount;
       guildCount++;
     }
 
