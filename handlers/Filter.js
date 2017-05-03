@@ -1,4 +1,6 @@
-
+global.maxOk = 3;
+global.okInterval = 2;
+global.okFilter=true;
 let f = {};
 
 f.filter = (message) => {

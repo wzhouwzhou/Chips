@@ -61,9 +61,6 @@ global.stMsgs=0;
 global.snMsgs=0;
 global.okSpamLogs = {"0":0};
 global.currentOkInterval = {"0":0};
-global.maxOk = 3;
-global.okInterval = 2;
-global.okFilter=true;
 global.filter=require('./handlers/Filter');
 
 global.dmC;
