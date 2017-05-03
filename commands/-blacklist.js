@@ -30,7 +30,9 @@ module.exports = {
       blacklist[guild.id]=['ok'];
     }
 
-    if(action=="add"){
+    if(action=="status"){
+      return send(`Current filter status for this server: ${onFilter[guild.id]}`);
+    }else if(action=="add"){
       if (!args[1]) return send("No keyword given to add to the blacklist");
       else{
         let keyword = content.slice(('-blacklist '+ action + ' ').length).toLowerCase();
@@ -45,6 +47,10 @@ module.exports = {
     }else if(action=="off"){
       onFilter[guild.id]=false;
       reply(`Filter turned off (will auto-reenable)!`);
+    }else if(action=="pOff"){
+      onFilter[guild.id]=false;
+      autoOverride[guild.id]=true;
+      reply(`Filter status permanently toggled off (until next bot restart)!`);
     }
   }
 };
