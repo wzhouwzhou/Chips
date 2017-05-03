@@ -5,8 +5,6 @@ global.autoOverride={0: true};
 
 module.exports = function() {
   return async (message) => {
-    if(autoOverride[message.guild.id])return; 
-
     let mContent = message.content.toLowerCase();//.replace(/[\|&;\$%@"<>\(\)\+,]/g, "");
     mContent = mContent.replace(/[\u200B-\u200D\uFEFF]/g, ""); //0 space joiners
     mContent = mContent.replace('*',"").toLowerCase();
@@ -21,6 +19,7 @@ module.exports = function() {
       onFilter[message.guild.id]=true;
       autoOverride[message.guild.id]=false;
     }
+    if(autoOverride[message.guild.id])return; 
     //console.log("[Filter][SUPER SPAMMYDEBUG] blacklist: " + Constants.BLACKLIST[message.guild.id]);
     //let blacklist = blacklist;
     //detect blacklisted content
