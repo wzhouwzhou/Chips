@@ -1,6 +1,7 @@
 global.maxOk = 3;
 global.okInterval = 2;
 global.onFilter={0: true};
+global.autoOverride={0: true};
 let f = {};
 
 f.filter = (message) => {
