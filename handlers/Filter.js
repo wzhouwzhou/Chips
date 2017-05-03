@@ -9,7 +9,7 @@ f.filter = (message) => {
   let mContent = message.content.toLowerCase();//.replace(/[\|&;\$%@"<>\(\)\+,]/g, "");
   mContent = mContent.replace(/[\u200B-\u200D\uFEFF]/g, ""); //0 space joiners
   mContent = mContent.replace('*',"").toLowerCase();
-  //console.log("[SPAMMYDEBUG]: mContent: " + mContent);
+  console.log("[SPAMMYDEBUG]: mContent: " + mContent);
   let id=message.channel.id;
   if(currentOkInterval[id]==null){currentOkInterval[id]=1; console.log("[Filter] New interval entry for channel " + id);}
   if(okSpamLogs[id]==null){okSpamLogs[id]=1; console.log("[Filter] New entry for channel " + id);}
