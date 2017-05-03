@@ -66,20 +66,22 @@ module.exports = function( send ) {
           console.log("[SINX] adding role...");
           member.addRole(memberguild.roles.get("305302877641900052")||memberguild.roles.find('name',"unverified"));
           console.log("[SINX] sending welcome msg...");
-          client.channels.get("307342989783728131").send(`<@${userid}>, Welcome to Sinbadx Knights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!**
+          let welcomeC=client.channels.find('name','unverified')||client.channels.get("307342989783728131");
+          welcomeC.send(`<@${userid}>, Welcome to Sinbadx Knights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!**
             1. How did you hear about this server?
             2. Why did you join this server?
             3. Do you promise to read <#308361914923089940>?
             4. What is your favorite diep.io tank?
             (you can answer these with just a sentence or two, no need to write an essay!)`);
-        }, 500);
+        }, 1000);
       }else if(memberguild.id=="252525368865456130"){
         setTimeout(_ => {
           console.log("[SK] adding role...");
           member.addRole(memberguild.roles.get("303587467741757440")||memberguild.roles.find('name',"lollipop-unverified"));
           console.log("[SK] sending welcome msg...");
-          client.channels.get("308772937731670016").send(`<@${userid}>, Welcome! Please read <#307895557815402496> and become acquainted with the rules here, then contact a staff member to be able to speak in other channels!`);
-        },500);
+          let welcomeC=client.channels.find('name','unverified')||client.channels.get("308772937731670016");
+          welcomeC.send(`<@${userid}>, Welcome! Please read <#307895557815402496> and become acquainted with the rules here, then contact a staff member to be able to speak in other channels!`);
+        }, 1000);
       }
     } catch (err) {
       console.log("could not add unverified role");
