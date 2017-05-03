@@ -46,20 +46,18 @@ module.exports = {
     }else if(action=="toggle"){
       onFilter[guild.id]=!onFilter[guild.id];
       reply(`Filter status toggled!: ${onFilter[guild.id]}`);
-      if(!onFilter[guild.id]) okSpamLogs[guild.id]=0;
     }else if(action=="off"){
       onFilter[guild.id]=false;
       reply(`Filter turned off (will auto-reenable)!`);
-      okSpamLogs[guild.id]=0;
     }else if(action=="permoff"){
       onFilter[guild.id]=false;
       autoOverride[guild.id]=true;
       reply(`Filter status permanently toggled off (until next bot restart)!`);
-      okSpamLogs[guild.id]=0;
     }else if(action=="on"){
       onFilter[guild.id]=true;
       autoOverride[guild.id]=false;
       reply(`Filter status toggled on!`);
     }
+    if(!onFilter[guild.id]) okSpamLogs[guild.id]=0;
   }
 };

@@ -8,7 +8,7 @@ module.exports = function() {
     let mContent = message.content.toLowerCase();//.replace(/[\|&;\$%@"<>\(\)\+,]/g, "");
     mContent = mContent.replace(/[\u200B-\u200D\uFEFF]/g, ""); //0 space joiners
     mContent = mContent.replace('*',"").toLowerCase();
-    console.log("[SPAMMYDEBUG]: mContent: " + mContent);
+    //console.log("[SPAMMYDEBUG]: mContent: " + mContent);
     let id=message.channel.id;
     if(currentOkInterval[id]==null){currentOkInterval[id]=1; console.log("[Filter] New interval entry for channel " + id);}
     if(okSpamLogs[id]==null){okSpamLogs[id]=1; console.log("[Filter] New entry for channel " + id);}
@@ -27,7 +27,8 @@ module.exports = function() {
       //console.log("[Filter] Message content: " + mContent);
 
       //increment blacklist occurence
-      okSpamLogs[id]=okSpamLogs[id]+1;
+      if(!autoOverride[message.guild.id])
+        okSpamLogs[id]=okSpamLogs[id]+1;
       //reset interval
       currentOkInterval[id] = 0;
       console.log("[Filter] Match num increase in channel: " + id +  " new: " + okSpamLogs[id]);
