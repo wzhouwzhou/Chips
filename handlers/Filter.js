@@ -5,6 +5,8 @@ global.autoOverride={0: true};
 
 module.exports = function() {
   return async (message) => {
+    if(autoOverride[message.guild.id])return; 
+
     let mContent = message.content.toLowerCase();//.replace(/[\|&;\$%@"<>\(\)\+,]/g, "");
     mContent = mContent.replace(/[\u200B-\u200D\uFEFF]/g, ""); //0 space joiners
     mContent = mContent.replace('*',"").toLowerCase();
