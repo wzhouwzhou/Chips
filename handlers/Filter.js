@@ -1,6 +1,6 @@
 global.maxOk = 3;
 global.okInterval = 2;
-global.okFilter=true;
+global.onFilter={0: true};
 let f = {};
 
 f.filter = (message) => {
@@ -16,6 +16,7 @@ f.filter = (message) => {
   if(blacklist[message.guild.id]==null){
     console.log("[Filter] Creating new blacklist for guild " + message.guild.id);
     blacklist[message.guild.id]=['ok'];
+    onFilter[message.guild.id]=true;
   }
   //console.log("[Filter][SUPER SPAMMYDEBUG] blacklist: " + Constants.BLACKLIST[message.guild.id]);
   let blacklist = blacklist;
@@ -30,20 +31,20 @@ f.filter = (message) => {
     currentOkInterval[id] = 0;
     console.log("[Filter] Match num increase in channel: " + id +  " new: " + okSpamLogs[id]);
 
-    if(okFilter){
+    if(onFilter){
       if(okSpamLogs[id]>=maxOk){
         message.delete();
         console.log("[Filter] Blacklisted content deleted in channel "+ id);
       }
-    }else if(!okFilter && okSpamLogs[id]>5){
+    }else if(!onFilter && okSpamLogs[id]>5){
       //reenable filter
-      okFilter=true;
+      onFilter=true;
       console.log("[Filter] Censoring reenabled due to over 5 black listed words in a row for channel: " + id);
     }
 
   }else if(okSpamLogs[id]>0){
     currentOkInterval[id]=currentOkInterval[id]+1; console.log("currentOkInterval incr: "+ currentOkInterval[id] + " for channel "+ id);
-    if(okFilter && currentOkInterval[id]>=okInterval){
+    if(onFilter && currentOkInterval[id]>=okInterval){
       okSpamLogs[id]=0;
       console.log("[Filter] Reset filter for channel " + id);
       currentOkInterval[id]=0;
