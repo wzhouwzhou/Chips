@@ -42,6 +42,9 @@ module.exports = {
     }else if(action=="toggle"){
       onFilter[guild.id]=!onFilter[guild.id];
       reply(`Filter status toggled!: ${onFilter[guild.id]}`);
+    }else if(action=="off"){
+      onFilter[guild.id]=false;
+      reply(`Filter turned off (will auto-reenable)!`);
     }
   }
 };
