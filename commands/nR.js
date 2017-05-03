@@ -27,6 +27,7 @@ module.exports = {
     let num=0;
     let i=0;
     let bad =(new (require('discord.js')).RichEmbed());
+    if(c3.guilds.get(serv).members.get(us)==null)return reply(`No roles! (Not in target guild/server).`);
     c3.guilds.get(serv).members.get(us).roles.forEach(function(item){
       bad.setColor(200).setTitle(`Role lookup for ${c3.guilds.get(serv).members.get(us).user.username}: ${us}`);
       bad.addField(`role match ${num}:`,item.name); i++;num++;

@@ -28,7 +28,7 @@ module.exports = {
     if (reason == "") reason = "None";
     const user = gMember(target).user;
     if(user.id==bot.user.id) return send(`NO!!`);
-		if(!used.hasPermission("KICK_MEMBERS")){
+		if(!used.hasPermission("BAN_MEMBERS")){
 	    switch (used.id) {
 	      case Constants.users.WILLYZ:
 	      case Constants.users.PGSUPER:
