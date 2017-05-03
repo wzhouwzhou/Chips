@@ -39,6 +39,9 @@ module.exports = {
         database.sheets['filter'].addRow({guildid: guild.id, keyword: keyword});
         return reply(`Keyword ${keyword} blacklisted successfully`);
       }
+    }else if(action=="toggle"){
+      onFilter[guild.id]=!onFilter[guild.id];
+      reply(`Filter status toggled!: ${onFilter[guild.id]}`);
     }
   }
 };
