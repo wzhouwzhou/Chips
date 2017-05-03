@@ -31,20 +31,20 @@ f.filter = (message) => {
     currentOkInterval[id] = 0;
     console.log("[Filter] Match num increase in channel: " + id +  " new: " + okSpamLogs[id]);
 
-    if(onFilter){
+    if(onFilter[message.guild.id]){
       if(okSpamLogs[id]>=maxOk){
         message.delete();
         console.log("[Filter] Blacklisted content deleted in channel "+ id);
       }
-    }else if(!onFilter && okSpamLogs[id]>5){
+    }else if(!onFilter[message.guild.id] && okSpamLogs[id]>5){
       //reenable filter
-      onFilter=true;
+      onFilter[message.guild.id]=true;
       console.log("[Filter] Censoring reenabled due to over 5 black listed words in a row for channel: " + id);
     }
 
   }else if(okSpamLogs[id]>0){
     currentOkInterval[id]=currentOkInterval[id]+1; console.log("currentOkInterval incr: "+ currentOkInterval[id] + " for channel "+ id);
-    if(onFilter && currentOkInterval[id]>=okInterval){
+    if(onFilter[message.guild.id] && currentOkInterval[id]>=okInterval){
       okSpamLogs[id]=0;
       console.log("[Filter] Reset filter for channel " + id);
       currentOkInterval[id]=0;
