@@ -25,11 +25,11 @@ module.exports = {
     else action = args[0];
 
     console.log("[Blacklist] Action: "+action);
-    if((blacklist[message.guild.id]==null||onFilter[message.guild.id]==null)||autoOverride[message.guild.id]==null){
-      console.log("[Filter] Creating new blacklist for guild " + message.guild.id);
-      blacklist[message.guild.id]=['ok'];
-      onFilter[message.guild.id]=true;
-      autoOverride[message.guild.id]=false;
+    if((blacklist[guild.id]==null||onFilter[guild.id]==null)||autoOverride[guild.id]==null){
+      console.log("[Filter] Creating new blacklist for guild " + guild.id);
+      blacklist[guild.id]=['ok'];
+      onFilter[guild.id]=true;
+      autoOverride[guild.id]=false;
     }
 
     if(action=="status"){
