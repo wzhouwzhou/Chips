@@ -49,7 +49,7 @@ module.exports = {
     }else if(action=="off"){
       onFilter[guild.id]=false;
       reply(`Filter turned off (will auto-reenable)!`);
-    }else if(action=="pOff"){
+    }else if(action=="permoff"){
       onFilter[guild.id]=false;
       autoOverride[guild.id]=true;
       reply(`Filter status permanently toggled off (until next bot restart)!`);
