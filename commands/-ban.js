@@ -47,7 +47,7 @@ module.exports = {
     // console.log("Target: "+target);
     if (neko.indexOf(user.id) >= 0) {
 			if(author.id!=Constants.users.KONEKO){
-      	setTimeout(() => {reply('kill yourself');}, 50);
+      	setTimeout(() => {reply('go ban yourself');}, 50);
 				return;
 			}
 			else
