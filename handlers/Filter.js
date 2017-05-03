@@ -2,8 +2,8 @@ global.maxOk = 3;
 global.okInterval = 2;
 global.onFilter={0: true};
 global.autoOverride={0: true};
-let f = {};
-f.filter = function() {
+
+module.exports = function() {
   return async (message) => {
     let mContent = message.content.toLowerCase();//.replace(/[\|&;\$%@"<>\(\)\+,]/g, "");
     mContent = mContent.replace(/[\u200B-\u200D\uFEFF]/g, ""); //0 space joiners
@@ -55,5 +55,3 @@ f.filter = function() {
     }
   };
 };
-
-module.exports=f;

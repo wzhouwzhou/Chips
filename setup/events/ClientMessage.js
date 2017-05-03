@@ -36,7 +36,7 @@ module.exports = function() {
       }
     }catch(err){console.log(`Log errored! ${err}`);}
 
-    filter.filter(message);
+    filter(message);
   });
   c2.on('message', m => {
     try{
