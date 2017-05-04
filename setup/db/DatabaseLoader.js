@@ -8,6 +8,8 @@ global.blacklist = {
     ],
 };
 
+let sinxUsers = new Map();
+
 const GoogleSpreadsheet = require('google-spreadsheet');
 
 const doc = new GoogleSpreadsheet(process.env.SPREADSHEET_ID);
@@ -27,7 +29,10 @@ const loadsheet = function(sheet) {
 			// load sheet data into some nice data structure and put it in `ex`
 		}
 		else if (sheet.title == 'members') {
-			// asdf
+      rows.forEach(r => {
+        ex.sinxUsers.set(r.userid,r);
+        console.log("Loaded user: " + r.userid);
+      });
 		}
 		else if (sheet.title == 'quests') {
 			// fdsa
@@ -68,6 +73,7 @@ doc.useServiceAccountAuth(login_info,() => {
 
 const ex = module.exports = { // module exports
 	ready: false,
-	sheets: sheets
+	sheets: sheets,
+  sinxUsers: sinxUsers
 	// more stuff here
 };
