@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
   if(req.user!=null)
-    res.render("useroverview",
+    res.render("updates",
       { timestamp: new Date().toString(),
         isAuthenticated: req.isAuthenticated(),
         user: req.user,

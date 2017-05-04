@@ -4,7 +4,8 @@ global.Constants = require("./setup/Constants");
 //route loading
 global.index = require("./routes/index");
 global.login = require("./routes/login");
-global.useroverview = require("./routes/useroverview");
+global.updates = require("./routes/updates");
+global.useroverview = require("./routes/updates");
 
 //Chips constants
 const child_process = require('child_process');

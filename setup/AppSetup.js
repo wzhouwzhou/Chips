@@ -15,16 +15,28 @@ module.exports = function(bodyParser, cookieParser, passport, express, app, Stra
     done(null, obj);
   });
 
-  passport.use(new Strategy({
-      clientID: process.env.ID,
-      clientSecret: process.env.SECRET,
-      callbackURL: 'https://chipsbot.herokuapp.com/user/',
-      scope: botScopes
-  }, function(accessToken, refreshToken, profile, done) {
-      process.nextTick(function() {
-          return done(null, profile);
-      });
-  }));
+  if(process.env.BETA&&process.env.BETA=="true")
+    passport.use(new Strategy({
+        clientID: process.env.ID,
+        clientSecret: process.env.SECRET,
+        callbackURL: 'http://williamzhou.us.to/sk/user/',
+        scope: botScopes
+    }, function(accessToken, refreshToken, profile, done) {
+        process.nextTick(function() {
+            return done(null, profile);
+        });
+    }));
+  else
+    passport.use(new Strategy({
+        clientID: process.env.ID,
+        clientSecret: process.env.SECRET,
+        callbackURL: 'https://chipsbot.herokuapp.com/sk/user/',
+        scope: botScopes
+    }, function(accessToken, refreshToken, profile, done) {
+        process.nextTick(function() {
+            return done(null, profile);
+        });
+    }));
 
   app.use(session({
       secret: process.env.SECRET,
@@ -34,25 +46,25 @@ module.exports = function(bodyParser, cookieParser, passport, express, app, Stra
 
   app.use(passport.initialize());
   app.use(passport.session());
-  app.get('/login', passport.authenticate('discord', { scope: botScopes }), function(req, res) {});
-  app.get('/user',
-      passport.authenticate('discord', { failureRedirect: '/' }), function(req, res) {
+  app.get('/sk/login', passport.authenticate('discord', { scope: botScopes }), function(req, res) {});
+  app.get('/sk/user',
+      passport.authenticate('discord', { failureRedirect: '/sk' }), function(req, res) {
         //if (req.query.hasOwnProperty('guild_id'))
-          res.redirect('/useroverview');
+          res.redirect('/updates');
       } // auth success
   );
-  app.get('/logout', function(req, res) {
+  app.get('/sk/logout', function(req, res) {
       req.logout();
-      res.redirect('/');
+      res.redirect('/sk');
   });
   // routes
   const secure = require(path.join(__dirname, '../Security'));
   let globalBruteforce = new secure();
 
-  app.use('/', index, globalBruteforce.prevent);
+  app.use('/sk', index, globalBruteforce.prevent);
 
-  app.use('/login',login);
-  app.use('/useroverview',useroverview);
+  app.use('/sk/login',login);
+  app.use('/updates',updates);
 
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {
