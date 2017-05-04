@@ -9,7 +9,7 @@ module.exports = function( send ) {
     if(process.env.BETA=="true")
       client.user.setGame("PFP Credits to Wendie","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
     else
-      client.user.setGame("Do -stats","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
+      client.user.setGame("Do -stats","https://twitch.tv/twitch");//client.user.setGame("Do -help!");
 
     setTimeout(_=>{DMLogger = require(path.join(__dirname, '../../handlers/DMLogger'))(Discord, client, dmC, moment);},3000);
   });
@@ -60,7 +60,6 @@ module.exports = function( send ) {
   });
 
   client.on("guildMemberAdd",  (member) => {
-    /*jshint sub:true*/
     try {
       let memberguild = member.guild;
       let userid= member.user.id;

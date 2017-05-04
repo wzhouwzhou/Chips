@@ -19,7 +19,7 @@ module.exports = function(bodyParser, cookieParser, passport, express, app, Stra
     passport.use(new Strategy({
         clientID: process.env.ID,
         clientSecret: process.env.SECRET,
-        callbackURL: 'http://williamzhou.us.to/sk/user/',
+        callbackURL: 'http://williamzhou.us.to/sinbadx/user/',
         scope: botScopes
     }, function(accessToken, refreshToken, profile, done) {
         process.nextTick(function() {
@@ -30,7 +30,7 @@ module.exports = function(bodyParser, cookieParser, passport, express, app, Stra
     passport.use(new Strategy({
         clientID: process.env.ID,
         clientSecret: process.env.SECRET,
-        callbackURL: 'https://chipsbot.herokuapp.com/sk/user/',
+        callbackURL: 'https://chipsbot.herokuapp.com/sinbadx/user/',
         scope: botScopes
     }, function(accessToken, refreshToken, profile, done) {
         process.nextTick(function() {
@@ -46,24 +46,24 @@ module.exports = function(bodyParser, cookieParser, passport, express, app, Stra
 
   app.use(passport.initialize());
   app.use(passport.session());
-  app.get('/sk/login', passport.authenticate('discord', { scope: botScopes }), function(req, res) {});
-  app.get('/sk/user',
-      passport.authenticate('discord', { failureRedirect: '/sk' }), function(req, res) {
+  app.get('/sinbadx/login', passport.authenticate('discord', { scope: botScopes }), function(req, res) {});
+  app.get('/sinbadx/user',
+      passport.authenticate('discord', { failureRedirect: '/sinbadx' }), function(req, res) {
         //if (req.query.hasOwnProperty('guild_id'))
           res.redirect('/updates');
       } // auth success
   );
-  app.get('/sk/logout', function(req, res) {
+  app.get('/sinbadx/logout', function(req, res) {
       req.logout();
-      res.redirect('/sk');
+      res.redirect('/sinbadx');
   });
   // routes
   const secure = require(path.join(__dirname, '../Security'));
   let globalBruteforce = new secure();
 
-  app.use('/sk', index, globalBruteforce.prevent);
+  app.use('/sinbadx', index, globalBruteforce.prevent);
 
-  app.use('/sk/login',login);
+  app.use('/sinbadx/login',login);
   app.use('/updates',updates);
 
   // catch 404 and forward to error handler
