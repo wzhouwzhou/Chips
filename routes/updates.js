@@ -27,7 +27,7 @@ router.get("/", (req, res) => {
       }
     );
   else
-    res.render("useroverview",
+    res.render("updates",
       { timestamp: new Date().toString(),
         isAuthenticated: req.isAuthenticated()
       }
