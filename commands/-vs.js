@@ -34,7 +34,7 @@ module.exports = {
       if(targetMember.roles.find('name','unverified')==null)
         return reply(`User does not have the unverified role!`);
       try{
-        targetMember.removeRole(guild.roles.find('name','unverified'));
+        await targetMember.removeRole(guild.roles.find('name','unverified'));
         reply(`User verified successfully!`);
       } catch (err) {
         console.log("could not remove unverified role");
