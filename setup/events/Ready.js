@@ -8,7 +8,7 @@ module.exports = function( send ) {
     client.user.setStatus("online");
     client.user.setGame("Do -stats","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
 
-    DMLogger = require("/app/handlers/DMLogger")(Discord, client, dmC, moment);
+    DMLogger = require(path.join(__dirname, '../../handlers/DMLogger'))(Discord, client, dmC, moment);
   });
   hclient.on("ready", _ => {
     testC  = hclient.channels.get(Constants.channels.TEST);
@@ -48,10 +48,10 @@ module.exports = function( send ) {
   h2client.on("debug", console.log);
   h3client.on("debug", console.log);
 
-  fs.readdirSync("/app/commands").map(f => {
+  fs.readdirSync(path.join(__dirname, '../../commands')).map(f => {
     if (/\.js/.test(f)) {
       console.log("New command loaded!: " + f);
-      const precmd = require(`/app/commands/${f}`);
+      const precmd = require(path.join(__dirname, '../../commands', f));
       client.commands[precmd.name] = new Command(precmd);
     }
   });

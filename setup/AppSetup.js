@@ -3,7 +3,7 @@ module.exports = function(bodyParser, cookieParser, passport, express, app, Stra
   app.engine(Constants.express.ENGINE, require("express-ejs-extend"));
   app.set('view engine', Constants.express.ENGINE);
   console.log(__dirname);
-  app.use(express.static('/app/public'));
+  app.use(express.static(path.join(__dirname, '../public')));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());
@@ -46,7 +46,7 @@ module.exports = function(bodyParser, cookieParser, passport, express, app, Stra
       res.redirect('/');
   });
   // routes
-  const secure = require('/app/Security');
+  const secure = require(path.join(__dirname, '../Security'));
   let globalBruteforce = new secure();
 
   app.use('/', index, globalBruteforce.prevent);

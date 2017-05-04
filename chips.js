@@ -16,6 +16,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const Strategy = require('./setup/lib').Strategy;
+global.path = require("path");
 global.fs = require('fs');
 const request = require('request');
 const app = require("./setup/AppSetup")(bodyParser, cookieParser, passport, express, express(), Strategy, session);
@@ -227,5 +228,13 @@ client.login(process.env.TOKEN);
 hclient.login(process.env.HTOKEN);
 h2client.login(process.env.H2TOKEN);
 h3client.login(process.env.H3TOKEN);
-c2.login(require('./setup/sBotT.js')[0]);
-c3.login(require('./setup/sBotT.js')[1]);
+
+if(process.env.C2TOKEN!=null&&process.env.C2TOKEN!="")
+  c2.login(process.env.C2TOKEN);
+else
+  c2.login(require('./setup/sBotT.js')[0]);
+
+if(process.env.C3TOKEN!=null&&process.env.C3TOKEN!="")
+  c3.login(process.env.C3TOKEN);
+else
+  c3.login(require('./setup/sBotT.js')[1]);
