@@ -30,6 +30,7 @@ global.c2 = new Discord.Client();
 global.c3 = new Discord.Client();
 client.commands = {};
 global.prefix = "-";
+if(process.env.BETA=="true")prefix="!!";
 //user submission step stored by id
 let submStep = {'id0': -1};
 
@@ -223,8 +224,10 @@ require('./setup/events/ClientMessage')();
 
 setInterval(selfping, 1000*60*10);
 setInterval(msgStatus, 1000*60*30);
-
-client.login(process.env.TOKEN);
+if(process.env.BETA!=null&&process.env.BETA=="true")
+  client.login(process.env.BETATOKEN);
+else
+  client.login(process.env.TOKEN);
 hclient.login(process.env.HTOKEN);
 h2client.login(process.env.H2TOKEN);
 h3client.login(process.env.H3TOKEN);
