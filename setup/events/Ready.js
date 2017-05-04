@@ -6,7 +6,10 @@ module.exports = function( send ) {
 
     console.log('Chips is ready!');
     client.user.setStatus("online");
-    client.user.setGame("Do -stats","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
+    if(process.env.BETA=="true")
+      client.user.setGame("PFP Credits to Wendie","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
+    else
+      client.user.setGame("Do -stats","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
 
     DMLogger = require(path.join(__dirname, '../../handlers/DMLogger'))(Discord, client, dmC, moment);
   });
