@@ -11,7 +11,7 @@ module.exports = function( send ) {
     else
       client.user.setGame("Do -stats","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
 
-    DMLogger = require(path.join(__dirname, '../../handlers/DMLogger'))(Discord, client, dmC, moment);
+    setTimeout(_=>{DMLogger = require(path.join(__dirname, '../../handlers/DMLogger'))(Discord, client, dmC, moment);},3000);
   });
   hclient.on("ready", _ => {
     testC  = hclient.channels.get(Constants.channels.TEST);
