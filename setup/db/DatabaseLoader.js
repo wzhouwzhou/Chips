@@ -30,8 +30,12 @@ const loadsheet = function(sheet) {
 		}
 		else if (sheet.title == 'members') {
       rows.forEach(r => {
-        ex.sinxUsers.set(r.userid,r);
-        console.log("Loaded user: " + r.userid);
+        if(ex.sinxUsers.get(r.userid)==null)
+          ex.sinxUsers.set(r.userid,r);
+        else
+          ex.sinxUsers.get(r.userid).points+=r.points;
+          
+        console.log("Loaded user pts action: " + r.userid);
       });
 		}
 		else if (sheet.title == 'quests') {
