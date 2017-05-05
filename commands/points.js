@@ -31,7 +31,7 @@ module.exports = {
             database.sinxUsers.set(mem.id, {userid: mem.id, username: mem.user.username, points: pts, pointsrank: "Some rank"});
             us = database.sinxUsers.get(mem.id);
           }else{
-            us.points=parseInt(us.points,10)+1;
+            us.points=parseInt(us.points,10)+pts;
           }
           if(us.points!=0)
             return reply(`[${mem.nickname}] now has: ${us.points} points`);
