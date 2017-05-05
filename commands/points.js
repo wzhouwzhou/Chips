@@ -34,9 +34,9 @@ module.exports = {
             us.points=parseInt(us.points,10)+pts;
           }
           if(us.points!=0)
-            return reply(`[${mem.nickname}] now has: ${us.points} points`);
+            return reply(`[${mem.displayName}] now has: ${us.points} points`);
           else
-            return reply(`[${mem.nickname}] now has no points`);
+            return reply(`[${mem.displayName}] now has no points`);
         }catch(err){
           console.log(err);
           //return reply(err);
@@ -60,23 +60,23 @@ module.exports = {
         try{
           let mem = gMember(target);
           us = database.sinxUsers.get(mem.id);
-          if(us==null) return reply(`[${mem.nickname}] has no points`);
+          if(us==null) return reply(`[${mem.displayName}] has no points`);
           if(us.points!=0)
-            return reply(`[${mem.nickname}] has: ${us.points} points`);
+            return reply(`[${mem.displayName}] has: ${us.points} points`);
           else
-            return reply(`[${mem.nickname}] has no points`);
+            return reply(`[${mem.displayName}] has no points`);
         }catch(err){
           return reply(`Target user is not in Sinbad Knights!`);
         }
       }else{
-        let mem = guild.members.find('nickname',target);
+        let mem = guild.members.find('displayName',target);
         if(mem!=null){
           us = database.sinxUsers.get(mem.id);
-          if(us==null) return reply(`[${mem.nickname}] has no points`);
+          if(us==null) return reply(`[${mem.displayName}] has no points`);
           if(us.points!=0)
-            return reply(`[${mem.nickname}] has: ${us.points} points`);
+            return reply(`[${mem.displayName}] has: ${us.points} points`);
           else
-            return reply(`[${mem.nickname}] has no points`);
+            return reply(`[${mem.displayName}] has no points`);
         }else return reply(`Target user is not in this server!`);
       }
     }
