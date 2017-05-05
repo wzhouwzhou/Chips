@@ -12,8 +12,8 @@ module.exports = {
     }else
     if(args[0]=="add"){
       if(args[2]==null)return reply(`Please specify the amount of points to add: \`\`-points add @/mention/ 123\`\``);
-      if(args[2].match(/^[0-9]+$/) == null) return reply(`Please enter a valid number of points.`);
-      let pts=parseInt(args[2],10);
+      let pts = parseInt(args[2]);
+      if (pts.toString() != args[2]) return reply(`Please enter a valid number of points.`);
 
       let target, us;
       try{
