@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
       { timestamp: new Date().toString(),
         isAuthenticated: req.isAuthenticated(),
         user: req.user,
-        avatarURL: req.user.avatarURL,
+        //avatarURL: req.user.avatarURL,
         scripts: [
           "https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js",
           "/activity/github-activity.js"
