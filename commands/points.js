@@ -9,6 +9,12 @@ module.exports = {
         return reply(`You have: ${dbUser.points} points`);
       else
         return reply(`You have no points`);
+    }else
+    if(args[0]=="add"){
+      return reply(`This feature points.add is yet to be implemented`);
+    }else
+    if(args[0]=="set"){
+      return reply(`This feature points.set is yet to be implemented`);
     }else{
       let target, us;
       try{
