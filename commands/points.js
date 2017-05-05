@@ -30,11 +30,12 @@ module.exports = {
             database.sinxUsers[us.id]={id: us.id, username: us.user.username, points: pts, rank: "Some rank"};
           }
           if(us.points!=0)
-            return reply(`[${mem.nickname}] has: ${us.points} points`);
+            return reply(`[${mem.nickname}] now has: ${us.points} points`);
           else
-            return reply(`[${mem.nickname}] has no points`);
+            return reply(`[${mem.nickname}] now has no points`);
         }catch(err){
-          return reply(`Target user is not in Sinbad Knights!`);
+          return reply(err);
+          //return reply(`Target user is not in Sinbad Knights!`);
         }
       }else{
         reply(`Errored.`);
