@@ -33,8 +33,8 @@ const loadsheet = function(sheet) {
         if(ex.sinxUsers.get(r.userid)==null)
           ex.sinxUsers.set(r.userid,r);
         else
-          ex.sinxUsers.get(r.userid).points+=r.points;
-          
+          ex.sinxUsers.get(r.userid).points=parseInt(ex.sinxUsers.get(r.userid).points,10)+parseInt(r.points,10);
+
         console.log("Loaded user pts action: " + r.userid);
       });
 		}
