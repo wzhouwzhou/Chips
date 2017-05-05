@@ -69,6 +69,8 @@ module.exports = {
           return reply(`Target user is not in Sinbad Knights!`);
         }
       }else{
+        //find by nickname
+        target = content.subString(content.indexOf(target));
         let mem = guild.members.find('displayName',target);
         if(mem!=null){
           us = database.sinxUsers.get(mem.id);
@@ -77,7 +79,7 @@ module.exports = {
             return reply(`[${mem.displayName}] has: ${us.points} points`);
           else
             return reply(`[${mem.displayName}] has no points`);
-        }else return reply(`Target user is not in this server!`);
+        }else return reply(`Target user ${target} not found in this server!`);
       }
     }
   }
