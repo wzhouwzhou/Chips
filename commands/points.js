@@ -43,12 +43,8 @@ module.exports = {
           return reply(`Errored! Are you sure target user is in Sinbad Knights?`);
         }
       }else{
-        reply(`Errored.`);
+        return reply(`Errored.`);
       }
-
-
-
-      return reply(`This feature points.add is yet to be implemented`);
     }else
     if(args[0]=="set"){
       return reply(`This feature points.set is yet to be implemented`);
@@ -62,7 +58,7 @@ module.exports = {
       // console.log("Target: "+target);
       if(target!=args[0]){
         try{
-          const mem = gMember(target);
+          let mem = gMember(target);
           us = database.sinxUsers.get(mem.id);
           if(us==null) return reply(`[${mem.nickname}] has no points`);
           if(us.points!=0)
@@ -73,7 +69,7 @@ module.exports = {
           return reply(`Target user is not in Sinbad Knights!`);
         }
       }else{
-        mem = guild.members.find('nickname',target);
+        let mem = guild.members.find('nickname',target);
         if(mem!=null){
           us = database.sinxUsers.get(mem.id);
           if(us==null) return reply(`[${mem.nickname}] has no points`);
