@@ -1,7 +1,7 @@
 <% extend('base.html') %>
 
 <br></br>
-<% if (!isAuthenticated) { %>
+<% if (isAuthenticated) { %>
     Updates (SK): Right now, it's <%=timestamp%>
     <br></br>
     <a id="signIn" href="/sk/login">You aren't signed in to your discord, Click here!</a>

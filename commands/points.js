@@ -12,16 +12,18 @@ module.exports = {
     }else{
       const target = args[0].match(Constants.patterns.MENTION)[1];
       // console.log("Target: "+target);
-      const mem = gMember(target);
-      if(mem==null)
-        return reply(`Target user is not in Sinbad Knights!`);
-      else {
-        upts = database.sinxUsers.get(mem.id);
-        if(upts!=null)
-          return reply(`[${mem.nickname}] has: ${upts} points`);
-        else
-          return reply(`[${mem.nickname}] has no points`);
-      }
+      if(target!='')
+        try{
+          const mem = gMember(target);
+          us = database.sinxUsers.get(mem.id);
+          if(us.points!=0)
+            return reply(`[${mem.nickname}] has: ${us.points} points`);
+          else
+            return reply(`[${mem.nickname}] has no points`);
+        }catch(err){
+          console.log(err);
+          return reply(`Target user is not in Sinbad Knights!`);
+        }
     }
   }
 };
