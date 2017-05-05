@@ -26,8 +26,8 @@ module.exports = {
         try{
           const mem = gMember(target);
           us = database.sinxUsers.get(mem.id);
+          database.sheets['members'].addRow({userid: mem.id, username: mem.user.username, points: pts, pointsrank: "Some rank"});
           if(database.sinxUsers.get(mem.id)==null){
-            database.sheets['members'].addRow({userid: mem.id, username: mem.user.username, points: pts, pointsrank: "Some rank"});
             database.sinxUsers.set(mem.id, {userid: mem.id, username: mem.user.username, points: pts, pointsrank: "Some rank"});
             us = database.sinxUsers.get(mem.id);
           }else{
@@ -39,8 +39,8 @@ module.exports = {
             return reply(`[${mem.nickname}] now has no points`);
         }catch(err){
           console.log(err);
-          return reply(err);
-          //return reply(`Target user is not in Sinbad Knights!`);
+          //return reply(err);
+          return reply(`Errored! Are you sure target user is in Sinbad Knights?`);
         }
       }else{
         reply(`Errored.`);
