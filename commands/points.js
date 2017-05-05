@@ -10,9 +10,14 @@ module.exports = {
       else
         return reply(`You have no points`);
     }else{
-      const target = args[0].match(Constants.patterns.MENTION)[1];
+      let target, us;
+      try{
+        target = args[0].match(Constants.patterns.MENTION)[1];
+      }catch(err){
+        target=args[0];
+      }
       // console.log("Target: "+target);
-      if(target!='')
+      if(target!=args[0]){
         try{
           const mem = gMember(target);
           us = database.sinxUsers.get(mem.id);
@@ -24,6 +29,16 @@ module.exports = {
           console.log(err);
           return reply(`Target user is not in Sinbad Knights!`);
         }
+      }else{
+        mem = guild.members.find('name',target);
+        if(mem!=null){
+          us = database.sinxUsers.get(mem.id);
+          if(us.points!=0)
+            return reply(`[${mem.nickname}] has: ${us.points} points`);
+          else
+            return reply(`[${mem.nickname}] has no points`);
+        }else return reply(`Target user is not in this server!`);
+      }
     }
   }
 };
