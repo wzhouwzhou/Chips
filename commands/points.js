@@ -70,7 +70,7 @@ module.exports = {
         }
       }else{
         //find by nickname
-        target = content.subString(content.indexOf(target));
+        target = content.substring(content.indexOf(target));
         let mem = guild.members.find('displayName',target);
         if(mem!=null){
           us = database.sinxUsers.get(mem.id);
