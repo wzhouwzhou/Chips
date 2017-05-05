@@ -27,8 +27,8 @@ module.exports = {
           const mem = gMember(target);
           us = database.sinxUsers.get(mem.id);
           if(us==null){
-            database.sheets['members'].addRow({id: mem.id, username: mem.user.username, points: pts, pointsrank: "Some rank"});
-            database.sinxUsers[mem.id]={id: mem.id, username: mem.user.username, points: pts, pointsrank: "Some rank"};
+            database.sheets['members'].addRow({userid: mem.id, username: mem.user.username, points: pts, pointsrank: "Some rank"});
+            database.sinxUsers[mem.id]={userid: mem.id, username: mem.user.username, points: pts, pointsrank: "Some rank"};
             us = database.sinxUsers.get(mem.id);
           }
           if(us.points!=0)
