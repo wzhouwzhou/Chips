@@ -26,11 +26,10 @@ module.exports = {
           else
             return reply(`[${mem.nickname}] has no points`);
         }catch(err){
-          console.log(err);
           return reply(`Target user is not in Sinbad Knights!`);
         }
       }else{
-        mem = guild.members.find('name',target);
+        mem = guild.members.find('nickname',target);
         if(mem!=null){
           us = database.sinxUsers.get(mem.id);
           if(us.points!=0)
