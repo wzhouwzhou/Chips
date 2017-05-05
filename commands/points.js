@@ -30,6 +30,8 @@ module.exports = {
             database.sheets['members'].addRow({userid: mem.id, username: mem.user.username, points: pts, pointsrank: "Some rank"});
             database.sinxUsers.set(mem.id, {userid: mem.id, username: mem.user.username, points: pts, pointsrank: "Some rank"});
             us = database.sinxUsers.get(mem.id);
+          }else{
+            us.points=us.points+1;
           }
           if(us.points!=0)
             return reply(`[${mem.nickname}] now has: ${us.points} points`);
