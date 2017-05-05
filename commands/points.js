@@ -27,6 +27,7 @@ module.exports = {
         try{
           const mem = gMember(target);
           us = database.sinxUsers.get(mem.id);
+          if(us==null) return reply(`[${mem.nickname}] has no points`);
           if(us.points!=0)
             return reply(`[${mem.nickname}] has: ${us.points} points`);
           else
@@ -38,6 +39,7 @@ module.exports = {
         mem = guild.members.find('nickname',target);
         if(mem!=null){
           us = database.sinxUsers.get(mem.id);
+          if(us==null) return reply(`[${mem.nickname}] has no points`);
           if(us.points!=0)
             return reply(`[${mem.nickname}] has: ${us.points} points`);
           else
