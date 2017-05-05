@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  if(req.user!=null)
+  if(req.user==null)
     res.render("updates",
       { timestamp: new Date().toString(),
         isAuthenticated: req.isAuthenticated(),
