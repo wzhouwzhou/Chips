@@ -12,8 +12,8 @@ module.exports = {
     }else
     if(args[0]=="add"){
       if(args[2]==null)return reply(`Please specify the amount of points to add: \`\`-points add @/mention/ 123\`\``);
-      if(/^\d+$/.test(args[2])) return reply(`Please enter a valid number of points.`);
-      let pts=args[2];
+      if(args[2].match(/^[0-9]+$/) == null) return reply(`Please enter a valid number of points.`);
+      let pts=parseInt(args[2],10);
 
       let target, us;
       try{
@@ -37,15 +37,7 @@ module.exports = {
           return reply(`Target user is not in Sinbad Knights!`);
         }
       }else{
-        mem = guild.members.find('nickname',target);
-        if(mem!=null){
-          us = database.sinxUsers.get(mem.id);
-          if(us==null) return reply(`[${mem.nickname}] has no points`);
-          if(us.points!=0)
-            return reply(`[${mem.nickname}] has: ${us.points} points`);
-          else
-            return reply(`[${mem.nickname}] has no points`);
-        }else return reply(`Target user is not in this server!`);
+        reply(`Errored.`);
       }
 
 
