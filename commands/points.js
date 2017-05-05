@@ -27,13 +27,14 @@ module.exports = {
           const mem = gMember(target);
           us = database.sinxUsers.get(mem.id);
           if(us==null){
-            database.sinxUsers[us.id]={id: us.id, username: us.user.username, points: pts, rank: "Some rank"};
+            database.sinxUsers[mem.id]={id: mem.id, username: mem.user.username, points: pts, pointsrank: "Some rank"};
           }
           if(us.points!=0)
             return reply(`[${mem.nickname}] now has: ${us.points} points`);
           else
             return reply(`[${mem.nickname}] now has no points`);
         }catch(err){
+          console.log(err);
           return reply(err);
           //return reply(`Target user is not in Sinbad Knights!`);
         }
