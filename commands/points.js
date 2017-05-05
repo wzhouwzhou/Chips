@@ -11,18 +11,18 @@ module.exports = {
         return reply(`You have no points`);
     }else
     if(args[0]=="add"){
-      if(args[1]==null)return reply(`Please specify the amount of points to add.`);
-      if(/^\d+$/.test(args[1])) return reply(`Please enter a valid number of points.`);
-      let pts=args[1];
+      if(args[2]==null)return reply(`Please specify the amount of points to add: \`\`-points add @/mention/ 123\`\``);
+      if(/^\d+$/.test(args[2])) return reply(`Please enter a valid number of points.`);
+      let pts=args[2];
 
       let target, us;
       try{
-        target = args[0].match(Constants.patterns.MENTION)[1];
+        target = args[1].match(Constants.patterns.MENTION)[1];
       }catch(err){
-        target=args[0];
+        target=args[1];
       }
 
-      if(target!=args[0]){
+      if(target!=args[1]){
         try{
           const mem = gMember(target);
           us = database.sinxUsers.get(mem.id);
