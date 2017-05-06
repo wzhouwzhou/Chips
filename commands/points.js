@@ -1,7 +1,7 @@
 module.exports = {
   name: "points",
   async func(msg, {send, member, author, content, channel, guild, args, gMember, Discord, reply, bot}) {
-    if(!guild||guild.id!="257889450850254848") return;
+    if(!guild||(guild.id!="257889450850254848"&&guild.id!="302983444009451541")) return;
     const used = member || author;
     let dbUser = database.sinxUsers.get(used.id);
     if(args[0]==null){
@@ -23,7 +23,7 @@ module.exports = {
           case Constants.users.ARX:
             break;
           default:
-            return reply('You must have KICK_MEMBERS perms to use this command!');
+            return reply('You must have ``KICK_MEMBERS`` perms to use this command!');
         }
       }
 
@@ -42,9 +42,9 @@ module.exports = {
         try{
           const mem = gMember(target);
           us = database.sinxUsers.get(mem.id);
-          database.sheets['members'].addRow({userid: mem.id, username: mem.user.username, points: pts, pointsrank: ""});
+          database.sheets['members'].addRow({userid: mem.id, username: mem.user.username, points: pts, pointsrank: "", time: moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')});
           if(database.sinxUsers.get(mem.id)==null){
-            database.sinxUsers.set(mem.id, {userid: mem.id, username: mem.user.username, points: pts, pointsrank: ""});
+            database.sinxUsers.set(mem.id, {userid: mem.id, username: mem.user.username, points: pts, pointsrank: "", time: moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')});
             us = database.sinxUsers.get(mem.id);
           }else{
             us.points=parseInt(us.points,10)+pts;
@@ -63,7 +63,39 @@ module.exports = {
       }
     }else
     if(args[0]=="set"){
-      return reply(`This feature points.set is yet to be implemented`);
+      if(args[2]==null)return reply(`Please specify the amount of points to add: \`\`-points add @/mention/ 123\`\``);
+      let pts = parseInt(args[2]);
+      if (pts.toString() != args[2]) return reply(`Please enter a valid number of points.`);
+
+      let target, us;
+      try{
+        target = args[1].match(Constants.patterns.MENTION)[1];
+      }catch(err){
+        target=args[1];
+      }
+      // console.log("Target: "+target);
+      if(target!=args[1]){
+        try{
+          let mem = gMember(target);
+          us = database.sinxUsers.get(mem.id);
+
+          if(database.sinxUsers.get(mem.id)==null){
+            database.sinxUsers.set(mem.id, {userid: mem.id, username: mem.user.username, points: pts, pointsrank: "", time: moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')});
+            us = database.sinxUsers.get(mem.id);
+          }else{
+            database.sheets['members'].addRow({userid: mem.id, username: mem.user.username, points: -parseInt(us.points), pointsrank: "", time: moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')});
+            us.points=pts;
+          }
+          database.sheets['members'].addRow({userid: mem.id, username: mem.user.username, points: pts, pointsrank: "", time: moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')});
+
+          if(us.points!=0)
+            return reply(`[${mem.displayName}] now has: ${us.points} points`);
+          else
+            return reply(`[${mem.displayName}] now has no points`);
+        }catch(err){
+          return reply(`Are you sure target user is in Sinbad Knights?`);
+        }
+      }//  time: moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')
     }else{
       let target, us;
       try{
