@@ -28,7 +28,7 @@ module.exports = {
         await channel.bulkDelete(nmsgs);
         let overload = await reply(`The maximum amount of msgs I can delete is 100!`);
         setTimeout(_=>overload.delete(),7500);
-      }
+      }else await channel.bulkDelete(nmsgs);
       result = await reply(`${nmsgs} messages deleted successfully!`);
     }catch(err){result = await reply(`Could not delete ${nmsgs} messages..`);}
 
