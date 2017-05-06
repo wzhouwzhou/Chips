@@ -20,8 +20,17 @@ module.exports = {
 
     let nmsgs = parseInt(args[0]);
     if (nmsgs.toString() != args[0]) return reply(`Please enter a valid number of messages to clear.`);
-    channel.bulkDelete(nmsgs);
-    let result = await reply(`${nmsgs} deleted successfully!`);
-    setTimeout(_=>result.delete(),5000);
+
+    let result;
+    try{
+      await channel.bulkDelete(nmsgs);
+      if(nmsgs>100){
+        nmsgs=100;
+        reply(`The maximum amount of msgs I can delete is 100!`);
+      }
+      result = await reply(`${nmsgs} deleted successfully!`);
+    }catch(err){result = await reply(`Could not delete ${nmsgs} messages..`);}
+
+    setTimeout(_=>result.delete(),7500);
   }
 };
