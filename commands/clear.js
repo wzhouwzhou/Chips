@@ -23,14 +23,14 @@ module.exports = {
 
     let result;
     try{
-      if(nmsgs>100){
+      if(++nmsgs>=100){
         nmsgs=100;
         await channel.bulkDelete(nmsgs);
         let overload = await reply(`The maximum amount of msgs I can delete is 100!`);
         setTimeout(_=>overload.delete(),7500);
       }else await channel.bulkDelete(nmsgs);
-      result = await reply(`${nmsgs} messages deleted successfully!`);
-    }catch(err){result = await reply(`Could not delete ${nmsgs} messages..`);}
+      result = await reply(`${args[0]} message(s) deleted successfully!`);
+    }catch(err){result = await reply(`Could not delete ${args[0]} message(s)..`);}
 
     setTimeout(_=>result.delete(),9500);
   }
