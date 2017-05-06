@@ -31,10 +31,10 @@ module.exports = {
     let targetMember = guild.members.get(user.id);
 
     if(args[0]=="ok"){
-      if(targetMember.roles.find('name','unverified')==null)
+      if(targetMember.roles.get('305302877641900052')==null&&targetMember.roles.find('name','unverified')==null)
         return reply(`User does not have the unverified role!`);
       try{
-        await targetMember.removeRole(guild.roles.find('name','unverified'));
+        await targetMember.removeRole(guild.roles.get('305302877641900052')||guild.roles.find('name','unverified'));
         reply(`User verified successfully!`);
       } catch (err) {
         console.log("could not remove unverified role");
