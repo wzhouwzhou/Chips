@@ -66,7 +66,7 @@ const gifs = [
   "https://random.dog/oq9izk0057hy.jpg",
   "https://random.dog/0b0b349e-47e2-4e1e-987d-975f01d2c4f9.jpg",
   "https://random.dog/1186-4923-20498.jpg",
-  "https://random.dog/abb31449-1a18-48e4-8fb6-1f92eb731b99.jpg"
+  "https://random.dog/abb31449-1a18-48e4-8fb6-1f92eb731b99.jpg",
   "https://random.dog/8c3ebdb1-432b-46c6-8edb-bc0c5daa81dc.jpg"
 ];
 
