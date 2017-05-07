@@ -1,7 +1,7 @@
 
 module.exports = {
 	name: "roll",
-	async func(msg, { reply, contents, author}) {
+	async func(msg, { reply, contents, author, channel }) {
 		let par = content.split(' ');
 		let atx = content.slice(par[0].length+1);
 		let cind = '#'; // comment indicator
