@@ -42,9 +42,10 @@ module.exports = {
         try{
           const mem = gMember(target);
           us = database.sinxUsers.get(mem.id);
-          database.sheets['members'].addRow({userid: mem.id, username: mem.user.username, points: pts, pointsrank: "", time: moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')});
+          database.sheets['members'].addRow({userid: mem.id, username: mem.user.username, points: pts, managerid: author.id, pointsrank: "", time: moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')});
+          console.log(`New pts action for user: <@${mem.user.id}>, ${pts} points, approved by: <@${author.id}>`);
           if(database.sinxUsers.get(mem.id)==null){
-            database.sinxUsers.set(mem.id, {userid: mem.id, username: mem.user.username, points: pts, pointsrank: "", time: moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')});
+            database.sinxUsers.set(mem.id, {userid: mem.id, username: mem.user.username, points: pts, managerid: author.id,  pointsrank: "", time: moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')});
             us = database.sinxUsers.get(mem.id);
           }else{
             us.points=parseInt(us.points,10)+pts;
@@ -80,13 +81,14 @@ module.exports = {
           us = database.sinxUsers.get(mem.id);
 
           if(database.sinxUsers.get(mem.id)==null){
-            database.sinxUsers.set(mem.id, {userid: mem.id, username: mem.user.username, points: pts, pointsrank: "", time: moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')});
+            database.sinxUsers.set(mem.id, {userid: mem.id, username: mem.user.username, points: pts, managerid: author.id, pointsrank: "", time: moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')});
             us = database.sinxUsers.get(mem.id);
           }else{
-            database.sheets['members'].addRow({userid: mem.id, username: mem.user.username, points: -parseInt(us.points), pointsrank: "", time: moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')});
+            database.sheets['members'].addRow({userid: mem.id, username: mem.user.username, points: -parseInt(us.points), pointsrank: "", managerid: author.id, time: moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')});
             us.points=pts;
           }
-          database.sheets['members'].addRow({userid: mem.id, username: mem.user.username, points: pts, pointsrank: "", time: moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')});
+          database.sheets['members'].addRow({userid: mem.id, username: mem.user.username, points: pts, pointsrank: "", managerid: author.id, time: moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')});
+          console.log(`New pts action for user: <@${mem.user.id}>, ${pts} points, approved by: <@${author.id}>`);
 
           if(us.points!=0)
             return reply(`[${mem.displayName}] now has: ${us.points} points`);

@@ -35,7 +35,7 @@ const loadsheet = function(sheet) {
         else
           ex.sinxUsers.get(r.userid).points=parseInt(ex.sinxUsers.get(r.userid).points,10)+parseInt(r.points,10);
 
-        console.log("Loaded user pts action: " + r.userid);
+        console.log(`Loaded user pts action for user: <@${r.userid}>, ${r.points} points, approved by: <@${r.managerid}>`);
       });
 		}
 		else if (sheet.title == 'quests') {
