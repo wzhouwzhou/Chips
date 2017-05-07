@@ -4,6 +4,7 @@ module.exports = {
 	async func(msg, { reply, content, author, channel }) {
 		let par = content.split(' ');
 		let atx = content.slice(par[0].length+1);
+		let expr = atx;
 		let cind = '#'; // comment indicator
 		let ns = author.toString();
 		let sdx = atx.indexOf(cind);
