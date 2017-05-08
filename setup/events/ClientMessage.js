@@ -3,6 +3,16 @@ let slSwitcher=false, helper3=false;
 global.testC, global.nLogs, global.sLogs, global.sxLogs, global.stLogs, global.snLogs;
 global.sLogs2;
 
+//user submission step stored by id
+let submStep = {'id0': -1};
+
+//steps {stepnum: ["Step1 text", numoptions]}
+const steps = {
+  0: ["Step 0 text: You've requested -helppt. React with 1 to continue.", 2],
+  1: ["Step 1 text: Submission type", 3],
+  2: ["Step 2 text: Gamemode", 4]
+};
+
 global.muteTrigger=false;
 
 module.exports = function() {
