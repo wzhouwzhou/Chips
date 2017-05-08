@@ -66,6 +66,8 @@ module.exports = function() {
       }
     }catch(err){console.log(`Log errored! ${err}`);}
   });
+
+  require('./ClientReaction')();
 };
 
 async function dmHandle (message) {
