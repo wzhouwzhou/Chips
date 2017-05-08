@@ -1,78 +1,22 @@
 const gifs = [
-  "https://random.dog/28882-14687-7949.jpg",
-  "https://random.dog/ec18751d-0c52-4dc9-a338-42a30017cc21.jpg",
-  "https://random.dog/ba955266-6c4d-45b5-b93c-55b4f5e4051a.png",
-  "https://random.dog/13867-15562-17286.jpg",
-  "https://random.dog/24178-5036-5513.jpg",
-  "https://random.dog/fba53ab0-75df-4136-8212-1319e4524881.jpg",
-  "https://random.dog/21060-3302-20249.jpg",
-  "https://random.dog/a474cdd4-ffae-4992-a44a-f44fd5453241.JPG",
-  "https://random.dog/6843-7121-9258.jpg",
-  "https://random.dog/e9c94b72-4f92-4d65-b43a-e6decf24976f.jpg",
-  "https://random.dog/205a2763-6102-4b9c-9c8f-f944f6900a22.jpg",
-  "https://random.dog/f6997cc3-31c7-41ef-a44a-e0446cb758af.jpg",
-  "https://random.dog/46754b31-a450-4afe-9063-d7c5b981ca28.jpg",
-  "https://random.dog/13867-15562-17286.jpg",
-  "https://random.dog/9606265b-59eb-422f-b840-5b23ad8272bc.jpg",
-  "https://random.dog/17234-7028-29.jpg",
-  "https://random.dog/l6CIQaS.jpg",
-  "https://random.dog/6cf2f6b5-92c5-4bef-ab09-37d12ff15ffb.jpg",
-  "https://random.dog/1573beb6-6c9f-4705-95c9-7878c7c2e8d8.jpg",
-  "https://random.dog/11fe1455-43a4-4cc1-b0a1-51bd025f5a8e.jpg",
-  "https://random.dog/8c3ebdb1-432b-46c6-8edb-bc0c5daa81dc.jpg",
-  "https://random.dog/6b3100c1-34a0-4795-8de6-82da13eec2af.jpg",
-  "https://random.dog/886c5960-5345-48f0-bf3c-9fd5145a62aa.jpg",
-  "https://random.dog/C35XPEgVUAEUkCm.jpg",
-  "https://random.dog/68b11de5-a94b-4f20-ab7f-ea754fae84a7.jpg",
-  "https://random.dog/5cf38fd0-5d33-4d1e-bce7-6b158a4d7fd2.jpg",
-  "https://random.dog/c34c4ba7-3fdc-4c4e-b57e-72394aef5d08.jpg",
-  "https://random.dog/a2acc1b8-6191-4e88-99c8-2dcb2b5c25c0.jpg",
-  "https://random.dog/1d5a4ce5-8854-46ce-97d5-82f7e4cc7296.png",
-  "https://random.dog/b95hszy7eliy.jpg",
-  "https://random.dog/7f6f49dd-7ca5-46bd-97fb-c534628f9a2b.jpg",
-  "https://random.dog/12567-30449-22158.jpg",
-  "https://random.dog/20549-24554-21155.jpg",
-  "https://random.dog/f3ab5880-f3fd-4bff-9f5a-934c02c9fbfc.jpg",
-  "https://random.dog/50cd9b61-fbb7-41aa-a69a-e474d8c5095d.jpg",
-  "https://random.dog/98f859f0-1a12-4f52-8aae-c2864de3120c.jpg",
-  "https://random.dog/d90f1ccb-71f8-4713-b50c-79620139278e.jpeg",
-  "https://random.dog/OhkEvLi.jpg",
-  "https://random.dog/b3d18975-1146-457f-a95c-5eae994c2e9e.jpg",
-  "https://random.dog/vh7i79y2qhhy.jpg",
-  "https://random.dog/b95hszy7eliy.jpg",
-  "https://random.dog/5f2228be-01e8-421a-9fc3-47b9daa4740b.jpg",
-  "https://random.dog/38df8950-49bb-4e37-a949-ba5dfa40af1f.jpg",
-  "https://random.dog/3c8233e8-c1d0-4214-9848-7658e6d9807e.jpg",
-  "https://random.dog/fba53ab0-75df-4136-8212-1319e4524881.jpg",
-  "https://random.dog/0afd649d-ec06-403f-aeb5-0262d1750182.jpg",
-  "https://random.dog/17525-12354-23454.jpg",
-  "https://random.dog/19d5812f-127c-49a8-84ee-ee684dcf0a1f.jpg",
-  "https://random.dog/0f476473-2d8b-415e-b944-483768418a95.jpg",
-  "https://random.dog/71e8b7a0-f0fc-469f-a2cb-fa408886b1f8.png",
-  "https://random.dog/046e5758-d1ef-436f-b7e2-530134562445.jpg",
-  "https://random.dog/7ff35bb5-5241-4e8b-8299-fdabd219d033.jpg",
-  "https://random.dog/24141-29115-27188.jpg",
-  "https://random.dog/5350-13889-29214.jpg",
-  "https://random.dog/24578-1733-14537.jpg",
-  "https://random.dog/32367-2062-4347.jpg",
-  "https://random.dog/OhkEvLi.jpg",
-  "https://random.dog/15038-13875-14202.jpg",
-  "https://random.dog/OksjTZJ.jpg",
-  "https://random.dog/65bf4e16-3d69-4115-b116-f1bda1b9de6b.jpg",
-  "https://random.dog/3AcS764.jpg",
-  "https://random.dog/f3ab5880-f3fd-4bff-9f5a-934c02c9fbfc.jpg",
-  "https://random.dog/5a34778b-ea6a-4e2f-8695-c35c7a665ad1.jpg",
-  "https://random.dog/9826-9348-20028.jpg",
-  "https://random.dog/oq9izk0057hy.jpg",
-  "https://random.dog/0b0b349e-47e2-4e1e-987d-975f01d2c4f9.jpg",
-  "https://random.dog/1186-4923-20498.jpg",
-  "https://random.dog/abb31449-1a18-48e4-8fb6-1f92eb731b99.jpg",
-  "https://random.dog/8c3ebdb1-432b-46c6-8edb-bc0c5daa81dc.jpg"
+  "http://random.dog",
+  "http://www.randomdoggiegenerator.com/"
 ];
+
+const got = require('got');
+getCat = (callback) => {
+  got('https://random.dog/woof.json').then(res => {
+    try {
+      callback(undefined, JSON.parse(res.body).file);
+    } catch (err) {
+      callback(err);
+    }
+  }).catch(callback);
+};
 
 module.exports = {
   name: "dog",
   async func(msg, { send }) {
-    return send(gifs[_.random(0,gifs.length-1)])
+    return getCat((a,b)=>send(b));
   }
 };
