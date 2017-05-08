@@ -20,23 +20,3 @@ module.exports = function() {
     react.message.delete();
   });
 };
-
-async function reactOptions(message) {
-  let stepNum = submStep[`${message.author.id}`];
-  let text = steps[stepNum][0];
-  let numChoices = steps[stepNum][1];
-  await message.channel.send("You are on step " + stepNum);
-  const msg = await message.channel.send(text);
-  if (isNaN(numChoices)) throw new TypeError("Number of choices must be a number.");
-  if (numChoices > 9) numChoices = 9;
-  await msg.react("⬅");
-  let index=1;
-  do
-    await msg.react(Constants.CHOICES[index]);
-  while(++index<numChoices+1);
-  await msg.react("❌");
-}
-
-async function isntMe(react){
-  return react.me;
-}
