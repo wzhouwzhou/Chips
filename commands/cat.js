@@ -3,9 +3,20 @@ const gifs = [
   "http://thecatapi.com/"
 ];
 
+const got = require('got');
+getCat = (callback) => {
+  got('http://www.random.cat/meow').then(res => {
+    try {
+      callback(undefined, JSON.parse(res.body).file);
+    } catch (err) {
+      callback(err);
+    }
+  }).catch(callback);
+};
+
 module.exports = {
   name: "cat",
   async func(msg, { send }) {
-    return send(gifs[_.random(0,gifs.length-1)])
+    return getCat((a,b)=>send(b));
   }
 };

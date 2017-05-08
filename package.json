@@ -39,6 +39,7 @@
     "express-session": "^1.15.2",
     "font-awesome": "^4.6.3",
     "google-spreadsheet": "2.0.3",
+    "got": "^6.7.1",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^2.0.10",
     "gulp-header": "^1.8.7",
