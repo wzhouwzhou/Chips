@@ -129,7 +129,18 @@ module.exports = {
             return reply(`[${mem.displayName}] has: ${us.points} points`);
           else
             return reply(`[${mem.displayName}] has no points`);
-        }else return reply(`Target user ${target} not found in this server!`);
+        }else{
+          let mem = guild.members.find('username',target);
+          if(mem!=null){
+            us = database.sinxUsers.get(mem.id);
+            if(us==null) return reply(`[${mem.displayName}/${mem.username}] has no points`);
+            if(us.points!=0)
+              return reply(`[${mem.displayName}/${mem.username}] has: ${us.points} points`);
+            else
+              return reply(`[${mem.displayName}/${mem.username}] has no points`);
+          }
+          return reply(`Target user ${target} not found in this server!`);
+        }
       }
     }
   }
