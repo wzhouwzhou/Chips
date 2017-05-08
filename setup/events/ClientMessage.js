@@ -104,10 +104,14 @@ async function reactOptions(message) {
   if (numChoices > 9) numChoices = 9;
   await msg.react("⬅");
   let index=1;
-  do
-    await msg.react(Constants.CHOICES[index]);
-  while(++index<numChoices+1);
-  await msg.react("❌");
+  try{
+    do
+      await msg.react(Constants.CHOICES[index]);
+    while(++index<numChoices+1);
+    await msg.react("❌");
+  }catch(err){
+    console.log("Dm message was probably deleted");
+  }
 }
 
 async function isntMe(react){
