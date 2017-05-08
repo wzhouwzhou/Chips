@@ -4,7 +4,7 @@ const gifs = [
 ];
 
 const got = require('got');
-getCat = (callback) => {
+getDog = (callback) => {
   got('https://random.dog/woof.json').then(res => {
     try {
       callback(undefined, JSON.parse(res.body).file);
@@ -17,6 +17,6 @@ getCat = (callback) => {
 module.exports = {
   name: "dog",
   async func(msg, { send }) {
-    return getCat((a,b)=>send(b));
+    return getDog((a,b)=>send(b));
   }
 };
