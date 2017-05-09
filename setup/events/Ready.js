@@ -1,6 +1,6 @@
 module.exports = function( send ) {
   client.on("ready", _ => {
-    require('./handlers/DiepAddons').getServers();
+    require(path.join(__dirname, '../../../handlers/DiepAddons')).getServers();
     statusC = client.channels.get(Constants.channels.STATUS);
 
     send('Chips restart! **' + moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')+'**', statusC);
