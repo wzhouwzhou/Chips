@@ -119,7 +119,7 @@ async function isntMe(react){
   return react.me;
 }
 
-async function detectPartLink(message){
+async function detectPartyLink(message){
   try{
     let bad = new Discord.RichEmbed().setColor("13551").setTitle("Party Link Detected!");
     let lInfo =require(path.join(__dirname, '../../handlers/DiepAddons')).getInfo(message.cleanContent);
