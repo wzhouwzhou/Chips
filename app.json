@@ -39,6 +39,6 @@
   },
   "name": "chips",
   "engines": {
-    "node": "7.7.4"
+    "node": "7.10.0"
   }
 }

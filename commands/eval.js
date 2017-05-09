@@ -3,7 +3,8 @@ const whitelist = [
 	Constants.users.WILLYZ,
 	Constants.users.XZLQ,
 	Constants.users.PGSUPER,
-	Constants.users.NELYN
+	Constants.users.NELYN,
+	Constants.users.EVILDEATHPRO
 ];
 
 module.exports = {

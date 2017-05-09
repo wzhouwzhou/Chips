@@ -4,7 +4,8 @@ global.Constants = require("./setup/Constants");
 //route loading
 global.index = require("./routes/index");
 global.login = require("./routes/login");
-global.useroverview = require("./routes/useroverview");
+global.updates = require("./routes/updates");
+global.useroverview = require("./routes/updates");
 
 //Chips constants
 const child_process = require('child_process');
@@ -16,6 +17,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const Strategy = require('./setup/lib').Strategy;
+global.path = require("path");
 global.fs = require('fs');
 const request = require('request');
 const app = require("./setup/AppSetup")(bodyParser, cookieParser, passport, express, express(), Strategy, session);
@@ -29,15 +31,7 @@ global.c2 = new Discord.Client();
 global.c3 = new Discord.Client();
 client.commands = {};
 global.prefix = "-";
-//user submission step stored by id
-let submStep = {'id0': -1};
-
-//steps {stepnum: ["Step1 text", numoptions]}
-const steps = {
-  0: ["Step 0 text: You've requested -helppt. React with 1 to continue.", 2],
-  1: ["Step 1 text: Submission type", 3],
-  2: ["Step 2 text: Gamemode", 4]
-};
+if(process.env.BETA=="true")prefix="!!";
 /** End Constants **/
 
 /** Other Global Constants **/
@@ -61,10 +55,7 @@ global.stMsgs=0;
 global.snMsgs=0;
 global.okSpamLogs = {"0":0};
 global.currentOkInterval = {"0":0};
-global.maxOk = 5;
-global.okInterval = 2;
-global.okFilter=true;
-global.filter=require('./handlers/Filter');
+global.filter=require('./handlers/Filter')();
 
 global.dmC;
 global.monitorMode = false;
@@ -91,26 +82,6 @@ Messager.on("eval", ({ evalContent, vars, timestamp }) => {
   }
 });
 
-client.on("messageReactionAdd", (react, user) => {
-  if(user.id == client.user.id || react.message.author.id != client.user.id) return;
-
-  console.log("Reaction detected");
-  if (react.message.channel.type != 'dm') {
-    console.console.log("Not in DM");
-    return;
-  }
-
-  console.log("DM channel emoji: " + react.emoji);
-  react.message.channel.sendMessage(`The emoji used is ${react.emoji}`);
-
-  console.log("userid: " + user.id);
-  console.log(`The emoji used is ${react.emoji}`);
-  if(react.emoji.toString()=="1⃣"){react.message.channel.sendMessage("Hi: one (nothing to see here yet)");}
-  else if(react.emoji.toString()=="2⃣"){react.message.channel.sendMessage("Hi: two");}
-  else if(react.emoji.toString()==":three:"){react.message.channel.sendMessage("Hi: three");}
-  react.message.delete();
-});
-
 //Console events
 stdin.addListener('data', d => {
     if (testC == null) {
@@ -133,7 +104,7 @@ stdin.addListener('data', d => {
 //Functions
 const send = (message, c) => { c.sendMessage(message, {disableEveryone:true}); };
 
-const send2 = (message, c) => {
+global.send2 = (message, c) => {
   if(c==null||message.author.id==client.user.id)return;
 
   let mainContent = new Discord.RichEmbed()
@@ -178,26 +149,6 @@ const detectPastes = txt => {
   return txt;
 };
 
-async function reactOptions(message) {
-  let stepNum = submStep[`${message.author.id}`];
-  let text = steps[stepNum][0];
-  let numChoices = steps[stepNum][1];
-  await message.channel.send("You are on step " + stepNum);
-  const msg = await message.channel.send(text);
-  if (isNaN(numChoices)) throw new TypeError("Number of choices must be a number.");
-  if (numChoices > 9) numChoices = 9;
-  await msg.react("⬅");
-  let index=1;
-  do
-    await msg.react(Constants.CHOICES[index]);
-  while(++index<numChoices+1);
-  await msg.react("❌");
-}
-
-async function isntMe(react){
-  return react.me;
-}
-
 function selfping() {
   request("https://chipsbot.herokuapp.com/", _=>_);
 }
@@ -221,14 +172,24 @@ function msgStatus() {
 }
 
 require('./setup/events/Ready')(send);
-require('./setup/events/ClientMessage')(send2);
+require('./setup/events/ClientMessage')();
 
 setInterval(selfping, 1000*60*10);
 setInterval(msgStatus, 1000*60*30);
-
-client.login(process.env.TOKEN);
+if(process.env.BETA!=null&&process.env.BETA=="true")
+  client.login(process.env.BETATOKEN);
+else
+  client.login(process.env.TOKEN);
 hclient.login(process.env.HTOKEN);
 h2client.login(process.env.H2TOKEN);
 h3client.login(process.env.H3TOKEN);
-c2.login(require('./setup/sBotT.js')[0]);
-c3.login(require('./setup/sBotT.js')[1]);
+
+if(process.env.C2TOKEN!=null&&process.env.C2TOKEN!="")
+  c2.login(process.env.C2TOKEN);
+else
+  c2.login(require('./setup/sBotT.js')[0]);
+
+if(process.env.C3TOKEN!=null&&process.env.C3TOKEN!="")
+  c3.login(process.env.C3TOKEN);
+else
+  c3.login(require('./setup/sBotT.js')[1]);

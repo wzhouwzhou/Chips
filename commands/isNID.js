@@ -2,18 +2,20 @@ module.exports = {
   name: "isNID",
   async func(msg, { send, member, author, content, channel, guild, args, gMember, Discord }) {
     const used = member || author;
-    switch (used.id) {
-      case Constants.users.WILLYZ:
-      case Constants.users.PGSUPER:
-      case Constants.users.ZALGO:
-      case Constants.users.XZLQ:
-      case Constants.users.KONEKO:
-      case Constants.users.NELYN:
-      case Constants.users.LOAF:
-      case Constants.users.ARX:
-        break;
-      default:
-        return;
+    if(!used.hasPermission("BAN_MEMBERS")){
+      switch (used.id) {
+        case Constants.users.WILLYZ:
+        case Constants.users.PGSUPER:
+        case Constants.users.ZALGO:
+        case Constants.users.XZLQ:
+        case Constants.users.KONEKO:
+        case Constants.users.NELYN:
+        case Constants.users.LOAF:
+        case Constants.users.ARX:
+          break;
+        default:
+          return;
+      }
     }
     let QUIET = false;
 

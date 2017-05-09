@@ -2,10 +2,24 @@
 let slSwitcher=false, helper3=false;
 global.testC, global.nLogs, global.sLogs, global.sxLogs, global.stLogs, global.snLogs;
 global.sLogs2;
-module.exports = function( send2 ) {
+
+//user submission step stored by id
+let submStep = {'id0': -1};
+
+//steps {stepnum: ["Step1 text", numoptions]}
+const steps = {
+  0: ["Step 0 text: You've requested -helppt. React with 1 to continue.", 2],
+  1: ["Step 1 text: Submission type", 3],
+  2: ["Step 2 text: Gamemode", 4]
+};
+
+global.muteTrigger=false;
+
+module.exports = function() {
+  console.log("Client message event..");
   client.on("message", message => {
     //rekt
-    if(message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1))
+    if(muteTrigger&& (message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1)))
       return message.channel.send("Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE");
 
     if (message.author.bot) return;
@@ -32,7 +46,7 @@ module.exports = function( send2 ) {
       }
     }catch(err){console.log(`Log errored! ${err}`);}
 
-    filter.filter(message);
+    filter(message);
   });
   c2.on('message', m => {
     try{
@@ -62,6 +76,8 @@ module.exports = function( send2 ) {
       }
     }catch(err){console.log(`Log errored! ${err}`);}
   });
+
+  require('./ClientReaction')();
 };
 
 async function dmHandle (message) {
@@ -76,4 +92,28 @@ async function dmHandle (message) {
     await reactOptions(message);
     console.log("helppt");
   }
+}
+
+async function reactOptions(message) {
+  let stepNum = submStep[`${message.author.id}`];
+  let text = steps[stepNum][0];
+  let numChoices = steps[stepNum][1];
+  await message.channel.send("You are on step " + stepNum);
+  const msg = await message.channel.send(text);
+  if (isNaN(numChoices)) throw new TypeError("Number of choices must be a number.");
+  if (numChoices > 9) numChoices = 9;
+  await msg.react("⬅");
+  let index=1;
+  try{
+    do
+      await msg.react(Constants.CHOICES[index]);
+    while(++index<numChoices+1);
+    await msg.react("❌");
+  }catch(err){
+    console.log("Dm message was probably deleted");
+  }
+}
+
+async function isntMe(react){
+  return react.me;
 }

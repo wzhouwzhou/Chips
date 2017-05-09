@@ -28,24 +28,26 @@ module.exports = {
     if (reason == "") reason = "None";
     const user = gMember(target).user;
     if(user.id==bot.user.id) return send(`NO!!`);
-
-    switch (used.id) {
-      case Constants.users.WILLYZ:
-      case Constants.users.PGSUPER:
-      case Constants.users.ZALGO:
-      case Constants.users.XZLQ:
-      case Constants.users.KONEKO:
-      case Constants.users.NELYN:
-      case Constants.users.LOAF:
-      case Constants.users.ARX:
-        break;
-      default:
-        return send(`No bans for you, <@${used.id}>!`);
-    }
+		if(!used.hasPermission("BAN_MEMBERS")){
+	    switch (used.id) {
+	      case Constants.users.WILLYZ:
+	      case Constants.users.PGSUPER:
+	      case Constants.users.ZALGO:
+	      case Constants.users.XZLQ:
+	      case Constants.users.KONEKO:
+	      case Constants.users.NELYN:
+	      case Constants.users.LOAF:
+	      case Constants.users.ARX:
+				case Constants.users.ASUNA:
+	        break;
+	      default:
+	        return send(`No bans for you, <@${used.id}>!`);
+	    }
+		}
     // console.log("Target: "+target);
     if (neko.indexOf(user.id) >= 0) {
 			if(author.id!=Constants.users.KONEKO){
-      	setTimeout(() => {reply('kill yourself');}, 50);
+      	setTimeout(() => {reply('go ban yourself');}, 50);
 				return;
 			}
 			else

@@ -3,12 +3,12 @@ const express = require('express');
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  if(req.user!=null)
-    res.render("useroverview",
+  if(req.user==null)
+    res.render("updates",
       { timestamp: new Date().toString(),
         isAuthenticated: req.isAuthenticated(),
         user: req.user,
-        avatarURL: req.user.avatarURL,
+        //avatarURL: req.user.avatarURL,
         scripts: [
           "https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js",
           "/activity/github-activity.js"
@@ -27,7 +27,7 @@ router.get("/", (req, res) => {
       }
     );
   else
-    res.render("useroverview",
+    res.render("updates",
       { timestamp: new Date().toString(),
         isAuthenticated: req.isAuthenticated()
       }

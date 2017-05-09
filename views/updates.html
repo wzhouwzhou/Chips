@@ -1,10 +1,10 @@
 <% extend('base.html') %>
 
 <br></br>
-<% if (!isAuthenticated) { %>
-    Userview: Right now, it's <%=timestamp%>
+<% if (isAuthenticated) { %>
+    Updates (SK): Right now, it's <%=timestamp%>
     <br></br>
-    <a id="signIn" href="/login">You aren't signed in, Click here!</a>
+    <a id="signIn" href="/sinbadx/login">You aren't signed in to your discord, Click here!</a>
 <% } else { %>
     <body>
         <div id="wrapper">
@@ -240,11 +240,11 @@
               <!-- end navbar-top-links -->
           </nav>
           <!-- end navbar top -->
-          <b>Welcome back, user #<%=user.id%></b>
+          <b>Welcome back</b>
           <br></br>
           Userview: Right now, it's <%=timestamp%>
           <br></br>
-          <a href="/logout">Click me to Log Out</a>
+          <a href="/sinbadx/logout">Click me to Log Out</a>
           <br></br>
         </div>
         <!-- end wrapper -->

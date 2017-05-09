@@ -39,6 +39,7 @@
     "express-session": "^1.15.2",
     "font-awesome": "^4.6.3",
     "google-spreadsheet": "2.0.3",
+    "got": "^6.7.1",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^2.0.10",
     "gulp-header": "^1.8.7",
@@ -46,6 +47,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.5.4",
     "jquery": "^1.11.3",
+    "jsonfile": "^3.0.0",
     "lodash": "^4.17.4",
     "long-timeout": "^0.1.1",
     "magnific-popup": "^1.1.0",
@@ -63,11 +65,12 @@
     "sodium": "^2.0.1",
     "sqlite3": "^3.1.8",
     "underscore": "^1.8.3",
+    "url-download": "0.0.8",
     "uws": "^0.14.1"
   },
   "name": "chips",
   "title": "Chips",
   "engines": {
-    "node": "7.9.0"
+    "node": "7.10.0"
   }
 }
