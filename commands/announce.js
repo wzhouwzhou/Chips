@@ -6,6 +6,7 @@ module.exports = {
     if(args[0]==null||args[0]=="")return reply(`I can't send an empty announcement.`);
 
     if(guild.ownerID==author.id||member.hasPermission("ADMINISTRATOR")){
+      console.log(`[Announcement]: Announcement from <@${author.id}> in server [${guild.name}]: ${content.substring((prefix+'announce ').length)}`);
       guild.members.forEach(u=>{
         try{
           u.send(`Announcement from <@${author.id}> in server [${guild.name}]: ${content.substring((prefix+'announce ').length)}`);
@@ -15,7 +16,8 @@ module.exports = {
       });
       return reply(`Announcement sent!`);
     }else{
-      return reply(`You must be server owner to use this cmd...`);
+      console.log(`[Announcement]: DENIED Announcement from <@${author.id}> in server [${guild.name}]: ${content.substring((prefix+'announce ').length)}`);
+      return reply(`You must be server owner or admin to use this cmd...`);
     }
   }
 };
