@@ -151,6 +151,7 @@ const detectPastes = txt => {
 
 function selfping() {
   request("https://chipsbot.herokuapp.com/", _=>_);
+  require('./handlers/DiepAddons').getServers();
 }
 
 function msgStatus() {

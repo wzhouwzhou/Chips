@@ -50,11 +50,11 @@ exports.getInfo = (partylink) => {
 	const port = '443';
 	var servers = jsonfile.readFileSync(file);
 	servers.forEach(function(element) {
-	if(element.ip === ip)
-	{
-		info = {"link":"http://diep.io/#"+code,"code":code,"ip":ip,"port":port,"host":element.host,"gamemode":element.gamemode,"location":element.location};
-	}
-	});
+		if(element.ip === ip)
+		{
+			info = {"link":"http://diep.io/#"+code,"code":code,"ip":ip,"port":port,"host":element.host,"gamemode":element.gamemode,"location":element.location};
+		}
+		});
 	return info;
 }
 

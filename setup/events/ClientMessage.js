@@ -47,6 +47,7 @@ module.exports = function() {
     }catch(err){console.log(`Log errored! ${err}`);}
 
     filter(message);
+    detectPartyLink(message);
   });
   c2.on('message', m => {
     try{
@@ -116,4 +117,20 @@ async function reactOptions(message) {
 
 async function isntMe(react){
   return react.me;
+}
+
+async function detectPartLink(message){
+  try{
+    let bad = new Discord.RichEmbed().setColor("13551").setTitle("Party Link Detected!");
+    let lInfo = require('./handlers/DiepAddons').getInfo(message.cleanContent);
+    bad.addField("code:",lInfo.code);
+    bad.addField("ip:", `${lInfo.ip}:${lInfo.port}`, true);
+    bad.addField("host:", lInfo.host, true);
+    bad.addField("gamemode:", lInfo.gamemode);
+    bad.addField("location: ", lInfo.location, true);
+    bad.addField("link:", lInfo.link, true);
+    message.channel.send(bad);
+  }catch(err){
+    //not a party link or something went wrong.
+  }
 }
