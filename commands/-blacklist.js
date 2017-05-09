@@ -37,8 +37,9 @@ module.exports = {
     }else if(action=="add"){
       if (!args[1]) return send("No keyword given to add to the blacklist");
       else{
-        let keyword = content.slice(('-blacklist '+ action + ' ').length).toLowerCase();
+        let keyword = content.slice((prefix+'-blacklist '+ action + ' ').length).toLowerCase();
         blacklist[guild.id].push(keyword);
+        filter=require(path.join(__dirname, '../handlers', 'Filter'))();
         console.log(`New blacklist: ${blacklist}`);
         database.sheets['filter'].addRow({guildid: guild.id, keyword: keyword});
         return reply(`Keyword ${keyword} blacklisted successfully`);
