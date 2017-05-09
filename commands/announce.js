@@ -6,7 +6,13 @@ module.exports = {
     if(args[0]==null||args[0]=="")return reply(`I can't send an empty announcement.`);
 
     if(guild.ownerID==author.id||member.hasPermission("ADMINISTRATOR")){
-      guild.members.forEach(u=>u.send(`Announcement from <@${author.id}> in server [${guild.name}]: ${content.substring((prefix+'announce ').length)}`));
+      guild.members.forEach(u=>{
+        try{
+          u.send(`Announcement from <@${author.id}> in server [${guild.name}]: ${content.substring((prefix+'announce ').length)}`);
+        }catch(err){
+          console.log("Could not send announcement to user: " + u.id);
+        }
+      });
       return reply(`Announcement sent!`);
     }else{
       return reply(`You must be server owner to use this cmd...`);
