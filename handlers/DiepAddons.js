@@ -2,9 +2,8 @@ const download = require("url-download");
 const fs = require("fs");
 const jsonfile = require("jsonfile");
 const file = "servers.json";
-
+let info = [];
 exports.getServers = () => {
-	let info = [];
 	download('http://lb.diep.io/v2/find_servers', './', {outputName:'servers.txt'})
     .on('done', function () {
 		let data = fs.readFileSync('servers.txt', 'utf8');
@@ -19,7 +18,7 @@ exports.getServers = () => {
 				let location = server.match(/[a-z0-9]{1,}/gi)[1];
 				let gamemode = server.match(/[a-z0-9]{1,}/gi)[2];
 				info.push({"ip":ip,"port":port,"host":host,"gamemode":gamemode,"location":location});
-			});		
+			});
 			jsonfile.writeFileSync(file, info, {spaces:2});
 		}
 		if(fs.existsSync("./"+file)){
@@ -34,7 +33,7 @@ exports.getServers = () => {
 				let gamemode = server.match(/[a-z0-9]{1,}/gi)[2];
 				if(info.indexOf({"ip":ip,"port":port,"host":host,"gamemode":gamemode,"location":location})!==-1)
 					info.push({"ip":ip,"port":port,"host":host,"gamemode":gamemode,"location":location});
-			});		
+			});
 			jsonfile.writeFileSync(file, info, {spaces:2});
 		}
 		fs.unlinkSync("./servers.txt");
