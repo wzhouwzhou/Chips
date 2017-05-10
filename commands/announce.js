@@ -8,7 +8,7 @@ module.exports = {
       console.log(`[Announcement]: Announcement from <@${author.id}> in server [${guild.name}]: ${content.substring((prefix+'announce ').length)}`);
       guild.members.forEach(u=>{
         try{
-          u.send(`Announcement from <@${author.id}> in server [${guild.name}]: ${content.substring((prefix+'announce ').length)}`);
+          u.send(`**Announcement from <@${author.id}> in server [${guild.name}]**: ${content.substring((prefix+'announce ').length)}\n(Please note that the sender of this announcement cannot view replies made to this bot so please dm them instead.)`);
         }catch(err){
           console.log("Could not send announcement to user: " + u.id);
         }
