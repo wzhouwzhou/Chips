@@ -1,0 +1,821 @@
+[
+  {
+    "ip": "104.207.145.15",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "maze",
+    "location": "miami"
+  },
+  {
+    "ip": "172.104.141.180",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "teams",
+    "location": "frankfurt"
+  },
+  {
+    "ip": "139.162.238.54",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "maze",
+    "location": "london"
+  },
+  {
+    "ip": "104.156.247.112",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "4teams",
+    "location": "miami"
+  },
+  {
+    "ip": "45.32.81.78",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "survival",
+    "location": "la"
+  },
+  {
+    "ip": "45.32.173.32",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "dom",
+    "location": "miami"
+  },
+  {
+    "ip": "45.79.187.200",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "maze",
+    "location": "newark"
+  },
+  {
+    "ip": "45.76.118.184",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "maze",
+    "location": "sydney"
+  },
+  {
+    "ip": "104.238.162.109",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "dom",
+    "location": "chicago"
+  },
+  {
+    "ip": "45.63.65.129",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "4teams",
+    "location": "chicago"
+  },
+  {
+    "ip": "139.162.236.225",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "dom",
+    "location": "london"
+  },
+  {
+    "ip": "172.104.50.221",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "4teams",
+    "location": "singapore"
+  },
+  {
+    "ip": "45.33.113.192",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "tag",
+    "location": "dallas"
+  },
+  {
+    "ip": "45.32.173.171",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "4teams",
+    "location": "miami"
+  },
+  {
+    "ip": "172.104.43.21",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "maze",
+    "location": "singapore"
+  },
+  {
+    "ip": "45.76.32.99",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "dom",
+    "location": "amsterdam"
+  },
+  {
+    "ip": "45.79.183.28",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "4teams",
+    "location": "newark"
+  },
+  {
+    "ip": "45.79.154.29",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "teams",
+    "location": "newark"
+  },
+  {
+    "ip": "45.76.21.244",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "survival",
+    "location": "chicago"
+  },
+  {
+    "ip": "45.79.5.30",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "maze",
+    "location": "dallas"
+  },
+  {
+    "ip": "45.63.34.30",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "teams",
+    "location": "seattle"
+  },
+  {
+    "ip": "108.61.123.240",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "teams",
+    "location": "paris"
+  },
+  {
+    "ip": "45.32.227.129",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "maze",
+    "location": "seattle"
+  },
+  {
+    "ip": "192.155.84.184",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "tag",
+    "location": "fremont"
+  },
+  {
+    "ip": "139.162.231.216",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "sandbox",
+    "location": "london"
+  },
+  {
+    "ip": "45.32.225.172",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "teams",
+    "location": "seattle"
+  },
+  {
+    "ip": "104.238.157.57",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "survival",
+    "location": "seattle"
+  },
+  {
+    "ip": "50.116.0.180",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "teams",
+    "location": "fremont"
+  },
+  {
+    "ip": "23.92.20.245",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "dom",
+    "location": "newark"
+  },
+  {
+    "ip": "104.156.230.11",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "survival",
+    "location": "silicon"
+  },
+  {
+    "ip": "74.207.236.74",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "maze",
+    "location": "atlanta"
+  },
+  {
+    "ip": "45.32.161.210",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "teams",
+    "location": "miami"
+  },
+  {
+    "ip": "45.32.175.199",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "teams",
+    "location": "miami"
+  },
+  {
+    "ip": "74.207.231.42",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "dom",
+    "location": "atlanta"
+  },
+  {
+    "ip": "45.79.165.7",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "dom",
+    "location": "newark"
+  },
+  {
+    "ip": "45.79.183.79",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "sandbox",
+    "location": "newark"
+  },
+  {
+    "ip": "45.32.55.250",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "dom",
+    "location": "tokyo"
+  },
+  {
+    "ip": "173.255.219.134",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "4teams",
+    "location": "fremont"
+  },
+  {
+    "ip": "45.32.88.28",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "dom",
+    "location": "la"
+  },
+  {
+    "ip": "45.76.32.220",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "4teams",
+    "location": "amsterdam"
+  },
+  {
+    "ip": "139.162.232.84",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "teams",
+    "location": "london"
+  },
+  {
+    "ip": "45.63.74.9",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "maze",
+    "location": "chicago"
+  },
+  {
+    "ip": "45.32.238.113",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "teams",
+    "location": "amsterdam"
+  },
+  {
+    "ip": "45.63.104.160",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "survival",
+    "location": "miami"
+  },
+  {
+    "ip": "45.76.68.183",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "4teams",
+    "location": "la"
+  },
+  {
+    "ip": "74.207.253.13",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "teams",
+    "location": "fremont"
+  },
+  {
+    "ip": "173.199.71.207",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "4teams",
+    "location": "paris"
+  },
+  {
+    "ip": "69.164.197.211",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "4teams",
+    "location": "dallas"
+  },
+  {
+    "ip": "173.230.137.190",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "tag",
+    "location": "atlanta"
+  },
+  {
+    "ip": "96.126.127.135",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "4teams",
+    "location": "dallas"
+  },
+  {
+    "ip": "104.237.141.42",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "sandbox",
+    "location": "dallas"
+  },
+  {
+    "ip": "108.61.188.218",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "maze",
+    "location": "amsterdam"
+  },
+  {
+    "ip": "45.79.216.207",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "tag",
+    "location": "atlanta"
+  },
+  {
+    "ip": "172.104.143.191",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "4teams",
+    "location": "frankfurt"
+  },
+  {
+    "ip": "45.63.94.240",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "4teams",
+    "location": "silicon"
+  },
+  {
+    "ip": "45.76.197.5",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "teams",
+    "location": "tokyo"
+  },
+  {
+    "ip": "139.162.246.192",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "tag",
+    "location": "london"
+  },
+  {
+    "ip": "45.76.44.76",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "dom",
+    "location": "paris"
+  },
+  {
+    "ip": "172.104.32.149",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "dom",
+    "location": "singapore"
+  },
+  {
+    "ip": "74.207.249.141",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "sandbox",
+    "location": "fremont"
+  },
+  {
+    "ip": "45.63.93.183",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "teams",
+    "location": "silicon"
+  },
+  {
+    "ip": "45.79.153.83",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "4teams",
+    "location": "newark"
+  },
+  {
+    "ip": "192.155.94.41",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "sandbox",
+    "location": "atlanta"
+  },
+  {
+    "ip": "139.162.255.75",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "4teams",
+    "location": "london"
+  },
+  {
+    "ip": "45.76.105.164",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "4teams",
+    "location": "tokyo"
+  },
+  {
+    "ip": "45.76.23.83",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "dom",
+    "location": "chicago"
+  },
+  {
+    "ip": "45.32.231.42",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "dom",
+    "location": "seattle"
+  },
+  {
+    "ip": "172.104.33.28",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "tag",
+    "location": "singapore"
+  },
+  {
+    "ip": "50.116.34.61",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "sandbox",
+    "location": "atlanta"
+  },
+  {
+    "ip": "173.230.135.250",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "dom",
+    "location": "atlanta"
+  },
+  {
+    "ip": "50.116.42.54",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "4teams",
+    "location": "atlanta"
+  },
+  {
+    "ip": "74.207.232.8",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "4teams",
+    "location": "atlanta"
+  },
+  {
+    "ip": "45.56.106.224",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "sandbox",
+    "location": "newark"
+  },
+  {
+    "ip": "45.76.75.93",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "4teams",
+    "location": "la"
+  },
+  {
+    "ip": "96.126.108.69",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "tag",
+    "location": "newark"
+  },
+  {
+    "ip": "172.104.43.153",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "sandbox",
+    "location": "singapore"
+  },
+  {
+    "ip": "192.81.128.194",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "tag",
+    "location": "fremont"
+  },
+  {
+    "ip": "45.32.238.127",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "survival",
+    "location": "amsterdam"
+  },
+  {
+    "ip": "173.199.71.37",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "survival",
+    "location": "paris"
+  },
+  {
+    "ip": "45.76.113.155",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "survival",
+    "location": "sydney"
+  },
+  {
+    "ip": "96.126.127.164",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "dom",
+    "location": "dallas"
+  },
+  {
+    "ip": "45.63.93.123",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "dom",
+    "location": "silicon"
+  },
+  {
+    "ip": "172.104.36.127",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "teams",
+    "location": "singapore"
+  },
+  {
+    "ip": "69.164.195.183",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "dom",
+    "location": "dallas"
+  },
+  {
+    "ip": "74.207.230.67",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "teams",
+    "location": "atlanta"
+  },
+  {
+    "ip": "45.63.86.88",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "maze",
+    "location": "silicon"
+  },
+  {
+    "ip": "45.56.92.217",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "dom",
+    "location": "fremont"
+  },
+  {
+    "ip": "172.104.145.223",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "maze",
+    "location": "frankfurt"
+  },
+  {
+    "ip": "104.237.135.11",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "teams",
+    "location": "dallas"
+  },
+  {
+    "ip": "45.76.78.69",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "teams",
+    "location": "la"
+  },
+  {
+    "ip": "108.61.169.129",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "teams",
+    "location": "sydney"
+  },
+  {
+    "ip": "45.76.31.183",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "maze",
+    "location": "chicago"
+  },
+  {
+    "ip": "45.76.240.254",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "4teams",
+    "location": "seattle"
+  },
+  {
+    "ip": "198.58.99.201",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "sandbox",
+    "location": "dallas"
+  },
+  {
+    "ip": "45.32.247.197",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "dom",
+    "location": "sydney"
+  },
+  {
+    "ip": "45.32.58.78",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "survival",
+    "location": "tokyo"
+  },
+  {
+    "ip": "50.116.29.19",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "teams",
+    "location": "dallas"
+  },
+  {
+    "ip": "45.76.51.162",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "maze",
+    "location": "tokyo"
+  },
+  {
+    "ip": "104.207.155.75",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "maze",
+    "location": "la"
+  },
+  {
+    "ip": "172.104.141.184",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "sandbox",
+    "location": "frankfurt"
+  },
+  {
+    "ip": "45.56.84.210",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "maze",
+    "location": "fremont"
+  },
+  {
+    "ip": "96.126.112.17",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "tag",
+    "location": "dallas"
+  },
+  {
+    "ip": "104.207.148.21",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "teams",
+    "location": "silicon"
+  },
+  {
+    "ip": "104.237.144.154",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "tag",
+    "location": "newark"
+  },
+  {
+    "ip": "45.76.18.217",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "teams",
+    "location": "chicago"
+  },
+  {
+    "ip": "66.228.59.26",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "teams",
+    "location": "atlanta"
+  },
+  {
+    "ip": "45.76.64.203",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "teams",
+    "location": "la"
+  },
+  {
+    "ip": "172.104.142.88",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "tag",
+    "location": "frankfurt"
+  },
+  {
+    "ip": "45.76.118.250",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "4teams",
+    "location": "sydney"
+  },
+  {
+    "ip": "45.32.169.90",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "maze",
+    "location": "miami"
+  },
+  {
+    "ip": "45.32.175.182",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "dom",
+    "location": "miami"
+  },
+  {
+    "ip": "104.207.142.128",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "teams",
+    "location": "chicago"
+  },
+  {
+    "ip": "74.207.248.190",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "sandbox",
+    "location": "fremont"
+  },
+  {
+    "ip": "108.61.229.228",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "4teams",
+    "location": "chicago"
+  },
+  {
+    "ip": "45.79.139.102",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "teams",
+    "location": "newark"
+  },
+  {
+    "ip": "172.104.141.186",
+    "port": "443",
+    "host": "linode",
+    "gamemode": "dom",
+    "location": "frankfurt"
+  },
+  {
+    "ip": "108.61.177.204",
+    "port": "443",
+    "host": "vultr",
+    "gamemode": "maze",
+    "location": "paris"
+  }
+]
