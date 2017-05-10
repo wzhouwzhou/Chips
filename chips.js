@@ -1,4 +1,5 @@
 //Chips.js
+require('newrelic');
 /** Constants **/
 global.Constants = require("./setup/Constants");
 //route loading
