@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const deps_1 = require("../util/deps");
+
 /**
  * Utility class for searching for members,
  * channels, and roles.
@@ -35,7 +35,7 @@ class Searcher {
     searchMember(nameOrPattern) {
         const pattern = nameOrPattern instanceof RegExp ?
             nameOrPattern :
-            new RegExp(deps_1._.escapeRegExp(nameOrPattern), "i");
+            new RegExp(_.escapeRegExp(nameOrPattern), "i");
         const match = [];
         for (const [id, member] of this.members) {
             if ((typeof nameOrPattern === "string" && member.user.username === nameOrPattern)
@@ -62,13 +62,13 @@ class Searcher {
                 match.push(this.members.get(nameOrPattern));
             }
         }
-        deps_1.logger.debug(match.toString());
+        console.log(match.toString());
         return match;
     }
     searchChannel(nameOrPattern, type) {
         const pattern = nameOrPattern instanceof RegExp ?
             nameOrPattern :
-            new RegExp(deps_1._.escapeRegExp(nameOrPattern), "i");
+            new RegExp(_.escapeRegExp(nameOrPattern), "i");
         const match = [];
         let toLook;
         switch (type) {
@@ -108,7 +108,7 @@ class Searcher {
     searchRole(nameOrPattern) {
         const pattern = nameOrPattern instanceof RegExp ?
             nameOrPattern :
-            new RegExp(deps_1._.escapeRegExp(nameOrPattern), "i");
+            new RegExp(_.escapeRegExp(nameOrPattern), "i");
         const match = [];
         for (const [id, role] of this.roles) {
             if ((typeof nameOrPattern === "string" && role.name === nameOrPattern)

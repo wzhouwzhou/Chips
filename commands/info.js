@@ -1,10 +1,10 @@
-
+const Searcher = require(path.join(__dirname, '../handlers/Searcher')).default;
 module.exports = {
   name: "info",
   async func(msg, {send, member, author, content, channel, guild, args, gMember, Discord, reply, bot}) {
     const used = member || author;
 
-    if(!used.hasPermission("KICK_MEMBERS")){
+    /*if(!used.hasPermission("KICK_MEMBERS")){
       switch (used.id) {
         case Constants.users.WILLYZ:
         case Constants.users.PGSUPER:
@@ -16,23 +16,34 @@ module.exports = {
         case Constants.users.ARX:
           break;
         default:
-          return reply('You must have Administrator perms to use this command!');
+          return reply('You must have KICK_MEMBERS perms to use this command!');
       }
-    }
+    }*/
 
     let action;
     if (!args[0]) return send("No action given :(");
     else action = args[0];
 
     console.log("[Info] Action: "+action);
-    if(!searchers && searchers[guild.id]==null){
+    if(!searchers || searchers[guild.id]==null){
       console.log("[Filter] Creating new searcher for guild " + guild.id);
-      searchers[guild.id]=new (require(path.join(__dirname, '../setup/Searcher')))(guild);
+      let options = { guild: guild };
+      searchers[guild.id] = new Searcher( options.guild );
     }
 
     if(action=="server"){
       return send(`Name of this server: ${guild.name}`);
-    }/*else if(action=="add"){
+    }else if(action=="user"){
+      if (!args[1]) return send("No user given :<");
+      else{
+        let list = searchers[guild.id].searchMember(args[1]);
+        if(list.length>1) await send("Multiple matches found, using first one..");
+        let member = list[0];
+        return send(`Userid: ${member.id}
+Name: ${member.displayName}`);
+      }
+    }
+      /*
       if (!args[1]) return send("No keyword given to add to the blacklist");
       else{
         let keyword = content.slice((prefix+'-blacklist '+ action + ' ').length).toLowerCase();
