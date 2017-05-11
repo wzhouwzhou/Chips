@@ -49,6 +49,7 @@ global.filter=require('./handlers/Filter')();
 
 global.dmC;
 global.monitorMode = false;
+global.searchers = {0: null};
 /** End Global Constants **/
 let d = "", consoleTyping = false;
 
