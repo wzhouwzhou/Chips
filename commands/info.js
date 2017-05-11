@@ -1,7 +1,7 @@
 const Searcher = require(path.join(__dirname, '../handlers/Searcher')).default;
 module.exports = {
   name: "info",
-  async func(msg, {send, member, author, content, channel, guild, args, gMember, Discord, reply, bot}) {
+  async func(msg, {send, member, author, channel, guild, args, gMember, Discord, reply }) {
     const used = member || author;
 
     /*if(!used.hasPermission("KICK_MEMBERS")){
@@ -60,32 +60,16 @@ module.exports = {
         role = list[0];
         return await send(`Role Id: ${role.id}\nRole Name: ${role.name}\nMember count: ${role.members.size}`);
       }
-    }
-      /*
-      if (!args[1]) return send("No keyword given to add to the blacklist");
+    }else if(action == "channel"){
+      if (!args[1]) return send("No channel given :<");
       else{
-        let keyword = content.slice((prefix+'-blacklist '+ action + ' ').length).toLowerCase();
-        blacklist[guild.id].push(keyword);
-        filter=require(path.join(__dirname, '../handlers', 'Filter'))();
-        console.log(`New blacklist: ${blacklist}`);
-        database.sheets['filter'].addRow({guildid: guild.id, keyword: keyword});
-        return reply(`Keyword ${keyword} blacklisted successfully`);
+        let channel;
+        let list = searchers[guild.id].searchChannel(args[1]);
+        if(list.length>1) await send("Multiple matches found, using first one..");
+        else if(list.length<1) return await send(`Channel [${args[1]}] not found!`);
+        role = list[0];
+        return await send(`Channel Id: ${role.id}\Channel Name: ${role.name}\nMember count: ${role.members.size}`);
       }
-    }else if(action=="toggle"){
-      onFilter[guild.id]=!onFilter[guild.id];
-      reply(`Filter status toggled!: ${onFilter[guild.id]}`);
-    }else if(action=="off"){
-      onFilter[guild.id]=false;
-      reply(`Filter turned off (will auto-reenable)!`);
-    }else if(action=="permoff"){
-      onFilter[guild.id]=false;
-      autoOverride[guild.id]=true;
-      reply(`Filter status permanently toggled off (until next bot restart)!`);
-    }else if(action=="on"){
-      onFilter[guild.id]=true;
-      autoOverride[guild.id]=false;
-      reply(`Filter status toggled on!`);
     }
-    if(!onFilter[guild.id]) okSpamLogs[guild.id]=0;*/
   }
 };
