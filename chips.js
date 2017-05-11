@@ -1,8 +1,7 @@
-//Chips.js
-require('newrelic');
-/** Constants **/
+Object.defineProperty(exports, "__esModule", { value: true });
 global.Constants = require("./setup/Constants");
-
+const changeConsole_1 = require("./setup/logging/changeConsole");
+let setShards = { id: null };
 //Chips constants
 const child_process = require('child_process');
 const stdin = process.openStdin();
@@ -15,6 +14,7 @@ const request = require('request');
 const favicon = require('serve-favicon');
 global.Discord = require("discord.js");
 global.client = new Discord.Client();
+setShards.id=client.shard.id;
 global.hclient = new Discord.Client();
 global.h2client = new Discord.Client();
 global.h3client = new Discord.Client();
@@ -38,7 +38,6 @@ global.rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
-global.statusC;
 global.nMsgs=0;
 global.sMsgs=0;
 global.sxMsgs=0;
@@ -53,7 +52,14 @@ global.monitorMode = false;
 /** End Global Constants **/
 let d = "", consoleTyping = false;
 
+//Shard setup
+changeConsole_1.default(false, setShards);
+console.log("Initializing...");
+
 /** Events **/
+process.on("unhandledRejection", (rejection) => {
+    console.log(chalk.red("[ERR]"), rejection);
+});
 //Messenger events
 Messager.on("eval", ({ evalContent, vars, timestamp }) => {
   const { msg, message, channel, guild, send, reply, content, noprefix, prefix, c, author, member } = vars;
@@ -168,20 +174,3 @@ require('./setup/events/ClientMessage')();
 
 setInterval(selfping, 1000*60*10);
 setInterval(msgStatus, 1000*60*30);
-if(process.env.BETA!=null&&process.env.BETA=="true")
-  client.login(process.env.BETATOKEN);
-else
-  client.login(process.env.TOKEN);
-hclient.login(process.env.HTOKEN);
-h2client.login(process.env.H2TOKEN);
-h3client.login(process.env.H3TOKEN);
-
-if(process.env.C2TOKEN!=null&&process.env.C2TOKEN!="")
-  c2.login(process.env.C2TOKEN);
-else
-  c2.login(require('./setup/sBotT.js')[0]);
-
-if(process.env.C3TOKEN!=null&&process.env.C3TOKEN!="")
-  c3.login(process.env.C3TOKEN);
-else
-  c3.login(require('./setup/sBotT.js')[1]);

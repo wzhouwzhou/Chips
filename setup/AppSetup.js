@@ -1,4 +1,4 @@
-global.Constants = require("./Constants");
+const Constants = require("./Constants");
 const path = require("path");
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -9,9 +9,9 @@ const Strategy = require('./lib').Strategy;
 const session = require('express-session');
 
 const index = require(path.join(__dirname, '../routes/index'));
-const login = require(path.join(__dirname, '../routes/login'))
-const updates = require(path.join(__dirname, '../routes/updates'))
-const useroverview = require(path.join(__dirname, '../routes/updates'))
+const login = require(path.join(__dirname, '../routes/login'));
+const updates = require(path.join(__dirname, '../routes/updates'));
+const useroverview = require(path.join(__dirname, '../routes/updates'));
 // const chips ;
 module.exports = function() {
   let botScopes = ['identify', 'guilds'];
