@@ -1,4 +1,19 @@
-module.exports = function(bodyParser, cookieParser, passport, express, app, Strategy, session) {
+global.Constants = require("./Constants");
+const path = require("path");
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const passport = require('passport');
+const express = require('express');
+const app = express();
+const Strategy = require('./lib').Strategy;
+const session = require('express-session');
+
+const index = require(path.join(__dirname, '../routes/index'));
+const login = require(path.join(__dirname, '../routes/login'))
+const updates = require(path.join(__dirname, '../routes/updates'))
+const useroverview = require(path.join(__dirname, '../routes/updates'))
+// const chips ;
+module.exports = function() {
   let botScopes = ['identify', 'guilds'];
   app.engine(Constants.express.ENGINE, require("express-ejs-extend"));
   app.set('view engine', Constants.express.ENGINE);
@@ -19,7 +34,7 @@ module.exports = function(bodyParser, cookieParser, passport, express, app, Stra
     passport.use(new Strategy({
         clientID: process.env.ID,
         clientSecret: process.env.SECRET,
-        callbackURL: 'http://williamzhou.us.to/sinbadx/user/',
+        callbackURL: 'http://williamzhou.us.to/sinbad/user/',
         scope: botScopes
     }, function(accessToken, refreshToken, profile, done) {
         process.nextTick(function() {
@@ -30,7 +45,7 @@ module.exports = function(bodyParser, cookieParser, passport, express, app, Stra
     passport.use(new Strategy({
         clientID: process.env.ID,
         clientSecret: process.env.SECRET,
-        callbackURL: 'https://chipsbot.herokuapp.com/sinbadx/user/',
+        callbackURL: 'https://chipsbot.herokuapp.com/sinbad/user/',
         scope: botScopes
     }, function(accessToken, refreshToken, profile, done) {
         process.nextTick(function() {
@@ -46,24 +61,24 @@ module.exports = function(bodyParser, cookieParser, passport, express, app, Stra
 
   app.use(passport.initialize());
   app.use(passport.session());
-  app.get('/sinbadx/login', passport.authenticate('discord', { scope: botScopes }), function(req, res) {});
-  app.get('/sinbadx/user',
-      passport.authenticate('discord', { failureRedirect: '/sinbadx' }), function(req, res) {
+  app.get('/sinbad/login', passport.authenticate('discord', { scope: botScopes }), function(req, res) {});
+  app.get('/sinbad/user',
+      passport.authenticate('discord', { failureRedirect: '/sinbad' }), function(req, res) {
         //if (req.query.hasOwnProperty('guild_id'))
           res.redirect('/updates');
       } // auth success
   );
-  app.get('/sinbadx/logout', function(req, res) {
+  app.get('/sinbad/logout', function(req, res) {
       req.logout();
-      res.redirect('/sinbadx');
+      res.redirect('/sinbad');
   });
   // routes
   const secure = require(path.join(__dirname, '../Security'));
   let globalBruteforce = new secure();
 
-  app.use('/sinbadx', index, globalBruteforce.prevent);
+  app.use('/sinbad', index, globalBruteforce.prevent);
 
-  app.use('/sinbadx/login',login);
+  app.use('/sinbad/login',login);
   app.use('/updates',updates);
 
   // catch 404 and forward to error handler

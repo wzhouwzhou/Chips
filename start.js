@@ -3,6 +3,7 @@ const child_process = require('child_process');
 
 let nodefile=["./chips.js"];
 //setup + start
+const app = require("./setup/AppSetup")(); //website start
 function start() {
   console.log('Master process is running.');
   var proc = child_process.spawn('node', nodefile);

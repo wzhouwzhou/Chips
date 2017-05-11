@@ -2,26 +2,16 @@
 require('newrelic');
 /** Constants **/
 global.Constants = require("./setup/Constants");
-//route loading
-global.index = require("./routes/index");
-global.login = require("./routes/login");
-global.updates = require("./routes/updates");
-global.useroverview = require("./routes/updates");
 
 //Chips constants
 const child_process = require('child_process');
 const stdin = process.openStdin();
 const readline = require('readline');
-const express = require('express');
-const session = require('express-session');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const passport = require('passport');
-const Strategy = require('./setup/lib').Strategy;
+
 global.path = require("path");
 global.fs = require('fs');
 const request = require('request');
-const app = require("./setup/AppSetup")(bodyParser, cookieParser, passport, express, express(), Strategy, session);
+
 const favicon = require('serve-favicon');
 global.Discord = require("discord.js");
 global.client = new Discord.Client();
