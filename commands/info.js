@@ -25,11 +25,11 @@ module.exports = {
     else action = args[0];
 
     console.log("[Info] Action: "+action);
-    if(!searchers || searchers[guild.id]==null){
+    //if(!searchers || searchers[guild.id]==null){
       console.log("[Filter] Creating new searcher for guild " + guild.id);
       let options = { guild: guild };
       searchers[guild.id] = new Searcher( options.guild );
-    }
+    //}
 
     if(action=="server"){
       return send(`Name of this server: ${guild.name}`);
@@ -40,14 +40,15 @@ module.exports = {
         try{ //get mention:
           console.log("Trying to find user by mention..");
           let target = args[1].match(Constants.patterns.MENTION)[1];
-          member = [gMember(target).user];
+          member = gMember(target).user;
         }catch(err){  //gMember failed:
           console.log("Finding by mention failed...");
           let list = searchers[guild.id].searchMember(args[1]);
           if(list.length>1) await send("Multiple matches found, using first one..");
+          else if(list.length<1) return await send(`User [${args[1]}] not found!`);
           member = list[0];
         }
-        return send(`Userid: ${member.id}\nName: ${member.displayName}`);
+        return await send(`Userid: ${member.id}\nName: ${member.displayName}`);
       }
     }
       /*
