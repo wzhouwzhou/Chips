@@ -58,8 +58,8 @@ module.exports = {
         if(list.length>1) await send("Multiple matches found, using first one..");
         else if(list.length<1) return await send(`User [${args[1]}] not found!`);
         role = list[0];
+        return await send(`Role Id: ${role.id}\nRole Name: ${role.name}\nMember count: ${role.members.size}`);
       }
-      return await send(`Role Id: ${role.id}\nRole Name: ${role.name}\nMember count: ${role.members.size}`);
     }
       /*
       if (!args[1]) return send("No keyword given to add to the blacklist");
