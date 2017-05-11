@@ -50,6 +50,16 @@ module.exports = {
         }
         return await send(`Userid: ${member.id}\nName: ${member.displayName}`);
       }
+    }else if(action == "role"){
+      if (!args[1]) return send("No role given :<");
+      else{
+        let role;
+        let list = searchers[guild.id].searchRole(args[1]);
+        if(list.length>1) await send("Multiple matches found, using first one..");
+        else if(list.length<1) return await send(`User [${args[1]}] not found!`);
+        role = list[0];
+      }
+      return await send(`Role Id: ${role.id}\nRole Name: ${role.name}\nMember count: ${role.members.size}`);
     }
       /*
       if (!args[1]) return send("No keyword given to add to the blacklist");
