@@ -16,7 +16,7 @@ module.exports = function( send ) {
   if(process.env.C3TOKEN!=null&&process.env.C3TOKEN!="")
     c3.login(process.env.C3TOKEN);
   else
-    c2.login(require(path.join(__dirname, '../sBotT'))[1]);
+    c3.login(require(path.join(__dirname, '../sBotT'))[1]);
 
   client.on("ready", async function() {
     require(path.join(__dirname, '../../handlers/DiepAddons')).getServers();
