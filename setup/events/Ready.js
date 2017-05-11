@@ -108,4 +108,7 @@ module.exports = function( send ) {
       console.log("could not add unverified role");
     }
   });
+
+  const music = require('discord.js-music-v11');
+  music(client, { PREFIX: "-", ALLOW_ALL_SKIP: true });
 };
