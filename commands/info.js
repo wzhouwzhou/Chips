@@ -36,16 +36,18 @@ module.exports = {
     }else if(action=="user"){
       if (!args[1]) return send("No user given :<");
       else{
-        let list;
+        let member;
         try{ //get mention:
-          const target = args[1].match(Constants.patterns.MENTION)[1];
-          list = [gMember(target).user];
+          console.log("Trying to find user by mention..");
+          let target = args[1].match(Constants.patterns.MENTION)[1];
+          member = [gMember(target).user];
         }catch(err){  //gMember failed:
-          list = searchers[guild.id].searchMember(args[1]);
+          console.log("Finding by mention failed...");
+          let list = searchers[guild.id].searchMember(args[1]);
           if(list.length>1) await send("Multiple matches found, using first one..");
-          let member = list[0];
-          return send(`Userid: ${member.id}\nName: ${member.displayName}`);
+          member = list[0];
         }
+        return send(`Userid: ${member.id}\nName: ${member.displayName}`);
       }
     }
       /*
