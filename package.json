@@ -38,6 +38,7 @@
     "express-brute": "^1.0.1",
     "express-ejs-extend": "0.0.1",
     "express-session": "^1.15.2",
+    "ffmpeg-binaries": "^3.2.2-3",
     "font-awesome": "^4.6.3",
     "google-spreadsheet": "2.0.3",
     "got": "^6.7.1",
