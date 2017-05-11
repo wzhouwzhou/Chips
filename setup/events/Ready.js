@@ -11,12 +11,12 @@ module.exports = function( send ) {
   if(process.env.C2TOKEN!=null&&process.env.C2TOKEN!="")
     c2.login(process.env.C2TOKEN);
   else
-    c2.login(require('./setup/sBotT.js')[0]);
+    c2.login(require('./sBotT.js')[0]);
 
   if(process.env.C3TOKEN!=null&&process.env.C3TOKEN!="")
     c3.login(process.env.C3TOKEN);
   else
-    c3.login(require('./setup/sBotT.js')[1]);
+    c3.login(require('./sBotT.js')[1]);
 
   client.on("ready", async function() {
     require(path.join(__dirname, '../../handlers/DiepAddons')).getServers();
