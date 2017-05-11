@@ -40,7 +40,7 @@ module.exports = {
         try{ //get mention:
           console.log("Trying to find user by mention..");
           let target = args[1].match(Constants.patterns.MENTION)[1];
-          member = gMember(target).user;
+          member = gMember(target);
         }catch(err){  //gMember failed:
           console.log("Finding by mention failed...");
           let list = searchers[guild.id].searchMember(args[1]);
