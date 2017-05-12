@@ -35,7 +35,7 @@ module.exports = {
       return send(`Name of this server: ${guild.name}`);
     }else if(action=="user"){
       let member=used;
-      if (args[1]) 
+      if (args[1]){ 
         try{ //get mention:
           console.log("Trying to find user by mention..");
           let target = args[1].match(Constants.patterns.MENTION)[1];
