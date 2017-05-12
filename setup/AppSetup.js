@@ -8,7 +8,7 @@ const app = express();
 const Strategy = require('./lib').Strategy;
 const session = require('express-session');
 
-const index = require(path.join(__dirname, '../routes/index'));
+const sinbad = require(path.join(__dirname, '../routes/sinbad'));
 const login = require(path.join(__dirname, '../routes/login'));
 const updates = require(path.join(__dirname, '../routes/updates'));
 const useroverview = require(path.join(__dirname, '../routes/updates'));
@@ -76,7 +76,7 @@ module.exports = function() {
   const secure = require(path.join(__dirname, '../Security'));
   let globalBruteforce = new secure();
 
-  app.use('/sinbad', index, globalBruteforce.prevent);
+  app.use('/sinbad', sinbad, globalBruteforce.prevent);
 
   app.use('/sinbad/login',login);
   app.use('/updates',updates);
