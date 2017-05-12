@@ -41,6 +41,7 @@ module.exports = {
           console.log("Trying to find user by mention..");
           let target = args[1].match(Constants.patterns.MENTION)[1];
           member = gMember(target);
+          if(member==null) throw "NotMemberMention";
         }catch(err){  //gMember failed:
           console.log("Finding by mention failed...");
           let list = searchers[guild.id].searchMember(args[1]);
@@ -55,9 +56,10 @@ module.exports = {
       else{
         let role;
         try{
-          console.log("Trying to find role from id");
-          role = args[1].match(/^[0-9]+$/)[0];
+          role = args[1].substring(3,args[1].length-1);
+          console.log("Trying to find role from mention " + role);
           role = guild.roles.get(role);
+          if(role==null) throw "NotRoleId";
         }catch(err){  //failed to find by id
           let list = searchers[guild.id].searchRole(args[1]);
           if(list.length>1) await send("Multiple matches found, using first one..");
@@ -70,10 +72,17 @@ module.exports = {
       if (!args[1]) return send("No channel given :<");
       else{
         let channel;
-        let list = searchers[guild.id].searchChannel(channel);
-        if(list.length>1) {await send("Multiple matches found, using first one.."); console.log(list);}
-        else if(list.length<1) return await send(`Channel [${channel}] not found!`);
-        channel = list[0];
+        try{
+          channel = args[1].substring(2,args[1].length-1);
+          console.log("Trying to find channel from link " + channel);
+          channel = guild.roles.get(role);
+          if(channel==null) throw "NotChannelId";
+        }catch(err){
+          let list = searchers[guild.id].searchChannel(channel);
+          if(list.length>1) {await send("Multiple matches found, using first one.."); console.log(list);}
+          else if(list.length<1) return await send(`Channel [${channel}] not found!`);
+          channel = list[0];
+        }
         return await send(`Channel Id: ${channel.id}\nChannel Name: ${channel.name}\nMember count: ${channel.members.size}`);
       }
     }
