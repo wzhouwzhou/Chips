@@ -124,12 +124,13 @@ async function detectPartyLink(message){
     let bad = new Discord.RichEmbed().setColor("13551").setTitle("Party Link Info:");
     let lInfo =require(path.join(__dirname, '../../handlers/DiepAddons')).getInfo(message.cleanContent);
     if(lInfo.code==null)return;
-    bad.addField("code:",lInfo.code, true);
-    bad.addField("ip:", `${lInfo.ip}:${lInfo.port}`, true);
-    bad.addField("host:", lInfo.host, true);
-    bad.addField("gamemode:", lInfo.gamemode, true);
-    bad.addField("location: ", lInfo.location, true);
-    bad.addField("link:", lInfo.link, true);
+    bad.addField("Gamemode:", `**${lInfo.gamemode}**`, true);
+    bad.addField("Location: ", `**${lInfo.location}**`, true);
+    bad.addField("Code:",lInfo.code);
+    bad.addField("Host:", lInfo.host, true);
+    bad.addField("Ip:", `${lInfo.ip}`, true);
+    bad.addField("Port:", `${lInfo.port}`, true);
+    bad.addField("Link:", `**[${lInfo.link}](${lInfo.link})**`, true);
     message.channel.send("Invite link detected!",{embed: bad});
   }catch(err){
     //not a party link or something went wrong.
