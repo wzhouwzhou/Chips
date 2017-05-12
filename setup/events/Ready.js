@@ -1,5 +1,6 @@
 global.statusC;
 global.database;
+global.blacklist;
 module.exports = function( send ) {
   if(process.env.BETA!=null&&process.env.BETA=="true")
     client.login(process.env.BETATOKEN);
@@ -113,4 +114,5 @@ module.exports = function( send ) {
   const music = require('discord.js-music-v11');
   music(client, { prefix: "-", anyoneCanSkip: true });
   global.database = require(path.join(__dirname, '../db'));
+  global.blacklist = database.blacklist;
 };

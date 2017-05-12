@@ -1,5 +1,5 @@
 
-global.blacklist = {
+const blacklist = {
   252525368865456130: [
       'ok',
       'xani',
@@ -81,6 +81,7 @@ doc.useServiceAccountAuth(login_info,() => {
 const ex = module.exports = { // module exports
 	ready: false,
 	sheets: sheets,
-  sinxUsers: sinxUsers
+  sinxUsers: sinxUsers,
+  blacklist: blacklist
 	// more stuff here
 };
