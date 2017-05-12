@@ -24,7 +24,7 @@ client.commands = {};
 global.prefix = "-";
 if(process.env.BETA=="true")prefix="!!";
 /** End Constants **/
-
+global.database = require(path.join(__dirname, './setup/db/DatabaseLoader'));
 /** Other Global Constants **/
 global.moment = require('moment');
 global._ = require("lodash");

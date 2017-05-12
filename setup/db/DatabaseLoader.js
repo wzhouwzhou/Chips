@@ -82,6 +82,5 @@ const ex = module.exports = { // module exports
 	ready: false,
 	sheets: sheets,
   sinxUsers: sinxUsers,
-  blacklist: blacklist
 	// more stuff here
 };

@@ -13,13 +13,17 @@ module.exports = function() {
     if(currentOkInterval[id]==null){currentOkInterval[id]=1; console.log("[Filter] New interval entry for channel " + id);}
     if(okSpamLogs[id]==null){okSpamLogs[id]=1; console.log("[Filter] New entry for channel " + id);}
 
-    if((blacklist[message.guild.id]==null||onFilter[message.guild.id]==null)||autoOverride[message.guild.id]==null){
+    if(blacklist[message.guild.id]==null){
       console.log("[Filter] Creating new blacklist for guild " + message.guild.id);
       blacklist[message.guild.id]=['ok'];
+    }
+
+    if(onFilter[message.guild.id]==null||autoOverride[message.guild.id]==null){
+      console.log("[Filter] Creating new blacklist options for guild " + message.guild.id);
       onFilter[message.guild.id]=true;
       autoOverride[message.guild.id]=false;
     }
-    if(autoOverride[message.guild.id])return; 
+    if(autoOverride[message.guild.id])return;
     //console.log("[Filter][SUPER SPAMMYDEBUG] blacklist: " + Constants.BLACKLIST[message.guild.id]);
     //let blacklist = blacklist;
     //detect blacklisted content
