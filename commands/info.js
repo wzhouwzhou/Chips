@@ -54,21 +54,27 @@ module.exports = {
       if (!args[1]) return send("No role given :<");
       else{
         let role;
-        let list = searchers[guild.id].searchRole(args[1]);
-        if(list.length>1) await send("Multiple matches found, using first one..");
-        else if(list.length<1) return await send(`User [${args[1]}] not found!`);
-        role = list[0];
+        try{
+          console.log("Trying to find role from id");
+          role = args[1].match(/^[0-9]+$/)[0];
+          role = guild.roles.get(role);
+        }catch(err){  //failed to find by id
+          let list = searchers[guild.id].searchRole(args[1]);
+          if(list.length>1) await send("Multiple matches found, using first one..");
+          else if(list.length<1) return await send(`Role [${args[1]}] not found!`);
+          role = list[0];
+        }
         return await send(`Role Id: ${role.id}\nRole Name: ${role.name}\nMember count: ${role.members.size}`);
       }
     }else if(action == "channel"){
       if (!args[1]) return send("No channel given :<");
       else{
         let channel;
-        let list = searchers[guild.id].searchChannel(args[1]);
-        if(list.length>1) await send("Multiple matches found, using first one..");
-        else if(list.length<1) return await send(`Channel [${args[1]}] not found!`);
-        role = list[0];
-        return await send(`Channel Id: ${role.id}\Channel Name: ${role.name}\nMember count: ${role.members.size}`);
+        let list = searchers[guild.id].searchChannel(channel);
+        if(list.length>1) {await send("Multiple matches found, using first one.."); console.log(list);}
+        else if(list.length<1) return await send(`Channel [${channel}] not found!`);
+        channel = list[0];
+        return await send(`Channel Id: ${channel.id}\nChannel Name: ${channel.name}\nMember count: ${channel.members.size}`);
       }
     }
   }
