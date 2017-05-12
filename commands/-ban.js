@@ -14,6 +14,7 @@ const neko = [
 	'259287315044630528', // apex
 	'90647484623261696' , // hero
 	'237270037528969218', // arx
+	'292971521159200768' //JTJosh, not a neko but wanted immunity lol 
 ];
 
 module.exports = {
