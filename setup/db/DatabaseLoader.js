@@ -1,5 +1,5 @@
 
-const blacklist = {
+global.blacklist = {
   252525368865456130: [
       'ok',
       'xani',
