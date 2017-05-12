@@ -35,7 +35,7 @@ module.exports = {
       return send(`Name of this server: ${guild.name}`);
     }else if(action=="user"){
       let member=used;
-      if (args[1]){ 
+      if (args[1]){
         try{ //get mention:
           console.log("Trying to find user by mention..");
           let target = args[1].match(Constants.patterns.MENTION)[1];
@@ -48,8 +48,8 @@ module.exports = {
           else if(list.length<1) return await send(`User [${args[1]}] not found!`);
           member = list[0];
         }
-        return await send(`Userid: ${member.id}\nName: ${member.displayName}`);
       }
+      return await send(`Userid: ${member.id}\nName: ${member.displayName}`);
     }else if(action == "role"){
       if (!args[1]) return send("No role given :<");
       else{
