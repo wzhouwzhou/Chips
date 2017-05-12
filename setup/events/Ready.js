@@ -112,5 +112,5 @@ module.exports = function( send ) {
 
   const music = require('discord.js-music-v11');
   music(client, { prefix: "-", anyoneCanSkip: true });
-  global.database = require('./db/DatabaseLoader');
+  global.database = require(path.join(__dirname, '../db'));
 };
