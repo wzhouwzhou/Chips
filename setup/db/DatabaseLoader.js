@@ -29,6 +29,7 @@ const loadsheet = function(sheet) {
 			// load sheet data into some nice data structure and put it in `ex`
 		}
 		else if (sheet.title == 'members') {
+      if(client.guilds.get("257889450850254848")==null) return;
       console.log("Now loading sinx members");
       rows.forEach(r => {
         //console.log("Got a row");
