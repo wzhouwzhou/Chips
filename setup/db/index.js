@@ -4,11 +4,15 @@
 var Loader = require('./DatabaseLoader');
 
 /**
- * Expose `Strategy` directly from package.
+ * Expose `Loader` directly from package.
  */
 exports = module.exports = Loader;
 
 /**
- * Export constructors.
+ * Export stuff
  */
-exports.DatabaseLoader = Loader;
+exports = { DatabaseLoader: Loader,
+  sheets: Loader.sheets,
+  blacklist: Loader.blacklist,
+  ready: Loader.ready,
+  sinxUsers: Loader.sinxUsers };
