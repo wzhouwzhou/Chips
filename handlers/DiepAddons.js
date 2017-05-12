@@ -3,7 +3,7 @@ const fs = require("fs");
 const jsonfile = require("jsonfile");
 const file = "servers.json";
 let info = [];
-exports.getServers = async function() {
+exports.getServers = function() {
 	download('http://lb.diep.io/v2/find_servers', './', {outputName:'servers.txt'})
     .on('done', function () {
 		let data = fs.readFileSync('servers.txt', 'utf8');
@@ -44,11 +44,12 @@ exports.getServers = async function() {
     });
 }
 
-exports.getInfo = async function(partylink) {
-	let code = partylink.toUpperCase().match(/\b[a-f0-9]{10,}/gi)[0];
+exports.getInfo = function(partylink) {
+	let code = partylink.toUpperCase().match(/\b[a-f0-9]{10,}/gi)&&partylink.toUpperCase().match(/\b[a-f0-9]{10,}/gi)[0];
+	if(code==null)return;
 	let ip = getIP(code.substring(0,code.indexOf("BB30")));
 	const port = '443';
-	await exports.getServers();
+  exports.getServers();
 	var servers = jsonfile.readFileSync(file);
 	servers.forEach(function(element) {
 		if(element.ip === ip)
