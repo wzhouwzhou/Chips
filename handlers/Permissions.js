@@ -136,7 +136,7 @@ ex.checkPermission = function(msg, perm){
       console.log("Role: " + rid + "for user "+ id + "did not have any perm overwrites for " + perm);
     });
     console.log("Now checking default perms..");
-    if((!ex.defaultperms.has(perm))?true:ex.defaultperms[perm])
+    if(ex.defaultperms.has(perm)?ex.defaultperms[perm]:true)
       response("This command is enabled by default");
     else
       reject(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`);
