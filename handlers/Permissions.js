@@ -137,9 +137,9 @@ ex.checkPermission = function(msg, perm){
     });
     console.log("Now checking default perms.: ." + perm);
     console.log("Is the perm in the default list? : " + ex.defaultperms.has(perm));
-    let value = ex.defaultperms.has(perm)?ex.defaultperms[perm]:true;
+    let value = ex.defaultperms.has(perm)?ex.defaultperms.get(perm):true;
+    console.log("The default for that perm is: " + value);
     if(value){
-      console.log("The default for that perm is: " + value);
       response("This command is enabled by default");
     }
     else
