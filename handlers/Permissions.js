@@ -132,11 +132,11 @@ ex.checkPermission = function(msg, perm){
             response("This action is approved (by member role)");
           }
         });
-        console.log("Role: " + r.id + "for user "+ id + "did not have any perm overwrites for " + perm);
       }
+      console.log("Role: " + rid + "for user "+ id + "did not have any perm overwrites for " + perm);
     });
     console.log("Now checking default perms..");
-    if(!ex.defaultperms.has(perm)?true:ex.defaultperms[perm])
+    if((!ex.defaultperms.has(perm))?true:ex.defaultperms[perm])
       response("This command is enabled by default");
     else
       reject(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`);
