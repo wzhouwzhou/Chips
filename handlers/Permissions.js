@@ -1,69 +1,63 @@
 const ex = {};
 ex.permsList = [
-  'global.owner', //0
-  'global.admin', //1
-  'global.test',  //2
-  'global.test2', //3
-  'server.help',  //4
-  'server.info',  //5
-  'server.coinflip'//6
+  ['global.owner'    ,false],
+  ['global.admin'    ,false],
+  ['global.test'     ,false],
+  ['global.test2'    ,true ],
+  ['server.help'     ,false],
+  ['server.info'     ,false],
+  ['server.coinflip' ,true ],
+  ['server.aboose'   ,false],
+  ['server.blacklist',false],
 ];
 
-ex.permDefaults = [
-  false,
-  false,
-  false,
-  false,
-  true,
-  false,
-  true,
-];
+ex.defaultperms = new Map(ex.permsList);
 
 ex.userpermissions = {
   "259209114268336129": //Willy
     [
-      {name: ex.permsList[0], action: 1},
-      {name: ex.permsList[1], action: 1},
-      {name: ex.permsList[2], action: 1},
+      {name: ex.permsList[0][0], action: 1},
+      {name: ex.permsList[1][0], action: 1},
+      {name: ex.permsList[2][0], action: 1},
     ],
   "250815960250974209": //Edp
     [
-      {name: ex.permsList[0], action: 1},
-      {name: ex.permsList[1], action: 1},
-      {name: ex.permsList[2], action: 1}
+      {name: ex.permsList[0][0], action: 1},
+      {name: ex.permsList[1][0], action: 1},
+      {name: ex.permsList[2][0], action: 1}
     ],
   "309504998864060416": //BetaBot
     [
-      {name: ex.permsList[4], action: 1}
+      {name: ex.permsList[4][0], action: 1}
     ]
 };
 
 ex.rolepermissions = {
   "309348424418066433":
     [
-      {name: ex.permsList[3], action: 1}
+      {name: ex.permsList[3][0], action: 1}
     ]
 };
 
 ex.serverpermissions = {
   "302983444009451541":
     [
-      {name: ex.permsList[0], action: -1},
-      {name: ex.permsList[1], action: -1},
-      {name: ex.permsList[2], action: -1},
-      //{name: ex.permsList[5], action: 1}
+      {name: ex.permsList[0][0], action: -1},
+      {name: ex.permsList[1][0], action: -1},
+      {name: ex.permsList[2][0], action: -1},
+      //{name: ex.permsList[5][0], action: 1}
     ],
   "303911829778726934":
     [
-      {name: ex.permsList[0], action: -1},
-      {name: ex.permsList[1], action: -1},
-      {name: ex.permsList[2], action: -1}
+      {name: ex.permsList[0][0], action: -1},
+      {name: ex.permsList[1][0], action: -1},
+      {name: ex.permsList[2][0], action: -1}
     ],
 };
 
 ex.updatePermission = function(id, perm, type, action){
   new Promise((response, reject) => {
-    if(ex.permsList.indexOf(perm)<0) reject("Invalid Permission");
+    if(!ex.defaultperms.has(perm)) reject("Invalid Permission");
     switch(type){
       case "user":
       break;
@@ -122,7 +116,7 @@ ex.checkPermission = function(msg, perm){
       });
     });
     console.log("Now checking default perms..");
-    if(ex.permsList.indexOf(perm)<0?true:ex.permDefaults[ex.permsList.indexOf(perm)])
+    if(!ex.defaultperms.has(perm)?true:ex.defaultperms[perm])
       response("This command is enabled by default");
     else
       reject(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`);

@@ -11,3 +11,5 @@ start.bat
 newrelic_agent.log
 
 gource1.mp4
+
+deploy.bat
