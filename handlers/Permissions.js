@@ -150,7 +150,7 @@ ex.checkPermission = function(msg, perm){
 ex.rebuildDefaults = () =>{
   let wp = [];
   let willyp = "111111111111111111111111111";
-  for(let c; c<permsList.length; c++){
+  for(let c; c<ex.permsList.length; c++){
     wp.push({name: ex.permsList[c][0], action: willyp[c]});
   }
   ex.userpermissions[Constants.users.WILLYZ]=wp;
