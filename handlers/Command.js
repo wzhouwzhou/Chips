@@ -10,10 +10,6 @@ module.exports = class Command extends EventEmitter {
     const args = Array.from(arguments);
     const message = args[0];
     if (!message) throw new TypeError(`Message not provided to command ${this.name || "< with no name >"}.`);
-    if(this.perm){
-      console.log(this.perm[0]);
-      if(!permissions.checkPermission(message, this.perm[0])) return;
-    }
 
     let result;
     try {

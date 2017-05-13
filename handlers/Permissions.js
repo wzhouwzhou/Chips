@@ -6,6 +6,7 @@ ex.permsList = [
   'global.test2', //3
   'server.help',  //4
   'server.info',  //5
+  'server.coinflip'//6
 ];
 
 ex.permDefaults = [
@@ -15,6 +16,7 @@ ex.permDefaults = [
   false,
   true,
   false,
+  true,
 ];
 
 ex.userpermissions = {
@@ -61,7 +63,7 @@ ex.serverpermissions = {
 
 ex.updatePermission = async function(id, perm, type, action){
   new Promise((response, reject) => {
-    if(permsList.indexOf(perm)<0) reject("Invalid Permission");
+    if(ex.permsList.indexOf(perm)<0) reject("Invalid Permission");
     switch(type){
       case "user":
       break;
@@ -77,7 +79,7 @@ ex.updatePermission = async function(id, perm, type, action){
 };
 
 ex.checkPermission = async function(msg, perm){
-  new Promise((response,reject) => {
+  return new Promise((response,reject) => {
     let guild = msg.guild,
       id = msg.author.id;
     if(guild){
@@ -120,18 +122,10 @@ ex.checkPermission = async function(msg, perm){
       });
     });
     console.log("Now checking default perms..");
-    if(permsList.indexOf(perm)<0?true:permDefaults[permsList.indexOf(perm)])
+    if(ex.permsList.indexOf(perm)<0?true:ex.permDefaults[ex.permsList.indexOf(perm)])
       response("This command is enabled by default");
     else
       reject(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`);
-  }).then((info) =>{
-    console.log("User has perms");
-    //msg.reply("Passed: "+ info);
-    return true;
-  }).catch((reason) =>{
-    console.log("User does not have perms");
-    msg.reply(reason);
-    return false;
   });
 };
 
