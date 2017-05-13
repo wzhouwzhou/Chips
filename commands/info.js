@@ -1,6 +1,7 @@
 const Searcher = require(path.join(__dirname, '../handlers/Searcher')).default;
 module.exports = {
   name: "info",
+  perm: ["server.info"],
   async func(msg, {send, member, author, channel, guild, args, gMember, Discord, reply }) {
     const used = member || author;
 
