@@ -1,14 +1,33 @@
+'use strict';
 const ex = {};
 ex.permsList = [
   ['global.owner'    ,false],
   ['global.admin'    ,false],
   ['global.test'     ,false],
   ['global.test2'    ,true ],
-  ['server.help'     ,false],
-  ['server.info'     ,false],
-  ['server.coinflip' ,true ],
-  ['server.aboose'   ,false],
+  ['server.-ban'     ,false],
+  ['server.-vs '     ,true ],
+  ['server.aboose'   ,true ],
+  ['server.announce' ,false],
   ['server.blacklist',false],
+  ['global.botpanic' ,false],
+  ['server.cat'      ,true ],
+  ['server.clear'    ,true ],
+  ['server.coinflip' ,true ],
+  ['server.dog'      ,true ],
+  ['global.eatme'    ,false],
+  ['server.emojiban' ,false],
+  ['global.eval'     ,false],
+  ['server.exposed'  ,true ],
+  ['server.happy'    ,false],
+  ['server.help'     ,true ],
+  ['server.info'     ,false],
+  ['server.lenny'    ,true ],
+  ['custom.nr'       ,true ],
+  ['global.points'   ,false],
+  ['global.roll'     ,true ],
+  ['server.s'        ,false],
+  ['global.stats'    ,true ],
 ];
 
 ex.defaultperms = new Map(ex.permsList);
@@ -103,17 +122,18 @@ ex.checkPermission = function(msg, perm){
       });
     }
     msg.member.roles.forEach(r=>{
-      console.log("new role found: " + r.id);
+      console.log("New role found: " + r.id + "for user "+ id);
       let rid=r.id;
-      if(ex.rolepermissions[rid]==null)
-        return;
-      ex.rolepermissions[rid].forEach(pEntry=>{
-        console.log("new entry found: " + pEntry.name);
-        if(pEntry.name==perm&&pEntry.action==1){
-          console.log("Success: role");
-          response("This action is approved (by member role)");
-        }
-      });
+      if(!ex.rolepermissions[rid]==null){
+        ex.rolepermissions[rid].forEach(pEntry=>{
+          console.log("new entry found: " + pEntry.name);
+          if(pEntry.name==perm&&pEntry.action==1){
+            console.log("Success: role");
+            response("This action is approved (by member role)");
+          }
+        });
+        console.log("Role: " + r.id + "for user "+ id + "did not have any perm overwrites for " + perm);
+      }
     });
     console.log("Now checking default perms..");
     if(!ex.defaultperms.has(perm)?true:ex.defaultperms[perm])
@@ -121,6 +141,15 @@ ex.checkPermission = function(msg, perm){
     else
       reject(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`);
   });
+};
+
+ex.rebuildDefaults = () =>{
+  let wp = [];
+  let willyp = "111111111";
+  for(let c; c<willyp.length; c++){
+    wp.push({name: ex.permsList[c][0], action: willyp[c]});
+  }
+  ex.userpermissions[Constants.users.WILLYZ]=wp;
 };
 
 module.exports = ex;

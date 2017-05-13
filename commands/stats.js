@@ -1,5 +1,6 @@
 module.exports = {
   name: "stats",
+  perm: ["global.stats"],
   async func(msg, { channel }) {
     let bad = new Discord.RichEmbed();
     bad.setColor("1503").setAuthor("Chips (-help) stats report!");
