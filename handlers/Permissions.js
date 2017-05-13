@@ -61,7 +61,7 @@ ex.serverpermissions = {
     ],
 };
 
-ex.updatePermission = async function(id, perm, type, action){
+ex.updatePermission = function(id, perm, type, action){
   new Promise((response, reject) => {
     if(ex.permsList.indexOf(perm)<0) reject("Invalid Permission");
     switch(type){
@@ -78,7 +78,7 @@ ex.updatePermission = async function(id, perm, type, action){
   });
 };
 
-ex.checkPermission = async function(msg, perm){
+ex.checkPermission = function(msg, perm){
   return new Promise((response,reject) => {
     let guild = msg.guild,
       id = msg.author.id;
