@@ -1,6 +1,7 @@
 
 module.exports = {
   name: "slogstatus",
+  perm: ["global.owner"],
   async func(msg, { send, Discord }) {
     let emb = new Discord.RichEmbed()
       .setColor(205)

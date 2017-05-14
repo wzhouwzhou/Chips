@@ -17,6 +17,8 @@ module.exports = {
           return;
       }
     }
+    return reply("This command is being deprecated, please use nR ")
+    /*
     let QUIET = false;
 
     if (!args[0]) return send("No user given :(");
@@ -34,6 +36,6 @@ module.exports = {
         return send(target + ": 0");
       else
         return console.log(target + ": 0");
-    });
+    });*/
   }
 };

@@ -5,6 +5,7 @@ const gifs = [
 
 module.exports = {
   name: "eat",
+  perm: ["global.eatme"],
   async func(msg, { send }) {
     return send(gifs[Math.floor(gifs.length*Math.random())]);
   }

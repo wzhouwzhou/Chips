@@ -1,5 +1,6 @@
 module.exports = {
   name: "setdm",
+  perm: ["global.owner"],
   async func(msg, { send, member, author, doEval }) {
     const used = member || author;
     switch (used.id) {

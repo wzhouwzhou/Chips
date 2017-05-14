@@ -2,6 +2,7 @@ const nEmpireID="297800479356878849";
 
 module.exports = {
   name: "announce",
+  perm: ["server.announce"],
   async func(msg, { content, guild, author, member, reply, args }) {
     if(guild.ownerID==author.id||member.hasPermission("ADMINISTRATOR")){
       if(args[0]==null||args[0]=="")return reply(`I can't send an empty announcement.`);

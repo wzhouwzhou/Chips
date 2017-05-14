@@ -16,6 +16,7 @@ getCat = (callback) => {
 
 module.exports = {
   name: "cat",
+  perm: ["server.cat"],
   async func(msg, { send }) {
     return getCat((a,b)=>send(b));
   }

@@ -1,5 +1,6 @@
 module.exports = {
   name: "ping",
+  perm: ["global.ping"],
   async func(msg, { send, member }) {
     let sentmsg;
     try {
