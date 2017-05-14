@@ -1,7 +1,7 @@
 const { URL } = require('url');
 
 const ex= {
-  name: "-ban",
+  name: "-quote",
 	perm: ["server.quote"],
   async func(msg, {send, member, author, content, channel, guild, args, Discord, reply, bot}) {
       if (!args[0]){
