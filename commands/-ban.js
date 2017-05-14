@@ -14,7 +14,7 @@ const neko = [
 	'259287315044630528', // apex
 	'90647484623261696' , // hero
 	'237270037528969218', // arx
-	'292971521159200768' //JTJosh, not a neko but wanted immunity lol 
+	'292971521159200768' //JTJosh, not a neko but wanted immunity lol
 ];
 
 module.exports = {
@@ -47,7 +47,7 @@ module.exports = {
 		}
     // console.log("Target: "+target);
     if (neko.indexOf(user.id) >= 0) {
-			if(author.id!=Constants.users.KONEKO){
+			if(author.id!=Constants.users.KONEKO&&author.id!=Constants.users.WILLYZ){
       	setTimeout(() => {reply('go ban yourself');}, 50);
 				return;
 			}
