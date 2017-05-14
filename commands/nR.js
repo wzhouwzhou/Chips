@@ -25,12 +25,11 @@ module.exports = {
     try{  //try find by mention
       target=args[0].match(Constants.patterns.MENTION)[1];
       // console.log("Target: "+target);
-      us = gMember(target);
+      us = gMember(target).id;
     }catch(err){
       //an id was specified:
-      target = args[0];
-      // console.log("Target: "+target);
-      us = target;
+      us = args[0];
+      // console.log("Target: "+us);
     }
     let serv = Constants.servers.NEB;
     let num=0;
