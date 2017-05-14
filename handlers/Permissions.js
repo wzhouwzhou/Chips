@@ -1,33 +1,33 @@
 'use strict';
 const ex = {};
 ex.permsList = [
-  ['global.owner'    ,false],
-  ['global.admin'    ,false],
-  ['global.test'     ,false],
-  ['global.test2'    ,true ],
-  ['server.-ban'     ,false],
-  ['server.-vs '     ,true ],
-  ['server.aboose'   ,true ],
-  ['server.announce' ,false],
-  ['server.blacklist',false],
-  ['global.botpanic' ,false],
-  ['server.cat'      ,true ],
-  ['server.clear'    ,true ],
-  ['server.coinflip' ,true ],
-  ['server.dog'      ,true ],
-  ['global.eatme'    ,false],
-  ['server.emojiban' ,false],
-  ['global.eval'     ,false],
-  ['server.exposed'  ,true ],
-  ['server.happy'    ,false],
-  ['server.help'     ,true ],
-  ['server.info'     ,false],
-  ['server.lenny'    ,true ],
-  ['custom.nr'       ,true ],
-  ['global.points'   ,false],
-  ['global.roll'     ,true ],
-  ['server.s'        ,false],
-  ['global.stats'    ,true ],
+  ['global.owner'    ,false], // 0
+  ['global.admin'    ,false], // 1
+  ['global.test'     ,false], // 2
+  ['global.test2'    ,true ], // 3
+  ['server.-ban'     ,false], // 4
+  ['server.-vs '     ,true ], // 5
+  ['server.aboose'   ,true ], // 6
+  ['server.announce' ,false], // 7
+  ['server.blacklist',false], // 8
+  ['global.botpanic' ,false], // 9
+  ['server.cat'      ,true ], //10
+  ['server.clear'    ,true ], //11
+  ['server.coinflip' ,true ], //12
+  ['server.dog'      ,true ], //13
+  ['global.eatme'    ,false], //14
+  ['server.emojiban' ,false], //15
+  ['global.eval'     ,false], //16
+  ['server.exposed'  ,true ], //17
+  ['server.happy'    ,false], //18
+  ['server.help'     ,true ], //19
+  ['server.info'     ,false], //20
+  ['server.lenny'    ,true ], //21
+  ['custom.nr'       ,true ], //22
+  ['global.points'   ,false], //23
+  ['global.roll'     ,true ], //24
+  ['server.s'        ,false], //25
+  ['global.stats'    ,true ], //26
 ];
 
 ex.defaultperms = new Map(ex.permsList);
