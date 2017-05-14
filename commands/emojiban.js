@@ -38,7 +38,7 @@ module.exports = {
     if(channels==null)console.log("Error getting text channels");
     for (const channel of channels.values())
       await channel.overwritePermissions(ebanRole, {
-        EXTERNAL_EMOJIS: false
+        USE_EXTERNAL_EMOJIS: false
       });
 
     mem.addRole(ebanRole);
