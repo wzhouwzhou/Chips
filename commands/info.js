@@ -1,36 +1,17 @@
 const Searcher = require(path.join(__dirname, '../handlers/Searcher')).default;
-module.exports = {
+const ex = {
   name: "info",
-  perm: ["server.info"],
+  perm: ["global.info","global.info.all","global.info.serv","global.info.channel","global.info.user","global.info.self"],
   async func(msg, {send, member, author, channel, guild, args, gMember, reply, content }) {
     const used = member || author;
-
-    /*if(!used.hasPermission("KICK_MEMBERS")){
-      switch (used.id) {
-        case Constants.users.WILLYZ:
-        case Constants.users.PGSUPER:
-        case Constants.users.ZALGO:
-        case Constants.users.XZLQ:
-        case Constants.users.KONEKO:
-        case Constants.users.NELYN:
-        case Constants.users.LOAF:
-        case Constants.users.ARX:
-          break;
-        default:
-          return reply('You must have KICK_MEMBERS perms to use this command!');
-      }
-    }*/
-
     let action;
     if (!args[0]) return send("No action given :(");
     else action = args[0];
 
     console.log("[Info] Action: "+action);
-    //if(!searchers || searchers[guild.id]==null){
-      console.log("[Filter] Creating new searcher for guild " + guild.id);
-      let options = { guild: guild };
-      searchers[guild.id] = new Searcher( options.guild );
-    //}
+    console.log("[Info] Creating new searcher for guild " + guild.id);
+    let options = { guild: guild };
+    searchers[guild.id] = new Searcher( options.guild );
 
     if(action=="server"){
       return send(`Name of this server: ${guild.name}`);
@@ -90,3 +71,5 @@ module.exports = {
     }
   }
 };
+
+module.exports = ex;

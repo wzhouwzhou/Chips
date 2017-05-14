@@ -18,7 +18,7 @@ const neko = [
 	'279959411693322241', //TheGamingBolt ^
 ];
 
-module.exports = {
+const ex= {
   name: "-ban",
 	perm: ["server.-ban"],
   async func(msg, {send, member, author, content, channel, guild, args, gMember, Discord, reply, bot}) {
@@ -78,3 +78,5 @@ module.exports = {
       );
   }
 };
+
+module.exports = ex;

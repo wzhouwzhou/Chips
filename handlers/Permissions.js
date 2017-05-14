@@ -21,7 +21,7 @@ ex.permsList = [
   ['server.exposed'  ,true ], //17
   ['server.happy'    ,false], //18
   ['server.help'     ,true ], //19
-  ['server.info'     ,false], //20
+  ['global.info'     ,false], //20
   ['server.lenny'    ,true ], //21
   ['custom.nr'       ,true ], //22
   ['custom.ping'     ,true ], //23
@@ -30,6 +30,7 @@ ex.permsList = [
   ['server.s'        ,false], //26
   ['global.stats'    ,true ], //27
   ['global.support'  ,true ], //28
+  ['global.quote'    ,true ]
 ];
 
 ex.defaultperms = new Map(ex.permsList);
@@ -177,7 +178,7 @@ ex.checkPermission = function(msg, perm){
 ex.rebuildDefaults = () =>{
   //Enable all perms for me and edp
   let n = new Array(ex.permsList.length);
-  let allp = "111111111111111111111111111111111";
+  let allp = "11111111111111111111111111111111111";
   for(let c=0; c<ex.permsList.length; c++){
     n.push({name: ex.permsList[c][0], action: parseInt(allp[c])});
   }
