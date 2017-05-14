@@ -24,10 +24,12 @@ ex.permsList = [
   ['server.info'     ,false], //20
   ['server.lenny'    ,true ], //21
   ['custom.nr'       ,true ], //22
-  ['global.points'   ,false], //23
-  ['global.roll'     ,true ], //24
-  ['server.s'        ,false], //25
-  ['global.stats'    ,true ], //26
+  ['custom.ping'     ,true ], //23
+  ['custom.points'   ,false], //24
+  ['global.roll'     ,true ], //25
+  ['server.s'        ,false], //26
+  ['global.stats'    ,true ], //27
+  ['global.support'  ,true ], //28
 ];
 
 ex.defaultperms = new Map(ex.permsList);
@@ -152,12 +154,14 @@ ex.checkPermission = function(msg, perm){
 };
 
 ex.rebuildDefaults = () =>{
-  let wp = [];
-  let willyp = "111111111111111111111111111";
+  //Enable all perms for me and edp
+  let n = [];
+  let allp = "111111111111111111111111111111";
   for(let c=0; c<ex.permsList.length; c++){
-    wp.push({name: ex.permsList[c][0], action: parseInt(willyp[c])});
+    n.push({name: ex.permsList[c][0], action: parseInt(allp[c])});
   }
-  ex.userpermissions[Constants.users.WILLYZ]=wp;
+  ex.userpermissions[Constants.users.WILLYZ]=n;
+  ex.userpermissions[Constants.users.EVILDEATHPRO]=n;
 };
 
 module.exports = ex;
