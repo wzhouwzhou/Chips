@@ -44,7 +44,7 @@ module.exports = {
           if(member==null) throw "NotMemberMention";
         }catch(err){  //gMember failed:
           console.log("Finding by mention failed...");
-          member = content.subString(`${prefix}info ${action} `.length);
+          member = content.substring(`${prefix}info ${action} `.length);
           let list = searchers[guild.id].searchMember(member);
           if(list.length>1) await send("Multiple matches found, using first one..");
           else if(list.length<1) return await send(`User [${args[1]}] not found!`);
@@ -62,7 +62,7 @@ module.exports = {
           role = guild.roles.get(role);
           if(role==null) throw "NotRoleId";
         }catch(err){  //failed to find by id
-          role = content.subString(`${prefix}info ${action} `.length);
+          role = content.substring(`${prefix}info ${action} `.length);
           let list = searchers[guild.id].searchRole(role);
           if(list.length>1) await send("Multiple matches found, using first one..");
           else if(list.length<1) return await send(`Role [${args[1]}] not found!`);
