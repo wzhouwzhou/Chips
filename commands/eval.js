@@ -4,7 +4,6 @@ const whitelist = [
 	Constants.users.XZLQ,
 	Constants.users.PGSUPER,
 	Constants.users.NELYN,
-	Constants.users.TARIK,
 	Constants.users.EVILDEATHPRO
 ];
 
