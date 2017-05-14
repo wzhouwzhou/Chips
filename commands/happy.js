@@ -11,6 +11,7 @@ const gifs = [
 
 module.exports = {
   name: "happy",
+  perm: ["server.happy"],
   async func(msg, { send }) {
     return send(gifs[Math.floor(gifs.length*Math.random())]);
   }

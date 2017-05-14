@@ -8,18 +8,18 @@ ex.permsList = [
   ['server.-ban'     ,false], // 4
   ['server.-vs '     ,true ], // 5
   ['server.aboose'   ,true ], // 6
-  ['server.announce' ,false], // 7
+  ['server.announce' ,true ], // 7
   ['server.blacklist',false], // 8
   ['global.botpanic' ,false], // 9
   ['server.cat'      ,true ], //10
   ['server.clear'    ,true ], //11
   ['server.coinflip' ,true ], //12
   ['server.dog'      ,true ], //13
-  ['global.eatme'    ,false], //14
+  ['global.eatme'    ,true ], //14
   ['server.emojiban' ,false], //15
   ['global.eval'     ,false], //16
   ['server.exposed'  ,true ], //17
-  ['server.happy'    ,false], //18
+  ['server.happy'    ,true ], //18
   ['server.help'     ,true ], //19
   ['global.info'     ,false], //20
   ['server.lenny'    ,true ], //21
