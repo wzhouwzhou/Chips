@@ -2,7 +2,7 @@ const Searcher = require(path.join(__dirname, '../handlers/Searcher')).default;
 module.exports = {
   name: "info",
   perm: ["server.info"],
-  async func(msg, {send, member, author, channel, guild, args, gMember, Discord, reply }) {
+  async func(msg, {send, member, author, channel, guild, args, gMember, reply, content }) {
     const used = member || author;
 
     /*if(!used.hasPermission("KICK_MEMBERS")){
@@ -44,7 +44,8 @@ module.exports = {
           if(member==null) throw "NotMemberMention";
         }catch(err){  //gMember failed:
           console.log("Finding by mention failed...");
-          let list = searchers[guild.id].searchMember(args[1]);
+          member = content.subString(`${prefix}info ${action} `.length);
+          let list = searchers[guild.id].searchMember(member);
           if(list.length>1) await send("Multiple matches found, using first one..");
           else if(list.length<1) return await send(`User [${args[1]}] not found!`);
           member = list[0];
@@ -61,7 +62,8 @@ module.exports = {
           role = guild.roles.get(role);
           if(role==null) throw "NotRoleId";
         }catch(err){  //failed to find by id
-          let list = searchers[guild.id].searchRole(args[1]);
+          role = content.subString(`${prefix}info ${action} `.length);
+          let list = searchers[guild.id].searchRole(role);
           if(list.length>1) await send("Multiple matches found, using first one..");
           else if(list.length<1) return await send(`Role [${args[1]}] not found!`);
           role = list[0];
