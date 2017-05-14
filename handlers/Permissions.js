@@ -64,6 +64,10 @@ ex.userpermissions = {
     [
       {name: ex.permsList[4][0], action: 1}
     ],
+  "226769318736691201":
+    [
+      {name: ex.permsList[4][0], action: 1}
+    ],
 };
 
 ex.rolepermissions = {
