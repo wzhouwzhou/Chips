@@ -165,3 +165,4 @@ ex.rebuildDefaults = () =>{
 };
 
 module.exports = ex;
+ex.rebuildDefaults();
