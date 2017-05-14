@@ -120,7 +120,7 @@ global.send2 = (message, c) => {
   if(message.attachments.length>1)
     mainContent.addField("Status:", "More than one attachment received..");
   if(message.attachments.first()!=null) mainContent.addField("Attachment URL: ", message.attachments.first().url);
-  c.sendEmbed(mainContent);
+  c.send(' ', {embed: mainContent});
 };
 
 const evalConsoleCommand = txt => {
@@ -162,7 +162,7 @@ function msgStatus() {
     .addField("Num msgs in sinx: ", `${sxMsgs} msgs`)
     .addField("Num msgs in sttoc: ", `${stMsgs} msgs`)
     .addField("Num msgs in snap: ", `${snMsgs} msgs`);
-  statusC.sendEmbed(statsE);
+  statusC.send(' ', {embed: statsE});
   sMsgs=0;
   nMsgs=0;
   sxMsgs=0;
