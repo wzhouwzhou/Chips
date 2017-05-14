@@ -21,15 +21,15 @@ module.exports = {
     }
     if (!args[0]) return send("No user given :(");
 
-    let target, us;
+    let us;
     try{  //try find by mention
-      target=args[0].match(Constants.patterns.MENTION)[1];
-      // console.log("Target: "+target);
-      us = gMember(target).id;
+      us=args[0].match(Constants.patterns.MENTION)[1];
+      console.log("Target: "+us);
     }catch(err){
+      console.log("mention failed...");
       //an id was specified:
       us = args[0];
-      // console.log("Target: "+us);
+      console.log("Target: "+us);
     }
     let serv = Constants.servers.NEB;
     let num=0;
