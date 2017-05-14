@@ -14,6 +14,7 @@ const request = require('request');
 const favicon = require('serve-favicon');
 global.Discord = require("discord.js");
 global.client = new Discord.Client();
+global.clientutil = new Discord.ShardClientUtil(client);
 setShards.id=client.shard.id;
 global.hclient = new Discord.Client();
 global.h2client = new Discord.Client();
