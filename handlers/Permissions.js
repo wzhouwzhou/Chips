@@ -131,12 +131,25 @@ ex.checkPermission = function(msg, perm){
       console.log("New role found: " + r.id + "for user "+ id);
       let rid=r.id;
       if(!ex.rolepermissions[rid]==null){
+        let found = false;
         ex.rolepermissions[rid].forEach(pEntry=>{
-          console.log("new entry found: " + pEntry.name);
-          if(pEntry.name==perm&&pEntry.action==1){
-            console.log("Success: role");
-            response("This action is approved (by member role)");
-          }
+          //console.log("new entry found: " + pEntry.name);
+          if(!found)
+            if(pEntry.name==perm){
+              found=true;
+              switch(pEntry.action){
+                case 1:
+                console.log("Success: role");
+                response("This action is approved (by member role)");
+                break;
+                case -1:
+                console.log("Success: role");
+                rej(`I'm sorry but you do not have access to ${perm} (Denied by member role :${r.name})`);
+                break;
+                default:
+                return;
+              }
+            }
         });
       }
       console.log("Role: " + rid + "for user "+ id + "did not have any perm overwrites for " + perm);
@@ -156,7 +169,7 @@ ex.checkPermission = function(msg, perm){
 ex.rebuildDefaults = () =>{
   //Enable all perms for me and edp
   let n = [];
-  let allp = "111111111111111111111111111111";
+  let allp = "111111111111111111111111111111111";
   for(let c=0; c<ex.permsList.length; c++){
     n.push({name: ex.permsList[c][0], action: parseInt(allp[c])});
   }
