@@ -48,7 +48,11 @@ ex.userpermissions = {
   "309504998864060416": //BetaBot
     [
       {name: ex.permsList[4][0], action: 1}
-    ]
+    ],
+  "292971521159200768": //JTJosh
+    [
+      {name: ex.permsList[4][0], action: 1}
+    ],
 };
 
 ex.rolepermissions = {
