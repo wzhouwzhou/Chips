@@ -2,7 +2,7 @@ module.exports = {
   name: "stats",
   perm: ["global.stats"],
   async func(msg, { channel, send }) {
-    let globalTotals = [0, 0, 0, 0, 0, 0.00];
+    let globalTotals = [0, 0, 0, 0, 0, 0.00, 0.00];
 
     //Eval across all shards
     clientutil.broadcastEval(`
@@ -11,7 +11,7 @@ let guildCount = 0;
 let channelCount = 0;
 let textC = 0;
 let voiceC = 0;
-let memusage = parseFloat((process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2));
+let memusage = parseFloat((process.memoryUsage().heapUsed / 1024 / 1024));
 client.guilds.array().forEach(g=> {
   userCount+=g.memberCount;
   console.log(userCount);
@@ -28,8 +28,9 @@ client.guilds.array().forEach(g=> {
     channelCount++;
   });
 });
-// 0             1            2     3       4          5
-[guildCount, channelCount, textC, voiceC, userCount ,memusage];`).then(results=>{
+let ping = client.ping;
+// 0             1            2     3       4          5         6
+[guildCount, channelCount, textC, voiceC, userCount ,memusage, ping];`).then(results=>{
       results.forEach(shardStat => {
         globalTotals[0] += shardStat[0];
         globalTotals[1] += shardStat[1];
@@ -37,6 +38,7 @@ client.guilds.array().forEach(g=> {
         globalTotals[3] += shardStat[3];
         globalTotals[4] += shardStat[4];
         globalTotals[5] += shardStat[5];
+        globalTotals[6] += shardStat[6];
         console.log("shardstat guild count" + shardStat[0]);
         console.log("globaltotals guild count" + globalTotals[0]);
       });
@@ -79,7 +81,8 @@ client.guilds.array().forEach(g=> {
       bad.addField("Total Channel Count: ", `${globalTotals[1]}`,true);
       bad.addField("Total Text Channel Count: ", `${globalTotals[2]}`,true);
       bad.addField("Total Voice Channel Count: ", `${globalTotals[3]}`,true);
-      bad.addField("Total Memory Usage: ", `${globalTotals[5]} MB`);
+      bad.addField("Average Client Ping: ", `${(globalTotals[6]/clientutil.count).toFixed(2)} ms`, true);
+      bad.addField("Total Memory Usage: ", `${globalTotals[5].toFixed(2)} MB`,true);
 
       let invite = "https://discordapp.com/oauth2/authorize?client_id=296855425255473154&scope=bot&permissions=83147";
       bad.addField("Invite link: ", `${invite}`, false);
