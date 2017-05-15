@@ -21,7 +21,7 @@ ex.permsList = [
   ['server.exposed'     ,true ], //17
   ['server.happy'       ,true ], //18
   ['server.help'        ,true ], //19
-  ['global.info'        ,true ], //20
+  ['global.info'        ,false ], //20
   ['global.info.all'    ,false], //21
   ['global.info.serv'   ,false], //22
   ['global.info.channel',false], //23
