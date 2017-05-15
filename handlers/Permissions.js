@@ -13,24 +13,29 @@ ex.permsList = [
   ['global.botpanic' ,false], // 9
   ['server.cat'      ,true ], //10
   ['server.clear'    ,true ], //11
-  ['server.coinflip' ,true ], //12
-  ['server.dog'      ,true ], //13
-  ['global.eatme'    ,true ], //14
-  ['server.emojiban' ,false], //15
-  ['global.eval'     ,false], //16
-  ['server.exposed'  ,true ], //17
-  ['server.happy'    ,true ], //18
-  ['server.help'     ,true ], //19
-  ['global.info'     ,false], //20
-  ['server.lenny'    ,true ], //21
-  ['custom.nr'       ,true ], //22
-  ['custom.ping'     ,true ], //23
-  ['custom.points'   ,false], //24
-  ['global.roll'     ,true ], //25
-  ['server.s'        ,false], //26
-  ['global.stats'    ,true ], //27
-  ['global.support'  ,true ], //28
-  ['global.quote'    ,true ]
+  ['server.coinflip'    ,true ], //12
+  ['server.dog'         ,true ], //13
+  ['global.eatme'       ,true ], //14
+  ['server.emojiban'    ,false], //15
+  ['global.eval'        ,false], //16
+  ['server.exposed'     ,true ], //17
+  ['server.happy'       ,true ], //18
+  ['server.help'        ,true ], //19
+  ['global.info'        ,false], //20
+  ['global.info.all'    ,false], //21
+  ['global.info.serv'   ,false], //22
+  ['global.info.channel',false], //23
+  ['global.info.user'   ,false], //24
+  ['global.info.self'   ,false], //25
+  ['server.lenny'       ,true ], //26
+  ['custom.nr'          ,true ], //27
+  ['custom.ping'        ,true ], //28
+  ['custom.points'      ,false], //29
+  ['global.roll'        ,true ], //30
+  ['server.s'           ,false], //31
+  ['global.stats'       ,true ], //32
+  ['global.support'     ,true ], //33
+  ['global.quote'       ,true ], //34
 ];
 
 ex.defaultperms = new Map(ex.permsList);
@@ -182,7 +187,7 @@ ex.checkPermission = function(msg, perm){
 ex.rebuildDefaults = () =>{
   //Enable all perms for me and edp
   let n = new Array(ex.permsList.length);
-  let allp = "11111111111111111111111111111111111";
+  let allp = "1111111111111111111111111111111111111111111111";
   for(let c=0; c<ex.permsList.length; c++){
     n.push({name: ex.permsList[c][0], action: parseInt(allp[c])});
   }
