@@ -1,7 +1,7 @@
 const Searcher = require(path.join(__dirname, '../handlers/Searcher')).default;
 const ex = {
   name: "info",
-  perm: ["global.info","global.info.all","global.info.serv","global.info.channel","global.info.user","global.info.self"],
+  perm: ["global.info","global.info.all","global.info.serv","global.info.channel","global.info.user","global.info.user.self"],
   async func(msg, {send, member, author, channel, guild, args, gMember, reply, content }) {
     const used = member || author;
     let action;
@@ -12,32 +12,46 @@ const ex = {
     console.log("[Info] Creating new searcher for guild " + guild.id);
     let options = { guild: guild };
     searchers[guild.id] = new Searcher( options.guild );
-    let issue = false;
 
     if(action=="server"){
-      permissions.checkPermission(msg, ex.perm[2]).then(_=>_).catch(reason=>{
-        console.log("Rejected");
-        issue=true;
+      permissions.checkPermission(msg, ex.perm[2]).then(info =>{
+        console.log("[Command] "+ info);
+        return send(`Name of this server: ${guild.name}`);
+      }).catch(reason=>{
+        console.log("Rejected info server to " + used.id);
+        return msg.reply(reason);
       });
-      return (!issue)? send(`Name of this server: ${guild.name}`) : null;
     }else if(action=="user"){
       let member=used;
+
       if (args[1]){
-        try{ //get mention:
-          console.log("Trying to find user by mention..");
-          let target = args[1].match(Constants.patterns.MENTION)[1];
-          member = gMember(target);
-          if(member==null) throw "NotMemberMention";
-        }catch(err){  //gMember failed:
-          console.log("Finding by mention failed...");
-          member = content.substring(`${prefix}info ${action} `.length);
-          let list = searchers[guild.id].searchMember(member);
-          if(list.length>1) await send("Multiple matches found, using first one..");
-          else if(list.length<1) return await send(`User [${args[1]}] not found!`);
-          member = list[0];
-        }
+        permissions.checkPermission(msg, ex.perm[4]).then(async function(info) {
+          try{ //get mention:
+            console.log("Trying to find user by mention..");
+            let target = args[1].match(Constants.patterns.MENTION)[1];
+            member = gMember(target);
+            if(member==null) throw "NotMemberMention";
+          }catch(err){  //gMember failed:
+            console.log("Finding by mention failed...");
+            member = content.substring(`${prefix}info ${action} `.length);
+            let list = searchers[guild.id].searchMember(member);
+            if(list.length>1) await send("Multiple matches found, using first one..");
+            else if(list.length<1) return await send(`User [${args[1]}] not found!`);
+            member = list[0];
+          }
+          return await send(`Userid: ${member.id}\nName: ${member.displayName}`);
+        }).catch(reason=>{
+          console.log("Rejected info user to " + used.id);
+          return msg.reply(reason);
+        });
+      }else{
+        permissions.checkPermission(msg, ex.perm[5]).then(async function(info) {
+          return await send(`Userid: ${member.id}\nName: ${member.displayName}`);
+        }).catch(reason=>{
+          console.log("Rejected info user to " + used.id);
+          return msg.reply(reason);
+        });
       }
-      return await send(`Userid: ${member.id}\nName: ${member.displayName}`);
     }else if(action == "role"){
       if (!args[1]) return send("No role given :<");
       else{
