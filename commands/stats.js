@@ -3,6 +3,7 @@ module.exports = {
   perm: ["global.stats"],
   async func(msg, { channel, send }) {
     let globalTotals = [0, 0, 0, 0, 0];
+    let shardCount = 0;
 
     //Eval across all shards
     clientutil.broadcastEval(`
