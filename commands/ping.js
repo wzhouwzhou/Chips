@@ -14,9 +14,14 @@ module.exports = {
     const editMetrics = m.editedAt - m.createdAt;
 
     const edit1 = m.editedAt;
-
+    await sentmsg.react('0⃣');
+    now = Date.now()
+    const reactMetrics = now - edit1;
+    await sentmsg.clearReactions();
+    const creactMetrics = Date.now() - now;
+    now = Date.now();
     await sentmsg.delete();
-    const delMetrics = Date.now() - edit1;
+    const delMetrics = Date.now() - now;
 
     console.log("ping pong! " + member.user.username + "'s ping was " + wsPing + "ms!");
     database.sheets[`botlog`].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "Crowd report: ping", mainvalue: wsPing, label: "ms"},(err) => {console.log(err);});
@@ -25,7 +30,9 @@ module.exports = {
     bad.addField("Connecting to Discord: ", wsPing);
     bad.addField("Sending a msg: ", sendMetrics);
     bad.addField("Editing a msg: ", editMetrics);
-    bad.addField("Deleting msg: ", delMetrics);
+    bad.addField("Reacting to a msg: ", reactMetrics);
+    bad.addField("Clearing message reactions: ", creactMetrics);
+    bad.addField("Deleting a msg: ", delMetrics);
 
     return send("🏓\u2000Pong! <@" + member.user.id + ">", {embed: bad});
   }
