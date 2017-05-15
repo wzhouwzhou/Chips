@@ -26,7 +26,7 @@ ex.permsList = [
   ['global.info.serv'   ,false], //22
   ['global.info.channel',false], //23
   ['global.info.user'   ,false], //24
-  ['global.info.self'   ,false], //25
+  ['global.info.user.self',false], //25
   ['server.lenny'       ,true ], //26
   ['custom.nr'          ,true ], //27
   ['custom.ping'        ,true ], //28
@@ -181,6 +181,14 @@ ex.checkPermission = function(msg, perm){
     }
     else
       reject(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`);
+  });
+};
+
+ex.checkMulti = (msg, permArr) => {
+  return new Promise((response, reject) =>{
+      permArr.forEach(perm =>{
+
+      });
   });
 };
 
