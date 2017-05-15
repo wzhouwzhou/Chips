@@ -81,7 +81,7 @@ ex.rolepermissions = {
     [
       {name: ex.permsList[3][0], action: 1}
     ],
-  //Mute permissions: 
+  //Mute permissions:
   "260849020291907584": //Sinx Admin
     [
       {name: ex.permsList[27][0], action: 1}
@@ -95,6 +95,10 @@ ex.rolepermissions = {
       {name: ex.permsList[27][0], action: 1}
     ],
   "291758886971768833": //Sinx Leader
+    [
+      {name: ex.permsList[27][0], action: 1}
+    ],
+  "303732451862118410": //Chips
     [
       {name: ex.permsList[27][0], action: 1}
     ],
@@ -166,20 +170,21 @@ ex.checkPermission = function(msg, perm){
     msg.member.roles.forEach(r=>{
       console.log("New role found: " + r.id + "for user "+ id);
       let rid=r.id;
-      if(!ex.rolepermissions[rid]==null){
+      if(ex.rolepermissions[rid]!=null){
         let found = false;
         ex.rolepermissions[rid].forEach(pEntry=>{
-          //console.log("new entry found: " + pEntry.name);
+          console.log("new entry found: " + pEntry.name);
           if(!found)
             if(pEntry.name==perm){
               found=true;
+              console.log("We found an entry!");
               switch(pEntry.action){
                 case 1:
                 console.log("Success: role");
                 response("This action is approved (by member role)");
                 break;
                 case -1:
-                console.log("Success: role");
+                console.log("Denial: role");
                 rej(`I'm sorry but you do not have access to ${perm} (Denied by member role :${r.name})`);
                 break;
                 default:
@@ -222,4 +227,4 @@ ex.rebuildDefaults = () =>{
 };
 
 module.exports = ex;
-ex.rebuildDefaults();
+//ex.rebuildDefaults();

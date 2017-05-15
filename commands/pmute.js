@@ -33,7 +33,7 @@ module.exports = {
 
     let emb = new Discord.RichEmbed()
       .setAuthor("Mute Log")
-      .setTitle(`<@${mem.user.id}> was perma-muted by <@${author.id}>`)
+      .setTitle(`${mem.displayName} was perma-muted by ${used.displayName}`)
       .setColor(9109504)
       .setThumbnail(Constants.images.WARNING)
       .addField("Mute reason: ", `${reason}`, true);
