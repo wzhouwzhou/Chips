@@ -16,6 +16,7 @@ getDog = (callback) => {
 
 module.exports = {
   name: "dog",
+  perm: ["server.dog"],
   async func(msg, { send }) {
     return getDog((a,b)=>send(b));
   }

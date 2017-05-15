@@ -1,6 +1,7 @@
 module.exports = {
   name: "exposed",
+  perm: ["server.exposed"],
   async func(msg, { send }) {
-    send("*Expoooosed!*");
+    return send("*Expoooosed!*");
   }
 };

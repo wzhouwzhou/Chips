@@ -1,6 +1,7 @@
 
 module.exports = {
   name: "-blacklist",
+  perm: ["server.blacklist"],
   async func(msg, {send, member, author, content, channel, guild, args, gMember, Discord, reply, bot}) {
     const used = member || author;
 

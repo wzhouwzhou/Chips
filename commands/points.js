@@ -1,5 +1,6 @@
 module.exports = {
   name: "points",
+  perm: ["custom.points"],
   async func(msg, {send, member, author, content, channel, guild, args, gMember, Discord, reply, bot}) {
     if(!guild||(guild.id!="257889450850254848"&&guild.id!="302983444009451541")) return;
     const used = member || author;

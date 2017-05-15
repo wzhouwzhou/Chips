@@ -1,5 +1,6 @@
 module.exports = {
   name: "emojiban",
+  perm: ["server.emojiban"],
   async func(msg, { send, member, author, content, channel, guild, args, gMember, Discord }) {
     const used = member || author;
     switch (used.id) {
@@ -37,7 +38,7 @@ module.exports = {
     if(channels==null)console.log("Error getting text channels");
     for (const channel of channels.values())
       await channel.overwritePermissions(ebanRole, {
-        EXTERNAL_EMOJIS: false
+        USE_EXTERNAL_EMOJIS: false
       });
 
     mem.addRole(ebanRole);

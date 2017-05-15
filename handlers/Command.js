@@ -10,6 +10,7 @@ module.exports = class Command extends EventEmitter {
     const args = Array.from(arguments);
     const message = args[0];
     if (!message) throw new TypeError(`Message not provided to command ${this.name || "< with no name >"}.`);
+
     let result;
     try {
       result = this.func.apply(this, args);

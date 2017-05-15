@@ -1,9 +1,27 @@
+global.statusC;
 module.exports = function( send ) {
-  client.on("ready", _ => {
-    require(path.join(__dirname, '../../handlers/DiepAddons')).getServers();
-    statusC = client.channels.get(Constants.channels.STATUS);
+  if(process.env.BETA!=null&&process.env.BETA=="true")
+    client.login(process.env.BETATOKEN);
+  else
+    client.login(process.env.TOKEN);
+  hclient.login(process.env.HTOKEN);
+  h2client.login(process.env.H2TOKEN);
+  h3client.login(process.env.H3TOKEN);
 
-    send('Chips restart! **' + moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')+'**', statusC);
+  if(process.env.C2TOKEN!=null&&process.env.C2TOKEN!="")
+    c2.login(process.env.C2TOKEN);
+  else
+    c2.login(require(path.join(__dirname, '../sBotT'))[0]);
+
+  if(process.env.C3TOKEN!=null&&process.env.C3TOKEN!="")
+    c3.login(process.env.C3TOKEN);
+  else
+    c3.login(require(path.join(__dirname, '../sBotT'))[1]);
+
+  client.on("ready", async function() {
+    require(path.join(__dirname, '../../handlers/DiepAddons')).getServers();
+
+  setTimeout(async function(){statusC = await client.channels.get(Constants.channels.STATUS); statusC&&send('Chips restart! **' + moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')+'**', statusC);},5000);
 
     console.log('Chips is ready!');
     client.user.setStatus("online");
@@ -90,4 +108,7 @@ module.exports = function( send ) {
       console.log("could not add unverified role");
     }
   });
+
+  const music = require('discord.js-music-v11');
+  music(client, { prefix: "-", anyoneCanSkip: true });
 };

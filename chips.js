@@ -1,30 +1,21 @@
-//Chips.js
-require('newrelic');
-/** Constants **/
+Object.defineProperty(exports, "__esModule", { value: true });
 global.Constants = require("./setup/Constants");
-//route loading
-global.index = require("./routes/index");
-global.login = require("./routes/login");
-global.updates = require("./routes/updates");
-global.useroverview = require("./routes/updates");
-
+const changeConsole_1 = require("./setup/logging/changeConsole");
+let setShards = { id: null };
 //Chips constants
 const child_process = require('child_process');
 const stdin = process.openStdin();
 const readline = require('readline');
-const express = require('express');
-const session = require('express-session');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const passport = require('passport');
-const Strategy = require('./setup/lib').Strategy;
+
 global.path = require("path");
 global.fs = require('fs');
 const request = require('request');
-const app = require("./setup/AppSetup")(bodyParser, cookieParser, passport, express, express(), Strategy, session);
+
 const favicon = require('serve-favicon');
 global.Discord = require("discord.js");
 global.client = new Discord.Client();
+global.clientutil = new Discord.ShardClientUtil(client);
+setShards.id=client.shard.id;
 global.hclient = new Discord.Client();
 global.h2client = new Discord.Client();
 global.h3client = new Discord.Client();
@@ -34,7 +25,7 @@ client.commands = {};
 global.prefix = "-";
 if(process.env.BETA=="true")prefix="!!";
 /** End Constants **/
-
+global.database = require(path.join(__dirname, './setup/db/DatabaseLoader'));
 /** Other Global Constants **/
 global.moment = require('moment');
 global._ = require("lodash");
@@ -42,13 +33,11 @@ global.chalk = require("chalk");
 global.Messager = new (require("events"));
 global.Command = require("./handlers/Command");
 global.CommandHandler = require("./handlers/CommandHandler")(Discord, client);
-global.database = require('./setup/db/DatabaseLoader');
 global.DMLogger;
 global.rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
-global.statusC;
 global.nMsgs=0;
 global.sMsgs=0;
 global.sxMsgs=0;
@@ -60,10 +49,18 @@ global.filter=require('./handlers/Filter')();
 
 global.dmC;
 global.monitorMode = false;
+global.searchers = {0: null};
 /** End Global Constants **/
 let d = "", consoleTyping = false;
 
+//Shard setup
+changeConsole_1.default(false, setShards);
+console.log("Initializing...");
+
 /** Events **/
+process.on("unhandledRejection", (rejection) => {
+    console.log(chalk.red("[ERR]"), rejection);
+});
 //Messenger events
 Messager.on("eval", ({ evalContent, vars, timestamp }) => {
   const { msg, message, channel, guild, send, reply, content, noprefix, prefix, c, author, member } = vars;
@@ -123,7 +120,7 @@ global.send2 = (message, c) => {
   if(message.attachments.length>1)
     mainContent.addField("Status:", "More than one attachment received..");
   if(message.attachments.first()!=null) mainContent.addField("Attachment URL: ", message.attachments.first().url);
-  c.sendEmbed(mainContent);
+  c.send(' ', {embed: mainContent});
 };
 
 const evalConsoleCommand = txt => {
@@ -165,7 +162,7 @@ function msgStatus() {
     .addField("Num msgs in sinx: ", `${sxMsgs} msgs`)
     .addField("Num msgs in sttoc: ", `${stMsgs} msgs`)
     .addField("Num msgs in snap: ", `${snMsgs} msgs`);
-  statusC.sendEmbed(statsE);
+  statusC.send(' ', {embed: statsE});
   sMsgs=0;
   nMsgs=0;
   sxMsgs=0;
@@ -175,23 +172,6 @@ function msgStatus() {
 
 require('./setup/events/Ready')(send);
 require('./setup/events/ClientMessage')();
-
+global.permissions = require('./handlers/Permissions.js');
 setInterval(selfping, 1000*60*10);
 setInterval(msgStatus, 1000*60*30);
-if(process.env.BETA!=null&&process.env.BETA=="true")
-  client.login(process.env.BETATOKEN);
-else
-  client.login(process.env.TOKEN);
-hclient.login(process.env.HTOKEN);
-h2client.login(process.env.H2TOKEN);
-h3client.login(process.env.H3TOKEN);
-
-if(process.env.C2TOKEN!=null&&process.env.C2TOKEN!="")
-  c2.login(process.env.C2TOKEN);
-else
-  c2.login(require('./setup/sBotT.js')[0]);
-
-if(process.env.C3TOKEN!=null&&process.env.C3TOKEN!="")
-  c3.login(process.env.C3TOKEN);
-else
-  c3.login(require('./setup/sBotT.js')[1]);

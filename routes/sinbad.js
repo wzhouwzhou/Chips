@@ -1,10 +1,10 @@
-// index
+// sinbad
 const express = require('express');
 const router = express.Router();
 
 router.get("/", (req, res) => {
   if(req.user!=null)
-    res.render("index", { timestamp: new Date().toString(), scripts: [
+    res.render("sinbad", { timestamp: new Date().toString(), scripts: [
       "https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js",
       "/vendor/magnific-popup/jquery.magnific-popup.min.js",
       "/vendor/scrollreveal/scrollreveal.js",
@@ -19,7 +19,7 @@ router.get("/", (req, res) => {
     user: req.user
     });
   else
-    res.render("index", { timestamp: new Date().toString(), scripts: [
+    res.render("sinbad", { timestamp: new Date().toString(), scripts: [
       "https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js",
       "/vendor/magnific-popup/jquery.magnific-popup.min.js",
       "/vendor/scrollreveal/scrollreveal.js",

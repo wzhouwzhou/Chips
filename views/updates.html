@@ -1,10 +1,16 @@
 <% extend('base.html') %>
+<head>
+  <meta property="og:title" content="Chipsbot Updates"/>
+  <meta property="og:description" content="New Discord bot made by WillyZ"/>
+  <link rel="icon" type="image/png"
+    href="https://cdn.discordapp.com/avatars/296855425255473154/753c765c7b7c99cb5f6ddaeb65afbc28.jpg?size=1024"/>
+</head>
 
 <br></br>
 <% if (isAuthenticated) { %>
-    Updates (SK): Right now, it's <%=timestamp%>
+    Updates (SbK): Right now, it's <%=timestamp%>
     <br></br>
-    <a id="signIn" href="/sinbadx/login">You aren't signed in to your discord, Click here!</a>
+    <a id="signIn" href="/sinbad/login">You aren't signed in to your discord, Click here!</a>
 <% } else { %>
     <body>
         <div id="wrapper">
@@ -17,9 +23,9 @@
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                   </button>
-                  <a class="navbar-brand" href="index.html">
-                    <link rel="icon" type="image/png"
-                      href="https://cdn.discordapp.com/attachments/253512935501070336/299552531552665600/PicsArt_04-06-05.34.33.jpg"/>
+                  <a class="navbar-brand" href="/">
+                    <link rel="icon" type="image/jpg"
+                      href="https://cdn.discordapp.com/avatars/296855425255473154/753c765c7b7c99cb5f6ddaeb65afbc28.jpg?size=1024"/>
                   </a>
               </div>
               <!-- end navbar-header -->
@@ -242,9 +248,9 @@
           <!-- end navbar top -->
           <b>Welcome back</b>
           <br></br>
-          Userview: Right now, it's <%=timestamp%>
+          Updates: Right now, it's <%=timestamp%>
           <br></br>
-          <a href="/sinbadx/logout">Click me to Log Out</a>
+          <a href="/sinbad/logout">Click me to return to Sinbad Knights.</a>
           <br></br>
         </div>
         <!-- end wrapper -->

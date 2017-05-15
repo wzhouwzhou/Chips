@@ -1,0 +1,79 @@
+/* CSS for diepio Website with Class Guides */
+
+body {
+	background-color: #36393E;
+	background-repeat: repeat-y repeat-x;
+	margin: 0px 100px 0px;
+	font-family: ubuntu, sans-serif;
+	z-index: -1;
+}
+h1 {
+	color: #FFF;
+	text-align: center;
+	position: relative;
+	font-family: ubuntu, sans-serif;
+	font-size: 400%;
+	z-index: -1;
+	}
+a:link {
+	color: #2196F3;
+	text-decoration: none;
+	}
+a:visited {
+	color: #2196F3;
+	text-decoration: none;
+	}
+a:hover {
+	color: #2196F3;
+	text-decoration: none;
+	}
+a:active {
+	color: #2196F3;
+	text-decoration: none;
+	}
+	
+p {
+	font-family: Ubuntu, Sans-Serif;
+	color: #FFFFFF;
+	background-color: #36393E;
+	z-index: -1;
+}
+img {
+	border-radius: 40px;
+	max-width: 100%;
+	padding: 10px;
+	}
+#guide_title {
+	text-align: left;
+	font-size: 200%;
+	color: #2196F3;
+	}
+#guide_image {
+	font-size: 150%;
+	color: #FF371F;
+	}
+/*List of Helpful Links*/
+ul {
+	display: inline;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #2E3136;
+	}
+li {
+	list-style-type: none;
+	float: left;
+	}
+li a {
+	display: block; 
+	color: #FFF;
+	text-align: center;
+	padding: 10px 16px;
+	text-decoration: none;
+	}
+li a:hover {
+	background-color: #282B30;
+	}
+img a:hover {
+	background-color: #282B30;
+}

@@ -1,22 +1,23 @@
+Object.defineProperty(exports, "__esModule", { value: true });
 
 const child_process = require('child_process');
-
+const Discord = require("discord.js");
 let nodefile=["./chips.js"];
 //setup + start
+const app = require("./setup/AppSetup")(); //website start
+const colors = require("chalk");
+
+const changeConsole_1 = require("./setup/logging/changeConsole");
+changeConsole_1.default(true);
+
 function start() {
   console.log('Master process is running.');
-  var proc = child_process.spawn('node', nodefile);
-  proc.stdout.on('data', function (data) {
-    console.log(data.toString());
+  const Manager = new Discord.ShardingManager(nodefile[0], {
+    totalShards: 3,
   });
-  proc.stderr.on('data', function (data) {
-    console.log(data.toString());
-  });
-
-  proc.on('exit', function (code) {
-    console.log('child process exited with code ' + code);
-    delete(proc);
-    setTimeout(function() {start(); }, 10000);
+  Manager.spawn().then((shards) => {
+    module.exports.shards=shards;
+    console.log("Spawned", colors.cyan(shards.size.toString()), "shards!");
   });
 }
 start();

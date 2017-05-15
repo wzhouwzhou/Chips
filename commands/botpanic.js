@@ -1,5 +1,6 @@
 module.exports = {
   name: "botpanic",
+  perm: ["global.botpanic"],
   async func(msg, { send, reply, member, author, content, channel, guild, args, gMember, Discord }) {
     const used = member || author;
     switch (used.id) {
