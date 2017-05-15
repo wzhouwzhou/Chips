@@ -28,14 +28,15 @@ ex.permsList = [
   ['global.info.user'   ,false], //24
   ['global.info.user.self',false], //25
   ['server.lenny'       ,true ], //26
-  ['custom.nr'          ,true ], //27
-  ['custom.ping'        ,true ], //28
-  ['custom.points'      ,false], //29
-  ['global.roll'        ,true ], //30
-  ['server.s'           ,false], //31
-  ['global.stats'       ,true ], //32
-  ['global.support'     ,true ], //33
-  ['global.quote'       ,true ], //34
+  ['server.mute'        ,false], //27
+  ['custom.nr'          ,true ], //28
+  ['custom.ping'        ,true ], //29
+  ['custom.points'      ,false], //30
+  ['global.roll'        ,true ], //31
+  ['server.s'           ,false], //32
+  ['global.stats'       ,true ], //33
+  ['global.support'     ,true ], //34
+  ['global.quote'       ,true ], //35
 ];
 
 ex.defaultperms = new Map(ex.permsList);
@@ -79,7 +80,24 @@ ex.rolepermissions = {
   "309348424418066433":
     [
       {name: ex.permsList[3][0], action: 1}
-    ]
+    ],
+  //Mute permissions: 
+  "260849020291907584": //Sinx Admin
+    [
+      {name: ex.permsList[27][0], action: 1}
+    ],
+  "302776088088674305": //Sinx Manager
+    [
+      {name: ex.permsList[27][0], action: 1}
+    ],
+  "260849226169319425": //Sinx Moderator
+    [
+      {name: ex.permsList[27][0], action: 1}
+    ],
+  "291758886971768833": //Sinx Leader
+    [
+      {name: ex.permsList[27][0], action: 1}
+    ],
 };
 
 ex.serverpermissions = {
