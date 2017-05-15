@@ -1,18 +1,18 @@
 'use strict';
 const ex = {};
 ex.permsList = [
-  ['global.owner'    ,false], // 0
-  ['global.admin'    ,false], // 1
-  ['global.test'     ,false], // 2
-  ['global.test2'    ,true ], // 3
-  ['server.-ban'     ,false], // 4
-  ['server.-vs '     ,true ], // 5
-  ['server.aboose'   ,true ], // 6
-  ['server.announce' ,true ], // 7
-  ['server.blacklist',false], // 8
-  ['global.botpanic' ,false], // 9
-  ['server.cat'      ,true ], //10
-  ['server.clear'    ,true ], //11
+  ['global.owner'       ,false], // 0
+  ['global.admin'       ,false], // 1
+  ['global.test'        ,false], // 2
+  ['global.test2'       ,true ], // 3
+  ['server.-ban'        ,false], // 4
+  ['server.-vs '        ,true ], // 5
+  ['server.aboose'      ,true ], // 6
+  ['server.announce'    ,true ], // 7
+  ['server.blacklist'   ,false], // 8
+  ['global.botpanic'    ,false], // 9
+  ['server.cat'         ,true ], //10
+  ['server.clear'       ,true ], //11
   ['server.coinflip'    ,true ], //12
   ['server.dog'         ,true ], //13
   ['global.eatme'       ,true ], //14
@@ -21,7 +21,7 @@ ex.permsList = [
   ['server.exposed'     ,true ], //17
   ['server.happy'       ,true ], //18
   ['server.help'        ,true ], //19
-  ['global.info'        ,false], //20
+  ['global.info'        ,true ], //20
   ['global.info.all'    ,false], //21
   ['global.info.serv'   ,false], //22
   ['global.info.channel',false], //23

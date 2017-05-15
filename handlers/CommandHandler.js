@@ -31,7 +31,7 @@ module.exports = function(Discord, client) {
             console.log("[Command] "+ info);
             return cmd.run(msg, context);
           }).catch((reason)=>{
-            console.log("Rejected");
+            console.log("[Command] Rejected");
             issue=true;
             return msg.reply(reason);
           });

@@ -12,9 +12,14 @@ const ex = {
     console.log("[Info] Creating new searcher for guild " + guild.id);
     let options = { guild: guild };
     searchers[guild.id] = new Searcher( options.guild );
+    let issue = false;
 
     if(action=="server"){
-      return send(`Name of this server: ${guild.name}`);
+      permissions.checkPermission(msg, ex.perm[2]).then(_=>_).catch(reason=>{
+        console.log("Rejected");
+        issue=true;
+      });
+      return (!issue)? send(`Name of this server: ${guild.name}`) : null;
     }else if(action=="user"){
       let member=used;
       if (args[1]){
