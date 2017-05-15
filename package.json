@@ -4,9 +4,9 @@
     "type": "git",
     "url": "git+https://github.com/wzhouwzhou/Chips.git"
   },
-  "version": "1.0.1",
+  "version": "2.0.0",
   "author": "WillyZ",
-  "license": "CC BY-NC-ND",
+  "license": "SEE LICENSE IN LICENSE",
   "bugs": {
     "url": "https://github.com/wzhouwzhou/Chips/issues"
   },
@@ -62,6 +62,8 @@
     "newrelic": "^1.39.1",
     "node-opus": "^0.2.6",
     "opusscript": "0.0.3",
+    "os": "^0.1.1",
+    "os-utils": "0.0.14",
     "passport": "^0.3.2",
     "passport-discord": "^0.1.2",
     "passport-oauth2": "^1.4.0",
