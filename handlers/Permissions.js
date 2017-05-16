@@ -21,7 +21,7 @@ ex.permsList = [
   ['server.exposed'     ,true ], //17
   ['server.happy'       ,true ], //18
   ['server.help'        ,true ], //19
-  ['global.info'        ,false ], //20
+  ['global.info'        ,true ], //20
   ['global.info.all'    ,false], //21
   ['global.info.serv'   ,false], //22
   ['global.info.channel',false], //23
@@ -37,6 +37,8 @@ ex.permsList = [
   ['global.stats'       ,true ], //33
   ['global.support'     ,true ], //34
   ['global.quote'       ,true ], //35
+  //future permissions add below this comment please
+  ['global.info.role'   ,false], //36
 ];
 
 ex.defaultperms = new Map(ex.permsList);

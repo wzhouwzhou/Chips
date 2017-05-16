@@ -1,7 +1,7 @@
 const Searcher = require(path.join(__dirname, '../handlers/Searcher')).default;
 const ex = {
   name: "info",
-  perm: ["global.info","global.info.all","global.info.serv","global.info.channel","global.info.user","global.info.user.self"],
+  perm: ["global.info","global.info.all","global.info.serv","global.info.channel","global.info.role","global.info.user","global.info.user.self"],
   async func(msg, {send, member, author, channel, guild, args, gMember, reply, content }) {
     const used = member || author;
     let action;
@@ -26,7 +26,7 @@ const ex = {
       let member=used;
 
       if (args[1]){
-        permissions.checkPermission(msg, ex.perm[4]).then(async function(info) {
+        permissions.checkPermission(msg, ex.perm[5]).then(async function(info) {
           try{ //get mention:
             console.log("Trying to find user by mention..");
             let target = args[1].match(Constants.patterns.MENTION)[1];
@@ -46,7 +46,7 @@ const ex = {
           return msg.reply(reason);
         });
       }else{
-        permissions.checkPermission(msg, ex.perm[5]).then(async function(info) {
+        permissions.checkPermission(msg, ex.perm[6]).then(async function(info) {
           let membername = member.displayName.replace('@','(at)');
           return await send(`Userid: ${member.id}\nName: ${membername}`);
         }).catch(reason=>{
@@ -74,23 +74,28 @@ const ex = {
         return await send(`Role Id: ${role.id}\nRole Name: ${rolename}\nMember count: ${role.members.size}`);
       }
     }else if(action == "channel"){
-      if (!args[1]) return send("No channel given :<");
-      else{
-        let channel;
-        try{
-          channel = args[1].substring(2,args[1].length-1);
-          console.log("Trying to find channel from link " + channel);
-          channel = guild.roles.get(role);
-          if(channel==null) throw "NotChannelId";
-        }catch(err){
-          let list = searchers[guild.id].searchChannel(channel);
-          if(list.length>1) {await send("Multiple matches found, using first one.."); console.log(list);}
-          else if(list.length<1) return await send(`Channel [${channel}] not found!`);
-          channel = list[0];
-        }
-        let cname = channel.name.replace('@','(at)');
-        return await send(`Channel Id: ${channel.id}\nChannel Name: ${cname}\nMember count: ${channel.members.size}`);
-      }
+        permissions.checkPermission(msg, ex.perm[3]).then(async function(info) {
+          if (!args[1]) return send("No channel given :<");
+          else{
+            let channel;
+            try{
+              channel = args[1].substring(2,args[1].length-1);
+              console.log("Trying to find channel from link " + channel);
+              channel = guild.roles.get(role);
+              if(channel==null) throw "NotChannelId";
+            }catch(err){
+              let list = searchers[guild.id].searchChannel(channel);
+              if(list.length>1) {await send("Multiple matches found, using first one.."); console.log(list);}
+              else if(list.length<1) return await send(`Channel [${channel}] not found!`);
+              channel = list[0];
+            }
+            let cname = channel.name.replace('@','(at)');
+            return await send(`Channel Id: ${channel.id}\nChannel Name: ${cname}\nMember count: ${channel.members.size}`);
+          }
+        }).catch(reason=>{
+          console.log("Rejected info channel to " + used.id);
+          return msg.reply(reason);
+        });
     }
   }
 };
