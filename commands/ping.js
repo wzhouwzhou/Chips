@@ -18,12 +18,12 @@ module.exports = {
     await sentmsg.react('🇮');
     now = Date.now();
     const reactMetrics = (now - edit1)/2;
-    let clearMetrics;
+    let creactMetrics;
     try{
       await sentmsg.clearReactions();
       creactMetrics = (Date.now() - now).toFixed(2);
     }catch(err){
-      clearMetrics = "No data could be collected..perhaps I am missing permissions";
+      creactMetrics = "No data could be collected..perhaps I am missing permissions";
     }
     now = Date.now();
     await sentmsg.delete();
