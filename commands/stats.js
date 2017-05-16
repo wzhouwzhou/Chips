@@ -1,3 +1,4 @@
+const os = require('os-utils');
 module.exports = {
   name: "stats",
   perm: ["global.stats"],
@@ -42,54 +43,55 @@ let ping = client.ping;
         console.log("shardstat guild count" + shardStat[0]);
         console.log("globaltotals guild count" + globalTotals[0]);
       });
+      os.cpuUsage(u=>{
+        let bad = new Discord.RichEmbed();
+        bad.setColor("1503").setAuthor(`Chips (-help) stats report for shard #${clientutil.id+1} (of ${clientutil.count})!`);
 
-      let bad = new Discord.RichEmbed();
-      bad.setColor("1503").setAuthor(`Chips (-help) stats report for shard #${clientutil.id+1} (of ${clientutil.count})!`);
+        bad.setTitle(`Current time: ${moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')}!`);
 
-      bad.setTitle(`Current time: ${moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')}!`);
+        let userCount = 0;
+        let guildCount = 0;
 
-      let userCount = 0;
-      let guildCount = 0;
+        client.guilds.array().forEach(g=> {
+          userCount+=g.memberCount;
+          guildCount++;
+        });
 
-      client.guilds.array().forEach(g=> {
-        userCount+=g.memberCount;
-        guildCount++;
+        bad.addField("User count: ", `${userCount}`, true);
+        bad.addField("Server count: ", `${guildCount}`, true);
+
+        let uptime = formatUptime(process.uptime());
+        bad.addField("Bot uptime: ", `${uptime}`, true);
+
+        let memory = `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(4)} MB`;
+        bad.addField("Memory usage:", `${memory}`, true);
+
+        bad.addField("CPU usage (%):", `${u.toFixed(3)}`, true);
+
+        let cpuUsage = process.cpuUsage().user;
+        bad.addField("CPU usage (raw):", `${cpuUsage}`, true);
+
+        channel.send(' ', {embed: bad});
+
+        bad=new Discord.RichEmbed();
+        bad.setColor("1503").setAuthor(`Chips global stats report across all shards!`);
+        bad.setTitle(`Current time: ${moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')}!`);
+
+        bad.addField("Total User Count: ", `${globalTotals[4]}`);
+        bad.addField("Total Server Count: ", `${globalTotals[0]}`);
+        bad.addField("Total Channel Count: ", `${globalTotals[1]}`,true);
+        bad.addField("Total Text Channel Count: ", `${globalTotals[2]}`,true);
+        bad.addField("Total Voice Channel Count: ", `${globalTotals[3]}`,true);
+        bad.addField("Average Client Ping: ", `${(globalTotals[6]/clientutil.count).toFixed(2)} ms`, true);
+        bad.addField("Total Memory Usage: ", `${globalTotals[5].toFixed(2)} MB`,true);
+
+        let invite = "https://discordapp.com/oauth2/authorize?client_id=296855425255473154&scope=bot&permissions=83147";
+        bad.addField("Invite link: ", `${invite}`, false);
+
+        let support = "https://discord.gg/jj5FzF7";
+        bad.addField("Support server: ", `${support}`, false);
+        channel.send(' ', {embed: bad});
       });
-
-      bad.addField("User count: ", `${userCount}`, true);
-      bad.addField("Server count: ", `${guildCount}`, true);
-
-      let uptime = formatUptime(process.uptime());
-      bad.addField("Bot uptime: ", `${uptime}`, true);
-
-      let memory = `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(4)} MB`;
-      bad.addField("Memory usage:", `${memory}`, true);
-
-      let hrTime = process.hrtime()[0];
-      bad.addField("CPU hrtime:", `${hrTime}`, true);
-
-      let cpuUsage = process.cpuUsage().user;
-      bad.addField("CPU usage:", `${cpuUsage}`, true);
-      channel.send(' ', {embed: bad});
-
-      bad=new Discord.RichEmbed();
-      bad.setColor("1503").setAuthor(`Chips global stats report across all shards!`);
-      bad.setTitle(`Current time: ${moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')}!`);
-
-      bad.addField("Total User Count: ", `${globalTotals[4]}`);
-      bad.addField("Total Server Count: ", `${globalTotals[0]}`);
-      bad.addField("Total Channel Count: ", `${globalTotals[1]}`,true);
-      bad.addField("Total Text Channel Count: ", `${globalTotals[2]}`,true);
-      bad.addField("Total Voice Channel Count: ", `${globalTotals[3]}`,true);
-      bad.addField("Average Client Ping: ", `${(globalTotals[6]/clientutil.count).toFixed(2)} ms`, true);
-      bad.addField("Total Memory Usage: ", `${globalTotals[5].toFixed(2)} MB`,true);
-
-      let invite = "https://discordapp.com/oauth2/authorize?client_id=296855425255473154&scope=bot&permissions=83147";
-      bad.addField("Invite link: ", `${invite}`, false);
-
-      let support = "https://discord.gg/jj5FzF7";
-      bad.addField("Support server: ", `${support}`, false);
-      channel.send(' ', {embed: bad});
     });
   }
 };
