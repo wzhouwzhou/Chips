@@ -55,24 +55,29 @@ const ex = {
         });
       }
     }else if(action == "role"){
-      if (!args[1]) return send("No role given :<");
-      else{
-        let role;
-        try{
-          role = args[1].substring(3,args[1].length-1);
-          console.log("Trying to find role from mention " + role);
-          role = guild.roles.get(role);
-          if(role==null) throw "NotRoleId";
-        }catch(err){  //failed to find by id
-          role = content.substring(`${prefix}info ${action} `.length);
-          let list = searchers[guild.id].searchRole(role);
-          if(list.length>1) await send("Multiple matches found, using first one..");
-          else if(list.length<1) return await send(`Role [${args[1]}] not found!`);
-          role = list[0];
+      permissions.checkPermission(msg, ex.perm[4]).then(async function(info) {
+        if (!args[1]) return send("No role given :<");
+        else{
+          let role;
+          try{
+            role = args[1].substring(3,args[1].length-1);
+            console.log("Trying to find role from mention " + role);
+            role = guild.roles.get(role);
+            if(role==null) throw "NotRoleId";
+          }catch(err){  //failed to find by id
+            role = content.substring(`${prefix}info ${action} `.length);
+            let list = searchers[guild.id].searchRole(role);
+            if(list.length>1) await send("Multiple matches found, using first one..");
+            else if(list.length<1) return await send(`Role [${args[1]}] not found!`);
+            role = list[0];
+          }
+          let rolename = role.name.replace('@','(at)');
+          return await send(`Role Id: ${role.id}\nRole Name: ${rolename}\nMember count: ${role.members.size}`);
         }
-        let rolename = role.name.replace('@','(at)');
-        return await send(`Role Id: ${role.id}\nRole Name: ${rolename}\nMember count: ${role.members.size}`);
-      }
+      }).catch(reason=>{
+        console.log("Rejected info role to " + used.id);
+        return msg.reply(reason);
+      });
     }else if(action == "channel"){
         permissions.checkPermission(msg, ex.perm[3]).then(async function(info) {
           if (!args[1]) return send("No channel given :<");
