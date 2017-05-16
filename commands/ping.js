@@ -18,8 +18,13 @@ module.exports = {
     await sentmsg.react('🇮');
     now = Date.now();
     const reactMetrics = (now - edit1)/2;
-    await sentmsg.clearReactions();
-    const creactMetrics = Date.now() - now;
+    let clearMetrics;
+    try{
+      await sentmsg.clearReactions();
+      creactMetrics = (Date.now() - now).toFixed(2);
+    }catch(err){
+      clearMetrics = "No data could be collected..perhaps I am missing permissions";
+    }
     now = Date.now();
     await sentmsg.delete();
     const delMetrics = Date.now() - now;
@@ -32,7 +37,7 @@ module.exports = {
     bad.addField("Sending a msg: ", sendMetrics.toFixed(2));
     bad.addField("Editing a msg: ", editMetrics.toFixed(2));
     bad.addField("Reacting to a msg (rate limit): ", reactMetrics.toFixed(2));
-    bad.addField("Clearing message reactions: ", creactMetrics.toFixed(2));
+    bad.addField("Clearing message reactions: ", creactMetrics);
     bad.addField("Deleting a msg: ", delMetrics.toFixed(2));
 
     return send("🏓\u2000Pong! <@" + member.user.id + ">", {embed: bad});
