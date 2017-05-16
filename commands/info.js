@@ -16,7 +16,8 @@ const ex = {
     if(action=="server"){
       permissions.checkPermission(msg, ex.perm[2]).then(info =>{
         console.log("[Command] "+ info);
-        return send(`Name of this server: ${guild.name}`);
+        let gname = guild.name.replace('@','(at)');
+        return send(`Name of this server: ${gname}`);
       }).catch(reason=>{
         console.log("Rejected info server to " + used.id);
         return msg.reply(reason);
@@ -46,7 +47,8 @@ const ex = {
         });
       }else{
         permissions.checkPermission(msg, ex.perm[5]).then(async function(info) {
-          return await send(`Userid: ${member.id}\nName: ${member.displayName}`);
+          let membername = member.displayName.replace('@','(at)');
+          return await send(`Userid: ${member.id}\nName: ${membername}`);
         }).catch(reason=>{
           console.log("Rejected info user to " + used.id);
           return msg.reply(reason);
@@ -68,7 +70,8 @@ const ex = {
           else if(list.length<1) return await send(`Role [${args[1]}] not found!`);
           role = list[0];
         }
-        return await send(`Role Id: ${role.id}\nRole Name: ${role.name}\nMember count: ${role.members.size}`);
+        let rolename = role.name.replace('@','(at)');
+        return await send(`Role Id: ${role.id}\nRole Name: ${rolename}\nMember count: ${role.members.size}`);
       }
     }else if(action == "channel"){
       if (!args[1]) return send("No channel given :<");
@@ -85,7 +88,8 @@ const ex = {
           else if(list.length<1) return await send(`Channel [${channel}] not found!`);
           channel = list[0];
         }
-        return await send(`Channel Id: ${channel.id}\nChannel Name: ${channel.name}\nMember count: ${channel.members.size}`);
+        let cname = channel.name.replace('@','(at)');
+        return await send(`Channel Id: ${channel.id}\nChannel Name: ${cname}\nMember count: ${channel.members.size}`);
       }
     }
   }
