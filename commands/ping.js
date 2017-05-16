@@ -1,7 +1,7 @@
 module.exports = {
   name: "ping",
   perm: ["global.ping"],
-  async func(msg, { send, member }) {
+  async func(msg, { send, member, bot }) {
     let wsPing = client.ping;
     let now = Date.now();
     let sentmsg;
@@ -32,7 +32,8 @@ module.exports = {
     console.log("ping pong! " + member.user.username + "'s ping was " + wsPing + "ms!");
     database.sheets[`botlog`].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "Crowd report: ping", mainvalue: wsPing, label: "ms"},(err) => {console.log(err);});
 
-    let bad = new Discord.RichEmbed().setColor(member.color).setTitle("**Ping Metrics**").setDescription("All metrics are measured in milliseconds it takes to perform an action.");
+    let bad = new Discord.RichEmbed().setColor(member.color).setTitle("**Ping Metrics**");
+    bad.setDescription("All metrics are measured in milliseconds it takes to perform an action.");
     bad.addField("Connecting to Discord: ", wsPing.toFixed(2));
     bad.addField("Sending a msg: ", sendMetrics.toFixed(2));
     bad.addField("Editing a msg: ", editMetrics.toFixed(2));

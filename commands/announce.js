@@ -4,7 +4,7 @@ module.exports = {
   name: "announce",
   perm: ["server.announce"],
   async func(msg, { content, guild, author, member, reply, args }) {
-    if(guild.ownerID==author.id||member.hasPermission("ADMINISTRATOR")){
+    if(guild.ownerID==author.id){//||member.hasPermission("ADMINISTRATOR")){
       if(args[0]==null||args[0]=="")return reply(`I can't send an empty announcement.`);
       console.log(`[Announcement]: Announcement from <@${author.id}> in server [${guild.name}]: ${content.substring((prefix+'announce ').length)}`);
       guild.members.forEach(u=>{
@@ -17,7 +17,7 @@ module.exports = {
       return reply(`Announcement sent!`);
     }else{
       console.log(`[Announcement]: DENIED Announcement from <@${author.id}> in server [${guild.name}]: ${content.substring((prefix+'announce ').length)}`);
-      return reply(`You must be server owner or admin to use this cmd...`);
+      return reply(`You must be server owner to use this cmd...`);
     }
   }
 };

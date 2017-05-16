@@ -74,7 +74,7 @@ let ping = client.ping;
         channel.send(' ', {embed: bad});
 
         bad=new Discord.RichEmbed();
-        bad.setColor("1503").setAuthor(`Chips global stats report across all shards!`);
+        bad.setColor("1503").setAuthor(`Chips global stats report across all shards!`).setThumbnail(bot.user.avatarURL).setImage(bot.user.avatarURL);
         bad.setTitle(`Current time: ${moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')}!`);
 
         bad.addField("Total User Count: ", `${globalTotals[4]}`);

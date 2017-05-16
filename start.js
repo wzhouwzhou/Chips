@@ -13,7 +13,7 @@ changeConsole_1.default(true);
 function start() {
   console.log('Master process is running.');
   const Manager = new Discord.ShardingManager(nodefile[0], {
-    totalShards: 3,
+    totalShards: 4,
   });
   Manager.spawn().then((shards) => {
     module.exports.shards=shards;
