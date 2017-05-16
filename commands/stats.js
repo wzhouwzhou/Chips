@@ -2,7 +2,7 @@ const os = require('os-utils');
 module.exports = {
   name: "stats",
   perm: ["global.stats"],
-  async func(msg, { channel, send }) {
+  async func(msg, { channel, send, bot }) {
     let globalTotals = [0, 0, 0, 0, 0, 0.00, 0.00];
 
     //Eval across all shards
