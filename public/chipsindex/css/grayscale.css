@@ -133,7 +133,7 @@ a:focus {
   padding-bottom: 100px 0;
   text-align: center;
   color: white;
-  background: url(/chipsindex/chipssplash.jpg) no-repeat bottom center scroll;
+  background: url('../chipsindex/chipssplash.jpg') no-repeat bottom center scroll;
   background-color: black;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -278,6 +278,18 @@ a:focus {
   color: black;
   background-color: #42DCA3;
 }
+.btn-copyright {
+  border: 1px solid #23297A;
+  color: #42DCA3;
+  background-color: white;
+}
+.btn-copyright:hover,
+.btn-copyright:focus {
+  border: 1px solid #42DCA3;
+  outline: none;
+  color: white;
+  background-color: #42DCA3;
+}
 ul.banner-social-buttons {
   margin-top: 0;
 }
@@ -301,6 +313,9 @@ footer {
 }
 footer p {
   margin: 0;
+}
+footer a {
+  color: white;
 }
 ::-moz-selection {
   text-shadow: none;
