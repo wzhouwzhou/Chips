@@ -8,7 +8,7 @@ const app = express();
 const Strategy = require('./lib').Strategy;
 const session = require('express-session');
 const flash=require("connect-flash");
-
+const ExpressBrute = require('express-brute');
 const sinbad = require(path.join(__dirname, '../routes/sinbad'));
 const login = require(path.join(__dirname, '../routes/login'));
 const updates = require(path.join(__dirname, '../routes/updates'));
@@ -80,6 +80,9 @@ module.exports = function() {
   let globalBruteforce = new secure();
 
   app.use('/', index, globalBruteforce.prevent);
+  app.post('/', globalBruteforce.prevent, function (req, res, next) {
+        res.flash('Load Success!');
+    });
 
   app.use('/sinbad', sinbad, globalBruteforce.prevent);
 
@@ -106,6 +109,16 @@ module.exports = function() {
   });
 
   app.set('port', (process.env.PORT || 5000));
+
+  bruteforce = new ExpressBrute(store, {
+    freeRetries: 1000, // Max API calls in a day
+    refreshTimeoutOnRequest: false,
+    minWait: 61*60*1000, // 1 hour 1 minute (should never reach this wait time)
+    maxWait: 61*60*1000, // 1 hour 1 minute (should never reach this wait time)
+    lifetime: 60*60 // 1 hour (seconds not milliseconds)
+  });
+
+  app.use(bruteforce.prevent);
 
   app.listen(app.get('port'), function() {
     console.log('Node app is running on port', app.get('port'));
