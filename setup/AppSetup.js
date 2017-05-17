@@ -7,12 +7,13 @@ const express = require('express');
 const app = express();
 const Strategy = require('./lib').Strategy;
 const session = require('express-session');
+const flash=require("connect-flash");
 
 const sinbad = require(path.join(__dirname, '../routes/sinbad'));
 const login = require(path.join(__dirname, '../routes/login'));
 const updates = require(path.join(__dirname, '../routes/updates'));
 const useroverview = require(path.join(__dirname, '../routes/updates'));
-const index = require(path.join(__dirname, '../routes/index'))
+const index = require(path.join(__dirname, '../routes/index'));
 // const chips ;
 module.exports = function() {
   let botScopes = ['identify', 'guilds'];
@@ -23,6 +24,7 @@ module.exports = function() {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());
+  app.use(flash());
 
   passport.serializeUser(function(user, done) {
     done(null, user);
