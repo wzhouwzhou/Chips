@@ -70,7 +70,8 @@ ex.userpermissions = {
     ],
   "270834390643376129": //Harb
     [
-      {name: ex.permsList[4][0], action: 1}
+      {name: ex.permsList[4][0], action: 1},
+      {name: ex.permsList[32][0], action: 1},
     ],
   "226769318736691201":
     [
