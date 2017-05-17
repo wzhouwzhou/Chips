@@ -12,6 +12,7 @@ const sinbad = require(path.join(__dirname, '../routes/sinbad'));
 const login = require(path.join(__dirname, '../routes/login'));
 const updates = require(path.join(__dirname, '../routes/updates'));
 const useroverview = require(path.join(__dirname, '../routes/updates'));
+const index = require(path.join(__dirname, '../routes/index'))
 // const chips ;
 module.exports = function() {
   let botScopes = ['identify', 'guilds'];
@@ -76,10 +77,12 @@ module.exports = function() {
   const secure = require(path.join(__dirname, '../Security'));
   let globalBruteforce = new secure();
 
+  app.use('/', index, globalBruteforce.prevent);
+
   app.use('/sinbad', sinbad, globalBruteforce.prevent);
 
   app.use('/sinbad/login',login);
-  app.use('/updates',updates);
+  //app.use('/updates',updates);
 
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {

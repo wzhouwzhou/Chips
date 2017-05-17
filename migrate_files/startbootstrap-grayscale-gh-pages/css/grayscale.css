@@ -1,6 +1,6 @@
 /*!
  * Start Bootstrap - Grayscale v3.3.7+1 (http://startbootstrap.com/template-overviews/grayscale)
- * Copyright 2013-2016 Start Bootstrap
+ * Copyright 2013-2017 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 body {
@@ -39,7 +39,7 @@ p {
   }
 }
 a {
-  color: #42DCA3;
+  color: #000000;
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
@@ -47,7 +47,7 @@ a {
 a:hover,
 a:focus {
   text-decoration: none;
-  color: #1d9b6c;
+  color: #23297A;
 }
 .light {
   font-weight: 400;
@@ -57,14 +57,16 @@ a:focus {
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   text-transform: uppercase;
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background-color: black;
+  background-color: white;
 }
 .navbar-custom .navbar-toggle {
   color: white;
   background-color: rgba(255, 255, 255, 0.2);
   font-size: 12px;
 }
-.navbar-custom .navbar-toggle:focus,
+.navbar-custom .navbar-toggle:focus {
+  color: white;
+}
 .navbar-custom .navbar-toggle:active {
   outline: none;
 }
@@ -72,10 +74,16 @@ a:focus {
   font-weight: 700;
 }
 .navbar-custom .navbar-brand:focus {
+  color: white;
+}
+.navbar-custom .navbar-brand:focus {
   outline: none;
 }
-.navbar-custom a {
-  color: white;
+.navbar-custom .navbar-brand:focus a {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.navbar-custom .navbar-brand:focus a:hover {
+  color: blue;
 }
 .navbar-custom .nav li a {
   -webkit-transition: background 0.3s ease-in-out;
@@ -113,7 +121,7 @@ a:focus {
   }
   .navbar-custom.top-nav-collapse {
     padding: 0;
-    background: black;
+    background: rgba(255, 255, 255, 0.4);
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   }
 }
@@ -122,9 +130,10 @@ a:focus {
   width: 100%;
   height: auto;
   padding: 100px 0;
+  padding-bottom: 100px 0;
   text-align: center;
   color: white;
-  background: url(../img/intro-bg.jpg) no-repeat bottom center scroll;
+  background: url(/chipsindex/chipssplash.jpg) no-repeat bottom center scroll;
   background-color: black;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -133,7 +142,7 @@ a:focus {
 }
 .intro .intro-body {
   display: table-cell;
-  vertical-align: middle;
+  vertical-align: bottom;
 }
 .intro .intro-body .brand-heading {
   font-size: 40px;
@@ -144,7 +153,7 @@ a:focus {
 @media (min-width: 768px) {
   .intro {
     height: 100%;
-    padding: 0;
+    padding: 100px 0;
   }
   .intro .intro-body .brand-heading {
     font-size: 100px;
@@ -170,8 +179,8 @@ a:focus {
 .btn-circle:hover,
 .btn-circle:focus {
   outline: none;
-  color: white;
-  background: rgba(255, 255, 255, 0.1);
+  color: blue;
+  background: rgba(255, 165, 0, 0.5);
 }
 .btn-circle i.animated {
   -webkit-transition-property: -webkit-transform;
@@ -225,7 +234,7 @@ a:focus {
   padding: 50px 0;
   color: white;
   background: url(../img/downloads-bg.jpg) no-repeat center center scroll;
-  background-color: black;
+  background-color: gray;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
@@ -269,6 +278,18 @@ a:focus {
   color: black;
   background-color: #42DCA3;
 }
+.btn-copyright {
+  border: 1px solid #23297A;
+  color: #42DCA3;
+  background-color: white;
+}
+.btn-copyright:hover,
+.btn-copyright:focus {
+  border: 1px solid #42DCA3;
+  outline: none;
+  color: white;
+  background-color: #42DCA3;
+}
 ul.banner-social-buttons {
   margin-top: 0;
 }
@@ -292,6 +313,9 @@ footer {
 }
 footer p {
   margin: 0;
+}
+footer a {
+  color: white;
 }
 ::-moz-selection {
   text-shadow: none;
