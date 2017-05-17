@@ -100,7 +100,7 @@ stdin.addListener('data', d => {
 });
 
 //Functions
-const send = (message, c) => { c.sendMessage(message, {disableEveryone:true}); };
+const send = (message, c) => { c.send(message, {disableEveryone:true}); };
 
 global.send2 = (message, c) => {
   if(c==null||message.author.id==client.user.id)return;
