@@ -131,6 +131,8 @@ module.exports = {
 
       let support = "https://discord.gg/jj5FzF7";
       bad.addField("Support server: ", `${support}`, false);
+      let website = "https://chipsbot.herokuapp.com/";
+      bad.addField("Official Website: ", `${website}`, false);
       channel.send(' ', {embed: bad});
     });
   }
