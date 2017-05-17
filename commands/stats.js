@@ -108,10 +108,14 @@ module.exports = {
       bad.addField("CPU usage (raw):", `${cpuUsage}`, true);
 
       channel.send(' ', {embed: bad});
-
+      let avatar = bot.user.avatarURL(2048);
+      console.log("avatarURL" + avatar);
       bad=new Discord.RichEmbed();
-      bad.setColor("1503").setAuthor(`Chips global stats report across all shards!`).setThumbnail(bot.user.avatarURL).setImage(bot.user.avatarURL);
+      bad.setColor("1503").setAuthor(`Chips global stats report across all shards!`);
+      bad.setThumbnail(avatar);
+      bad.setImage("https://cdn.discordapp.com/attachments/307625096078426123/314201502669471744/Chips.jpg");
       bad.setTitle(`Current time: ${moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')}!`);
+      bad.setFooter(`Made by @xdlf#6477`);
 
       bad.addField("Total User Count: ", `${globalTotals[4]}`);
       bad.addField("Total Server Count: ", `${globalTotals[0]}`);
