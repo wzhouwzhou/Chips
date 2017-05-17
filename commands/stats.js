@@ -115,7 +115,7 @@ module.exports = {
       bad.setThumbnail(avatar);
       bad.setImage("https://cdn.discordapp.com/attachments/307625096078426123/314201502669471744/Chips.jpg");
       bad.setTitle(`Current time: ${moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')}!`);
-      bad.setFooter(`Made by @xdlf#6477`);
+      bad.setFooter(`Image made by @xdlf#6477`);
 
       bad.addField("Total User Count: ", `${globalTotals[4]}`);
       bad.addField("Total Server Count: ", `${globalTotals[0]}`);
