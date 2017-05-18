@@ -3,7 +3,6 @@ global.Constants = require("./setup/Constants");
 const changeConsole_1 = require("./setup/logging/changeConsole");
 let setShards = { id: null };
 //Chips constants
-const child_process = require('child_process');
 global.stdin = process.openStdin();
 const readline = require('readline');
 
