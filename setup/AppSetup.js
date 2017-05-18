@@ -77,14 +77,28 @@ module.exports = function() {
   });
   // routes
   const secure = require(path.join(__dirname, '../Security'));
-  let globalBruteforce = new secure();
+  let globalBruteforce = new secure()[0];
+  let userBruteforce = new secure()[1];
 
-  app.use('/', index, globalBruteforce.prevent);
-  app.post('/', globalBruteforce.prevent, function (req, res, next) {
+  app.use('/', index, userBruteforce.prevent);
+  app.post('/', globalBruteforce.prevent, userBruteforce.getMiddleware({
+      key: function(req, res, next) {
+          next();
+      }
+    }),function (req, res, next) {
         res.flash('Load Success!');
-    });
+    }
+  );
 
-  app.use('/sinbad', sinbad, globalBruteforce.prevent);
+  app.use('/sinbad', sinbad, userBruteforce.prevent);
+  app.post('/sinbad', globalBruteforce.prevent, userBruteforce.getMiddleware({
+      key: function(req, res, next) {
+          next();
+      }
+    }),function (req, res, next) {
+        res.flash('Load Success!');
+    }
+  );
 
   app.use('/sinbad/login',login);
   //app.use('/updates',updates);
@@ -109,16 +123,6 @@ module.exports = function() {
   });
 
   app.set('port', (process.env.PORT || 5000));
-  let store = new ExpressBrute.MemoryStore(); 
-  bruteforce = new ExpressBrute(store, {
-    freeRetries: 1000, // Max API calls in a day
-    refreshTimeoutOnRequest: false,
-    minWait: 61*60*1000, // 1 hour 1 minute (should never reach this wait time)
-    maxWait: 61*60*1000, // 1 hour 1 minute (should never reach this wait time)
-    lifetime: 60*60 // 1 hour (seconds not milliseconds)
-  });
-
-  app.use(bruteforce.prevent);
 
   app.listen(app.get('port'), function() {
     console.log('Node app is running on port', app.get('port'));

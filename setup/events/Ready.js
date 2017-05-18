@@ -1,3 +1,4 @@
+let d = "", consoleTyping = false;
 global.statusC;
 module.exports = function( send ) {
   if(process.env.BETA!=null&&process.env.BETA=="true")
@@ -41,6 +42,25 @@ module.exports = function( send ) {
     console.log('Chips helper is ready!');
     hclient.user.setStatus("online");
     hclient.user.setGame("Chips is bae!");
+
+    //Console events
+    stdin.addListener('data', d => {
+        if (testC == null) {
+          return console.log("YOU HAVEN'T DEFINED AN OUTPUT CHANNEL");
+        }
+        if (consoleTyping == false) {
+          consoleTyping = true;
+          rl.question("\x1b[1mInput? \x1b[0m", txt => {
+            console.log("\x1b[0m", "\tConsole input:", txt);
+            if (txt == "") {
+              consoleTyping = false;
+            } else {
+              evalConsoleCommand(txt);
+              consoleTyping = false;
+            }
+          });
+        }
+    });
   });
   h2client.on("ready", _ => {
     sxLogs = h2client.channels.get(Constants.channels.SXLOGS);
@@ -111,4 +131,29 @@ module.exports = function( send ) {
 
   const music = require('discord.js-music-v11');
   music(client, { prefix: "-", anyoneCanSkip: true });
+};
+
+
+const evalConsoleCommand = txt => {
+  txt = detectPastes(txt);
+  if (txt == "monitor") {
+    monitorMode = true;
+    console.log("\tActivating Monitor Mode");
+  } else if (txt == "unmon") {
+    monitorMode = false;
+    console.log("\tDeactivating Monitor Mode");
+  } else {
+    send(txt, testC);
+  }
+};
+
+const detectPastes = txt => {
+  const pairPastes = _.toPairs(Constants.PASTES);
+  for (const i in pairPastes) {
+    if (txt == pairPastes[i][0]) {
+      console.log("paste " + i + " found!");
+      return pairPastes[i][1];
+    }
+  }
+  return txt;
 };

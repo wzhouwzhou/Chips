@@ -4,7 +4,7 @@ const changeConsole_1 = require("./setup/logging/changeConsole");
 let setShards = { id: null };
 //Chips constants
 const child_process = require('child_process');
-const stdin = process.openStdin();
+global.stdin = process.openStdin();
 const readline = require('readline');
 
 global.path = require("path");
@@ -51,7 +51,6 @@ global.dmC;
 global.monitorMode = false;
 global.searchers = {0: null};
 /** End Global Constants **/
-let d = "", consoleTyping = false;
 
 //Shard setup
 changeConsole_1.default(false, setShards);
@@ -80,25 +79,6 @@ Messager.on("eval", ({ evalContent, vars, timestamp }) => {
   }
 });
 
-//Console events
-stdin.addListener('data', d => {
-    if (testC == null) {
-      return console.log("YOU HAVEN'T DEFINED AN OUTPUT CHANNEL");
-    }
-    if (consoleTyping == false) {
-      consoleTyping = true;
-      rl.question("\x1b[1mInput? \x1b[0m", txt => {
-        console.log("\x1b[0m", "\tConsole input:", txt);
-        if (txt == "") {
-          consoleTyping = false;
-        } else {
-          evalConsoleCommand(txt);
-          consoleTyping = false;
-        }
-      });
-    }
-});
-
 //Functions
 const send = (message, c) => { c.send(message, {disableEveryone:true}); };
 
@@ -121,30 +101,6 @@ global.send2 = (message, c) => {
     mainContent.addField("Status:", "More than one attachment received..");
   if(message.attachments.first()!=null) mainContent.addField("Attachment URL: ", message.attachments.first().url);
   c.send(' ', {embed: mainContent});
-};
-
-const evalConsoleCommand = txt => {
-  txt = detectPastes(txt);
-  if (txt == "monitor") {
-    monitorMode = true;
-    console.log("\tActivating Monitor Mode");
-  } else if (txt == "unmon") {
-    monitorMode = false;
-    console.log("\tDeactivating Monitor Mode");
-  } else {
-    send(txt, testC);
-  }
-};
-
-const detectPastes = txt => {
-  const pairPastes = _.toPairs(Constants.PASTES);
-  for (const i in pairPastes) {
-    if (txt == pairPastes[i][0]) {
-      console.log("paste " + i + " found!");
-      return pairPastes[i][1];
-    }
-  }
-  return txt;
 };
 
 function selfping() {
