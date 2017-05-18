@@ -84,6 +84,10 @@ ex.rolepermissions = {
     [
       {name: ex.permsList[3][0], action: 1}
     ],
+  "260863475075514370":
+    [
+      {name: ex.permsList[4][0], action: 1}
+    ],
   //Mute permissions:
   "260849020291907584": //Sinx Admin
     [
@@ -230,4 +234,4 @@ ex.rebuildDefaults = () =>{
 };
 
 module.exports = ex;
-//ex.rebuildDefaults();
+ex.rebuildDefaults();
