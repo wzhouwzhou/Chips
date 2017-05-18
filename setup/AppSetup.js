@@ -109,7 +109,7 @@ module.exports = function() {
   });
 
   app.set('port', (process.env.PORT || 5000));
-
+  let store = new ExpressBrute.MemoryStore(); 
   bruteforce = new ExpressBrute(store, {
     freeRetries: 1000, // Max API calls in a day
     refreshTimeoutOnRequest: false,
