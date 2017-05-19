@@ -113,7 +113,7 @@ ex.rolepermissions = {
     ],
 };
 
-ex.memberPermissions = {
+ex.memberpermissions = {
   "257889450850254848": //sinx
   {
     "259209114268336129": //Willy
@@ -190,7 +190,7 @@ ex.checkPermission = function(msg, perm){
           }
       });
     }
-    if(guild){
+    if(guild&&ex.memberpermissions[guild.id]){
       let mp = ex.memberpermissions[guild.id][id];
       if (mp) {
         mp.forEach(pEntry=>{
