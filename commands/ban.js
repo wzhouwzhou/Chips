@@ -37,10 +37,10 @@ module.exports = {
     let confirmed = false, agreed=false;
 
     let collector = channel.createMessageCollector(
-      async m => {
+      m => {
         if(/^(?:y(?:es)?)|(?:no?)$/i.test(m.content)){
           if(m.author.id==author.id){
-            await m.reply("Choice accepted. Now processing...");
+            m.reply("Choice accepted. Now processing...");
             confirmed = true;
             agreed = /^(?:y(?:es)?)$/i.test(m.content);
             setTimeout(_=>collector.stop(), 1000);
@@ -51,8 +51,8 @@ module.exports = {
       },
       { time: EXPIRE }
     );
-    collector.on('message', m => {
-      if(confirmed) return collector.stop();
+    collector.on('collect', m => {
+      //if(confirmed) return collector.stop();
     });
     collector.on('end', collected => {
       if(!confirmed) return reply('Ban timed out');
