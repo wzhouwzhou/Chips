@@ -40,6 +40,7 @@ module.exports = {
       m => {
         if(/^(?:y(?:es)?)|(?:no?)$/i.test(m.content)){
           if(m.author.id==author.id) m.reply("Choice accepted. Now processing...");
+          else return false;
           //else return m.reply ("Denied");
           confirmed = true;
           agreed = /^(?:y(?:es)?)$/i.test(m.content);
