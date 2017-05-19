@@ -37,15 +37,16 @@ module.exports = {
     let confirmed = false, agreed=false;
 
     let collector = channel.createMessageCollector(
-      m => {
+      async m => {
         if(/^(?:y(?:es)?)|(?:no?)$/i.test(m.content)){
-          if(m.author.id==author.id) m.reply("Choice accepted. Now processing...");
-          else return false;
+          if(m.author.id==author.id){
+            await m.reply("Choice accepted. Now processing...");
+            confirmed = true;
+            agreed = /^(?:y(?:es)?)$/i.test(m.content);
+            setTimeout(_=>collector.stop(), 1000);
+            return true;
+          }
           //else return m.reply ("Denied");
-          confirmed = true;
-          agreed = /^(?:y(?:es)?)$/i.test(m.content);
-          setTimeout(_=>collector.stop(), 1000);
-          return true;
         }
       },
       { time: EXPIRE }

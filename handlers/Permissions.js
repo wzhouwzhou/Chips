@@ -40,6 +40,7 @@ ex.permsList = [
   //future permissions add below this comment please
   ['global.info.role'   ,false], //36
   ['global.server.rekt' ,false], //37
+  ['global.server.ban'  ,false], //38
 ];
 
 ex.defaultperms = new Map(ex.permsList);
@@ -93,19 +94,23 @@ ex.rolepermissions = {
   //Mute permissions:
   "260849020291907584": //Sinx Admin
     [
-      {name: ex.permsList[27][0], action: 1}
+      {name: ex.permsList[27][0], action: 1},
+      {name: ex.permsList[38][0], action: 1},
     ],
   "302776088088674305": //Sinx Manager
     [
-      {name: ex.permsList[27][0], action: 1}
+      {name: ex.permsList[27][0], action: 1},
+      {name: ex.permsList[38][0], action: 1},
     ],
   "260849226169319425": //Sinx Moderator
     [
-      {name: ex.permsList[27][0], action: 1}
+      {name: ex.permsList[27][0], action: 1},
+      {name: ex.permsList[38][0], action: 1},
     ],
   "291758886971768833": //Sinx Leader
     [
-      {name: ex.permsList[27][0], action: 1}
+      {name: ex.permsList[27][0], action: 1},
+      {name: ex.permsList[38][0], action: 1},
     ],
   "303732451862118410": //Chips
     [
@@ -259,7 +264,7 @@ ex.checkMulti = (msg, permArr) => {
 ex.rebuildDefaults = () =>{
   //Enable all perms for me and edp
   let n = new Array(ex.permsList.length);
-  let allp = "1111111111111111111111111111111111111111111111";
+  let allp = "11111111111111111111111111111111111111111111111111";
   for(let c=0; c<ex.permsList.length; c++){
     n.push({name: ex.permsList[c][0], action: parseInt(allp[c])});
   }
