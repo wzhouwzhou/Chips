@@ -39,6 +39,7 @@ ex.permsList = [
   ['global.quote'       ,true ], //35
   //future permissions add below this comment please
   ['global.info.role'   ,false], //36
+  ['global.server.rekt' ,false], //37
 ];
 
 ex.defaultperms = new Map(ex.permsList);
