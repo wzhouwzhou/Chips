@@ -1,3 +1,4 @@
+
 module.exports = function(Discord, client) {
   return async (msg, prefix) => {
     const regprefix = _.escapeRegExp(prefix);
@@ -25,19 +26,19 @@ module.exports = function(Discord, client) {
     for (const cmdn in client.commands) {
       const cmd = client.commands[cmdn];
       if (new RegExp(`^${_.escapeRegExp(cmdn)}$`).test(noprefix.split` `[0]))
-        if(cmd.perm){
-          console.log(cmd.perm[0]);
-          permissions.checkPermission(msg, cmd.perm[0]).then((info) =>{
-            console.log("[Command] "+ info);
-            return cmd.run(msg, context);
-          }).catch((reason)=>{
-            console.log("[Command] Rejected");
-            issue=true;
-            return msg.reply(reason);
-          });
-        }else{
+      if(cmd.perm){
+        console.log(cmd.perm[0]);
+        permissions.checkPermission(msg, cmd.perm[0]).then((info) =>{
+          console.log("[Command] "+ info);
           return cmd.run(msg, context);
-        }
+        }).catch((reason)=>{
+          console.log("[Command] Rejected");
+          issue=true;
+          return msg.reply(reason);
+        });
+      }else{
+        return cmd.run(msg, context);
+      }
     }
   };
 };

@@ -9,7 +9,7 @@ const whitelist = [
 
 module.exports = {
 	name:'eval',
-	async func(msg, { send, member, author, content, channel, doEval }) {
+	async func(msg, { send, member, author, content, channel, doEval, prompt, promptAmbig }) {
 		if (whitelist.indexOf(author.id) < 0) return console.log("prohibited access to eval");
 
 		let result = await send("Evaluating...");
