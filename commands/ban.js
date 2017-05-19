@@ -3,7 +3,7 @@ const EXPIRE = 10000;
 
 module.exports = {
 	name:'ban',
-  perm:'global.server.ban',
+  perm:['global.server.ban'],
 	async func(msg, { send, reply, member, author, content, args, channel, doEval, gMember }) {
     let memberToUse;
     try{ //get mention:
