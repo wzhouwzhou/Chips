@@ -5,25 +5,61 @@ const MAX_PROMPT = 5;
 module.exports = {
 	name:'ban',
 	async func(msg, { send, reply, member, author, content, args, channel, doEval }) {
+
     let memberToUse=member; //for now
-    let reason = content.substring(content.indexOf(args[1]));
+    let reason;
+    if(args[1])
+      reason = content.substring(content.indexOf(args[1]));
 
     const embed = new Discord.RichEmbed();
     embed
-      .setAuthor(`Ban confirmation - ${memberToUse.user.tag}`, memberToUse.user.displayAvatarURL)
+      .setAuthor(`Ban confirmation - Banning ${memberToUse.user.tag}`, memberToUse.user.displayAvatarURL)
       .setColor("RED")
       .setDescription(reason || "No reason")
       .setTimestamp(new Date());
     let question = "Are you sure you want to ban this member?\nThis will expire in 15 seconds. Type __y__es or __n__o.`,`";
     send(question, {embed: embed});
+    let confirmed = false;
+
+    let collector = channel.createMessageCollector(
+      m => {
+        if(/^(?:y(?:es)?)|(?:no?)$/i.test(m.content)){
+          if(m.author.id==author.id) m.reply("Accepted");
+          else return m.reply ("Denied");
+          confirmed=true;
+          collector.stop();
+          return true;
+        }
+      },
+      { time: 15000 }
+    );
+    collector.on('message', m => {
+      if(confirmed) return;
+    });
+    collector.on('end', collected => {
+      console.log(`[Ban]: Collected ${m.content}`);
+      if(m.author.id!=author.id) return;
+      confirmed=true;
+      console.log("Banning...");
+      m.reply('Banning!');
+      //member.ban()
+      if(!confirmed) return reply('Ban timed out');
+    });
+
+    // Await !vote messages
+const filter = m => m.content.startsWith('!vote');
+// Errors: ['time'] treats ending because of the time limit as an error
+
+    /*
     const filter = (msg2) => {
-        console.log(/^(?:y(?:es)?)|(?:no?)$/i.test(msg2.content));
-        return msg2.author.id==msg.author.id&&/^(?:y(?:es)?)|(?:no?)$/i.test(msg2.content);
+        msg2.content.startsWith("BAN");
+        //console.log(/^(?:y(?:es)?)|(?:no?)$/i.test(msg2.content));
+        //return msg2.author.id==msg.author.id&&/^(?:y(?:es)?)|(?:no?)$/i.test(msg2.content);
       };
-      const msgs = await msg.channel.awaitMessages(filter, { time: AMBIGUITY_EXPIRE, maxMatches: 1, errors: ['time'] }).then(msgs=>{
-        if(msgs.size==0) return reply("Ban cancelled.");
-        else return reply("Banning!");
-      }).catch(err=>{return reply("Timed out");});
+    const msgs = await channel.awaitMessages(filter, { time: 5000, maxMatches: 5, errors: ['time'] }).then(msgs=>{
+      if(!msgs||msgs.size==0) return reply("Ban cancelled.");
+      else return reply("Banning!");
+    }).catch(err=>{return reply("Timed out");});*/
   }
 };
 
