@@ -1,12 +1,26 @@
 const Searcher = require(path.join(__dirname, '../handlers/Searcher'));
-const AMBIGUITY_EXPIRE = 30000;
-const MAX_PROMPT = 5;
+const EXPIRE = 10000;
 
 module.exports = {
 	name:'ban',
-	async func(msg, { send, reply, member, author, content, args, channel, doEval }) {
+  perm:'global.server.ban',
+	async func(msg, { send, reply, member, author, content, args, channel, doEval, gMember }) {
+    let memberToUse;
+    try{ //get mention:
+      console.log("Trying to find user by mention..");
+      if(!args[0]) return reply("Please specify a user to ban!");
+      let target = args[0].match(Constants.patterns.MENTION)[1];
+      if(!target) return reply("Please specify a valid user to ban!");
+      memberToUse = gMember(target);
+      if(memberToUse==null)
+        return reply("Invalid member!");
+      if(member.id == memberToUse.id)
+        return reply("I can't let you ban yourself >.>");
+    }catch(err){  //gMember failed:
+      console.log(err);
+      return reply("I like chips.");
+    }
 
-    let memberToUse=member; //for now
     let reason;
     if(args[1])
       reason = content.substring(content.indexOf(args[1]));
@@ -16,53 +30,47 @@ module.exports = {
       .setAuthor(`Ban confirmation - Banning ${memberToUse.user.tag}`, memberToUse.user.displayAvatarURL)
       .setColor("RED")
       .setDescription(reason || "No reason")
-      .setTimestamp(new Date());
-    let question = "Are you sure you want to ban this member?\nThis will expire in 15 seconds. Type __y__es or __n__o.`,`";
+      .setTimestamp(new Date())
+      .setThumbnail(Constants.images.WARNING);
+    let question = "Are you sure you want to ban this member?\nThis will expire in 10 seconds. Type __y__es or __n__o.`";
     send(question, {embed: embed});
-    let confirmed = false;
+    let confirmed = false, agreed=false;
 
     let collector = channel.createMessageCollector(
       m => {
         if(/^(?:y(?:es)?)|(?:no?)$/i.test(m.content)){
-          if(m.author.id==author.id) m.reply("Accepted");
-          else return m.reply ("Denied");
-          confirmed=true;
-          collector.stop();
+          if(m.author.id==author.id) m.reply("Choice accepted. Now processing...");
+          //else return m.reply ("Denied");
+          confirmed = true;
+          agreed = /^(?:y(?:es)?)$/i.test(m.content);
+          setTimeout(_=>collector.stop(), 1000);
           return true;
         }
       },
-      { time: 15000 }
+      { time: EXPIRE }
     );
     collector.on('message', m => {
-      if(confirmed) return;
+      if(confirmed) return collector.stop();
     });
     collector.on('end', collected => {
-      console.log(`[Ban]: Collected ${m.content}`);
-      if(m.author.id!=author.id) return;
-      confirmed=true;
-      console.log("Banning...");
-      m.reply('Banning!');
-      //member.ban()
       if(!confirmed) return reply('Ban timed out');
+      else{
+        let m = collected.first();
+        console.log(`[Ban]: Collected ${m.content}`);
+        if(m.author.id!=author.id) return;
+        if(agreed){
+          console.log("[Ban] Banning...");
+          m.reply("Banning! (jk we're just testing)");
+          //member.ban()
+        }else{
+          console.log("[Ban] cancelled");
+          m.reply("Ok, ban cancelled!");
+        }
+      }
     });
-
-    // Await !vote messages
-const filter = m => m.content.startsWith('!vote');
-// Errors: ['time'] treats ending because of the time limit as an error
-
-    /*
-    const filter = (msg2) => {
-        msg2.content.startsWith("BAN");
-        //console.log(/^(?:y(?:es)?)|(?:no?)$/i.test(msg2.content));
-        //return msg2.author.id==msg.author.id&&/^(?:y(?:es)?)|(?:no?)$/i.test(msg2.content);
-      };
-    const msgs = await channel.awaitMessages(filter, { time: 5000, maxMatches: 5, errors: ['time'] }).then(msgs=>{
-      if(!msgs||msgs.size==0) return reply("Ban cancelled.");
-      else return reply("Banning!");
-    }).catch(err=>{return reply("Timed out");});*/
   }
 };
-
+/*
 global.prompt = async ({msg, question, invalidMsg, filter, timeout = AMBIGUITY_EXPIRE, cancel = true, options = {} }) => {
   let cancelled = false;
   let satisfied = null;
@@ -200,3 +208,4 @@ This command will automatically cancel after 30 seconds. Type \`cancel\` to canc
     cancelled: true,
   };
 };
+*/
