@@ -44,6 +44,7 @@ ex.permsList = [
 
 ex.defaultperms = new Map(ex.permsList);
 
+//these perms are active across ALL servers
 ex.userpermissions = {
   "259209114268336129": //Willy
     [
@@ -112,6 +113,21 @@ ex.rolepermissions = {
     ],
 };
 
+ex.memberPermissions = {
+  "257889450850254848": //sinx
+  {
+    "259209114268336129": //Willy
+    [
+      {name: ex.permsList[37][0], action: 1}
+    ],
+    "277670245034885120": //Asuna
+    [
+      {name: ex.permsList[24][0], action: 1},
+      {name: ex.permsList[37][0], action: 1},
+    ],
+  }
+};
+
 ex.serverpermissions = {
   "302983444009451541":
     [
@@ -150,8 +166,7 @@ ex.checkPermission = function(msg, perm){
     let guild = msg.guild,
       id = msg.author.id;
     if(guild){
-      let gid = guild.id,
-        gp = ex.serverpermissions[gid];
+      let gp = ex.serverpermissions[guild.id];
       if(gp!=null){
         gp.forEach(pEntry => {
           if(pEntry.name==perm&&pEntry.action==-1)
@@ -174,6 +189,24 @@ ex.checkPermission = function(msg, perm){
               break;
           }
       });
+    }
+    if(guild){
+      let mp = ex.memberpermissions[guild.id][id];
+      if (mp) {
+        mp.forEach(pEntry=>{
+          if(pEntry.name==perm)
+            switch (pEntry.action){
+              case -1:
+                reject(`I'm sorry, but you do not have access to the \`\`${perm}\`\` permission!`);
+                break;
+              case 1:
+                response(`Member perm overwrite for: ${perm}`);
+                break;
+              default:
+                break;
+            }
+        });
+      }
     }
     msg.member.roles.forEach(r=>{
       console.log("New role found: " + r.id + "for user "+ id);
