@@ -4,36 +4,26 @@ const MAX_PROMPT = 5;
 
 module.exports = {
 	name:'ban',
-	async func(msg, { send, member, author, content, channel, doEval, prompt, promptAmbig }) {
-    let dummy = {};
-    const actions = [
-      (dummy.actions && dummy.actions[0]) || "Banning",
-      (dummy.actions && dummy.actions[1]) || "Banned",
-      (dummy.actions && dummy.actions[2]) || "banned",
-      (dummy.actions && dummy.actions[3]) || "Ban",
-      (dummy.actions && dummy.actions[4]) || "ban",
-    ];
-    let memberToUse=member;
-    let reason = "hoi";
+	async func(msg, { send, reply, member, author, content, args, channel, doEval }) {
+    let memberToUse=member; //for now
+    let reason = content.substring(content.indexOf(args[1]));
+
     const embed = new Discord.RichEmbed();
     embed
-      .setAuthor(`${actions[3]} confirmation - ${memberToUse.user.tag}`, memberToUse.user.displayAvatarURL)
+      .setAuthor(`Ban confirmation - ${memberToUse.user.tag}`, memberToUse.user.displayAvatarURL)
       .setColor("RED")
       .setDescription(reason || "No reason")
       .setTimestamp(new Date());
-    const result =prompt({
-      msg: msg,
-      question: `Are you sure you want to ${actions[4]} this member? \
-This will expire in 15 seconds. Type __y__es or __n__o.`,
-      invalidMsg: "__Y__es or __n__o?",
-      filter: (msg2) => {
+    let question = "Are you sure you want to ban this member?\nThis will expire in 15 seconds. Type __y__es or __n__o.`,`";
+    send(question, {embed: embed});
+    const filter = (msg2) => {
         console.log(/^(?:y(?:es)?)|(?:no?)$/i.test(msg2.content));
-        return /^(?:y(?:es)?)|(?:no?)$/i.test(msg2.content);
-      },
-      timeout: 15*1000,
-      cancel: false,
-      options: { embed },
-    });
+        return msg2.author.id==msg.author.id&&/^(?:y(?:es)?)|(?:no?)$/i.test(msg2.content);
+      };
+      const msgs = await msg.channel.awaitMessages(filter, { time: AMBIGUITY_EXPIRE, maxMatches: 1, errors: ['time'] }).then(msgs=>{
+        if(msgs.size==0) return reply("Ban cancelled.");
+        else return reply("Banning!");
+      }).catch(err=>{return reply("Timed out");});
   }
 };
 
@@ -46,7 +36,7 @@ global.prompt = async ({msg, question, invalidMsg, filter, timeout = AMBIGUITY_E
     }
     console.log(msg2.content);
     const result = filter(msg2);
-    if (result != false && result != null) {
+    if (result !== false && result != null) {
       satisfied = msg2;
       console.log("SATISFIED");
       return true;
@@ -54,9 +44,10 @@ global.prompt = async ({msg, question, invalidMsg, filter, timeout = AMBIGUITY_E
     return false;
   };
   const sentmsg = await msg.channel.send(question, options || {});
-  for (let i = 0; i < MAX_PROMPT; i++) {
+  for (let i = 0; i < 5; i++) {
     try {
-      const msgs = await msg.channel.awaitMessages(filterToUse, { time: timeout, maxMatches: 1, errors: ["time"] });
+      const msgs = await sentmsg.channel.awaitMessages(filterToUse, { time: timeout, maxMatches: 1, errors: ["time"] });
+      console.log("msgs: " + msgs.array().join(" "));
       if (!satisfied) {
         if (i < 5) {
           msg.channel.send(invalidMsg);
@@ -64,9 +55,11 @@ global.prompt = async ({msg, question, invalidMsg, filter, timeout = AMBIGUITY_E
         continue;
       }
       if (cancelled) {
+        console.log("cancelled");
         break;
       }
       if (satisfied) {
+        console.log("Satisfied content: "+ satisfied.content);
         return satisfied.content;
       }
     }
