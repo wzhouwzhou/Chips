@@ -116,6 +116,10 @@ ex.rolepermissions = {
     [
       {name: ex.permsList[27][0], action: 1}
     ],
+  "307624566946005003": //(Support) staff
+    [
+      {name: ex.permsList[38][0], action: 1},
+    ],
 };
 
 ex.memberpermissions = {
