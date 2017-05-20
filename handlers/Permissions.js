@@ -122,6 +122,7 @@ ex.rolepermissions = {
     ],
   "313758451866271774": //(Colour league) staff
     [
+      {name: ex.permsList[4] [0], action: 1},
       {name: ex.permsList[38][0], action: 1},
     ],
 };
