@@ -62,8 +62,18 @@ module.exports = {
         if(m.author.id!=author.id) return;
         if(agreed){
           console.log("[Ban] Banning...");
-          m.reply("Banning! (jk we're just testing)");
-          //member.ban()
+					let emb = new Discord.RichEmbed()
+			      .setAuthor("Ban Notice!")
+			      .setTitle(`You were banned from the server: ${guild.name}!`)
+			      .setColor(9109504)
+			      .setThumbnail(Constants.images.WARNING)
+			      .addField("Ban reason: ", `${reason}`, true);
+		    	memberToUse.sendEmbed(emb).then(mes=>{
+						m.reply("Banning!");
+					}).catch(err=>{
+						m.reply("Could not dm the user, but banning anyway!");
+					});
+          //memberToUse.ban()
         }else{
           console.log("[Ban] cancelled");
           m.reply("Ok, ban cancelled!");
@@ -72,142 +82,3 @@ module.exports = {
     });
   }
 };
-/*
-global.prompt = async ({msg, question, invalidMsg, filter, timeout = AMBIGUITY_EXPIRE, cancel = true, options = {} }) => {
-  let cancelled = false;
-  let satisfied = null;
-  const filterToUse = (msg2) => {
-    if (msg2.content == "cancel" && cancel) {
-      return (cancelled = true);
-    }
-    console.log(msg2.content);
-    const result = filter(msg2);
-    if (result !== false && result != null) {
-      satisfied = msg2;
-      console.log("SATISFIED");
-      return true;
-    }
-    return false;
-  };
-  const sentmsg = await msg.channel.send(question, options || {});
-  for (let i = 0; i < 5; i++) {
-    try {
-      const msgs = await sentmsg.channel.awaitMessages(filterToUse, { time: timeout, maxMatches: 1, errors: ["time"] });
-      console.log("msgs: " + msgs.array().join(" "));
-      if (!satisfied) {
-        if (i < 5) {
-          msg.channel.send(invalidMsg);
-        }
-        continue;
-      }
-      if (cancelled) {
-        console.log("cancelled");
-        break;
-      }
-      if (satisfied) {
-        console.log("Satisfied content: "+ satisfied.content);
-        return satisfied.content;
-      }
-    }
-    catch (err) {
-      break;
-    }
-  }
-  msg.channel.send("Command cancelled.");
-  return "";
-};
-
-global.promptAmbig = async (members, pluralName = "members") => {
-  let satisfied = false;
-  let cancelled = false;
-  let currentOptions = [];
-  const getTag = (gm) => {
-    if (gm instanceof Discord.User) {
-      return gm.tag;
-    }
-    else if (gm instanceof Discord.GuildMember) {
-      return gm.user.tag;
-    }
-    else {
-      return gm.toString();
-    }
-  };
-  members.forEach((gm) => currentOptions.push(gm));
-  const filter = (msg2) => {
-    const options = currentOptions;
-    if (msg2.author.id !== msg.author.id) {
-      return false;
-    }
-    if (msg2.content == "cancel" || msg2.content == "`cancel`") {
-      cancelled = true;
-      return true;
-    }
-    const tagOptions = options.map((gm) => getTag(gm));
-    if (tagOptions.includes(msg2.content)) {
-      satisfied = true;
-      currentOptions = [options[tagOptions.indexOf(msg2.content)]];
-      return true;
-    }
-    const collOptions = new Discord.Collection();
-    options.forEach((gm) => {
-      collOptions.set((gm instanceof Discord.GuildMember || gm instanceof Discord.User) ? gm.id : gm.toString(), gm);
-    });
-    const searcher2 = new Searcher.default({ members: collOptions });
-    const resultingMembers = searcher2.searchMember(msg2.content);
-    if (resultingMembers.length < 1) {
-      return true;
-    }
-    if (resultingMembers.length > 1) {
-      currentOptions = resultingMembers;
-      return true;
-    }
-    satisfied = true;
-    currentOptions = resultingMembers;
-    return true;
-  };
-  reply(`Multiple ${pluralName} have matched that search. Please specify one.
-This command will automatically cancel after 30 seconds. Type \`cancel\` to cancel.
-**Members Matched**:
-  \`${currentOptions.map((gm) => getTag(gm)).join("`,`")}\``);
-  for (let i = 0; i < MAX_PROMPT; i++) {
-    try {
-      const result = await channel.awaitMessages(filter, {
-        time: AMBIGUITY_EXPIRE, maxMatches: 1,
-        errors: ["time"],
-      });
-      if (satisfied) {
-        return {
-          member: currentOptions[0],
-          cancelled: false,
-        };
-      }
-      if (cancelled) {
-        msg.channel.send("Command cancelled.");
-        return {
-          member: null,
-          cancelled: true,
-        };
-      }
-      if (i < 5) {
-        reply(`Multiple ${pluralName} have matched that search. Please specify one.
-This command will automatically cancel after 30 seconds. Type \`cancel\` to cancel.
-**Members Matched**:
-        \`${currentOptions.map((gm) => getTag(gm)).join("`,`")}\``);
-      }
-    }
-    catch (err) {
-      console.log(`Error: At PromptAmbig: ${err}`);
-      msg.channel.send("Command cancelled.");
-      return {
-        member: null,
-        cancelled: true,
-      };
-    }
-  }
-  msg.channel.send("Automatically cancelled command.");
-  return {
-    member: null,
-    cancelled: true,
-  };
-};
-*/
