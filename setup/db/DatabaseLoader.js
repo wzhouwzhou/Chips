@@ -65,7 +65,7 @@ const loadsheet = function(sheet) {
         let guildid = row.guildid;
         let roleid = row.roleid;
         let perm = row.perm;
-        let action = row.action;
+        let action = parseInt(row.action);
         let obj = { type, userid, guildid, roleid, perm, action };
         perms.updatePermission( obj );
       });
