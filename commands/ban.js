@@ -72,10 +72,10 @@ module.exports = {
 			      .addField("Ban reason: ", `${reason}`, true);
 		    	memberToUse.send('Uh oh!', {embed: emb}).then(mes=>{
 						m.reply("Banning!");
-						memberToUse.ban({reason: reason});
+						memberToUse.ban({reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
 					}).catch(err=>{
 						m.reply("Could not dm the user, but banning anyway!");
-						memberToUse.ban({reason: reason});
+						memberToUse.ban({reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
 					});
         }else{
           console.log("[Ban] cancelled");
