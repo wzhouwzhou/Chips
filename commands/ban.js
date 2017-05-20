@@ -4,7 +4,7 @@ const EXPIRE = 10000;
 module.exports = {
 	name:'ban',
   perm:['global.server.ban'],
-	async func(msg, { send, reply, member, author, content, args, channel, doEval, gMember }) {
+	async func(msg, { send, reply, member, author, content, args, channel, guild, gMember }) {
     let memberToUse;
     try{ //get mention:
       console.log("Trying to find user by mention..");
