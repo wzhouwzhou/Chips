@@ -24,6 +24,8 @@ module.exports = {
     let reason;
     if(args[1])
       reason = content.substring(content.indexOf(args[1]));
+		if(reason == null)
+			reason = "No reason provided.";
 
     const embed = new Discord.RichEmbed();
     embed
@@ -68,12 +70,13 @@ module.exports = {
 			      .setColor(9109504)
 			      .setThumbnail(Constants.images.WARNING)
 			      .addField("Ban reason: ", `${reason}`, true);
-		    	memberToUse.sendEmbed(emb).then(mes=>{
+		    	memberToUse.send('Uh oh!', {embed: emb}).then(mes=>{
 						m.reply("Banning!");
+						memberToUse.ban({reason: reason});
 					}).catch(err=>{
 						m.reply("Could not dm the user, but banning anyway!");
+						memberToUse.ban({reason: reason});
 					});
-          //memberToUse.ban()
         }else{
           console.log("[Ban] cancelled");
           m.reply("Ok, ban cancelled!");
