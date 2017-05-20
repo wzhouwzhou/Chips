@@ -1,3 +1,4 @@
+const perms = require('../../handlers/Permissions');
 
 global.blacklist = {
   252525368865456130: [
@@ -49,14 +50,26 @@ const loadsheet = function(sheet) {
 		}
 		else if (sheet.title == 'filter') {
 			rows.forEach(row =>{
-					if(blacklist[row.guildid]==null){
-						console.log("[Filter] Creating new blacklist for guild " + row.guildid);
-						blacklist[row.guildid]=['ok'];
-					}
-					blacklist[row.guildid].push(row.keyword);
-					console.log("[Filter] Added keyword to guild " + row.guildid + ": " + row.keyword);
-				});
+				if(blacklist[row.guildid]==null){
+					console.log("[Filter] Creating new blacklist for guild " + row.guildid);
+					blacklist[row.guildid]=['ok'];
+				}
+				blacklist[row.guildid].push(row.keyword);
+				console.log("[Filter] Added keyword to guild " + row.guildid + ": " + row.keyword);
+			});
 		}
+    else if (sheet.title == "permissions"){
+      rows.forEach(row => {
+        let type = row.type;
+        let userid = row.userid;
+        let guildid = row.guildid;
+        let roleid = row.roleid;
+        let perm = row.perm;
+        let action = row.action;
+        let obj = { type, userid, guildid, roleid, perm, action };
+        perms.updatePermission( obj );
+      });
+    }
 		else {
 			console.log('useless sheet found: '+sheet.title);
 		}

@@ -116,15 +116,6 @@ ex.rolepermissions = {
     [
       {name: ex.permsList[27][0], action: 1}
     ],
-  "307624566946005003": //(Support) staff
-    [
-      {name: ex.permsList[38][0], action: 1},
-    ],
-  "313758451866271774": //(Colour league) staff
-    [
-      {name: ex.permsList[4] [0], action: 1},
-      {name: ex.permsList[38][0], action: 1},
-    ],
 };
 
 ex.memberpermissions = {
@@ -154,22 +145,63 @@ ex.serverpermissions = {
     [
       {name: ex.permsList[0][0], action: -1},
       {name: ex.permsList[1][0], action: -1},
-      {name: ex.permsList[2][0], action: -1}
+      {name: ex.permsList[2][0], action: -1},
+    ],
+  "257889450850254848":
+    [
+      {name: ex.permsList[30][0], action: -1},
     ],
 };
 
-ex.updatePermission = function(id, perm, type, action){
+ex.updatePermission = function({type, userid, guildid, roleid, perm, action}){
   new Promise((response, reject) => {
     if(!ex.defaultperms.has(perm)) reject("Invalid Permission");
     switch(type){
       case "user":
+        if(!ex.userpermissions[userid])
+          ex.userpermissions[userid] = [];
+        ex.userpermissions[userid].push(
+          {name: perm, action: action}
+        );
+        console.log("Update user perm: " );
+        response(ex.userpermissions[userid]);
       break;
+
+      case "member":
+        if(!ex.memberpermissions[guildid])
+          ex.memberpermissions[guildid] = {};
+        if(!ex.memberpermissions[guildid][userid])
+          ex.memberpermissions[guildid][userid] = [];
+        ex.memberpermissions[guildid][userid].push(
+          {name: perm, action: action}
+        );
+        console.log("Update member perm: ");
+        response(ex.memberpermissions[guildid][userid]);
+      break;
+
       case "role":
+        if(!ex.rolepermissions[roleid])
+          ex.rolepermissions[roleid] = [];
+        ex.rolepermissions[roleid].push(
+          {name: perm, action: action}
+        );
+        console.log("Update role perm: ");
+        response(ex.rolepermissions[roleid]);
       break;
+
       case "server":
+        if(!ex.serverpermissions[guildid])
+          ex.serverpermissions[guildid] = [];
+        ex.serverpermissions[guildid].push(
+          {name: perm, action: action}
+        );
+        console.log("Update server perm: ");
+        response(ex.serverpermissions[guildid]);
       break;
+
       default:
-      reject("Invalid Permissions Type");
+        console.log("Unknown permission received!");
+        reject("Invalid Permissions Type");
       break;
     }
   });
@@ -282,4 +314,4 @@ ex.rebuildDefaults = () =>{
 };
 
 module.exports = ex;
-ex.rebuildDefaults();
+//ex.rebuildDefaults();
