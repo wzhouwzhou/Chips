@@ -123,9 +123,14 @@ module.exports = function( send ) {
           let welcomeC=memberguild.channels.get("308772937731670016")||memberguild.channels.find('name','unverified');
           welcomeC.send(`<@${userid}>, Welcome! Please read <#307895557815402496> and become acquainted with the rules here, then contact a staff member to be able to speak in other channels!`);
         }, 1000);
+      }else if(memberguild.id=="315502587111669772"){
+        setTimeout(_=>{
+          console.log("Changing nick...");
+          member.setNickname(`♠️${member.user.username}`.subString(0,Math.min(member.user.username.length+1,32)));
+        });
       }
     } catch (err) {
-      console.log("could not add unverified role");
+      console.log("could not add unverified role or set nick");
     }
   });
 
