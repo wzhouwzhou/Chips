@@ -64,10 +64,12 @@ const loadsheet = function(sheet) {
         let userid = row.userid.toString();
         let guildid = row.guildid.toString();
         let roleid = row.roleid.toString();
-        let perm = row.perm;
+        let perm = row.perm.toString();
         let action = parseInt(row.action);
-        let obj = { type: type, userid: userid, guildid: guildid, roleid: roleid, perm: perm, action: action };
-        perms.updatePermission( obj ).then(info=>console.log(`[DBLOADER]: ${info}`));
+        perms.updatePermission( type, userid, guildid, roleid, perm, action )
+        .then(info=>console.log(`[DBLOADER]: ${info}`)).catch(err=>{
+          console.log(`[DBLOADER] [ERR] ${err}`);
+        });
       });
     }
 		else {
