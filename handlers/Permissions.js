@@ -154,17 +154,18 @@ ex.serverpermissions = {
 };
 
 ex.updatePermission = function({type, userid, guildid, roleid, perm, action}){
-  new Promise((response, reject) => {
+  let checked = false;
+  return new Promise((response, reject) => {
     if(!ex.defaultperms.has(perm)) reject("Invalid Permission");
     switch(type){
       case "user":
-        if(!ex.userpermissions[userid])
+        if(ex.userpermissions[userid]==null)
           ex.userpermissions[userid] = [];
         if(ex.userpermissions[userid].length!=0){
-          let perm;
-          for(p of ex.userpermissions[userid]){
+          for(const p of ex.userpermissions[userid]){
             if(p.name==perm){
               p.action=action;
+              let checked = true;
               response("Updated user permissions");
             }
           }
@@ -173,23 +174,25 @@ ex.updatePermission = function({type, userid, guildid, roleid, perm, action}){
             {name: perm, action: action}
           );
           console.log("Created new user permission");
+          let checked = true;
           response(ex.userpermissions[userid]);
         }
-
-        console.log("Could not update user perm! " );
-        reject(ex.userpermissions[userid]);
+        if(!checked){
+          console.log("Could not update user perm! " );
+          reject(ex.userpermissions[userid]);
+        }
       break;
 
       case "member":
-        if(!ex.memberpermissions[guildid])
+        if(ex.memberpermissions[guildid]==null)
           ex.memberpermissions[guildid] = {};
-        if(!ex.memberpermissions[guildid][userid])
+        if(ex.memberpermissions[guildid][userid]==null)
           ex.memberpermissions[guildid][userid] = [];
         if(ex.memberpermissions[guildid][userid].length!=0){
-          let perm;
-          for(p of ex.memberpermissions[userid][userid]){
+          for(const p of ex.memberpermissions[guildid][userid]){
             if(p.name==perm){
               p.action=action;
+              checked = true;
               response("Updated member permissions");
             }
           }
@@ -198,42 +201,48 @@ ex.updatePermission = function({type, userid, guildid, roleid, perm, action}){
             {name: perm, action: action}
           );
           console.log("Created new member permission");
+          checked = true;
           response(ex.memberpermissions[guildid]);
         }
-        console.log("Could not update member perm! " );
-        reject(ex.memberpermissions[guildid]);
+        if(!checked){
+          console.log("Could not update member perm! " );
+          reject(ex.memberpermissions[guildid]);
+        }
       break;
 
       case "role":
-        if(!ex.rolepermissions[roleid])
+        if(ex.rolepermissions[roleid]==null)
           ex.rolepermissions[roleid] = [];
         if(ex.rolepermissions[roleid].length!=0){
-          let perm;
-          for(p of ex.rolepermissions[roleid]){
+          ex.rolepermissions[roleid].forEach(p=>{
             if(p.name==perm){
               p.action=action;
+              checked = true;
               response("Updated role permissions");
             }
-          }
+          });
         }else{
           ex.rolepermissions[roleid].push(
             {name: perm, action: action}
           );
-          console.log("Created new role permission");
-          response(ex.rpoleermissions[roleid]);
+          console.log("Created new role permission for role " + roleid);
+          checked = true;
+          response(ex.rolepermissions[roleid]);
         }
-        console.log("Could not role user perm! " );
-        reject(ex.rolepermissions[roleid]);
+        if(!checked){
+          console.log("Could not update role perm for role " + roleid);
+          reject(ex.rolepermissions[roleid]);
+        }
       break;
 
       case "server":
-        if(!ex.serverpermissions[guildid])
+        if(ex.serverpermissions[guildid]==null)
           ex.serverpermissions[guildid] = [];
         if(ex.serverpermissions[guildid].length!=0){
-          let perm;
-          for(p of ex.serverpermissions[guildid]){
+          for(const p of ex.serverpermissions[guildid]){
             if(p.name==perm){
               p.action=action;
+              checked = true;
               response("Updated server permissions");
             }
           }
@@ -242,10 +251,13 @@ ex.updatePermission = function({type, userid, guildid, roleid, perm, action}){
             {name: perm, action: action}
           );
           console.log("Created new server permission");
+          checked = true;
           response(ex.serverpermissions[guildid]);
         }
-        console.log("Could not update server perm! " );
-        reject(ex.serverpermissions[guildid]);
+        if(!checked){
+          console.log("Could not update server perm! " );
+          reject(ex.serverpermissions[guildid]);
+        }
       break;
 
       default:

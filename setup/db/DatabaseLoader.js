@@ -61,13 +61,13 @@ const loadsheet = function(sheet) {
     else if (sheet.title == "permissions"){
       rows.forEach(row => {
         let type = row.type;
-        let userid = row.userid;
-        let guildid = row.guildid;
-        let roleid = row.roleid;
+        let userid = row.userid.toString();
+        let guildid = row.guildid.toString();
+        let roleid = row.roleid.toString();
         let perm = row.perm;
         let action = parseInt(row.action);
-        let obj = { type, userid, guildid, roleid, perm, action };
-        perms.updatePermission( obj );
+        let obj = { type: type, userid: userid, guildid: guildid, roleid: roleid, perm: perm, action: action };
+        perms.updatePermission( obj ).then(info=>console.log(`[DBLOADER]: ${info}`));
       });
     }
 		else {
