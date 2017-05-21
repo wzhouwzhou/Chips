@@ -153,50 +153,115 @@ ex.serverpermissions = {
     ],
 };
 
-ex.updatePermission = function({type, userid, guildid, roleid, perm, action}){
-  new Promise((response, reject) => {
-    if(!ex.defaultperms.has(perm)) reject("Invalid Permission");
+ex.updatePermission = function(type, userid=null, guildid=null, roleid=null, perm, action){
+  return new Promise((resolve, reject) => {
+    let checked = false;
+    if(!ex.defaultperms.has(perm)) return reject("Invalid Permission");
     switch(type){
       case "user":
-        if(!ex.userpermissions[userid])
+        if(ex.userpermissions[userid]==null)
           ex.userpermissions[userid] = [];
+        if(ex.userpermissions[userid].length!=0){
+          for(const p of ex.userpermissions[userid]){
+            if(p.name==perm){
+              p.action=action;
+              checked = true;
+              resolve("Updated user permissions");
+              return;
+            }
+          }
+        }
         ex.userpermissions[userid].push(
           {name: perm, action: action}
         );
-        console.log("Update user perm: " );
-        response(ex.userpermissions[userid]);
+        console.log("Created new user permission");
+        checked = true;
+        resolve("Created new user permission");
+
+        if(!checked){
+          console.log("Could not update user perm! " );
+          reject(JSON.stringify(ex.userpermissions[userid]));
+        }
       break;
 
       case "member":
-        if(!ex.memberpermissions[guildid])
+        if(ex.memberpermissions[guildid]==null)
           ex.memberpermissions[guildid] = {};
-        if(!ex.memberpermissions[guildid][userid])
+        if(ex.memberpermissions[guildid][userid]==null)
           ex.memberpermissions[guildid][userid] = [];
+        if(ex.memberpermissions[guildid][userid].length!=0){
+          for(const p of ex.memberpermissions[guildid][userid]){
+            if(p.name==perm){
+              p.action=action;
+              checked = true;
+              resolve("Updated member permissions");
+              return;
+            }
+          }
+        }
         ex.memberpermissions[guildid][userid].push(
           {name: perm, action: action}
         );
-        console.log("Update member perm: ");
-        response(ex.memberpermissions[guildid][userid]);
+        console.log("Created new member permission");
+        checked = true;
+        resolve("Created new member permission");
+
+        if(!checked){
+          console.log("Could not update member perm! " );
+          reject(JSON.stringify(ex.memberpermissions[guildid]));
+        }
       break;
 
       case "role":
-        if(!ex.rolepermissions[roleid])
+        if(ex.rolepermissions[roleid]==null)
           ex.rolepermissions[roleid] = [];
+        if(ex.rolepermissions[roleid].length!=0){
+          ex.rolepermissions[roleid].forEach(p=>{
+            if(p.name==perm){
+              p.action=action;
+              checked = true;
+              resolve("Updated role permissions");
+              return;
+            }
+          });
+        }
         ex.rolepermissions[roleid].push(
           {name: perm, action: action}
         );
-        console.log("Update role perm: ");
-        response(ex.rolepermissions[roleid]);
+        console.log("Created new role permission for role " + roleid);
+        checked = true;
+        resolve("Created role perm");
+
+        if(!checked){
+          console.log("Could not update role perm for role " + roleid);
+          reject(JSON.stringify(ex.rolepermissions[roleid]));
+        }
       break;
 
       case "server":
-        if(!ex.serverpermissions[guildid])
+        if(ex.serverpermissions[guildid]==null)
           ex.serverpermissions[guildid] = [];
+        if(ex.serverpermissions[guildid].length!=0){
+          for(const p of ex.serverpermissions[guildid]){
+            if(p.name==perm){
+              p.action=action;
+              checked = true;
+              resolve("Updated server permissions");
+              return;
+            }
+          }
+        }
         ex.serverpermissions[guildid].push(
           {name: perm, action: action}
         );
-        console.log("Update server perm: ");
-        response(ex.serverpermissions[guildid]);
+        console.log("Created new server permission");
+        checked = true;
+        resolve("Created server permission");
+
+        if(!checked){
+          console.log("Could not update server perm! " );
+          reject(JSON.stringify(ex.serverpermissions[guildid]));
+        }
       break;
 
       default:
@@ -208,7 +273,7 @@ ex.updatePermission = function({type, userid, guildid, roleid, perm, action}){
 };
 
 ex.checkPermission = function(msg, perm){
-  return new Promise((response,reject) => {
+  return new Promise((resolve,reject) => {
     let guild = msg.guild,
       id = msg.author.id;
     if(guild){
@@ -229,7 +294,7 @@ ex.checkPermission = function(msg, perm){
               reject(`I'm sorry, but you do not have access to the \`\`${perm}\`\` permission!`);
               break;
             case 1:
-              response(`User perm overwrite for: ${perm}`);
+              resolve(`User perm overwrite for: ${perm}`);
               break;
             default:
               break;
@@ -246,7 +311,7 @@ ex.checkPermission = function(msg, perm){
                 reject(`I'm sorry, but you do not have access to the \`\`${perm}\`\` permission!`);
                 break;
               case 1:
-                response(`Member perm overwrite for: ${perm}`);
+                resolve(`Member perm overwrite for: ${perm}`);
                 break;
               default:
                 break;
@@ -268,7 +333,7 @@ ex.checkPermission = function(msg, perm){
               switch(pEntry.action){
                 case 1:
                 console.log("Success: role");
-                response("This action is approved (by member role)");
+                resolve("This action is approved (by member role)");
                 break;
                 case -1:
                 console.log("Denial: role");
@@ -287,7 +352,7 @@ ex.checkPermission = function(msg, perm){
     let value = ex.defaultperms.has(perm)?ex.defaultperms.get(perm):true;
     console.log("The default for that perm is: " + value);
     if(value){
-      response("This command is enabled by default");
+      resolve("This command is enabled by default");
     }
     else
       reject(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`);
@@ -295,7 +360,7 @@ ex.checkPermission = function(msg, perm){
 };
 
 ex.checkMulti = (msg, permArr) => {
-  return new Promise((response, reject) =>{
+  return new Promise((resolve, reject) =>{
       permArr.forEach(perm =>{
 
       });
