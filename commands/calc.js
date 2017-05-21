@@ -22,7 +22,7 @@ module.exports = {
 
       let prompt = `What variable are we solving for?\nThis expires in 10 seconds`;
       await send(prompt, {embed: emb});
-
+      let confirmed = false;
       let collector = channel.createMessageCollector(
         m=> {
           if(m.author.id==author.id){
