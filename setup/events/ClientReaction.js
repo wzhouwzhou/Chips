@@ -5,7 +5,7 @@ module.exports = function() {
 
     console.log("Reaction detected");
     if (react.message.channel.type != 'dm') {
-      console.console.log("Not in DM");
+      console.log("Not in DM");
       return;
     }
 
