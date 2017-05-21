@@ -126,7 +126,7 @@ module.exports = function( send ) {
       }else if(memberguild.id=="315502587111669772"){
         setTimeout(_=>{
           console.log("Changing nick...");
-          member.setNickname(`(♠️)${member.user.username}`.substring(0,Math.min(member.user.username.length+3,32)));
+          member.setNickname(`(♤)${member.user.username}`.substring(0,Math.min(member.user.username+`(♤)`.length,32)));
         });
       }
     } catch (err) {
