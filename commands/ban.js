@@ -34,12 +34,11 @@ module.exports = {
       .setDescription(reason || "No reason")
       .setTimestamp(new Date())
       .setThumbnail(Constants.images.WARNING);
-    let question = "Are you sure you want to ban this member?\nThis will expire in 10 seconds. Type __y__es or __n__o.`";
-    send(question, {embed: embed});
+    let question = `"Do you want to ban ${memberToUse.nickname}?\nThis expires in 10 seconds. Type __y__es or __n__o.`;
+    await send(question, {embed: embed});
     let confirmed = false, agreed=false;
 
-    let collector = channel.createMessageCollector(
-      m => {
+    let collector = channel.createMessageCollector(m => {
         if(/^(?:y(?:es)?)|(?:no?)$/i.test(m.content)){
           if(m.author.id==author.id){
             m.reply("Choice accepted. Now processing...");
