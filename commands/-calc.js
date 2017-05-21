@@ -12,9 +12,15 @@ module.exports = {
     }catch(err){
       query = "";
     }
-    if(query=="") return reply("Please enter a valid equation ~~or expression~~(coming soon)!");
+    if(query=="") return reply("Please enter a valid equation or expression!");
 
-    if((content.match(/=/g)||[]).length == 1){ //we got an equation
+    if((content.match(/=/g)||[]).length == 0) {
+      emb = new Discord.RichEmbed();
+      emb.setAuthor(`New Expression Calculation`).setColor(member.displayColor);
+      emb.addField("Result: ", query?`${query.toString()}`:`Calculation could not be completed`);
+      emb.setTimestamp(new Date());
+      return reply("Results:", {embed: emb});
+    }else if((content.match(/=/g)||[]).length == 1){ //we got an equation
       let emb = new Discord.RichEmbed();
       emb.setAuthor(`New Equation Calculation`).setColor(member.displayColor);
       emb.setDescription(query.toString());
@@ -23,12 +29,13 @@ module.exports = {
       let prompt = `What variable are we solving for?\nThis expires in 10 seconds`;
       await send(prompt, {embed: emb});
       let confirmed = false;
+      let sentmsg;
       let collector = channel.createMessageCollector(
         m=> {
           if(m.author.id==author.id){
-            m.reply("Choice accepted. Now processing...");
+            m.reply("Choice accepted. Now processing...").then(m=>{sentmsg=m;});
             confirmed = true;
-            setTimeout(_=>collector.stop(), 1000);
+            setTimeout(_=>{collector.stop(); sentmsg.delete();}, 1000);
             return true;
           }//else return false;
         },
