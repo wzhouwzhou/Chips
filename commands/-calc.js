@@ -11,10 +11,11 @@ module.exports = {
       query = new algebra.parse(args.join(' '));
     }catch(err){
       query = "";
+      //if(query=="") return reply("Please enter a valid equation or expression!");
     }
-    if(query=="") return reply("Please enter a valid equation or expression!");
 
     if((content.match(/=/g)||[]).length == 0) {
+      if(query=="") return reply("Please enter a valid equation or expression!");
       emb = new Discord.RichEmbed();
       emb.setAuthor(`New Expression Calculation`).setColor(member.displayColor);
       emb.addField("Result: ", query?`${query.toString()}`:`Calculation could not be completed`);
@@ -23,11 +24,29 @@ module.exports = {
     }else if((content.match(/=/g)||[]).length == 1){ //we got an equation
       let emb = new Discord.RichEmbed();
       emb.setAuthor(`New Equation Calculation`).setColor(member.displayColor);
-      emb.setDescription(query.toString());
+
       emb.setTimestamp(new Date());
 
+      if((content.match(/,/g)||[]).length == 1){
+        let truecontent = args.join(' ');
+        console.log("True content: " + truecontent);
+        query=new algebra.parse(truecontent.substring(0,truecontent.indexOf(',')));
+        console.log("Query: " + query);
+        try{
+          ans = query.solveFor(truecontent.substring(truecontent.indexOf(',')+1));
+        }catch(err){
+          //ans = "I am not able to do this calculation!";//console.log(err);
+        }
+        ans = (!ans)?"I am not able to do this calculation!":ans;
+        console.log("Result: " + ans.toString());
+        emb.addField(query.toString(),"x=" + ans.toString());
+        return reply("Result:", {embed: emb});
+      }
+      if(query=="") return reply("Please enter a valid equation or expression!");
+      emb.setDescription(query.toString());
+      //if a variable is not specified prompt from the user.
       let prompt = `What variable are we solving for?\nThis expires in 10 seconds`;
-      await send(prompt, {embed: emb});
+      await reply(prompt, {embed: emb});
       let confirmed = false;
       let sentmsg;
       let collector = channel.createMessageCollector(
