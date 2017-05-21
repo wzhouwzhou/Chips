@@ -6,7 +6,7 @@ module.exports = function(Discord, client) {
     const context = {
       noprefix, prefix, msg, Discord, client,
       message: msg, channel: msg.channel, content: msg.content, guild: msg.guild, send: msg.channel.send.bind(msg.channel),
-      reply: msg.reply.bind(msg), member: msg.member, author: msg.author, args: _.drop(msg.content.split` `), bot: client,
+      reply: msg.reply.bind(msg), member: msg.member, author: msg.author, args: _.drop(msg.content.split(/\s+/)), bot: client,
       c: msg.channel,
       gMember: msg.guild.member.bind(msg.guild), getUser: client.users.get.bind(client.users),
       doEval: stuff => {
