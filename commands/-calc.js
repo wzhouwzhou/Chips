@@ -1,7 +1,7 @@
 const algebra = require('../handlers/algebra-0.2.6.min');
 const EXPIRE = 10000;
 module.exports = {
-  name: "calc",
+  name: "-calc",
   perm: ["global.calc"],
   async func(msg, {send, member, author, content, channel, guild, args, gMember, Discord, reply, bot}) {
 
