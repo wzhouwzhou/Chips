@@ -32,7 +32,7 @@ module.exports = {
       let voiceC = 0;
       let memusage = parseFloat((process.memoryUsage().heapUsed / 1024 / 1024));
       client.guilds.array().forEach(g=> {
-        userCount+=g.memberCount;
+        userCount+=g.members.size;
         console.log(userCount);
         guildCount++;
         g.channels.forEach(c=>{
@@ -73,7 +73,7 @@ module.exports = {
       let guildCount = 0;
 
       client.guilds.array().forEach(g=> {
-        userCount+=g.memberCount;
+        userCount+=g.members.size;
         guildCount++;
       });
 
