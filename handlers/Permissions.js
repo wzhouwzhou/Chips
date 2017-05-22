@@ -41,6 +41,7 @@ ex.permsList = [
   ['global.info.role'   ,false], //36
   ['global.server.rekt' ,false], //37
   ['global.server.ban'  ,false], //38
+  ['global.server.kick' ,false], //39
 ];
 
 ex.defaultperms = new Map(ex.permsList);
