@@ -4,6 +4,7 @@ const EXPIRE = 10000;
 module.exports = {
 	name:'kick',
   perm:['global.server.kick'],
+  customperm:['KICK_MEMBERS'],
 	async func(msg, { send, reply, member, author, content, args, channel, guild, gMember }) {
     let memberToUse;
     try{ //get mention:
