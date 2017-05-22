@@ -36,7 +36,7 @@ module.exports = function(Discord, client) {
             if(msg.member&&(!msg.member.hasPermission(cmd.customperm[0]))){
               console.log("[Command] Rejected");
               issue=true;
-              return msg.reply(`${reason}\nYou could also use this if you have \`\`${cmd.customperm[1]}\`\` permissions`);
+              return msg.reply(`${reason}\nYou could also use this if you have \`\`${cmd.customperm[0]}\`\` permissions`);
             }else{
               console.log("[Command] Accepted due to customperm bypass");
               return cmd.run(msg, context);
