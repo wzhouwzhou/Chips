@@ -62,8 +62,8 @@ module.exports = {
         console.log(`[Kick]: Collected ${m.content}`);
         if(m.author.id!=author.id) return;
         if(agreed){
-					if(!memberToUse.kickable) return reply("Uh oh! I can't kick this user!");
-					
+					if(!memberToUse.kickable) return reply("Uh oh! I can't kick this user! Perhaps I am missing perms..");
+
           console.log("[Kick] Kicking...");
 					let emb = new Discord.RichEmbed()
 			      .setAuthor("Kick Notice!")
@@ -73,10 +73,10 @@ module.exports = {
 			      .addField("Kick reason: ", `${reason}`, true);
 		    	memberToUse.send('Uh oh!', {embed: emb}).then(mes=>{
 						m.reply("Kicking!");
-						memberToUse.kick({reason: `[Kick]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
+						memberToUse.kick(`[Kick]: [Author]: ${m.author.tag} [Reason]: ${reason}`);
 					}).catch(err=>{
 						m.reply("Could not dm the user, but kicking anyway!");
-						memberToUse.kick({reason: `[Kick]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
+						memberToUse.kick(`[Kick]: [Author]: ${m.author.tag} [Reason]: ${reason}`);
 					});
         }else{
           console.log("[Kick] cancelled");

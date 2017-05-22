@@ -62,6 +62,8 @@ module.exports = {
         console.log(`[Ban]: Collected ${m.content}`);
         if(m.author.id!=author.id) return;
         if(agreed){
+					if(!memberToUse.bannable) return reply("Uh oh! I can't ban this user! Perhaps I am missing perms..");
+
           console.log("[Ban] Banning...");
 					let emb = new Discord.RichEmbed()
 			      .setAuthor("Ban Notice!")
