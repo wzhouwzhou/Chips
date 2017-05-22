@@ -89,6 +89,16 @@ module.exports = function( send ) {
   hclient.on("debug", console.log);
   h2client.on("debug", console.log);
   h3client.on("debug", console.log);
+  //replace me with https://github.com/thlorenz/readdirp/blob/master/README.md
+  //const glob = require( 'glob' );
+  //glob( path.join(__dirname, '../../commands/**/*.js'), function( err, files ) {
+  //  files.forEach(f=>{
+  //    console.log("New command loaded!: " + f);
+  //    const precmd = require(path.join(__dirname, '../../commands', f));
+  //    client.commands[precmd.name] = new Command(precmd);
+  //  });
+  //  console.log( files );
+  //});
 
   fs.readdirSync(path.join(__dirname, '../../commands')).map(f => {
     if (/\.js/.test(f)) {
