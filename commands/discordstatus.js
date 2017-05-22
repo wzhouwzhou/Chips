@@ -7,14 +7,16 @@ module.exports = {
   async func(msg, { send, reply }) {
     try{
       request(`https://srhpyqt94yxb.statuspage.io/api/v2/summary.json`,function(error, response, body){
-        if (!error)
+        if (!error){
+          let b = JSON.parse(body);
+          let updatetime = b.page.updated_at;
           try{
-            reply(`[${JSON.parse(body).status.indicator=="none"?"Status":JSON.parse(body).status.indicator}]: ${JSON.parse(body).status.description}`);
+            reply(`[${b.status.indicator=="none"?"Status":b.status.indicator}]: ${b.status.description} (Last updated at ${updatetime})`);
           } catch(err) {
             console.log(err);
             return reply("Something went wrong getting Discord status!");
           }
-        else
+        }else
           return reply("Something went wrong getting data from Discord status servers!");
       });
     }catch(err){
