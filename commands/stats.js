@@ -126,12 +126,12 @@ module.exports = {
       bad.addField("Total CPU Usage: ", `${globalTotals[7].toFixed(4)}%`,true);
       bad.addField("Total Memory Usage: ", `${globalTotals[5].toFixed(2)} MB`,true);
 
-      let invite = "https://discordapp.com/oauth2/authorize?client_id=296855425255473154&scope=bot&permissions=83147";
+      let invite = "[https://discordapp.com/oauth2/authorize?client_id=296855425255473154&scope=bot&permissions=2146958591](https://discordapp.com/oauth2/authorize?client_id=296855425255473154&scope=bot&permissions=2146958591)";
       bad.addField("Invite link: ", `${invite}`, false);
 
-      let support = "https://discord.gg/jj5FzF7";
+      let support = "[https://discord.gg/jj5FzF7](https://discord.gg/jj5FzF7)";
       bad.addField("Support server: ", `${support}`, false);
-      let website = "https://chipsbot.herokuapp.com/";
+      let website = "[https://chipsbot.herokuapp.com/](https://chipsbot.herokuapp.com/)";
       bad.addField("Official Website: ", `${website}`, false);
       channel.send(' ', {embed: bad});
     });
