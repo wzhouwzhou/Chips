@@ -15,7 +15,7 @@ We apologize for any inconveniences at this time, we are doing a permissions rew
 	  ***Moderation Commands***
 	  **{}kick** to kick someone.
 	  **{}ban** to ban someone.
-	   **{}pmute** to give someone a muted role! (Disclaimer: this does not create a Muted role)
+	  **{}pmute** to give someone a muted role! (Disclaimer: this does not create a Muted role)
 	  **{}clear** to clear some messages. (up to 99)
 	  ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
 	  ***Fun Commands***
@@ -33,8 +33,8 @@ We apologize for any inconveniences at this time, we are doing a permissions rew
 	  **{}roll** to roll some dice.
 	  **{}-ban** to ban people (Disclaimer: This is a fake ban).
 	  ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-      **{}listen** for terminal input (Deprecated)\n**Restricted/Whitelisted commands:**
+      ***Restricted/Whitelisted commands***
       {}emojiban to external-emoji ban someone.
-            {}botpanic to force shutdown (Auto restart)`.replace(/{}/g, prefix));
+      {}botpanic to force shutdown (Auto restart)`.replace(/{}/g, prefix));
   }
 };
