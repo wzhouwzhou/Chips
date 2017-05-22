@@ -129,7 +129,7 @@ module.exports = function( send ) {
           member.addRole(memberguild.roles.get("316017088160595970")||memberguild.roles.find('name',"unverified"));
           console.log("[SK2] sending welcome msg...");
           let welcomeC=client.channels.get("307342989783728131")||memberguild.channels.find('name','unverified');
-          welcomeC.send(`<@${userid}>, Welcome to Sun Knights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!**
+          welcomeC.send(`<@${userid}>, Welcome to Sun Knights Beta! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!**
             1. How did you hear about this server?
             2. Why did you join this server?
             3. Do you promise to read <#316019707276820483>?
