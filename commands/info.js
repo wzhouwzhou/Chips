@@ -2,7 +2,7 @@ const Searcher = require(path.join(__dirname, '../handlers/Searcher')).default;
 const ex = {
   name: "info",
   perm: ["global.info","global.info.all","global.info.serv","global.info.channel","global.info.role","global.info.user","global.info.user.self"],
-  customperm: ['MANAGE_GUILD'],
+  customperm: ['SEND_MESSAGES'],
   async func(msg, {send, member, author, channel, guild, args, gMember, reply, content }) {
     const used = member || author;
     let action;
@@ -73,14 +73,16 @@ const ex = {
       if (guild.iconURL&&guild.iconURL(2048)) infobad.setImage(guild.iconURL(2048));
       infobad.addField(`Name of this server: ${gname}`, `Guild id: ${guild.id}`);
       infobad.addField(`Server owner: `, `<@${guild.ownerID}>`);
-      infobad.addField(`Date created: ${guild.createdAt.toUTCString()}`, `That's about ${diff} days ago!`);
       infobad.addField(`Total number of channels: ${tC}`, `Total number of nsfw channels: ${nsfw}`);
       infobad.addField(`Text channel count:    `, textC       , true)
              .addField(`Voice channel count:   `, voiceC      , true)
              .addField(`Server region (voice): `, guild.region, true);
+      infobad.addField(`Default channel: `,`<#${guild.defaultChannel.id}>`, true);
+      if(guild.afkChannelID) infobad.addField(`AFK voice channel: #${guild.channels.get(guild.afkChannelID).name}`, `AFK Timeout: ${guild.afkTimeout/60} minute(s)`, true);
+      else infobad.addField(`AFK voice channel: `, `None`, true);
+      infobad.addField(`Date created: ${guild.createdAt.toUTCString()}`, `That's about ${diff} days ago!`);
       infobad.addField(`Member count: `, guild.memberCount, true);
       infobad.addField(`Total number of members: ${trueMemC.size} (Not including bots)`,`There are ${guild.members.size-trueMemC.size} bots!`, true);
-      infobad.addField(`Total number of channels: ${guild.channels.size}`,`The default channel is <#${guild.defaultChannel.id}>`);
       infobad.addField(`Reacheable members (online, idle or dnd): `, available);
       infobad.addField(`Online: `, online, true)
              .addField(`Idle:   `, idle  , true)
