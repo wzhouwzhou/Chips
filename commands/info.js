@@ -87,10 +87,11 @@ const ex = {
       infobad.addField(`Online: `, online, true)
              .addField(`Idle:   `, idle  , true)
              .addField(`Dnd:    `, dnd   , true);
-      infobad.addField(`Emoji count: ${guild.emojis.size}`, guild.emojis.array().join(' '));
       infobad.addField(`Verification level: ${vLvl}`,`That means ${vInfo}`);
-
-      return reply(`Server info`, {embed: infobad});
+      await reply(`Server info`, {embed: infobad});
+      infobad = new Discord.RichEmbed();
+      infobad.setColor(member.displayColor).setAuthor('Server Emojis').setTitle(`Emoji count: ${guild.emojis.size}`).setDescription(guild.emojis.array().join(' '));
+      return reply("Emoji List", {embed: infobad});
     }else if(action=="user"){
       let member=used;
 
