@@ -12,11 +12,11 @@ We apologize for any inconveniences at this time, we are doing a permissions rew
 	**{}stats** to show my stats.
 	**{}support** for chips' support server.
 	  ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-	  ***Moderation Commands***
-	  **{}ban** to ban someone.
-	  **{}clear** to clear some messages. (up to 99)
-	  **{}kick** to kick someone.
-	  **{}pmute** to give someone a muted role! (Disclaimer: this does not create a Muted role)
+	***Moderation Commands***
+	**{}ban** to ban someone.
+	**{}clear** to clear some messages. (up to 99)
+	**{}kick** to kick someone.
+	**{}pmute** to give someone a muted role! (Disclaimer: this does not create a Muted role)
 	  ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
 	  ***Fun Commands***
 	**{}aboose** for aboose.
