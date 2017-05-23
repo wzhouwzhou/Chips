@@ -1,4 +1,18 @@
 const Searcher = require(path.join(__dirname, '../handlers/Searcher')).default;
+
+const time = ["years","months","weeks","days","hours","minutes","seconds"];
+const memberJoin = (member , maxtime) => {
+  let diff =  moment().diff(member.joinedAt, time[maxtime], true).toFixed(2);
+  if(diff<1&&maxtime<time.length) diff = memberJoin (member, ++maxtime);
+  return diff+maxtime;
+};
+const lastSeen = (member, maxtime) => {
+  let diff =  moment().diff(member.lastMessage.createdAt, time[maxtime], true).toFixed(2);
+  if(diff<1&&maxtime<time.length) diff = lastSeen (member, ++maxtime);
+  console.log("Maxtime: " + maxtime);
+  return diff+maxtime;
+};
+
 const ex = {
   name: "info",
   perm: ["global.info","global.info.all","global.info.serv","global.info.channel","global.info.role","global.info.user","global.info.user.self"],
@@ -83,7 +97,7 @@ const ex = {
       infobad.addField(`Date created: ${guild.createdAt.toUTCString()}`, `That's about ${diff} days ago!`);
       infobad.addField(`Member count: `, guild.memberCount, true);
       infobad.addField(`Total number of members: ${trueMemC.size} (Not including bots)`,`There are ${guild.members.size-trueMemC.size} bots!`, true);
-      infobad.addField(`Reacheable members (online, idle or dnd): `, available);
+      infobad.addField(`Reachable members (online, idle or dnd): `, available);
       infobad.addField(`Online: `, online, true)
              .addField(`Idle:   `, idle  , true)
              .addField(`Dnd:    `, dnd   , true);
@@ -110,7 +124,24 @@ const ex = {
             else if(list.length<1) return await send(`User [${args[1]}] not found!`);
             member = list[0];
           }
-          return await send(`Userid: ${member.id}\nName: ${member.displayName}`);
+
+          let highest = "years";
+          diff = memberJoin(member,time.indexOf(highest));
+          diff =(diff.substring(0,diff.indexOf('.')+3) +" "+ time[time.indexOf(highest)+diff.substring(diff.indexOf('.')+3).length-1]);
+
+          let diff2;
+          highest = "years";
+          diff2 = lastSeen(member,time.indexOf(highest));
+          send("diff2-1: " + diff2);
+          diff2 = diff2.substring(0,diff2.indexOf('.')+3) +" "+ time[(diff2.substring(diff2.indexOf('.')+3)).length-2];
+          send("diff2-2: " + diff2);
+          infobad.addField(`User tag: `, `${member.user.tag}`   , true)
+                 .addField(`User id:  `, `${member.id}`         , true)
+                 .addField(`Nickname: `, `${member.displayName}`, true);
+          infobad.addField(`Joined the server on: ${member.joinedAt.toUTCString()}`,`That's about ${diff} ago!`);
+          infobad.addField(`Last seen here at: ${member.lastMessage.createdAt.toUTCString()}`,`That's about ${diff2} ago!`);
+
+          return await send(`User info`, {embed: infobad});
         }).catch(reason=>{
           console.log("Rejected info user to " + used.id);
           return msg.reply(reason);
