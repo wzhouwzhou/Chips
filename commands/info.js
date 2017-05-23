@@ -7,9 +7,11 @@ const memberJoin = (member , maxtime) => {
   return diff+maxtime;
 };
 const lastSeen = (member, maxtime) => {
-  let diff =  moment().diff(member.lastMessage.createdAt, time[maxtime], true).toFixed(2);
-  if(diff<1&&maxtime<time.length) diff = lastSeen (member, ++maxtime);
+  if(maxtime>=time.length) return moment().diff(member.lastMessage.createdAt, time[maxtime-1], true).toFixed(2);
+  let tempdiff =  moment().diff(member.lastMessage.createdAt, time[maxtime], true).toFixed(2);
+  if(tempdiff<1&&maxtime<time.length) tempdiff = lastSeen (member, ++maxtime);
   console.log("Maxtime: " + maxtime);
+  let diff = tempdiff;
   return diff+maxtime;
 };
 
@@ -131,15 +133,18 @@ const ex = {
 
           let diff2;
           highest = "years";
-          diff2 = lastSeen(member,time.indexOf(highest));
-          send("diff2-1: " + diff2);
-          diff2 = diff2.substring(0,diff2.indexOf('.')+3) +" "+ time[(diff2.substring(diff2.indexOf('.')+3)).length-2];
-          send("diff2-2: " + diff2);
+          if(member.lastMessage){
+            diff2 = lastSeen(member,time.indexOf(highest));
+            send("diff2-1: " + diff2);
+            diff2 = diff2.substring(0,diff2.indexOf('.')+3) +" "+ (time[diff2[diff2.indexOf('.')+3]-1]);
+            send("diff2-2: " + diff2);
+          }else diff2="Unknown";
+
           infobad.addField(`User tag: `, `${member.user.tag}`   , true)
                  .addField(`User id:  `, `${member.id}`         , true)
                  .addField(`Nickname: `, `${member.displayName}`, true);
           infobad.addField(`Joined the server on: ${member.joinedAt.toUTCString()}`,`That's about ${diff} ago!`);
-          infobad.addField(`Last seen here at: ${member.lastMessage.createdAt.toUTCString()}`,`That's about ${diff2} ago!`);
+          infobad.addField(`Last seen here at: ${member.lastMessage?member.lastMessage.createdAt.toUTCString():"Unknown"}`,`${diff?"That's about "+diff2+" ago!":"Unknown"}`);
 
           return await send(`User info`, {embed: infobad});
         }).catch(reason=>{
