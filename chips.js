@@ -12,7 +12,12 @@ const request = require('request');
 
 const favicon = require('serve-favicon');
 global.Discord = require("discord.js");
-global.client = new Discord.Client({fetchAllMembers:true});
+global.client = new Discord.Client({
+  fetchAllMembers:true,
+  messageCacheMaxSize:-1,
+  messageCacheLifetime:(60*60*2),
+  messageSweepInterval:(60*60*24),
+});
 global.clientutil = new Discord.ShardClientUtil(client);
 setShards.id=client.shard.id;
 global.hclient = new Discord.Client();
