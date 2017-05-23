@@ -2,6 +2,7 @@ const Searcher = require(path.join(__dirname, '../handlers/Searcher')).default;
 const ex = {
   name: "info",
   perm: ["global.info","global.info.all","global.info.serv","global.info.channel","global.info.role","global.info.user","global.info.user.self"],
+  customperm: ['MANAGE_GUILD'],
   async func(msg, {send, member, author, channel, guild, args, gMember, reply, content }) {
     const used = member || author;
     let action;
@@ -12,16 +13,82 @@ const ex = {
     console.log("[Info] Creating new searcher for guild " + guild.id);
     let options = { guild: guild };
     searchers[guild.id] = new Searcher( options.guild );
+    let infobad = new Discord.RichEmbed().setColor(member.displayColor);
 
     if(action=="server"){
-      permissions.checkPermission(msg, ex.perm[2]).then(info =>{
+      try{
+        let info = await permissions.checkPermission(msg, ex.perm[2]);
         console.log("[Command] "+ info);
-        let gname = guild.name.replace('@','(at)');
-        return send(`Name of this server: ${gname}`);
-      }).catch(reason=>{
-        console.log("Rejected info server to " + used.id);
-        return msg.reply(reason);
+      }catch(err){
+        if(!member.hasPermission(ex.customperm[0])){
+          console.log("Rejected info server to " + used.id);
+          return msg.reply(err);
+        }
+      }
+
+      let diff =  moment().diff(guild.createdAt,'days');
+
+      let trueMemC = guild.members.filter((member) => { return !member.user.bot; });
+      let online = 0, idle = 0, dnd = 0, invis = 0, available = 0;
+      let presences = guild.presences.filter((presence) => {
+        switch(presence.status){
+          case "offline":
+            invis++;
+          break;
+
+          case "online":
+            online++;
+            available++;
+          break;
+
+          case "idle":
+            idle++;
+            available++;
+          break;
+
+          case "dnd":
+            dnd++;
+            available++;
+          break;
+        }
+        return true;
       });
+
+      let textC = 0, voiceC = 0, tC = 0, nsfw = 0;
+      let channels = guild.channels.filter((c) => {
+        if(c.type=="text") textC++;
+        else if(c.type=="voice") voiceC++;
+        tC++;
+        if(c.nsfw) nsfw++;
+        return true;
+      });
+
+      let vInfo = 'there is no verification requirement.';
+      let vLvl = guild.verificationLevel;
+      if (vLvl >= 1) vInfo = "new users must have an email linked to their account. ";
+      if (vLvl >= 2) vInfo+= "They must also be registered on Discord for more than five minutes. ";
+      if (vLvl >= 3) vInfo+= "In addition, upon joining, new members must wait 10 minutes before they are able to speak. ";
+
+      let gname = guild.name.replace('@','(at)');
+      if (guild.iconURL&&guild.iconURL(2048)) infobad.setImage(guild.iconURL(2048));
+      infobad.addField(`Name of this server: ${gname}`, `Guild id: ${guild.id}`);
+      infobad.addField(`Server owner: `, `<@${guild.ownerID}>`);
+      infobad.addField(`Date created: ${guild.createdAt.toUTCString()}`, `That's about ${diff} days ago!`);
+      infobad.addField(`Total number of channels: ${tC}`, `Total number of nsfw channels: ${nsfw}`);
+      infobad.addField(`Text channel count:    `, textC       , true)
+             .addField(`Voice channel count:   `, voiceC      , true)
+             .addField(`Server region (voice): `, guild.region, true);
+      infobad.addField(`Member count: `, guild.memberCount, true);
+      infobad.addField(`Total number of members: ${trueMemC.size} (Not including bots)`,`There are ${guild.members.size-trueMemC.size} bots!`, true);
+      infobad.addField(`Total number of channels: ${guild.channels.size}`,`The default channel is <#${guild.defaultChannel.id}>`);
+      infobad.addField(`Reacheable members (online, idle or dnd): `, available);
+      infobad.addField(`Online: `, online, true)
+             .addField(`Idle:   `, idle  , true)
+             .addField(`Dnd:    `, dnd   , true);
+      infobad.addField(`Emoji count: ${guild.emojis.size}`, guild.emojis.array().join(' '));
+      infobad.addField(`Verification level: ${vLvl}`,`That means ${vInfo}`);
+
+      return reply(`Server info`, {embed: infobad});
     }else if(action=="user"){
       let member=used;
 
