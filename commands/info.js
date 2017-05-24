@@ -137,7 +137,7 @@ const ex = {
             else if(list.length<1) return await send(`User [${args[1]}] not found!`);
             member = list[0];
           }
-
+          membername = member.displayName.replace('@','(at)');
           let highest = "years";
           diff = memberJoin(member,time.indexOf(highest));
           diff = `${diff[0]} ${time[diff[1]]}`;
