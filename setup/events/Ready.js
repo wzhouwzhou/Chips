@@ -157,8 +157,8 @@ module.exports = function( send ) {
     }
   });
 
-  const music = require('discord.js-music-v11');
-  music(client, { prefix: "-", anyoneCanSkip: true });
+  //const music = require('discord.js-music-v11');
+  //music(client, { prefix: "-", anyoneCanSkip: true });
 };
 
 
