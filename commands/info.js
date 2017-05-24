@@ -192,7 +192,6 @@ const ex = {
           highest = "years";
           diff3 = joinedDiscord(member, time.indexOf(highest));
           diff3 = `${diff3[0]} ${time[diff3[1]]}`;
-
           infobad.addField(`User tag: `, `${member.user.tag}`   , true)
                  .addField(`User id:  `, `${member.id}`         , true)
                  .addField(`Nickname: `, `${membername}`, true);
