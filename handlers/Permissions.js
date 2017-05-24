@@ -39,7 +39,7 @@ ex.permsList = [
   ['global.quote'       ,true ], //35
   //future permissions add below this comment please
   ['global.info.role'   ,false], //36
-  ['global.server.rekt' ,false], //37
+  ['global.server.rekt' ,true], //37
   ['global.server.ban'  ,false], //38
   ['global.server.kick' ,false], //39
 ];
