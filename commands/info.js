@@ -121,7 +121,7 @@ const ex = {
       return reply("Emoji List", {embed: infobad});
     }else if(action=="user"){
       let member=used;
-
+      let membername = member.displayName.replace('@','(at)');
       if (args[1]){
         permissions.checkPermission(msg, ex.perm[5]).then(async function(info) {
           try{ //get mention:
@@ -158,11 +158,16 @@ const ex = {
 
           infobad.addField(`User tag: `, `${member.user.tag}`   , true)
                  .addField(`User id:  `, `${member.id}`         , true)
-                 .addField(`Nickname: `, `${member.displayName}`, true);
+                 .addField(`Nickname: `, `${membername}`, true);
           infobad.addField(`Joined Discord on ${member.user.createdAt.toUTCString()}`,`That's about ${diff3} ago!`);
           infobad.addField(`Joined the server on: ${member.joinedAt.toUTCString()}`,`That's about ${diff} ago!`);
           infobad.addField(`${member.lastMessage?"Last seen here at: "+member.lastMessage.createdAt.toUTCString():"Last seen here: Unknown"}`,`${diff2!="NAN"?"That's about "+diff2+" ago!":"Time ago: Unknown"}`);
-
+          infobad.addField(`Colour: `,`${member.displayHexColor}`,true)
+                 .addField(`Highest Role: ${member.highestRole.name}`,`Total number of roles: ${member.roles.size}`, true)
+                 .addField(`Status:`,`    ${member.presence.status}`, true);
+          infobad.addField(`Permissions number:`,member.permissions.bitfield);
+          infobad.addField(`Avatar URL`, `[Click Here](${member.user.avatarURL(2048)})`);
+          infobad.setImage(member.user.avatarURL(2048));
           return await send(`User info`, {embed: infobad});
         }).catch(reason=>{
           console.log("Rejected info user to " + used.id);
@@ -170,8 +175,37 @@ const ex = {
         });
       }else{
         permissions.checkPermission(msg, ex.perm[6]).then(async function(info) {
-          let membername = member.displayName.replace('@','(at)');
-          return await send(`Userid: ${member.id}\nName: ${membername}`);
+          let highest = "years";
+          diff = memberJoin(member,time.indexOf(highest));
+          diff = `${diff[0]} ${time[diff[1]]}`;
+
+          let diff2;
+          highest = "years";
+          if(member.lastMessage){
+            diff2 = lastSeen(member,time.indexOf(highest));
+            //send("diff2-1: " + diff2);
+            diff2 = `${diff2[0]} ${time[diff2[1]]}`;
+            //send("diff2-2: " + diff2);
+          }else diff2="NAN";
+
+          let diff3;
+          highest = "years";
+          diff3 = joinedDiscord(member, time.indexOf(highest));
+          diff3 = `${diff3[0]} ${time[diff3[1]]}`;
+
+          infobad.addField(`User tag: `, `${member.user.tag}`   , true)
+                 .addField(`User id:  `, `${member.id}`         , true)
+                 .addField(`Nickname: `, `${membername}`, true);
+          infobad.addField(`Joined Discord on ${member.user.createdAt.toUTCString()}`,`That's about ${diff3} ago!`);
+          infobad.addField(`Joined the server on: ${member.joinedAt.toUTCString()}`,`That's about ${diff} ago!`);
+          infobad.addField(`${member.lastMessage?"Last seen here at: "+member.lastMessage.createdAt.toUTCString():"Last seen here: Unknown"}`,`${diff2!="NAN"?"That's about "+diff2+" ago!":"Time ago: Unknown"}`);
+          infobad.addField(`Colour: `,`${member.displayHexColor}`,true)
+                 .addField(`Highest Role: ${member.highestRole.name}`,`Total number of roles: ${member.roles.size}`, true)
+                 .addField(`Status:`,`    ${member.presence.status}`, true);
+          infobad.addField(`Permissions number:`,member.permissions.bitfield);
+          infobad.addField(`Avatar URL`, `[Click Here](${member.user.avatarURL(2048)})`);
+          infobad.setImage(member.user.avatarURL(2048));
+          return await send(`User info`, {embed: infobad});
         }).catch(reason=>{
           console.log("Rejected info user to " + used.id);
           return msg.reply(reason);
