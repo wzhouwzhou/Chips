@@ -14,7 +14,14 @@ const lastSeen = (member, i) => {
   }
   return [diff,i];
 };
-
+const joinedDiscord = (member, i) => {
+  let diff = moment().diff(member.user.createdAt, time[i], true).toFixed(2);
+  for(;i<time.length-1;){
+    if(diff>1) return [diff,i];
+    diff = moment().diff(member.user.createdAt, time[++i], true).toFixed(2);
+  }
+  return [diff,i];
+};
 const ex = {
   name: "info",
   perm: ["global.info","global.info.all","global.info.serv","global.info.channel","global.info.role","global.info.user","global.info.user.self"],
@@ -135,16 +142,22 @@ const ex = {
           highest = "years";
           if(member.lastMessage){
             diff2 = lastSeen(member,time.indexOf(highest));
-            send("diff2-1: " + diff2);
+            //send("diff2-1: " + diff2);
             diff2 = `${diff2[0]} ${time[diff2[1]]}`;
-            send("diff2-2: " + diff2);
-          }else diff2="Unknown";
+            //send("diff2-2: " + diff2);
+          }else diff2="NAN";
+
+          let diff3;
+          highest = "years";
+          diff3 = joinedDiscord(member, time.indexOf(highest));
+          diff3 = `${diff3[0]} ${time[diff3[1]]}`;
 
           infobad.addField(`User tag: `, `${member.user.tag}`   , true)
                  .addField(`User id:  `, `${member.id}`         , true)
                  .addField(`Nickname: `, `${member.displayName}`, true);
+          infobad.addField(`Joined Discord on ${member.user.createdAt.toUTCString()}`,`That's about ${diff3} ago!`);
           infobad.addField(`Joined the server on: ${member.joinedAt.toUTCString()}`,`That's about ${diff} ago!`);
-          infobad.addField(`Last seen here at: ${member.lastMessage?member.lastMessage.createdAt.toUTCString():"Unknown"}`,`${diff?"That's about "+diff2+" ago!":"Unknown"}`);
+          infobad.addField(`${member.lastMessage?"Last seen here at: "+member.lastMessage.createdAt.toUTCString():"Last seen here: Unknown"}`,`${diff=="NAN"?"That's about "+diff2+" ago!":"Time: Unknown"}`);
 
           return await send(`User info`, {embed: infobad});
         }).catch(reason=>{
