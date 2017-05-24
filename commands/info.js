@@ -161,7 +161,7 @@ const ex = {
                  .addField(`Nickname: `, `${member.displayName}`, true);
           infobad.addField(`Joined Discord on ${member.user.createdAt.toUTCString()}`,`That's about ${diff3} ago!`);
           infobad.addField(`Joined the server on: ${member.joinedAt.toUTCString()}`,`That's about ${diff} ago!`);
-          infobad.addField(`${member.lastMessage?"Last seen here at: "+member.lastMessage.createdAt.toUTCString():"Last seen here: Unknown"}`,`${diff!="NAN"?"That's about "+diff2+" ago!":"Time: Unknown"}`);
+          infobad.addField(`${member.lastMessage?"Last seen here at: "+member.lastMessage.createdAt.toUTCString():"Last seen here: Unknown"}`,`${diff2!="NAN"?"That's about "+diff2+" ago!":"Time ago: Unknown"}`);
 
           return await send(`User info`, {embed: infobad});
         }).catch(reason=>{
