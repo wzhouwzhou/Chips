@@ -1,10 +1,14 @@
 const Searcher = require(path.join(__dirname, '../handlers/Searcher')).default;
 const TRUE=true;
 const time = ["years","months","weeks","days","hours","minutes","seconds"];
-const memberJoin = (member , maxtime) => {
-  let diff =  moment().diff(member.joinedAt, time[maxtime], true).toFixed(2);
-  if(diff<1&&maxtime<time.length) diff = memberJoin (member, ++maxtime);
-  return diff+maxtime;
+
+const memberJoin = (member, i) => {
+  let diff = moment().diff(member.joinedAt, time[i], true).toFixed(2);
+  for(;i<time.length-1;){
+    if(diff>1) return [diff,i];
+    diff = moment().diff(member.joinedAt, time[++i], true).toFixed(2);
+  }
+  return [diff,i];
 };
 const lastSeen = (member, i) => {
   let diff = moment().diff(member.lastMessage.createdAt, time[i], true).toFixed(2);
@@ -136,7 +140,7 @@ const ex = {
 
           let highest = "years";
           diff = memberJoin(member,time.indexOf(highest));
-          diff =(diff.substring(0,diff.indexOf('.')+3) +" "+ time[time.indexOf(highest)+diff.substring(diff.indexOf('.')+3).length-1]);
+          diff = `${diff[0]} ${time[diff[1]]}`;
 
           let diff2;
           highest = "years";
