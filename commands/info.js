@@ -123,56 +123,61 @@ const ex = {
       let member=used;
       let membername = member.displayName.replace('@','(at)');
       if (args[1]){
-        permissions.checkPermission(msg, ex.perm[5]).then(async function(info) {
-          try{ //get mention:
-            console.log("Trying to find user by mention..");
-            let target = args[1].match(Constants.patterns.MENTION)[1];
-            member = gMember(target);
-            if(member==null) throw "NotMemberMention";
-          }catch(err){  //gMember failed:
-            console.log("Finding by mention failed...");
-            member = content.substring(`${prefix}info ${action} `.length);
-            let list = searchers[guild.id].searchMember(member);
-            if(list.length>1) await send("Multiple matches found, using first one..");
-            else if(list.length<1) return await send(`User [${args[1]}] not found!`);
-            member = list[0];
+        try{
+          let info = await permissions.checkPermission(msg, ex.perm[5]);
+          console.log("[Command] "+ info);
+        }catch(err){
+          if(!member.hasPermission(ex.customperm[0])){
+            console.log("Rejected info server to " + used.id);
+            return msg.reply(err);
           }
-          membername = member.displayName.replace('@','(at)');
-          let highest = "years";
-          diff = memberJoin(member,time.indexOf(highest));
-          diff = `${diff[0]} ${time[diff[1]]}`;
+        }
 
-          let diff2;
-          highest = "years";
-          if(member.lastMessage){
-            diff2 = lastSeen(member,time.indexOf(highest));
-            //send("diff2-1: " + diff2);
-            diff2 = `${diff2[0]} ${time[diff2[1]]}`;
-            //send("diff2-2: " + diff2);
-          }else diff2="NAN";
+        try{ //get mention:
+          console.log("Trying to find user by mention..");
+          let target = args[1].match(Constants.patterns.MENTION)[1];
+          member = gMember(target);
+          if(member==null) throw "NotMemberMention";
+        }catch(err){  //gMember failed:
+          console.log("Finding by mention failed...");
+          member = content.substring(`${prefix}info ${action} `.length);
+          let list = searchers[guild.id].searchMember(member);
+          if(list.length>1) await send("Multiple matches found, using first one..");
+          else if(list.length<1) return await send(`User [${args[1]}] not found!`);
+          member = list[0];
+        }
+        membername = member.displayName.replace('@','(at)');
+        let highest = "years";
+        diff = memberJoin(member,time.indexOf(highest));
+        diff = `${diff[0]} ${time[diff[1]]}`;
 
-          let diff3;
-          highest = "years";
-          diff3 = joinedDiscord(member, time.indexOf(highest));
-          diff3 = `${diff3[0]} ${time[diff3[1]]}`;
+        let diff2;
+        highest = "years";
+        if(member.lastMessage){
+          diff2 = lastSeen(member,time.indexOf(highest));
+          //send("diff2-1: " + diff2);
+          diff2 = `${diff2[0]} ${time[diff2[1]]}`;
+          //send("diff2-2: " + diff2);
+        }else diff2="NAN";
 
-          infobad.addField(`User tag: `, `${member.user.tag}`   , true)
-                 .addField(`User id:  `, `${member.id}`         , true)
-                 .addField(`Nickname: `, `${membername}`, true);
-          infobad.addField(`Joined Discord on ${member.user.createdAt.toUTCString()}`,`That's about ${diff3} ago!`);
-          infobad.addField(`Joined the server on: ${member.joinedAt.toUTCString()}`,`That's about ${diff} ago!`);
-          infobad.addField(`${member.lastMessage?"Last seen here at: "+member.lastMessage.createdAt.toUTCString():"Last seen here: Unknown"}`,`${diff2!="NAN"?"That's about "+diff2+" ago!":"Time ago: Unknown"}`);
-          infobad.addField(`Colour: `,`${member.displayHexColor}`,true)
-                 .addField(`Highest Role: ${member.highestRole.name}`,`Total number of roles: ${member.roles.size}`, true)
-                 .addField(`Status:`,`    ${member.presence.status}`, true);
-          infobad.addField(`Permissions number:`,member.permissions.bitfield);
-          infobad.addField(`Avatar URL`, `[Click Here](${member.user.avatarURL(2048)})`);
-          infobad.setImage(member.user.avatarURL(2048));
-          return await send(`User info`, {embed: infobad});
-        }).catch(reason=>{
-          console.log("Rejected info user to " + used.id);
-          return msg.reply(reason);
-        });
+        let diff3;
+        highest = "years";
+        diff3 = joinedDiscord(member, time.indexOf(highest));
+        diff3 = `${diff3[0]} ${time[diff3[1]]}`;
+
+        infobad.addField(`User tag: `, `${member.user.tag}`   , true)
+               .addField(`User id:  `, `${member.id}`         , true)
+               .addField(`Nickname: `, `${membername}`, true);
+        infobad.addField(`Joined Discord on ${member.user.createdAt.toUTCString()}`,`That's about ${diff3} ago!`);
+        infobad.addField(`Joined the server on: ${member.joinedAt.toUTCString()}`,`That's about ${diff} ago!`);
+        infobad.addField(`${member.lastMessage?"Last seen here at: "+member.lastMessage.createdAt.toUTCString():"Last seen here: Unknown"}`,`${diff2!="NAN"?"That's about "+diff2+" ago!":"Time ago: Unknown"}`);
+        infobad.addField(`Colour: `,`${member.displayHexColor}`,true)
+               .addField(`Highest Role: ${member.highestRole.name}`,`Total number of roles: ${member.roles.size}`, true)
+               .addField(`Status:`,`    ${member.presence.status}`, true);
+        infobad.addField(`Permissions number:`,member.permissions.bitfield);
+        infobad.addField(`Avatar URL`, `[Click Here](${member.user.avatarURL(2048)})`);
+        infobad.setImage(member.user.avatarURL(2048));
+        return await send(`User info`, {embed: infobad});
       }else{
         permissions.checkPermission(msg, ex.perm[6]).then(async function(info) {
           let highest = "years";
