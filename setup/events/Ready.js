@@ -27,7 +27,7 @@ module.exports = function( send ) {
     console.log('Chips is ready!');
     client.user.setStatus("online");
     if(process.env.BETA=="true")
-      client.user.setGame("PFP Credits to Wendie","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
+      client.user.setGame("Chips PTB","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
     else
       client.user.setGame("Do -stats","https://twitch.tv/twitch");//client.user.setGame("Do -help!");
 
