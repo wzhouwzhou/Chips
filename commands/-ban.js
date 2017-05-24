@@ -63,7 +63,7 @@ const ex= {
       .setThumbnail(Constants.images.WARNING)
       .addField("Ban reason: ", `${reason}`, true);
     try{
-      await user.sendEmbed(emb);
+      await user.send(' ', {embed: emb});
     } catch (err) { console.error(`Error of dming User: ${err}`); }
 
     const usernm = user.username;
@@ -72,10 +72,10 @@ const ex= {
 
     channel.createWebhook("Mee6 (!help)", Constants.avatars.MEE6)
       .then (whook => whook.edit('Mee6 (!help)', Constants.avatars.MEE6))
-      .then(hook => hook.sendMessage(`**${usernm}** left`)
-        .then(m => { hook.delete(); })
-        .catch(console.error)
-      );
+      .then(hook => hook.send(`**${usernm}** left`)
+      .then(m => { hook.delete(); })
+      .catch(console.error)
+    );
   }
 };
 
