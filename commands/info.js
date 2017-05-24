@@ -128,7 +128,7 @@ const ex = {
           console.log("[Command] "+ info);
         }catch(err){
           if(!member.hasPermission(ex.customperm[0])){
-            console.log("Rejected info server to " + used.id);
+            console.log("Rejected info user to " + used.id);
             return msg.reply(err);
           }
         }
@@ -179,89 +179,102 @@ const ex = {
         infobad.setImage(member.user.avatarURL(2048));
         return await send(`User info`, {embed: infobad});
       }else{
-        permissions.checkPermission(msg, ex.perm[6]).then(async function(info) {
-          let highest = "years";
-          diff = memberJoin(member,time.indexOf(highest));
-          diff = `${diff[0]} ${time[diff[1]]}`;
+        try{
+          let info = await permissions.checkPermission(msg, ex.perm[6]);
+          console.log("[Command] "+ info);
+        }catch(err){
+          if(!member.hasPermission(ex.customperm[0])){
+            console.log("Rejected info user (self) to " + used.id);
+            return msg.reply(err);
+          }
+      }
+        let highest = "years";
+        diff = memberJoin(member,time.indexOf(highest));
+        diff = `${diff[0]} ${time[diff[1]]}`;
 
-          let diff2;
-          highest = "years";
-          if(member.lastMessage){
-            diff2 = lastSeen(member,time.indexOf(highest));
-            //send("diff2-1: " + diff2);
-            diff2 = `${diff2[0]} ${time[diff2[1]]}`;
-            //send("diff2-2: " + diff2);
-          }else diff2="NAN";
+        let diff2;
+        highest = "years";
+        if(member.lastMessage){
+          diff2 = lastSeen(member,time.indexOf(highest));
+          //send("diff2-1: " + diff2);
+          diff2 = `${diff2[0]} ${time[diff2[1]]}`;
+          //send("diff2-2: " + diff2);
+        }else diff2="NAN";
 
-          let diff3;
-          highest = "years";
-          diff3 = joinedDiscord(member, time.indexOf(highest));
-          diff3 = `${diff3[0]} ${time[diff3[1]]}`;
-          infobad.addField(`User tag: `, `${member.user.tag}`   , true)
-                 .addField(`User id:  `, `${member.id}`         , true)
-                 .addField(`Nickname: `, `${membername}`, true);
-          infobad.addField(`Joined Discord on ${member.user.createdAt.toUTCString()}`,`That's about ${diff3} ago!`);
-          infobad.addField(`Joined the server on: ${member.joinedAt.toUTCString()}`,`That's about ${diff} ago!`);
-          infobad.addField(`${member.lastMessage?"Last seen here at: "+member.lastMessage.createdAt.toUTCString():"Last seen here: Unknown"}`,`${diff2!="NAN"?"That's about "+diff2+" ago!":"Time ago: Unknown"}`);
-          infobad.addField(`Colour: `,`${member.displayHexColor}`,true)
-                 .addField(`Highest Role: ${member.highestRole.name}`,`Total number of roles: ${member.roles.size}`, true)
-                 .addField(`Status:`,`    ${member.presence.status}`, true);
-          infobad.addField(`Permissions number:`,member.permissions.bitfield);
-          infobad.addField(`Avatar URL`, `[Click Here](${member.user.avatarURL(2048)})`);
-          infobad.setImage(member.user.avatarURL(2048));
-          return await send(`User info`, {embed: infobad});
-        }).catch(reason=>{
-          console.log("Rejected info user to " + used.id);
-          return msg.reply(reason);
-        });
+        let diff3;
+        highest = "years";
+        diff3 = joinedDiscord(member, time.indexOf(highest));
+        diff3 = `${diff3[0]} ${time[diff3[1]]}`;
+        infobad.addField(`User tag: `, `${member.user.tag}`   , true)
+               .addField(`User id:  `, `${member.id}`         , true)
+               .addField(`Nickname: `, `${membername}`, true);
+        infobad.addField(`Joined Discord on ${member.user.createdAt.toUTCString()}`,`That's about ${diff3} ago!`);
+        infobad.addField(`Joined the server on: ${member.joinedAt.toUTCString()}`,`That's about ${diff} ago!`);
+        infobad.addField(`${member.lastMessage?"Last seen here at: "+member.lastMessage.createdAt.toUTCString():"Last seen here: Unknown"}`,`${diff2!="NAN"?"That's about "+diff2+" ago!":"Time ago: Unknown"}`);
+        infobad.addField(`Colour: `,`${member.displayHexColor}`,true)
+               .addField(`Highest Role: ${member.highestRole.name}`,`Total number of roles: ${member.roles.size}`, true)
+               .addField(`Status:`,`    ${member.presence.status}`, true);
+        infobad.addField(`Permissions number:`,member.permissions.bitfield);
+        infobad.addField(`Avatar URL`, `[Click Here](${member.user.avatarURL(2048)})`);
+        infobad.setImage(member.user.avatarURL(2048));
+        return await send(`User info`, {embed: infobad});
       }
     }else if(action == "role"){
-      permissions.checkPermission(msg, ex.perm[4]).then(async function(info) {
-        if (!args[1]) return send("No role given :<");
-        else{
-          let role;
-          try{
-            role = args[1].substring(3,args[1].length-1);
-            console.log("Trying to find role from mention " + role);
-            role = guild.roles.get(role);
-            if(role==null) throw "NotRoleId";
-          }catch(err){  //failed to find by id
-            role = content.substring(`${prefix}info ${action} `.length);
-            let list = searchers[guild.id].searchRole(role);
-            if(list.length>1) await send("Multiple matches found, using first one..");
-            else if(list.length<1) return await send(`Role [${args[1]}] not found!`);
-            role = list[0];
-          }
-          let rolename = role.name.replace('@','(at)');
-          return await send(`Role Id: ${role.id}\nRole Name: ${rolename}\nMember count: ${role.members.size}`);
+      try{
+        let info = await permissions.checkPermission(msg, ex.perm[4]);
+        console.log("[Command] "+ info);
+      }catch(err){
+        if(!member.hasPermission(ex.customperm[0])){
+          console.log("Rejected info role to " + used.id);
+          return msg.reply(err);
         }
-      }).catch(reason=>{
-        console.log("Rejected info role to " + used.id);
-        return msg.reply(reason);
-      });
+      }
+
+      if (!args[1]) return send("No role given :<");
+      else{
+        let role;
+        try{
+          role = args[1].substring(3,args[1].length-1);
+          console.log("Trying to find role from mention " + role);
+          role = guild.roles.get(role);
+          if(role==null) throw "NotRoleId";
+        }catch(err){  //failed to find by id
+          role = content.substring(`${prefix}info ${action} `.length);
+          let list = searchers[guild.id].searchRole(role);
+          if(list.length>1) await send("Multiple matches found, using first one..");
+          else if(list.length<1) return await send(`Role [${args[1]}] not found!`);
+          role = list[0];
+        }
+        let rolename = role.name.replace('@','(at)');
+        return await send(`Role Id: ${role.id}\nRole Name: ${rolename}\nMember count: ${role.members.size}`);
+      }
     }else if(action == "channel"){
-        permissions.checkPermission(msg, ex.perm[3]).then(async function(info) {
-          if (!args[1]) return send("No channel given :<");
-          else{
-            let channel;
-            try{
-              channel = args[1].substring(2,args[1].length-1);
-              console.log("Trying to find channel from link " + channel);
-              channel = guild.roles.get(role);
-              if(channel==null) throw "NotChannelId";
-            }catch(err){
-              let list = searchers[guild.id].searchChannel(channel);
-              if(list.length>1) {await send("Multiple matches found, using first one.."); console.log(list);}
-              else if(list.length<1) return await send(`Channel [${channel}] not found!`);
-              channel = list[0];
-            }
-            let cname = channel.name.replace('@','(at)');
-            return await send(`Channel Id: ${channel.id}\nChannel Name: ${cname}\nMember count: ${channel.members.size}`);
-          }
-        }).catch(reason=>{
+      try{
+        let info = await permissions.checkPermission(msg, ex.perm[3]);
+        console.log("[Command] "+ info);
+      }catch(err){
+        if(!member.hasPermission(ex.customperm[0])){
           console.log("Rejected info channel to " + used.id);
-          return msg.reply(reason);
-        });
+          return msg.reply(err);
+        }
+      }
+      if (!args[1]) return send("No channel given :<");
+      else{
+        let channel;
+        try{
+          channel = args[1].substring(2,args[1].length-1);
+          console.log("Trying to find channel from link " + channel);
+          channel = guild.roles.get(role);
+          if(channel==null) throw "NotChannelId";
+        }catch(err){
+          let list = searchers[guild.id].searchChannel(channel);
+          if(list.length>1) {await send("Multiple matches found, using first one.."); console.log(list);}
+          else if(list.length<1) return await send(`Channel [${channel}] not found!`);
+          channel = list[0];
+        }
+        let cname = channel.name.replace('@','(at)');
+        return await send(`Channel Id: ${channel.id}\nChannel Name: ${cname}\nMember count: ${channel.members.size}`);
+      }
     }
   }
 };
