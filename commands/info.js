@@ -1,25 +1,25 @@
 const Searcher = require(path.join(__dirname, '../handlers/Searcher')).default;
-
+const TRUE=true;
 const time = ["years","months","weeks","days","hours","minutes","seconds"];
 const memberJoin = (member , maxtime) => {
   let diff =  moment().diff(member.joinedAt, time[maxtime], true).toFixed(2);
   if(diff<1&&maxtime<time.length) diff = memberJoin (member, ++maxtime);
   return diff+maxtime;
 };
-const lastSeen = (member, maxtime) => {
-  if(maxtime>=time.length) return moment().diff(member.lastMessage.createdAt, time[maxtime-1], true).toFixed(2);
-  let tempdiff =  moment().diff(member.lastMessage.createdAt, time[maxtime], true).toFixed(2);
-  if(tempdiff<1&&maxtime<time.length) tempdiff = lastSeen (member, ++maxtime);
-  console.log("Maxtime: " + maxtime);
-  let diff = tempdiff;
-  return diff+maxtime;
+const lastSeen = (member, i) => {
+  let diff = moment().diff(member.lastMessage.createdAt, time[i], true).toFixed(2);
+  for(;i<time.length-1;){
+    if(diff>1) return [diff,i];
+    diff = moment().diff(member.lastMessage.createdAt, time[++i], true).toFixed(2);
+  }
+  return [diff,i];
 };
 
 const ex = {
   name: "info",
   perm: ["global.info","global.info.all","global.info.serv","global.info.channel","global.info.role","global.info.user","global.info.user.self"],
   customperm: ['SEND_MESSAGES'],
-  async func(msg, {send, member, author, channel, guild, args, gMember, reply, content }) {
+  async func(msg, {send, member, author, channel, guild, args, gMember, reply, content, doEval }) {
     const used = member || author;
     let action;
     if (!args[0]) return send("No action given :(");
@@ -136,7 +136,7 @@ const ex = {
           if(member.lastMessage){
             diff2 = lastSeen(member,time.indexOf(highest));
             send("diff2-1: " + diff2);
-            diff2 = diff2.substring(0,diff2.indexOf('.')+3) +" "+ (time[diff2[diff2.indexOf('.')+3]-1]);
+            diff2 = `${diff2[0]} ${time[diff2[1]]}`;
             send("diff2-2: " + diff2);
           }else diff2="Unknown";
 
