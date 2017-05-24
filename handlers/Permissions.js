@@ -23,10 +23,10 @@ ex.permsList = [
   ['server.help'        ,true ], //19
   ['global.info'        ,true ], //20
   ['global.info.all'    ,false], //21
-  ['global.info.serv'   ,false], //22
+  ['global.info.serv'   ,true], //22
   ['global.info.channel',false], //23
-  ['global.info.user'   ,false], //24
-  ['global.info.user.self',false], //25
+  ['global.info.user'   ,true], //24
+  ['global.info.user.self',true], //25
   ['server.lenny'       ,true ], //26
   ['server.mute'        ,false], //27
   ['custom.nr'          ,true ], //28
