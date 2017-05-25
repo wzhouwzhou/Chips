@@ -110,7 +110,7 @@ const ex = {
       infobad.addField(`Date created: ${guild.createdAt.toUTCString()}`, `That's about ${diff} days ago!`);
       infobad.addField(`Member count: `, guild.memberCount, true);
       infobad.addField(`Total number of members: ${trueMemC.size} (Not including bots)`,`There are ${guild.members.size-trueMemC.size} bots!`, true);
-      infobad.addField(`Reachable members (online, idle or dnd): available`, `There are <:vpOffline:212790005943369728> ${invis} people offline or invisible`);
+      infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There are <:vpOffline:212790005943369728> ${invis} people offline or invisible`);
       infobad.addField(`Online: <:vpOnline:212789758110334977>`, online, true)
              .addField(`Idle: <:vpAway:212789859071426561>    `, idle  , true)
              .addField(`Dnd: <:vpDnD:236744731088912384>      `, dnd   , true);
