@@ -10,7 +10,7 @@ global.path = require("path");
 global.fs = require('fs');
 const request = require('request');
 
-const favicon = require('serve-favicon');
+//const favicon = require('serve-favicon');
 global.Discord = require("discord.js");
 global.client = new Discord.Client({
   fetchAllMembers:true,
@@ -122,7 +122,8 @@ function msgStatus() {
     .addField("Num msgs in sinx: ", `${sxMsgs} msgs`)
     .addField("Num msgs in sttoc: ", `${stMsgs} msgs`)
     .addField("Num msgs in snap: ", `${snMsgs} msgs`);
-  statusC.send(' ', {embed: statsE});
+  if(statusC)
+    statusC.send(' ', {embed: statsE});
   sMsgs=0;
   nMsgs=0;
   sxMsgs=0;
