@@ -3,28 +3,37 @@ const EXPIRE = 10000;
 module.exports = {
   name: "-calc",
   perm: ["global.calc"],
-  async func(msg, {send, member, author, content, channel, guild, args, gMember, Discord, reply, bot}) {
+  async func(msg, { member, author, content, channel, args, Discord, reply}) {
 
     if((content.match(/=/g)||[]).length > 1) return reply("Invalid equation entered");
     let query;
+    let start = process.hrtime();
     try{
       query = new algebra.parse(args.join(' '));
     }catch(err){
       query = "";
       //if(query=="") return reply("Please enter a valid equation or expression!");
     }
+    let hrTime = process.hrtime(start);
+    let µs = false;
+    end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
+    if(end<1){
+      µs = true;
+      end = (hrTime[0] * 1000000 + hrTime[1] / 1000);
+    }
+    µs ? end += 'µs' : end += 'ms';
 
     if((content.match(/=/g)||[]).length == 0) {
       if(query=="") return reply("Please enter a valid equation or expression!");
-      emb = new Discord.RichEmbed();
+      emb = new Discord.RichEmbed().setTimestamp(new Date());
       emb.setAuthor(`New Expression Calculation`).setColor(member.displayColor);
       emb.addField("Result: ", query?`${query.toString()}`:`Calculation could not be completed`);
       emb.setTimestamp(new Date());
+      emb.setFooter(`--Expression Calculation Attempt took ${(end)}.--`);
       return reply("Results:", {embed: emb});
     }else if((content.match(/=/g)||[]).length == 1){ //we got an equation
       let emb = new Discord.RichEmbed();
       emb.setAuthor(`New Equation Calculation`).setColor(member.displayColor);
-
       emb.setTimestamp(new Date());
 
       if((content.match(/,/g)||[]).length == 1){
@@ -37,9 +46,19 @@ module.exports = {
         }catch(err){
           //ans = "I am not able to do this calculation!";//console.log(err);
         }
+        let hrTime = process.hrtime(start);
+  			let µs = false;
+  			end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
+  			if(end<1){
+  				µs = true;
+  				end = (hrTime[0] * 1000000 + hrTime[1] / 1000);
+  			}
+  			µs ? end += 'µs' : end += 'ms';
+
         ans = (!ans)?"I am not able to do this calculation!":ans;
         console.log("Result: " + ans.toString());
         emb.addField(query.toString(),"x=" + ans.toString());
+        emb.setFooter(`--Expression Calculation Attempt took ${(end)}.--`);
         return reply("Result:", {embed: emb});
       }
       if(query=="") return reply("Please enter a valid equation or expression!");
@@ -61,7 +80,7 @@ module.exports = {
         { time: EXPIRE }
       );
 
-      collector.on('collect', m=>{});
+      collector.on('collect', _=>_);
       collector.on('end', collected =>{
         let m = collected.first();
         if(!confirmed) return reply ('Calc timed out');
@@ -70,16 +89,26 @@ module.exports = {
           console.log("Solving for variable " + variable.content);
           if(m.author.id!=author.id) return; //safety
           let ans;
+          let start = process.hrtime();
           try{
             ans = query.solveFor(variable.content);
           }catch(err){
             //ans = "I am not able to do this calculation!";//console.log(err);
           }
+          let hrTime = process.hrtime(start);
+    			let µs = false;
+    			end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
+    			if(end<1){
+    				µs = true;
+    				end = (hrTime[0] * 1000000 + hrTime[1] / 1000);
+    			}
+    			µs ? end += 'µs' : end += 'ms';
           ans = (!ans)?"I am not able to do this calculation!":ans;
           console.log("Result: " + ans.toString());
           emb = new Discord.RichEmbed();
           emb.setAuthor(`New Equation Calculation`).setColor(member.displayColor);
           emb.addField(query.toString(), ans?`${variable.content} = ${ans.toString()}`:"/Calculation could not be completed");
+          emb.setFooter(`--Equation Calculation Attempt took ${(end)}.--`);
           emb.setTimestamp(new Date());
           return reply("Result:", {embed: emb});
         }
