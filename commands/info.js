@@ -1,5 +1,5 @@
 const Searcher = require(path.join(__dirname, '../handlers/Searcher')).default;
-
+const TRUE=true;
 const time = ["years","months","weeks","days","hours","minutes","seconds"];
 
 const memberJoin = (member, i) => {
@@ -10,11 +10,11 @@ const memberJoin = (member, i) => {
   }
   return [diff,i];
 };
-const lastSeen = (member, i) => {
-  let diff = moment().diff(member.lastMessage.createdAt, time[i], true).toFixed(2);
+const createdTime = (obj, i) => {
+  let diff = moment().diff(obj.createdAt, time[i], true).toFixed(2);
   for(;i<time.length-1;){
     if(diff>1) return [diff,i];
-    diff = moment().diff(member.lastMessage.createdAt, time[++i], true).toFixed(2);
+    diff = moment().diff(obj.createdAt, time[++i], true).toFixed(2);
   }
   return [diff,i];
 };
@@ -30,7 +30,7 @@ const ex = {
   name: "info",
   perm: ["global.info","global.info.all","global.info.serv","global.info.channel","global.info.role","global.info.user","global.info.user.self"],
   customperm: ['SEND_MESSAGES'],
-  async func(msg, {send, member, author, guild, args, gMember, reply, content }) {
+  async func(msg, {send, member, author, channel, guild, args, gMember, reply, content, doEval }) {
     const used = member || author;
     let action;
     if (!args[0]) return send("No action given :(");
@@ -56,10 +56,13 @@ const ex = {
       let diff =  moment().diff(guild.createdAt,'days');
 
       let trueMemC = guild.members.filter((member) => { return !member.user.bot; });
-      let online = 0, idle = 0, dnd = 0, available = 0;
-      await guild.fetchMembers();
-      guild.presences.filter((presence) => {
+      let online = 0, idle = 0, dnd = 0, invis = 0, available = 0;
+      let presences = guild.presences.filter((presence) => {
         switch(presence.status){
+          case "offline":
+            invis++;
+          break;
+
           case "online":
             online++;
             available++;
@@ -79,7 +82,7 @@ const ex = {
       });
 
       let textC = 0, voiceC = 0, tC = 0, nsfw = 0;
-      guild.channels.filter((c) => {
+      let channels = guild.channels.filter((c) => {
         if(c.type=="text") textC++;
         else if(c.type=="voice") voiceC++;
         tC++;
@@ -107,7 +110,7 @@ const ex = {
       infobad.addField(`Date created: ${guild.createdAt.toUTCString()}`, `That's about ${diff} days ago!`);
       infobad.addField(`Member count: `, guild.memberCount, true);
       infobad.addField(`Total number of members: ${trueMemC.size} (Not including bots)`,`There are ${guild.members.size-trueMemC.size} bots!`, true);
-      infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There are <:vpOffline:212790005943369728> ${guild.members.size-available} people offline or invisible`);
+      infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There are <:vpOffline:212790005943369728> ${invis} people offline or invisible`);
       infobad.addField(`Online: <:vpOnline:212789758110334977>`, online, true)
              .addField(`Idle: <:vpAway:212789859071426561>    `, idle  , true)
              .addField(`Dnd: <:vpDnD:236744731088912384>      `, dnd   , true);
@@ -151,7 +154,7 @@ const ex = {
         let diff2;
         highest = "years";
         if(member.lastMessage){
-          diff2 = lastSeen(member,time.indexOf(highest));
+          diff2 = createdTime(member.lastMessage,time.indexOf(highest));
           //send("diff2-1: " + diff2);
           diff2 = `${diff2[0]} ${time[diff2[1]]}`;
           //send("diff2-2: " + diff2);
@@ -192,7 +195,7 @@ const ex = {
         let diff2;
         highest = "years";
         if(member.lastMessage){
-          diff2 = lastSeen(member,time.indexOf(highest));
+          diff2 = createdTime(member.lastMessage,time.indexOf(highest));
           //send("diff2-1: " + diff2);
           diff2 = `${diff2[0]} ${time[diff2[1]]}`;
           //send("diff2-2: " + diff2);
@@ -243,7 +246,23 @@ const ex = {
           role = list[0];
         }
         let rolename = role.name.replace('@','(at)');
-        return await send(`Role Id: ${role.id}\nRole Name: ${rolename}\nMember count: ${role.members.size}`);
+
+        let diff;
+        highest = "years";
+        if(member.lastMessage){
+          diff = createdTime(role,time.indexOf(highest));
+          //send("diff2-1: " + diff2);
+          diff = `${diff[0]} ${time[diff[1]]}`;
+          //send("diff2-2: " + diff2);
+        }else diff="NAN";
+
+        infobad.addField(`Role name: ${rolename}`,`Role id: ${role.id}`);
+        infobad.addField(`Creation date: ${role.createdAt.toUTCString()}`,`That's about ${diff} ago!`);
+        infobad.addField(`Member Count: `,`${role.members.size}`);
+        infobad.addField(`Role Colour: `,`${role.hexColor}`);
+        infobad.addField(`Hoist: ${role.hoist}`,`This means that the role is ${role.hoist?'':'not'}displayed separately in the member list.`);
+        return await reply(`Role information: `,{embed: infobad});
+        //return await send(`Role Id: ${role.id}\nRole Name: ${rolename}\nMember count: ${role.members.size}`);
       }
     }else if(action == "channel"){
       try{
