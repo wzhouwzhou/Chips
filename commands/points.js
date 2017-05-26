@@ -1,7 +1,7 @@
 module.exports = {
   name: "points",
   perm: ["custom.points"],
-  async func(msg, {send, member, author, content, channel, guild, args, gMember, Discord, reply, bot}) {
+  async func(msg, {member, author, content, guild, args, gMember, reply}) {
     if(!guild||(guild.id!="257889450850254848"&&guild.id!="302983444009451541")) return;
     const used = member || author;
     let dbUser = database.sinxUsers.get(used.id);

@@ -2,7 +2,7 @@
 module.exports = {
   name: "stats",
   perm: ["global.stats"],
-  async func(msg, { channel, send, bot }) {
+  async func(msg, { channel, bot }) {
     let globalTotals = [0, 0, 0, 0, 0, 0.00, 0.00, 0.00];
 
     //Eval across all shards
