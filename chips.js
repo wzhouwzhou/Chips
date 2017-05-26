@@ -1,3 +1,4 @@
+/* eslint no-unused-vars: "off" */
 Object.defineProperty(exports, "__esModule", { value: true });
 global.Constants = require("./setup/Constants");
 const changeConsole_1 = require("./setup/logging/changeConsole");
