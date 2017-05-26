@@ -1,5 +1,5 @@
 const Searcher = require(path.join(__dirname, '../handlers/Searcher')).default;
-const TRUE=true;
+
 const time = ["years","months","weeks","days","hours","minutes","seconds"];
 
 const memberJoin = (member, i) => {
@@ -30,7 +30,7 @@ const ex = {
   name: "info",
   perm: ["global.info","global.info.all","global.info.serv","global.info.channel","global.info.role","global.info.user","global.info.user.self"],
   customperm: ['SEND_MESSAGES'],
-  async func(msg, {send, member, author, guild, args, gMember, reply, content, doEval }) {
+  async func(msg, {send, member, author, guild, args, gMember, reply, content }) {
     const used = member || author;
     let action;
     if (!args[0]) return send("No action given :(");
@@ -56,14 +56,10 @@ const ex = {
       let diff =  moment().diff(guild.createdAt,'days');
 
       let trueMemC = guild.members.filter((member) => { return !member.user.bot; });
-      let online = 0, idle = 0, dnd = 0, invis = 0, available = 0;
+      let online = 0, idle = 0, dnd = 0, available = 0;
       await guild.fetchMembers();
       guild.presences.filter((presence) => {
         switch(presence.status){
-          case "offline":
-            invis++;
-          break;
-
           case "online":
             online++;
             available++;
@@ -83,7 +79,7 @@ const ex = {
       });
 
       let textC = 0, voiceC = 0, tC = 0, nsfw = 0;
-      let channels = guild.channels.filter((c) => {
+      guild.channels.filter((c) => {
         if(c.type=="text") textC++;
         else if(c.type=="voice") voiceC++;
         tC++;
