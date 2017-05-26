@@ -35,7 +35,7 @@ module.exports = {
       .setDescription(reason || "No reason")
       .setTimestamp(new Date())
       .setThumbnail(Constants.images.WARNING);
-    let question = `"Do you want to kick ${memberToUse.nickname}?\nThis expires in 10 seconds. Type __y__es or __n__o.`;
+    let question = `"Do you want to kick ${memberToUse.displayName}?\nThis expires in 10 seconds. Type __y__es or __n__o.`;
     await send(question, {embed: embed});
     let confirmed = false, agreed=false;
 
@@ -67,15 +67,18 @@ module.exports = {
 
           console.log("[Kick] Kicking...");
 					let emb = new Discord.RichEmbed()
-			      .setAuthor("Kick Notice!")
-			      .setTitle(`You were kicked from the server: ${guild.name}!`)
-			      .setColor(9109504)
-			      .setThumbnail(Constants.images.WARNING)
-			      .addField("Kick reason: ", `${reason}`, true);
-		    	memberToUse.send('Uh oh!', {embed: emb}).then(mes=>{
+					.setAuthor("Kick Notice!")
+					.setTitle('You were kicked from the server: '+guild.name+'!')
+					.setColor(9109504)
+					.setThumbnail('https://i.ppy.sh/2dabc46c70a032cdeac21093ac8c4b9204f04e75/687474703a2f2f692e696d6775722e636f6d2f5a4e4f7445494e2e706e67')
+					.addField("Kick reason: ", reason, true);
+					client.fetchUser(memberToUse.id)
+					.then(u=>{u.send('Uh oh!', {embed: emb});})
+					.then(mes=>{
 						m.reply("Kicking!");
 						memberToUse.kick(`[Kick]: [Author]: ${m.author.tag} [Reason]: ${reason}`);
 					}).catch(err=>{
+						console.log(err);
 						m.reply("Could not dm the user, but kicking anyway!");
 						memberToUse.kick(`[Kick]: [Author]: ${m.author.tag} [Reason]: ${reason}`);
 					});

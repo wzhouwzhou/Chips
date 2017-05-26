@@ -35,7 +35,7 @@ module.exports = {
       .setDescription(reason || "No reason")
       .setTimestamp(new Date())
       .setThumbnail(Constants.images.WARNING);
-    let question = `"Do you want to ban ${memberToUse.nickname}?\nThis expires in 10 seconds. Type __y__es or __n__o.`;
+    let question = `"Do you want to ban ${memberToUse.displayName}?\nThis expires in 10 seconds. Type __y__es or __n__o.`;
     await send(question, {embed: embed});
     let confirmed = false, agreed=false;
 
@@ -72,7 +72,9 @@ module.exports = {
 			      .setColor(9109504)
 			      .setThumbnail(Constants.images.WARNING)
 			      .addField("Ban reason: ", `${reason}`, true);
-		    	memberToUse.send('Uh oh!', {embed: emb}).then(mes=>{
+		    	client.fetchUser(memberToUse.id)
+					.then(u=>{u.send('Uh oh!', {embed: emb});})
+					.then(mes=>{
 						m.reply("Banning!");
 						memberToUse.ban({reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
 					}).catch(err=>{
