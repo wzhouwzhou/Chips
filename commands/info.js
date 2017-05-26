@@ -30,7 +30,7 @@ const ex = {
   name: "info",
   perm: ["global.info","global.info.all","global.info.serv","global.info.channel","global.info.role","global.info.user","global.info.user.self"],
   customperm: ['SEND_MESSAGES'],
-  async func(msg, {send, member, author, channel, guild, args, gMember, reply, content, doEval }) {
+  async func(msg, {send, member, author, guild, args, gMember, reply, content, doEval }) {
     const used = member || author;
     let action;
     if (!args[0]) return send("No action given :(");
@@ -57,7 +57,8 @@ const ex = {
 
       let trueMemC = guild.members.filter((member) => { return !member.user.bot; });
       let online = 0, idle = 0, dnd = 0, invis = 0, available = 0;
-      let presences = guild.presences.filter((presence) => {
+      await guild.fetchMembers();
+      guild.presences.filter((presence) => {
         switch(presence.status){
           case "offline":
             invis++;
