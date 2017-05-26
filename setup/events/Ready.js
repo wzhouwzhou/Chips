@@ -5,8 +5,10 @@ module.exports = function( send ) {
     client.login(process.env.BETATOKEN);
   else
     client.login(process.env.TOKEN);
-  hclient.login(process.env.HTOKEN);
-  h2client.login(process.env.H2TOKEN);
+  if(client.id!="309504998864060416"){
+    hclient.login(process.env.HTOKEN);
+    h2client.login(process.env.H2TOKEN);
+  }
   h3client.login(process.env.H3TOKEN);
 
   if(process.env.C2TOKEN!=null&&process.env.C2TOKEN!="")
@@ -46,7 +48,7 @@ module.exports = function( send ) {
     //Console events
     stdin.addListener('data', d => {
         if (testC == null) {
-          return console.log("YOU HAVEN'T DEFINED AN OUTPUT CHANNEL");
+          return;//console.log("YOU HAVEN'T DEFINED AN OUTPUT CHANNEL");
         }
         if (consoleTyping == false) {
           consoleTyping = true;
