@@ -1,19 +1,24 @@
+/* eslint no-unused-vars: "off" */
 Object.defineProperty(exports, "__esModule", { value: true });
 global.Constants = require("./setup/Constants");
 const changeConsole_1 = require("./setup/logging/changeConsole");
 let setShards = { id: null };
 //Chips constants
-const child_process = require('child_process');
-const stdin = process.openStdin();
+global.stdin = process.openStdin();
 const readline = require('readline');
 
 global.path = require("path");
 global.fs = require('fs');
 const request = require('request');
 
-const favicon = require('serve-favicon');
+//const favicon = require('serve-favicon');
 global.Discord = require("discord.js");
-global.client = new Discord.Client();
+global.client = new Discord.Client({
+  fetchAllMembers:true,
+  messageCacheMaxSize:-1,
+  messageCacheLifetime:(60*60*2),
+  messageSweepInterval:(60*60*24),
+});
 global.clientutil = new Discord.ShardClientUtil(client);
 setShards.id=client.shard.id;
 global.hclient = new Discord.Client();
@@ -51,7 +56,6 @@ global.dmC;
 global.monitorMode = false;
 global.searchers = {0: null};
 /** End Global Constants **/
-let d = "", consoleTyping = false;
 
 //Shard setup
 changeConsole_1.default(false, setShards);
@@ -80,27 +84,8 @@ Messager.on("eval", ({ evalContent, vars, timestamp }) => {
   }
 });
 
-//Console events
-stdin.addListener('data', d => {
-    if (testC == null) {
-      return console.log("YOU HAVEN'T DEFINED AN OUTPUT CHANNEL");
-    }
-    if (consoleTyping == false) {
-      consoleTyping = true;
-      rl.question("\x1b[1mInput? \x1b[0m", txt => {
-        console.log("\x1b[0m", "\tConsole input:", txt);
-        if (txt == "") {
-          consoleTyping = false;
-        } else {
-          evalConsoleCommand(txt);
-          consoleTyping = false;
-        }
-      });
-    }
-});
-
 //Functions
-const send = (message, c) => { c.sendMessage(message, {disableEveryone:true}); };
+const send = (message, c) => { c.send(message, {disableEveryone:true}); };
 
 global.send2 = (message, c) => {
   if(c==null||message.author.id==client.user.id)return;
@@ -123,30 +108,6 @@ global.send2 = (message, c) => {
   c.send(' ', {embed: mainContent});
 };
 
-const evalConsoleCommand = txt => {
-  txt = detectPastes(txt);
-  if (txt == "monitor") {
-    monitorMode = true;
-    console.log("\tActivating Monitor Mode");
-  } else if (txt == "unmon") {
-    monitorMode = false;
-    console.log("\tDeactivating Monitor Mode");
-  } else {
-    send(txt, testC);
-  }
-};
-
-const detectPastes = txt => {
-  const pairPastes = _.toPairs(Constants.PASTES);
-  for (const i in pairPastes) {
-    if (txt == pairPastes[i][0]) {
-      console.log("paste " + i + " found!");
-      return pairPastes[i][1];
-    }
-  }
-  return txt;
-};
-
 function selfping() {
   request("https://chipsbot.herokuapp.com/", _=>_);
   require('./handlers/DiepAddons').getServers();
@@ -162,7 +123,8 @@ function msgStatus() {
     .addField("Num msgs in sinx: ", `${sxMsgs} msgs`)
     .addField("Num msgs in sttoc: ", `${stMsgs} msgs`)
     .addField("Num msgs in snap: ", `${snMsgs} msgs`);
-  statusC.send(' ', {embed: statsE});
+  if(statusC)
+    statusC.send(' ', {embed: statsE});
   sMsgs=0;
   nMsgs=0;
   sxMsgs=0;

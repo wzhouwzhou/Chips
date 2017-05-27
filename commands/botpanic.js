@@ -19,7 +19,7 @@ module.exports = {
     database.sheets[`botlog`].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "PANIC", mainvalue: "SIGTERM"},(err) => {console.log(`Error : ${err}`);});
     client.user.setStatus("idle");
     client.user.setGame("Restarting");
-    await send(`${member.displayName}, panic mode activated! Chips forcibly shutting down... (Attempting restart in 4 seconds)`);
+    await send(`${member.displayName}, panic mode activated! Chips forcibly restarting! (Attempt immediate restart)`);
     client.user.setStatus("invisible");
     process.exit(-100);
   }

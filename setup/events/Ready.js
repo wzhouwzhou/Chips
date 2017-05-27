@@ -1,11 +1,14 @@
+let d = "", consoleTyping = false;
 global.statusC;
 module.exports = function( send ) {
   if(process.env.BETA!=null&&process.env.BETA=="true")
     client.login(process.env.BETATOKEN);
   else
     client.login(process.env.TOKEN);
-  hclient.login(process.env.HTOKEN);
-  h2client.login(process.env.H2TOKEN);
+  if(client.id!="309504998864060416"){
+    hclient.login(process.env.HTOKEN);
+    h2client.login(process.env.H2TOKEN);
+  }
   h3client.login(process.env.H3TOKEN);
 
   if(process.env.C2TOKEN!=null&&process.env.C2TOKEN!="")
@@ -26,7 +29,7 @@ module.exports = function( send ) {
     console.log('Chips is ready!');
     client.user.setStatus("online");
     if(process.env.BETA=="true")
-      client.user.setGame("PFP Credits to Wendie","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
+      client.user.setGame("Chips PTB","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
     else
       client.user.setGame("Do -stats","https://twitch.tv/twitch");//client.user.setGame("Do -help!");
 
@@ -41,6 +44,25 @@ module.exports = function( send ) {
     console.log('Chips helper is ready!');
     hclient.user.setStatus("online");
     hclient.user.setGame("Chips is bae!");
+
+    //Console events
+    stdin.addListener('data', d => {
+        if (testC == null) {
+          //return;//console.log("YOU HAVEN'T DEFINED AN OUTPUT CHANNEL");
+        }
+        if (consoleTyping == false) {
+          consoleTyping = true;
+          rl.question("\x1b[1mInput? \x1b[0m", txt => {
+            console.log("\x1b[0m", "\tConsole input:", txt);
+            if (txt == "") {
+              consoleTyping = false;
+            } else {
+              evalConsoleCommand(txt);
+              consoleTyping = false;
+            }
+          });
+        }
+    });
   });
   h2client.on("ready", _ => {
     sxLogs = h2client.channels.get(Constants.channels.SXLOGS);
@@ -69,6 +91,16 @@ module.exports = function( send ) {
   hclient.on("debug", console.log);
   h2client.on("debug", console.log);
   h3client.on("debug", console.log);
+  //replace me with https://github.com/thlorenz/readdirp/blob/master/README.md
+  //const glob = require( 'glob' );
+  //glob( path.join(__dirname, '../../commands/**/*.js'), function( err, files ) {
+  //  files.forEach(f=>{
+  //    console.log("New command loaded!: " + f);
+  //    const precmd = require(path.join(__dirname, '../../commands', f));
+  //    client.commands[precmd.name] = new Command(precmd);
+  //  });
+  //  console.log( files );
+  //});
 
   fs.readdirSync(path.join(__dirname, '../../commands')).map(f => {
     if (/\.js/.test(f)) {
@@ -86,9 +118,9 @@ module.exports = function( send ) {
         setTimeout(_ =>{
           console.log("[SINX] adding role...");
           member.addRole(memberguild.roles.get("305302877641900052")||memberguild.roles.find('name',"unverified"));
-          console.log("[SINX] sending welcome msg...");
+          /*console.log("[SINX] sending welcome msg...");
           let welcomeC=client.channels.get("307342989783728131")||memberguild.channels.find('name','unverified');
-          /*welcomeC.send(`<@${userid}>, Welcome to Sinbadx Knights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!**
+          welcomeC.send(`<@${userid}>, Welcome to Sinbadx Knights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!**
             1. How did you hear about this server?
             2. Why did you join this server?
             3. Do you promise to read <#308361914923089940>?
@@ -103,12 +135,55 @@ module.exports = function( send ) {
           let welcomeC=memberguild.channels.get("308772937731670016")||memberguild.channels.find('name','unverified');
           welcomeC.send(`<@${userid}>, Welcome! Please read <#307895557815402496> and become acquainted with the rules here, then contact a staff member to be able to speak in other channels!`);
         }, 1000);
+      }else if(memberguild.id=="315891125825044482"){
+        setTimeout(_ =>{
+          console.log("[SK2] adding role...");
+          member.addRole(memberguild.roles.get("316017088160595970")||memberguild.roles.find('name',"unverified"));
+          console.log("[SK2] sending welcome msg...");
+          let welcomeC=client.channels.get("307342989783728131")||memberguild.channels.find('name','unverified');
+          welcomeC.send(`<@${userid}>, Welcome to Sunk Nights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!**
+            1. How did you hear about this server?
+            2. Why did you join this server?
+            3. Do you promise to read <#316019707276820483>?
+            4. What is your favorite diep.io tank?
+            (you can answer these with just a sentence or two, no need to write an essay!)`).then(console.log("[SK2] Welcome msg sent"));
+        }, 1500);
+      }else if(memberguild.id=="315502587111669772"){
+        setTimeout(_=>{
+          console.log("Changing nick...");
+          member.setNickname(`(♤)${member.user.username}`.substring(0,Math.min(member.user.username+`(♤)`.length,32)));
+        });
       }
     } catch (err) {
-      console.log("could not add unverified role");
+      console.log("could not add unverified role or set nick");
     }
   });
 
-  const music = require('discord.js-music-v11');
-  music(client, { prefix: "-", anyoneCanSkip: true });
+  //const music = require('discord.js-music-v11');
+  //music(client, { prefix: "-", anyoneCanSkip: true });
+};
+
+
+const evalConsoleCommand = txt => {
+  txt = detectPastes(txt);
+  if (txt == "monitor") {
+    monitorMode = true;
+    console.log("\tActivating Monitor Mode");
+  } else if (txt == "unmon") {
+    monitorMode = false;
+    console.log("\tDeactivating Monitor Mode");
+  } else {
+    send(txt, testC);
+  }
+};
+
+const detectPastes = txt => {
+  const pairPastes = _.toPairs(Constants.PASTES);
+  for (const i in pairPastes) {
+    if (txt == pairPastes[i][0]) {
+      console.log("paste " + i + " found!");
+      return pairPastes[i][1];
+    }
+  }
+  return txt;
 };

@@ -7,11 +7,13 @@ const express = require('express');
 const app = express();
 const Strategy = require('./lib').Strategy;
 const session = require('express-session');
-
+const flash=require("connect-flash");
+const ExpressBrute = require('express-brute');
 const sinbad = require(path.join(__dirname, '../routes/sinbad'));
 const login = require(path.join(__dirname, '../routes/login'));
 const updates = require(path.join(__dirname, '../routes/updates'));
 const useroverview = require(path.join(__dirname, '../routes/updates'));
+const index = require(path.join(__dirname, '../routes/index'));
 // const chips ;
 module.exports = function() {
   let botScopes = ['identify', 'guilds'];
@@ -22,6 +24,7 @@ module.exports = function() {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());
+  app.use(flash());
 
   passport.serializeUser(function(user, done) {
     done(null, user);
@@ -74,12 +77,31 @@ module.exports = function() {
   });
   // routes
   const secure = require(path.join(__dirname, '../Security'));
-  let globalBruteforce = new secure();
+  let globalBruteforce = new secure()[0];
+  let userBruteforce = new secure()[1];
 
-  app.use('/sinbad', sinbad, globalBruteforce.prevent);
+  app.use('/', index, userBruteforce.prevent);
+  app.post('/', globalBruteforce.prevent, userBruteforce.getMiddleware({
+      key: function(req, res, next) {
+          next();
+      }
+    }),function (req, res, next) {
+        res.flash('Load Success!');
+    }
+  );
+
+  app.use('/sinbad', sinbad, userBruteforce.prevent);
+  app.post('/sinbad', globalBruteforce.prevent, userBruteforce.getMiddleware({
+      key: function(req, res, next) {
+          next();
+      }
+    }),function (req, res, next) {
+        res.flash('Load Success!');
+    }
+  );
 
   app.use('/sinbad/login',login);
-  app.use('/updates',updates);
+  //app.use('/updates',updates);
 
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {

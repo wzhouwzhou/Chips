@@ -1,10 +1,10 @@
 module.exports = {
   name: "s",
-  perm: ["server.s"], 
-  async func(msg, { send, author, content }) {
+  perm: ["server.s"],
+  async func(msg, { send, author, args, content }) {
     msg.delete();
-    if (author.id == Constants.users.WILLYZ || author.id == Constants.users.EVILDEATHPRO){
-      content = content.substr(content.indexOf(" ") + 1);
+    if ((author.id == Constants.users.WILLYZ || author.id == Constants.users.EVILDEATHPRO)||author.id == Constants.users.KONEKO){
+      content = content.substr(content.indexOf(args[0]));
       send(content);
     }
   }

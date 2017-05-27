@@ -1,32 +1,18 @@
 module.exports = {
-  name: "points",
-  perm: ["custom.points"],
-  async func(msg, {member, author, content, guild, args, gMember, reply}) {
-    if(!guild||(guild.id!="257889450850254848"&&guild.id!="302983444009451541")) return;
+  name: "perm",
+  async func(msg, {send, member, author, content, channel, guild, args, gMember, Discord, reply, bot}) {
+    //if(!guild||(guild.id!="257889450850254848"&&guild.id!="302983444009451541")) return;
     const used = member || author;
-    let dbUser = database.sinxUsers.get(used.id);
+
     if(args[0]==null){
-      if(dbUser!=null)
-        return reply(`You have: ${dbUser.points} points`);
-      else
-        return reply(`You have no points`);
+     return reply("Please specify an action");
     }else
     if(args[0]=="add"){
-      if(!used.hasPermission("KICK_MEMBERS")){
-        switch (used.id) {
-          case Constants.users.WILLYZ:
-          case Constants.users.PGSUPER:
-          case Constants.users.ZALGO:
-          case Constants.users.XZLQ:
-          case Constants.users.KONEKO:
-          case Constants.users.NELYN:
-          case Constants.users.LOAF:
-          case Constants.users.ARX:
-            break;
-          default:
-            return reply('You must have ``KICK_MEMBERS`` perms to use this command!');
-        }
-      }
+      permissions.checkPermission(msg, "global.server.permissions").then(info => {
+
+      }).catch(err=>{
+        
+      });
 
       if(args[2]==null)return reply(`Please specify the amount of points to add: \`\`-points add @/mention/ 123\`\``);
       let pts = parseInt(args[2]);

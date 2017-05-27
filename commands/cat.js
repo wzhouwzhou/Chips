@@ -1,7 +1,3 @@
-const gifs = [
-  "http://random.cat",
-  "http://thecatapi.com/"
-];
 
 const got = require('got');
 getCat = (callback) => {

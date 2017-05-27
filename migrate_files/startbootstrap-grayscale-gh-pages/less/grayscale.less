@@ -39,14 +39,14 @@ p {
 }
 
 a {
-    color: @primary;
+    color: darken(@secondary,33%);
     -webkit-transition: all .2s ease-in-out;
     -moz-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
     &:hover,
     &:focus {
         text-decoration: none;
-        color: darken(@primary,20%);
+        color: @default;
     }
 }
 
@@ -59,24 +59,32 @@ a {
     border-bottom: 1px solid fade(white, 30%);
     text-transform: uppercase;
     font-family: "Montserrat","Helvetica Neue",Helvetica,Arial,sans-serif;
-    background-color: black;
+    background-color: white;
     .navbar-toggle {
         color: white;
         background-color: fade(white, 20%);
         font-size: 12px;
-        &:focus,
+        &:focus{
+            color: white;
+        }
         &:active {
             outline: none;
         }
     }
     .navbar-brand {
         font-weight: 700;
+        &:focus{
+            color: white;
+        }
         &:focus {
             outline: none;
+            a {
+                background-color: fade(black, 30%);
+                &:hover {
+                    color: blue;
+                }
+            }
         }
-    }
-    a {
-        color: white;
     }
     .nav {
         li {
@@ -116,7 +124,7 @@ a {
         transition: background .5s ease-in-out,padding .5s ease-in-out;
         &.top-nav-collapse {
             padding: 0;
-            background: black;
+            background: fade(white, 40%);
             border-bottom: 1px solid fade(white, 30%);
         }
     }
@@ -127,9 +135,10 @@ a {
     width: 100%;
     height: auto;
     padding: 100px 0;
+    padding-bottom: 100px 0;
     text-align: center;
     color: white;
-    background: url(../img/intro-bg.jpg) no-repeat bottom center scroll;
+    background: url('/img/chipssplash.png') no-repeat bottom center scroll;
     background-color: black;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -137,7 +146,7 @@ a {
     -o-background-size: cover;
     .intro-body {
         display: table-cell;
-        vertical-align: middle;
+        vertical-align: bottom;
         .brand-heading {
             font-size: 40px;
         }
@@ -147,7 +156,7 @@ a {
     }
     @media(min-width:768px) {
         height: 100%;
-        padding: 0;
+        padding: 100px 0;
         .intro-body {
             .brand-heading {
                 font-size: 100px;
@@ -175,8 +184,8 @@ a {
     &:hover,
     &:focus {
         outline: none;
-        color: white;
-        background: fade(white, 10%);
+        color: blue;
+        background: fade(orange, 50%);
     }
     i.animated {
         -webkit-transition-property: -webkit-transform;
@@ -240,8 +249,8 @@ a {
     width: 100%;
     padding: 50px 0;
     color: white;
-    background: url(../img/downloads-bg.jpg) no-repeat center center scroll;
-    background-color: black;
+    //background: url(../img/downloads-bg.jpg) no-repeat center center scroll;
+    background-color: gray;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -292,6 +301,20 @@ a {
     }
 }
 
+.btn-copyright {
+    border: 1px solid @default;
+    color: @primary;
+    background-color: white;
+    &:hover,
+    &:focus {
+        border: 1px solid @primary;
+        outline: none;
+        color: white;
+        background-color: @primary;
+    }
+}
+
+
 ul.banner-social-buttons {
     margin-top: 0;
     @media(max-width:1199px) {
@@ -313,6 +336,10 @@ footer {
     padding: 50px 0;
     p {
         margin: 0;
+    }
+
+    a {
+        color: white;
     }
 }
 
