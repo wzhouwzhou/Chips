@@ -1,5 +1,6 @@
-const Searcher = require(path.join(__dirname, '../handlers/Searcher'));
+//const Searcher = require(path.join(__dirname, '../handlers/Searcher'));
 const EXPIRE = 10000;
+const { escape } = require("querystring");
 
 module.exports = {
 	name:'kick',
@@ -76,11 +77,11 @@ module.exports = {
 					.then(u=>{u.send('Uh oh!', {embed: emb});})
 					.then(mes=>{
 						m.reply("Kicking!");
-						memberToUse.kick(`[Kick]: [Author]: ${m.author.tag} [Reason]: ${reason}`);
+						memberToUse.kick(escape(`[Kick]: [Author]: ${m.author.tag} [Reason]: ${reason}`));
 					}).catch(err=>{
 						console.log(err);
 						m.reply("Could not dm the user, but kicking anyway!");
-						memberToUse.kick(`[Kick]: [Author]: ${m.author.tag} [Reason]: ${reason}`);
+						memberToUse.kick(escape(`[Kick]: [Author]: ${m.author.tag} [Reason]: ${reason}`));
 					});
         }else{
           console.log("[Kick] cancelled");
