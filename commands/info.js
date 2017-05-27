@@ -256,7 +256,7 @@ const ex = {
           //send("diff2-2: " + diff2);
         }else diff="NAN";
 
-        let memList = '**Member List!**\n';
+        let memList = '';
         for(mem of role.members.array()){
           memList += `<@${mem.id}> `;
           if(memList.length>1000) {
@@ -299,7 +299,7 @@ const ex = {
         infobad.addField(`Role Colour: `,`${role.hexColor}`);
         infobad.addField(`Hoist: ${role.hoist}`,`This means that the role is ${role.hoist?'':'not '}displayed separately in the member list.`);
         infobad.addField(`Position: ${role.calculatedPosition}`,`This means that the role is ${role.calculatedPosition+1==guild.roles.size?'1st':(role.calculatedPosition+2==guild.roles.size?'2nd':(role.calculatedPosition+3==guild.roles.size?'3rd':((guild.roles.size-role.calculatedPosition)+'th')))} highest in this server!`);
-        infobad.setDescription(memList);
+        infobad.addField(`Members with this role: `,memList);
         return await reply(`Role information: `,{embed: infobad});
         //return await send(`Role Id: ${role.id}\nRole Name: ${rolename}\nMember count: ${role.members.size}`);
       }
@@ -341,7 +341,7 @@ const ex = {
           //send("diff2-2: " + diff2);
         }else diff="NAN";
 
-        let memList = '**Channel List!**\n';
+        let memList = '';
         for(mem of channel.members.array()){
           memList += `<@${mem.id}> `;
           if(memList.length>1000) {
@@ -372,15 +372,18 @@ const ex = {
           return true;
         });
         infobad.setTitle(`Channel Lookup for channel [${cname}]`);
-        infobad.addField(`Channel id: `, `${channel.id}`);
+        infobad.addField(`Channel Topic:`,`${channel.topic?channel.topic:'None'}`);
+        infobad.addField(`Channel ID: `, `${channel.id}`);
         infobad.addField(`Creation date: ${channel.createdAt.toUTCString()}`,`That's about ${diff} ago!`);
         infobad.addField(`Total number of members who can see this channel: ${trueMemC.size} (Not including bots)`,`There are ${channel.members.size-trueMemC.size} bots with access to this channel!`);
         infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There are <:vpOffline:212790005943369728> ${trueMemC.size-available} people with access to this channel offline or invisible`);
         infobad.addField(`Online: <:vpOnline:212789758110334977>`, online, true)
                .addField(`Idle: <:vpAway:212789859071426561>    `, idle  , true)
                .addField(`Dnd: <:vpDnD:236744731088912384>      `, dnd   , true);
-        infobad.addField(`Position: ${channel.calculatedPosition}`,`This means that the channel is ${channel.calculatedPosition+1==guild.channels.size?'1st':(channel.calculatedPosition+2==guild.channels.size?'2nd':(channel.calculatedPosition+3==guild.channels.size?'3rd':((guild.channels.size-channel.calculatedPosition-1)+'th')))} on the channel list in the sidebar!`);
-        infobad.setDescription(memList);
+        infobad.addField(`Position: ${channel.calculatedPosition}`,`This means that the channel is ${channel.calculatedPosition==0?'1st':(channel.calculatedPosition==1?'2nd':(channel.calculatedPosition==2?'3rd':((channel.calculatedPosition+1)+'th')))} on the channel list in the sidebar!`);
+        infobad.addField(`Permission Overwrite Count: `,`${channel.permissionOverwrites.size}`);
+        infobad.addField(`Nsfw channel: `,`${channel.nsfw?'yes':'no'}`);
+        infobad.addField(`Members with access to this channel: `,memList);
         return await reply(`Channel information: `,{embed: infobad});
       }
     }
