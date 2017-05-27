@@ -58,10 +58,6 @@ const ex = {
       let online = 0, idle = 0, dnd = 0, available = 0;
       guild.presences.filter((presence) => {
         switch(presence.status){
-          case "offline":
-            invis++;
-          break;
-
           case "online":
             online++;
             available++;
