@@ -1,4 +1,4 @@
-const Searcher = require(path.join(__dirname, '../handlers/Searcher'));
+//const Searcher = require(path.join(__dirname, '../handlers/Searcher'));
 const EXPIRE = 10000;
 
 module.exports = {
@@ -53,9 +53,7 @@ module.exports = {
       },
       { time: EXPIRE }
     );
-    collector.on('collect', m => {
-      //if(confirmed) return collector.stop();
-    });
+    collector.on('collect', _ => _);
     collector.on('end', collected => {
       if(!confirmed) return reply('Ban timed out');
       else{

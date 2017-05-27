@@ -254,7 +254,7 @@ const ex = {
 
         let memList = '';
         for(mem of role.members.array()){
-          memList += `<@${mem.id}> `;
+          memList += `[<@${mem.id}>] `;
           if(memList.length>1000) {
             memList = "Member list is too long!";
             break;
@@ -339,7 +339,7 @@ const ex = {
 
         let memList = '';
         for(mem of channel.members.array()){
-          memList += `<@${mem.id}> `;
+          memList += `[<@${mem.id}>] `;
           if(memList.length>1000) {
             memList = "Member list is too long!";
             break;
