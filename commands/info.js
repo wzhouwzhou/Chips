@@ -1,5 +1,4 @@
 const Searcher = require(path.join(__dirname, '../handlers/Searcher')).default;
-const TRUE=true;
 const time = ["years","months","weeks","days","hours","minutes","seconds"];
 
 const memberJoin = (member, i) => {
@@ -30,7 +29,7 @@ const ex = {
   name: "info",
   perm: ["global.info","global.info.all","global.info.serv","global.info.channel","global.info.role","global.info.user","global.info.user.self"],
   customperm: ['SEND_MESSAGES'],
-  async func(msg, {send, member, author, channel, guild, args, gMember, reply, content, doEval }) {
+  async func(msg, {send, member, author, guild, args, gMember, reply, content }) {
     const used = member || author;
     let action;
     if (!args[0]) return send("No action given :(");
@@ -40,7 +39,7 @@ const ex = {
     console.log("[Info] Creating new searcher for guild " + guild.id);
     let options = { guild: guild };
     searchers[guild.id] = new Searcher( options.guild );
-    let infobad = new Discord.RichEmbed().setColor(member.displayColor);
+    let infobad = new Discord.RichEmbed().setColor(member.displayColor).setFooter(new Date());
 
     if(action=="server"){
       try{
@@ -56,8 +55,8 @@ const ex = {
       let diff =  moment().diff(guild.createdAt,'days');
 
       let trueMemC = guild.members.filter((member) => { return !member.user.bot; });
-      let online = 0, idle = 0, dnd = 0, invis = 0, available = 0;
-      let presences = guild.presences.filter((presence) => {
+      let online = 0, idle = 0, dnd = 0, available = 0;
+      guild.presences.filter((presence) => {
         switch(presence.status){
           case "offline":
             invis++;
@@ -82,7 +81,7 @@ const ex = {
       });
 
       let textC = 0, voiceC = 0, tC = 0, nsfw = 0;
-      let channels = guild.channels.filter((c) => {
+      guild.channels.filter((c) => {
         if(c.type=="text") textC++;
         else if(c.type=="voice") voiceC++;
         tC++;
@@ -100,6 +99,7 @@ const ex = {
       if (guild.iconURL&&guild.iconURL(2048)) infobad.setImage(guild.iconURL(2048));
       infobad.addField(`Name of this server: ${gname}`, `Guild id: ${guild.id}`);
       infobad.addField(`Server owner: `, `<@${guild.ownerID}>`);
+      infobad.addField(`Number of roles: ${guild.roles.size}`,`Highest role: ${guild.roles.last().name}`);
       infobad.addField(`Total number of channels: ${tC}`, `Total number of nsfw channels: ${nsfw}`);
       infobad.addField(`Text channel count:    `, textC       , true)
              .addField(`Voice channel count:   `, voiceC      , true)
@@ -110,7 +110,7 @@ const ex = {
       infobad.addField(`Date created: ${guild.createdAt.toUTCString()}`, `That's about ${diff} days ago!`);
       infobad.addField(`Member count: `, guild.memberCount, true);
       infobad.addField(`Total number of members: ${trueMemC.size} (Not including bots)`,`There are ${guild.members.size-trueMemC.size} bots!`, true);
-      infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There are <:vpOffline:212790005943369728> ${invis} people offline or invisible`);
+      infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There are <:vpOffline:212790005943369728> ${guild.members.size-available} people offline or invisible`);
       infobad.addField(`Online: <:vpOnline:212789758110334977>`, online, true)
              .addField(`Idle: <:vpAway:212789859071426561>    `, idle  , true)
              .addField(`Dnd: <:vpDnD:236744731088912384>      `, dnd   , true);
@@ -242,25 +242,64 @@ const ex = {
           role = content.substring(`${prefix}info ${action} `.length);
           let list = searchers[guild.id].searchRole(role);
           if(list.length>1) await send("Multiple matches found, using first one..");
-          else if(list.length<1) return await send(`Role [${args[1]}] not found!`);
+          else if(list.length<1) return await send(`Role [${role}] not found!`);
           role = list[0];
         }
         let rolename = role.name.replace('@','(at)');
 
         let diff;
         highest = "years";
-        if(member.lastMessage){
+        if(role){
           diff = createdTime(role,time.indexOf(highest));
           //send("diff2-1: " + diff2);
           diff = `${diff[0]} ${time[diff[1]]}`;
           //send("diff2-2: " + diff2);
         }else diff="NAN";
 
-        infobad.addField(`Role name: ${rolename}`,`Role id: ${role.id}`);
+        let memList = '**Member List!**\n';
+        for(mem of role.members.array()){
+          memList += `<@${mem.id}> `;
+          if(memList.length>1000) {
+            memList = "Member list is too long!";
+            break;
+          }
+        }
+
+        let trueMemC = role.members.filter((member) => { return !member.user.bot; });
+        let online = 0, idle = 0, dnd = 0, available = 0;
+        trueMemC.filter((member) => {
+          switch(member.presence.status){
+            case "online":
+              online++;
+              available++;
+            break;
+
+            case "idle":
+              idle++;
+              available++;
+            break;
+
+            case "dnd":
+              dnd++;
+              available++;
+            break;
+          }
+          return true;
+        });
+        infobad.setColor(role.color);
+        infobad.setTitle(`Role Lookup for role [${rolename}]`); //<@&${role.id}>`);
+        infobad.addField(`Role id: `, `${role.id}`);
         infobad.addField(`Creation date: ${role.createdAt.toUTCString()}`,`That's about ${diff} ago!`);
-        infobad.addField(`Member Count: `,`${role.members.size}`);
+        infobad.addField(`Total number of members with this role: ${trueMemC.size} (Not including bots)`,`There are ${role.members.size-trueMemC.size} bots with this role!`);
+        infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There are <:vpOffline:212790005943369728> ${role.members.size-available} people with this role offline or invisible`);
+        infobad.addField(`Online: <:vpOnline:212789758110334977>`, online, true)
+               .addField(`Idle: <:vpAway:212789859071426561>    `, idle  , true)
+               .addField(`Dnd: <:vpDnD:236744731088912384>      `, dnd   , true);
+        infobad.addField(`Mentionable: `,`${role.mentionable}`);
         infobad.addField(`Role Colour: `,`${role.hexColor}`);
-        infobad.addField(`Hoist: ${role.hoist}`,`This means that the role is ${role.hoist?'':'not'}displayed separately in the member list.`);
+        infobad.addField(`Hoist: ${role.hoist}`,`This means that the role is ${role.hoist?'':'not '}displayed separately in the member list.`);
+        infobad.addField(`Position: ${role.calculatedPosition}`,`This means that the role is ${role.calculatedPosition+1==guild.roles.size?'1st':(role.calculatedPosition+2==guild.roles.size?'2nd':(role.calculatedPosition+3==guild.roles.size?'3rd':((guild.roles.size-role.calculatedPosition)+'th')))} highest in this server!`);
+        infobad.setDescription(memList);
         return await reply(`Role information: `,{embed: infobad});
         //return await send(`Role Id: ${role.id}\nRole Name: ${rolename}\nMember count: ${role.members.size}`);
       }
@@ -274,22 +313,75 @@ const ex = {
           return msg.reply(err);
         }
       }
-      if (!args[1]) return send("No channel given :<");
-      else{
-        let channel;
+      let channel;
+      if (!args[1]) channel = msg.channel;
+      if(!channel){
         try{
           channel = args[1].substring(2,args[1].length-1);
           console.log("Trying to find channel from link " + channel);
           channel = guild.roles.get(role);
           if(channel==null) throw "NotChannelId";
         }catch(err){
+          channel = content.substring(`${prefix}info ${action} `.length);
           let list = searchers[guild.id].searchChannel(channel);
           if(list.length>1) {await send("Multiple matches found, using first one.."); console.log(list);}
           else if(list.length<1) return await send(`Channel [${channel}] not found!`);
           channel = list[0];
         }
+      }
+      if(channel){
         let cname = channel.name.replace('@','(at)');
-        return await send(`Channel Id: ${channel.id}\nChannel Name: ${cname}\nMember count: ${channel.members.size}`);
+
+        let diff;
+        highest = "years";
+        if(channel){
+          diff = createdTime(channel,time.indexOf(highest));
+          //send("diff2-1: " + diff2);
+          diff = `${diff[0]} ${time[diff[1]]}`;
+          //send("diff2-2: " + diff2);
+        }else diff="NAN";
+
+        let memList = '**Channel List!**\n';
+        for(mem of channel.members.array()){
+          memList += `<@${mem.id}> `;
+          if(memList.length>1000) {
+            memList = "Member list is too long!";
+            break;
+          }
+        }
+
+        let trueMemC = channel.members.filter((member) => { return !member.user.bot; });
+        let online = 0, idle = 0, dnd = 0, available = 0;
+        trueMemC.filter((member) => {
+          switch(member.presence.status){
+            case "online":
+              online++;
+              available++;
+            break;
+
+            case "idle":
+              idle++;
+              available++;
+            break;
+
+            case "dnd":
+              dnd++;
+              available++;
+            break;
+          }
+          return true;
+        });
+        infobad.setTitle(`Channel Lookup for channel [${cname}]`);
+        infobad.addField(`Channel id: `, `${channel.id}`);
+        infobad.addField(`Creation date: ${channel.createdAt.toUTCString()}`,`That's about ${diff} ago!`);
+        infobad.addField(`Total number of members who can see this channel: ${trueMemC.size} (Not including bots)`,`There are ${channel.members.size-trueMemC.size} bots with access to this channel!`);
+        infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There are <:vpOffline:212790005943369728> ${trueMemC.size-available} people with access to this channel offline or invisible`);
+        infobad.addField(`Online: <:vpOnline:212789758110334977>`, online, true)
+               .addField(`Idle: <:vpAway:212789859071426561>    `, idle  , true)
+               .addField(`Dnd: <:vpDnD:236744731088912384>      `, dnd   , true);
+        infobad.addField(`Position: ${channel.calculatedPosition}`,`This means that the channel is ${channel.calculatedPosition+1==guild.channels.size?'1st':(channel.calculatedPosition+2==guild.channels.size?'2nd':(channel.calculatedPosition+3==guild.channels.size?'3rd':((guild.channels.size-channel.calculatedPosition-1)+'th')))} on the channel list in the sidebar!`);
+        infobad.setDescription(memList);
+        return await reply(`Channel information: `,{embed: infobad});
       }
     }
   }

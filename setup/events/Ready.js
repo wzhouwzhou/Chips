@@ -48,7 +48,7 @@ module.exports = function( send ) {
     //Console events
     stdin.addListener('data', d => {
         if (testC == null) {
-          return;//console.log("YOU HAVEN'T DEFINED AN OUTPUT CHANNEL");
+          //return;//console.log("YOU HAVEN'T DEFINED AN OUTPUT CHANNEL");
         }
         if (consoleTyping == false) {
           consoleTyping = true;
