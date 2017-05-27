@@ -23,15 +23,16 @@ ex = {
 				if(user.id != member.id) return false;
 				if(temp.confirmed||temp.agreed) return false;
 				if(reaction.emoji.toString() == Constants.emojis.CHECK){
-					send("Accepted choice " + reaction.emoji.name);
+					reply("Accepted choice " + reaction.emoji.name);
 					temp.confirmed = true;
 					temp.agreed = true;
 					temp.rxn = true;
 					return true;
 				}else if(reaction.emoji.toString() == Constants.emojis.X){
-					send("Accepted choice " + reaction.emoji.name);
+					reply("Accepted choice " + reaction.emoji.name);
 					temp.confirmed=true;
 					temp.rxn = true;
+					temp.agreed=false;
 					return true;
 				}
 			},
@@ -41,10 +42,10 @@ ex = {
 			query => {
 				if(query.content)
 					if(/^(?:y(?:es)?)|(?:no?)$/i.test(query.content))
-						if((!confirmed&&!agreed)&&query.author.id==author.id){
+						if((!temp.confirmed&&!temp.agreed)&&query.author.id==author.id){
 							temp.confirmed = true;
-							agreed = /^(?:y(?:es)?)$/i.test(query.content);
-							send(`Accepted response, continuing: ${temp.agreed}`);
+							temp.agreed = /^(?:y(?:es)?)$/i.test(query.content);
+							reply(`Accepted response, continuing: ${temp.agreed}`);
 							temp.usedmsg = true;
 							msgCol.stop();
 							return true;
@@ -71,14 +72,13 @@ ex = {
 			if(temp.usedmsg&&!temp.rxn){
 				rxnCol.stop();
 			}
+			sentmsg.delete();
 			console.log(collected);
 			if(!temp.confirmed){
-				sentmsg.delete();
 				return msg.reply("Application timed out!");
 			}
 			if(!temp.agreed){
-				sentmsg.delete();
-				return msg.reply("Application cancelled");
+				return msg.reply("Staff application cancelled!");
 			}
 			embed = new Discord.RichEmbed();
 	    embed
@@ -99,7 +99,7 @@ ex = {
 					if(user.id != member.id) return false;
 					if(temp.confirmed||!temp.next) return false;
 					if(reaction.emoji.toString() == Constants.emojis.X){
-						send("Accepted choice " + reaction.emoji.name);
+						reply("Accepted choice " + reaction.emoji.name);
 						temp.confirmed=true;
 						temp.next=false;
 						temp.rxn = true;
@@ -122,14 +122,13 @@ ex = {
 				if(!temp.rxn){
 					rxnCol.stop();
 				}
+				sentmsg.delete();
 				console.log(collected);
 				if(!temp.confirmed){
-					sentmsg.delete();
 					return msg.reply("Application timed out!");
 				}
 				if(!temp.next){
-					sentmsg.delete();
-					return msg.reply("Application cancelled");
+					return msg.reply("Staff application cancelled!");
 				}
 			});
 
