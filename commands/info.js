@@ -319,7 +319,7 @@ const ex = {
         try{
           channel = args[1].substring(2,args[1].length-1);
           console.log("Trying to find channel from link " + channel);
-          channel = guild.roles.get(role);
+          channel = guild.channels.get(channel);
           if(channel==null) throw "NotChannelId";
         }catch(err){
           channel = content.substring(`${prefix}info ${action} `.length);
