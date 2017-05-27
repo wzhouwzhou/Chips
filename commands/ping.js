@@ -1,7 +1,7 @@
 module.exports = {
   name: "ping",
   perm: ["global.ping"],
-  async func(msg, { send, member, bot }) {
+  async func(msg, { send, member }) {
     let wsPing = client.ping;
     let now = Date.now();
     let sentmsg;
@@ -21,7 +21,7 @@ module.exports = {
     let creactMetrics;
     try{
       await sentmsg.clearReactions();
-      creactMetrics = (Date.now() - now).toFixed(2);
+      creactMetrics = (Date.now() - now);
     }catch(err){
       creactMetrics = "No data could be collected..perhaps I am missing permissions";
     }
@@ -29,7 +29,23 @@ module.exports = {
     await sentmsg.delete();
     const delMetrics = Date.now() - now;
 
+    // weight: 10%/25%/20%/10%/10%/25%
+    let weighted = (wsPing/10)+(sendMetrics/4)+(editMetrics/5)+(reactMetrics/10)+(creactMetrics/10)+(delMetrics/4);
+    let scale = '';
+    if(weighted < 100) scale = "That's amazing!";
+    else if(weighted < 200) scale = "That's very good!";
+    else if(weighted < 300) scale = "That's pretty decent!";
+    else if(weighted < 400) scale = "That's about average!";
+    else if(weighted < 500) scale = "That's slightly below average!";
+    else if(weighted < 600) scale = "I might be lagging a bit!";
+    else if(weighted < 700) scale = "I think I am lagging a fair amount! Try doing -discordstats to see if it's a problem on Discord's end!";
+    else if(weighted < 800) scale = "Perhaps I am having issues with the internet! Try doing -discordstats to see if it's a problem on Discord's end!";
+    else if(weighted < 900) scale = "That's pretty bad! Try doing -discordstats to see if it's a problem on Discord's end!";
+    else if(weighted < 1000)scale = "That's poor! Perhaps I just restarted? Try doing -discordstats to see if it's a problem on Discord's end!";
+    else if(weighted > 1000)scale = "Help! Something must be wrong with me or Discord! Perhaps I just restarted? Try doing -discordstats to see if it's a problem on Discord's end!";
+
     console.log("ping pong! " + member.user.username + "'s ping was " + wsPing + "ms!");
+
     database.sheets[`botlog`].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "Crowd report: ping", mainvalue: wsPing, label: "ms"},(err) => {console.log(err);});
 
     let bad = new Discord.RichEmbed().setColor(member.color).setTitle("**Ping Metrics**");
@@ -38,9 +54,9 @@ module.exports = {
     bad.addField("Sending a msg: ", sendMetrics.toFixed(2));
     bad.addField("Editing a msg: ", editMetrics.toFixed(2));
     bad.addField("Reacting to a msg (rate limit): ", reactMetrics.toFixed(2));
-    bad.addField("Clearing message reactions: ", creactMetrics);
+    bad.addField("Clearing message reactions: ", creactMetrics.toFixed(2));
     bad.addField("Deleting a msg: ", delMetrics.toFixed(2));
 
-    return send("🏓\u2000Pong! <@" + member.user.id + ">", {embed: bad});
+    return send(`🏓\u2000Pong! <@${member.user.id}>, My weighted/overall ping is ${weighted.toFixed(2)}ms! ${scale}`, {embed: bad});
   }
 };
