@@ -24,7 +24,11 @@ module.exports = {
 
     let reason;
     if(args[1])
-      reason = _.drop(args).join(' ');
+			if(args[2]&&args[2].toLowerCase() != 'dm')
+      	reason = _.drop(args).join(' ');
+			else
+				reason = _.drop(_.drop(args)).join(' ');
+
 		if(reason == null)
 			reason = "No reason provided.";
 		let user=null, found=false;
@@ -79,7 +83,7 @@ module.exports = {
 				      .setThumbnail(Constants.images.WARNING)
 				      .addField("Ban reason: ", `${reason}`, true);
 		    		client.fetchUser(memberToUse)
-						.then(u=>{u.send('Uh oh!', {embed: emb});})
+						.then(u=>{if(args[2].toLowerCase() == 'dm') u.send('Uh oh!', {embed: emb});})
 						.then(_=>{
 						m.reply("Banning!");
 						guild.ban(memberToUse.toString(), {reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
