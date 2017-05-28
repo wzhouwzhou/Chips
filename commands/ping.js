@@ -1,7 +1,8 @@
 module.exports = {
   name: "ping",
   perm: ["global.ping"],
-  async func(msg, { send, member }) {
+  async func(msg, { send, member, channel }) {
+    channel.startTyping();
     let wsPing = client.ping;
     let now = Date.now();
     let sentmsg;
@@ -56,7 +57,7 @@ module.exports = {
     bad.addField("Reacting to a msg (rate limit): ", reactMetrics.toFixed(2));
     bad.addField("Clearing message reactions: ", creactMetrics.toFixed(2));
     bad.addField("Deleting a msg: ", delMetrics.toFixed(2));
-
+    channel.stopTyping();
     return send(`🏓\u2000Pong! <@${member.user.id}>, My weighted/overall ping is ${weighted.toFixed(2)}ms! ${scale}`, {embed: bad});
   }
 };

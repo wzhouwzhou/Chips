@@ -30,6 +30,7 @@ const ex = {
   perm: ["global.info","global.info.all","global.info.serv","global.info.channel","global.info.role","global.info.user","global.info.user.self"],
   customperm: ['SEND_MESSAGES'],
   async func(msg, {send, member, author, guild, args, gMember, reply, content }) {
+    let start = process.hrtime();
     const used = member || author;
     let action;
     if (!args[0]) return send("No action given :(");
@@ -114,6 +115,15 @@ const ex = {
       await reply(`Server info`, {embed: infobad});
       infobad = new Discord.RichEmbed();
       infobad.setColor(member.displayColor).setAuthor('Server Emojis').setTitle(`Emoji count: ${guild.emojis.size}`).setDescription(guild.emojis.array().join(' '));
+      let hrTime = process.hrtime(start);
+      let µs = false;
+      let end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
+      if(end<1){
+        µs = true;
+        end = (hrTime[0] * 1000000 + hrTime[1] / 1000);
+      }
+      µs ? end += 'µs' : end += 'ms';
+      infobad.setFooter(`--Server info lookup and calculations took ${(end)}.--`);
       return reply("Emoji List", {embed: infobad});
     }else if(action=="user"){
       let member=used;

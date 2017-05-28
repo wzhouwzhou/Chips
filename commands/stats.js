@@ -2,7 +2,10 @@
 module.exports = {
   name: "stats",
   perm: ["global.stats"],
-  async func(msg, { channel, bot }) {
+  async func(msg, { reply, channel, bot }) {
+    await channel.startTyping();
+    let start = process.hrtime();
+    let end;
     let globalTotals = [0, 0, 0, 0, 0, 0.00, 0.00, 0.00];
 
     //Eval across all shards
@@ -115,8 +118,6 @@ module.exports = {
       bad.setThumbnail(avatar);
       bad.setImage("https://cdn.discordapp.com/attachments/307625096078426123/314201502669471744/Chips.jpg");
       bad.setTitle(`Current time: ${moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')}!`);
-      bad.setFooter(`Image made by @xdlf#6477`);
-
       bad.addField("Total User Count: ", `${globalTotals[4]}`);
       bad.addField("Total Server Count: ", `${globalTotals[0]}`);
       bad.addField("Total Channel Count: ", `${globalTotals[1]}`,true);
@@ -133,7 +134,18 @@ module.exports = {
       bad.addField("Support server: ", `${support}`, false);
       let website = "[Click Here!](http://www.chipsbot.tk:8080/)";
       bad.addField("Official Website: ", `${website}`, false);
-      channel.send(' ', {embed: bad});
+
+      let hrTime = process.hrtime(start);
+      let µs = false;
+      end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
+      if(end<1){
+        µs = true;
+        end = (hrTime[0] * 1000000 + hrTime[1] / 1000);
+      }
+      µs ? end += 'µs' : end += 'ms';
+      bad.setFooter(`Image made by @xdlf#6477.--Chips stats lookup and calculations took ${(end)}.--`);
+      channel.stopTyping();
+      reply('Chips stats!', {embed: bad});
     });
   }
 };
