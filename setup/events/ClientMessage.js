@@ -27,8 +27,8 @@ module.exports = function() {
     //wowbleach trigger
     if(message.content.toLowerCase().indexOf("wowbleach")>-1) message.channel.send(" \ _ \ _ \ <:Bleach:274628490844962826>\n\ <:WOW:290865903384657920>");
 
-    if (!message.guild)
-      return dmHandle(message);
+    if (!message.guild){}
+      //dmHandle(message);
 
     //console.log(monitorMode);
     if (monitorMode && message.channel == testC)
@@ -40,13 +40,13 @@ module.exports = function() {
     }
 
     try{
-      if(message.guild.id==Constants.servers.SNAP){
+      if(message.guild&&message.guild.id==Constants.servers.SNAP){
         send2(message, snLogs);
         snMsgs++;
       }
     }catch(err){console.log(`Log errored! ${err}`);}
-
-    filter(message);
+    if(message.guild)
+      filter(message);
     detectPartyLink(message);
   });
   c2.on('message', m => {
