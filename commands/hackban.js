@@ -81,7 +81,7 @@ module.exports = {
 				      .setTitle(`You were banned from the server: ${guild.name}!`)
 				      .setColor(9109504)
 				      .setThumbnail(Constants.images.WARNING)
-				      .addField("Ban reason: ", `${reason}`, true);
+				      .addField("Ban reason: ", `${reason?reason:"None provided"}`, true);
 		    		client.fetchUser(memberToUse)
 						.then(u=>{if(args[2].toLowerCase() == 'dm') u.send('Uh oh!', {embed: emb});})
 						.then(_=>{
