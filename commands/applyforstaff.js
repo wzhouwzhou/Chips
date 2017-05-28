@@ -6,11 +6,11 @@ ex = {
 	name:'applyforstaff',
   perm:['global.server.chips.apply'],
 	customperm:['ADMINISTRATOR'],
-	async func(msg, { send, reply, member, author, channel }) {
+	async func(msg, { send, reply, author, channel }) {
     let embed = new Discord.RichEmbed();
     embed
-      .setTitle(`${member.user.tag}`, member.user.displayAvatarURL)
-      .setColor(member.displayColor)
+      .setTitle(`${author.user.tag}`, author.user.displayAvatarURL)
+      .setColor(1)
       .setDescription(`Hi there! You are about to submit a staff application. You will only be able to submit a staff application once. Please type __y__es or react with ${Constants.emojis.CHECK} to continue. Type __n__o to cancel. You can also react with ${Constants.emojis.X} at any point during the application to cancel!`)
       .setTimestamp(new Date());
     let details = `Staff application: `;
@@ -20,7 +20,7 @@ ex = {
 
 		let rxnCol = temp.sentmsg.createReactionCollector(
 			(reaction, user) => {
-				if(user.id != member.id) return false;
+				if(user.id != author.id) return false;
 				if(temp.confirmed||temp.agreed) return false;
 				if(reaction.emoji.toString() == Constants.emojis.CHECK){
 					reply("Accepted choice " + reaction.emoji.name);
@@ -82,8 +82,8 @@ ex = {
 			}
 			embed = new Discord.RichEmbed();
 	    embed
-	      .setTitle(`${member.user.tag}`, member.user.displayAvatarURL)
-	      .setColor(member.displayColor)
+	      .setTitle(`${author.user.tag}`, author.user.displayAvatarURL)
+	      .setColor(101010)
 	      .setDescription(`"Please enter some details about yourself, where you're from/timezone, how old you are, etc. Provide as much or as little information as you'd like, it just helps us get to know you better."`)
 	      .setTimestamp(new Date());
 	    let details = `Staff application (Part 1): `;
@@ -96,7 +96,7 @@ ex = {
 			);
 			let step1rxnCol = temp.sentmsg.createReactionCollector(
 				(reaction, user) => {
-					if(user.id != member.id) return false;
+					if(user.id != author.id) return false;
 					if(temp.confirmed||!temp.next) return false;
 					if(reaction.emoji.toString() == Constants.emojis.X){
 						reply("Accepted choice " + reaction.emoji.name);
