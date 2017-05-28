@@ -30,7 +30,7 @@ ex.permsList = [
   ['server.lenny'       ,true ], //26
   ['server.mute'        ,false], //27
   ['custom.nr'          ,true ], //28
-  ['custom.ping'        ,true ], //29
+  ['global.ping'        ,true ], //29
   ['custom.points'      ,false], //30
   ['global.roll'        ,true ], //31
   ['server.s'           ,false], //32
@@ -302,52 +302,54 @@ ex.checkPermission = function(msg, perm){
           }
       });
     }
-    if(guild&&ex.memberpermissions[guild.id]){
-      let mp = ex.memberpermissions[guild.id][id];
-      if (mp) {
-        mp.forEach(pEntry=>{
-          if(pEntry.name==perm)
-            switch (pEntry.action){
-              case -1:
-                reject(`I'm sorry, but you do not have access to the \`\`${perm}\`\` permission!`);
-                break;
-              case 1:
-                resolve(`Member perm overwrite for: ${perm}`);
-                break;
-              default:
-                break;
-            }
-        });
-      }
-    }
-    msg.member.roles.forEach(r=>{
-      console.log("New role found: " + r.id + "for user "+ id);
-      let rid=r.id;
-      if(ex.rolepermissions[rid]!=null){
-        let found = false;
-        ex.rolepermissions[rid].forEach(pEntry=>{
-          console.log("new entry found: " + pEntry.name);
-          if(!found)
-            if(pEntry.name==perm){
-              found=true;
-              console.log("We found an entry!");
-              switch(pEntry.action){
-                case 1:
-                console.log("Success: role");
-                resolve("This action is approved (by member role)");
-                break;
+    if(guild){
+      if(ex.memberpermissions[guild.id]){
+        let mp = ex.memberpermissions[guild.id][id];
+        if (mp) {
+          mp.forEach(pEntry=>{
+            if(pEntry.name==perm)
+              switch (pEntry.action){
                 case -1:
-                console.log("Denial: role");
-                rej(`I'm sorry but you do not have access to ${perm} (Denied by member role :${r.name})`);
-                break;
+                  reject(`I'm sorry, but you do not have access to the \`\`${perm}\`\` permission!`);
+                  break;
+                case 1:
+                  resolve(`Member perm overwrite for: ${perm}`);
+                  break;
                 default:
-                return;
+                  break;
               }
-            }
-        });
+          });
+        }
       }
-      console.log("Role: " + rid + "for user "+ id + "did not have any perm overwrites for " + perm);
-    });
+      msg.member.roles.forEach(r=>{
+        console.log("New role found: " + r.id + "for user "+ id);
+        let rid=r.id;
+        if(ex.rolepermissions[rid]!=null){
+          let found = false;
+          ex.rolepermissions[rid].forEach(pEntry=>{
+            console.log("new entry found: " + pEntry.name);
+            if(!found)
+              if(pEntry.name==perm){
+                found=true;
+                console.log("We found an entry!");
+                switch(pEntry.action){
+                  case 1:
+                  console.log("Success: role");
+                  resolve("This action is approved (by member role)");
+                  break;
+                  case -1:
+                  console.log("Denial: role");
+                  rej(`I'm sorry but you do not have access to ${perm} (Denied by member role :${r.name})`);
+                  break;
+                  default:
+                  return;
+                }
+              }
+          });
+        }
+        console.log("Role: " + rid + "for user "+ id + "did not have any perm overwrites for " + perm);
+      });
+    }
     console.log("Now checking default perms.: ." + perm);
     console.log("Is the perm in the default list? : " + ex.defaultperms.has(perm));
     let value = ex.defaultperms.has(perm)?ex.defaultperms.get(perm):true;
