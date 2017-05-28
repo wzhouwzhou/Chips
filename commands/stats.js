@@ -134,7 +134,8 @@ module.exports = {
       bad.addField("Support server: ", `${support}`, false);
       let website = "[Click Here!](http://www.chipsbot.tk:8080/)";
       bad.addField("Official Website: ", `${website}`, false);
-
+      let donate = "paypal.me/wzhouwzhou";
+      bad.addField("Feeling generous? Donate here to help us pay for hosting and keep our bot updated constantly!", `${donate}`, false);
       let hrTime = process.hrtime(start);
       let µs = false;
       end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
