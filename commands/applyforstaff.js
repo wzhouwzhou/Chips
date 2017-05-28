@@ -6,10 +6,10 @@ ex = {
 	name:'applyforstaff',
   perm:['global.server.chips.apply'],
 	customperm:['ADMINISTRATOR'],
-	async func(msg, { send, reply, author, channel }) {
+	async func(msg, { reply, author, channel }) {
     let embed = new Discord.RichEmbed();
     embed
-      .setTitle(`${author.user.tag}`, author.user.displayAvatarURL)
+      .setTitle(`${author.tag}`, author.displayAvatarURL)
       .setColor(1)
       .setDescription(`Hi there! You are about to submit a staff application. You will only be able to submit a staff application once. Please type __y__es or react with ${Constants.emojis.CHECK} to continue. Type __n__o to cancel. You can also react with ${Constants.emojis.X} at any point during the application to cancel!`)
       .setTimestamp(new Date());
@@ -82,7 +82,7 @@ ex = {
 			}
 			embed = new Discord.RichEmbed();
 	    embed
-	      .setTitle(`${author.user.tag}`, author.user.displayAvatarURL)
+	      .setTitle(`${author.tag}`, author.displayAvatarURL)
 	      .setColor(101010)
 	      .setDescription(`"Please enter some details about yourself, where you're from/timezone, how old you are, etc. Provide as much or as little information as you'd like, it just helps us get to know you better."`)
 	      .setTimestamp(new Date());
