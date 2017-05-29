@@ -20,6 +20,7 @@ We apologize for any inconveniences at this time, we are doing a permissions rew
 	  ***Moderation Commands***
 	**{}ban** to ban someone.
 	**{}clear** to clear some messages. (up to 99)
+	**{}hackban** to ban someone by their ID
 	**{}kick** to kick someone.
 	**{}pmute** to give someone a muted role! (Disclaimer: this does not create a Muted role)
 	  ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
