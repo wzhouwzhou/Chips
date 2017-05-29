@@ -181,7 +181,7 @@ ex = {
 		    embed
 		      .setTitle(`${author.tag}`, author.displayAvatarURL)
 		      .setColor(101010)
-		      .setDescription(`Please tell us why you would like to be on the staff team. What assets would you bring that would benefit the staff team? How much time do you spend on Discord, and how much do you plan on devoting to our support server?`);
+		      .setDescription(`Next, please tell us why you would like to be on the staff team. What assets would you bring that would benefit the staff team? How much time do you spend on Discord, and how much do you plan on devoting to our support server?`)
 		      .setTimestamp(new Date());
 		    let details = `Staff application (Part 2): `;
 		    temp.sentmsg = await reply(details, {embed: embed});
