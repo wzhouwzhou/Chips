@@ -8,9 +8,8 @@ ex = {
 	customperm:['ADMINISTRATOR'],
 	async func(msg, { reply, author, guild, channel, member }) {
 		if(guild.id!=Constants.servers.SUPPORT) return;
-		temp.applying = (guild.roles.get(Constants.roles.SUPPORT_STAFFAPPLICATIONROLE).memberCount>0);
 		if(channel.id!=Constants.channels.SUPPORT_STAFFAPPLICATION){
-			if(!temp.applying){
+			if(guild.roles.get(Constants.roles.SUPPORT_STAFFAPPLICATIONROLE).members.size>0){
 		    let embed = new Discord.RichEmbed();
 		    embed
 		      .setTitle(`${author.tag}`, author.displayAvatarURL)
@@ -152,14 +151,13 @@ ex = {
 				if(!temp.next){
 					msg.reply("Staff application cancelled!");
 					setTimeout(async ()=>{
-						await member.removeRole(guild.roles.get(Constants.roles.SUPPORT_STAFFAPPLICATION));
 						try{
 							let msgs = await channel.fetchMessages({limit: 100});
 							await channel.bulkDelete(msgs);
-							temp.applying = false;
 						}catch(err){
-							console.log(err);
+							return reply(`Uh oh, could not end your staff application, please let an online staff know about this!`);
 						}
+						await member.removeRole(guild.roles.get(Constants.roles.SUPPORT_STAFFAPPLICATION));
 					},5000);
 				}
 			});
