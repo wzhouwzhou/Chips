@@ -6,7 +6,7 @@ ex = {
 	name:'applyforstaff',
   perm:['global.server.chips.apply'],
 	customperm:['ADMINISTRATOR'],
-	async func(msg, { reply, author, guild, channel }) {
+	async func(msg, { reply, author, guild, channel, member }) {
 		if(guild.id!=Constants.servers.SUPPORT) return;
 
 		if(channel.id!=Constants.channels.SUPPORT_STAFFAPPLICATION){
@@ -60,7 +60,10 @@ ex = {
 			await temp.sentmsg.react(`${Constants.emojis.CHECK}`); // or 👌');
 			await temp.sentmsg.react(`${Constants.emojis.X}`);
 
-			rxnCol.on('collect', r => console.log(`Collected ${r.emoji.name}`));
+			rxnCol.on('collect', r => {
+				console.log(`Collected ${r.emoji.name}`);
+				rxnCol.stop();
+			});
 			rxnCol.on('end', collected => {
 				if(temp.agreed&&temp.rxn){
 					console.log(collected);
@@ -84,7 +87,7 @@ ex = {
 					return msg.reply("Staff application cancelled!");
 				}
 				await member.addRole(guild.roles.get('318569495486791680'));
-				
+
 				return reply(`Excellent! The information you provide in your application will be confidential. Please head over to <#${Constants.channels.SUPPORT_STAFFAPPLICATION}> and type \`\`${prefix}applyforstaff\`\` to begin!`);
 			});
 		}else{
