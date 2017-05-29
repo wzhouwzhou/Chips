@@ -8,88 +8,99 @@ ex = {
 	customperm:['ADMINISTRATOR'],
 	async func(msg, { reply, author, guild, channel, member }) {
 		if(guild.id!=Constants.servers.SUPPORT) return;
-
+		temp.applying = (guild.roles.get(Constants.roles.SUPPORT_STAFFAPPLICATIONROLE).memberCount>0);
 		if(channel.id!=Constants.channels.SUPPORT_STAFFAPPLICATION){
-	    let embed = new Discord.RichEmbed();
-	    embed
-	      .setTitle(`${author.tag}`, author.displayAvatarURL)
-	      .setColor(1)
-	      .setDescription(`Hi there! You are about to submit a staff application. You will only be able to submit a staff application once. Please type __y__es or react with ${Constants.emojis.CHECK} to continue. Type __n__o to cancel. You can also react with ${Constants.emojis.X} at any point during the application to cancel!`)
-	      .setTimestamp(new Date());
-	    let details = `Staff application: `;
-	    temp.sentmsg = await reply(details, {embed: embed});
+			if(!temp.applying){
+		    let embed = new Discord.RichEmbed();
+		    embed
+		      .setTitle(`${author.tag}`, author.displayAvatarURL)
+		      .setColor(1)
+		      .setDescription(`Hi there! You are about to submit a staff application. You will only be able to submit a staff application once. Please type __y__es or react with ${Constants.emojis.CHECK} to continue. Type __n__o to cancel. You can also react with ${Constants.emojis.X} at any point during the application to cancel!`)
+		      .setTimestamp(new Date());
+		    let details = `Staff application: `;
+		    temp.sentmsg = await reply(details, {embed: embed});
 
-	    temp.confirmed = false; temp.agreed=false; temp.rxn = false;
+		    temp.confirmed = false; temp.agreed=false; temp.rxn = false;
 
-			let rxnCol = temp.sentmsg.createReactionCollector(
-				(reaction, user) => {
-					if(user.id != author.id) return false;
-					if(temp.confirmed||temp.agreed) return false;
-					if(reaction.emoji.toString() == Constants.emojis.CHECK){
-						reply("Accepted choice " + reaction.emoji.name);
-						temp.confirmed = true;
-						temp.agreed = true;
-						temp.rxn = true;
-						return true;
-					}else if(reaction.emoji.toString() == Constants.emojis.X){
-						reply("Accepted choice " + reaction.emoji.name);
-						temp.confirmed=true;
-						temp.rxn = true;
-						temp.agreed=false;
-						return true;
-					}
-				},
-				{ max: 1, time: EXPIRE, errors: ['time'] }
-			);
-			let msgCol = channel.createMessageCollector(
-				query => {
-					if(query.content)
-						if(/^(?:y(?:es)?)|(?:no?)$/i.test(query.content))
-							if((!temp.confirmed&&!temp.agreed)&&query.author.id==author.id){
-								temp.confirmed = true;
-								temp.agreed = /^(?:y(?:es)?)$/i.test(query.content);
-								reply(`Accepted response, continuing: ${temp.agreed}`);
-								temp.usedmsg = true;
-								msgCol.stop();
-								return true;
-							}
-				},
-				{ max: 1, time: EXPIRE, errors: ['time'] }
-			);
+				let rxnCol = temp.sentmsg.createReactionCollector(
+					(reaction, user) => {
+						if(user.id != author.id) return false;
+						if(temp.confirmed||temp.agreed) return false;
+						if(reaction.emoji.toString() == Constants.emojis.CHECK){
+							reply("Accepted choice " + reaction.emoji.name);
+							temp.confirmed = true;
+							temp.agreed = true;
+							temp.rxn = true;
+							return true;
+						}else if(reaction.emoji.toString() == Constants.emojis.X){
+							reply("Accepted choice " + reaction.emoji.name);
+							temp.confirmed=true;
+							temp.rxn = true;
+							temp.agreed=false;
+							return true;
+						}
+					},
+					{ max: 1, time: EXPIRE, errors: ['time'] }
+				);
+				let msgCol = channel.createMessageCollector(
+					query => {
+						if(query.content)
+							if(/^(?:y(?:es)?)|(?:no?)$/i.test(query.content))
+								if((!temp.confirmed&&!temp.agreed)&&query.author.id==author.id){
+									temp.confirmed = true;
+									temp.agreed = /^(?:y(?:es)?)$/i.test(query.content);
+									reply(`Accepted response, continuing: ${temp.agreed}`);
+									temp.usedmsg = true;
+									msgCol.stop();
+									return true;
+								}
+					},
+					{ max: 1, time: EXPIRE, errors: ['time'] }
+				);
 
-			await temp.sentmsg.react(`${Constants.emojis.CHECK}`); // or 👌');
-			await temp.sentmsg.react(`${Constants.emojis.X}`);
+				await temp.sentmsg.react(`${Constants.emojis.CHECK}`); // or 👌');
+				await temp.sentmsg.react(`${Constants.emojis.X}`);
 
-			rxnCol.on('collect', r => {
-				console.log(`Collected ${r.emoji.name}`);
-				rxnCol.stop();
-			});
-			rxnCol.on('end', collected => {
-				if(temp.agreed&&temp.rxn){
-					console.log(collected);
-					msgCol.stop();
-					return;
-				}
-			});
-
-			msgCol.on('collect',_=>_);
-			msgCol.on('end',async collected => {
-				let sentmsg = temp.sentmsg;
-				if(temp.usedmsg&&!temp.rxn){
+				rxnCol.on('collect', r => {
+					console.log(`Collected ${r.emoji.name}`);
 					rxnCol.stop();
-				}
-				sentmsg.delete();
-				console.log(collected);
-				if(!temp.confirmed){
-					return msg.reply("Application timed out!");
-				}
-				if(!temp.agreed){
-					return msg.reply("Staff application cancelled!");
-				}
-				await member.addRole(guild.roles.get('318569495486791680'));
+				});
+				rxnCol.on('end', collected => {
+					if(temp.agreed&&temp.rxn){
+						console.log(collected);
+						msgCol.stop();
+						return;
+					}
+				});
 
-				return reply(`Excellent! The information you provide in your application will be confidential. Please head over to <#${Constants.channels.SUPPORT_STAFFAPPLICATION}> and type \`\`${prefix}applyforstaff\`\` to begin!`);
-			});
+				msgCol.on('collect',_=>_);
+				msgCol.on('end',async collected => {
+					let sentmsg = temp.sentmsg;
+					if(temp.usedmsg&&!temp.rxn){
+						rxnCol.stop();
+					}
+					sentmsg.delete();
+					console.log(collected);
+					if(!temp.confirmed){
+						return msg.reply("Application timed out!");
+					}
+					if(!temp.agreed){
+						return msg.reply("Staff application cancelled!");
+					}
+					await member.addRole(guild.roles.get('318569495486791680'));
+
+					return reply(`Excellent! The information you provide in your application will be confidential. Please head over to <#${Constants.channels.SUPPORT_STAFFAPPLICATION}> and type \`\`${prefix}applyforstaff\`\` to begin!`);
+				});
+			}else{
+				let embed = new Discord.RichEmbed();
+		    embed
+		      .setTitle(`${author.tag}`, author.displayAvatarURL)
+		      .setColor(1)
+		      .setDescription(`Hi there! Greatest apologies, someone else is currently submitting an application. To prevent our system from being overloaded you cannot submit an application right now. Please wait a few minutes before trying again, and sorry for the inconvenience!`)
+		      .setTimestamp(new Date());
+		    let details = `Sorry! `;
+		    return reply(details, {embed: embed});
+			}
 		}else{
 			let embed = new Discord.RichEmbed();
 	    embed
@@ -139,7 +150,17 @@ ex = {
 					return msg.reply("Application timed out!");
 				}
 				if(!temp.next){
-					return msg.reply("Staff application cancelled!");
+					msg.reply("Staff application cancelled!");
+					setTimeout(async ()=>{
+						await member.removeRole(guild.roles.get(Constants.roles.SUPPORT_STAFFAPPLICATION));
+						try{
+							let msgs = await channel.fetchMessages({limit: 100});
+							await channel.bulkDelete(msgs);
+							temp.applying = false;
+						}catch(err){
+							console.log(err);
+						}
+					},5000);
 				}
 			});
 		}
