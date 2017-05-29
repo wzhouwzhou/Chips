@@ -76,15 +76,15 @@ module.exports = {
         if(m.author.id!=author.id) return;
         if(agreed){
           console.log("[Ban] Banning...");
-						let emb = new Discord.RichEmbed()
-				      .setAuthor("Ban Notice!")
-				      .setTitle(`You were banned from the server: ${guild.name}!`)
-				      .setColor(9109504)
-				      .setThumbnail(Constants.images.WARNING)
-				      .addField("Ban reason: ", `${reason?reason:"None provided"}`, true);
-		    		client.fetchUser(memberToUse)
-						.then(u=>{if(args[2].toLowerCase() == 'dm') u.send('Uh oh!', {embed: emb});})
-						.then(_=>{
+					let emb = new Discord.RichEmbed()
+			      .setAuthor("Ban Notice!")
+			      .setTitle(`You were banned from the server: ${guild.name}!`)
+			      .setColor(9109504)
+			      .setThumbnail(Constants.images.WARNING)
+			      .addField("Ban reason: ", `${reason?reason:"None provided"}`, true);
+	    		client.fetchUser(memberToUse)
+					.then(u=>{if(args[2].toLowerCase() == 'dm') u.send('Uh oh!', {embed: emb});})
+					.then(_=>{
 						m.reply("Banning!");
 						guild.ban(memberToUse.toString(), {reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
 					}).catch(_=>{
