@@ -36,6 +36,7 @@ We apologize for any inconveniences at this time, we are doing a permissions rew
 	**{}lenny** to make a lenny face.
 	**{}-quote** to get a quote of a message.
 	**{}rekt** to make some people get rekt.
-	**{}roll** to roll some dice.`.replace(/{}/g, prefix));
+	**{}roll** to roll some dice.
+	**{}nsfw** to get NSFW commands`.replace(/{}/g, prefix));
   }
 };
