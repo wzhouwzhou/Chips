@@ -142,7 +142,7 @@ ex = {
 			step1Col.on('end',async collected => {
 				let sentmsg = temp.sentmsg;
 				if(!temp.rxn){
-					rxnCol.stop();
+					step1rxnCol.stop();
 				}
 				sentmsg.delete();
 				console.log(collected);
