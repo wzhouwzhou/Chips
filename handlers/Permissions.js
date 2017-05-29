@@ -1,47 +1,48 @@
 'use strict';
 const ex = {};
 ex.permsList = [
-  ['global.owner'       ,false], // 0
-  ['global.admin'       ,false], // 1
-  ['global.test'        ,false], // 2
-  ['global.test2'       ,true ], // 3
-  ['global.server.-ban' ,false], // 4
-  ['server.-vs '        ,true ], // 5
-  ['server.aboose'      ,true ], // 6
-  ['server.announce'    ,true ], // 7
-  ['server.blacklist'   ,false], // 8
-  ['global.botpanic'    ,false], // 9
-  ['server.cat'         ,true ], //10
-  ['server.clear'       ,true ], //11
-  ['server.coinflip'    ,true ], //12
-  ['server.dog'         ,true ], //13
-  ['global.eatme'       ,true ], //14
-  ['server.emojiban'    ,false], //15
-  ['global.eval'        ,false], //16
-  ['server.exposed'     ,true ], //17
-  ['server.happy'       ,true ], //18
-  ['server.help'        ,true ], //19
-  ['global.info'        ,true ], //20
-  ['global.info.all'    ,false], //21
-  ['global.info.serv'   ,true], //22
-  ['global.info.channel',false], //23
-  ['global.info.user'   ,true], //24
-  ['global.info.user.self',true], //25
-  ['server.lenny'       ,true ], //26
-  ['server.mute'        ,false], //27
-  ['custom.nr'          ,true ], //28
-  ['global.ping'        ,true ], //29
-  ['custom.points'      ,false], //30
-  ['global.roll'        ,true ], //31
-  ['server.s'           ,false], //32
-  ['global.stats'       ,true ], //33
-  ['global.support'     ,true ], //34
-  ['global.quote'       ,true ], //35
+  ['global.owner'         ,false], // 0
+  ['global.admin'         ,false], // 1
+  ['global.test'          ,false], // 2
+  ['global.test2'         ,true ], // 3
+  ['global.server.-ban'   ,false], // 4
+  ['server.-vs '          ,true ], // 5
+  ['server.aboose'        ,true ], // 6
+  ['server.announce'      ,true ], // 7
+  ['server.blacklist'     ,false], // 8
+  ['global.botpanic'      ,false], // 9
+  ['server.cat'           ,true ], //10
+  ['server.clear'         ,true ], //11
+  ['server.coinflip'      ,true ], //12
+  ['server.dog'           ,true ], //13
+  ['global.eatme'         ,true ], //14
+  ['server.emojiban'      ,false], //15
+  ['global.eval'          ,false], //16
+  ['server.exposed'       ,true ], //17
+  ['server.happy'         ,true ], //18
+  ['server.help'          ,true ], //19
+  ['global.info'          ,true ], //20
+  ['global.info.all'      ,false], //21
+  ['global.info.serv'     ,true ], //22
+  ['global.info.channel'  ,false], //23
+  ['global.info.user'     ,true ], //24
+  ['global.info.user.self',true ], //25
+  ['server.lenny'         ,true ], //26
+  ['server.mute'          ,false], //27
+  ['custom.nr'            ,true ], //28
+  ['global.ping'          ,true ], //29
+  ['custom.points'        ,false], //30
+  ['global.roll'          ,true ], //31
+  ['server.s'             ,false], //32
+  ['global.stats'         ,true ], //33
+  ['global.support'       ,true ], //34
+  ['global.quote'         ,true ], //35
   //future permissions add below this comment please
-  ['global.info.role'   ,false], //36
-  ['global.server.rekt' ,true], //37
-  ['global.server.ban'  ,false], //38
-  ['global.server.kick' ,false], //39
+  ['global.info.role'     ,false], //36
+  ['global.server.rekt'   ,true ], //37
+  ['global.server.ban'    ,false], //38
+  ['global.server.kick'   ,false], //39
+  ['server.nsfw'          ,true ], //40
 ];
 
 ex.defaultperms = new Map(ex.permsList);
