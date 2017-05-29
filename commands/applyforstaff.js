@@ -1,6 +1,7 @@
 
 const EXPIRE = 10000;
 const STEP1EXPIRE = (5*60*1000);
+const STEP2EXPIRE = (5*60*1000);
 temp = {};
 
 ex = {
