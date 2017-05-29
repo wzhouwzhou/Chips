@@ -11,6 +11,11 @@ We apologize for any inconveniences at this time, we are doing a permissions rew
 	**{}ping** for ping pong.
 	**{}stats** to show my stats.
 	**{}support** for chips' support server.
+	**{}info** for some information!
+		**{}channel**
+		**{}role**
+		**{}server**
+		**{}user**
 	  ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
 	  ***Moderation Commands***
 	**{}ban** to ban someone.
@@ -31,10 +36,6 @@ We apologize for any inconveniences at this time, we are doing a permissions rew
 	**{}lenny** to make a lenny face.
 	**{}-quote** to get a quote of a message.
 	**{}rekt** to make some people get rekt.
-	**{}roll** to roll some dice.
-	  ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-      ***Restricted/Whitelisted commands***
-	{}botpanic to force shutdown (Auto restart)
-	{}emojiban to external-emoji ban someone.`.replace(/{}/g, prefix));
+	**{}roll** to roll some dice.`.replace(/{}/g, prefix));
   }
 };
