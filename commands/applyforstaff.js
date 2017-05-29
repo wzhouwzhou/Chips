@@ -96,7 +96,7 @@ ex = {
 		    embed
 		      .setTitle(`${author.tag}`, author.displayAvatarURL)
 		      .setColor(1)
-		      .setDescription(`Hi there! Greatest apologies, someone else is currently submitting an application. To prevent our system from being overloaded you cannot submit an application right now. Please wait a few minutes before trying again, and sorry for the inconvenience!`)
+		      .setDescription(`Hi there! Greatest apologies, someone else is currently submitting an application. To prevent our system from being overloaded you cannot submit an application right now. If you believe this is in error, contact an online staff member!. Please wait a few minutes before trying again, and sorry for the inconvenience!`)
 		      .setTimestamp(new Date());
 		    let details = `Sorry! `;
 		    return reply(details, {embed: embed});
