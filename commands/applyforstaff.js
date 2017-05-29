@@ -1,16 +1,15 @@
 
 const EXPIRE = 10000;
+const STEP1EXPIRE = (5*60*1000);
 temp = {};
 
 ex = {
 	name:'applyforstaff',
   perm:['global.server.chips.apply'],
 	customperm:['ADMINISTRATOR'],
-	async func(msg, { send, reply, author, guild, channel, member }) {
+	async func(msg, { reply, author, guild, channel, member }) {
 		if(guild.id!=Constants.servers.SUPPORT) return;
 		if(channel.id!=Constants.channels.SUPPORT_STAFFAPPLICATION){
-			send("IS SOMEONE ALREADY SUBMITTING AN APPLICATION: " + guild.roles.get(Constants.roles.SUPPORT_STAFFAPPLICATIONROLE).members.size>0);
-			console.log("IS SOMEONE ALREADY SUBMITTING AN APPLICATION: " + guild.roles.get(Constants.roles.SUPPORT_STAFFAPPLICATIONROLE).members.size>0);
 			if(guild.roles.get(Constants.roles.SUPPORT_STAFFAPPLICATIONROLE).members.size==0){
 		    let embed = new Discord.RichEmbed();
 		    embed
@@ -28,13 +27,17 @@ ex = {
 						if(user.id != author.id) return false;
 						if(temp.confirmed||temp.agreed) return false;
 						if(reaction.emoji.toString() == Constants.emojis.CHECK){
-							reply("Accepted choice " + reaction.emoji.name);
+							reply("Accepted choice " + reaction.emoji.name).then(m=>{
+								setTimeout(()=>m.delete(),1000);
+							});
 							temp.confirmed = true;
 							temp.agreed = true;
 							temp.rxn = true;
 							return true;
 						}else if(reaction.emoji.toString() == Constants.emojis.X){
-							reply("Accepted choice " + reaction.emoji.name);
+							reply("Accepted choice " + reaction.emoji.name).then(m=>{
+								setTimeout(()=>m.delete(),1000);
+							});
 							temp.confirmed=true;
 							temp.rxn = true;
 							temp.agreed=false;
@@ -50,7 +53,9 @@ ex = {
 								if((!temp.confirmed&&!temp.agreed)&&query.author.id==author.id){
 									temp.confirmed = true;
 									temp.agreed = /^(?:y(?:es)?)$/i.test(query.content);
-									reply(`Accepted response, continuing: ${temp.agreed}`);
+									reply(`Accepted response, continuing: ${temp.agreed}`).then(m=>{
+										setTimeout(()=>m.delete(),1000);
+									});
 									temp.usedmsg = true;
 									msgCol.stop();
 									return true;
@@ -114,7 +119,7 @@ ex = {
 			temp.confirmed = false; temp.next=true; temp.rxn = false;
 			temp.usedmsg = false;
 			let step1Col = channel.createMessageCollector(
-				_=>{return true;},
+				_=>{temp.next=true;return true;},
 				{ max: 1, time: EXPIRE, errors: ['time'] }
 			);
 			let step1rxnCol = temp.sentmsg.createReactionCollector(
@@ -160,7 +165,7 @@ ex = {
 							return reply(`Uh oh, could not end your staff application, please let an online staff know about this!`);
 						}
 						await member.removeRole(guild.roles.get(Constants.roles.SUPPORT_STAFFAPPLICATION));
-					},5000);
+					},STEP1EXPIRE);
 				}
 			});
 		}
