@@ -120,7 +120,12 @@ ex = {
 			temp.confirmed = false; temp.next=true; temp.rxn = false;
 			temp.usedmsg = false;
 			let step1Col = channel.createMessageCollector(
-				_=>{temp.next=true;return true;},
+				m=>{
+					if(m.author.id==author.id){
+						temp.next=true;
+						return true;
+					}
+				},
 				{ max: 1, time: STEP1EXPIRE, errors: ['time'] }
 			);
 			let step1rxnCol = temp.sentmsg.createReactionCollector(
@@ -164,7 +169,6 @@ ex = {
 					temp.next=false;
 				}
 				if(!temp.next){
-					msg.reply("Staff application cancelled!");
 					setTimeout(async ()=>{
 						try{
 							let msgs = await channel.fetchMessages({limit: 100});
@@ -172,8 +176,9 @@ ex = {
 						}catch(err){
 							return reply(`Uh oh, could not end your staff application, please let an online staff know about this!`);
 						}
-						await member.removeRole(Constants.roles.SUPPORT_STAFFAPPLICATION);
+						await member.removeRole(Constants.roles.SUPPORT_STAFFAPPLICATIONROLE);
 					},5000);
+					return msg.reply("Staff application cancelled! Please wait while we clean up everything!");
 				}
 
 
@@ -189,7 +194,12 @@ ex = {
 				temp.confirmed = false; temp.next=true; temp.rxn = false;
 				temp.usedmsg = false;
 				let step2Col = channel.createMessageCollector(
-					_=>{temp.next=true;return true;},
+					m=>{
+						if(m.author.id==author.id){
+							temp.next=true;
+							return true;
+						}
+					},
 					{ max: 1, time: STEP2EXPIRE, errors: ['time'] }
 				);
 				let step2rxnCol = temp.sentmsg.createReactionCollector(
@@ -233,16 +243,16 @@ ex = {
 						temp.next=false;
 					}
 					if(!temp.next){
-						msg.reply("Staff application cancelled!");
 						setTimeout(async ()=>{
 							try{
 								let msgs = await channel.fetchMessages({limit: 100});
 								await channel.bulkDelete(msgs);
-								await member.removeRole(Constants.roles.SUPPORT_STAFFAPPLICATION);
+								await member.removeRole(Constants.roles.SUPPORT_STAFFAPPLICATIONROLE);
 							}catch(err){
 								return reply(`Uh oh, could not end your staff application, please let an online staff know about this!`);
 							}
 						},5000);
+						return msg.reply("Staff application cancelled!");
 					}
 					//continue to step 3
 				});
