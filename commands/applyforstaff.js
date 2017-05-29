@@ -146,6 +146,11 @@ ex = {
 			await temp.sentmsg.react(`${Constants.emojis.X}`);
 			step1Col.on('collect',_=>_);
 			step1Col.on('end',async collected => {
+				if(collected.first!=null){
+					reply(collected.first);
+					temp.next = true;
+					temp.confirmed = true;
+				}
 				let sentmsg = temp.sentmsg;
 				if(!temp.rxn){
 					step1rxnCol.stop();
@@ -153,7 +158,8 @@ ex = {
 				sentmsg.delete();
 				console.log(collected);
 				if(!temp.confirmed){
-					return msg.reply("Application timed out!");
+					msg.reply("Application timed out!");
+					temp.next=false;
 				}
 				if(!temp.next){
 					msg.reply("Staff application cancelled!");
@@ -164,9 +170,10 @@ ex = {
 						}catch(err){
 							return reply(`Uh oh, could not end your staff application, please let an online staff know about this!`);
 						}
-						await member.removeRole(guild.roles.get(Constants.roles.SUPPORT_STAFFAPPLICATION));
+						await member.removeRole(Constants.roles.SUPPORT_STAFFAPPLICATION);
 					},5000);
 				}
+				//continue to step 2
 			});
 		}
 	}
