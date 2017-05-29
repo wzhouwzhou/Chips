@@ -120,7 +120,7 @@ ex = {
 			temp.usedmsg = false;
 			let step1Col = channel.createMessageCollector(
 				_=>{temp.next=true;return true;},
-				{ max: 1, time: EXPIRE, errors: ['time'] }
+				{ max: 1, time: STEP1EXPIRE, errors: ['time'] }
 			);
 			let step1rxnCol = temp.sentmsg.createReactionCollector(
 				(reaction, user) => {
@@ -133,7 +133,7 @@ ex = {
 						temp.rxn = true;
 						return true;
 					}
-				},{ max: 1, time: EXPIRE, errors: ['time'] }
+				},{ max: 1, time: STEP1EXPIRE, errors: ['time'] }
 			);
 			step1rxnCol.on('collect', _=>_);
 			step1rxnCol.on('end', collected => {
@@ -165,7 +165,7 @@ ex = {
 							return reply(`Uh oh, could not end your staff application, please let an online staff know about this!`);
 						}
 						await member.removeRole(guild.roles.get(Constants.roles.SUPPORT_STAFFAPPLICATION));
-					},STEP1EXPIRE);
+					},5000);
 				}
 			});
 		}
