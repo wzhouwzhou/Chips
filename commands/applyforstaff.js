@@ -6,9 +6,10 @@ ex = {
 	name:'applyforstaff',
   perm:['global.server.chips.apply'],
 	customperm:['ADMINISTRATOR'],
-	async func(msg, { reply, author, guild, channel, member }) {
+	async func(msg, { send, reply, author, guild, channel, member }) {
 		if(guild.id!=Constants.servers.SUPPORT) return;
 		if(channel.id!=Constants.channels.SUPPORT_STAFFAPPLICATION){
+			send("IS SOMEONE ALREADY SUBMITTING AN APPLICATION: " + guild.roles.get(Constants.roles.SUPPORT_STAFFAPPLICATIONROLE).members.size>0);
 			if(guild.roles.get(Constants.roles.SUPPORT_STAFFAPPLICATIONROLE).members.size>0){
 		    let embed = new Discord.RichEmbed();
 		    embed
