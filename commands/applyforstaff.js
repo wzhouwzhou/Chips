@@ -10,7 +10,8 @@ ex = {
 		if(guild.id!=Constants.servers.SUPPORT) return;
 		if(channel.id!=Constants.channels.SUPPORT_STAFFAPPLICATION){
 			send("IS SOMEONE ALREADY SUBMITTING AN APPLICATION: " + guild.roles.get(Constants.roles.SUPPORT_STAFFAPPLICATIONROLE).members.size>0);
-			if(guild.roles.get(Constants.roles.SUPPORT_STAFFAPPLICATIONROLE).members.size>0){
+			console.log("IS SOMEONE ALREADY SUBMITTING AN APPLICATION: " + guild.roles.get(Constants.roles.SUPPORT_STAFFAPPLICATIONROLE).members.size>0);
+			if(guild.roles.get(Constants.roles.SUPPORT_STAFFAPPLICATIONROLE).members.size==0){
 		    let embed = new Discord.RichEmbed();
 		    embed
 		      .setTitle(`${author.tag}`, author.displayAvatarURL)
