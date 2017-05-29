@@ -112,7 +112,7 @@ ex = {
 	    embed
 	      .setTitle(`${author.tag}`, author.displayAvatarURL)
 	      .setColor(101010)
-	      .setDescription(`"Please enter some details about yourself, where you're from/timezone, how old you are, etc. Provide as much or as little information as you'd like, it just helps us get to know you better."`)
+	      .setDescription(`Please enter some details about yourself, where you're from/timezone, how old you are, etc. Provide as much or as little information as you'd like, it just helps us get to know you better.`)
 	      .setTimestamp(new Date());
 	    let details = `Staff application (Part 1): `;
 	    temp.sentmsg = await reply(details, {embed: embed});
@@ -146,8 +146,9 @@ ex = {
 			await temp.sentmsg.react(`${Constants.emojis.X}`);
 			step1Col.on('collect',_=>_);
 			step1Col.on('end',async collected => {
-				if(collected.first!=null){
-					reply(collected.first);
+				if(collected.first()!=null){
+					reply("Received: \n" + collected.first());
+					temp.step1Data = collected.first().content;
 					temp.next = true;
 					temp.confirmed = true;
 				}
@@ -173,10 +174,84 @@ ex = {
 						await member.removeRole(Constants.roles.SUPPORT_STAFFAPPLICATION);
 					},5000);
 				}
-				//continue to step 2
+
+
+				//STEP 2:
+				let embed = new Discord.RichEmbed();
+		    embed
+		      .setTitle(`${author.tag}`, author.displayAvatarURL)
+		      .setColor(101010)
+		      .setDescription(`Please tell us why you would like to be on the staff team. What assets would you bring that would benefit the staff team? How much time do you spend on Discord, and how much do you plan on devoting to our support server?`);
+		      .setTimestamp(new Date());
+		    let details = `Staff application (Part 2): `;
+		    temp.sentmsg = await reply(details, {embed: embed});
+				temp.confirmed = false; temp.next=true; temp.rxn = false;
+				temp.usedmsg = false;
+				let step2Col = channel.createMessageCollector(
+					_=>{temp.next=true;return true;},
+					{ max: 1, time: STEP2EXPIRE, errors: ['time'] }
+				);
+				let step2rxnCol = temp.sentmsg.createReactionCollector(
+					(reaction, user) => {
+						if(user.id != author.id) return false;
+						if(temp.confirmed||!temp.next) return false;
+						if(reaction.emoji.toString() == Constants.emojis.X){
+							reply("Accepted choice " + reaction.emoji.name);
+							temp.confirmed=true;
+							temp.next=false;
+							temp.rxn = true;
+							return true;
+						}
+					},{ max: 1, time: STEP2EXPIRE, errors: ['time'] }
+				);
+				step2rxnCol.on('collect', _=>_);
+				step2rxnCol.on('end', collected => {
+					if(temp.confirmed&&temp.rxn){
+						console.log("Stopping step2 msg collector, " + collected);
+						step2Col.stop();
+						return;
+					}
+				});
+				await temp.sentmsg.react(`${Constants.emojis.X}`);
+				step2Col.on('collect',_=>_);
+				step2Col.on('end',async collected => {
+					if(collected.first()!=null){
+						reply("Received (Step2): \n" + collected.first());
+						temp.step1Data = collected.first().content;
+						temp.next = true;
+						temp.confirmed = true;
+					}
+					let sentmsg = temp.sentmsg;
+					if(!temp.rxn){
+						step2rxnCol.stop();
+					}
+					sentmsg.delete();
+					console.log(collected);
+					if(!temp.confirmed){
+						msg.reply("Application timed out!");
+						temp.next=false;
+					}
+					if(!temp.next){
+						msg.reply("Staff application cancelled!");
+						setTimeout(async ()=>{
+							try{
+								let msgs = await channel.fetchMessages({limit: 100});
+								await channel.bulkDelete(msgs);
+								await member.removeRole(Constants.roles.SUPPORT_STAFFAPPLICATION);
+							}catch(err){
+								return reply(`Uh oh, could not end your staff application, please let an online staff know about this!`);
+							}
+						},5000);
+					}
+					//continue to step 3
+				});
+
+
 			});
 		}
 	}
 };
+
+ex.submissionData = temp;
 
 module.exports = ex;
