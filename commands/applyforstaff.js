@@ -18,7 +18,7 @@ ex = {
 	customperm:['ADMINISTRATOR'],
 	async func(msg, { reply, author, guild, channel, member }) {
 		temp.submitter = author.tag;
-		temp.timestamp = new Date.toUTCString();
+		temp.timestamp = new Date().toUTCString();
 
 		if(guild.id!=Constants.servers.SUPPORT) return;
 		if(channel.id!=Constants.channels.SUPPORT_STAFFAPPLICATION){
