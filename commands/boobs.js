@@ -16,13 +16,12 @@ module.exports = {
   perm: ["server.nsfw"],
   async func(msg, { member, send, channel }) {
     let emb = new Discord.RichEmbed().setColor(member.displayColor);
-    if(channel.nsfw){
-      b='http://media.oboobs.ru/'+b;
+    if(channel.nsfw)
       return getBoobs((a,b)=>{
+        b='http://media.oboobs.ru/'+b;
         emb.setImage(b);
         send(' ', {embed: emb});
       });
-    }
     else
       return ("No NSFW commands are allowed in this channel!");
   }
