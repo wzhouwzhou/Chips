@@ -85,7 +85,7 @@ ex = {
 				});
 				rxnCol.on('end', collected => {
 					if(temp.agreed&&temp.rxn){
-						console.log(collected);
+						console.log(collected.first().name);
 						msgCol.stop();
 						return;
 					}
@@ -98,7 +98,6 @@ ex = {
 						rxnCol.stop();
 					}
 					sentmsg.delete();
-					console.log(collected);
 					if(!temp.confirmed){
 						return msg.reply("Application timed out!");
 					}
@@ -155,7 +154,7 @@ ex = {
 			step1rxnCol.on('collect', _=>_);
 			step1rxnCol.on('end', collected => {
 				if(temp.confirmed&&temp.rxn){
-					console.log("Stopping step1 msg collector, " + collected);
+					console.log("Stopping step1 msg collector, " + collected.first());
 					step1Col.stop();
 					return;
 				}
@@ -174,7 +173,7 @@ ex = {
 					step1rxnCol.stop();
 				}
 				sentmsg.delete();
-				console.log(collected);
+
 				if(!temp.confirmed){
 					msg.reply("Application timed out!");
 					temp.next=false;
@@ -248,7 +247,6 @@ ex = {
 						step2rxnCol.stop();
 					}
 					sentmsg.delete();
-					console.log(collected);
 					if(!temp.confirmed){
 						msg.reply("Application timed out!");
 						temp.next=false;
@@ -321,7 +319,6 @@ ex = {
 							step3rxnCol.stop();
 						}
 						sentmsg.delete();
-						console.log(collected);
 						if(!temp.confirmed){
 							msg.reply("Application timed out!");
 							temp.next=false;
@@ -335,12 +332,14 @@ ex = {
 								return reply(`Uh oh, could not end your staff application, please let an online staff know about this!`);
 							}
 						},5000);
-						console.log(JSON.stringify(temp));
+						console.log(temp.toString());
 						if(!temp.next){
-							return msg.reply("Staff application cancelled! Please wait while we clean up everything!");
+							msg.reply("Staff application cancelled! Please wait while we clean up everything!");
 						}else{
-							return msg.reply("Thank you for your interest! Your application has been logged. This chat will now be cleared for confidentiality.");
+							msg.reply("Thank you for your interest! Your application has been logged. This chat will now be cleared for confidentiality.");
 						}
+
+
 
 						//continue to end
 					});
