@@ -1,7 +1,7 @@
 
 const got = require('got');
 getAss = (callback) => {
-  got('http://api.obutts.ru/butts/noise/10732').then(res => {
+  got('http://api.obutts.ru/butts/noise/' + _.random(100,10732)).then(res => {
     try {
       let length =  JSON.parse(res.body).length;
       callback(undefined, JSON.parse(res.body)[_.random(0,length)].preview);
