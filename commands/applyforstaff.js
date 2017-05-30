@@ -18,6 +18,8 @@ ex = {
 	customperm:['ADMINISTRATOR'],
 	async func(msg, { reply, author, guild, channel, member }) {
 		temp.submitter = author.tag;
+		temp.submitterid = author.id;
+		temp.submitterImg = author.displayAvatarURL;
 		temp.timestamp = new Date().toUTCString();
 
 		if(guild.id!=Constants.servers.SUPPORT) return;
@@ -164,7 +166,7 @@ ex = {
 			step1Col.on('end',async collected => {
 				if(collected.first()!=null){
 					reply("Received: \n" + collected.first());
-					temp.step1Data = collected.first().content;
+					temp.step1Data = collected.first().cleanContent;
 					temp.next = true;
 					temp.confirmed = true;
 				}
@@ -238,7 +240,7 @@ ex = {
 				step2Col.on('end',async collected => {
 					if(collected.first()!=null){
 						reply("Received (Step2): \n" + collected.first());
-						temp.step1Data = collected.first().content;
+						temp.step2Data = collected.first().cleanContent;
 						temp.next = true;
 						temp.confirmed = true;
 					}
@@ -310,7 +312,7 @@ ex = {
 					step3Col.on('end',async collected => {
 						if(collected.first()!=null){
 							reply("Received (Step3): \n" + collected.first());
-							temp.step1Data = collected.first().content;
+							temp.step3Data = collected.first().cleanContent;
 							temp.next = true;
 							temp.confirmed = true;
 						}
@@ -339,8 +341,17 @@ ex = {
 							msg.reply("Thank you for your interest! Your application has been logged. This chat will now be cleared for confidentiality.");
 						}
 
+						let log = new Discord.RichEmbed();
+						log.setTitle(`Staff application from ${temp.submitter}`);
+						log.setDescription(`User id: ${temp.submitterid}, <@${temp.submitterid}>`);
+						log.setThumbnail(`${temp.submitterImg}`);
+						log.setFooter(`At: ${temp.timestamp}`);
 
-
+						let logC = guild.channels.get(Constants.channels.SUPPORT_STAFFAPPLICATIONLOGS);
+						await logC.send('\n\n\n\nIncoming Staff Application!',{embed: log});
+						await logC.send(`Question1: ${QUESTION1}\nAnswer: ${temp.step1Data}`);
+						await logC.send(`Question2: ${QUESTION2}\nAnswer: ${temp.step2Data}`);
+						await logC.send(`Question3: ${QUESTION3}\nAnswer: ${temp.step3Data}`);
 						//continue to end
 					});
 					//End step 3
