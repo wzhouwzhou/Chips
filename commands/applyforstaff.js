@@ -277,7 +277,7 @@ ex = {
 			    temp.sentmsg = await reply(details, {embed: embed});
 					temp.confirmed = false; temp.next=true; temp.rxn = false;
 					temp.usedmsg = false;
-					let step2Col = channel.createMessageCollector(
+					let step3Col = channel.createMessageCollector(
 						m=>{
 							if(m.author.id==author.id){
 								temp.next=true;
@@ -286,7 +286,7 @@ ex = {
 						},
 						{ max: 1, time: STEP3EXPIRE, errors: ['time'] }
 					);
-					let step2rxnCol = temp.sentmsg.createReactionCollector(
+					let step3rxnCol = temp.sentmsg.createReactionCollector(
 						(reaction, user) => {
 							if(user.id != author.id) return false;
 							if(temp.confirmed||!temp.next) return false;
@@ -299,26 +299,26 @@ ex = {
 							}
 						},{ max: 1, time: STEP3EXPIRE, errors: ['time'] }
 					);
-					step2rxnCol.on('collect', _=>_);
-					step2rxnCol.on('end', collected => {
+					step3rxnCol.on('collect', _=>_);
+					step3rxnCol.on('end', collected => {
 						if(temp.confirmed&&temp.rxn){
-							console.log("Stopping step2 msg collector, " + collected);
+							console.log("Stopping step3 msg collector, " + collected);
 							step2Col.stop();
 							return;
 						}
 					});
 					await temp.sentmsg.react(`${Constants.emojis.X}`);
-					step2Col.on('collect',_=>_);
-					step2Col.on('end',async collected => {
+					step3Col.on('collect',_=>_);
+					step3Col.on('end',async collected => {
 						if(collected.first()!=null){
-							reply("Received (Step2): \n" + collected.first());
+							reply("Received (Step3): \n" + collected.first());
 							temp.step1Data = collected.first().content;
 							temp.next = true;
 							temp.confirmed = true;
 						}
 						let sentmsg = temp.sentmsg;
 						if(!temp.rxn){
-							step2rxnCol.stop();
+							step3rxnCol.stop();
 						}
 						sentmsg.delete();
 						console.log(collected);
