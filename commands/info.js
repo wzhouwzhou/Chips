@@ -107,10 +107,10 @@ const ex = {
       infobad.addField(`Date created: ${guild.createdAt.toUTCString()}`, `That's about ${diff} days ago!`);
       infobad.addField(`Member count: `, guild.memberCount, true);
       infobad.addField(`Total number of members: ${trueMemC.size} (Not including bots)`,`There are ${guild.members.size-trueMemC.size} bots!`, true);
-      infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There are <:vpOffline:212790005943369728> ${guild.members.size-available} people offline or invisible`);
-      infobad.addField(`Online: <:vpOnline:212789758110334977>`, online, true)
-             .addField(`Idle: <:vpAway:212789859071426561>    `, idle  , true)
-             .addField(`Dnd: <:vpDnD:236744731088912384>      `, dnd   , true);
+      infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There are <:offline:313956277237710868> ${guild.members.size-available} people offline or invisible`);
+      infobad.addField(`Online: <:online:313956277808005120>`, online, true)
+             .addField(`Idle: <:away:313956277220802560>    `, idle  , true)
+             .addField(`Dnd: <:dnd:313956276893646850>      `, dnd   , true);
       infobad.addField(`Verification level: ${vLvl}`,`That means ${vInfo}`);
       await reply(`Server info`, {embed: infobad});
       infobad = new Discord.RichEmbed();
@@ -297,10 +297,10 @@ const ex = {
         infobad.addField(`Role id: `, `${role.id}`);
         infobad.addField(`Creation date: ${role.createdAt.toUTCString()}`,`That's about ${diff} ago!`);
         infobad.addField(`Total number of members with this role: ${trueMemC.size} (Not including bots)`,`There are ${role.members.size-trueMemC.size} bots with this role!`);
-        infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There are <:vpOffline:212790005943369728> ${role.members.size-available} people with this role offline or invisible`);
-        infobad.addField(`Online: <:vpOnline:212789758110334977>`, online, true)
-               .addField(`Idle: <:vpAway:212789859071426561>    `, idle  , true)
-               .addField(`Dnd: <:vpDnD:236744731088912384>      `, dnd   , true);
+        infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There are <:offline:313956277237710868> ${role.members.size-available} people with this role offline or invisible`);
+        infobad.addField(`Online: <:online:313956277808005120>`, online, true)
+               .addField(`Idle: <:away:313956277220802560>    `, idle  , true)
+               .addField(`Dnd: <:dnd:313956276893646850>      `, dnd   , true);
         infobad.addField(`Mentionable: `,`${role.mentionable}`);
         infobad.addField(`Role Colour: `,`${role.hexColor}`);
         infobad.addField(`Hoist: ${role.hoist}`,`This means that the role is ${role.hoist?'':'not '}displayed separately in the member list.`);
@@ -382,10 +382,10 @@ const ex = {
         infobad.addField(`Channel ID: `, `${channel.id}`);
         infobad.addField(`Creation date: ${channel.createdAt.toUTCString()}`,`That's about ${diff} ago!`);
         infobad.addField(`Total number of members who can see this channel: ${trueMemC.size} (Not including bots)`,`There are ${channel.members.size-trueMemC.size} bots with access to this channel!`);
-        infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There are <:vpOffline:212790005943369728> ${trueMemC.size-available} people with access to this channel offline or invisible`);
-        infobad.addField(`Online: <:vpOnline:212789758110334977>`, online, true)
-               .addField(`Idle: <:vpAway:212789859071426561>    `, idle  , true)
-               .addField(`Dnd: <:vpDnD:236744731088912384>      `, dnd   , true);
+        infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There are <:offline:313956277237710868> ${trueMemC.size-available} people with access to this channel offline or invisible`);
+        infobad.addField(`Online: <:online:313956277808005120>`, online, true)
+               .addField(`Idle: <:away:313956277220802560>    `, idle  , true)
+               .addField(`Dnd: <:dnd:313956276893646850>      `, dnd   , true);
         infobad.addField(`Position: ${channel.calculatedPosition}`,`This means that the channel is ${channel.calculatedPosition==0?'1st':(channel.calculatedPosition==1?'2nd':(channel.calculatedPosition==2?'3rd':((channel.calculatedPosition+1)+'th')))} on the channel list in the sidebar!`);
         infobad.addField(`Permission Overwrite Count: `,`${channel.permissionOverwrites.size}`);
         infobad.addField(`Nsfw channel: `,`${channel.nsfw?'yes':'no'}`);
