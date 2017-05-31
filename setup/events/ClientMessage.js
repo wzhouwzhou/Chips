@@ -27,7 +27,7 @@ module.exports = function() {
     //wowbleach trigger
     if(message.content.toLowerCase().indexOf("wowbleach")>-1) message.channel.send(" \ _ \ _ \ <:Bleach:274628490844962826>\n\ <:WOW:290865903384657920>");
 
-    if (!message.guild){}
+    //if (!message.guild){}
       //dmHandle(message);
 
     //console.log(monitorMode);
@@ -36,7 +36,7 @@ module.exports = function() {
 
     if (message.content.toLowerCase().startsWith(prefix.toLowerCase())){
       console.log("command detected");
-      CommandHandler(message, prefix);
+      CommandHandler(message, customprefix[guild.id]?customprefix[guild.id]:prefix);
     }
 
     try{
