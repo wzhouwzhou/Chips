@@ -20,7 +20,7 @@
   ],
   "scripts": {
     "start": "node start.js",
-    "devstart": "BETA="true" PORT=8080 DEBUG=* DEBUG_SHOW_HIDDEN=true sh deploy.bat"
+    "devstart": "BETA=true PORT=8080 DEBUG=* DEBUG_SHOW_HIDDEN=true sh deploy.bat"
   },
   "dependencies": {
     "@newrelic/native-metrics": "^2.1.1",
