@@ -4,20 +4,23 @@
     "type": "git",
     "url": "git+https://github.com/wzhouwzhou/Chips.git"
   },
-  "version": "2.0.0",
+  "version": "v0.3.0",
   "author": "WillyZ",
   "license": "SEE LICENSE IN LICENSE",
   "bugs": {
     "url": "https://github.com/wzhouwzhou/Chips/issues"
   },
-  "main": "chips.js",
-  "homepage": "https://github.com/wzhouwzhou/Chips#readme",
+  "main": "start.js",
+  "homepage": "https://chipsbot.tk:8080/",
   "keywords": [
     "discord",
-    "bot"
+    "bot",
+    "chips",
+    "chipsbot",
   ],
   "scripts": {
-    "start": "node chips.js"
+    "start": "node start.js",
+    "devstart": "BETA="true" PORT=8080 DEBUG=* DEBUG_SHOW_HIDDEN=true sh deploy.bat"
   },
   "dependencies": {
     "@newrelic/native-metrics": "^2.1.1",
