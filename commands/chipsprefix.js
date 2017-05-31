@@ -11,12 +11,6 @@ module.exports = {
     else action = args[0];
 
     console.log("[Custom prefix] Action: "+action);
-    if((customprefix[guild.id]==null||onFilter[guild.id]==null)||autoOverride[guild.id]==null){
-      console.log("[Filter] Creating new blacklist for guild " + guild.id);
-      blacklist[guild.id]=['ok'];
-      onFilter[guild.id]=true;
-      autoOverride[guild.id]=false;
-    }
 
     if(action=="status"){
       return send(`The prefix for this server is: ${customprefix[guild.id]?customprefix[guild.id]:prefix}`);
