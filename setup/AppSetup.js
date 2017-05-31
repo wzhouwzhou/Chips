@@ -9,7 +9,6 @@ const app = express();
 const Strategy = require('./lib').Strategy;
 const session = require('express-session');
 const flash=require("connect-flash");
-const ExpressBrute = require('express-brute');
 const sinbad = require(path.join(__dirname, '../routes/sinbad'));
 const login = require(path.join(__dirname, '../routes/login'));
 const updates = require(path.join(__dirname, '../routes/updates'));
@@ -17,7 +16,7 @@ const useroverview = require(path.join(__dirname, '../routes/updates'));
 const index = require(path.join(__dirname, '../routes/index'));
 const morgan = require('morgan');
 const morgan2 = require('morgan');
-const rfs = require('rotating-file-stream')
+const rfs = require('rotating-file-stream');
 // const chips ;
 module.exports = function() {
   let botScopes = ['identify', 'guilds'];
