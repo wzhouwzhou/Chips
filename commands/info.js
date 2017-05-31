@@ -29,7 +29,7 @@ const ex = {
   name: "info",
   perm: ["global.info","global.info.all","global.info.serv","global.info.channel","global.info.role","global.info.user","global.info.user.self"],
   customperm: ['SEND_MESSAGES'],
-  async func(msg, {send, member, author, guild, args, gMember, reply, content }) {
+  async func(msg, {send, member, author, guild, args, gMember, reply, content, prefix }) {
     let start = process.hrtime();
     const used = member || author;
     let action;

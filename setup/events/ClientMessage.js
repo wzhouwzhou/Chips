@@ -27,16 +27,16 @@ module.exports = function() {
     //wowbleach trigger
     if(message.content.toLowerCase().indexOf("wowbleach")>-1) message.channel.send(" \ _ \ _ \ <:Bleach:274628490844962826>\n\ <:WOW:290865903384657920>");
 
-    if (!message.guild){}
+    //if (!message.guild){}
       //dmHandle(message);
 
     //console.log(monitorMode);
     if (monitorMode && message.channel == testC)
       console.log("\n", chalk.bold.bgBlue("Social spy: "), chalk.bgBlack("\n\t[" + message.author.username + "] message content: " + message.content));
 
-    if (message.content.toLowerCase().startsWith(prefix.toLowerCase())){
-      console.log("command detected");
-      CommandHandler(message, prefix);
+    if (message.content.toLowerCase().startsWith(customprefix[message.guild.id]?customprefix[message.guild.id].toLowerCase():prefix.toLowerCase())){
+      console.log("[CLIENTMESSAGE] Command attempt detected");
+      CommandHandler(message, customprefix[message.guild.id]?customprefix[message.guild.id]:prefix);
     }
 
     try{

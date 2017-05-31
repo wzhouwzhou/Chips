@@ -15,7 +15,7 @@ const ex = {
 		let start = process.hrtime();
 		let end;
     if (whitelist.indexOf(author.id) < 0) return console.log("prohibited access to eval");
-		let query = content.substring((prefix+ex.name+' ').length);
+		let query = args.join(' ');
 
     const evaled = {};
 

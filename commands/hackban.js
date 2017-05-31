@@ -60,7 +60,7 @@ module.exports = {
             m.reply("Choice accepted. Now processing...");
             confirmed = true;
             agreed = /^(?:y(?:es)?)$/i.test(m.content);
-            setTimeout(_=>collector.stop(), 1000);
+            setTimeout(()=>collector.stop(), 1000);
             return true;
           }
         }
