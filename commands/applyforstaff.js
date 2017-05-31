@@ -1,8 +1,8 @@
 
 const EXPIRE = 10000;
-const STEP1EXPIRE = (5*60*1000);
-const STEP2EXPIRE = (6*60*1000);
-const STEP3EXPIRE = (3*60*1000);
+const STEP1EXPIRE = (20*60*1000);
+const STEP2EXPIRE = (30*60*1000);
+const STEP3EXPIRE = (10*60*1000);
 
 const PREAPP = `Hi there! You are about to submit a staff application. You will only be able to submit a staff application once. Please type __y__es or react with ${Constants.emojis.CHECK} to continue. Type __n__o to cancel. You can also react with ${Constants.emojis.X} at any point during the application to cancel!`;
 const START = `Excellent! The information you provide in your application will be confidential. Please head over to <#${Constants.channels.SUPPORT_STAFFAPPLICATION}> and type \`\`${prefix}applyforstaff\`\` to begin!`;
@@ -349,9 +349,9 @@ ex = {
 
 						let logC = guild.channels.get(Constants.channels.SUPPORT_STAFFAPPLICATIONLOGS);
 						await logC.send('\n\n\n\nIncoming Staff Application!',{embed: log});
-						await logC.send(`Question1: ${QUESTION1}\nAnswer: ${temp.step1Data}`);
-						await logC.send(`Question2: ${QUESTION2}\nAnswer: ${temp.step2Data}`);
-						await logC.send(`Question3: ${QUESTION3}\nAnswer: ${temp.step3Data}`);
+						await logC.send(`**Question1**: ${QUESTION1}\n**Answer**: ${temp.step1Data}`);
+						await logC.send(`Question2: ${QUESTION2}\n**Answer**: ${temp.step2Data}`);
+						await logC.send(`**Question3**: ${QUESTION3}\n**Answer**: ${temp.step3Data}`);
 						//continue to end
 					});
 					//End step 3
