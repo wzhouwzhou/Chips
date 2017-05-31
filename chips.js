@@ -29,6 +29,7 @@ global.c3 = new Discord.Client();
 client.commands = {};
 global.prefix = "-";
 if(process.env.BETA=="true")prefix="!!";
+global.customprefix = {};
 /** End Constants **/
 global.database = require(path.join(__dirname, './setup/db/DatabaseLoader'));
 /** Other Global Constants **/
