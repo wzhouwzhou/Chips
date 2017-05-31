@@ -34,9 +34,9 @@ module.exports = function() {
     if (monitorMode && message.channel == testC)
       console.log("\n", chalk.bold.bgBlue("Social spy: "), chalk.bgBlack("\n\t[" + message.author.username + "] message content: " + message.content));
 
-    if (message.content.toLowerCase().startsWith(prefix.toLowerCase())){
-      console.log("command detected");
-      CommandHandler(message, customprefix[guild.id]?customprefix[guild.id]:prefix);
+    if (message.content.toLowerCase().startsWith(customprefix[message.guild.id]?customprefix[message.guild.id].toLowerCase():prefix.toLowerCase())){
+      console.log("[CLIENTMESSAGE] Command attempt detected");
+      CommandHandler(message, customprefix[message.guild.id]?customprefix[message.guild.id]:prefix);
     }
 
     try{
