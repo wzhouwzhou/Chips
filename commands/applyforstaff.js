@@ -95,6 +95,7 @@ ex = {
 
 				msgCol.on('collect',_=>_);
 				msgCol.on('end',async collected => {
+					if(collected.first!=null) console.log("Something errored with staff app...");
 					let sentmsg = temp.sentmsg;
 					if(temp.usedmsg&&!temp.rxn){
 						rxnCol.stop();
