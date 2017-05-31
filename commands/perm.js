@@ -3,7 +3,7 @@ module.exports = {
   async func(msg, {send, member, author, content, channel, guild, args, gMember, Discord, reply, bot}) {
     //if(!guild||(guild.id!="257889450850254848"&&guild.id!="302983444009451541")) return;
     const used = member || author;
-
+    if(true) return;
     if(args[0]==null){
      return reply("Please specify an action");
     }else
@@ -11,7 +11,7 @@ module.exports = {
       permissions.checkPermission(msg, "global.server.permissions").then(info => {
 
       }).catch(err=>{
-        
+
       });
 
       if(args[2]==null)return reply(`Please specify the amount of points to add: \`\`-points add @/mention/ 123\`\``);
