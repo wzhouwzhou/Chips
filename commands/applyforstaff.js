@@ -5,7 +5,6 @@ const STEP2EXPIRE = (60*60*1000);
 const STEP3EXPIRE = (60*60*1000);
 
 const PREAPP = `Hi there! You are about to submit a staff application. You will only be able to submit a staff application once. Please type __y__es or react with ${Constants.emojis.CHECK} to continue. Type __n__o to cancel. You can also react with ${Constants.emojis.X} at any point during the application to cancel!`;
-const START = `Excellent! The information you provide in your application will be confidential. Please head over to <#${Constants.channels.SUPPORT_STAFFAPPLICATION}> and type \`\`${customprefix[guild.id]?customprefix[guild.id]:prefix}applyforstaff\`\` to begin!`;
 const CONCURRCONFLICT = `Hi there! Greatest apologies, someone else is currently submitting an application. To prevent our system from being overloaded you cannot submit an application right now. If you believe this is in error, contact an online staff member!. Please wait a few minutes before trying again, and sorry for the inconvenience!`;
 const QUESTION1 = `Please enter some details about yourself, where you're from/timezone, how old you are, etc. Provide as much or as little information as you'd like, it just helps us get to know you better. To cancel the application at any time just react with ${Constants.emojis.X}`;
 const QUESTION2 = `Next, please tell us why you would like to be on the staff team. What assets would you bring that would benefit the staff team? How much time do you spend on Discord, and how much do you plan on devoting to our support server?`;
@@ -16,7 +15,8 @@ ex = {
 	name:'applyforstaff',
   perm:['global.server.chips.apply'],
 	customperm:['ADMINISTRATOR'],
-	async func(msg, { reply, author, guild, channel, member }) {
+	async func(msg, { reply, author, guild, channel, member, prefix }) {
+		const START = `Excellent! The information you provide in your application will be confidential. Please head over to <#${Constants.channels.SUPPORT_STAFFAPPLICATION}> and type \`\`${prefix}applyforstaff\`\` to begin!`;
 		temp.submitter = author.tag;
 		temp.submitterid = author.id;
 		temp.submitterImg = author.displayAvatarURL;
