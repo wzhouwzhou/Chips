@@ -1,8 +1,8 @@
 
 const EXPIRE = 10000;
-const STEP1EXPIRE = (20*60*1000);
-const STEP2EXPIRE = (30*60*1000);
-const STEP3EXPIRE = (10*60*1000);
+const STEP1EXPIRE = (60*60*1000);
+const STEP2EXPIRE = (60*60*1000);
+const STEP3EXPIRE = (60*60*1000);
 
 const PREAPP = `Hi there! You are about to submit a staff application. You will only be able to submit a staff application once. Please type __y__es or react with ${Constants.emojis.CHECK} to continue. Type __n__o to cancel. You can also react with ${Constants.emojis.X} at any point during the application to cancel!`;
 const START = `Excellent! The information you provide in your application will be confidential. Please head over to <#${Constants.channels.SUPPORT_STAFFAPPLICATION}> and type \`\`${prefix}applyforstaff\`\` to begin!`;
