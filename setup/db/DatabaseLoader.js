@@ -67,12 +67,17 @@ const loadsheet = function(sheet) {
         let perm = row.perm.toString();
         let action = parseInt(row.action);
         perms.updatePermission( type, userid, guildid, roleid, perm, action )
-        .then(info=>console.log(`[DBLOADER]: ${info}`)).catch(err=>{
-          console.log(`[DBLOADER] [ERR] ${err}`);
+        .then(info=>console.log(`[DBLOADER] [PERMISSIONS]: ${info}`)).catch(err=>{
+          console.log(`[DBLOADER][PERMISSIONS][ERR] ${err}`);
         });
       });
-    }
-		else {
+    }else if (sheet.title == "prefixes"){
+      rows.forEach(row => {
+        let oldprefix = customprefix[row.guildid]?'none':customprefix[row.guildid];
+        customprefix[row.guildid] = row.prefix;
+        console.log(`[DBLOADER][PREFIXES] Custom prefix for guild ${[row.guildid]} updated! [Old]: ${oldprefix} [New]: ${customprefix[row.guildid]}`);
+      });
+    }else {
 			console.log('useless sheet found: '+sheet.title);
 		}
 		numloads--;
