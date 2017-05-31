@@ -16,7 +16,7 @@
     "discord",
     "bot",
     "chips",
-    "chipsbot",
+    "chipsbot"
   ],
   "scripts": {
     "start": "node start.js",
