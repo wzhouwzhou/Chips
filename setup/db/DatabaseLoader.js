@@ -46,39 +46,54 @@ const loadsheet = function(sheet) {
 			// fdsa
 		}
 		else if (sheet.title == 'botlog') {
-			sheets[`botlog`].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "restart+load"},(err) => {console.log(err);});
+      let time = moment().format('ddd, Do of MMM @ HH:mm:ss');
+      console.log("[DBLOADER][LOG] Shard restart, current time: " + time);
+			sheets[`botlog`].addRow({time: `${time}`, action: "restart+load"},(err) => {if(err)console.log(err);});
 		}
 		else if (sheet.title == 'filter') {
 			rows.forEach(row =>{
-				if(blacklist[row.guildid]==null){
-					console.log("[Filter] Creating new blacklist for guild " + row.guildid);
-					blacklist[row.guildid]=['ok'];
-				}
-				blacklist[row.guildid].push(row.keyword);
-				console.log("[Filter] Added keyword to guild " + row.guildid + ": " + row.keyword);
+        if(client.guilds.get(row.guildid)==null){
+          return console.log("[DBLOADER][FILTER] Skipped blacklist for guild "+ row.guildid);
+        }else{
+  				if(blacklist[row.guildid]==null){
+  					console.log("[DBLOADER][FILTER] Creating new blacklist for guild " + row.guildid);
+  					blacklist[row.guildid]=['ok'];
+  				}
+  				blacklist[row.guildid].push(row.keyword);
+  				console.log("[DBLOADER][FILTER] Added keyword to guild " + row.guildid + ": " + row.keyword);
+        }
 			});
 		}
     else if (sheet.title == "permissions"){
       rows.forEach(row => {
-        let type = row.type;
-        let userid = row.userid.toString();
-        let guildid = row.guildid.toString();
-        let roleid = row.roleid.toString();
-        let perm = row.perm.toString();
-        let action = parseInt(row.action);
-        perms.updatePermission( type, userid, guildid, roleid, perm, action )
-        .then(info=>console.log(`[DBLOADER] [PERMISSIONS]: ${info}`)).catch(err=>{
-          console.log(`[DBLOADER][PERMISSIONS][ERR] ${err}`);
-        });
+        if(client.guilds.get(row.guildid)==null){
+          return console.log("[DBLOADER][PERMISSIONS] Skipped permissions entry for guild "+ row.guildid);
+        }else{
+          let type = row.type;
+          let userid = row.userid.toString();
+          let guildid = row.guildid.toString();
+          let roleid = row.roleid.toString();
+          let perm = row.perm.toString();
+          let action = parseInt(row.action);
+          perms.updatePermission( type, userid, guildid, roleid, perm, action )
+          .then(info=>console.log(`[DBLOADER][PERMISSIONS]: ${info}`))
+          .catch(err=>{
+            console.log(`[DBLOADER][PERMISSIONS][ERR] Caught: ${err}`);
+          });
+        }
       });
     }else if (sheet.title == "prefixes"){
       rows.forEach(row => {
-        let oldprefix = customprefix[row.guildid]?'none':customprefix[row.guildid];
-        customprefix[row.guildid] = row.prefix;
-        console.log(`[DBLOADER][PREFIXES] Custom prefix for guild ${[row.guildid]} updated! [Old]: ${oldprefix} [New]: ${customprefix[row.guildid]}`);
+        if(client.guilds.get(row.guildid)==null){
+          return console.log("[DBLOADER][PREFIXES] Skipped custom prefix entry for guild "+ row.guildid);
+        }else{
+          let oldprefix = customprefix[row.guildid]?'none':customprefix[row.guildid];
+          customprefix[row.guildid] = row.prefix;
+          console.log(`[DBLOADER][PREFIXES] Custom prefix for guild ${[row.guildid]} updated! [Old]: ${oldprefix} [New]: ${customprefix[row.guildid]}`);
+        }
       });
     }else {
-			console.log('useless sheet found: '+sheet.title);
+			console.log('[DBLOADER] Extra sheet found: '+sheet.title);
 		}
 		numloads--;
 		if (numloads == 0) {
