@@ -1,7 +1,3 @@
-const gifs = [
-  "http://random.dog",
-  "http://www.randomdoggiegenerator.com/"
-];
 
 const got = require('got');
 getDog = (callback) => {

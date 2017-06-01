@@ -1,7 +1,8 @@
 module.exports = {
   name: "ping",
-  perm: ["global.ping"],
-  async func(msg, { send, member }) {
+  perm:['global.ping'],
+  async func(msg, { send, author, member, channel }) {
+    channel.startTyping();
     let wsPing = client.ping;
     let now = Date.now();
     let sentmsg;
@@ -30,7 +31,9 @@ module.exports = {
     const delMetrics = Date.now() - now;
 
     // weight: 10%/25%/20%/10%/10%/25%
-    let weighted = (wsPing/10)+(sendMetrics/4)+(editMetrics/5)+(reactMetrics/10)+(creactMetrics/10)+(delMetrics/4);
+    let weighted;
+    weighted = (wsPing/10)+(sendMetrics/4)+(editMetrics/5)+(reactMetrics/10)+(creactMetrics/10)+(delMetrics/4);
+
     let scale = '';
     if(weighted < 100) scale = "That's amazing!";
     else if(weighted < 200) scale = "That's very good!";
@@ -44,19 +47,19 @@ module.exports = {
     else if(weighted < 1000)scale = "That's poor! Perhaps I just restarted? Try doing -discordstats to see if it's a problem on Discord's end!";
     else if(weighted > 1000)scale = "Help! Something must be wrong with me or Discord! Perhaps I just restarted? Try doing -discordstats to see if it's a problem on Discord's end!";
 
-    console.log("ping pong! " + member.user.username + "'s ping was " + wsPing + "ms!");
+    console.log("ping pong! " + author.username + "'s ping was " + wsPing + "ms!");
 
     database.sheets[`botlog`].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "Crowd report: ping", mainvalue: wsPing, label: "ms"},(err) => {console.log(err);});
 
-    let bad = new Discord.RichEmbed().setColor(member.color).setTitle("**Ping Metrics**");
+    let bad = new Discord.RichEmbed().setColor(member?member.color:1).setTitle("**Ping Metrics**");
     bad.setDescription("All metrics are measured in milliseconds it takes to perform an action.");
     bad.addField("Connecting to Discord: ", wsPing.toFixed(2));
     bad.addField("Sending a msg: ", sendMetrics.toFixed(2));
     bad.addField("Editing a msg: ", editMetrics.toFixed(2));
     bad.addField("Reacting to a msg (rate limit): ", reactMetrics.toFixed(2));
-    bad.addField("Clearing message reactions: ", creactMetrics.toFixed(2));
+    bad.addField("Clearing message reactions: ", typeof creactMetrics!='string'?creactMetrics.toFixed(2):creactMetrics);
     bad.addField("Deleting a msg: ", delMetrics.toFixed(2));
-
-    return send(`🏓\u2000Pong! <@${member.user.id}>, My weighted/overall ping is ${weighted.toFixed(2)}ms! ${scale}`, {embed: bad});
+    channel.stopTyping();
+    return send(`🏓\u2000Pong! <@${author.id}>, My weighted/overall ping is ${weighted.toFixed(2)}ms! ${scale}`, {embed: bad});
   }
 };

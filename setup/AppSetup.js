@@ -1,5 +1,6 @@
 const Constants = require("./Constants");
 const path = require("path");
+const fs = require('fs');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
@@ -14,9 +15,19 @@ const login = require(path.join(__dirname, '../routes/login'));
 const updates = require(path.join(__dirname, '../routes/updates'));
 const useroverview = require(path.join(__dirname, '../routes/updates'));
 const index = require(path.join(__dirname, '../routes/index'));
+const morgan = require('morgan');
+const morgan2 = require('morgan');
+const rfs = require('rotating-file-stream')
 // const chips ;
 module.exports = function() {
   let botScopes = ['identify', 'guilds'];
+  let logDirectory = path.join(__dirname, 'log');
+  fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
+  let accessLogStream = rfs('access.log', {
+    interval: '1d', // rotate daily
+    path: logDirectory
+  });
+
   app.engine(Constants.express.ENGINE, require("express-ejs-extend"));
   app.set('view engine', Constants.express.ENGINE);
   console.log(__dirname);
@@ -25,6 +36,8 @@ module.exports = function() {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());
   app.use(flash());
+  app.use(morgan('combined'));
+  app.use(morgan2('combined', {stream: accessLogStream}));
 
   passport.serializeUser(function(user, done) {
     done(null, user);

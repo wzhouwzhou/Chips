@@ -1,47 +1,48 @@
 'use strict';
 const ex = {};
 ex.permsList = [
-  ['global.owner'       ,false], // 0
-  ['global.admin'       ,false], // 1
-  ['global.test'        ,false], // 2
-  ['global.test2'       ,true ], // 3
-  ['global.server.-ban' ,false], // 4
-  ['server.-vs '        ,true ], // 5
-  ['server.aboose'      ,true ], // 6
-  ['server.announce'    ,true ], // 7
-  ['server.blacklist'   ,false], // 8
-  ['global.botpanic'    ,false], // 9
-  ['server.cat'         ,true ], //10
-  ['server.clear'       ,true ], //11
-  ['server.coinflip'    ,true ], //12
-  ['server.dog'         ,true ], //13
-  ['global.eatme'       ,true ], //14
-  ['server.emojiban'    ,false], //15
-  ['global.eval'        ,false], //16
-  ['server.exposed'     ,true ], //17
-  ['server.happy'       ,true ], //18
-  ['server.help'        ,true ], //19
-  ['global.info'        ,true ], //20
-  ['global.info.all'    ,false], //21
-  ['global.info.serv'   ,true], //22
-  ['global.info.channel',false], //23
-  ['global.info.user'   ,true], //24
-  ['global.info.user.self',true], //25
-  ['server.lenny'       ,true ], //26
-  ['server.mute'        ,false], //27
-  ['custom.nr'          ,true ], //28
-  ['custom.ping'        ,true ], //29
-  ['custom.points'      ,false], //30
-  ['global.roll'        ,true ], //31
-  ['server.s'           ,false], //32
-  ['global.stats'       ,true ], //33
-  ['global.support'     ,true ], //34
-  ['global.quote'       ,true ], //35
+  ['global.owner'         ,false], // 0
+  ['global.admin'         ,false], // 1
+  ['global.test'          ,false], // 2
+  ['global.test2'         ,true ], // 3
+  ['global.server.-ban'   ,false], // 4
+  ['server.-vs '          ,true ], // 5
+  ['server.aboose'        ,true ], // 6
+  ['server.announce'      ,true ], // 7
+  ['server.blacklist'     ,false], // 8
+  ['global.botpanic'      ,false], // 9
+  ['server.cat'           ,true ], //10
+  ['server.clear'         ,true ], //11
+  ['server.coinflip'      ,true ], //12
+  ['server.dog'           ,true ], //13
+  ['global.eatme'         ,true ], //14
+  ['server.emojiban'      ,false], //15
+  ['global.eval'          ,false], //16
+  ['server.exposed'       ,true ], //17
+  ['server.happy'         ,true ], //18
+  ['server.help'          ,true ], //19
+  ['global.info'          ,true ], //20
+  ['global.info.all'      ,false], //21
+  ['global.info.serv'     ,true ], //22
+  ['global.info.channel'  ,false], //23
+  ['global.info.user'     ,true ], //24
+  ['global.info.user.self',true ], //25
+  ['server.lenny'         ,true ], //26
+  ['server.mute'          ,false], //27
+  ['custom.nr'            ,true ], //28
+  ['global.ping'          ,true ], //29
+  ['custom.points'        ,false], //30
+  ['global.roll'          ,true ], //31
+  ['server.s'             ,false], //32
+  ['global.stats'         ,true ], //33
+  ['global.support'       ,true ], //34
+  ['global.quote'         ,true ], //35
   //future permissions add below this comment please
-  ['global.info.role'   ,false], //36
-  ['global.server.rekt' ,true], //37
-  ['global.server.ban'  ,false], //38
-  ['global.server.kick' ,false], //39
+  ['global.info.role'     ,false], //36
+  ['global.server.rekt'   ,true ], //37
+  ['global.server.ban'    ,false], //38
+  ['global.server.kick'   ,false], //39
+  ['server.nsfw'          ,true ], //40
 ];
 
 ex.defaultperms = new Map(ex.permsList);
@@ -302,52 +303,54 @@ ex.checkPermission = function(msg, perm){
           }
       });
     }
-    if(guild&&ex.memberpermissions[guild.id]){
-      let mp = ex.memberpermissions[guild.id][id];
-      if (mp) {
-        mp.forEach(pEntry=>{
-          if(pEntry.name==perm)
-            switch (pEntry.action){
-              case -1:
-                reject(`I'm sorry, but you do not have access to the \`\`${perm}\`\` permission!`);
-                break;
-              case 1:
-                resolve(`Member perm overwrite for: ${perm}`);
-                break;
-              default:
-                break;
-            }
-        });
-      }
-    }
-    msg.member.roles.forEach(r=>{
-      console.log("New role found: " + r.id + "for user "+ id);
-      let rid=r.id;
-      if(ex.rolepermissions[rid]!=null){
-        let found = false;
-        ex.rolepermissions[rid].forEach(pEntry=>{
-          console.log("new entry found: " + pEntry.name);
-          if(!found)
-            if(pEntry.name==perm){
-              found=true;
-              console.log("We found an entry!");
-              switch(pEntry.action){
-                case 1:
-                console.log("Success: role");
-                resolve("This action is approved (by member role)");
-                break;
+    if(guild){
+      if(ex.memberpermissions[guild.id]){
+        let mp = ex.memberpermissions[guild.id][id];
+        if (mp) {
+          mp.forEach(pEntry=>{
+            if(pEntry.name==perm)
+              switch (pEntry.action){
                 case -1:
-                console.log("Denial: role");
-                rej(`I'm sorry but you do not have access to ${perm} (Denied by member role :${r.name})`);
-                break;
+                  reject(`I'm sorry, but you do not have access to the \`\`${perm}\`\` permission!`);
+                  break;
+                case 1:
+                  resolve(`Member perm overwrite for: ${perm}`);
+                  break;
                 default:
-                return;
+                  break;
               }
-            }
-        });
+          });
+        }
       }
-      console.log("Role: " + rid + "for user "+ id + "did not have any perm overwrites for " + perm);
-    });
+      msg.member.roles.forEach(r=>{
+        console.log("New role found: " + r.id + "for user "+ id);
+        let rid=r.id;
+        if(ex.rolepermissions[rid]!=null){
+          let found = false;
+          ex.rolepermissions[rid].forEach(pEntry=>{
+            console.log("new entry found: " + pEntry.name);
+            if(!found)
+              if(pEntry.name==perm){
+                found=true;
+                console.log("We found an entry!");
+                switch(pEntry.action){
+                  case 1:
+                  console.log("Success: role");
+                  resolve("This action is approved (by member role)");
+                  break;
+                  case -1:
+                  console.log("Denial: role");
+                  rej(`I'm sorry but you do not have access to ${perm} (Denied by member role :${r.name})`);
+                  break;
+                  default:
+                  return;
+                }
+              }
+          });
+        }
+        console.log("Role: " + rid + "for user "+ id + "did not have any perm overwrites for " + perm);
+      });
+    }
     console.log("Now checking default perms.: ." + perm);
     console.log("Is the perm in the default list? : " + ex.defaultperms.has(perm));
     let value = ex.defaultperms.has(perm)?ex.defaultperms.get(perm):true;

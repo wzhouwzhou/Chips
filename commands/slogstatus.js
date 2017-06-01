@@ -2,7 +2,7 @@
 module.exports = {
   name: "slogstatus",
   perm: ["global.owner"],
-  async func(msg, { send, Discord }) {
+  async func(msg, { Discord }) {
     let emb = new Discord.RichEmbed()
       .setColor(205)
       .addField("Current requested spy status:", "Message count: ",true)

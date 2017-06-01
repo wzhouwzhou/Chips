@@ -1,7 +1,7 @@
 module.exports = {
   name: "nR",
   perm:["custom.nr"],
-  async func(msg, { send, member, author, content, channel, guild, args, reply, Discord }) {
+  async func(msg, { send, member, author, channel, args, reply, Discord }) {
     const used = member || author;
     if(!used.hasPermission("BAN_MEMBERS")){
       switch (used.id) {

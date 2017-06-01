@@ -4,7 +4,7 @@ const request = require("request");
 module.exports = {
   name: "discordstatus",
   perm: ["global.Discord.status"],
-  async func(msg, { send, reply }) {
+  async func(msg, { reply }) {
     try{
       request(`https://srhpyqt94yxb.statuspage.io/api/v2/summary.json`,function(error, response, body){
         if (!error){

@@ -97,7 +97,7 @@ module.exports = {
           }
           let hrTime = process.hrtime(start);
     			let µs = false;
-    			end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
+    			let end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
     			if(end<1){
     				µs = true;
     				end = (hrTime[0] * 1000000 + hrTime[1] / 1000);
