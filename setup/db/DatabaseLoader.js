@@ -66,7 +66,7 @@ const loadsheet = function(sheet) {
 		}
     else if (sheet.title == "permissions"){
       rows.forEach(row => {
-        if(client.guilds.get(row.guildid)==null){
+        if((row.guildid!=null&&row.guildid!='')&&(client.guilds.get(row.guildid)==null)){
           return console.log("[DBLOADER][PERMISSIONS] Skipped permissions entry for guild "+ row.guildid);
         }else{
           let type = row.type;
