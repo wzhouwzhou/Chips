@@ -1,4 +1,4 @@
-const algebra = require('../handlers/algebra-0.2.6.min');
+const algebra = require('../../handlers/algebra-0.2.6.min');
 const EXPIRE = 10000;
 module.exports = {
   name: "-calc",

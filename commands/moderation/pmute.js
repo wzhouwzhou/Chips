@@ -1,4 +1,4 @@
-const Searcher = require(path.join(__dirname, '../handlers/Searcher')).default;
+const Searcher = require(path.join(__dirname, '../../handlers/Searcher')).default;
 module.exports = {
   name: "pmute",
   perm: ["server.mute"],

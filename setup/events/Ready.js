@@ -91,24 +91,28 @@ module.exports = function( send ) {
   hclient.on("debug", console.log);
   h2client.on("debug", console.log);
   h3client.on("debug", console.log);
-  //replace me with https://github.com/thlorenz/readdirp/blob/master/README.md
-  //const glob = require( 'glob' );
-  //glob( path.join(__dirname, '../../commands/**/*.js'), function( err, files ) {
-  //  files.forEach(f=>{
-  //    console.log("New command loaded!: " + f);
-  //    const precmd = require(path.join(__dirname, '../../commands', f));
-  //    client.commands[precmd.name] = new Command(precmd);
-  //  });
-  //  console.log( files );
-  //});
 
-  fs.readdirSync(path.join(__dirname, '../../commands')).map(f => {
-    if (/\.js/.test(f)) {
-      console.log("New command loaded!: " + f);
-      const precmd = require(path.join(__dirname, '../../commands', f));
-      client.commands[precmd.name] = new Command(precmd);
-    }
-  });
+  const load = (startPath) =>{
+    let subset = [];
+    if (!fs.existsSync(startPath))
+      return;
+    let files=fs.readdirSync(startPath);
+    files.forEach(f=>{
+      let filename=path.join(startPath,f);
+      let stat = fs.lstatSync(filename);
+      if (stat.isDirectory())
+        subset = subset.concat(load(filename));
+      else if (/\.js/.test(filename)){
+        console.log('[COMMAND LOADER] found: '+filename);
+        let precmd = require(path.join(__dirname, '../../',filename));
+        client.commands[precmd.name] = new Command(precmd);
+        console.log('[COMMAND LOADER] loaded: '+filename);
+        subset.push(filename);
+      }
+    });
+    return subset;
+  };
+  load('./commands');
 
   client.on("guildMemberAdd",  (member) => {
     try {
