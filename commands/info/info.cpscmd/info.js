@@ -1,4 +1,4 @@
-const Searcher = require(path.join(__dirname, '../../handlers/Searcher')).default;
+const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
 const time = ["years","months","weeks","days","hours","minutes","seconds"];
 
 const memberJoin = (member, i) => {

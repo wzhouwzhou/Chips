@@ -100,14 +100,22 @@ module.exports = function( send ) {
     files.forEach(f=>{
       let filename=path.join(startPath,f);
       let stat = fs.lstatSync(filename);
-      if (stat.isDirectory())
+      console.log('[COMMAND LOADER] File or folder found: '+filename);
+      if (stat.isDirectory()&&(!(/\.cpscmd/.test(filename))))
         subset = subset.concat(load(filename));
-      else if (/\.js/.test(filename)){
-        console.log('[COMMAND LOADER] found: '+filename);
-        let precmd = require(path.join(__dirname, '../../',filename));
-        client.commands[precmd.name] = new Command(precmd);
-        console.log('[COMMAND LOADER] loaded: '+filename);
-        subset.push(filename);
+      else if (stat.isDirectory()&&/\.cpscmd/.test(filename)){
+        try{
+          console.log('[COMMAND LOADER] Loading cmd list: '+filename);
+          let precmdlist = require(path.join(__dirname, '../../',filename));
+          precmdlist.forEach(precmd=>{
+            console.log('[COMMAND LOADER] Loading cmd: '+filename+precmd[0]);
+            client.commands[precmd[0]] = new Command(precmd[1]);
+            subset.push(filename);
+            console.log('[COMMAND LOADER] loaded: '+path.join(__dirname, '../../',filename));
+          });
+        }catch(err){
+          console.error('[COMMAND LOADER][ERR] Could not load: ',path.join(__dirname, '../../',filename),err);
+        }
       }
     });
     return subset;

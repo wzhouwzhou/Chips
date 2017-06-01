@@ -146,7 +146,7 @@ module.exports = {
       µs ? end += 'µs' : end += 'ms';
       bad.setFooter(`Image made by @xdlf#6477.--Chips stats lookup and calculations took ${(end)}.--`);
       channel.stopTyping();
-      reply('Chips stats!', {embed: bad});
+      reply('Chips v0.3.3 stats!', {embed: bad});
     });
   }
 };
