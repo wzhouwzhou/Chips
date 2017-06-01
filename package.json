@@ -19,7 +19,7 @@
     "chipsbot"
   ],
   "scripts": {
-    "start": "node start.js",
+    "start": "BETA=false PORT=8080 DEBUG=* DEBUG_SHOW_HIDDEN=true sh deploy.bat",
     "devstart": "BETA=true PORT=8080 DEBUG=* DEBUG_SHOW_HIDDEN=true sh deploy.bat"
   },
   "dependencies": {
