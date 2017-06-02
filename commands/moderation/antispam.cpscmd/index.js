@@ -1,5 +1,5 @@
 
-let blacklist = require('./blacklist');
+let blacklist = require('./-blacklist');
 console.log('[CPSCMD][MODERATION][antispam] Building objects...');
 blacklist.category = require('../').category;
 
