@@ -13,5 +13,6 @@ newrelic_agent.log
 gource1.mp4
 
 deploy.bat
+deploy2.bat
 
 setup/log/access.log
