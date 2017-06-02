@@ -108,10 +108,11 @@ module.exports = function( send ) {
           console.log('[COMMAND LOADER] Loading cmd list: '+filename);
           let precmdlist = require(path.join(__dirname, '../../',filename));
           precmdlist.forEach(precmd=>{
-            console.log('[COMMAND LOADER] Loading cmd: '+filename+precmd[0]);
+            let cmdpath = filename+'/'+precmd[0];
+            console.log('[COMMAND LOADER] Loading cmd: '+cmdpath);
             client.commands[precmd[0]] = new Command(precmd[1]);
             subset.push([filename,precmd]);
-            console.log('[COMMAND LOADER] loaded: '+path.join(__dirname, '../../',filename));
+            console.log('[COMMAND LOADER] loaded: '+cmdpath);
           });
         }catch(err){
           console.error('[COMMAND LOADER][ERR] Could not load: ',path.join(__dirname, '../../',filename),err);

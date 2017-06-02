@@ -1,6 +1,6 @@
 
 let cat = require('./cat');
-let dog = require('./cat');
+let dog = require('./dog');
 console.log('[CPSCMD][FUN][animals] Building objects...');
 cat.category = require('../').category;
 dog.category = require('../').category;
