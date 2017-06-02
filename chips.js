@@ -30,6 +30,11 @@ client.commands = {};
 global.prefix = "-";
 if(process.env.BETA=="true")prefix="!!";
 global.customprefix = {};
+global.join.msgs = {};
+global.join.autorole = {};
+global.join.autoname = {};
+global.leave.msgs = {};
+
 /** End Constants **/
 global.database = require(path.join(__dirname, './setup/db/DatabaseLoader'));
 /** Other Global Constants **/
