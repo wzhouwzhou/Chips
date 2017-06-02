@@ -1,11 +1,11 @@
 
 let ass = require('./ass');
-console.log('[CPSCMD][MODERATION][antispam] Building objects...');
+console.log('[CPSCMD][NSFW][ass] Building objects...');
 ass.category = require('../').category;
 
 ass.description = 'The name of this command is self explanatory.';
 
-console.log('[CPSCMD][MODERATION][antispam] Build objects complete!');
+console.log('[CPSCMD][NSFW][ass] Build objects complete!');
 module.exports = [
   [ass.name,ass],
 ];
