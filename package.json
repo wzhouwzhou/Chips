@@ -20,7 +20,7 @@
   ],
   "scripts": {
     "start": "BETA=false PORT=8080 DEBUG=* DEBUG_SHOW_HIDDEN=true sh deploy.bat",
-    "devstart": "pm2 start BETA=true PORT=8080 DEBUG=* DEBUG_SHOW_HIDDEN=true sh deploy.bat",
+    "devstart": "BETA=true PORT=8880 DEBUG=* DEBUG_SHOW_HIDDEN=true sh deploy2.bat",
     "pm2start": "pm2 start npm -- start",
     "pm2monit": "pm2 monit",
     "pm2logs":  "pm2 log"
