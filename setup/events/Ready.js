@@ -110,7 +110,7 @@ module.exports = function( send ) {
           precmdlist.forEach(precmd=>{
             console.log('[COMMAND LOADER] Loading cmd: '+filename+precmd[0]);
             client.commands[precmd[0]] = new Command(precmd[1]);
-            subset.push(filename);
+            subset.push([filename,precmd]);
             console.log('[COMMAND LOADER] loaded: '+path.join(__dirname, '../../',filename));
           });
         }catch(err){
