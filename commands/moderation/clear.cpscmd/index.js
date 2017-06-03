@@ -8,7 +8,7 @@ clear.description = 'This command clears chat messages!';
 
 clear.usage = 'clear <number 0-100>';
 
-clear.description = 'clear 22';
+clear.example = 'clear 22';
 
 console.log('[CPSCMD][MODERATION][clear] Build objects complete!');
 module.exports = [
