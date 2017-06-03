@@ -1,5 +1,6 @@
 
 let boobs = require('./boobs');
+
 console.log('[CPSCMD][NSFW][boobs] Building objects...');
 boobs.category = require('../').category;
 
