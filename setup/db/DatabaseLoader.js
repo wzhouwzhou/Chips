@@ -75,7 +75,7 @@ const loadsheet = function(sheet) {
           let roleid = row.roleid.toString();
           let perm = row.perm.toString();
           let action = parseInt(row.action);
-          perms.updatePermission( type, userid, guildid, roleid, perm, action )
+          perms.updatePermission( {type: type, userid: userid, guildid: guildid, roleid: roleid, perm: perm, action: action} )
           .then(info=>console.log(`[DBLOADER][PERMISSIONS]: ${info}`))
           .catch(err=>{
             console.log(`[DBLOADER][PERMISSIONS][ERR] Caught: ${err}`);

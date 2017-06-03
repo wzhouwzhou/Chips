@@ -158,7 +158,7 @@ ex.serverpermissions = {
     ],
 };
 
-ex.updatePermission = function(type, userid=null, guildid=null, roleid=null, perm, action){
+ex.updatePermission = function({type, userid=null, guildid=null, roleid=null, perm, action}){
   return new Promise((resolve, reject) => {
     let checked = false;
     if(!ex.defaultperms.has(perm)) return reject("Invalid Permission");
