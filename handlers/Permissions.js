@@ -44,7 +44,8 @@ ex.permsList = [
   ['global.server.kick'   ,false], //39
   ['server.nsfw'          ,true ], //40
   ['global.stoptyping'    ,false], //41
-  ['global.server.chipsprefix',false] //42
+  ['global.server.chipsprefix',false], //42
+  ['global.server.chips.apply',true],
 ];
 
 ex.defaultperms = new Map(ex.permsList);
