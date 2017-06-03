@@ -6,7 +6,7 @@ kick.category = require('../').category;
 
 kick.description = 'This command lets you kick members!';
 
-kick.usage = 'kick <user> <reason>';
+kick.usage = 'kick <user> <Reason>';
 
 kick.example = 'kick Evildeathpro✔#3981 Being a dad.';
 
