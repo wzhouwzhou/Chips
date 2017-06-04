@@ -7,7 +7,7 @@ const ex = {
   customperm: ['SEND_MESSAGES'],
   async func(msg, {reply, Discord, args, member }) {
     let inputContent = args.join(' ');
-    let targetlang;
+    let targetlang, stuffToTranslate=inputContent;
 
     let toMatch = /(\s*?(?:target):?\s*(?:lang(?:uage)?:?(\s)?)?)/i.exec(inputContent);
     if(toMatch){
@@ -17,7 +17,7 @@ const ex = {
       console.log('[TRANSLATE] langquery: '+ langquery);
       targetlang = langquery.split(/\s+/)[0];
       console.log('[TRANSLATE] targetlang: '+ targetlang);
-      let stuffToTranslate = inputContent.replace(langMatcher&&targetlang?langMatcher+targetlang:'','');
+      stuffToTranslate = inputContent.replace(langMatcher&&targetlang?langMatcher+targetlang:'','');
       console.log('[TRANSLATE] stuffToTranslate: '+stuffToTranslate);
     }
     translate(stuffToTranslate, {to: targetlang?targetlang:'en'}).then(res => {
