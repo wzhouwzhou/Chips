@@ -1,23 +1,21 @@
-const botPrefixes = ['.', '-','+','t!','t@'];
-const botPrefixesRegex = new Array(botPrefixes.length);
-botPrefixes.forEach(pre=>{
-  let reg = new RegExp('^'+pre);
-  botPrefixesRegex.push(reg);
-});
+const botPrefixes = ['\.', '\-','\+','t!','t@'];
+
 module.exports = {
   name: "botclear",
   perm: ["server.clear"],
   customperm: ["MANAGE_MESSAGES"],
   async func(msg, { reply, channel, args }) {
     let nummsgs = 0;
-    let limit = args[0]&&(!isNaN(args[0]))?parseInt(args[0]):5;
+    let limit = args[0]&&(!isNaN(args[0]))?parseInt(args[0]):25;
 
-    channel.fetchMessages({limit: limit}).then(msgs =>
+    channel.fetchMessages({limit: limit}).then(msgs => {
       msgs.filter(m=>{
-        const isMatch = botPrefixesRegex.some(rx => (rx.exec(text).index==0));
-        return m.author.bot||isMatch;
-      })
-    ).then(msgs=>{
+        if(m.author.bot) return true;
+        async.each(botPrefixes, pre=>{
+          return (()=>{return(m.content.toLowerCase.startsWith(pre));})();
+        }, (err)=>console.log(err));
+      });
+    }).then(msgs=>{
       nummsgs = msgs.size;
       channel.bulkDelete(msgs);
       reply(`Deleted ${nummsgs} bot-related messages in the last ${limit} messages sent here!`);
