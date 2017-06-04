@@ -25,7 +25,9 @@ const ex = {
       return reply('',{embed: bad});
     }).catch(err => {
       console.log(err);
-      return reply('Uh oh! Something went wrong with the translation!');
+      if(err.message.startsWith('The language ') && err.message.endsWith('is not supported'))
+        return reply(err.message);
+      return reply('Uh oh! Something went wrong with the translation!\nError: `'+err.message + '`\nPlease contact someone who knows what this means');
     });
   }
 };
