@@ -9,9 +9,14 @@ const ex = {
     let inputContent = args.join(' ');
 
     let langMatcher = /(?:target:?\s*(?:lang(?:uage):?(\s)?)?)/i.exec(inputContent)[0];
-    let targetlang = inputContent.substring(inputContent.indexOf(langMatcher)+langMatcher.length).split(/\s+/)[0];
-
-    translate(inputContent, {to: targetlang?targetlang:'en'}).then(res => {
+    console.log('[TRANSLATE] langMatcher: '+ langMatcher);
+    let langquery = inputContent.substring(inputContent.indexOf(langMatcher)+langMatcher.length);
+    console.log('[TRANSLATE] langquery: '+ langquery);
+    let targetlang = langquery.split(/\s+/)[0];
+    console.log('[TRANSLATE] targetlang: '+ targetlang);
+    let stuffToTranslate = inputContent.replace(langMatcher&&targetlang?langMatcher+targetlang:'','');
+    console.log('[TRANSLATE] stuffToTranslate: '+stuffToTranslate);
+    translate(stuffToTranslate, {to: targetlang?targetlang:'en'}).then(res => {
       let bad = new Discord.RichEmbed();
       bad.setTitle("Translation Results")
          .addField(`Input:\n${inputContent}`,`Translated (from ${res.from.language.iso}):\n${res.text}`)
