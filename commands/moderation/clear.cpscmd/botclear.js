@@ -1,4 +1,4 @@
-const async = require('async');
+
 const botPrefixes = ['.', '-','+','t!','t@'];
 
 module.exports = {
@@ -13,10 +13,10 @@ module.exports = {
       msgs.filter(m=>{
         if(m.author.bot) return true;
         let matched = false;
-        botPrefixes.forEach(pre=>{
-          matched = ((m,pre)=>{return(m.content.toLowerCase().startsWith(pre));})(m,pre);
-          if(matched) return matched;
-        });
+        for(pre of botPrefixes){
+          matched = m.content.toLowerCase().startsWith(pre)?true:matched;
+          if(matched) return true;
+        }
       });
     }).then(msgs=>{
       if(!msgs||msgs.size==0) return reply(`There were 0 bot-related messages in the last ${limit} messages!`);
