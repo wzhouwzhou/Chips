@@ -91,7 +91,7 @@ const ex = {
       if (vLvl >= 1) vInfo = "new users must have an email linked to their account. ";
       if (vLvl >= 2) vInfo+= "They must also be registered on Discord for more than five minutes. ";
       if (vLvl >= 3) vInfo+= "In addition, upon joining, new members must wait 10 minutes before they are able to speak. ";
-      let highestRole = guild.roles.sort((role1,role2) =>{return (role1.position-role2.position);}).last();
+      let highestRole = guild._sortedRoles.last();
       let gname = guild.name.replace('@','(at)');
       if (guild.iconURL&&guild.iconURL(2048)) infobad.setImage(guild.iconURL(2048));
       infobad.addField(`Name of this server: ${gname}`, `Guild id: ${guild.id}`);
