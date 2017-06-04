@@ -23,7 +23,7 @@ const ex = {
     translate(stuffToTranslate, {to: targetlang?targetlang:'en'}).then(res => {
       let bad = new Discord.RichEmbed();
       bad.setTitle("Translation Results")
-         .addField(`Input:\n${stuffToTranslate}`,`Translated (from ${res.from.language.iso}, to ${targetlang}):\n${res.text}`)
+         .addField(`Input:\n${stuffToTranslate}`,`Translated (from ${res.from.language.iso}, to ${targetlang?targetlang:'en'}):\n${res.text}`)
          .setFooter(new Date().toUTCString())
          .setColor(member?member.displayColor:1);
       return reply('',{embed: bad});
