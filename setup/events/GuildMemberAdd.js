@@ -24,7 +24,7 @@ module.exports = function() {
           console.log("[SK] sending welcome msg...");
           let welcomeC=memberguild.channels.get("308772937731670016")||memberguild.channels.find('name','unverified');
           welcomeC.send(`<@${userid}>, Welcome! Please read <#307895557815402496> and become acquainted with the rules here, then contact a staff member to be able to speak in other channels!`);
-        }, 1000);
+        }, 700);
       }else if(memberguild.id=="315891125825044482"){
         setTimeout(() =>{
           console.log("[SK2] adding role...");
@@ -37,7 +37,7 @@ module.exports = function() {
             3. Do you promise to read <#316019707276820483>?
             4. What is your favorite diep.io tank?
             (you can answer these with just a sentence or two, no need to write an essay!)`).then(console.log("[SK2] Welcome msg sent"));
-        }, 1000);
+        }, 700);
       }else if(memberguild.id=="315502587111669772"){
         setTimeout(()=>{
           console.log("Changing nick...");
@@ -48,4 +48,5 @@ module.exports = function() {
       console.log("could not add unverified role or set nick");
     }
   });
+  require('./ChannelUpdate')();
 };
