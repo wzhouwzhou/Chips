@@ -43,8 +43,11 @@ module.exports = function() {
     const keywords = {
       '306244855493951489': 'ban',
     };
+    const notify = {
+      '306244855493951489': false,
+    };
     if(message.guild.id==Constants.servers.SINX)
-      if(message.content.includes(keywords[Constants.users.DU]))
+      if(message.content.includes(keywords[Constants.users.DU])&&notify[Constants.users.DU])
         client.fetchUser(Constants.users.DU).then(user=>{
           user.send(`Someone said the keyword \`\`${keywords[Constants.users.DU]}\`\` in server \`\`Sinbad Knights\`\`!`);
         }).catch(err=>{
