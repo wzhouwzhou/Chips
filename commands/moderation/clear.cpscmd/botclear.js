@@ -1,3 +1,4 @@
+const async = require('async');
 const botPrefixes = ['.', '-','+','t!','t@'];
 
 module.exports = {
