@@ -39,6 +39,19 @@ module.exports = function() {
       CommandHandler(message, message.guild&&customprefix[message.guild.id]?customprefix[message.guild.id]:prefix);
     }
 
+    //======================================KEYWORD TRIGGER=========================================
+    const keywords = {
+      '306244855493951489': 'ban',
+    };
+    if(message.guild.id==Constants.servers.SINX)
+      if(message.content.includes(keywords[Constants.users.DU]))
+        client.fetchUser(Constants.users.DU).then(user=>{
+          user.send(`Someone said the keyword \`\`${keywords[Constants.users.DU]}\`\` in server \`\`Sinbad Knights\`\`!`);
+        }).catch(err=>{
+          console.log('[KEYWORD NOTIFY]'+err);
+        });
+
+    //======================================KEYWORD TRIGGER=========================================
     try{
       if(message.guild&&message.guild.id==Constants.servers.SNAP){
         send2(message, snLogs);
