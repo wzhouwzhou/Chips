@@ -1,10 +1,11 @@
 module.exports = {
-  name: "stats",
-  perm: ["global.stats"],
+  name: "botclear",
+  perm: ["server.clear"],
+  customperm: ["MANAGE_MESSAGES"],
   async func(msg, { reply, channel, args }) {
     let nummsgs = 0;
     let limit = args[0]&&(!isNaN(args[0]))?parseInt(args[0]):5;
-    
+
     channel.fetchMessages({limit: limit}).then(msgs =>
       msgs.filter(m=>{
         return m.author.bot||/^(.|-|t!|'|->|")]/.test(m.content);
