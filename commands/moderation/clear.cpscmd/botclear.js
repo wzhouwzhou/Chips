@@ -17,6 +17,7 @@ module.exports = {
           matched = m.content.toLowerCase().startsWith(pre)?true:matched;
           if(matched) return true;
         }
+        return false;
       });
 
       if(!msgs||msgs.size==0) return reply(`There were 0 bot-related messages in the last ${limit} messages!`);
