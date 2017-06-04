@@ -18,7 +18,7 @@ module.exports = {
           if(matched) return true;
         }
       });
-    }).then(msgs=>{
+
       if(!msgs||msgs.size==0) return reply(`There were 0 bot-related messages in the last ${limit} messages!`);
       nummsgs = msgs.size;
       channel.bulkDelete(msgs);
