@@ -12,11 +12,12 @@ module.exports = {
     channel.fetchMessages({limit: limit}).then(msgs => {
       msgs.filter(m=>{
         if(m.author.bot) return true;
-        async.each(botPrefixes, pre=>{
-          return (()=>{return(m.content.toLowerCase().startsWith(pre));})();
-        }, (err)=>console.log(err));
+        botPrefixes.forEach(pre=>{
+          return ((m,pre)=>{return(m.content.toLowerCase().startsWith(pre));})(m,pre);
+        });
       });
     }).then(msgs=>{
+      if(!msgs||msgs.size==0) return reply(`There were 0 bot-related messages in the last ${limit} messages!`);
       nummsgs = msgs.size;
       channel.bulkDelete(msgs);
       reply(`Deleted ${nummsgs} bot-related messages in the last ${limit} messages sent here!`);
