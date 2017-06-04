@@ -33,8 +33,8 @@ module.exports = {
     let weighted;
     if(!isNaN(creactMetrics)) // weight: 10%/25%/20%/10%/10%/25%
       weighted = (wsPing/10)+(sendMetrics/4)+(editMetrics/5)+(reactMetrics/10)+(creactMetrics/10)+(delMetrics/4);
-    else                      // weight: 11%/26%/21%/00%/11%/21%
-      weighted = (wsPing*0.11)+(sendMetrics*0.26)+(editMetrics*0.21)+(creactMetrics*0.11)+(delMetrics*0.21);
+    else                      // weight: 11%/26%/21%/11%/00%/21%
+      weighted = (wsPing*0.11)+(sendMetrics*0.26)+(editMetrics*0.21)+(reactMetrics*0.11)+(delMetrics*0.21);
 
     let scale = '';
     if(weighted < 100) scale = "That's amazing!";
