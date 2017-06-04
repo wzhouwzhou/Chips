@@ -8,7 +8,7 @@ const ex = {
   async func(msg, {reply, Discord, args, member }) {
     let inputContent = args.join(' ');
 
-    let langMatcher = /(\s*?(?:target):?\s*(?:lang(?:uage):?(\s)?)?)/i.exec(inputContent)[0];
+    let langMatcher = /(\s*?(?:target):?\s*(?:lang(?:uage)?:?(\s)?)?)/i.exec(inputContent)[0];
     console.log('[TRANSLATE] langMatcher: '+ langMatcher);
     let langquery = inputContent.substring(inputContent.indexOf(langMatcher)+langMatcher.length);
     console.log('[TRANSLATE] langquery: '+ langquery);
