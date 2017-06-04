@@ -11,9 +11,9 @@ module.exports = {
     channel.fetchMessages({limit: limit}).then(msgs => {
       msgs.filter(m=>{
         if(m.author.bot) return true;
-        botPrefixes.forEach(pre=>{
-          return (()=>{return(m.content.toLowerCase.startsWith(pre));})();
-        });
+        async.each(botPrefixes, pre=>{
+          return (()=>{return(m.content.toLowerCase().startsWith(pre));})();
+        }, (err)=>console.log(err));
       });
     }).then(msgs=>{
       nummsgs = msgs.size;
