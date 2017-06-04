@@ -12,8 +12,10 @@ module.exports = {
     channel.fetchMessages({limit: limit}).then(msgs => {
       msgs.filter(m=>{
         if(m.author.bot) return true;
+        let matched = false;
         botPrefixes.forEach(pre=>{
-          return ((m,pre)=>{return(m.content.toLowerCase().startsWith(pre));})(m,pre);
+          matched = ((m,pre)=>{return(m.content.toLowerCase().startsWith(pre));})(m,pre);
+          if(matched) return matched;
         });
       });
     }).then(msgs=>{
