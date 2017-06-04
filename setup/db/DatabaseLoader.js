@@ -109,10 +109,10 @@ const loadsheet = function(sheet, sbk) {
   }else{
     sbksheets[sheet.title] = sheet;
     sheet.getRows({offset: 1,limit: 999999}, (err, rows) => {
-      if (sheet.title == 'Points Tracker') {
+      if (sheet.title == 'rawpts') {
         rows.forEach(row => {
-          console.log('[DBLOADER][SBKLOADER][Points Loader] Found: ' + row['Userid']);
-          
+          console.log('[DBLOADER][SBKLOADER][Points Loader] Found: ' + row['uid']);
+
         });
       }
 
