@@ -1,4 +1,4 @@
-const botPrefixes = ['\.', '\-','\+','t!','t@'];
+const botPrefixes = ['.', '-','+','t!','t@'];
 
 module.exports = {
   name: "botclear",
@@ -11,9 +11,9 @@ module.exports = {
     channel.fetchMessages({limit: limit}).then(msgs => {
       msgs.filter(m=>{
         if(m.author.bot) return true;
-        async.each(botPrefixes, pre=>{
+        botPrefixes.forEach(pre=>{
           return (()=>{return(m.content.toLowerCase.startsWith(pre));})();
-        }, (err)=>console.log(err));
+        });
       });
     }).then(msgs=>{
       nummsgs = msgs.size;
