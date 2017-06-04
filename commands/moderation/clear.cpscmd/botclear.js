@@ -23,10 +23,12 @@ module.exports = {
       if(!msgs||msgs.size==0) return reply(`There were 0 bot-related messages in the last ${limit} messages!`);
       nummsgs = msgs.size;
       channel.bulkDelete(msgs);
-      reply(`Deleted ${nummsgs} bot-related messages in the last ${limit} messages sent here!`);
+      reply(`Deleted ${nummsgs} bot-related messages in the last ${limit} messages sent here!`).then(sentmsg=>
+        setTimeout(()=>{sentmsg.delete();},5000));
     }).catch(err=>{
       console.log('[Clear] '+ err);
-      reply(`Could not delete ${nummsgs} bot-related messages, perhaps I am missing permissions?`);
+      reply(`Could not delete ${nummsgs} bot-related messages, perhaps I am missing permissions?`).then(sentmsg=>
+        setTimeout(()=>{sentmsg.delete();},5000));
     });
   }
 };
