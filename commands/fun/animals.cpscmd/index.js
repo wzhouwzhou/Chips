@@ -3,19 +3,24 @@ let cat = require('./cat');
 let dog = require('./dog');
 
 console.log('[CPSCMD][FUN][animals] Building objects...');
-cat.category = require('../').category;
-dog.category = require('../').category;
+let cmds = [cat, dog];
 
-cat.description = 'This command sends cat images!';
-dog.description = 'This command sends dog images!';
+cmds.forEach(cmd=>{
+  cmd.metadata={};
+  cmd.metadata.category = require('../').category;
+});
 
-cat.usage = 'cat';
-dogn.usage = 'dog';
+cat.metadata.description = 'This command sends cat images!';
+dog.metadata.description = 'This command sends dog images!';
 
-cat.example = 'cat';
-dog.example = 'dog';
+cat.metadata.usage = 'cat';
+dog.metadata.usage = 'dog';
+
+cat.metadata.example = 'cat';
+dog.metadata.example = 'dog';
 
 console.log('[CPSCMD][FUN][animals] Build objects complete!');
+
 module.exports = [
   [cat.name,cat],
   [dog.name,dog],
