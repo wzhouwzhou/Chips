@@ -50,7 +50,7 @@
     "finalhandler": "^1.0.1",
     "font-awesome": "^4.7.0",
     "google-spreadsheet": "2.0.3",
-    "google-translate-api": "^2.2.2",
+    "google-translate-api": "github:arthurlacoste/google-translate-api",
     "got": "^6.7.1",
     "graceful-fs": "^4.1.11",
     "gulp": "^3.9.1",
