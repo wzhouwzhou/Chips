@@ -5,7 +5,7 @@ const ex = {
   name: "translate",
   perm: ["global.info","global.info.all","global.info.serv","global.info.channel","global.info.role","global.info.user","global.info.user.self"],
   customperm: ['SEND_MESSAGES'],
-  async func(msg, {reply, Discord }) {
+  async func(msg, {reply, Discord, args }) {
     let inputContent = args.join(' ');
     translate(inputContent, {to: 'en'}).then(res => {
       let bad = new Discord.RichEmbed();
