@@ -19,7 +19,7 @@ ex = {
       else{
         let newprefix = _.drop(args).join(' ').toLowerCase();
         customprefix[guild.id]=newprefix;
-        filter=require(path.join(__dirname, '../handlers', 'Filter'))();
+        filter=require(path.join(__dirname, '../../../handlers', 'Filter'))();
         console.log(`${member.user.tag} changed prefix for guild ${guild.id}: ${newprefix}`);
         database.sheets['prefixes'].addRow({guildid: guild.id, prefix: newprefix});
         return reply(`Prefix ${newprefix} set as my prefix successfully!`);
