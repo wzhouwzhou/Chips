@@ -12,7 +12,7 @@ ex.permsList = [
   ['server.blacklist'         ,false], // 8
   ['global.botpanic'          ,false], // 9
   ['server.cat'               ,true ], //10
-  ['server.clear'             ,true ], //11
+  ['global.server.clear'      ,false], //11
   ['server.coinflip'          ,true ], //12
   ['server.dog'               ,true ], //13
   ['global.eatme'             ,true ], //14

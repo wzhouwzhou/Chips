@@ -1,6 +1,6 @@
 module.exports = {
   name: "clear",
-  perm: ["server.clear"],
+  perm: ["global.server.clear"],
   customperm: ["MANAGE_MESSAGES"],
   async func(msg, { channel, args, member, reply }) {
     const used = member || author;
@@ -29,11 +29,10 @@ module.exports = {
         nmsgs=100;
         await channel.bulkDelete(nmsgs);
         let overload = await reply(`The maximum amount of msgs I can delete is 99!`);
-        setTimeout(_=>overload.delete(),7500);
+        setTimeout(()=>overload.delete(),7500);
       }else await channel.bulkDelete(nmsgs);
       result = await reply(`${--nmsgs} message(s) deleted successfully!`);
     }catch(err){result = await reply(`Could not delete ${args[0]} message(s)..`);}
-
-    setTimeout(_=>result.delete(),9500);
+    result.delete(9500);
   }
 };

@@ -3,7 +3,7 @@ const botPrefixes = ['.', '-','+','t!','t@'];
 
 module.exports = {
   name: "botclear",
-  perm: ["server.clear"],
+  perm: ["global.server.clear"],
   customperm: ["MANAGE_MESSAGES"],
   async func(msg, { reply, channel, args }) {
     let nummsgs = 0;
