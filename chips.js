@@ -16,8 +16,8 @@ global.Discord = require("discord.js");
 global.client = new Discord.Client({
   fetchAllMembers:true,
   messageCacheMaxSize:-1,
-  messageCacheLifetime:(60*60*2),
-  messageSweepInterval:(60*60*24),
+  messageCacheLifetime:(60*60*1),
+  messageSweepInterval:(60*60*3),
 });
 global.clientutil = new Discord.ShardClientUtil(client);
 setShards.id=client.shard.id;
@@ -131,6 +131,17 @@ global.send2 = (message, c) => {
 function selfping() {
   request("https://chipsbot.herokuapp.com/", _=>_);
   require('./handlers/DiepAddons').getServers();
+  let memtotals = 0.00;
+  clientutil.broadcastEval(`
+    let memusage = parseFloat((process.memoryUsage().heapUsed / 1024 / 1024));
+    memusage;
+  `).then(results=>{
+    results.forEach(shardStat=>{
+      memtotals+=shardStat;
+    });
+    if(memtotals>700)
+      clientutil.broadcastEval('process.exit(100)');
+  });
 }
 
 function msgStatus() {
