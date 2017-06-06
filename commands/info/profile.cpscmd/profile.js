@@ -9,7 +9,7 @@ module.exports = {
       let timestamp = process.hrtime();
 
       let image = (await Jimp.read(path.join(__dirname,'../../../public/img/bg.png'))).clone();
-      image.gaussian( 10 );
+      image.blur( 10 );
 
       let font = Jimp.FONT_SANS_16_BLACK;
 
