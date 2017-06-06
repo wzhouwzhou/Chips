@@ -134,7 +134,6 @@ doc.useServiceAccountAuth(login_info,() => {
   });
 });
 
-
 sbkDoc.useServiceAccountAuth(login_info,() => {
   sbkDoc.getInfo((err,info) => {
     numloads = info.worksheets.length;
@@ -144,6 +143,28 @@ sbkDoc.useServiceAccountAuth(login_info,() => {
   });
 });
 
+const getSinxPt = (id) => {
+  return new Promise( (resolve) =>{
+    sbkDoc.useServiceAccountAuth(login_info,() => {
+      sbkDoc.getInfo((err,info) => {
+        numloads = info.worksheets.length;
+        for (var i=0;i<info.worksheets.length;i++) {
+          let sheet = info.worksheets[i];
+          sheet.getRows({offset: 1,limit: 999999}, (err, rows) => {
+            if (sheet.title == 'rawpts') {
+              rows.forEach(row=>{
+                if(row.uid==id)
+                  resolve(row.pts);
+              });
+            }
+          });
+        }
+      });
+    });
+    resolve(0);
+  });
+};
+
 
 const ex = module.exports = { // module exports
   ready: false,
@@ -151,5 +172,5 @@ const ex = module.exports = { // module exports
   sheets: sheets,
   sbksheets: sbksheets,
   sinxUsers: sinxUsers,
-  // more stuff here
+  getSinxPt: getSinxPt,
 };
