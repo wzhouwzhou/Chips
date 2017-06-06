@@ -5,7 +5,7 @@ module.exports = {
   perm: ["server.help"],
   async func(msg, { send }) {
     try{
-      let image = (await Jimp.read(path.join(__dirname,'../../../public/image/chipssplash.png'))).clone();
+      let image = (await Jimp.read(path.join(__dirname,'../../../public/img/chipssplash.png'))).clone();
       image.getBuffer( mime, async (buffer)=> {await send('',{files: [buffer]});});
       /*
       image = await Jimp.read(path.join(__dirname,'../../../public/image/loading.gif'));
