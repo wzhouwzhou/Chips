@@ -4,14 +4,14 @@ module.exports = {
   name: "help",
   perm: ["server.help"],
   async func(msg, { send }) {
-    let img;
     try{
-      img = Jimp.read(path.join(__dirname,'../../../public/img/chipssplash.png'));
-      await send('',{files: [img]});
-      img = Jimp.read(path.join(__dirname,'../../../public/img/loading.gif'));
-      await send('',{files: [img]});
-      img = Jimp.read(path.join(__dirname,'../../../public/img/bg.jpg'));
-      await send('',{files: [img]});
+      let image = (await Jimp.read(path.join(__dirname,'../../../public/image/chipssplash.png'))).clone();
+      image.getBuffer( mime, async (buffer)=> {await send('',{files: [buffer]});});
+      /*
+      image = await Jimp.read(path.join(__dirname,'../../../public/image/loading.gif'));
+      await send('',{files: [image]});
+      image = await Jimp.read(path.join(__dirname,'../../../public/image/bg.jpg'));
+      await send('',{files: [image]});*/
     }catch (err){
       console.error(err);
     }
