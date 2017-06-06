@@ -4,18 +4,18 @@ const fs = require('fs');
 module.exports = {
   name: "profile",
   perm: ["server.help"],
-  async func(msg, { author, send }) {
+  async func(msg, { author, member, send }) {
     try{
       let timestamp = process.hrtime();
 
       let image = (await Jimp.read(path.join(__dirname,'../../../public/img/bg.png'))).clone();
-      image.blur( 10 );
+      image.blur( 5 );
 
-      let font = Jimp.FONT_SANS_16_BLACK;
+      let font = Jimp.FONT_SANS_64_BLACK;
 
       Jimp.loadFont( font ).then(function (font) {
-        image.print(font, 50, 50, author.tag, 100);
-
+        image.print(font, 400-Math.floor((author.tag.length)/2), 50, author.tag, 300);
+        image.print(font, 400-Math.floor((member.displayName.length)/2), 350);
         let filepath= `profile.${timestamp}.${image.getExtension()}`;
         image.write(filepath,()=>{
           send('User Profile',{files: [filepath]}).then(_=>{
