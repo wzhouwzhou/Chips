@@ -25,15 +25,15 @@ ex = {
         return reply(`Prefix ${newprefix} set as my prefix successfully!`);
       }
     }else if(action=="reset"||action=="off"){
-      if(!customprefix[guild.id]||customprefix[guild.id]==prefix) return reply(`Custom prefix is not enabled! Set a custom prefix for me with \`\`${prefix}${ex.name} set\`\``);
+      if(!customprefix[guild.id]||customprefix[guild.id]==prefix) return reply(`Custom prefix is not enabled! Set a custom prefix for me with \`\`${prefix}chipsprefix set\`\``);
       customprefix[guild.id]=prefix;
       database.sheets['prefixes'].addRow({guildid: guild.id, prefix: prefix});
       return reply(`Custom prefix reset! My prefix is now ${customprefix[guild.id]}`);
     }else if(action=="on"){
       if((!customprefix[guild.id])||customprefix[guild.id]==prefix)
-        return reply(`Set a custom prefix for me with \`\`${prefix}${ex.name} set\`\``);
+        return reply(`Set a custom prefix for me with \`\`${prefix}chipsprefix set\`\``);
       else
-        return reply(`A prefix has already been set for this server! Check it with \`\`${prefix}${ex.name} (status)\`\``);
+        return reply(`A prefix has already been set for this server! Check it with \`\`${prefix}chipsprefix (status)\`\``);
     }
   }
 };

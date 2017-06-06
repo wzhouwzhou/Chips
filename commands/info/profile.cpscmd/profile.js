@@ -15,15 +15,14 @@ module.exports = {
       let font = Jimp.FONT_SANS_64_BLACK;
 
       Jimp.loadFont( font ).then(async function (font) {
-        image.print(font, 200-Math.floor((author.tag.length)/2), 50, author.tag.toString(),300);
-        image.print(font, 200-Math.floor((member.displayName).length)/2, 200, member.displayName.toString(),300);
-        let avatar = await Jimp.read(author.avatarURL(512).replace('.webp','.png'));
+        image.print(font, 200-Math.floor((author.tag.length)/2), 50, author.tag.toString());
+        image.print(font, 200-Math.floor((member.displayName).length)/2, 200, member.displayName.toString());
+        let avatar = await Jimp.read(author.avatarURL(512).replace('.webp','.png')).resize(300, 300);
         image.blit(avatar,200,300);
         let filepath= `profile.${timestamp}.${image.getExtension()}`;
-        image.write(filepath,()=>{
-          send('User Profile',{files: [filepath]}).then(_=>{
-            fs.unlinkSync(filepath);
-          });
+        image.write(filepath,async ()=>{
+          await send('User Profile',{files: [filepath]});
+          fs.unlinkSync(filepath);
         });
 
       });
