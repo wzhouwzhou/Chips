@@ -6,7 +6,7 @@ module.exports = {
   perm: ["server.help"],
   async func(msg, { send }) {
     try{
-      let timestamp = cpu.hrtime();
+      let timestamp = process.hrtime();
 
       let image = (await Jimp.read(path.join(__dirname,'../../../public/img/chipssplash.png'))).clone();
       let filepath= "profile."+timestamp + image.getExtension();
