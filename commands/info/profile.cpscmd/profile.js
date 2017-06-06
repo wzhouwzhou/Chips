@@ -9,8 +9,8 @@ module.exports = {
       let timestamp = process.hrtime();
 
       let image = (await Jimp.read(path.join(__dirname,'../../../public/img/chipssplash.png'))).clone();
-      let filepath= "profile."+timestamp + image.getExtension();
-
+      let filepath= `profile.${timestamp}.${image.getExtension()}`;
+      image.write(filepath);
       await send('',{files: [filepath]});
       fs.unlinkSync(filepath);
       /*
