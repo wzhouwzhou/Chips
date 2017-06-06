@@ -1,12 +1,18 @@
 const Jimp = require('jimp');
+const fs = require('fs');
 
 module.exports = {
-  name: "help",
+  name: "profile",
   perm: ["server.help"],
   async func(msg, { send }) {
     try{
+      let timestamp = cpu.hrtime();
+
       let image = (await Jimp.read(path.join(__dirname,'../../../public/img/chipssplash.png'))).clone();
-      image.getBuffer( Jimp.MIME_PNG, (buffer)=> {send('',{files: [buffer]});});
+      let filepath= "profile."+timestamp + image.getExtension();
+
+      await send('',{files: [filepath]});
+      fs.unlinkSync(filepath);
       /*
       image = await Jimp.read(path.join(__dirname,'../../../public/image/loading.gif'));
       await send('',{files: [image]});
