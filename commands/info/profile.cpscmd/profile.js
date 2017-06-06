@@ -10,9 +10,12 @@ module.exports = {
 
       let image = (await Jimp.read(path.join(__dirname,'../../../public/img/chipssplash.png'))).clone();
       let filepath= `profile.${timestamp}.${image.getExtension()}`;
-      image.write(filepath);
-      await send('',{files: [filepath]});
-      fs.unlinkSync(filepath);
+      await image.write(filepath,()=>{
+        send('',{files: [filepath]}).then(_=>{
+          fs.unlinkSync(filepath);
+        });
+      });
+
       /*
       image = await Jimp.read(path.join(__dirname,'../../../public/image/loading.gif'));
       await send('',{files: [image]});
