@@ -7,7 +7,7 @@ module.exports = function() {
       if(memberguild.id=="257889450850254848"){
         setTimeout(() =>{
           console.log("[SINX] adding role...");
-          member.addRole(memberguild.roles.get("305302877641900052")||memberguild.roles.find('name',"unverified"));
+          member.addRole(memberguild.roles.get("305302877641900052")||memberguild.roles.find('name',"Unverified"));
           /*console.log("[SINX] sending welcome msg...");
           let welcomeC=client.channels.get("307342989783728131")||memberguild.channels.find('name','unverified');
           welcomeC.send(`<@${userid}>, Welcome to Sinbadx Knights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!**

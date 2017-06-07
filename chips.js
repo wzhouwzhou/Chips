@@ -44,6 +44,15 @@ Make sure you send your answers in this channel (don't DM them)!`,
 
     "302983444009451541": `Hai hoi! I'm just testing :>`,
   },
+  panics: {
+    0: false,
+  },
+  antiraidOldVL:{ //guild: verif lvl
+    0: 0,
+  },
+  lastjoin: { //guild: {userid: Date}
+    0: {0: {}},
+  },
 };
 global.memberleave = {
   msgs: {},

@@ -368,9 +368,25 @@ ex.checkPermission = function(msg, perm){
 
 ex.checkMulti = (msg, permArr) => {
   return new Promise((resolve, reject) =>{
-      permArr.forEach(perm =>{
+    status = '';
+    permArr.forEach(async perm =>{
+      let permSpecifics = perm.split('.');
+      let currentPerm = '';
+      for(let i = 0; i<permSpecifics.length-1; i++){
+        currentPerm+=currentPerm[i];
+        try{
+          status = await ex.checkPermission(msg,currentPerm+'.*');
+        }catch(err){
+          reject(err);
+        }
+      }
+      try{
+        status = await ex.checkPermission(msg,perm);
+      }catch(err){
+        reject(err);
+      }
+    });
 
-      });
   });
 };
 
