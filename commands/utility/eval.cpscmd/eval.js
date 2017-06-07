@@ -11,14 +11,14 @@ const token2Regex = new RegExp(h3client.token.replace(/\./g, '\\.').split('').jo
 
 module.exports = {
 	name:'eval',
-	async func(msg, { send, author, content, doEval }) {
-		if (whitelist.indexOf(author.id) < 0) return console.log("prohibited access to eval");
+	async func(msg, { send, author, doEval, args }) {
+		if (whitelist.indexOf(author.id) < 0) return console.log("Prohibited access to eval to user " + author.id);
 
 		let result = await send("Evaluating...");
 		let start = process.hrtime();
 
 		try {
-			let evaled = await doEval(content.slice('-eval '.length));
+			let evaled = await doEval(args.join(' ').replace('client.token','`HNNNNNNGGHHHH`'));
 			let r = (typeof evaled !== "string") ? require("util").inspect(evaled): evaled;
 			let hrTime = process.hrtime(start);
 			let µs = false;
@@ -28,7 +28,6 @@ module.exports = {
 				end = (hrTime[0] * 1000000 + hrTime[1] / 1000);
 			}
 			µs ? end += 'µs' : end += 'ms';
-
 
 			r = r.replace(tokenRegex, '[TOKEN]').replace(token2Regex, '[TOKEN]');
 
