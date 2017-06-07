@@ -31,7 +31,7 @@ ex = {
 		    temp.sentmsg = await reply(details, {embed: embed});
 
 		    temp.confirmed = false; temp.agreed=false; temp.rxn = false;
-
+				let msgCol;
 				let rxnCol = temp.sentmsg.createReactionCollector(
 					(reaction, user) => {
 						if(user.id != author.id) return false;
@@ -51,12 +51,13 @@ ex = {
 							temp.confirmed=true;
 							temp.rxn = true;
 							temp.agreed=false;
+							msgCol.end();
 							return true;
 						}
 					},
 					{ max: 1, time: EXPIRE, errors: ['time'] }
 				);
-				let msgCol = channel.createMessageCollector(
+				msgCol = channel.createMessageCollector(
 					query => {
 						if(query.content)
 							if(/^(?:y(?:es)?)|(?:no?)$/i.test(query.content))
@@ -82,7 +83,7 @@ ex = {
 					rxnCol.stop();
 				});
 				rxnCol.on('end', collected => {
-					if(temp.agreed&&temp.rxn){
+					if(temp.confirmed&&temp.rxn){
 						console.log(collected.first().name);
 						msgCol.stop();
 						return;
@@ -356,7 +357,7 @@ ex = {
 						let logC = guild.channels.get(Constants.channels.SUPPORT_STAFFAPPLICATIONLOGS);
 						await logC.send('\n\n\n\nIncoming Staff Application!',{embed: log});
 						await logC.send(`**Question1**: ${QUESTION1}\n**Answer**: ${temp.step1Data}`);
-						await logC.send(`Question2: ${QUESTION2}\n**Answer**: ${temp.step2Data}`);
+						await logC.send(`**Question2**: ${QUESTION2}\n**Answer**: ${temp.step2Data}`);
 						await logC.send(`**Question3**: ${QUESTION3}\n**Answer**: ${temp.step3Data}`);
 						//continue to end
 					});
