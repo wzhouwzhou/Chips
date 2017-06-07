@@ -17,7 +17,8 @@ module.exports = {
       Jimp.loadFont( font ).then(async function (font) {
         image.print(font, 200-Math.floor((author.tag.length)/2), 50, author.tag.toString());
         image.print(font, 200-Math.floor((member.displayName).length)/2, 200, member.displayName.toString());
-        let avatar = await Jimp.read(author.avatarURL(512).replace('.webp','.png')).resize(300, 300);
+        let avatar = await Jimp.read(author.avatarURL(512).replace('.webp','.png'));
+        avatar.resize(300, 300);
         image.blit(avatar,200,300);
         let filepath= `profile.${timestamp}.${image.getExtension()}`;
         image.write(filepath,async ()=>{
