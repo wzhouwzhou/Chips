@@ -61,7 +61,7 @@ ex.func = async (msg, {send, member, author, guild, args, gMember, reply }) =>{
   }else if(args[0].toLowerCase()=="panicoff"){
     if(memberjoin.panics[guild.id]!=null&&memberjoin.panics[guild.id]){
       memberjoin.panics[guild.id]=false;
-      guild.setVerificationLevel(memberjoin.antiraidOldVL[guild.id]);
+      await guild.setVerificationLevel(memberjoin.antiraidOldVL[guild.id]);
       return reply(`Panic mode has been disabled! The verification level is now ${guild.verificationLevel} again.`);
     }else{
       return reply(`Panic mode was not enabled for this server!`);
