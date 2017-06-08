@@ -20,7 +20,7 @@ module.exports = {
         image.print(font, 200-Math.floor((member.displayName).length)/2, 200, member.displayName.toString());
         let avatar = await Jimp.read(author.avatarURL(2048).replace('.webp','.png'));
         await avatar.resize(pfpW, pfpW);
-        await image.blit(avatar,pfpY,pfpX);
+        await image.blit(avatar,pfpX,pfpY);
         let filepath= `${author.tag}profile${author.id}.${timestamp}.${image.getExtension()}`;
         image.write(filepath,async ()=>{
           await send('User Profile',{files: [filepath]});
