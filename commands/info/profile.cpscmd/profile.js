@@ -16,11 +16,11 @@ module.exports = {
       let font = path.join(__dirname,'./genericafnt/font.fnt');
 
       Jimp.loadFont( font ).then(async function (font) {
-        image.print(font, 200-Math.floor((author.tag.length)/2), 50, author.tag.toString());
-        image.print(font, 200-Math.floor((member.displayName).length)/2, 200, member.displayName.toString());
         let avatar = await Jimp.read(author.avatarURL(2048).replace('.webp','.png'));
         await avatar.resize(pfpW, pfpW);
         await image.blit(avatar,pfpX,pfpY);
+        image.print(font, 50, 50, '     User: ' + author.tag);
+        image.print(font, 50, 200, 'Nickname: '+ member.displayName);
         let filepath= `${author.tag}profile${author.id}.${timestamp}.${image.getExtension()}`;
         image.write(filepath,async ()=>{
           await send('User Profile',{files: [filepath]});
