@@ -54,14 +54,14 @@ ex.func = async (msg, {send, member, author, guild, args, gMember, reply }) =>{
     if(!memberjoin.antiraidWelcome[guild.id]) return reply(`A welcome message has not been set for this server!`);
     send(memberjoin.antiraidWelcome[guild.id]);
   }else if(args[0]=="panic"){
-    antiraidOldVL[guild.id] = guild.verificationLevel;
+    memberjoin.antiraidOldVL[guild.id] = guild.verificationLevel;
     await guild.setVerificationLevel(3);
     memberjoin.panics[guild.id]=true;
     return reply(`Panic activated, verification level is now ${guild.verificationLevel}`);
   }else if(args[0].toLowerCase()=="panicoff"){
-    if(panics[guild.id]!=null&&panics[guild.id]){
-      panics[guild.id]=false;
-      guild.setVerificationLevel(antiraidOldVL[guild.id]);
+    if(memberjoin.panics[guild.id]!=null&&memberjoin.panics[guild.id]){
+      memberjoin.panics[guild.id]=false;
+      guild.setVerificationLevel(memberjoin.antiraidOldVL[guild.id]);
       return reply(`Panic mode has been disabled! The verification level is now ${guild.verificationLevel} again.`);
     }else{
       return reply(`Panic mode was not enabled for this server!`);
