@@ -3,7 +3,7 @@ module.exports = {
   name: "spooky",
   perm: ["server.spooky"],
   customperm: ['SEND_MESSAGES'],
-  async func(msg, { author, member, guild, content, prefix, Discord }) {
+  async func(msg, { author, member, guild, content, prefix, Discord, reply }) {
     let truecontent = content.substring((prefix+`profile `).length);
     let spookymsg = truecontent;
     let toMatch = /(\s*?(?:num(?:ber)?):?\s*((?:rep(?:eat)?(?:s)?)?\s*:?(\s*))?)/i.exec(truecontent);
