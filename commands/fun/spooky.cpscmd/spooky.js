@@ -5,7 +5,8 @@ module.exports = {
   customperm: ['SEND_MESSAGES'],
   async func(msg, { author, member, guild, content, prefix, Discord }) {
     let truecontent = content.substring((prefix+`profile `).length);
-    let toMatch = /(\s*?(?:num(?:ber)?):?\s*(?:rep(?:eats)?\s*:?(\s*))?)/i.exec(truecontent);
+    let spookymsg = truecontent;
+    let toMatch = /(\s*?(?:num(?:ber)?):?\s*((?:rep(?:eat)?(?:s)?)?\s*:?(\s*))?)/i.exec(truecontent);
     let numSpaces = 1;
     if(toMatch){
       let numMatcher = toMatch[0];
@@ -23,7 +24,8 @@ module.exports = {
     let converted = spookymsg.split(/\s*/).join(s);
     let bad = new Discord.RichEmbed();
     bad.setTitle('Spooky!').setColor(guild?member.displayColor:15152469);
-    bad.setAuthor(author.tag, author.displayAvatarURL.replace(/\.webp/,`.png`));
+    bad.setAuthor(author.tag, author.displayAvatarURL.replace(/\.webp/,`.png`)).setFooter(new Date().toUTCString());
     bad.setDescription(converted);
+    return reply(' ',{embed: bad});
   }
 };
