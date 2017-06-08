@@ -11,12 +11,12 @@ module.exports = {
     if(toMatch){
       let numMatcher = toMatch[0];
       console.log('[SPOOKY] numMatcher: '+ numMatcher);
-      let numquery = truecontent.substring(truecontent.indexOf(langMatcher)+langMatcher.length);
+      let numquery = truecontent.substring(truecontent.indexOf(numMatcher)+numMatcher.length);
       console.log('[SPOOKY] numquery: '+ numquery);
-      numSpaces = (langquery.split(/\s+/)[0]);
+      numSpaces = (numquery.split(/\s+/)[0]);
       numSpaces = isNaN(numSpaces)?1:parseInt(numSpaces);
       console.log('[SPOOKY] numspaces: '+ numSpaces);
-      spookymsg = truecontent.replace(langMatcher&&targetlang?langMatcher+targetlang:'','');
+      spookymsg = truecontent.replace(numMatcher&&numSpaces?numMatcher+numSpaces:'','');
       spookymsg = spookymsg.length<1?' ':spookymsg;
       console.log('[SPOOKY] stuff to convert: '+ spookymsg);
     }else console.log('[SPOOKY] No repeat number specified..using 1');
