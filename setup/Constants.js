@@ -73,4 +73,10 @@ ex.emojis = {
   X: "❌",
 };
 
+ex.profileSettings = {
+  pfpW: 640,
+  pfpY: 203,
+  pfpX: 0,
+};
+
 module.exports = ex;
