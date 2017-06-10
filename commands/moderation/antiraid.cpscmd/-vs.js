@@ -2,7 +2,7 @@
 ex = {};
 
 ex.name = "-vs";
-ex.perm = ["server.-vs"];
+ex.perm = ["global.server.-vs"];
 ex.customperm = ["BAN_MEMBERS"];
 ex.func = async (msg, {send, member, author, guild, args, gMember, reply }) =>{
   const used = member || author;
