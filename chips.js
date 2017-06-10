@@ -58,7 +58,10 @@ global.memberleave = {
   msgs: {},
 };
 
-/** End Constants **/
+global.disableSelfStar = {
+  "257889450850254848": true,
+};
+
 global.database = require(path.join(__dirname, './setup/db/DatabaseLoader'));
 /** Other Global Constants **/
 global.moment = require('moment');

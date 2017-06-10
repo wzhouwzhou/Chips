@@ -59,6 +59,7 @@ ex.roles = {
 
 ex.patterns = {
   MENTION: /^[^]*<@!?(\d+)>[^]*$/,
+  CHANNEL: /<#([0-9]+)>/g
 };
 
 ex.express = {
@@ -71,6 +72,7 @@ ex.emojis = {
   EXCLAMATION: "❗️",
   CHECK: "✅",
   X: "❌",
+  STAR: "⭐",
 };
 
 ex.profileSettings = {
