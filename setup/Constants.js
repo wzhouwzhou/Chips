@@ -59,7 +59,7 @@ ex.roles = {
 
 ex.patterns = {
   MENTION: /^[^]*<@!?(\d+)>[^]*$/,
-  CHANNEL: /<#([0-9]+)>/g
+  CHANNEL: /^[^]*<#(\d+)>[^]*$/,
 };
 
 ex.express = {
