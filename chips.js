@@ -60,6 +60,7 @@ global.memberleave = {
 
 global.disableSelfStar = {
   "257889450850254848": true,
+  "302600674846310401": true,
 };
 
 global.database = require(path.join(__dirname, './setup/db/DatabaseLoader'));
