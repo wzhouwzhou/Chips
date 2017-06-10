@@ -106,8 +106,8 @@ const ex = {
       else infobad.addField(`AFK voice channel: `, `None`, true);
       infobad.addField(`Date created: ${guild.createdAt.toUTCString()}`, `That's about ${diff} days ago!`);
       infobad.addField(`Member count: `, guild.memberCount, true);
-      infobad.addField(`Total number of members: ${trueMemC.size} (Not including bots)`,`There are ${guild.members.size-trueMemC.size} bots!`, true);
-      infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There are <:offline:313956277237710868> ${guild.members.size-available} people offline or invisible`);
+      infobad.addField(`Total number of members: ${trueMemC.size} (Not including bots)`,`There ${guild.members.size-trueMemC.size==1?'is':'are'} ${guild.members.size-trueMemC.size} bot${guild.members.size-trueMemC.size==1?'':'s'}!`, true);
+      infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There  ${guild.members.size-available==1?'is':'are'} <:offline:313956277237710868> ${guild.members.size-available} ${guild.members.size-available==1?'person':'people'} offline or invisible`);
       infobad.addField(`Online: <:online:313956277808005120>`, online, true)
              .addField(`Idle: <:away:313956277220802560>    `, idle  , true)
              .addField(`Dnd: <:dnd:313956276893646850>      `, dnd   , true);
@@ -243,7 +243,7 @@ const ex = {
           role = args[1].substring(3,args[1].length-1);
           console.log("Trying to find role from mention " + role);
           role = guild.roles.get(role);
-          if(role==null) throw "NotRoleId";
+          if(!role) throw "NotRoleId";
         }catch(err){  //failed to find by id
           role = content.substring(`${prefix}info ${action} `.length);
           let list = searchers[guild.id].searchRole(role);
@@ -296,8 +296,8 @@ const ex = {
         infobad.setTitle(`Role Lookup for role [${rolename}]`); //<@&${role.id}>`);
         infobad.addField(`Role id: `, `${role.id}`);
         infobad.addField(`Creation date: ${role.createdAt.toUTCString()}`,`That's about ${diff} ago!`);
-        infobad.addField(`Total number of members with this role: ${trueMemC.size} (Not including bots)`,`There are ${role.members.size-trueMemC.size} bots with this role!`);
-        infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There are <:offline:313956277237710868> ${role.members.size-available} people with this role offline or invisible`);
+        infobad.addField(`Total number of members with this role: ${trueMemC.size} (Not including bots)`,`There ${role.members.size-trueMemC.size==1?'is':'are'} ${role.members.size-trueMemC.size} bot${role.members.size-trueMemC.size==1?'':'s'} with this role!`);
+        infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There ${role.members.size-available==1?'is':'are'} <:offline:313956277237710868> ${role.members.size-available} ${role.members.size-available==1?'person':'people'} with this role offline or invisible`);
         infobad.addField(`Online: <:online:313956277808005120>`, online, true)
                .addField(`Idle: <:away:313956277220802560>    `, idle  , true)
                .addField(`Dnd: <:dnd:313956276893646850>      `, dnd   , true);
@@ -381,8 +381,8 @@ const ex = {
         infobad.addField(`Channel Topic:`,`${channel.topic?channel.topic:'None'}`);
         infobad.addField(`Channel ID: `, `${channel.id}`);
         infobad.addField(`Creation date: ${channel.createdAt.toUTCString()}`,`That's about ${diff} ago!`);
-        infobad.addField(`Total number of members who can see this channel: ${trueMemC.size} (Not including bots)`,`There are ${channel.members.size-trueMemC.size} bots with access to this channel!`);
-        infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There are <:offline:313956277237710868> ${trueMemC.size-available} people with access to this channel offline or invisible`);
+        infobad.addField(`Total number of members who can see this channel: ${trueMemC.size} (Not including bots)`,`There ${channel.members.size-trueMemC.size==1?'is':'are'} ${channel.members.size-trueMemC.size} bot${channel.members.size-trueMemC.size==1?'':'s'} with access to this channel!`);
+        infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There ${trueMemC.size-available==1?'is':'are'} <:offline:313956277237710868> ${trueMemC.size-available} ${trueMemC.size-available==1?'person':'people'} with access to this channel offline or invisible`);
         infobad.addField(`Online: <:online:313956277808005120>`, online, true)
                .addField(`Idle: <:away:313956277220802560>    `, idle  , true)
                .addField(`Dnd: <:dnd:313956276893646850>      `, dnd   , true);
