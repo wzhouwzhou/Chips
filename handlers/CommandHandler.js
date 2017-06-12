@@ -26,28 +26,28 @@ module.exports = function(Discord, client) {
     for (const cmdn in client.commands) {
       const cmd = client.commands[cmdn];
       if (new RegExp(`^${_.escapeRegExp(cmdn)}$`).test(noprefix.split` `[0]))
-      if(cmd.perm&&cmd.perm[0]){
-        console.log(cmd.perm[0]);
-        permissions.checkPermission(msg, cmd.perm[0]).then((info) =>{
-          console.log("[Command] "+ info);
-          return cmd.run(msg, context);
-        }).catch((reason)=>{
-          if(cmd.customperm&&cmd.customperm[0]){
-            if(msg.member&&(!msg.member.hasPermission(cmd.customperm[0]))){
-              console.log("[Command] Rejected");
-              issue=true;
-              return msg.reply(`${reason}\nYou could also use this if you have \`\`${cmd.customperm[0]}\`\` permissions`);
+        if(cmd.perm&&cmd.perm[0]){
+          console.log(cmd.perm[0]);
+          permissions.checkPermission(msg, cmd.perm[0]).then((info) =>{
+            console.log("[Command] "+ info);
+            return cmd.run(msg, context);
+          }).catch((reason)=>{
+            if(cmd.customperm&&cmd.customperm[0]){
+              if(msg.member&&(!msg.member.hasPermission(cmd.customperm[0]))){
+                console.log("[Command] Rejected");
+                issue=true;
+                return msg.reply(`${reason}\nYou could also use this if you have \`\`${cmd.customperm[0]}\`\` permissions`);
+              }else{
+                console.log("[Command] Accepted due to customperm bypass");
+                return cmd.run(msg, context);
+              }
             }else{
-              console.log("[Command] Accepted due to customperm bypass");
-              return cmd.run(msg, context);
+              return msg.reply(reason);
             }
-          }else{
-            return msg.reply(reason);
-          }
-        });
-      }else{
-        return cmd.run(msg, context);
-      }
+          });
+        }else{
+          return cmd.run(msg, context);
+        }
     }
   };
 };
