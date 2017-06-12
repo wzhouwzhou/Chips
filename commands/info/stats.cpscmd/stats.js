@@ -6,7 +6,8 @@ module.exports = {
   async func(msg, {
     reply,
     channel,
-    bot
+    bot,
+    Discord,
   }) {
     let start = (new Date).getTime();
     channel.startTyping();
@@ -43,15 +44,15 @@ module.exports = {
     embed.addField(`Chips stats for shard ${bot.shard.id+1}/${clientutil.count}:`, "\u200B");
     [
       ['Shard uptime: ', uptime],
+      ['Shard ping (ms): ',ping],
       ['Shard User count:', users],
       ['Server count:', guilds],
-      [`Channel count: ${channels}`,`Text Channel Count: ${textChannels}, Voice Channel Count: ${voiceChannels}`],
       ['Memory:', `${memAverage} MB`],
       ['CPU usage (%):', cpuAverage],
-      ['Shard ping (ms): ',ping, true]
+      [`Channel count: ${channels}`,`Text Channel Count: ${textChannels}, Voice Channel Count: ${voiceChannels}`],
     ].forEach(f=>embed.addField(...f,true));
 
-    embed.addField("Chips stats across all shards:", "\u200B");
+    embed.addField("Chips 0.3.4 stats across all shards:",`Node ${process.version}, lib v${Discord.version}`);
     [
       ['Total User Count:', userCountG],
       ['Total Server Count:', guildCountG],
