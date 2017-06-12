@@ -33,8 +33,8 @@ module.exports = {
     let textChannels = bot.channels.filter(c => c.type === "text").size;
     let voiceChannels = bot.channels.filter(c => c.type === "voice").size;
     let cpuAverage = Math.ceil(require('os').loadavg()[1] * 100) / 10;
-    let memAverage = Math.round(process.memoryUsage().rss / 1024 / 1024);
-    
+    let memAverage = Math.round(process.memoryUsage().heapUsed / 1024 / 1024);
+    let memTotal = Math.round(process.memoryUsage().heapTotal / 1024 / 1024);
     //Create the embed
     let embed = new Discord.RichEmbed();
     embed.setTitle(`Chip's Stats Report! Current Time: ${currentTime}`);
@@ -45,7 +45,7 @@ module.exports = {
       ['Shard User count:', users],
       ['Server count:', guilds],
       [`Channel count: ${channels}`,`Text Channel Count: ${textChannels}, Voice Channel Count: ${voiceChannels}`],
-      ['Memory usage:', memAverage],
+      ['Memory:', `${memAverage}MB used out of ${memTotal}`],
       ['CPU usage (%):', cpuAverage],
       ['Shard ping (ms): ',ping, true]
     ].forEach(f=>embed.addField(...f,true));
@@ -85,9 +85,9 @@ const getGlobalStats = async () => {
   let users = results.reduce((prev, val) => prev + val, 0);
   results = await clientutil.fetchClientValues('ping');
   let ping = results.reduce((prev, val) => prev + val, 0) / clientutil.count;
-  results = await clientutil.broadcastEval(`[this.channels.filter(c => c.type === "text").size, this.channels.filter(c => c.type === "voice").size, Math.ceil(require('os').loadavg()[1] * 100) / 10, Math.round(process.memoryUsage().rss / 1024 / 1024)]`);
-  let text = results.reduce((prev, val) => prev[0] + val[0], 0);
-  let voice = results.reduce((prev, val) => prev[1] + val[1], 0);
+  results = await clientutil.broadcastEval(`[this.channels.filter(c => c.type === "text").size, this.channels.filter(c => c.type === "voice").size, Math.ceil(require('os').loadavg()[1] * 100) / 10, Math.round(process.memoryUsage().heapUsed / 1024 / 1024), Math.round(process.memoryUsage().heapTotal / 1024 / 1024)]`);
+  let text = results.reduce((prev, val) => prev[0] + val[0], 0.);
+  let voice = results.reduce((prev, val) => prev[1] + val[1], 0.);
   let cpu = results.reduce((prev, val) => prev[2] + val[2], 0) / clientutil.count;
   let mem = results.reduce((prev, val) => prev[3] + val[3], 0) / clientutil.count;
   return [guilds, channels, members, ping, text, voice, cpu, users, mem];
