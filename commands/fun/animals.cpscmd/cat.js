@@ -16,13 +16,15 @@ getCat = () => {
 module.exports = {
   name: "cat",
   perm: ["server.cat"],
-  async func(msg, { send }) {
+  async func(msg, { send, channel }) {
+    channel.startTyping();
     try{
       await send('',{files: [{attachment: (await snekfetch.get(await getCat())).body}]});
     }catch(err){
       console.log(err);
-      return send('The cat photographer went missing!');
+      send('The cat photographer went missing!').catch(err => console.log(err));
     }
+    channel.stopTyping();
   }
 };
 
