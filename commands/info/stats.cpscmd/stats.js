@@ -32,7 +32,7 @@ module.exports = {
     let ping = bot.ping;
     let textChannels = bot.channels.filter(c => c.type === "text").size;
     let voiceChannels = bot.channels.filter(c => c.type === "voice").size;
-    let cpuAverage = Math.ceil(require('os').loadAvg()[1] * 100) / 10;
+    let cpuAverage = Math.ceil(require('os').loadavg()[1] * 100) / 10;
     let memAverage = Math.round(process.memoryUsage().rss / 1024 / 1024);
     //Create the embed
     let embed = new Discord.RichEmbed();
@@ -82,7 +82,7 @@ const getGlobalStats = async () => {
   let users = results.reduce((prev, val) => prev + val, 0);
   results = await clientutil.fetchClientValues('ping');
   let ping = results.reduce((prev, val) => prev + val, 0) / clientutil.count;
-  results = await clientutil.broadcastEval(`[this.channels.filter(c => c.type === "text").size, this.channels.filter(c => c.type === "voice").size, Math.ceil(require('os').loadAvg()[1] * 100) / 10, Math.round(process.memoryUsage().rss / 1024 / 1024)]`);
+  results = await clientutil.broadcastEval(`[this.channels.filter(c => c.type === "text").size, this.channels.filter(c => c.type === "voice").size, Math.ceil(require('os').loadavg()[1] * 100) / 10, Math.round(process.memoryUsage().rss / 1024 / 1024)]`);
   let text = results.reduce((prev, val) => prev[0] + val[0], 0);
   let voice = results.reduce((prev, val) => prev[1] + val[1], 0);
   let cpu = results.reduce((prev, val) => prev[2] + val[2], 0) / clientutil.count;
