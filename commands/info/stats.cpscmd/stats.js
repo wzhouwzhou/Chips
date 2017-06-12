@@ -34,10 +34,11 @@ module.exports = {
     let voiceChannels = bot.channels.filter(c => c.type === "voice").size;
     let cpuAverage = Math.ceil(require('os').loadavg()[1] * 100) / 10;
     let memAverage = Math.round(process.memoryUsage().rss / 1024 / 1024);
+    
     //Create the embed
     let embed = new Discord.RichEmbed();
-    embed.setTitle(`Chip's Stats Report\nCurrent Time: ${currentTime}`);
-    embed.setThumbnail(avatar);
+    embed.setTitle(`Chip's Stats Report! Current Time: ${currentTime}`);
+    embed.setThumbnail(avatar).setImage("https://cdn.discordapp.com/attachments/307625096078426123/314201502669471744/Chips.jpg");
     embed.addField(`Chips stats for shard ${bot.shard.id+1}/${clientutil.count}:`, "\u200B");
     [
       ['Shard uptime: ', uptime],
@@ -74,7 +75,9 @@ module.exports = {
 };
 
 const getGlobalStats = async () => {
-  let results = await clientutil.fetchClientValues('guilds.size');
+  let results = await clientutil.broadcastEval(`let m = 0; client.guilds.forEach(g=>m+=g.members.size); m`);
+  let members = results.reduce((p, v)=>p+v,0);
+  results = await clientutil.fetchClientValues('guilds.size');
   let guilds = results.reduce((prev, val) => prev + val, 0);
   results = await clientutil.fetchClientValues('channels.size');
   let channels = results.reduce((prev, val) => prev + val, 0);
@@ -87,7 +90,7 @@ const getGlobalStats = async () => {
   let voice = results.reduce((prev, val) => prev[1] + val[1], 0);
   let cpu = results.reduce((prev, val) => prev[2] + val[2], 0) / clientutil.count;
   let mem = results.reduce((prev, val) => prev[3] + val[3], 0) / clientutil.count;
-  return [guilds, channels, users, ping, text, voice, cpu, mem];
+  return [guilds, channels, members, ping, text, voice, cpu, users, mem];
 };
 
 const formatUptime = (seconds) => {
