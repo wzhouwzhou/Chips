@@ -86,11 +86,11 @@ const getGlobalStats = async () => {
   results = await clientutil.fetchClientValues('ping');
   let ping = results.reduce((prev, val) => prev + val, 0) / clientutil.count;
   results = await clientutil.broadcastEval(`[client.channels.filter(c => c.type === "text").size, client.channels.filter(c => c.type === "voice").size, Math.ceil(require('os').loadavg()[1] * 100) / 10, Math.round(process.memoryUsage().heapUsed / 1024 / 1024), Math.round(process.memoryUsage().heapTotal / 1024 / 1024)]`);
-  let text = results.reduce((prev, val) => prev[0] + val[0], 0.);
-  let voice = results.reduce((prev, val) => prev[1] + val[1], 0.);
-  let cpu = results.reduce((prev, val) => prev[2] + val[2], 0) / clientutil.count;
-  let mem = results.reduce((prev, val) => prev[3] + val[3], 0) / clientutil.count;
-  return [guilds, channels, members, ping, text, voice, cpu, users, mem];
+  let text = results.reduce((prev, val) => prev[0] + val, 0);
+  let voice = results.reduce((prev, val) => prev[1] + val, 0);
+  let cpu = results.reduce((prev, val) => prev[2] + val, 0) / clientutil.count;
+  let mem = results.reduce((prev, val) => prev[3] + val, 0) / clientutil.count;
+  return [guilds, channels, members, ping, text, voice, cpu, mem, users];
 };
 
 const formatUptime = (seconds) => {
