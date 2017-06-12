@@ -65,7 +65,7 @@ module.exports = {
       ['Official Website: ',`[${Constants.WEBSITE}](${Constants.WEBSITE})`],
       ["Feeling generous? Donate here to help us pay for hosting and keep our bot updated constantly!", "[https://www.paypal.me/wzhouwzhou](https://www.paypal.me/wzhouwzhou)"]
     ].forEach(f=>embed.addField(...f,true));
-
+    send ('[DEBUG] results from broadcastEval: ' + globalValues[9].replace(/@/,''));
     embed.setFooter(`Image made by @xdlf#6477.--Chips stats lookup and calculations took ${(new Date()).getTime() - start}MS.--`);
     channel.stopTyping();
     return reply("", {
@@ -90,7 +90,7 @@ const getGlobalStats = async () => {
   let voice = results.reduce((prev, val) => prev[1] + val, 0);
   let cpu = results.reduce((prev, val) => prev[2] + val, 0) / clientutil.count;
   let mem = results.reduce((prev, val) => prev[3] + val, 0) / clientutil.count;
-  return [guilds, channels, members, ping, text, voice, cpu, mem, users];
+  return [guilds, channels, members, ping, text, voice, cpu, mem, users, results];
 };
 
 const formatUptime = (seconds) => {
