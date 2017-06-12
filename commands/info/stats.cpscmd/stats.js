@@ -85,12 +85,17 @@ const getGlobalStats = async () => {
   let users = results.reduce((prev, val) => prev + val, 0);
   results = await clientutil.fetchClientValues('ping');
   let ping = results.reduce((prev, val) => prev + val, 0) / clientutil.count;
-  results = await clientutil.broadcastEval(`[client.channels.filter(c => c.type === "text").size, client.channels.filter(c => c.type === "voice").size, Math.ceil(require('os').loadavg()[1] * 100) / 10, Math.round(process.memoryUsage().heapUsed / 1024 / 1024), Math.round(process.memoryUsage().heapTotal / 1024 / 1024)]`);
-  let text = results.reduce((prev, val) => prev[0] + val, 0);
-  let voice = results.reduce((prev, val) => prev[1] + val, 0);
-  let cpu = results.reduce((prev, val) => prev[2] + val, 0) / clientutil.count;
-  let mem = results.reduce((prev, val) => prev[3] + val, 0) / clientutil.count;
-  return [guilds, channels, members, ping, text, voice, cpu, mem, users, results];
+  let text=0, voice=0, cpu=0, mem=0, memtotal=0;
+  results = await clientutil.broadcastEval(`client.channels.filter(c => c.type === 'text').size`);
+  results.forEach(s=>text+=s);
+  results = await clientutil.broadcastEval(`client.channels.filter(c => c.type === 'voice').size`);
+  results.forEach(s=>voice+=s);
+  results = await clientutil.broadcastEval(`Math.ceil(require('os').loadavg()[1] * 1000) / 100`);
+  results.forEach(s=>cpu+=s/clientutil.count);
+  results = await clientutil.broadcastEval(`process.memoryUsage().heapUsed / 1024 / 1024`);
+  results.forEach(s=>mem+=s/clientutil.count);
+  results = await clientutil.broadcastEval(`process.memoryUsage().heapTotal / 1024 / 1024`);
+  return [guilds, channels, members, ping, text, voice, Math.round(cpu), Math.round(mem), users, results, memtotal];
 };
 
 const formatUptime = (seconds) => {
