@@ -38,7 +38,8 @@ module.exports = {
     //Create the embed
     let embed = new Discord.RichEmbed();
     embed.setTitle(`Chip's Stats Report! Current Time: ${currentTime}`);
-    //embed.setThumbnail(avatar).setImage("https://cdn.discordapp.com/attachments/307625096078426123/314201502669471744/Chips.jpg");
+    //embed.setThumbnail(avatar);
+    embed.setImage("https://cdn.discordapp.com/attachments/307625096078426123/314201502669471744/Chips.jpg");
     embed.addField(`Chips stats for shard ${bot.shard.id+1}/${clientutil.count}:`, "\u200B");
     [
       ['Shard uptime: ', uptime],
@@ -67,10 +68,10 @@ module.exports = {
     ].forEach(f=>embed.addField(...f,true));
     console.log('[DEBUG] results from broadcastEval: ' + JSON.stringify(globalValues[9]).replace(/@/,''));
     embed.setFooter(`Image made by @xdlf#6477.--Chips stats lookup and calculations took ${(new Date).getTime() - start}MS.--`);
-    await reply("", {
+    channel.stopTyping();
+    return await reply("", {
       embed
     });
-    channel.stopTyping();
   }
 };
 
