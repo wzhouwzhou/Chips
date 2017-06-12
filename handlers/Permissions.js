@@ -372,21 +372,26 @@ ex.checkMulti = (msg, permArr) => {
     permArr.forEach(async perm =>{
       let permSpecifics = perm.split('.');
       let currentPerm = '';
-      for(let i = 0; i<permSpecifics.length-1; i++){
-        currentPerm+=currentPerm[i];
-        try{
-          status = await ex.checkPermission(msg,currentPerm+'.*');
-        }catch(err){
-          reject(err);
+      if(permSpecifics.length>2)
+        for(let i = 0; i<permSpecifics.length-2; i++){
+          currentPerm+=currentPerm[i];
+          try{
+            status = await ex.checkPermission(msg,currentPerm+'.*');
+            if(status!='This command is enabled by default')
+              resolve('Positive perm override for '+currentPerm);
+          }catch(err){
+            reject(err);
+          }
         }
-      }
       try{
         status = await ex.checkPermission(msg,perm);
+        if(status!='This command is enabled by default')
+          resolve('Positive perm override for '+currentPerm);
       }catch(err){
         reject(err);
       }
     });
-
+    resolve('Enabled by default');
   });
 };
 
