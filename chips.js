@@ -17,7 +17,7 @@ global.client = new Discord.Client({
   fetchAllMembers:true,
   messageCacheMaxSize:-1,
   messageCacheLifetime:(60*60*1),
-  messageSweepInterval:(60*60*3),
+  messageSweepInterval:(60*60*3)
 });
 global.clientutil = new Discord.ShardClientUtil(client);
 setShards.id=client.shard.id;
