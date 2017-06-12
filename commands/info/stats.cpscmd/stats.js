@@ -8,7 +8,7 @@ module.exports = {
     channel,
     bot
   }) {
-    let start = (new Date()).getTime();
+    let start = (new Date).getTime();
     channel.startTyping();
     let globalValues = await getGlobalStats();
 
@@ -21,9 +21,9 @@ module.exports = {
     let voiceCountG = globalValues[5];
     let cpuAveG = globalValues[6];
     let memAveG = globalValues[7];
-
+    let totalMemG = globalValues[10];
     //Local Boissss
-    let avatar = bot.user.avatarURL(2048);
+    //let avatar = bot.user.avatarURL(2048);
     let uptime = formatUptime(process.uptime());
     let currentTime = moment().format('ddd, Do of MMM @ HH:mm:ss.SSS');
     let guilds = bot.guilds.size;
@@ -34,18 +34,18 @@ module.exports = {
     let voiceChannels = bot.channels.filter(c => c.type === "voice").size;
     let cpuAverage = Math.ceil(require('os').loadavg()[1] * 100) / 10;
     let memAverage = Math.round(process.memoryUsage().heapUsed / 1024 / 1024);
-    let memTotal = Math.round(process.memoryUsage().heapTotal / 1024 / 1024);
+    //let memTotal = Math.round(process.memoryUsage().heapTotal / 1024 / 1024);
     //Create the embed
     let embed = new Discord.RichEmbed();
     embed.setTitle(`Chip's Stats Report! Current Time: ${currentTime}`);
-    embed.setThumbnail(avatar).setImage("https://cdn.discordapp.com/attachments/307625096078426123/314201502669471744/Chips.jpg");
+    //embed.setThumbnail(avatar).setImage("https://cdn.discordapp.com/attachments/307625096078426123/314201502669471744/Chips.jpg");
     embed.addField(`Chips stats for shard ${bot.shard.id+1}/${clientutil.count}:`, "\u200B");
     [
       ['Shard uptime: ', uptime],
       ['Shard User count:', users],
       ['Server count:', guilds],
       [`Channel count: ${channels}`,`Text Channel Count: ${textChannels}, Voice Channel Count: ${voiceChannels}`],
-      ['Memory:', `${memAverage}MB used out of ${memTotal}`],
+      ['Memory:', `${memAverage} MB`],
       ['CPU usage (%):', cpuAverage],
       ['Shard ping (ms): ',ping, true]
     ].forEach(f=>embed.addField(...f,true));
@@ -57,20 +57,20 @@ module.exports = {
       ['Total Channel Count:', channelCountG],
       ['Total Text Channel Count:', textCountG],
       ['Total Voice Channel Count:', voiceCountG],
-      ['Average Client Ping:', averagePingG],
+      ['Average Client Ping:', `${averagePingG} ms`],
       ['Total CPU Usage:', `${cpuAveG}%`],
-      ['Total Memory Usage', `${memAveG} MB`],
+      ['Total Memory Usage', `${memAveG} of ${totalMemG} MB`],
       ['Invite Link:',`[Click Here!](${Constants.BOTINVITE})`],
       ['Support Server:', `[Click Here](${Constants.SUPPORTINVITE})`],
       ['Official Website: ',`[${Constants.WEBSITE}](${Constants.WEBSITE})`],
       ["Feeling generous? Donate here to help us pay for hosting and keep our bot updated constantly!", "[https://www.paypal.me/wzhouwzhou](https://www.paypal.me/wzhouwzhou)"]
     ].forEach(f=>embed.addField(...f,true));
-    reply ('[DEBUG] results from broadcastEval: ' + JSON.stringify(globalValues[9]).replace(/@/,''));
-    embed.setFooter(`Image made by @xdlf#6477.--Chips stats lookup and calculations took ${(new Date()).getTime() - start}MS.--`);
-    channel.stopTyping();
-    return reply("", {
+    console.log('[DEBUG] results from broadcastEval: ' + JSON.stringify(globalValues[9]).replace(/@/,''));
+    embed.setFooter(`Image made by @xdlf#6477.--Chips stats lookup and calculations took ${(new Date).getTime() - start}MS.--`);
+    await reply("", {
       embed
     });
+    channel.stopTyping();
   }
 };
 
@@ -96,6 +96,7 @@ const getGlobalStats = async () => {
   results.forEach(s=>mem+=s/clientutil.count);
   results = await clientutil.broadcastEval(`process.memoryUsage().heapTotal / 1024 / 1024`);
   return [guilds, channels, members, ping, text, voice, Math.round(cpu), Math.round(mem), users, results, memtotal];
+  //        0        1        2        3    4       5        6                 7             8      9        10
 };
 
 const formatUptime = (seconds) => {
