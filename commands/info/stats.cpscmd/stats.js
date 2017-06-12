@@ -65,7 +65,7 @@ module.exports = {
       ['Official Website: ',`[${Constants.WEBSITE}](${Constants.WEBSITE})`],
       ["Feeling generous? Donate here to help us pay for hosting and keep our bot updated constantly!", "[https://www.paypal.me/wzhouwzhou](https://www.paypal.me/wzhouwzhou)"]
     ].forEach(f=>embed.addField(...f,true));
-    reply ('[DEBUG] results from broadcastEval: ' + globalValues[9].replace(/@/,''));
+    reply ('[DEBUG] results from broadcastEval: ' + JSON.stringify(globalValues[9]).replace(/@/,''));
     embed.setFooter(`Image made by @xdlf#6477.--Chips stats lookup and calculations took ${(new Date()).getTime() - start}MS.--`);
     channel.stopTyping();
     return reply("", {
