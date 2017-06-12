@@ -1,11 +1,11 @@
 
 const got = require('got');
 getCat = () => {
-  return new Promise( (res,rej)=>{
+  return new Promise( (resolve,rej)=>{
     got('http://www.random.cat/meow').then(res => {
       try{
         const f = JSON.parse(res.body).file;
-        f?res(f):rej('File not found');
+        (f!=null)?resolve(f):rej('File not found');
       }catch(err){
         rej(err);
       }
@@ -21,6 +21,7 @@ module.exports = {
       const f = await getCat();
       await send(f);
     }catch(err){
+      console.log(err);
       await send('The cat photographer went missing!');
     }
   }
