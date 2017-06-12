@@ -1,4 +1,4 @@
-
+const snekfetch = require('snekfetch');
 const got = require('got');
 getCat = () => {
   return new Promise( (resolve,rej)=>{
@@ -18,11 +18,10 @@ module.exports = {
   perm: ["server.cat"],
   async func(msg, { send }) {
     try{
-      const f = await getCat();
-      await send(f);
+      await send('',{files: [{attachment: (await snekfetch.get(await getCat())).body}]});
     }catch(err){
       console.log(err);
-      await send('The cat photographer went missing!');
+      return send('The cat photographer went missing!');
     }
   }
 };
