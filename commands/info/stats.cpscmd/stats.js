@@ -87,7 +87,7 @@ const getGlobalStats = async () => {
   let voice = results.reduce((prev, val) => prev[1] + val[1], 0);
   let cpu = results.reduce((prev, val) => prev[2] + val[2], 0) / clientutil.count;
   let mem = results.reduce((prev, val) => prev[3] + val[3], 0) / clientutil.count;
-  return resolve([guilds, channels, users, ping, text, voice, cpu, mem]);
+  return [guilds, channels, users, ping, text, voice, cpu, mem];
 };
 
 const formatUptime = (seconds) => {
