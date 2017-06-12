@@ -1,14 +1,16 @@
 
 module.exports = function() {
   client.on("messageReactionAdd", (react, user) => {
-    if(user.id == client.user.id || react.message.author.id != client.user.id) return;
+    if(user.id == client.user.id) return;
 
     console.log("Reaction detected");
-    if (react.message.channel.type != 'dm') {
+    if (react.message.channel.type == 'text') {
       console.log("Not in DM (->Starboard)");
-
-      return;
+      if(disableSelfStar[react.message.guild.id]&&react.message.author.id==user.id)
+        if(react.emoji.toString()==Constants.emojis.STAR)
+          react.remove(user);
     }else{
+      if(react.message.author.id != client.user.id) return;
       console.log("DM channel emoji: " + react.emoji);
       if(react.message.author.id!=client.user.id) return;
       react.message.channel.sendMessage(`The emoji used is ${react.emoji}`);

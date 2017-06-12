@@ -6,7 +6,7 @@ ex.permsList = [
   ['global.test'              ,false], // 2
   ['global.test2'             ,true ], // 3
   ['global.server.-ban'       ,false], // 4
-  ['server.-vs '              ,true ], // 5
+  ['global.server.-vs '       ,false], // 5
   ['server.aboose'            ,true ], // 6
   ['server.announce'          ,true ], // 7
   ['server.blacklist'         ,false], // 8
