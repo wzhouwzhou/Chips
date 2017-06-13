@@ -373,7 +373,7 @@ ex.checkMulti = async (msg, permArr) => {
     let permSpecifics = permEl.split('.');
     console.log(`[PERMISSIONS][checkMulti] Perm breakdown: ${permSpecifics}`);
     let currentPerm = '';
-    if(permSpecifics.length>2)
+    if(permSpecifics.length>1)
       for(let i = 0; i<permSpecifics.length-2; i++){
         currentPerm+=currentPerm[i];
         console.log(`[PERMISSIONS][checkMulti] Looping through perms [${i}]:${currentPerm}`);

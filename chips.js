@@ -47,6 +47,9 @@ Make sure you send your answers in this channel (don't DM them)!`,
   panics: {
     0: false,
   },
+  panicKick: {
+    0: false,
+  },
   antiraidOldVL:{ //guild: verif lvl
     0: 0,
   },
