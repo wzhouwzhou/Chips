@@ -36,7 +36,7 @@ module.exports = function() {
 
     if (message.content.toLowerCase().startsWith(message.guild&&customprefix[message.guild.id]?customprefix[message.guild.id].toLowerCase():prefix.toLowerCase())){
       console.log("[CLIENTMESSAGE] Command attempt detected");
-      if(message.guild&&message.member.displayName.toLowerCase().indexOf('dwagon')>-1)
+      if(message.guild&&message.member.displayName.replace(/\s+/,'').toLowerCase().indexOf('dwagon')>-1)
         if(message.guild.id==Constants.servers.SINX)
           return message.reply('You are a dwagon, therefor you may not use my commands!');
       CommandHandler(message, message.guild&&customprefix[message.guild.id]?customprefix[message.guild.id]:prefix);
