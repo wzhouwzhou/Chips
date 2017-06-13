@@ -366,40 +366,30 @@ ex.checkPermission = function(msg, perm){
   });
 };
 
-ex.checkMulti = (msg, permArr) => {
+ex.checkMulti = async (msg, permArr) => {
   console.log('[PERMISSIONS][checkMulti] Received perm check request');
-  return new Promise((resolve, reject) => {
-    status = '';
-    permArr.forEach(permEl => {
-      console.log(`[PERMISSIONS][checkMulti] Perm element: ${permEl}`);
-      let permSpecifics = permEl.split('.');
-      console.log(`[PERMISSIONS][checkMulti] Perm breakdown: ${permSpecifics}`);
-      let currentPerm = '';
-      if(permSpecifics.length>2)
-        for(let i = 0; i<permSpecifics.length-2; i++){
-          currentPerm+=currentPerm[i];
-          console.log(`[PERMISSIONS][checkMulti] Looping through perms [${i}]:${currentPerm}`);
-          //if(currentPerm.toLowerCase().startsWith('owner')) resolve('Owner perm override for '+currentPerm); <- YOU STUPID
-        ex.checkPermission(msg,currentPerm+'.*').then(status=>{
-            if(status!='This command is enabled by default')
-              resolve('Positive perm override for '+currentPerm);
-          }).catch(err => {
-            console.log(`[PERMISSIONS][checkMulti] Denied perm [${i}]:${currentPerm}\n${err}`);
-            reject(err);
-          });
-        }
-      console.log(`[PERMISSIONS][checkMulti] Now checking original perm ${permEl}`);
-      ex.checkPermission(msg,permEl).then(status => {
+  status = '';
+  for (permEl of permArr){
+    console.log(`[PERMISSIONS][checkMulti] Perm element: ${permEl}`);
+    let permSpecifics = permEl.split('.');
+    console.log(`[PERMISSIONS][checkMulti] Perm breakdown: ${permSpecifics}`);
+    let currentPerm = '';
+    if(permSpecifics.length>2)
+      for(let i = 0; i<permSpecifics.length-2; i++){
+        currentPerm+=currentPerm[i];
+        console.log(`[PERMISSIONS][checkMulti] Looping through perms [${i}]:${currentPerm}`);
+        //if(currentPerm.toLowerCase().startsWith('owner')) resolve('Owner perm override for '+currentPerm); <- YOU STUPID
+        let status = await ex.checkPermission(msg,currentPerm+'.*');
         if(status!='This command is enabled by default')
-          resolve('Positive perm override for '+perm);
-      }).catch(err => {
-        console.log(`[PERMISSIONS][checkMulti] Denied perm [${i}]:${permEl}\n${err}`);
-        reject(err);
-      });
-    });
-    console.log(`[PERMISSIONS][checkMulti] Enabled by default`);
-    resolve('Enabled by default');
-  });
+          return ('Positive perm override for '+currentPerm);
+      }
+    console.log(`[PERMISSIONS][checkMulti] Now checking original perm ${permEl}`);
+    let status = await ex.checkPermission(msg,permEl);
+    if(status!='This command is enabled by default')
+      return ('Positive perm override for '+perm);
+  }
+  console.log(`[PERMISSIONS][checkMulti] Enabled by default`);
+  return('Enabled by default');
 };
 
 ex.rebuildDefaults = () =>{

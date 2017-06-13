@@ -8,6 +8,7 @@ class Logger {
   }
 
   log(type='info', msgmodule='main', logcategory, msg){
+    if(logmodes.indexOf(info))
     msgmodule = chalk.bgBlack.bold(`[${msgmodule}]`);
     let time = chalk.cyan(`[${moment().format('YYYY-MM-DD HH:mm:ss.SSS')}]:`);
     logcategory = chalk.underline.blue(`[${logcategory}]`);
