@@ -1,7 +1,10 @@
 'use strict';
 const ex = {};
 ex.permsList = [
-  ['OWNER.owner'             ,false], // 0
+  ['OWNER.owner'], // 0
+  ['global.*'],
+  ['global.custom.*'],
+  ['global.fun.*'],
   ['global.fun.-ban'       ,false], // 4
   ['global.moderation.antiraid.-vs'       ,false], // 5
   ['global.server.aboose'            ,true ], // 6
@@ -34,7 +37,7 @@ ex.permsList = [
   ['global.stats'             ,true ], //33
   ['global.support'           ,true ], //34
   ['global.quote'             ,true ], //35
-  //future permissions add below this comment please
+
   ['global.info.role'         ,false], //36
   ['global.server.rekt'       ,true ], //37
   ['global.server.ban'        ,false], //38
