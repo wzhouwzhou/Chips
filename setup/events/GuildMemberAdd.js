@@ -1,9 +1,13 @@
 
 module.exports = function() {
   client.on("guildMemberAdd",  (member) => {
+    let memberguild = member.guild;
+    let userid= member.user.id;
+
+    if(memberjoin.panics[memberguild.id]&&memberjoin.panicKick[memberguild.id])
+      return setTimeout(()=>member.kick(),3000);
+      
     try {
-      let memberguild = member.guild;
-      let userid= member.user.id;
       if(memberguild.id=="257889450850254848"){
         setTimeout(() =>{
           console.log("[SINX] adding role...");

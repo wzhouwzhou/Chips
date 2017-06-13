@@ -1,7 +1,7 @@
 
 const snekfetch = require('snekfetch');
 const got = require('got');
-getCat = () => {
+const getDog = () => {
   return new Promise( (resolve,rej)=>{
     got('https://random.dog/woof.json').then(res => {
       try{

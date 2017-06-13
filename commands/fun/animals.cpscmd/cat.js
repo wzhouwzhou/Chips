@@ -1,6 +1,7 @@
+
 const snekfetch = require('snekfetch');
 const got = require('got');
-getCat = () => {
+const getCat = () => {
   return new Promise( (resolve,rej)=>{
     got('http://www.random.cat/meow').then(res => {
       try{
