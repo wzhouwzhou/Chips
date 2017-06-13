@@ -1,20 +1,17 @@
 'use strict';
 const ex = {};
 ex.permsList = [
-  ['global.owner'             ,false], // 0
-  ['global.admin'             ,false], // 1
-  ['global.test'              ,false], // 2
-  ['global.test2'             ,true ], // 3
-  ['global.server.-ban'       ,false], // 4
-  ['global.server.-vs '       ,false], // 5
-  ['server.aboose'            ,true ], // 6
-  ['server.announce'          ,true ], // 7
-  ['server.blacklist'         ,false], // 8
-  ['global.botpanic'          ,false], // 9
-  ['server.cat'               ,true ], //10
+  ['OWNER.owner'             ,false], // 0
+  ['global.fun.-ban'       ,false], // 4
+  ['global.moderation.antiraid.-vs'       ,false], // 5
+  ['global.server.aboose'            ,true ], // 6
+  ['global.server.announce'          ,true ], // 7
+  ['global.server.blacklist'         ,false], // 8
+  ['owner.botpanic'          ,false], // 9
+  ['global.server.cat'               ,true ], //10
   ['global.server.clear'      ,false], //11
-  ['server.coinflip'          ,true ], //12
-  ['server.dog'               ,true ], //13
+  ['global.server.coinflip'          ,true ], //12
+  ['global.server.dog'               ,true ], //13
   ['global.eatme'             ,true ], //14
   ['server.emojiban'          ,false], //15
   ['global.eval'              ,false], //16
@@ -168,6 +165,7 @@ ex.updatePermission = function({type, userid=null, guildid=null, roleid=null, pe
           ex.userpermissions[userid] = [];
         if(ex.userpermissions[userid].length!=0){
           for(const p of ex.userpermissions[userid]){
+            if(perm.toLowerCase().startsWith('owner')) resolve('Bot owner perm override for '+currentPerm);
             if(p.name==perm){
               p.action=action;
               checked = true;
@@ -354,15 +352,12 @@ ex.checkPermission = function(msg, perm){
         console.log("Role: " + rid + "for user "+ id + "did not have any perm overwrites for " + perm);
       });
     }
-    console.log("Now checking default perms.: ." + perm);
-    console.log("Is the perm in the default list? : " + ex.defaultperms.has(perm));
-    let value = ex.defaultperms.has(perm)?ex.defaultperms.get(perm):true;
+    let registered = ex.defaultperms.has(perm);
+    if(!registered) client.channels.get('307684502443130881').send('Someone just tried to use a cmd with an unregistered perm '+ perm);
+    console.log(`Now checking default perms.: ${perm}\nIs the perm registered list? : ${registered}`);
+    let value = registered?ex.defaultperms.get(perm):true;
     console.log("The default for that perm is: " + value);
-    if(value){
-      resolve("This command is enabled by default");
-    }
-    else
-      reject(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`);
+    value?reject("This command is enabled by default"):reject(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`);
   });
 };
 
@@ -376,7 +371,6 @@ ex.checkMulti = async (msg, permArr) => {
     if(permSpecifics.length>1)
       for(let i = 1; i<permSpecifics.length; i++){
         console.log(`[PERMISSIONS][checkMulti] Looping through perms [${i}]:${currentPerm}`);
-        //if(currentPerm.toLowerCase().startsWith('owner')) resolve('Owner perm override for '+currentPerm); <- YOU STUPID
         let status = await ex.checkPermission(msg,currentPerm+'.*');
         if(status!='This command is enabled by default')
           return ('Positive perm override for '+currentPerm);
