@@ -6,7 +6,7 @@ module.exports = function() {
 
     if(memberjoin.panics[memberguild.id]&&memberjoin.panicKick[memberguild.id])
       return setTimeout(()=>member.kick(),3000);
-      
+
     try {
       if(memberguild.id=="257889450850254848"){
         setTimeout(() =>{

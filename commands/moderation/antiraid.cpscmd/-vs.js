@@ -38,14 +38,42 @@ ex.func = async (msg, {send, guild, args, gMember, reply }) =>{
       return send(memberjoin.antiraidWelcome[guild.id]);}
 
     case 'panic':{
-      memberjoin.antiraidOldVL[guild.id] = guild.verificationLevel;
-      await guild.setVerificationLevel(3);
-      memberjoin.panics[guild.id]=true;
-      return reply(`Panic activated, verification level is now ${guild.verificationLevel}`);}
+      let options = args[1]?args[1]:'none';
+
+      switch(options){
+        case 'off':{
+          if(memberjoin.panics[guild.id]!=null&&memberjoin.panics[guild.id]){
+            memberjoin.panics[guild.id]=false;
+            memberjoin.panicKick[guild.id] = false;
+            await guild.setVerificationLevel(memberjoin.antiraidOldVL[guild.id]);
+            return reply(`Panic mode has been disabled! The verification level is now ${guild.verificationLevel} again.`);
+          }else{
+            return reply(`Panic mode was not enabled for this server!`);
+          }}
+        case 'lockdown':{
+          if(memberjoin.panicKick[guild.id]) return reply('Panic lockdown is already enabled!');
+          options = 'lockdown ';
+          memberjoin.antiraidOldVL[guild.id] = guild.verificationLevel;
+          await guild.setVerificationLevel(4);
+          memberjoin.panicKick[guild.id] = true;
+          return reply(`Panic lockdown activated, verification level is now ${guild.verificationLevel}, and new members who join during this time will get rekt!`);
+        }
+
+        case 'none':{
+          if(memberjoin.panic[guild.id]&&!memberjoin.panicKick[guild.id]) return reply('Panic is already enabled!');
+          memberjoin.antiraidOldVL[guild.id] = guild.verificationLevel;
+          await guild.setVerificationLevel(3);
+          memberjoin.panics[guild.id]=true;
+          return reply(`Panic activated, verification level is now ${guild.verificationLevel}`);
+        }
+      }
+      return reply ('Something went wrong..');
+    }
 
     case 'panicoff':{
       if(memberjoin.panics[guild.id]!=null&&memberjoin.panics[guild.id]){
         memberjoin.panics[guild.id]=false;
+        memberjoin.panicKick[guild.id] = false;
         await guild.setVerificationLevel(memberjoin.antiraidOldVL[guild.id]);
         return reply(`Panic mode has been disabled! The verification level is now ${guild.verificationLevel} again.`);
       }else{
