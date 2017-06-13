@@ -60,7 +60,7 @@ ex.func = async (msg, {send, guild, args, gMember, reply }) =>{
         }
 
         case 'none':{
-          if(memberjoin.panic[guild.id]&&!memberjoin.panicKick[guild.id]) return reply('Panic is already enabled!');
+          if(memberjoin.panics[guild.id]&&!memberjoin.panicKick[guild.id]) return reply('Panic is already enabled!');
           memberjoin.antiraidOldVL[guild.id] = guild.verificationLevel;
           await guild.setVerificationLevel(3);
           memberjoin.panics[guild.id]=true;
