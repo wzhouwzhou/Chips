@@ -385,7 +385,7 @@ ex.checkMulti = async (msg, permArr) => {
     console.log(`[PERMISSIONS][checkMulti] Now checking original perm ${permEl}`);
     let status = await ex.checkPermission(msg,permEl);
     if(status!='This command is enabled by default')
-      return ('Positive perm override for '+perm);
+      return ('Positive perm override for '+permEl);
   }
   console.log(`[PERMISSIONS][checkMulti] Enabled by default`);
   return('Enabled by default');
