@@ -370,8 +370,9 @@ ex.checkMulti = (msg, permArr) => {
   console.log('[PERMISSIONS][checkMulti] Received perm check request');
   return new Promise((resolve, reject) =>{
     status = '';
-    permArr.forEach(perm => {
-      let permSpecifics = perm.split('.');
+    permArr.forEach(permEl => {
+      console.log(`[PERMISSIONS][checkMulti] Perm element: ${permEl}`);
+      let permSpecifics = permEl.split('.');
       console.log(`[PERMISSIONS][checkMulti] Perm breakdown: ${permSpecifics}`);
       let currentPerm = '';
       if(permSpecifics.length>2)
@@ -383,16 +384,16 @@ ex.checkMulti = (msg, permArr) => {
             if(status!='This command is enabled by default')
               resolve('Positive perm override for '+currentPerm);
           }).catch(err => {
-            console.log(`[PERMISSIONS][checkMulti] Denied perm [${i}]:${currentPerm}`);
+            console.log(`[PERMISSIONS][checkMulti] Denied perm [${i}]:${currentPerm}\n${err}`);
             reject(err);
           });
         }
-      console.log(`[PERMISSIONS][checkMulti] Now checking original perm ${perm}`);
-      status = ex.checkPermission(msg,perm).then(status => {
+      console.log(`[PERMISSIONS][checkMulti] Now checking original perm ${permEl}`);
+      status = ex.checkPermission(msg,permEl).then(status => {
         if(status!='This command is enabled by default')
           resolve('Positive perm override for '+perm);
       }).catch(err => {
-        console.log(`[PERMISSIONS][checkMulti] Denied perm [${i}]:${currentPerm}`);
+        console.log(`[PERMISSIONS][checkMulti] Denied perm [${i}]:${permEl}\n${err}`);
         reject(err);
       });
     });
@@ -404,7 +405,7 @@ ex.checkMulti = (msg, permArr) => {
 ex.rebuildDefaults = () =>{
   //Enable all perms for me and edp
   let n = new Array(ex.permsList.length);
-  let allp = "11111111111111111111111111111111111111111111111111";
+  let allp = "11111111111111111111111111111111111111111111111111111";
   for(let c=0; c<ex.permsList.length; c++){
     n.push({name: ex.permsList[c][0], action: parseInt(allp[c])});
   }
@@ -413,4 +414,4 @@ ex.rebuildDefaults = () =>{
 };
 
 module.exports = ex;
-//ex.rebuildDefaults();
+ex.rebuildDefaults();
