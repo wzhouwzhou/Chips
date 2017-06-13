@@ -368,7 +368,7 @@ ex.checkPermission = function(msg, perm){
 
 ex.checkMulti = (msg, permArr) => {
   console.log('[PERMISSIONS][checkMulti] Received perm check request');
-  return new Promise((resolve, reject) =>{
+  return new Promise((resolve, reject) => {
     status = '';
     permArr.forEach(permEl => {
       console.log(`[PERMISSIONS][checkMulti] Perm element: ${permEl}`);
@@ -380,7 +380,7 @@ ex.checkMulti = (msg, permArr) => {
           currentPerm+=currentPerm[i];
           console.log(`[PERMISSIONS][checkMulti] Looping through perms [${i}]:${currentPerm}`);
           //if(currentPerm.toLowerCase().startsWith('owner')) resolve('Owner perm override for '+currentPerm); <- YOU STUPID
-          status = ex.checkPermission(msg,currentPerm+'.*').then(status=>{
+        ex.checkPermission(msg,currentPerm+'.*').then(status=>{
             if(status!='This command is enabled by default')
               resolve('Positive perm override for '+currentPerm);
           }).catch(err => {
@@ -389,7 +389,7 @@ ex.checkMulti = (msg, permArr) => {
           });
         }
       console.log(`[PERMISSIONS][checkMulti] Now checking original perm ${permEl}`);
-      status = ex.checkPermission(msg,permEl).then(status => {
+      ex.checkPermission(msg,permEl).then(status => {
         if(status!='This command is enabled by default')
           resolve('Positive perm override for '+perm);
       }).catch(err => {
