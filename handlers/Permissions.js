@@ -375,7 +375,7 @@ ex.checkMulti = async (msg, permArr) => {
     let currentPerm = '';
     if(permSpecifics.length>1)
       for(let i = 0; i<permSpecifics.length-2; i++){
-        currentPerm+=currentPerm[i];
+        currentPerm+=permSpecifics[i];
         console.log(`[PERMISSIONS][checkMulti] Looping through perms [${i}]:${currentPerm}`);
         //if(currentPerm.toLowerCase().startsWith('owner')) resolve('Owner perm override for '+currentPerm); <- YOU STUPID
         let status = await ex.checkPermission(msg,currentPerm+'.*');
