@@ -27,8 +27,8 @@ module.exports = function(Discord, client) {
       const cmd = client.commands[cmdn];
       if (new RegExp(`^${_.escapeRegExp(cmdn)}$`).test(noprefix.split` `[0]))
         if(cmd.perm&&cmd.perm[0]){
-          console.log(cmd.perm[0]);
-          permissions.checkPermission(msg, cmd.perm[0]).then((info) =>{
+          console.log(cmd.perm);
+          permissions.checkMulti(msg, cmd.perm).then((info) =>{
             console.log("[Command] "+ info);
             return cmd.run(msg, context);
           }).catch((reason)=>{

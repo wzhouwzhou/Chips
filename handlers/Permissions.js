@@ -375,6 +375,7 @@ ex.checkMulti = (msg, permArr) => {
       if(permSpecifics.length>2)
         for(let i = 0; i<permSpecifics.length-2; i++){
           currentPerm+=currentPerm[i];
+          if(currentPerm.toLowerCase().startsWith('owner')) resolve('Owner perm override for '+currentPerm);
           try{
             status = await ex.checkPermission(msg,currentPerm+'.*');
             if(status!='This command is enabled by default')
