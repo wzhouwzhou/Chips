@@ -53,14 +53,16 @@ ex.func = async (msg, {send, guild, args, gMember, reply }) =>{
         case 'lockdown':{
           if(memberjoin.panicKick[guild.id]) return reply('Panic lockdown is already enabled!');
           options = 'lockdown ';
-          memberjoin.antiraidOldVL[guild.id] = guild.verificationLevel;
+          if(!memberjoin.panics[guild.id])
+            memberjoin.antiraidOldVL[guild.id] = guild.verificationLevel;
           await guild.setVerificationLevel(4);
+          memberjoin.panics[guild.id] = true;
           memberjoin.panicKick[guild.id] = true;
           return reply(`Panic lockdown activated, verification level is now ${guild.verificationLevel}, and new members who join during this time will get rekt!`);
         }
 
         case 'none':{
-          if(memberjoin.panics[guild.id]&&!memberjoin.panicKick[guild.id]) return reply('Panic is already enabled!');
+          if(memberjoin.panics[guild.id]) return reply('Panic is already enabled!');
           memberjoin.antiraidOldVL[guild.id] = guild.verificationLevel;
           await guild.setVerificationLevel(3);
           memberjoin.panics[guild.id]=true;
