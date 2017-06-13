@@ -20,15 +20,15 @@ module.exports = function() {
             3. Do you promise to read <#308361914923089940>?
             4. What is your favorite diep.io tank?
             (you can answer these with just a sentence or two, no need to write an essay!)`).then(console.log("[SINX] Welcome msg sent"));*/
-        }, 1000);
-      }else if(memberguild.id=="252525368865456130"){
+        }, 100);
+      /*}else if(memberguild.id=="252525368865456130"){
         setTimeout(() => {
           console.log("[SK] adding role...");
           member.addRole(memberguild.roles.get("303587467741757440")||memberguild.roles.find('name',"lollipop-unverified"));
           console.log("[SK] sending welcome msg...");
           let welcomeC=memberguild.channels.get("308772937731670016")||memberguild.channels.find('name','unverified');
           welcomeC.send(`<@${userid}>, Welcome! Please read <#307895557815402496> and become acquainted with the rules here, then contact a staff member to be able to speak in other channels!`);
-        }, 700);
+        }, 700);*/
       }else if(memberguild.id=="315891125825044482"){
         setTimeout(() =>{
           console.log("[SK2] adding role...");

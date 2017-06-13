@@ -357,7 +357,7 @@ ex.checkPermission = function(msg, perm){
     console.log(`Now checking default perms.: ${perm}\nIs the perm registered list? : ${registered}`);
     let value = registered?ex.defaultperms.get(perm):true;
     console.log("The default for that perm is: " + value);
-    value?reject("This command is enabled by default"):reject(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`);
+    value?reject("We apologize for the module outage due to my devs updating my commands' permissions."):reject(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`);
   });
 };
 
