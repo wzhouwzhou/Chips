@@ -34,7 +34,7 @@ module.exports = function(Discord, client) {
           }).catch((reason)=>{
             if(cmd.customperm&&cmd.customperm[0]){
               if(msg.member&&(!msg.member.hasPermission(cmd.customperm[0]))){
-                console.log("[Command] Rejected");
+                console.log("[Command] Rejected " + reason);
                 issue=true;
                 return msg.reply(`${reason}\nYou could also use this if you have \`\`${cmd.customperm[0]}\`\` permissions`);
               }else{
@@ -42,6 +42,7 @@ module.exports = function(Discord, client) {
                 return cmd.run(msg, context);
               }
             }else{
+              console.log('[Command] Rejected '+ reason);
               return msg.reply(reason);
             }
           });
