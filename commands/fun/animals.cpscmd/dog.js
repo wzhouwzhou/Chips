@@ -1,5 +1,35 @@
 
+const snekfetch = require('snekfetch');
 const got = require('got');
+getCat = () => {
+  return new Promise( (resolve,rej)=>{
+    got('https://random.dog/woof.json').then(res => {
+      try{
+        const f = JSON.parse(res.body).url;
+        (f!=null)?resolve(f):rej('File not found');
+      }catch(err){
+        rej(err);
+      }
+    }).catch(rej);
+  });
+};
+
+module.exports = {
+  name: "dog",
+  perm: ["server.dog"],
+  async func(msg, { send, channel }) {
+    channel.startTyping();
+    try{
+      await send('',{files: [{attachment: (await snekfetch.get(await getDog())).body}]});
+    }catch(err){
+      console.log(err);
+      send('The dog photographer went missing!').catch(err => console.log(err));
+    }
+    channel.stopTyping();
+  }
+};
+
+/*
 getDog = (callback) => {
   got('https://random.dog/woof.json').then(res => {
     try {
@@ -8,12 +38,4 @@ getDog = (callback) => {
       callback(err);
     }
   }).catch(callback);
-};
-
-module.exports = {
-  name: "dog",
-  perm: ["server.dog"],
-  async func(msg, { send }) {
-    return getDog((a,b)=>send(b));
-  }
-};
+};*/
