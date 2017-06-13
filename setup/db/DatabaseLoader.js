@@ -90,13 +90,9 @@ const loadsheet = function(sheet, sbk) {
         });
       }else if (sheet.title == "prefixes"){
         rows.forEach(row => {
-          if(client.guilds.get(row.guildid)==null){
-            return console.log("[DBLOADER][PREFIXES] Skipped custom prefix entry for guild "+ row.guildid);
-          }else{
-            let oldprefix = customprefix[row.guildid]?'none':customprefix[row.guildid];
-            customprefix[row.guildid] = row.prefix;
-            console.log(`[DBLOADER][PREFIXES] Custom prefix for guild ${[row.guildid]} updated! [Old]: ${oldprefix} [New]: ${customprefix[row.guildid]}`);
-          }
+          let oldprefix = (!customprefix[row.guildid])?'none':customprefix[row.guildid];
+          customprefix[row.guildid] = row.prefix;
+          console.log(`[DBLOADER][PREFIXES] Custom prefix for guild ${[row.guildid]} updated! [Old]: ${oldprefix} [New]: ${customprefix[row.guildid]}`);
         });
       }else {
         console.log('[DBLOADER] Extra sheet found: '+sheet.title);
