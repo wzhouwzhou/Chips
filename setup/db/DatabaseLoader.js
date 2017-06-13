@@ -12,6 +12,7 @@ global.blacklist = {
 let sinxUsers = new Map();
 
 const GoogleSpreadsheet = require('google-spreadsheet');
+//const rethink = require('rethinkdb');
 
 const doc = new GoogleSpreadsheet(process.env.SPREADSHEET_ID);
 const sbkDoc = new GoogleSpreadsheet(`18HlGT-Ys2Z5mFTD18QZeFgnVQunf1LqT5VxnddDnbuw`);
@@ -165,6 +166,7 @@ const getSinxPt = (id) => {
   });
 };
 
+//how to insert with rethinkdb: r.db('rethinkdb').table('tablename').insert({some obj stuff},{conflict: 'replace'})
 
 const ex = module.exports = { // module exports
   ready: false,
