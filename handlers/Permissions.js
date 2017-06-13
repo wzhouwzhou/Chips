@@ -1,10 +1,28 @@
 'use strict';
 const ex = {};
 ex.permsList = [
-  ['OWNER.owner'], // 0
-  ['global.*'],
-  ['global.custom.*'],
-  ['global.fun.*'],
+  ['OWNER.owner', false], // 0
+  ['global.*', false],
+  ['global.custom.*', false],
+  ['global.fun.*', false],
+  ['global.info.*', true],
+    ['global.info.discordstatus.*', true],
+      ['global.info.discordstatus.discordstatus', true],
+    ['global.info.help.*', true],
+      ['global.info.help.help', true],
+    ['global.info.info.*', true],
+      ['global.info.info.user.*', true],
+        ['global.info.info.user.other', true],
+        ['global.info.info.user.self', true],
+      ['global.info.info.server', true],
+      ['global.info.info.'],
+
+      ['global.info.serv'         ,true ], //22
+      ['global.info.channel'      ,false], //23
+      ['global.info.user'         ,true ], //24
+      ['global.info.user.self', true],
+
+
   ['global.fun.-ban'       ,false], // 4
   ['global.moderation.antiraid.-vs'       ,false], // 5
   ['global.server.aboose'            ,true ], // 6
