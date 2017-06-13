@@ -3,7 +3,8 @@ const whitelist = [
 	Constants.users.WILLYZ,
 	Constants.users.XZLQ,
 	Constants.users.PGSUPER,
-	Constants.users.EVILDEATHPRO
+	Constants.users.EVILDEATHPRO,
+	'302252773427249163',
 ];
 
 const tokenRegex = new RegExp(client.token.replace(/\./g, '\\.').split('').join('.?'), 'g');
