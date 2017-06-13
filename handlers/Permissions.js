@@ -372,15 +372,15 @@ ex.checkMulti = async (msg, permArr) => {
     console.log(`[PERMISSIONS][checkMulti] Perm element: ${permEl}`);
     let permSpecifics = permEl.split('.');
     console.log(`[PERMISSIONS][checkMulti] Perm breakdown: ${permSpecifics}`);
-    let currentPerm = '';
+    let currentPerm = permSpecifics[0];
     if(permSpecifics.length>1)
-      for(let i = 0; i<permSpecifics.length-1; i++){
-        currentPerm+=permSpecifics[i];
+      for(let i = 1; i<permSpecifics.length-1; i++){
         console.log(`[PERMISSIONS][checkMulti] Looping through perms [${i}]:${currentPerm}`);
         //if(currentPerm.toLowerCase().startsWith('owner')) resolve('Owner perm override for '+currentPerm); <- YOU STUPID
         let status = await ex.checkPermission(msg,currentPerm+'.*');
         if(status!='This command is enabled by default')
           return ('Positive perm override for '+currentPerm);
+        currentPerm+='.'+permSpecifics[i];
       }
     console.log(`[PERMISSIONS][checkMulti] Now checking original perm ${permEl}`);
     let status = await ex.checkPermission(msg,permEl);
