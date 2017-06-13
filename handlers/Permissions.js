@@ -403,7 +403,7 @@ ex.checkMulti = async (msg, permArr) => {
       return ('Positive perm override for '+permEl);
   }
   console.log(`[PERMISSIONS][checkMulti] Enabled by default`);
-  return('Enabled by default');
+  throw('Commands are temporarily disabled');
 };
 
 ex.rebuildDefaults = () =>{
