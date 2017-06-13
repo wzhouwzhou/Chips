@@ -368,8 +368,7 @@ ex.checkPermission = function(msg, perm){
 
 ex.checkMulti = async (msg, permArr) => {
   console.log('[PERMISSIONS][checkMulti] Received perm check request');
-  status = '';
-  for (permEl of permArr){
+  for (let permEl of permArr){
     console.log(`[PERMISSIONS][checkMulti] Perm element: ${permEl}`);
     let permSpecifics = permEl.split('.');
     console.log(`[PERMISSIONS][checkMulti] Perm breakdown: ${permSpecifics}`);
