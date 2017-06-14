@@ -1,6 +1,5 @@
 module.exports = {
   name: "help",
-  perm: ["server.help"],
   async func(msg, { send, prefix }) {
     send(`**Main commands:**
 We apologize for any inconveniences at this time, we are doing a permissions rewrite that may interfere with daily usage.
