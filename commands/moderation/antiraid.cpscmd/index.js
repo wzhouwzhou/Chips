@@ -7,7 +7,7 @@ vs.metadata = {
   description: 'This command lets you verify server members, however, a verification system must be setup beforehand!',
   usage: '-vs ok',
   example: '-vs ok',
-  perm: [["global.server.-vs"]],
+  perm: [["global.moderation.antiraid.-vs"]],
   customperm: ["BAN_MEMBERS"],
 };
 
