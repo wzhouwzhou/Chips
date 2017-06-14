@@ -7,7 +7,8 @@ help.metadata = {
   description: 'The main help command. This command lists information about commands for the bot!',
   usage: 'help',
   example: 'help',
-  customperm: ['SEND_MESSAGES']
+  perm: [['global.info.help.help']],
+  customperm: ['SEND_MESSAGES'],
 };
 
 console.log('[CPSCMD][INFO][help] Build objects complete!');
