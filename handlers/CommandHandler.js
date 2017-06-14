@@ -34,32 +34,33 @@ module.exports = function(Discord, client) {
     };
     for (const cmdn in client.commands) {
       const cmd = client.commands[cmdn];
-        if (new RegExp(`^${_.escapeRegExp(cmdn)}$`).test(noprefix.split(/\s+/)[0])){
-          const meta = cmd.metadata;
-          if(!meta) return msg.reply('This command has not been rewritten yet! Greatest apologies...');
-          if(meta.perm&&meta.perm[0]){
-            console.log(meta.perm[0]);
-            permissions.checkMulti(msg, meta.perm[0]).then((info) =>{
-              console.log("[Command] "+ info);
-              return cmd.run(msg, context);
-            }).catch((reason)=>{
-              if(msg.member&&meta.customperm&&meta.customperm[0]){
-                if(!msg.member.hasPermission(meta.customperm[0])){
-                  console.log("[Command] Rejected " + reason);
-                  issue=true;
-                  return msg.reply(`${reason}\nYou could also use this if you have \`\`${cmd.customperm[0]}\`\` permissions`);
-                }else{
-                  console.log("[Command] Accepted due to customperm bypass.");
-                  return cmd.run(msg, context);
-                }
-              }else{
-                console.log('[Command] Rejected '+ reason);
-                return msg.reply(reason);
-              }
-            });
-          }else{
+      if (new RegExp(`^${_.escapeRegExp(cmdn)}$`).test(noprefix.split(/\s+/)[0])){
+        const meta = cmd.metadata;
+        if(!meta) return msg.reply('This command has not been rewritten yet! Greatest apologies...');
+        if(meta.perm&&meta.perm[0]){
+          console.log(meta.perm[0]);
+          permissions.checkMulti(msg, meta.perm[0]).then((info) =>{
+            console.log("[Command] "+ info);
             return cmd.run(msg, context);
-          }
+          }).catch((reason)=>{
+            if(msg.member&&meta.customperm&&meta.customperm[0]){
+              if(!msg.member.hasPermission(meta.customperm[0])){
+                console.log("[Command] Rejected " + reason);
+                issue=true;
+                return msg.reply(`${reason}\nYou could also use this if you have \`\`${cmd.customperm[0]}\`\` permissions`);
+              }else{
+                console.log("[Command] Accepted due to customperm bypass.");
+                return cmd.run(msg, context);
+              }
+            }else{
+              console.log('[Command] Rejected '+ reason);
+              return msg.reply(reason);
+            }
+          });
+        }else{
+          console.log(`meta perm not found! ${meta?String(meta):''}`);
+          return cmd.run(msg, context);
+        }
       }
     }
   };
