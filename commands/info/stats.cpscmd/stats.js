@@ -1,8 +1,6 @@
 'use strict';
 module.exports = {
   name: "stats",
-  perm: ["global.stats"],
-  customperm: ['SEND_MESSAGES'],
   async func(msg, {
     reply,
     channel,

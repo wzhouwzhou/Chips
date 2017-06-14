@@ -2,13 +2,14 @@
 let stats = require('./stats');
 
 console.log('[CPSCMD][INFO][stats] Building objects...');
-stats.category = require('../').category;
-
-stats.description = 'Gives stats for chips including guild/user count, cpu usage, and more!';
-
-stats.usage = 'stats <no args>';
-
-stats.example = 'stats';
+stats.metadata = {
+  category: require('../').category,
+  description: 'Gives stats for chips including guild/user count, cpu usage, and more!',
+  usage: 'stats <no args>',
+  example: 'stats',
+  perm: [["public.info.stats.stats"]],
+  customperm: ['SEND_MESSAGES'],
+};
 
 console.log('[CPSCMD][INFO][stats] Build objects complete!');
 module.exports = [
