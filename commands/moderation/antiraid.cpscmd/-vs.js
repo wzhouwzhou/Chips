@@ -3,8 +3,6 @@ const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).def
 ex = {};
 
 ex.name = "-vs";
-ex.perm = ["global.server.-vs"];
-ex.customperm = ["BAN_MEMBERS"];
 ex.func = async (msg, {send, guild, args, gMember, reply }) =>{
   if(!guild) return reply("You must use this in a server!");
   if (!args[0]) return reply("No action given :(");
