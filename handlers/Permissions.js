@@ -15,13 +15,16 @@ ex.permsList = [
         ['global.info.info.user.other', true],
         ['global.info.info.user.self', true],
       ['global.info.info.server', true],
-      ['global.info.info.'],
-
-      ['global.info.serv'         ,true ], //22
-      ['global.info.channel'      ,false], //23
-      ['global.info.user'         ,true ], //24
-      ['global.info.user.self', true],
-
+      ['global.info.info.channel', true],
+    ['global.info.invite.*', true],
+      ['global.info.invite.invite', true],
+    ['global.info.ping.*', true],
+      ['global.info.ping.ping', true],
+    ['global.info.profile.*', false],
+      ['global.info.profile.profile', false],
+    ['global.info.quote.*', true],
+      ['global.info.quote.quote', false],
+    ['global.info.']
 
   ['global.fun.-ban'       ,false], // 4
   ['global.moderation.antiraid.-vs'       ,false], // 5
