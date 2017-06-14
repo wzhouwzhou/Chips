@@ -2,13 +2,14 @@
 let quote = require('./quote');
 
 console.log('[CPSCMD][INFO][quote] Building objects...');
-quote.category = require('../').category;
-
-quote.description = 'Quotes a message from someone else in the current channel.';
-
-quote.usage = ' quote <message id>';
-
-quote.example = 'quote 1234567890';
+quote.metadata = {
+  category: require('../').category,
+  description: 'Quotes a message from someone else in the current channel.',
+  usage: 'quote <message id>',
+  example: 'quote 1234567890',
+  perm: ["server.quote"],
+  customperm: ["SEND_MESSAGES"],
+};
 
 console.log('[CPSCMD][INFO][quote] Build objects complete!');
 module.exports = [
