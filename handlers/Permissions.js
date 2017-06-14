@@ -24,7 +24,7 @@ ex.permsList = [
       ['global.info.profile.profile', false],
     ['global.info.quote.*', true],
       ['global.info.quote.quote', false],
-    ['global.info.']
+    ['global.info.'],
 
   ['global.fun.-ban'       ,false], // 4
   ['global.moderation.antiraid.-vs'       ,false], // 5
