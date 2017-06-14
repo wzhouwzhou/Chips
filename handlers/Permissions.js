@@ -1,10 +1,54 @@
 'use strict';
 const ex = {};
 ex.permsList = [
-  ['OWNER.owner', false], // 0
+  ['OWNER.*', false],
+    ['OWNER.owner.*', false], // 0
+      ['OWNER.owner.announce', false], // 7
+      ['OWNER.owner.botpanic', false], //9
+      ['OWNER.owner.setchannels.*', false],
+        ['OWNER.owner.setchannels.setdm', false],
+        ['OWNER.owner.setchannels.setoutput', false],
+        ['OWNER.owner.setchannels.slogstatus', false],
+      ['OWNER.owner.eval.*', false],
+        ['OWNER.owner.eval.async', false],
+        ['OWNER.owner.eval.eval', false],
+  ['public.*', true],
+    ['public.info.*', true],
+      ['public.info.invite.*', true],
+        ['public.info.invite.invite', true],
+      ['public.info.stats.*', true],
+        ['public.info.stats.stats', true],
+      ['public.info.support.*', true],
+        ['public.info.support.support', true],
   ['global.*', false],
   ['global.custom.*', false],
+    ['global.custom.points.*', false],
+      ['global.custom.points.self', false],
+      ['global.custom.points.other', false],
   ['global.fun.*', false],
+    ['global.fun.-ban.*', false],
+      ['global.fun.-ban.-ban', false], //4
+    ['global.fun.animals.*', true],
+      ['global.fun.animals.dog', true], //13
+      ['global.fun.animals.cat', true], //10
+    ['global.fun.eat.*', true],
+      ['global.fun.eat.eat', true], //14
+    ['global.fun.happy.*', true],
+      ['global.fun.happy.*', true], //18
+    ['global.fun.random.*', true],
+      ['global.fun.random.coinflip', true], //12
+      ['global.fun.random.roll', true],
+    ['global.fun.say.*', false],
+      ['global.fun.say.say', false],
+    ['global.fun.text.*', true],
+      ['global.fun.text.reverse', true],
+      ['global.fun.text.spooky', true],
+    ['global.fun.triggers.*', false],
+      ['global.fun.triggers.aboose', false], //6
+      ['global.fun.triggers.confoosed', false],
+      ['global.fun.triggers.exposed', false], //17
+      ['global.fun.triggers.lenny', false],
+      ['global.fun.triggers.rekt', false],
   ['global.info.*', true],
     ['global.info.discordstatus.*', true],
       ['global.info.discordstatus.discordstatus', true],
@@ -16,30 +60,72 @@ ex.permsList = [
         ['global.info.info.user.self', true],
       ['global.info.info.server', true],
       ['global.info.info.channel', true],
-    ['global.info.invite.*', true],
-      ['global.info.invite.invite', true],
+    ['global.info.nsfw.*', false], //To be added/renamed
+      ['global.info.nsfw.info', false], //To be added/renamed
     ['global.info.ping.*', true],
       ['global.info.ping.ping', true],
     ['global.info.profile.*', false],
       ['global.info.profile.profile', false],
     ['global.info.quote.*', true],
       ['global.info.quote.quote', false],
-    ['global.info.'],
-
-  ['global.fun.-ban'       ,false], // 4
-  ['global.moderation.antiraid.-vs'       ,false], // 5
-  ['global.server.aboose'            ,true ], // 6
-  ['global.server.announce'          ,true ], // 7
-  ['global.server.blacklist'         ,false], // 8
-  ['owner.botpanic'          ,false], // 9
-  ['global.server.cat'               ,true ], //10
-  ['global.server.clear'      ,false], //11
-  ['global.server.coinflip'          ,true ], //12
-  ['global.server.dog'               ,true ], //13
-  ['global.eatme'             ,true ], //14
-  ['server.emojiban'          ,false], //15
+  ['global.moderation.*', false],
+    ['global.moderation.antiraid.*', false],
+      ['global.moderation.antiraid.-vs', false], // 5
+    ['global.moderation.antiselfstar.*', false],
+      ['global.moderation.antiselfstar.antiselfstar', false],
+    ['global.moderation.antispam.*', false],
+      ['global.moderation.antispam.blacklist', false], //8
+      ['global.moderation.antispam.filter', false], //To be added/renamed
+    ['global.moderation.bans.*', false],
+      ['global.moderation.bans.ban', false],
+      ['global.moderation.bans.extemojiban', false],//To be added/renamed //15
+      ['global.moderation.bans.hackban', false],
+      ['global.moderation.bans.reactban', false],//To be added/renamed
+      ['global.moderation.bans.roleban', false], //To be added/renamed
+    ['global.moderation.chipsprefix.*', false],
+      ['global.moderation.chipsprefix.chipsprefix', false],
+    ['global.moderation.clear.*', false],
+      ['global.moderation.clear.botclear', false],
+      ['global.moderation.clear.clear', false], //11
+      ['global.moderation.clear.reactclear', false],//To be added/renamed
+    ['global.moderation.kicks.*', false],
+      ['global.moderation.kicks.kick', false],
+    ['global.moderation.mutes.*', false],
+      ['global.moderation.mutes.emojiban', false],//To be added/renamed
+      ['global.moderation.mutes.mute', false],//To be added/renamed
+      ['global.moderation.mutes.pmute', false],
+    ['global.moderation.roles.*', false],//To be added/renamed
+      ['global.moderation.roles.role.*', false],//To be added/renamed
+        ['global.moderation.roles.role.add', false],//To be added/renamed
+        ['global.moderation.roles.role.remove', false],//To be added/renamed
+        ['global.moderation.roles.role.create', false],//To be added/renamed
+        ['global.moderation.roles.role.delete', false],//To be added/renamed
+        ['global.moderation.roles.role.update', false],//To be added/renamed
+  ['global.nsfw.*', false],
+    ['global.nsfw.ass.*', false],
+      ['global.nsfw.ass.ass', false],
+    ['global.nsfw.boobs.*', false],
+      ['global.nsfw.boobs.boobs', false],
+    ['global.nsfw.nsfw.*', false],//To be added/renamed
+      ['global.nsfw.nsfw.info'],//To be added/renamed
+  ['global.utility.calc.*', true],
+    ['global.utility.calc.-calc', true],
+  ['global.utility.applyforpartnership', false],//To be added/renamed
+    ['global.utility.applyforpartnership.applyforpartnership', false],//To be added/renamed
+  ['global.utility.applyforstaff', false],
+    ['global.utility.applyforstaff.apply', false],
+  ['global.utility.nR.*', false],
+    ['global.utility.nR.nR', false],
+  ['global.utility.perm.*', false],//To be added/renamed
+    ['global.utility.perm.perms.*', false],//To be added/renamed
+      ['global.utility.perm.perms.set', false],//To be added/renamed
+  ['global.utility.stoptyping.*', false],
+    ['global.utility.stoptyping.stoptyping', false],
+  ['global.utility.translate.*', true],
+    ['global.utility.translate.translate', true]
+/*
   ['global.eval'              ,false], //16
-  ['server.exposed'           ,true ], //17
+
   ['server.happy'             ,true ], //18
   ['server.help'              ,true ], //19
   ['global.info'              ,true ], //20
@@ -66,7 +152,7 @@ ex.permsList = [
   ['server.nsfw'              ,true ], //40
   ['global.stoptyping'        ,false], //41
   ['global.server.chipsprefix',false], //42
-  ['global.server.chips.apply',true ], //43
+  ['global.server.chips.apply',true ], //43 */
 ];
 
 ex.defaultperms = new Map(ex.permsList);
