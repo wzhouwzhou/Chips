@@ -91,7 +91,7 @@ module.exports = function( send ) {
   hclient.on("debug", console.log);
   h2client.on("debug", console.log);
   h3client.on("debug", console.log);
-
+  let numCmds = 0;
   const load = (startPath) =>{
     let subset = [];
     if (!fs.existsSync(startPath))
@@ -112,6 +112,7 @@ module.exports = function( send ) {
             console.log('[COMMAND LOADER] Loading cmd: '+cmdpath);
             client.commands[precmd[0]] = new Command(precmd[1]);
             subset.push([filename,precmd]);
+            numCmds++;
             console.log('[COMMAND LOADER] loaded: '+cmdpath);
           });
         }catch(err){
@@ -122,7 +123,7 @@ module.exports = function( send ) {
     return subset;
   };
   load('./commands');
-
+  console.log('[COMMAND LOADER] Loaded a total of ' + numCmds + ' commands!');
   //const music = require('discord.js-music-v11');
   //music(client, { prefix: "-", anyoneCanSkip: true });
 
