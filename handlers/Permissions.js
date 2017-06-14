@@ -374,7 +374,7 @@ ex.checkPermission = function(msg, perm){
       });
     }
     let registered = ex.defaultperms.has(perm);
-    if(!registered) eval(`client.channels.get('307684502443130881').send('Someone just tried to use a cmd with an unregistered perm '+ perm);`);
+    if(!registered) console.log('Someone just tried to use a cmd with an unregistered perm '+ perm);
     console.log(`Now checking default perms.: ${perm}\nIs the perm registered list? : ${registered}`);
     let value = registered?ex.defaultperms.get(perm):true;
     console.log("The default for that perm is: " + value);
