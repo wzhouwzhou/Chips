@@ -36,14 +36,14 @@ module.exports = function(Discord, client) {
       const cmd = client.commands[cmdn];
       if (new RegExp(`^${_.escapeRegExp(cmdn)}$`).test(noprefix.split(/\s+/)[0])){
         const meta = cmd.metadata;
-        if(!meta) return msg.reply('This command has not been rewritten yet! Greatest apologies...');
-        if(meta.perm&&meta.perm[0]){
+        if(meta==null) return msg.reply('This command has not been rewritten yet! Greatest apologies...');
+        if(meta.perm!=null&&meta.perm[0]!=null){
           console.log(meta.perm[0]);
           permissions.checkMulti(msg, meta.perm[0]).then((info) =>{
             console.log("[Command] "+ info);
             return cmd.run(msg, context);
           }).catch((reason)=>{
-            if(msg.member&&meta.customperm&&meta.customperm[0]){
+            if(msg.member&&(meta.customperm&&meta.customperm[0])){
               if(!msg.member.hasPermission(meta.customperm[0])){
                 console.log("[Command] Rejected " + reason);
                 issue=true;
@@ -58,7 +58,7 @@ module.exports = function(Discord, client) {
             }
           });
         }else{
-          console.log(`meta perm not found! ${meta?String(meta):''}`);
+          console.log(`meta perm not found! ${meta?JSON.stringify(meta):''}`);
           return cmd.run(msg, context);
         }
       }
