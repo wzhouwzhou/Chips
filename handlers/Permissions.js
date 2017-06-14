@@ -498,9 +498,8 @@ ex.checkMulti = async (msg, permArr) => {
 ex.rebuildDefaults = () =>{
   //Enable all perms for me and edp
   let n = new Array(ex.permsList.length);
-  let allp = "11111111111111111111111111111111111111111111111111111";
   for(let c=0; c<ex.permsList.length; c++){
-    n.push({name: ex.permsList[c][0], action: parseInt(allp[c])});
+    n.push({name: ex.permsList[c][0], action: 1});
   }
   ex.userpermissions[Constants.users.WILLYZ]=n;
   ex.userpermissions[Constants.users.EVILDEATHPRO]=n;
