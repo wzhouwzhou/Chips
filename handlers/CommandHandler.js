@@ -3,7 +3,7 @@ module.exports = function(Discord, client) {
   return async (msg, prefix) => {
     const regprefix = _.escapeRegExp(prefix);
     const noprefix = msg.content.replace(new RegExp(`^${regprefix}`), "");
-    const context = {
+    let context = {
       noprefix, prefix, msg, Discord, client,
       message: msg,
       channel: msg.channel,
@@ -31,6 +31,21 @@ module.exports = function(Discord, client) {
           console.log("Emitted eval");
         });
       },
+      times: ["years","months","weeks","days","hours","minutes","seconds"],
+    };
+    context.convertTime = async (obj, i) => {
+      if(obj instanceof Date){
+        if(isNaN(i)) throw 'Invalid number given for index';
+        if(i>=context.times.length) throw 'Invalid index given';
+        let diff = moment().diff(obj, context.times[i], true).toFixed(2);
+        for(;i<time.length-1;){
+          if(diff>1) return [diff,i];
+          diff = moment().diff(obj, context.times[++i], true).toFixed(2);
+        }
+        return [diff,i];
+      }else{
+        throw 'Invalid date!';
+      }
     };
     for (const cmdn in client.commands) {
       const cmd = client.commands[cmdn];
