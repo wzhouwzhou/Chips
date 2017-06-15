@@ -6,7 +6,7 @@ console.log('[CPSCMD][UTILITY][eval] Building objects...');
 regeval.metadata = {
   category: require('../').category,
   description: 'This command evaluates some javascript!',
-  perm: ['OWNER.*'],
+  perm: [['OWNER.owner.eval.eval']],
 };
 asynceval.category = require('../').category;
 
