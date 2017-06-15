@@ -8,9 +8,12 @@ regeval.metadata = {
   description: 'This command evaluates some javascript!',
   perm: [['OWNER.owner.eval.eval']],
 };
-asynceval.category = require('../').category;
 
-asynceval.description = 'This command evaluates some javascript in an async function!';
+asynceval.metadata = {
+  category: require('../').category,
+  description: 'This command evaluates some javascript in an async function!',
+  perm: [['OWNER.owner.eval.async']],
+};
 
 console.log('[CPSCMD][UTILITY][eval] Build objects complete!');
 module.exports = [
