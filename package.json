@@ -37,7 +37,6 @@
     "child_process": "^1.0.2",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.3",
-    "dban.js": "^1.0.1",
     "dbansjs": "^0.1.2",
     "debug": "~2.6.6",
     "discord.js": "github:hydrabolt/discord.js",
