@@ -3,8 +3,6 @@ const EXPIRE = 10000;
 
 module.exports = {
 	name:'hackban',
-  perm:['global.server.ban'],
-	customperm:['BAN_MEMBERS'],
 	async func(msg, { send, reply, author, args, channel, guild }) {
     let memberToUse;
     try{
@@ -82,14 +80,18 @@ module.exports = {
 			      .setColor(9109504)
 			      .setThumbnail(Constants.images.WARNING)
 			      .addField("Ban reason: ", `${reason?reason:"None provided"}`, true);
-	    		client.fetchUser(memberToUse)
-					.then(u=>{if(args[2].toLowerCase() == 'dm') u.send('Uh oh!', {embed: emb});})
-					.then(_=>{
-						m.reply("Banning!");
-						guild.ban(memberToUse.toString(), {reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
-					}).catch(_=>{
-						m.reply("Could not dm the user, but banning anyway!");
-						guild.ban(memberToUse.toString(), {reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
+	    		client.fetchUser(memberToUse).then(async u=>{
+						try{
+							if(args[2].toLowerCase() == 'dm')
+								await u.send('Uh oh!', {embed: emb});
+							await m.reply("Banning!");
+							guild.ban(memberToUse.toString(), {reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
+						}catch(err){
+							console.log(err);
+							if(args[2].toLowerCase() == 'dm')
+								m.reply("Could not dm the user, but banning anyway!");
+							guild.ban(memberToUse.toString(), {reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
+						}
 					});
         }else{
           console.log("[Ban] cancelled");
