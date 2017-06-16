@@ -472,12 +472,13 @@ ex.checkPermission = function(msg, perm){
     console.log(`Now checking the default perms.: ${perm}\nIs the perm registered list? : ${registered}`);
     let value = registered?ex.defaultperms.get(perm):true;
     console.log("The default for that perm is: " + value);
-    (!value)?reject(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`):resolve("This command is enabled by default");//resolve("This command is enabled by default"):reject(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`);
+    (!value)?resolve('This perm is denied by default.'):resolve("This perm is accepted by default");//resolve("This command is enabled by default"):reject(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`);
   });
 };
 
 ex.checkMulti = async (msg, permArr) => {
   console.log('[PERMISSIONS][checkMulti] Received perm check request');
+  let checkDefault = false;
   for (let permEl of permArr){
     console.log(`[PERMISSIONS][checkMulti] Perm element: ${permEl}`);
     let permSpecifics = permEl.split('.');
@@ -487,17 +488,27 @@ ex.checkMulti = async (msg, permArr) => {
       for(let i = 1; i<permSpecifics.length; i++){
         console.log(`[PERMISSIONS][checkMulti] Looping through perms [${i}]:${currentPerm}`);
         let status = await ex.checkPermission(msg,currentPerm+'.*');
-        if(status!='This command is enabled by default')
-          return ('Positive perm override for '+currentPerm);
-        currentPerm+='.'+permSpecifics[i];
+        if(status=='This perm is accepted by default.'){
+          checkDefault = true;
+          currentPerm+='.'+permSpecifics[i];
+          continue;
+        }else if(status=='This perm is denied by default.'){
+          checkDefault = false;
+          currentPerm+='.'+permSpecifics[i];
+          continue;
+        }
+
+        return ('Positive perm override for '+currentPerm);
       }
     console.log(`[PERMISSIONS][checkMulti] Now checking original perm ${permEl}`);
     let status = await ex.checkPermission(msg,permEl);
-    if(status!='This command is enabled by default')
-      return ('Positive perm override for '+permEl);
+    if(status=='This perm is accepted by default.') checkDefault = true;
+    else if(status=='This perm is denied by default.') checkDefault = false;
+    else return ('Positive perm override for '+permEl);
   }
-  console.log(`[PERMISSIONS][checkMulti] Enabled by default`);
-  throw('Some commands are temporarily disabled');
+  console.log(`[PERMISSIONS][checkMulti] Checking default...  ${checkDefault}`);
+  if(checkDefault) throw('Some commands are temporarily disabled for this rewrite. Sorry!');
+  else throw(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`);
 };
 
 ex.rebuildDefaults = () =>{
