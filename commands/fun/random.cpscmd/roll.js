@@ -1,7 +1,6 @@
 
 module.exports = {
 	name: "roll",
-	perm: ["global.roll"],
 	async func(msg, { reply, content, author, channel }) {
 		let par = content.split(' ');
 		let atx = content.slice(par[0].length+1);

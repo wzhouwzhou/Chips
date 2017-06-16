@@ -9,7 +9,7 @@ ban.metadata = {
   category: require('../').category,
   description: 'This command lets you ban server members!',
   usage: 'ban <User> <Optional Reason>',
-  example: 'ban @JohnSmith#0000 He did a bad!',
+  example: 'ban @周珺 • WillyZ#6686 Being dumb.',
   perm: [['global.moderation.bans.ban']],
   customperm: ['BAN_MEMBERS'],
 };

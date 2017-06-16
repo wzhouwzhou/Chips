@@ -5,7 +5,6 @@ const { pfpW, pfpY, pfpX } = Constants.profileSettings;
 
 module.exports = {
   name: "profile",
-  perm: ["server.help"],
   async func(msg, { author, member, guild, send }) {
     if(!guild) return send('Not in a server!');
     try{

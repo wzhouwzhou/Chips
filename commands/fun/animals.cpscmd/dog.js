@@ -16,7 +16,6 @@ const getDog = () => {
 
 module.exports = {
   name: "dog",
-  perm: ["server.dog"],
   async func(msg, { send, channel }) {
     channel.startTyping();
     try{

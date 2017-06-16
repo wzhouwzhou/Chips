@@ -1,6 +1,5 @@
 module.exports = {
   name: "emojiban",
-  perm: ["server.emojiban"],
   async func(msg, { send, member, author, content, guild, args, gMember, Discord }) {
     const used = member || author;
     switch (used.id) {

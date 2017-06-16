@@ -16,7 +16,6 @@ const getCat = () => {
 
 module.exports = {
   name: "cat",
-  perm: ["server.cat"],
   async func(msg, { send, channel }) {
     channel.startTyping();
     try{

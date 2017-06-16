@@ -1,35 +1,8 @@
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
-const time = ["years","months","weeks","days","hours","minutes","seconds"];
 
-const memberJoin = (member, i) => {
-  let diff = moment().diff(member.joinedAt, time[i], true).toFixed(2);
-  for(;i<time.length-1;){
-    if(diff>1) return [diff,i];
-    diff = moment().diff(member.joinedAt, time[++i], true).toFixed(2);
-  }
-  return [diff,i];
-};
-const createdTime = (obj, i) => {
-  let diff = moment().diff(obj.createdAt, time[i], true).toFixed(2);
-  for(;i<time.length-1;){
-    if(diff>1) return [diff,i];
-    diff = moment().diff(obj.createdAt, time[++i], true).toFixed(2);
-  }
-  return [diff,i];
-};
-const joinedDiscord = (member, i) => {
-  let diff = moment().diff(member.user.createdAt, time[i], true).toFixed(2);
-  for(;i<time.length-1;){
-    if(diff>1) return [diff,i];
-    diff = moment().diff(member.user.createdAt, time[++i], true).toFixed(2);
-  }
-  return [diff,i];
-};
 const ex = {
   name: "info",
-  perm: ["global.info","global.info.all","global.info.serv","global.info.channel","global.info.role","global.info.user","global.info.user.self"],
-  customperm: ['SEND_MESSAGES'],
-  async func(msg, {send, member, author, guild, args, gMember, reply, content, prefix }) {
+  async func(msg, {send, member, author, guild, args, gMember, reply, content, prefix, Discord, times, convertTime, getUser }) {
     let start = process.hrtime();
     const used = member || author;
     let action;
@@ -44,10 +17,10 @@ const ex = {
 
     if(action=="server"){
       try{
-        let info = await permissions.checkPermission(msg, ex.perm[2]);
+        let info = await permissions.checkMulti(msg, ['global.info.info.server']);
         console.log("[Command] "+ info);
       }catch(err){
-        if(!member.hasPermission(ex.customperm[0])){
+        if(!member.hasPermission('global.info.info.server')){
           console.log("Rejected info server to " + used.id);
           return msg.reply(err);
         }
@@ -88,33 +61,37 @@ const ex = {
 
       let vInfo = 'there is no verification requirement.';
       let vLvl = guild.verificationLevel;
-      if (vLvl >= 1) vInfo = "new users must have an email linked to their account. ";
+      if (vLvl >= 1) vInfo = "New users without a role must have an email linked to their account. ";
       if (vLvl >= 2) vInfo+= "They must also be registered on Discord for more than five minutes. ";
-      if (vLvl >= 3) vInfo+= "In addition, upon joining, new members must wait 10 minutes before they are able to speak. ";
+      if (vLvl >= 3) vInfo+= "In addition, upon joining, new members without a role must wait 10 minutes before they are able to speak. ";
+      else if (vLvl >= 4) vInfo+= "In addition, upon joining, new users without a role must verify themselves with a mobile device before they are able to speak. ";
       let highestRole = guild._sortedRoles.last();
       let gname = guild.name.replace('@','(at)');
       if (guild.iconURL&&guild.iconURL(2048)) infobad.setImage(guild.iconURL(2048));
-      infobad.addField(`Name of this server: ${gname}`, `Guild id: ${guild.id}`);
-      infobad.addField(`Server owner: `, `<@${guild.ownerID}>`);
-      infobad.addField(`Number of roles: ${guild.roles.size}`,`Highest role: ${highestRole.name} (${highestRole.id})`);
-      infobad.addField(`Total number of channels: ${tC}`, `Total number of nsfw channels: ${nsfw}`);
-      infobad.addField(`Text channel count:    `, textC       , true)
-             .addField(`Voice channel count:   `, voiceC      , true)
-             .addField(`Server region (voice): `, guild.region, true);
-      infobad.addField(`Default channel: `,`<#${guild.defaultChannel.id}>`, true);
-      if(guild.afkChannelID) infobad.addField(`AFK voice channel: #${guild.channels.get(guild.afkChannelID).name}`, `AFK Timeout: ${guild.afkTimeout/60} minute(s)`, true);
-      else infobad.addField(`AFK voice channel: `, `None`, true);
-      infobad.addField(`Date created: ${guild.createdAt.toUTCString()}`, `That's about ${diff} days ago!`);
-      infobad.addField(`Member count: `, guild.memberCount, true);
-      infobad.addField(`Total number of members: ${trueMemC.size} (Not including bots)`,`There ${guild.members.size-trueMemC.size==1?'is':'are'} ${guild.members.size-trueMemC.size} bot${guild.members.size-trueMemC.size==1?'':'s'}!`, true);
-      infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There  ${guild.members.size-available==1?'is':'are'} <:offline:313956277237710868> ${guild.members.size-available} ${guild.members.size-available==1?'person':'people'} offline or invisible`);
-      infobad.addField(`Online: <:online:313956277808005120>`, online, true)
-             .addField(`Idle: <:away:313956277220802560>    `, idle  , true)
-             .addField(`Dnd: <:dnd:313956276893646850>      `, dnd   , true);
-      infobad.addField(`Verification level: ${vLvl}`,`That means ${vInfo}`);
+      [
+        [`Name of this server: ${gname}`, `Guild id: ${guild.id}`],
+        ['Server owner:', `${getUser(guild.ownerID).tag} <@${guild.ownerID}>`],
+        [`Number of roles: ${guild.roles.size}`,`Highest role: ${highestRole.name} (${highestRole.id})`],
+        [`Total number of channels: ${tC}`, `Total number of nsfw channels: ${nsfw}`],
+        [`Text channel count:`, textC, true],
+        [`Voice channel count:`, voiceC, true],
+        [`Server region (voice): `, guild.region, true],
+        ['Default channel:',`<#${guild.defaultChannel.id}>`, true],
+        [`AFK voice channel: ${guild.afkChannelID?'#'+guild.channels.get(guild.afkChannelID).name:''}`,`${guild.afkChannelID?'AFK Timeout: '+ guild.afkTimeout/60 +' minute(s)':'None'}` ],
+        [`Date created: ${guild.createdAt.toUTCString()}`, `That's about ${diff} days ago!`],
+        ['Member count:', `${guild.memberCount>1?guild.memberCount+'members':'1 member'}`, true],
+        [`Total number of members: ${trueMemC.size} (Not including bots)`,`There ${guild.members.size-trueMemC.size==1?'is':'are'} ${guild.members.size-trueMemC.size} bot${guild.members.size-trueMemC.size==1?'':'s'}!`, true],
+        [`Reachable members (online, idle or dnd): ${available}`, `There  ${guild.members.size-available==1?'is':'are'} <:offline:313956277237710868> ${guild.members.size-available} ${guild.members.size-available==1?'person':'people'} offline or invisible`],
+        ['Online: <:online:313956277808005120>', online, true],
+        ['Idle: <:away:313956277220802560>', idle, true],
+        ['Dnd: <:dnd:313956276893646850>', dnd, true],
+        [`Verification level: ${vLvl}`,`That means ${vInfo}`]
+      ].forEach(f=>infobad.addField(...f));
+
       await reply(`Server info`, {embed: infobad});
       infobad = new Discord.RichEmbed();
-      infobad.setColor(member.displayColor).setAuthor('Server Emojis').setTitle(`Emoji count: ${guild.emojis.size}`).setDescription(guild.emojis.array().join(' '));
+      infobad.setColor(member.displayColor).setAuthor('Server Emojis').setTitle(`Emoji List! # of emotes: ${guild.emojis.size}`);
+      infobad.setDescription(guild.emojis.array().join(' '));
       let hrTime = process.hrtime(start);
       let µs = false;
       let end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
@@ -124,52 +101,86 @@ const ex = {
       }
       µs ? end += 'µs' : end += 'ms';
       infobad.setFooter(`--Server info lookup and calculations took ${(end)}.--`);
-      return reply("Emoji List", {embed: infobad});
+      return send('', {embed: infobad});
     }else if(action=="user"){
       let member=used;
       let membername = member.displayName.replace('@','(at)');
+      let multiple = false;
       if (args[1]){
-        try{
-          let info = await permissions.checkPermission(msg, ex.perm[5]);
-          console.log("[Command] "+ info);
-        }catch(err){
-          if(!member.hasPermission(ex.customperm[0])){
-            console.log("Rejected info user to " + used.id);
-            return msg.reply(err);
-          }
-        }
-
         try{ //get mention:
           console.log("Trying to find user by mention..");
           let target = args[1].match(Constants.patterns.MENTION)[1];
           member = gMember(target);
+          if(member.id!=author.id){
+            try{
+              let info = await permissions.checkMulti(msg, ['global.info.info.user.other']);
+              console.log("[Info] "+ info);
+            }catch(err){
+              if(!member.hasPermission(ex.customperm[0])){
+                console.log("Rejected info user other to " + used.id);
+                return msg.reply(err);
+              }
+            }
+          }else{
+            try{
+              let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
+              console.log("[Info] "+ info);
+            }catch(err){
+              if(!member.hasPermission(ex.customperm[0])){
+                console.log("Rejected info self other to " + used.id);
+                return msg.reply(err);
+              }
+            }
+          }
           if(member==null) throw "NotMemberMention";
         }catch(err){  //gMember failed:
           console.log("Finding by mention failed...");
           member = content.substring(`${prefix}info ${action} `.length);
           let list = searchers[guild.id].searchMember(member);
-          if(list.length>1) await send("Multiple matches found, using first one..");
+          if(list.length>1) multiple = true;
           else if(list.length<1) return await send(`User [${args[1]}] not found!`);
           member = list[0];
+          if(member.id!=author.id){
+            try{
+              let info = await permissions.checkMulti(msg, ['global.info.info.user.other']);
+              console.log("[Info] "+ info);
+            }catch(err){
+              if(!member.hasPermission(ex.customperm[0])){
+                console.log("Rejected info user other to " + used.id);
+                return msg.reply(err);
+              }
+            }
+          }else{
+            try{
+              let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
+              console.log("[Info] "+ info);
+            }catch(err){
+              if(!member.hasPermission(ex.customperm[0])){
+                console.log("Rejected info self other to " + used.id);
+                return msg.reply(err);
+              }
+            }
+          }
         }
+
         membername = member.displayName.replace('@','(at)');
         let highest = "years";
-        diff = memberJoin(member,time.indexOf(highest));
-        diff = `${diff[0]} ${time[diff[1]]}`;
+        diff = convertTime(member.joinedAt,times.indexOf(highest));
+        diff = `${diff[0]} ${times[diff[1]]}`;
 
         let diff2;
         highest = "years";
         if(member.lastMessage){
-          diff2 = createdTime(member.lastMessage,time.indexOf(highest));
+          diff2 = convertTime(member.lastMessage.createdAt,times.indexOf(highest));
           //send("diff2-1: " + diff2);
-          diff2 = `${diff2[0]} ${time[diff2[1]]}`;
+          diff2 = `${diff2[0]} ${times[diff2[1]]}`;
           //send("diff2-2: " + diff2);
         }else diff2="NAN";
 
         let diff3;
         highest = "years";
-        diff3 = joinedDiscord(member, time.indexOf(highest));
-        diff3 = `${diff3[0]} ${time[diff3[1]]}`;
+        diff3 = convertTime(member.user.createdAt, times.indexOf(highest));
+        diff3 = `${diff3[0]} ${times[diff3[1]]}`;
 
         infobad.addField(`User tag: `, `${member.user.tag}`   , true)
                .addField(`User id:  `, `${member.id}`         , true)
@@ -183,34 +194,34 @@ const ex = {
         infobad.addField(`Permissions number:`,member.permissions.bitfield);
         infobad.addField(`Avatar URL`, `[Click Here](${member.user.avatarURL(2048)})`);
         infobad.setImage(member.user.avatarURL(2048));
-        return await send(`User info`, {embed: infobad});
+        return await send(`User info ${multiple?'(multiple users were found, using the first one)':''}`, {embed: infobad});
       }else{
         try{
-          let info = await permissions.checkPermission(msg, ex.perm[6]);
+          let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
           console.log("[Command] "+ info);
         }catch(err){
           if(!member.hasPermission(ex.customperm[0])){
             console.log("Rejected info user (self) to " + used.id);
             return msg.reply(err);
           }
-      }
+        }
         let highest = "years";
-        diff = memberJoin(member,time.indexOf(highest));
-        diff = `${diff[0]} ${time[diff[1]]}`;
+        diff = convertTime(member.joinedAt,times.indexOf(highest));
+        diff = `${diff[0]} ${times[diff[1]]}`;
 
         let diff2;
         highest = "years";
         if(member.lastMessage){
-          diff2 = createdTime(member.lastMessage,time.indexOf(highest));
+          diff2 = convertTime(member.lastMessage.createdAt,times.indexOf(highest));
           //send("diff2-1: " + diff2);
-          diff2 = `${diff2[0]} ${time[diff2[1]]}`;
+          diff2 = `${diff2[0]} ${times[diff2[1]]}`;
           //send("diff2-2: " + diff2);
         }else diff2="NAN";
 
         let diff3;
         highest = "years";
-        diff3 = joinedDiscord(member, time.indexOf(highest));
-        diff3 = `${diff3[0]} ${time[diff3[1]]}`;
+        diff3 = convertTime(member.user.createdAt, times.indexOf(highest));
+        diff3 = `${diff3[0]} ${times[diff3[1]]}`;
         infobad.addField(`User tag: `, `${member.user.tag}`   , true)
                .addField(`User id:  `, `${member.id}`         , true)
                .addField(`Nickname: `, `${membername}`, true);
@@ -227,7 +238,7 @@ const ex = {
       }
     }else if(action == "role"){
       try{
-        let info = await permissions.checkPermission(msg, ex.perm[4]);
+        let info = await permissions.checkMulti(msg, ['global.info.info.role']);
         console.log("[Command] "+ info);
       }catch(err){
         if(!member.hasPermission(ex.customperm[0])){
@@ -256,9 +267,9 @@ const ex = {
         let diff;
         highest = "years";
         if(role){
-          diff = createdTime(role,time.indexOf(highest));
+          diff = convertTime(role.createdAt,times.indexOf(highest));
           //send("diff2-1: " + diff2);
-          diff = `${diff[0]} ${time[diff[1]]}`;
+          diff = `${diff[0]} ${times[diff[1]]}`;
           //send("diff2-2: " + diff2);
         }else diff="NAN";
 
@@ -311,7 +322,7 @@ const ex = {
       }
     }else if(action == "channel"){
       try{
-        let info = await permissions.checkPermission(msg, ex.perm[3]);
+        let info = await permissions.checkMulti(msg, ['global.info.info.channel']);
         console.log("[Command] "+ info);
       }catch(err){
         if(!member.hasPermission(ex.customperm[0])){
@@ -341,9 +352,9 @@ const ex = {
         let diff;
         highest = "years";
         if(channel){
-          diff = createdTime(channel,time.indexOf(highest));
+          diff = convertTime(channel.createdAt,times.indexOf(highest));
           //send("diff2-1: " + diff2);
-          diff = `${diff[0]} ${time[diff[1]]}`;
+          diff = `${diff[0]} ${times[diff[1]]}`;
           //send("diff2-2: " + diff2);
         }else diff="NAN";
 

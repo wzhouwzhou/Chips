@@ -1,8 +1,6 @@
 
 ex = {
   name: "chipsprefix",
-  perm: ["global.server.chipsprefix"],
-  customperm: ["ADMINISTRATOR"],
   async func(msg, { member, guild, args, reply}) {
     if(!guild) return reply("You must be in a guild to use this command!");
 

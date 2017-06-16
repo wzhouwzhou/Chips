@@ -1,7 +1,6 @@
 
 module.exports = {
   name: "-blacklist",
-  perm: ["server.blacklist"],
   async func(msg, {send, member, author, content, guild, args, reply}) {
     const used = member || author;
 
@@ -40,7 +39,7 @@ module.exports = {
       else{
         let keyword = _.drop(_.drop(args)).join(' ').toLowerCase();
         blacklist[guild.id].push(keyword);
-        filter=require(path.join(__dirname, '../handlers', 'Filter'))();
+        filter=require(path.join(__dirname, '../../../handlers', 'Filter'))();
         console.log(`New blacklist: ${blacklist}`);
         database.sheets['filter'].addRow({guildid: guild.id, keyword: keyword});
         return reply(`Keyword ${keyword} blacklisted successfully`);

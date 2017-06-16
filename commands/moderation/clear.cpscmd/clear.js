@@ -1,7 +1,5 @@
 module.exports = {
   name: "clear",
-  perm: ["global.server.clear"],
-  customperm: ["MANAGE_MESSAGES"],
   async func(msg, { channel, args, member, reply }) {
     const used = member || author;
     if(!used.hasPermission("MANAGE_MESSAGES")){

@@ -2,11 +2,14 @@
 let profile = require('./profile');
 
 console.log('[CPSCMD][INFO][profile] Building objects...');
-profile.category = require('../').category;
-
-profile.description = 'Gives profile for a user! (WIP)';
-
-profile.usage = 'profile <no args>';
+profile.metadata = {
+  category: require('../').category,
+  description: 'Gives profile for a user! (WIP)',
+  usage: 'profile <no args>',
+  example: 'profile',
+  perm: [['global.info.profile.profile'], 'global.info.profile.profile.self','global.info.profile.profile.other'],
+  customperm: ['SEND_MESSAGES']
+};
 
 profile.example = 'profile';
 

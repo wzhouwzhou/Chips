@@ -2,13 +2,14 @@
 let support = require('./support');
 
 console.log('[CPSCMD][INFO][support] Building objects...');
-support.category = require('../').category;
-
-support.description = 'Links Chips\' support server!';
-
-support.usage = 'support';
-
-support.example = 'support';
+support.metadata = {
+  category: require('../').category,
+  description: "Links Chips' support server!",
+  usage: 'support',
+  example: 'support',
+  perm: [['public.info.support.support']],
+  customperm: ['SEND_MESSAGES']
+};
 
 console.log('[CPSCMD][INFO][support] Build objects complete!');
 module.exports = [

@@ -1,34 +1,52 @@
 
-let lenny = require('./lenny');
 let aboose = require('./aboose');
+let confoosed = require('./confoosed');
 let exposed = require('./exposed');
+let lenny = require('./lenny');
 let rekt = require('./rekt');
 
 console.log('[CPSCMD][FUN][triggers] Building objects...');
-lenny.category = require('../').category;
-aboose.category = require('../').category;
-exposed.category = require('../').category;
-rekt.category = require('../').category;
-
-lenny.description = 'Lenny!';
-aboose.description = 'Aboose!';
-exposed.description = 'Exposed!';
-rekt.description = 'This command sends the rekt gif!';
-
-lenny.usage = 'lenny';
-aboose.usage = 'aboose';
-exposed.usage = 'exposed';
-rekt.usage = 'rekt';
-
-lenny.example = 'lenny';
-aboose.example = 'aboose';
-exposed.example = 'exposed';
-rekt.example = 'rekt';
+aboose.metadata = {
+  category: require('../').category,
+  description: 'Aboose!',
+  usage: 'aboose',
+  example: 'aboose',
+  perm: [['global.fun.triggers.aboose']],
+};
+confoosed.metadata = {
+  category: require('../').category,
+  description: 'Confoosed!',
+  usage: 'confoosed',
+  example: 'confoosed',
+  perm: [['global.fun.triggers.confoosed']],
+};
+exposed.metadata = {
+  category: require('../').category,
+  description: 'Exposed!',
+  usage: 'exposed',
+  example: 'exposed',
+  perm: [['global.fun.triggers.exposed']],
+};
+lenny.metadata = {
+  category: require('../').category,
+  description: 'Lenny!',
+  usage: 'lenny',
+  example: 'lenny',
+  perm: [['global.fun.triggers.lenny']]
+};
+rekt.metadata = {
+  category: require('../').category,
+  description: 'Rekt!',
+  usage: 'rekt',
+  example: 'rekt',
+  perm: [['global.fun.triggers.rekt']],
+};
 
 console.log('[CPSCMD][FUN][triggers] Build objects complete!');
 module.exports = [
-  [lenny.name,lenny],
   [aboose.name,aboose],
+  [confoosed.name,confoosed],
   [exposed.name,exposed],
+  [lenny.name,lenny],
   [rekt.name,rekt],
 ];

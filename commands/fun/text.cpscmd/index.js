@@ -10,13 +10,14 @@ reverse.metadata = {
   example: ['reverse some text','reverse some text --keepwordorder'],
   perm: [['global.fun.text.reverse']],
 };
-spooky.category = require('../').category;
 
-spooky.description = 'Gives profile for a user! (WIP)';
-
-spooky.usage = 'spooky number';
-
-spooky.example = 'profile';
+spooky.metadat = {
+  category: require('../').category,
+  description: 'Prints your text with spooky formatting!',
+  usage: 'spooky <text> <optional flag>',
+  example: 'spooky testing numspaces: 5',
+  perm: [['global.fun.text.spooky']]
+};
 
 console.log('[CPSCMD][INFO][text] Build objects complete!');
 module.exports = [

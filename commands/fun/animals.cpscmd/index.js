@@ -19,6 +19,9 @@ dog.metadata.usage = 'dog';
 cat.metadata.example = 'cat';
 dog.metadata.example = 'dog';
 
+cat.metadata.perm = [['global.fun.animals.cat']];
+dog.metadata.perm = [['global.fun.animals.dog']];
+
 console.log('[CPSCMD][FUN][animals] Build objects complete!');
 
 module.exports = [
