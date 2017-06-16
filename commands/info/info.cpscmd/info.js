@@ -165,13 +165,13 @@ const ex = {
 
         membername = member.displayName.replace('@','(at)');
         let highest = "years";
-        diff = convertTime(member.joinedAt,times.indexOf(highest));
+        diff = await convertTime(member.joinedAt,times.indexOf(highest));
         diff = `${diff[0]} ${times[diff[1]]}`;
 
         let diff2;
         highest = "years";
         if(member.lastMessage){
-          diff2 = convertTime(member.lastMessage.createdAt,times.indexOf(highest));
+          diff2 = await convertTime(member.lastMessage.createdAt,times.indexOf(highest));
           //send("diff2-1: " + diff2);
           diff2 = `${diff2[0]} ${times[diff2[1]]}`;
           //send("diff2-2: " + diff2);
@@ -179,7 +179,7 @@ const ex = {
 
         let diff3;
         highest = "years";
-        diff3 = convertTime(member.user.createdAt, times.indexOf(highest));
+        diff3 = await convertTime(member.user.createdAt, times.indexOf(highest));
         diff3 = `${diff3[0]} ${times[diff3[1]]}`;
 
         infobad.addField(`User tag: `, `${member.user.tag}`   , true)
@@ -206,13 +206,13 @@ const ex = {
           }
         }
         let highest = "years";
-        diff = convertTime(member.joinedAt,times.indexOf(highest));
+        diff = await convertTime(member.joinedAt,times.indexOf(highest));
         diff = `${diff[0]} ${times[diff[1]]}`;
 
         let diff2;
         highest = "years";
         if(member.lastMessage){
-          diff2 = convertTime(member.lastMessage.createdAt,times.indexOf(highest));
+          diff2 = await convertTime(member.lastMessage.createdAt,times.indexOf(highest));
           //send("diff2-1: " + diff2);
           diff2 = `${diff2[0]} ${times[diff2[1]]}`;
           //send("diff2-2: " + diff2);
@@ -220,7 +220,7 @@ const ex = {
 
         let diff3;
         highest = "years";
-        diff3 = convertTime(member.user.createdAt, times.indexOf(highest));
+        diff3 = await convertTime(member.user.createdAt, times.indexOf(highest));
         diff3 = `${diff3[0]} ${times[diff3[1]]}`;
         infobad.addField(`User tag: `, `${member.user.tag}`   , true)
                .addField(`User id:  `, `${member.id}`         , true)
@@ -267,7 +267,7 @@ const ex = {
         let diff;
         highest = "years";
         if(role){
-          diff = convertTime(role.createdAt,times.indexOf(highest));
+          diff = await convertTime(role.createdAt,times.indexOf(highest));
           //send("diff2-1: " + diff2);
           diff = `${diff[0]} ${times[diff[1]]}`;
           //send("diff2-2: " + diff2);
@@ -352,7 +352,7 @@ const ex = {
         let diff;
         highest = "years";
         if(channel){
-          diff = convertTime(channel.createdAt,times.indexOf(highest));
+          diff = await convertTime(channel.createdAt,times.indexOf(highest));
           //send("diff2-1: " + diff2);
           diff = `${diff[0]} ${times[diff[1]]}`;
           //send("diff2-2: " + diff2);
