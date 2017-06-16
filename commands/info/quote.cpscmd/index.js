@@ -7,7 +7,7 @@ quote.metadata = {
   description: 'Quotes a message from someone else in the current channel.',
   usage: 'quote <message id>',
   example: 'quote 1234567890',
-  perm: ["server.quote"],
+  perm: [["global.info.quote.quote"]],
   customperm: ["SEND_MESSAGES"],
 };
 

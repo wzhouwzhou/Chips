@@ -464,11 +464,15 @@ ex.checkPermission = function(msg, perm){
       });
     }
     let registered = ex.defaultperms.has(perm);
-    if(!registered) console.log('Someone just tried to use a cmd with an unregistered perm '+ perm);
-    console.log(`Now checking default perms.: ${perm}\nIs the perm registered list? : ${registered}`);
+    if(!registered){
+      console.log('Someone just tried to use a cmd with an unregistered perm '+ perm);
+      reject('Sorry, you just tried to use an unregistered command. We Are however doing a small rewrite which might be the cause of this issue. Sorry for the inconvenience');
+    }
+
+    console.log(`Now checking the default perms.: ${perm}\nIs the perm registered list? : ${registered}`);
     let value = registered?ex.defaultperms.get(perm):true;
     console.log("The default for that perm is: " + value);
-    value?resolve("This command is enabled by default"):resolve("This command is enabled by default");//resolve("This command is enabled by default"):reject(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`);
+    (!value)?reject(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`):resolve("This command is enabled by default");//resolve("This command is enabled by default"):reject(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`);
   });
 };
 
