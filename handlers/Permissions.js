@@ -44,11 +44,11 @@ ex.permsList = [
       ['global.fun.text.reverse', true],
       ['global.fun.text.spooky', true],
     ['global.fun.triggers.*', false],
-      ['global.fun.triggers.aboose', false], //6
-      ['global.fun.triggers.confoosed', false],
-      ['global.fun.triggers.exposed', false], //17
-      ['global.fun.triggers.lenny', false],
-      ['global.fun.triggers.rekt', false],
+      ['global.fun.triggers.aboose', true], //6
+      ['global.fun.triggers.confoosed', true],
+      ['global.fun.triggers.exposed', true], //17
+      ['global.fun.triggers.lenny', true],
+      ['global.fun.triggers.rekt', true],
   ['global.info.*', true],
     ['global.info.discordstatus.*', true],
       ['global.info.discordstatus.discordstatus', true],

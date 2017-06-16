@@ -18,7 +18,7 @@ module.exports = {
         let avatar = await Jimp.read(author.avatarURL(2048).replace('.webp','.png'));
         await avatar.resize(pfpW, pfpW);
         await image.blit(avatar,pfpX,pfpY);
-        image.print(font, 5, 20, '  User: ' + author.tag);
+        image.print(font, 5, 20, 'User: ' + author.tag);
         image.print(font, 5, 90, 'Nickname: '+ member.displayName);
         let filepath= `${author.tag}profile${author.id}.${timestamp}.${image.getExtension()}`;
         image.write(filepath,async ()=>{
