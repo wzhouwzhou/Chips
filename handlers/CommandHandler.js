@@ -38,7 +38,7 @@ module.exports = function(Discord, client) {
         if(isNaN(i)) throw 'Invalid number given for index';
         if(i>=context.times.length) throw 'Invalid index given';
         let diff = moment().diff(obj, context.times[i], true).toFixed(2);
-        for(;i<time.length-1;){
+        for(;i<context.times.length-1;){
           if(diff>1) return [diff,i];
           diff = moment().diff(obj, context.times[++i], true).toFixed(2);
         }
