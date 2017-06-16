@@ -510,7 +510,7 @@ ex.checkMulti = async (msg, permArr) => {
   }
   console.log(`[PERMISSIONS][checkMulti] Checking default...  ${checkDefault}`);
   if(checkDefault) throw('Some commands are temporarily disabled for this rewrite. Sorry!');
-  else throw(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`);
+  else throw(`I'm sorry but you do not have permission \`\`${permArr[0]}\`\` to access this.`);
 };
 
 ex.rebuildDefaults = () =>{
