@@ -3,8 +3,6 @@ const rsw = (s) => { let rw = ''; s.split(/\s+/).forEach(word=> rw+=rs(word)+' '
 const cb = '```';
 ex = {
   name:'reverse',
-  perm:['global.fun.text.reverse'],
-  customperm:['SEND_MESSAGES'],
   async func(msg, { reply, prefix, content }) {
     let reversed = '';
     if(~content.toLowerCase().indexOf('--keepwordorder')) {
@@ -14,3 +12,5 @@ ex = {
     return reply(`${cb}${reversed}${cb}`);
   }
 };
+
+module.exports = ex;

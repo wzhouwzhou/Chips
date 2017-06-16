@@ -8,6 +8,7 @@ reverse.metadata = {
   description: ['Reverses an input string'],
   usage: ['reverse <text>'],
   example: ['reverse some text','reverse some text --keepwordorder'],
+  perm: [['global.fun.text.reverse']],
 };
 spooky.category = require('../').category;
 

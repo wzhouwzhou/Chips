@@ -55,11 +55,12 @@ ex.permsList = [
     ['global.info.help.*', true],
       ['global.info.help.help', true],
     ['global.info.info.*', true],
+      ['global.info.info.channel', true],
+      ['global.info.info.role', true],
+      ['global.info.info.server', true],
       ['global.info.info.user.*', true],
         ['global.info.info.user.other', true],
         ['global.info.info.user.self', true],
-      ['global.info.info.server', true],
-      ['global.info.info.channel', true],
     ['global.info.nsfw.*', false], //To be added/renamed
       ['global.info.nsfw.info', false], //To be added/renamed
     ['global.info.ping.*', true],
