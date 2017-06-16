@@ -1,9 +1,12 @@
 
 let nR = require('./nR');
 console.log('[CPSCMD][UTILIY][nR] Building objects...');
-nR.category = require('../').category;
-
-nR.description = 'What a mysterious command.';
+nR.metadata = {
+  category: require('../').category,
+  description: 'What a mysterious command.',
+  usage: 'nR 12345',
+  perm: [['global.utility.nR.nR']],
+};
 
 console.log('[CPSCMD][UTILITY][nR] Build objects complete!');
 module.exports = [
