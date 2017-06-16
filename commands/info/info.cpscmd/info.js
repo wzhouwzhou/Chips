@@ -138,7 +138,7 @@ const ex = {
           member = content.substring(`${prefix}info ${action} `.length);
           let list = searchers[guild.id].searchMember(member);
           if(list.length>1) multiple = true;
-          else if(list.length<1) return await send(`User [${args[1]}] not found!`);
+          else if(list.length<1) return await send(`User [${member}] not found!`);
           member = list[0];
           if(member.id!=author.id){
             try{

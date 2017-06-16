@@ -52,6 +52,13 @@ class Searcher {
         }
         if (match.length < 1) {
             for (const [id, member] of this.members) {
+                if (pattern.test(member.user.tag)) {
+                    match.push(member);
+                }
+            }
+        }
+        if (match.length < 1) {
+            for (const [id, member] of this.members) {
                 if (pattern.test(member.nickname)) {
                     match.push(member);
                 }
