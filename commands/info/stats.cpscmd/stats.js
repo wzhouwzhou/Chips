@@ -3,6 +3,8 @@ module.exports = {
   name: "stats",
   async func(msg, {
     reply,
+    guild,
+    member,
     channel,
     bot,
     Discord,
@@ -37,6 +39,7 @@ module.exports = {
     //Create the embed
     let embed = new Discord.RichEmbed();
     embed.setTitle(`Chip's Stats Report! Current Time: ${currentTime}`);
+    embed.setColor(guild?member.displayColor:1503);
     //embed.setThumbnail(avatar);
     embed.setImage("https://cdn.discordapp.com/attachments/307625096078426123/314201502669471744/Chips.jpg");
     embed.addField(`Chips stats for shard ${bot.shard.id+1}/${clientutil.count}:`, "\u200B");
