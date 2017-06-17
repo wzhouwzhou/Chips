@@ -2,13 +2,14 @@
 let s = require('./s');
 console.log('[CPSCMD][FUN][say] Building objects...');
 
-s.category = require('../').category;
-
-s.description = 'This command lets you say something through Chips!';
-
-s.usage = 's <message>';
-
-s.example = 's I will eat my creators one day!';
+s.metadata = {
+  category: require('../').category,
+  description: 'This command lets you say something through Chips!',
+  usage: 's <message>',
+  example: 's I will eat my creators one day!',
+  perm: [['global.fun.say.say']],
+  customperm: ['ADMINISTRATOR']
+};
 
 console.log('[CPSCMD][FUN][say] Build objects complete!');
 module.exports = [

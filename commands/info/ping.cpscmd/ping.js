@@ -1,6 +1,5 @@
 module.exports = {
   name: "ping",
-  perm:['global.ping'],
   async func(msg, { send, author, member, channel }) {
     channel.startTyping();
     let wsPing = client.ping;
