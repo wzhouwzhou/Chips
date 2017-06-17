@@ -2,8 +2,8 @@
 const EXPIRE = 10000;
 
 module.exports = {
-	name:'hackban',
-	async func(msg, { send, reply, author, args, channel, guild }) {
+  name:'hackban',
+  async func(msg, { send, reply, author, args, channel, guild }) {
     let memberToUse;
     try{
       if(!args[0]) return reply("Please specify a user to ban!");
@@ -19,27 +19,28 @@ module.exports = {
       console.log(err);
       return reply("I like chips.");
     }
-
+    let dm = false;
     let reason;
     if(args[1])
-			if(args[2]&&args[2].toLowerCase() != 'dm')
-      	reason = _.drop(args).join(' ');
-			else
-				reason = _.drop(_.drop(args)).join(' ');
+      if(args[2]&&args[2].toLowerCase() != 'dm'){
+        reason = _.drop(args).join(' ');
+        dm = true;
+      }else
+        reason = _.drop(_.drop(args)).join(' ');
 
-		if(reason == null)
-			reason = "No reason provided.";
-		let user=null, found=false;
-		try{
-			user = await client.fetchUser(memberToUse);
+    if(reason == null)
+      reason = "No reason provided.";
+    let user=null, found=false;
+    try{
+      user = await client.fetchUser(memberToUse);
 
-			if(user){
-				console.log("Hackban target user found: "+ user.id);
-				found = true;
-			}
-		}catch(err){
-			console.error(err);
-		}
+      if(user){
+        console.log("Hackban target user found: "+ user.id);
+        found = true;
+      }
+    }catch(err){
+      console.error(err);
+    }
 
     const embed = new Discord.RichEmbed();
     embed
@@ -74,30 +75,30 @@ module.exports = {
         if(m.author.id!=author.id) return;
         if(agreed){
           console.log("[Ban] Banning...");
-					let emb = new Discord.RichEmbed()
-			      .setAuthor("Ban Notice!")
-			      .setTitle(`You were banned from the server: ${guild.name}!`)
-			      .setColor(9109504)
-			      .setThumbnail(Constants.images.WARNING)
-			      .addField("Ban reason: ", `${reason?reason:"None provided"}`, true);
-	    		client.fetchUser(memberToUse).then(async u=>{
-						try{
-							if(args[2].toLowerCase() == 'dm')
-								await u.send('Uh oh!', {embed: emb});
-							await m.reply("Banning!");
-							guild.ban(memberToUse.toString(), {reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
-						}catch(err){
-							console.log(err);
-							if(args[2].toLowerCase() == 'dm')
-								m.reply("Could not dm the user, but banning anyway!");
-							guild.ban(memberToUse.toString(), {reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
-						}
-					});
+          let emb = new Discord.RichEmbed()
+            .setAuthor("Ban Notice!")
+            .setTitle(`You were banned from the server: ${guild.name}!`)
+            .setColor(9109504)
+            .setThumbnail(Constants.images.WARNING)
+            .addField("Ban reason: ", `${reason?reason:"None provided"}`, true);
+          client.fetchUser(memberToUse).then(async u=>{
+            try{
+              if(dm)
+                await u.send('Uh oh!', {embed: emb});
+              await m.reply("Banning!");
+              guild.ban(memberToUse.toString(), {reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
+            }catch(err){
+              console.log(err);
+              if(dm)
+                m.reply("Could not dm the user, but banning anyway!");
+              guild.ban(memberToUse.toString(), {reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
+            }
+          });
         }else{
           console.log("[Ban] cancelled");
           m.reply("Ok, ban cancelled!");
         }
-			}
+      }
     });
-	}
+  }
 };
