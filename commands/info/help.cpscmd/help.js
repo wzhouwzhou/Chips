@@ -11,10 +11,10 @@ We apologize for any inconveniences at this time, we are doing a permissions rew
 	**{}stats** to show my stats.
 	**{}support** for chips' support server.
 	**{}info** for some information!
-		**{}channel**
-		**{}role**
-		**{}server**
-		**{}user**
+		**channel** to get information on the channel that you request!
+		**role** to get information on the role that you request!
+		**server** to get information on the server!
+		**user** to get information on the user that you request!
 	  ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
 	  ***Moderation Commands***
 	**{}ban** to ban someone.
