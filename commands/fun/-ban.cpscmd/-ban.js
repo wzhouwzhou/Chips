@@ -20,8 +20,6 @@ const neko = [
 
 const ex= {
   name: "-ban",
-	perm: ["global.server.-ban"],
-	customperm: ["BAN_MEMBERS"],
   async func(msg, {send, member, author, content, channel, guild, args, gMember, Discord, reply, bot}) {
     const used = member || author;
 
