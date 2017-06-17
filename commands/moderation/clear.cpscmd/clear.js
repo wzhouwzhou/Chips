@@ -5,6 +5,7 @@ module.exports = {
     if(!used.hasPermission("MANAGE_MESSAGES")){
       switch (used.id) {
         case Constants.users.WILLYZ:
+        case Constants.users.EVILDEATHPRO:
         case Constants.users.PGSUPER:
         case Constants.users.ZALGO:
         case Constants.users.XZLQ:
