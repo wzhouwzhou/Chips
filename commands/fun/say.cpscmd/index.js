@@ -8,7 +8,6 @@ s.metadata = {
   usage: 's <message>',
   example: 's I will eat my creators one day!',
   perm: [['global.fun.say.say']],
-  customperm: ['ADMINISTRATOR']
 };
 
 console.log('[CPSCMD][FUN][say] Build objects complete!');
