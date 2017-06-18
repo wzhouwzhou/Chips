@@ -40,7 +40,7 @@ module.exports = {
         if(entry.definition.length>100) entry.definition = entry.definition.substring(0,100)+' ...';
 
         console.log('[Urban] Now adding to embed. ');
-        embed.addField(`Entry #${i}: ${word.length>40?word.substring(0,40)+' ...':word}`, `Definition: ${entry.definition}
+        embed.addField(`Entry #${i+1}: ${word.length>40?word.substring(0,40)+' ...':word}`, `Definition: ${entry.definition}
 link: [click](${link})`);
       }else embed.addField('No results found',' ');
       console.log('[Urban] Sending results...');
