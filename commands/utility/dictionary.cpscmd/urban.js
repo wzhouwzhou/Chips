@@ -18,11 +18,14 @@ module.exports = {
         let definition = entry.definition;
         let link = entry.permalink;
         let nsfwdetected = false;
-        if(nsfw) for(const word of definition.split(/\s+/)) {
-          nsfwdetected = ~client.swearlist.indexOf(word);
-          if(nsfwdetected){
-            somensfwdetected=true;
-            definition = 'Censored, use this command with the ``--allownsfw`` flag to uncensor';
+        if(nsfw){
+          for(const word of definition.split(/\s+/)) {
+            nsfwdetected = ~client.swearlist.indexOf(word);
+            if(nsfwdetected){
+              somensfwdetected=true;
+              definition = 'Censored, use this command with the ``--allownsfw`` flag to uncensor';
+              break;
+            }
           }
         }else if(definition.length>100) definition = definition.substring(0,100)+' ...';
 
