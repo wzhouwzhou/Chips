@@ -24,12 +24,10 @@ module.exports = {
         let word = entry.word;
         let definition = entry.definition;
         let link = entry.permalink;
-        let nsfwdetected = false;
         if(nsfw){
           console.log('[Urban] Now looping through definition');
           for(const word of definition.split(/\s+/)) {
-            nsfwdetected = ~client.swearlist.indexOf(word);
-            if(nsfwdetected){
+            if(~client.swearlist.indexOf(word)){
               somensfwdetected=true;
               console.log('[Urban] We detected nsfw, the value of somensfwdetected should be true and it is: '+somensfwdetected);
 
