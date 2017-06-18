@@ -22,25 +22,25 @@ module.exports = {
         console.log('[Urban] Looping results... '+i);
         let entry = defs[i];
         let word = entry.word;
-        let definition = entry.definition;
         let link = entry.permalink;
-        if(nsfw){
+        if(!nsfw){
           console.log('[Urban] Now looping through definition');
-          for(const word of definition.split(/\s+/)) {
+          let words = entry.definition.split(/\s+/);
+          for(const word of words) {
             if(~client.swearlist.indexOf(word)){
               somensfwdetected=true;
               console.log('[Urban] We detected nsfw, the value of somensfwdetected should be true and it is: '+somensfwdetected);
 
-              definition = 'Censored, use this command with the ``--allownsfw`` flag to uncensor';
+              entry.definition = 'Censored, use this command with the ``--allownsfw`` flag to uncensor';
               break;
             }
           }
         }
         console.log('[Urban] Checking definition length..');
-        if(definition.length>100) definition = definition.substring(0,100)+' ...';
+        if(entry.definition.length>100) entry.definition = entry.definition.substring(0,100)+' ...';
 
         console.log('[Urban] Now adding to embed. ');
-        embed.addField(`Entry #${i}: ${word.length>40?word.substring(0,40)+' ...':word}`, `Definition: ${definition}
+        embed.addField(`Entry #${i}: ${word.length>40?word.substring(0,40)+' ...':word}`, `Definition: ${entry.definition}
 link: [click](${link})`);
       }else embed.addField('No results found',' ');
       console.log('[Urban] Sending results...');
