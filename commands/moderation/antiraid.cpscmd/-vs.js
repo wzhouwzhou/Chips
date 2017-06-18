@@ -5,6 +5,7 @@ ex = {};
 ex.name = "-vs";
 ex.func = async (msg, {
   send,
+  author,
   guild,
   args,
   gMember,
@@ -36,12 +37,15 @@ ex.func = async (msg, {
           let embed = new Discord.RichEmbed();
           embed.setTitle('Member Verification').setColor(_.random(1,16777215));
           embed.setDescription(`<@${targetMember.id}> was just verified by <@${author.id}>!`);
-          await guild.channels.get(memberjoin.verifyLogC[guild.id]).send('', { embed });
+          guild.channels.get(memberjoin.verifyLogC[guild.id]).send('', { embed }).catch(err=>{
+            reply('Could not log the verification...');
+            console.log(err);
+          });
         }
-        return reply(`User verified successfully!`);
+        return reply('User verified successfully!');
       } catch (err) {
-        console.log("could not remove unverified role");
-        return reply(`User not unverified :< Something went wrong..`);
+        console.log('Could not remove unverified role..probably: '+err);
+        return reply('User not unverified :< Something went wrong..');
       }}
 
     case 'welcome':{
