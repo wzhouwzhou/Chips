@@ -62,7 +62,8 @@ const loadsheet = function(sheet, sbk) {
       else if (sheet.title == 'botlog') {
         let time = moment().format('ddd, Do of MMM @ HH:mm:ss');
         console.log("[DBLOADER][LOG] Shard restart, current time: " + time);
-        r.table('botStartLog').insert( {id: moment(), status: `Shard restart on shard #${client.shard.id+1}! ${time}` }, {conflict: 'replace'}).run(_=>_).then(console.log);
+        const status = `Shard restart on shard #${client.shard.id+1}! ${time}`.toString();
+        r.table('botStartLog').insert( {id: moment(), status }, {conflict: 'replace'}).run(_=>_).then(console.log);
         //sheets[`botlog`].addRow({time: `${time}`, action: "restart+load"},(err) => {if(err)console.log(err);});
       }
       else if (sheet.title == 'filter') {
