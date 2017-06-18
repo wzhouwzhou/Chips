@@ -3,7 +3,7 @@ const urban = require('urban');
 
 module.exports = {
   name:'urban',
-  async func(msg, { reply, guild, member, content, prefix, Discord }) {
+  async func(msg, { reply, guild, member, content, prefix, Discord, client }) {
     let query = content.substring(`${prefix}urban `.length);
     let nsfw = ~content.indexOf('--allownsfw');
 
@@ -18,7 +18,7 @@ module.exports = {
         let link = entry.permalink;
         let nsfwdetected = false;
         if(!nsfw) for(const word of definition.split(/\s+/)) {
-          nsfwdetected = ~require('../').swearlist.indexOf(word);
+          nsfwdetected = ~client.swearlist.indexOf(word);
           if(nsfwdetected) break;
         }
         if(definition.length>100) definition = definition.substring(0,100)+' ...';
