@@ -18,7 +18,7 @@ client.swearlist = [];
 
 needle.get(swears, function(error, response) {
   if (!error && response.statusCode == 200)
-    client.swearlist = JSON.parse(response.body);
+    client.swearlist = response.body;
 });
 
 module.exports = dictionaries;
