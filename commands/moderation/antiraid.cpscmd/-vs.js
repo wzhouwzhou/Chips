@@ -1,9 +1,16 @@
-const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
+//const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
 
 ex = {};
 
 ex.name = "-vs";
-ex.func = async (msg, {send, guild, args, gMember, reply }) =>{
+ex.func = async (msg, {
+  send,
+  guild,
+  args,
+  gMember,
+  reply,
+  Discord,
+}) =>{
   if(!guild) return reply("You must use this in a server!");
   if (!args[0]) return reply("No action given :(");
 
@@ -25,6 +32,12 @@ ex.func = async (msg, {send, guild, args, gMember, reply }) =>{
         return reply(`User does not have the unverified role!`);
       try{
         await targetMember.removeRole(guild.roles.get('305302877641900052')||guild.roles.find('name','unverified'));
+        if(memberjoin.verifyLogC[guild.id]){
+          let embed = new Discord.RichEmbed();
+          embed.setTitle('Member Verification').setColor(_.random(1,16777215));
+          embed.setDescription(`<@${targetMember.id}> was just verified by <@${author.id}>!`);
+          await guild.channels.get(memberjoin.verifyLogC[guild.id]).send('', { embed });
+        }
         return reply(`User verified successfully!`);
       } catch (err) {
         console.log("could not remove unverified role");
@@ -56,16 +69,14 @@ ex.func = async (msg, {send, guild, args, gMember, reply }) =>{
           await guild.setVerificationLevel(4);
           memberjoin.panics[guild.id] = true;
           memberjoin.panicKick[guild.id] = true;
-          return reply(`Panic lockdown activated, verification level is now ${guild.verificationLevel}, and new members who join during this time will get rekt!`);
-        }
+          return reply(`Panic lockdown activated, verification level is now ${guild.verificationLevel}, and new members who join during this time will get rekt!`);}
 
         case 'none':{
           if(memberjoin.panics[guild.id]) return reply('Panic is already enabled!');
           memberjoin.antiraidOldVL[guild.id] = guild.verificationLevel;
           await guild.setVerificationLevel(3);
           memberjoin.panics[guild.id]=true;
-          return reply(`Panic activated, verification level is now ${guild.verificationLevel}`);
-        }
+          return reply(`Panic activated, verification level is now ${guild.verificationLevel}`);}
       }
       return reply ('Something went wrong..');
     }

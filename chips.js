@@ -56,6 +56,9 @@ Make sure you send your answers in this channel (don't DM them)!`,
   lastjoin: { //guild: {userid: Date}
     0: {0: {}},
   },
+  verifyLogC: {
+    '257889450850254848': '260864259330801674'
+  },
 };
 global.memberleave = {
   msgs: {},
