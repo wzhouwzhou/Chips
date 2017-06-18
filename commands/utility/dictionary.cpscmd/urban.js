@@ -6,6 +6,7 @@ module.exports = {
   async func(msg, { reply, guild, member, content, prefix, Discord, client }) {
     let query = content.substring(`${prefix}urban `.length);
     let nsfw = ~content.indexOf('--allownsfw');
+
     let somensfwdetected = false;
     const results = urban(query);
     results._end( (json) => {
@@ -17,14 +18,13 @@ module.exports = {
         let definition = entry.definition;
         let link = entry.permalink;
         let nsfwdetected = false;
-        if(!nsfw) for(const word of definition.split(/\s+/)) {
+        if(nsfw) for(const word of definition.split(/\s+/)) {
           nsfwdetected = ~client.swearlist.indexOf(word);
           if(nsfwdetected){
             somensfwdetected=true;
-            break;
+            definition = 'Censored, use this command with the ``--allownsfw`` flag to uncensor';
           }
-        }
-        if(definition.length>100) definition = definition.substring(0,100)+' ...';
+        }else if(definition.length>100) definition = definition.substring(0,100)+' ...';
 
         embed.addField(`Entry #${i}: ${word.length>40?word.substring(0,40)+' ...':word}`, `Definition: ${definition}
 link: [click](${link})`);
