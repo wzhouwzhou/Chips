@@ -26,8 +26,8 @@ module.exports = {
         }
         if(definition.length>100) definition = definition.substring(0,100)+' ...';
 
-        embed.addField(`Entry #${1}: ${word.length>40?word.substring(0,40)+' ...':word}`, `Definition: ${definition}
-        link: [click](${link})`);
+        embed.addField(`Entry #${i}: ${word.length>40?word.substring(0,40)+' ...':word}`, `Definition: ${definition}
+link: [click](${link})`);
       }
 
       return reply(`Urban dictionary results. ${somensfwdetected?'Some Nsfw content was censored out':''}`, { embed });
