@@ -1,5 +1,5 @@
 const needle = require ('needle');
-const urbandict = require('./urban');
+const urbandict = require('./urbandict');
 
 urbandict.metadata = {
   category: require('../').category,

@@ -6,33 +6,42 @@ module.exports = {
   async func(msg, { reply, guild, member, content, prefix, Discord, client }) {
     let query = content.substring(`${prefix}urban `.length);
     let nsfw = ~content.indexOf('--allownsfw');
+    console.log('[Urban] Allowing nsfw results? '+nsfw);
 
     let somensfwdetected = false;
     const results = urban(query);
     results._end( (json) => {
       let defs = json.list;
+      console.log('[Urban] Creating embed...');
       let embed = new Discord.RichEmbed().setColor(guild?member.displayColor:42069);
       for(let i = 0; i < Math.min(defs.length,10); i++){
+        console.log('[Urban] Looping results... '+i);
         let entry = defs[i];
         let word = entry.word;
         let definition = entry.definition;
         let link = entry.permalink;
         let nsfwdetected = false;
         if(nsfw){
+          console.log('[Urban] Now looping through definition');
           for(const word of definition.split(/\s+/)) {
             nsfwdetected = ~client.swearlist.indexOf(word);
             if(nsfwdetected){
               somensfwdetected=true;
+              console.log('[Urban] We detected nsfw, the value of somensfwdetected should be true and it is: '+somensfwdetected);
+
               definition = 'Censored, use this command with the ``--allownsfw`` flag to uncensor';
               break;
             }
           }
-        }else if(definition.length>100) definition = definition.substring(0,100)+' ...';
+        }
+        console.log('[Urban] Checking definition length..');
+        if(definition.length>100) definition = definition.substring(0,100)+' ...';
 
+        console.log('[Urban] Now adding to embed. ');
         embed.addField(`Entry #${i}: ${word.length>40?word.substring(0,40)+' ...':word}`, `Definition: ${definition}
 link: [click](${link})`);
       }
-
+      console.log('[Urban] Sending results...');
       return reply(`Urban dictionary results. ${somensfwdetected?'Some Nsfw content was censored out':''}`, { embed });
 
     });
