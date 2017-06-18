@@ -1,7 +1,7 @@
-
+const needle = require ('needle');
 const urbandict = require('./urban');
 
-urban.metadata = {
+urbandict.metadata = {
   category: require('../').category,
   description: 'Searches some stuff on urban dict!',
   usage: 'urban <query> <optional flag>',
