@@ -5,7 +5,11 @@ module.exports = {
   name:'urban',
   async func(msg, { reply, guild, member, content, prefix, Discord, client }) {
     let query = content.substring(`${prefix}urban `.length);
-    let nsfw = ~content.indexOf('--allownsfw');
+    let nsfw = false;
+    if(~content.indexOf('--allownsfw')){
+      nsfw = true;
+      query = query.replace('--allownsfw','').split(/\s+/).join(' ');
+    }
     console.log('[Urban] Allowing nsfw results? '+nsfw);
 
     let somensfwdetected = false;
