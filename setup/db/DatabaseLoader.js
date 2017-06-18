@@ -1,11 +1,11 @@
 const perms = require('../../handlers/Permissions');
 const r = require('rethinkdbdash')({
+  servers: [
+    {host: process.env.RETHINKIP, port: process.env.RETHINKPORT}
+  ],
   db: 'Chips',
   user: 'admin',
   password: process.env.RETHINKPSWD,
-  servers: [
-       {host: process.env.RETHINKIP, port: process.env.RETHINKPORT}
-   ],
 });
 
 global.blacklist = {
