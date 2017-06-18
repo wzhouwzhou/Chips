@@ -63,7 +63,7 @@ const loadsheet = function(sheet, sbk) {
         let time = moment().format('ddd, Do of MMM @ HH:mm:ss');
         console.log("[DBLOADER][LOG] Shard restart, current time: " + time);
         const status = `Shard restart on shard #${client.shard.id+1}! ${time}`.toString();
-        r.table('botStartLog').insert( {id: moment(), status }, {conflict: 'replace'}).run(_=>_).then(console.log);
+        r.table('botStartLog').insert( {id: Date.now(), status }, {conflict: 'replace'}).run(_=>_).then(console.log);
         //sheets[`botlog`].addRow({time: `${time}`, action: "restart+load"},(err) => {if(err)console.log(err);});
       }
       else if (sheet.title == 'filter') {
