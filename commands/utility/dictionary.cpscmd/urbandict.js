@@ -18,7 +18,7 @@ module.exports = {
       let defs = json.list;
       console.log('[Urban] Creating embed...');
       let embed = new Discord.RichEmbed().setColor(guild?member.displayColor:42069);
-      for(let i = 0; i < Math.min(defs.length,10); i++){
+      if(defs.length>0) for(let i = 0; i < Math.min(defs.length,10); i++){
         console.log('[Urban] Looping results... '+i);
         let entry = defs[i];
         let word = entry.word;
@@ -44,7 +44,7 @@ module.exports = {
         console.log('[Urban] Now adding to embed. ');
         embed.addField(`Entry #${i}: ${word.length>40?word.substring(0,40)+' ...':word}`, `Definition: ${definition}
 link: [click](${link})`);
-      }
+      }else embed.addField('No results found',' ');
       console.log('[Urban] Sending results...');
       return reply(`Urban dictionary results. ${somensfwdetected?'Some Nsfw content was censored out':''}`, { embed });
 
