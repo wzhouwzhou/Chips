@@ -18,7 +18,7 @@ module.exports = {
       let defs = json.list;
       console.log('[Urban] Creating embed...');
       let embed = new Discord.RichEmbed().setColor(guild?member.displayColor:42069);
-      if(defs.length>0) for(let i = 0; i < Math.min(defs.length,10); i++){
+      if(defs.length>0) for(let i = 0; i < Math.min(defs.length,5); i++){
         console.log('[Urban] Looping results... '+i);
         let entry = defs[i];
         let word = entry.word;
@@ -31,7 +31,7 @@ module.exports = {
               somensfwdetected=true;
               console.log('[Urban] We detected nsfw, the value of somensfwdetected should be true and it is: '+somensfwdetected);
 
-              entry.definition = 'Censored, use this command with the ``--allownsfw`` flag to uncensor';
+              entry.definition = '[Censored]';
               break;
             }
           }
@@ -44,7 +44,7 @@ module.exports = {
 link: [click](${link})`);
       }else embed.addField('No results found',' ');
       console.log('[Urban] Sending results...');
-      return reply(`Urban dictionary results. ${somensfwdetected?'Some Nsfw content was censored out':''}`, { embed });
+      return reply(`Urban dictionary results. ${somensfwdetected?'Some Nsfw content was censored out, add ``--allownsfw`` somewhere in your command to uncensor them.':''}`, { embed });
 
     });
   }
