@@ -20,7 +20,7 @@ module.exports = function() {
             3. Do you promise to read <#297263352252727296>?
             4. What is your favorite diep.io tank?
 (you can answer these with just a sentence or two, no need to write an essay!)`).then(console.log("[SINX] Welcome msg sent")).catch(err=>console.log('welcome msg err:[sinx] '+ err));
-        }, 100);
+        }, 500);
       /*}else if(memberguild.id=="252525368865456130"){
         setTimeout(() => {
           console.log("[SK] adding role...");
@@ -41,7 +41,7 @@ module.exports = function() {
             3. Do you promise to read <#316019707276820483>?
             4. What is your favorite diep.io tank?
             (you can answer these with just a sentence or two, no need to write an essay!)`).then(console.log("[SK2] Welcome msg sent"));
-        }, 700);
+        }, 500);
       }else if(memberguild.id=="315502587111669772"){
         setTimeout(()=>{
           console.log("Changing nick...");
