@@ -91,7 +91,7 @@ const antiraidCaptcha = (guild, mem) => {
 
     Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
       for(const letterInd in captchaText.split('')){
-        image.print(font, 20+Math.floor(5*Math.random())+15*letterInd, 112+Math.floor(64*Math.random()), captchaText[letterInd]);
+        image.print(font, 40+Math.floor(15*Math.random())+15*letterInd, 112+Math.floor(40*Math.random()), captchaText[letterInd]);
       }
       image.blur(2);
 
