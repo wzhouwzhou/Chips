@@ -90,9 +90,8 @@ const antiraidCaptcha = (guild, mem) => {
     let filepath = `${mem.id}.captcha.${timestamp}.${image.getExtension()}`;
 
     Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
-      for(const letterInd in captchaText.split('')){
-        image.print(font, 40+Math.floor(15*Math.random())+15*letterInd, 112+Math.floor(40*Math.random()), captchaText[letterInd]);
-      }
+      for(const letterInd in captchaText.split(''))
+        image.print(font, 10+Math.floor(5*Math.random())+30*letterInd, 112+Math.floor(40*Math.random()), captchaText[letterInd]);
       image.blur(2);
 
       image.write(filepath,async ()=>{
