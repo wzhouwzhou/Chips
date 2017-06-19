@@ -8,7 +8,7 @@ module.exports = function() {
     if(handleAutoKick(memberguild.id, member)){
       handleAutoRole(memberguild.id, member);
 
-      if(client.memberjoin.captcha[guild.id])
+      if(client.memberjoin.captcha[memberguild.id])
         antiraidCaptcha(memberguild, member);
       try {
         if(memberguild.id=="257889450850254848"){
