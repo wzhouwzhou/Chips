@@ -34,6 +34,7 @@ global.memberjoin = {
   msgs: {},
   autorole: {},
   autoname: {},
+  antiraidEnabled: {},
   antiraidWelcome: {
     "257889450850254848": `<@&305302877641900052> Welcome to Sinbadx Knights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!** \n
   1. How did you hear about this server?
@@ -43,6 +44,9 @@ global.memberjoin = {
 Make sure you send your answers in this channel (don't DM them)!`,
 
     "302983444009451541": `Hai hoi! I'm just testing :>`,
+  },
+  captcha: {
+    '257889450850254848': true
   },
   panics: {
     0: false,
@@ -60,6 +64,9 @@ Make sure you send your answers in this channel (don't DM them)!`,
     '257889450850254848': '260864259330801674'
   },
 };
+
+client.memberjoin = memberjoin;
+
 global.memberleave = {
   msgs: {},
 };
