@@ -77,6 +77,11 @@ const handleAutoKick = (gid, mem) => {
   return true;
 };
 
+const handleAutoRole = (gid, mem) => {
+  if(client.memberjoin.autorole[gid]&&mem.guild.roles.get(client.memberjoin.autorole[gid]))
+    mem.addRole(mem.guild.roles.get(client.memberjoin.autorole[gid]));
+};
+
 const antiraidCaptcha = (guild, mem) => {
   let timestamp = process.hrtime();
   let captchaText = Math.random().toString(36).replace(/[^a-z,\d]+/g, '').substring(0, 7);
