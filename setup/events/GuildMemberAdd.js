@@ -9,7 +9,7 @@ module.exports = function() {
       handleAutoRole(memberguild.id, member);
 
       if(client.memberjoin.captcha[memberguild.id])
-        antiraidCaptcha(memberguild, member);
+        antiraidCaptcha(member);
       try {
         if(memberguild.id=="257889450850254848"){
           setTimeout(() =>{
