@@ -46,7 +46,7 @@ Make sure you send your answers in this channel (don't DM them)!`,
     "302983444009451541": `Hai hoi! I'm just testing :>`,
   },
   captcha: {
-    '257889450850254848': true
+    '257889450850254848': false
   },
   panics: {
     0: false,
