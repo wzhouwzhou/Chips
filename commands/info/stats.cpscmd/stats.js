@@ -94,9 +94,9 @@ const getGlobalStats = async () => {
   results = await clientutil.broadcastEval(`client.channels.filter(c => c.type === 'voice').size`);
   results.forEach(s=>voice+=s);
   results = await clientutil.broadcastEval(`Math.ceil(require('os').loadavg()[1] * 1000) / 100`);
-  results.forEach(s=>cpu+=s/clientutil.count);
+  results.forEach(s=>cpu+=s);
   results = await clientutil.broadcastEval(`process.memoryUsage().heapUsed / 1024 / 1024`);
-  results.forEach(s=>mem+=s/clientutil.count);
+  results.forEach(s=>mem+=s);
   results = await clientutil.broadcastEval(`process.memoryUsage().heapTotal / 1024 / 1024`);
   results.forEach(s=>memtotal+=s);
   return [guilds, channels, members, ping, text, voice, Math.round(cpu), Math.round(mem), users, results, memtotal];
