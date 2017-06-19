@@ -91,7 +91,7 @@ const antiraidCaptcha = (guild, mem) => {
 
     Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
       image.print(font, 128-32*Math.floor(captchaText.length/2), 128, captchaText);
-      image.blur(20);
+      image.blur(5);
 
       image.write(filepath,async ()=>{
         let sentmsg = await mem.user.send(`<@${mem.id}>, Hello! You just joined the server \`\`${guild.name}\`\` which has an antiraid enabled.
