@@ -82,41 +82,54 @@ const handleAutoRole = (gid, mem) => {
     mem.addRole(mem.guild.roles.get(client.memberjoin.autorole[gid]));
 };
 
-const antiraidCaptcha = (guild, mem) => {
-  let timestamp = process.hrtime();
-  let captchaText = Math.random().toString(36).replace(/[^a-z,\d]+/g, '').substring(0, 7);
+const antiraidCaptcha = (mem) => {
+  return new Promise( (res, rej) => {
+    let guild = mem.guild;
+    let timestamp = process.hrtime();
+    let captchaText = Math.random().toString(36).replace(/[^a-z,\d]+/g, '').substring(1, 8);
 
-  new Jimp(256, 256, 0x333333FF, function (err, image) {
-    let filepath = `${mem.id}.captcha.${timestamp}.${image.getExtension()}`;
+    new Jimp(256, 256, 0x333333FF, function (err, image) {
+      let filepath = `${mem.id}.captcha.${timestamp}.${image.getExtension()}`;
 
-    Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
-      for(const letterInd in captchaText.split(''))
-        image.print(font, 10+Math.floor(5*Math.random())+30*letterInd, 112+Math.floor(40*Math.random()), captchaText[letterInd]);
-      image.blur(2);
+      Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
+        for(const letterInd in captchaText.split(''))
+          image.print(font, 10+Math.floor(5*Math.random())+30*letterInd, 112+Math.floor(40*Math.random()), captchaText[letterInd]);
+        image.blur(2);
 
-      image.write(filepath,async ()=>{
-        let sentmsg = await mem.user.send(`<@${mem.id}>, Hello! You just joined the server \`\`${guild.name}\`\` which has an antiraid enabled.
-          **To start the verification process, please respond with the letters and numbers you see in this image (not case sensitive):** `,
-          {files: [filepath]});
-        fs.unlinkSync(filepath);
+        image.write(filepath,async ()=>{
+          let sentmsg = await mem.user.send(`<@${mem.id}>, Hello! You just joined the server \`\`${guild.name}\`\` which has an antiraid enabled.
+            **To start the verification process, please respond with the letters and numbers you see in this image (not case sensitive):** `,
+            {files: [filepath]});
+          fs.unlinkSync(filepath);
 
-        let thisDmC = sentmsg.channel;
-        const filter = (m) =>{
-          if(m.content == captchaText) {
-            console.log(m.content);
-            return true;
-          } else { return false;}
-        };
-        thisDmC.awaitMessages(filter, { max: 1, time: 5*60000, errors: ['time'] })
-        .then(collected => {
-          console.log(collected.size);
-          thisDmC.send('Successfully verified with captcha!');
-        }).catch(collected => {
-          if(collected.size==0) {
-            console.log(`After 5 minutes, the user did not respond.`);
-          }else{
-            thisDmC.send('Uh oh, something went wrong with your verification!');
-          }
+          let thisDmC = sentmsg.channel;
+
+          let memIsBlind = 0;
+          const filter = (m) =>{
+            if(m.content == captchaText) {
+              console.log(m.content);
+              return true;
+            } else {
+              memIsBlind++;
+              if(memIsBlind>3)
+                rej(mem);
+            }
+          };
+          thisDmC.awaitMessages(filter, { max: 1, time: 5*60*1000, errors: ['time'] })
+          .then(collected => {
+            console.log(collected.size);
+            thisDmC.send('Successfully verified with captcha!');
+            mem.died = false;
+            res(mem);
+          }).catch(collected => {
+            if(collected.size==0) {
+              console.log(`After 5 minutes, the user did not respond.`);
+              mem.died = true;
+              res(mem);
+            }else{
+              thisDmC.send('Uh oh, something went wrong with your verification!');
+            }
+          });
         });
       });
     });
