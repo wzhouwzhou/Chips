@@ -27,7 +27,7 @@ module.exports = function() {
     //wowbleach trigger
     if(message.content.toLowerCase().indexOf("wowbleach")>-1) message.channel.send(" \ _ \ _ \ <:Bleach:274628490844962826>\n\ <:WOW:290865903384657920>");
 
-    //if (!message.guild){}
+    //if (!message.guild)
       //dmHandle(message);
 
     //console.log(monitorMode);
@@ -49,7 +49,7 @@ module.exports = function() {
     const notify = {
       '306244855493951489': false,
     };
-    if(message.guild.id==Constants.servers.SINX)
+    if(message.guild&&message.guild.id==Constants.servers.SINX)
       if(message.content.includes(keywords[Constants.users.DU])&&notify[Constants.users.DU])
         client.fetchUser(Constants.users.DU).then(user=>{
           user.send(`Someone said the keyword \`\`${keywords[Constants.users.DU]}\`\` in server \`\`Sinbad Knights\`\`!`);
