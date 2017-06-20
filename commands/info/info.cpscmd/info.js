@@ -67,7 +67,6 @@ const ex = {
       else if (vLvl >= 4) vInfo+= "In addition, upon joining, new users without a role must verify themselves with a mobile device before they are able to speak. ";
       let highestRole = guild._sortedRoles.last();
       let gname = guild.name.replace('@','(at)');
-      if (guild.iconURL&&guild.iconURL(2048)) infobad.setImage(guild.iconURL(2048));
       [
         [`Name of this server: ${gname}`, `Guild id: ${guild.id}`],
         ['Server owner:', `${getUser(guild.ownerID).tag} <@${guild.ownerID}>`],
@@ -90,8 +89,9 @@ const ex = {
 
       await reply(`Server info`, {embed: infobad});
       infobad = new Discord.RichEmbed();
-      infobad.setColor(member.displayColor).setAuthor('Server Emojis').setTitle(`Emoji List! # of emotes: ${guild.emojis.size}`);
+      infobad.setColor(member.displayColor).setAuthor('Server Emojis').setTitle(`Emoji List! # of emotes: ${guild.emojis.size}\n\n**Server icon:**`);
       infobad.setDescription(guild.emojis.array().join(' '));
+      if (guild.iconURL&&guild.iconURL(2048)) infobad.setImage(guild.iconURL(2048));
       let hrTime = process.hrtime(start);
       let µs = false;
       let end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
