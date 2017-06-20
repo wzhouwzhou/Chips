@@ -89,8 +89,8 @@ const ex = {
 
       await reply(`Server info`, {embed: infobad});
       infobad = new Discord.RichEmbed();
-      infobad.setColor(member.displayColor).setAuthor('Server Emojis').setTitle(`Emoji List! # of emotes: ${guild.emojis.size}\n\n**Server icon:**`);
-      infobad.setDescription(guild.emojis.array().join(' '));
+      infobad.setColor(member.displayColor).setAuthor('Server Emojis').setTitle(`Emoji List! # of emotes: ${guild.emojis.size}`);
+      infobad.setDescription(`${guild.emojis.array().join(' ')}\n\n**Server icon:**`);
       if (guild.iconURL&&guild.iconURL(2048)) infobad.setImage(guild.iconURL(2048));
       let hrTime = process.hrtime(start);
       let µs = false;
