@@ -11,7 +11,7 @@ reverse.metadata = {
   perm: [['global.fun.text.reverse']],
 };
 
-spooky.metadat = {
+spooky.metadata = {
   category: require('../').category,
   description: 'Prints your text with spooky formatting!',
   usage: 'spooky <text> <optional flag>',
