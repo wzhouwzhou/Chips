@@ -10,7 +10,9 @@ module.exports = function() {
 
       if(client.memberjoin.captcha[memberguild.id])
         antiraidCaptcha(member).then(results => results).catch(async results => {
-          if(results[1] & (results[1] == 'failed captcha' || results[1] == 'timeout'))
+          console.log('Captcha results: ' + results);
+
+          if(results[1] && (results[1] == 'failed captcha' || results[1] == 'timeout'))
             await results[0].kick();
         });
       try {
@@ -117,8 +119,9 @@ const antiraidCaptcha = (mem) => {
           } else {
             memIsBlind++;
             thisDmC.send(`Incorrect! (${3-memIsBlind>0?3-memIsBlind+' tries left, please try again!':'Sorry, you have failed the captcha too many times'})`);
-            if(memIsBlind>=3)
+            if(memIsBlind>=3){
               rej([mem, 'failed captcha']);
+            }
             return false;
           }
         };
