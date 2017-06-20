@@ -1,20 +1,24 @@
 const Jimp = require('jimp');
 
 module.exports = function() {
-  client.on("guildMemberAdd",  (member) => {
+  client.on("guildMemberAdd",  async (member) => {
     let memberguild = member.guild;
     let userid= member.user.id;
 
     if(handleAutoKick(memberguild.id, member)){
       handleAutoRole(memberguild.id, member);
 
-      if(client.memberjoin.captcha[memberguild.id])
-        antiraidCaptcha(member).then(results => results).catch(async results => {
-          console.log('Captcha results: ' + results);
+      if(client.memberjoin.captcha[memberguild.id]){
+        try{
+          let results = await antiraidCaptcha(member);
+          console.log('Captcha success results: ' + results);
+        }catch(fail){
+          console.log('Captcha failure results: ' + fail);
 
-          if(results[1] && (results[1] == 'failed captcha' || results[1] == 'timeout'))
-            await results[0].kick();
-        });
+          if(fail[1] && (fail[1] == 'failed captcha' || fail[1] == 'timeout'))
+            await fail[0].kick();
+        }
+      }
       try {
         if(memberguild.id=="257889450850254848"){
           setTimeout(() =>{
@@ -113,13 +117,14 @@ const antiraidCaptcha = (mem) => {
         const filter = (m) =>{
           if(m.author.id != mem.id) return false;
 
-          if(m.content == captchaText) {
+          if(m.content.toUpperCase() == captchaText) {
             console.log(m.content);
             return true;
           } else {
             memIsBlind++;
             thisDmC.send(`Incorrect! (${3-memIsBlind>0?3-memIsBlind+' tries left, please try again!':'Sorry, you have failed the captcha too many times'})`);
             if(memIsBlind>=3){
+              mem.died = true;
               rej([mem, 'failed captcha']);
             }
             return false;
@@ -132,7 +137,7 @@ const antiraidCaptcha = (mem) => {
           mem.died = false;
           res([mem, 'success']);
         }).catch(collected => {
-          if(collected.size==0) {
+          if(collected.size==0&&mem.died!=true) {
             console.log(`After 5 minutes, the user did not respond.`);
             mem.died = true;
             res([mem, 'timeout']);
