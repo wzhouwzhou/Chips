@@ -9,7 +9,10 @@ module.exports = function() {
       handleAutoRole(memberguild.id, member);
 
       if(client.memberjoin.captcha[memberguild.id])
-        antiraidCaptcha(member);
+        antiraidCaptcha(member).then(results => results).catch(async results => {
+          if(results[1] & (results[1] == 'failed captcha' || results[1] == 'timeout'))
+            await results[0].kick();
+        });
       try {
         if(memberguild.id=="257889450850254848"){
           setTimeout(() =>{
@@ -106,13 +109,17 @@ const antiraidCaptcha = (mem) => {
 
         let memIsBlind = 0;
         const filter = (m) =>{
+          if(m.author.id != mem.id) return false;
+
           if(m.content == captchaText) {
             console.log(m.content);
             return true;
           } else {
             memIsBlind++;
-            if(memIsBlind>3)
-              rej(mem);
+            thisDmC.send(`Incorrect! (${3-memIsBlind>0?3-memIsBlind+' tries left, please try again!':'Sorry, you have failed the captcha too many times'})`);
+            if(memIsBlind>=3)
+              rej([mem, 'failed captcha']);
+            return false;
           }
         };
         thisDmC.awaitMessages(filter, { max: 1, time: 5*60*1000, errors: ['time'] })
@@ -120,12 +127,12 @@ const antiraidCaptcha = (mem) => {
           console.log(collected.size);
           thisDmC.send('Successfully verified with captcha!');
           mem.died = false;
-          res(mem);
+          res([mem, 'success']);
         }).catch(collected => {
           if(collected.size==0) {
             console.log(`After 5 minutes, the user did not respond.`);
             mem.died = true;
-            res(mem);
+            res([mem, 'timeout']);
           }else{
             thisDmC.send('Uh oh, something went wrong with your verification!');
           }
