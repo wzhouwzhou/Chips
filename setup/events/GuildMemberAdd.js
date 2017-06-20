@@ -91,9 +91,9 @@ const antiraidCaptcha = (mem) => {
   return new Promise( (res, rej) => {
     let guild = mem.guild;
     let timestamp = process.hrtime();
-    let captchaText = Math.random().toString(36).replace(/[^a-z,\d]+/g, '').substring(1, 8);
+    let captchaText = Math.random().toString(36).replace(/[^a-z,\d]+/g, '').substring(1, 8).toUpperCase();
 
-    let image = new Jimp(256, 256, 0x333333FF);
+    let image = new Jimp(256, 256);
     let filepath = `${mem.id}.captcha.${timestamp}.${image.getExtension()}`;
 
     Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
