@@ -121,7 +121,7 @@ const loadsheet = function(sheet, sbk) {
       if (sheet.title == 'rawpts') {
         rows.forEach(row => {
           console.log('[DBLOADER][SBKLOADER][Points Loader] Found: ' + row['uid']);
-          ex.sinxUsers.set(r.uid,r);
+          ex.sinxUsers.set(row['uid'],row);
         });
       }
 
