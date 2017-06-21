@@ -51,7 +51,7 @@ module.exports = function(Discord, client) {
       const cmd = client.commands[cmdn];
       if (new RegExp(`^${_.escapeRegExp(cmdn)}$`).test(noprefix.split(/\s+/)[0])){
         const meta = cmd.metadata;
-        if(meta==null) return msg.reply('This command has not been rewritten yet! Greatest apologies...');
+        if(meta==null) return msg.reply('This command has an error with its metadata! Please report this to my developers!');
         if(meta.perm!=null&&meta.perm[0]!=null){
           console.log(meta.perm[0]);
           permissions.checkMulti(msg, meta.perm[0]).then((info) =>{

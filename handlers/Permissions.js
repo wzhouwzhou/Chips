@@ -470,7 +470,7 @@ ex.checkPermission = function(msg, perm){
     let registered = ex.defaultperms.has(perm);
     if(!registered){
       console.log('Someone just tried to use a cmd with an unregistered perm '+ perm);
-      reject('Sorry, you just tried to use an unregistered command. We Are however doing a small rewrite which might be the cause of this issue. Sorry for the inconvenience');
+      reject('Sorry, you just tried to use an unregistered command. Please report this to my developers.');
     }
 
     console.log(`Now checking the default perms.: ${perm}\nIs the perm registered list? : ${registered}`);
@@ -511,7 +511,7 @@ ex.checkMulti = async (msg, permArr) => {
     else return ('Positive perm override for '+permEl);
   }
   console.log(`[PERMISSIONS][checkMulti] Checking default...  ${checkDefault}`);
-  if(checkDefault) throw('Some commands are temporarily disabled for this rewrite. Sorry!');
+  if(checkDefault) return(`${permArr[0]} is enabled by default`);
   else throw(`I'm sorry but you do not have permission \`\`${permArr[0]}\`\` to access this.`);
 };
 
