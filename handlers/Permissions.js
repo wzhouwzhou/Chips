@@ -43,6 +43,7 @@ ex.permsList = [
     ['global.fun.text.*', true],
       ['global.fun.text.reverse', true],
       ['global.fun.text.spooky', true],
+      ['global.fun.text.rotate', true],
     ['global.fun.triggers.*', false],
       ['global.fun.triggers.aboose', true], //6
       ['global.fun.triggers.confoosed', true],
