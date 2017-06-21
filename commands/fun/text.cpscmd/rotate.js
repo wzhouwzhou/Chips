@@ -2,14 +2,18 @@
 const backslash = input => {
   let pushed = input+'\n';
   let split = input.split('');
-  do{
+  while(true){
     split.unshift(split.pop());
     let next = split.join('');
-    while(next[0]!=' ')
-      next = next.substring(1);
+    while(true){
+      if(next[0]==' ')
+        next = next.substring(1);
+      else break;
+    }
     pushed += next+'\n';
-  }while(input.replace(/\s+/,'')!=next.replace(/\s+/,''));
-  return pushed;
+    if(input.replace(/\s+/,'')==next.replace(/\s+/,''))
+      break;
+  } return pushed;
 };
 
 const cb = '```';
