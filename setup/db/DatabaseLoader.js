@@ -7,6 +7,9 @@ const r = require('rethinkdbdash')({
   user: 'admin',
   password: process.env.RETHINKPSWD,
 });
+r.table('botStartLog').run().then( starts => {
+  console.log('[DBLOADER] Latest start: '+ starts[0]);
+});
 
 global.blacklist = {
   252525368865456130: [
@@ -20,7 +23,6 @@ global.blacklist = {
 let sinxUsers = new Map();
 
 const GoogleSpreadsheet = require('google-spreadsheet');
-//const rethink = require('rethinkdb');
 
 const doc = new GoogleSpreadsheet(process.env.SPREADSHEET_ID);
 const sbkDoc = new GoogleSpreadsheet(`18HlGT-Ys2Z5mFTD18QZeFgnVQunf1LqT5VxnddDnbuw`);
