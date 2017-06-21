@@ -5,11 +5,6 @@ const backslash = input => {
   while(true){
     split.unshift(split.pop());
     let next = split.join('');
-    while(true){
-      if(next[0]==' ')
-        next = next.substring(1);
-      else break;
-    }
     pushed += next+'\n';
     if(input.replace(/\s+/,'')==next.replace(/\s+/,''))
       break;
