@@ -1,6 +1,5 @@
 module.exports = {
   name: "nsfw",
-  perm: ["server.nsfw"],
   async func(msg, { send, prefix, channel }) {
     if(channel.nsfw)
       return send(`**NSFW commands:**

@@ -29,7 +29,6 @@ module.exports = {
         i=0;
       }
     });
-    channel.send(' ',{ embed });
-    channel.send(`${--num} roles`);
+    await send(`${--num} roles`,{ embed });
   }
 };

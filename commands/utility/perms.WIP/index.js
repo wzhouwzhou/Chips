@@ -1,9 +1,11 @@
 
 let perm = require('./perm');
 console.log('[CPSCMD][UTILITY][perm] Building objects...');
-perm.category = require('../').category;
 
-perm.description = 'This command does everything related to permissions! (incomplete)';
+perm.metadata = {
+  category: require('../').category,
+  description: 'This command does everything related to permissions! (incomplete)',
+};
 
 console.log('[CPSCMD][UTILITY][perm] Build objects complete!');
 module.exports = [

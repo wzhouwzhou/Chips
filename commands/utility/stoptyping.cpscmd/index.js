@@ -2,13 +2,15 @@
 let stoptyping = require('./stoptyping');
 
 console.log('[CPSCMD][UTILITY][stoptyping] Building objects...');
-stoptyping.category = require('../').category;
 
-stoptyping.description = 'This command stops the bot from typing if it is stuck!';
-
-stoptyping.usage = 'stoptyping';
-
-stoptyping.example = 'stoptyping';
+stoptyping.metadata = {
+  category: require('../').category,
+  description: 'This command stops the bot from typing if it is stuck!',
+  usage: 'stoptyping',
+  example: 'stoptyping',
+  perm: [['global.utility.stoptyping.stoptyping']],
+  customperm: ['ADMINISTRATOR'],
+};
 
 console.log('[CPSCMD][UTILITY][stoptyping] Build objects complete!');
 module.exports = [

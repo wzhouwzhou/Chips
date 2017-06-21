@@ -2,13 +2,15 @@
 let happy = require('./happy');
 
 console.log('[CPSCMD][FUN][happy] Building objects...');
-happy.category = require('../').category;
 
-happy.description = 'Be happy!';
-
-happy.usage = 'happy';
-
-happy.example = 'happy';
+happy.metadata = {
+  category: require('../').category,
+  description: 'Be happy!',
+  usage: 'happy',
+  example: 'happy',
+  perm: [['global.fun.happy.happy']],
+  customperm: ['SEND_MESSAGES'],
+};
 
 console.log('[CPSCMD][FUN][happy] Build objects complete!');
 module.exports = [

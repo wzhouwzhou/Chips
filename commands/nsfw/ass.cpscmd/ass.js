@@ -13,11 +13,11 @@ getAss = (callback) => {
 
 module.exports = {
   name: "ass",
-  perm: ["server.nsfw"],
   async func(msg, { member, send, channel }) {
      let emb = new Discord.RichEmbed().setColor(member.displayColor);
     if(channel.nsfw)
       return getAss((a,b)=>{
+        if(a) return send('Something went wrong...');
         b='http://media.obutts.ru/'+b;
         emb.setImage(b);
         send(' ', {embed: emb});

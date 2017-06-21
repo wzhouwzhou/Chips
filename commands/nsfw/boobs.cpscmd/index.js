@@ -2,13 +2,14 @@
 let boobs = require('./boobs');
 
 console.log('[CPSCMD][NSFW][boobs] Building objects...');
-boobs.category = require('../').category;
 
-boobs.description = 'The name of this command is self explanatory.';
-
-boobs.usage = 'boobs';
-
-boobs.example = 'boobs';
+boobs.metadata = {
+  category: require('../').category,
+  description: 'The name of this command is self explanatory.',
+  usage: 'boobs',
+  example: 'boobs',
+  perm: [['global.nsfw.boobs.boobs']],
+};
 
 console.log('[CPSCMD][NSFW][boobs] Build objects complete!');
 module.exports = [

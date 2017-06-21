@@ -9,10 +9,6 @@ urbandict.metadata = {
   perm: [['global.utility.dictionary.urban']],
 };
 
-const dictionaries = [
-  [urbandict.name, urbandict],
-];
-
 const swears = 'https://raw.githubusercontent.com/ChaseFlorell/jQuery.ProfanityFilter/master/swearWords.json';
 client.swearlist = [];
 
@@ -21,4 +17,6 @@ needle.get(swears, function(error, response) {
     client.swearlist = response.body;
 });
 
-module.exports = dictionaries;
+module.exports = [
+  [urbandict.name, urbandict],
+];

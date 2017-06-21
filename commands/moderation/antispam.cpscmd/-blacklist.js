@@ -1,7 +1,7 @@
 
 module.exports = {
   name: "-blacklist",
-  async func(msg, {send, member, author, content, guild, args, reply}) {
+  async func(msg, {send, member, author, guild, args, reply}) {
     const used = member || author;
 
     if(!used.hasPermission("ADMINISTRATOR")){
@@ -27,7 +27,7 @@ module.exports = {
     console.log("[Blacklist] Action: "+action);
     if((blacklist[guild.id]==null||onFilter[guild.id]==null)||autoOverride[guild.id]==null){
       console.log("[Filter] Creating new blacklist for guild " + guild.id);
-      blacklist[guild.id]=['ok'];
+      blacklist[guild.id]=['spam'];
       onFilter[guild.id]=true;
       autoOverride[guild.id]=false;
     }

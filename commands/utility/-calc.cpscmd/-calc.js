@@ -2,7 +2,6 @@ const algebra = require('../../../handlers/algebra-0.2.6.min');
 const EXPIRE = 10000;
 module.exports = {
   name: "-calc",
-  perm: ["global.calc"],
   async func(msg, { member, author, content, channel, args, Discord, reply}) {
 
     if((content.match(/=/g)||[]).length > 1) return reply("Invalid equation entered");
@@ -27,7 +26,7 @@ module.exports = {
       if(query=="") return reply("Please enter a valid equation or expression!");
       emb = new Discord.RichEmbed().setTimestamp(new Date());
       emb.setAuthor(`New Expression Calculation`).setColor(member.displayColor);
-      emb.addField("Result: ", query?`${query.toString()}`:`Calculation could not be completed`);
+      emb.addField("Result: ", query?`${query.toString()+'\n'+'≈'+eval(query.toString())}`:`Calculation could not be completed`);
       emb.setTimestamp(new Date());
       emb.setFooter(`--Expression Calculation Attempt took ${(end)}.--`);
       return reply("Results:", {embed: emb});
@@ -55,9 +54,9 @@ module.exports = {
   			}
   			µs ? end += 'µs' : end += 'ms';
 
-        ans = (!ans)?"I am not able to do this calculation!":ans;
+        ans = (!ans)?"I am not able to do this calculation!":ans.toString()+'\n≈'+eval(ans.toString());
         console.log("Result: " + ans.toString());
-        emb.addField(query.toString(),"x=" + ans.toString());
+        emb.addField(query.toString(),"=" + ans);
         emb.setFooter(`--Expression Calculation Attempt took ${(end)}.--`);
         return reply("Result:", {embed: emb});
       }

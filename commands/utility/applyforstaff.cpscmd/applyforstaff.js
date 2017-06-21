@@ -13,7 +13,6 @@ temp = {};
 
 ex = {
 	name:'applyforstaff',
-  perm:['global.server.chips.apply'],
 	customperm:['ADMINISTRATOR'],
 	async func(msg, { reply, author, guild, channel, member, prefix }) {
 		const START = `Excellent! The information you provide in your application will be confidential. Please head over to <#${Constants.channels.SUPPORT_STAFFAPPLICATION}> and type \`\`${prefix}applyforstaff\`\` to begin!`;

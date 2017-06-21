@@ -6,8 +6,7 @@ module.exports = {
     if(true) return;
     if(args[0]==null){
      return reply("Please specify an action");
-    }else
-    if(args[0]=="add"){
+    }else if(args[0]=="add"){
       permissions.checkPermission(msg, "global.server.permissions").then(info => {
 
       }).catch(err=>{
@@ -49,8 +48,7 @@ module.exports = {
       }else{
         return reply(`Errored.`);
       }
-    }else
-    if(args[0]=="set"){
+    }else if(args[0]=="set"){
       if(args[2]==null)return reply(`Please specify the amount of points to add: \`\`-points add @/mention/ 123\`\``);
       let pts = parseInt(args[2]);
       if (pts.toString() != args[2]) return reply(`Please enter a valid number of points.`);

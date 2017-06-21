@@ -1,6 +1,5 @@
 module.exports = {
   name: "role",
-  perm: ["global.server.role"],
   customperm: ["MANAGE_ROLES"],
   async func(msg, { reply, member, author, content, guild, args, gMember, Discord }) {
     if(!guild) return reply(`This action may only be used in a server!`);
@@ -10,7 +9,7 @@ module.exports = {
     if(args[0].toLowerCase()=="add"){
       let targetuser = args[0].match(Constants.patterns.MENTION)?args[0].match(Constants.patterns.MENTION)[1]:null;
     }else if(args[0].toLowerCase()=="remove"){
-      
+
     }
 
     // console.log("Target: "+target);
