@@ -8,7 +8,7 @@ global.r = require('rethinkdbdash')({
   password: process.env.RETHINKPSWD,
 });
 r.table('botStartLog').run().then( starts => {
-  console.log('[DBLOADER][DB] Latest start: '+ starts[0][status]);
+  console.log('[DBLOADER][DB] Latest start: '+ starts[0]['status']);
 });
 
 global.blacklist = {
