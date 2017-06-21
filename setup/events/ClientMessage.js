@@ -27,7 +27,7 @@ module.exports = function() {
     //wowbleach trigger
     if(message.content.toLowerCase().indexOf("wowbleach")>-1) message.channel.send(" \ _ \ _ \ <:Bleach:274628490844962826>\n\ <:WOW:290865903384657920>");
 
-    //if (!message.guild){}
+    //if (!message.guild)
       //dmHandle(message);
 
     //console.log(monitorMode);
@@ -36,9 +36,28 @@ module.exports = function() {
 
     if (message.content.toLowerCase().startsWith(message.guild&&customprefix[message.guild.id]?customprefix[message.guild.id].toLowerCase():prefix.toLowerCase())){
       console.log("[CLIENTMESSAGE] Command attempt detected");
+      if(message.guild&&message.member.displayName.replace(/\s+/,'').toLowerCase().indexOf('dwagon')>-1)
+        if(message.guild.id==Constants.servers.SINX)
+          return message.reply('You are a dwagon, therefor you may not use my commands!');
       CommandHandler(message, message.guild&&customprefix[message.guild.id]?customprefix[message.guild.id]:prefix);
     }
 
+    //======================================KEYWORD TRIGGER=========================================
+    const keywords = {
+      '306244855493951489': 'ban',
+    };
+    const notify = {
+      '306244855493951489': false,
+    };
+    if(message.guild&&message.guild.id==Constants.servers.SINX)
+      if(message.content.includes(keywords[Constants.users.DU])&&notify[Constants.users.DU])
+        client.fetchUser(Constants.users.DU).then(user=>{
+          user.send(`Someone said the keyword \`\`${keywords[Constants.users.DU]}\`\` in server \`\`Sinbad Knights\`\`!`);
+        }).catch(err=>{
+          console.log('[KEYWORD NOTIFY]'+err);
+        });
+
+    //======================================KEYWORD TRIGGER=========================================
     try{
       if(message.guild&&message.guild.id==Constants.servers.SNAP){
         send2(message, snLogs);

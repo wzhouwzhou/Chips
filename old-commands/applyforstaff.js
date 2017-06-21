@@ -17,6 +17,10 @@ ex = {
 	customperm:['ADMINISTRATOR'],
 	async func(msg, { reply, author, guild, channel, member, prefix }) {
 		const START = `Excellent! The information you provide in your application will be confidential. Please head over to <#${Constants.channels.SUPPORT_STAFFAPPLICATION}> and type \`\`${prefix}applyforstaff\`\` to begin!`;
+		temp.submitter = author.tag;
+		temp.submitterid = author.id;
+		temp.submitterImg = author.displayAvatarURL;
+		temp.timestamp = new Date().toUTCString();
 
 		if(guild.id!=Constants.servers.SUPPORT) return;
 		if(channel.id!=Constants.channels.SUPPORT_STAFFAPPLICATION){
@@ -118,10 +122,6 @@ ex = {
 		    return reply(details, {embed: embed});
 			}
 		}else{
-			temp.submitter = author.tag;
-			temp.submitterid = author.id;
-			temp.submitterImg = author.displayAvatarURL;
-			temp.timestamp = new Date().toUTCString();
 			let embed = new Discord.RichEmbed();
 	    embed
 	      .setTitle(`${author.tag}`, author.displayAvatarURL)

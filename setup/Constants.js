@@ -17,7 +17,9 @@ ex.users = {
   ARX: "237270037528969218",
   GOTEM: "220951507070222337",
   EVILDEATHPRO: "250815960250974209",
+  EDP: "250815960250974209",
   ASUNA: "277670245034885120",
+  DU: "306244855493951489",
 };
 
 ex.avatars = {
@@ -40,6 +42,7 @@ ex.channels = {
   COMBINED: "302995818397564937",
   SUPPORT_STAFFAPPLICATION: "318569668451237888",
   SUPPORT_STAFFAPPLICATIONLOGS: "319248463940550656",
+  SBKCHIPSLOGS: "320752455178780672",
 };
 
 ex.servers = {
@@ -57,6 +60,7 @@ ex.roles = {
 
 ex.patterns = {
   MENTION: /^[^]*<@!?(\d+)>[^]*$/,
+  CHANNEL: /^[^]*<#(\d+)>[^]*$/,
 };
 
 ex.express = {
@@ -69,6 +73,32 @@ ex.emojis = {
   EXCLAMATION: "❗️",
   CHECK: "✅",
   X: "❌",
+  STAR: "⭐",
 };
+
+ex.profileSettings = {
+  pfpW: 640,
+  pfpY: 203,
+  pfpX: 0,
+};
+
+ex.BOTINVITE = "https://discordapp.com/oauth2/authorize?client_id=296855425255473154&scope=bot&permissions=2146958591";
+
+ex.SUPPORTINVITE = "https://discord.gg/jj5FzF7";
+
+ex.WEBSITE = "http://www.chipsbot.tk:8080/";
+
+ex.DJS = `Useful links for learning JavaScript and Node:
+codecademy online course:| https://www.codecademy.com/learn/javascript
+Eloquent Javascript, free book:| http://eloquentjavascript.net/
+Some Node:|
+http://nodeschool.io/
+https://www.codeschool.com/courses/real-time-web-with-node-js
+discord.js getting started guides:|
+https://yorkaargh.gitbooks.io/discord-js-bot-guide/content/
+https://www.youtube.com/channel/UCvQubaJPD0D-PSokbd5DAiw/videos
+https://www.youtube.com/channel/UCLun-hgcYUgNvCCj4sIa-jA/videos
+Javascript reference/docs:| https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
+discord.js documentation:| https://discord.js.org/#!/docs/`;
 
 module.exports = ex;

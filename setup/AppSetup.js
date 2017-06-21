@@ -9,7 +9,6 @@ const app = express();
 const Strategy = require('./lib').Strategy;
 const session = require('express-session');
 const flash=require("connect-flash");
-const ExpressBrute = require('express-brute');
 const sinbad = require(path.join(__dirname, '../routes/sinbad'));
 const login = require(path.join(__dirname, '../routes/login'));
 const updates = require(path.join(__dirname, '../routes/updates'));
@@ -17,7 +16,7 @@ const useroverview = require(path.join(__dirname, '../routes/updates'));
 const index = require(path.join(__dirname, '../routes/index'));
 const morgan = require('morgan');
 const morgan2 = require('morgan');
-const rfs = require('rotating-file-stream')
+const rfs = require('rotating-file-stream');
 // const chips ;
 module.exports = function() {
   let botScopes = ['identify', 'guilds'];
@@ -38,7 +37,18 @@ module.exports = function() {
   app.use(flash());
   app.use(morgan('combined'));
   app.use(morgan2('combined', {stream: accessLogStream}));
-
+  app.use((req, res, next) =>{
+    let ip_address = (req.connection.remoteAddress ? req.connection.remoteAddress : req.remoteAddress);
+		if (typeof req.headers['cf-connecting-ip'] === 'undefined')
+		{
+			console.log('[EJS][IP]: '+ ip_address);
+		}
+		else
+		{
+			console.log('[EJS][IP] (behind cloudflare): '+ req.headers['cf-connecting-ip']);
+		}
+    next();
+  });
   passport.serializeUser(function(user, done) {
     done(null, user);
   });
@@ -79,14 +89,14 @@ module.exports = function() {
   app.use(passport.session());
   app.get('/sinbad/login', passport.authenticate('discord', { scope: botScopes }), function(req, res) {});
   app.get('/sinbad/user',
-      passport.authenticate('discord', { failureRedirect: '/sinbad' }), function(req, res) {
-        //if (req.query.hasOwnProperty('guild_id'))
-          res.redirect('/updates');
-      } // auth success
+    passport.authenticate('discord', { failureRedirect: '/sinbad' }), function(req, res) {
+      //if (req.query.hasOwnProperty('guild_id'))
+      res.redirect('/updates');
+    } // auth success
   );
   app.get('/sinbad/logout', function(req, res) {
-      req.logout();
-      res.redirect('/sinbad');
+    req.logout();
+    res.redirect('/sinbad');
   });
   // routes
   const secure = require(path.join(__dirname, '../Security'));
@@ -95,21 +105,21 @@ module.exports = function() {
 
   app.use('/', index, userBruteforce.prevent);
   app.post('/', globalBruteforce.prevent, userBruteforce.getMiddleware({
-      key: function(req, res, next) {
-          next();
-      }
+    key: function(req, res, next) {
+      next();
+    }
     }),function (req, res, next) {
-        res.flash('Load Success!');
+      res.flash('Load Success!');
     }
   );
 
   app.use('/sinbad', sinbad, userBruteforce.prevent);
   app.post('/sinbad', globalBruteforce.prevent, userBruteforce.getMiddleware({
-      key: function(req, res, next) {
-          next();
-      }
+    key: function(req, res, next) {
+      next();
+    }
     }),function (req, res, next) {
-        res.flash('Load Success!');
+      res.flash('Load Success!');
     }
   );
 

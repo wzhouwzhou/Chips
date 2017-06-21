@@ -32,7 +32,6 @@ ex = {
         case Constants.users.NELYN:
         case Constants.users.LOAF:
         case Constants.users.ARX:
-        case "302252773427249163":
           break;
         default:
           return;

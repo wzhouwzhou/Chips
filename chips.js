@@ -16,8 +16,8 @@ global.Discord = require("discord.js");
 global.client = new Discord.Client({
   fetchAllMembers:true,
   messageCacheMaxSize:-1,
-  messageCacheLifetime:(60*60*2),
-  messageSweepInterval:(60*60*24),
+  messageCacheLifetime:(60*60*1),
+  messageSweepInterval:(60*60*3)
 });
 global.clientutil = new Discord.ShardClientUtil(client);
 setShards.id=client.shard.id;
@@ -30,7 +30,53 @@ client.commands = {};
 global.prefix = "-";
 if(process.env.BETA=="true")prefix="!!";
 global.customprefix = {};
-/** End Constants **/
+global.memberjoin = {
+  msgs: {},
+  autorole: {},
+  autoname: {},
+  antiraidEnabled: {},
+  antiraidWelcome: {
+    "257889450850254848": `<@&305302877641900052> Welcome to Sinbadx Knights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!** \n
+  1. How did you hear about this server?
+  2. Why did you join this server?
+  3. Do you promise to read <#297263352252727296>?
+  4. What is your favorite diep.io tank?
+Make sure you send your answers in this channel (don't DM them)!`,
+
+    "302983444009451541": `Hai hoi! I'm just testing :>`,
+  },
+  captcha: {
+    '302983444009451541': true,
+    '257889450850254848': false,
+  },
+  panics: {
+    0: false,
+  },
+  panicKick: {
+    0: false,
+  },
+  antiraidOldVL:{ //guild: verif lvl
+    0: 0,
+  },
+  lastjoin: { //guild: {userid: Date}
+    0: {0: {}},
+  },
+  verifyLogC: {
+    '257889450850254848': '260864259330801674'
+  },
+};
+
+client.memberjoin = memberjoin;
+
+global.memberleave = {
+  msgs: {},
+};
+
+global.disableSelfStar = {
+  "257889450850254848": true,
+  "302600674846310401": true,
+};
+
 global.database = require(path.join(__dirname, './setup/db/DatabaseLoader'));
 /** Other Global Constants **/
 global.moment = require('moment');
@@ -112,6 +158,17 @@ global.send2 = (message, c) => {
 function selfping() {
   request("https://chipsbot.herokuapp.com/", _=>_);
   require('./handlers/DiepAddons').getServers();
+  let memtotals = 0.00;
+  clientutil.broadcastEval(`
+    let memusage = parseFloat((process.memoryUsage().heapUsed / 1024 / 1024));
+    memusage;
+  `).then(results=>{
+    results.forEach(shardStat=>{
+      memtotals+=shardStat;
+    });
+    if(memtotals>700)
+      clientutil.broadcastEval('process.exit(100)');
+  });
 }
 
 function msgStatus() {

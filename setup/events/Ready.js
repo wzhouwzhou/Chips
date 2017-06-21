@@ -91,76 +91,43 @@ module.exports = function( send ) {
   hclient.on("debug", console.log);
   h2client.on("debug", console.log);
   h3client.on("debug", console.log);
-  //replace me with https://github.com/thlorenz/readdirp/blob/master/README.md
-  //const glob = require( 'glob' );
-  //glob( path.join(__dirname, '../../commands/**/*.js'), function( err, files ) {
-  //  files.forEach(f=>{
-  //    console.log("New command loaded!: " + f);
-  //    const precmd = require(path.join(__dirname, '../../commands', f));
-  //    client.commands[precmd.name] = new Command(precmd);
-  //  });
-  //  console.log( files );
-  //});
-
-  fs.readdirSync(path.join(__dirname, '../../commands')).map(f => {
-    if (/\.js/.test(f)) {
-      console.log("New command loaded!: " + f);
-      const precmd = require(path.join(__dirname, '../../commands', f));
-      client.commands[precmd.name] = new Command(precmd);
-    }
-  });
-
-  client.on("guildMemberAdd",  (member) => {
-    try {
-      let memberguild = member.guild;
-      let userid= member.user.id;
-      if(memberguild.id=="257889450850254848"){
-        setTimeout(_ =>{
-          console.log("[SINX] adding role...");
-          member.addRole(memberguild.roles.get("305302877641900052")||memberguild.roles.find('name',"unverified"));
-          /*console.log("[SINX] sending welcome msg...");
-          let welcomeC=client.channels.get("307342989783728131")||memberguild.channels.find('name','unverified');
-          welcomeC.send(`<@${userid}>, Welcome to Sinbadx Knights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!**
-            1. How did you hear about this server?
-            2. Why did you join this server?
-            3. Do you promise to read <#308361914923089940>?
-            4. What is your favorite diep.io tank?
-            (you can answer these with just a sentence or two, no need to write an essay!)`).then(console.log("[SINX] Welcome msg sent"));*/
-        }, 1500);
-      }else if(memberguild.id=="252525368865456130"){
-        setTimeout(_ => {
-          console.log("[SK] adding role...");
-          member.addRole(memberguild.roles.get("303587467741757440")||memberguild.roles.find('name',"lollipop-unverified"));
-          console.log("[SK] sending welcome msg...");
-          let welcomeC=memberguild.channels.get("308772937731670016")||memberguild.channels.find('name','unverified');
-          welcomeC.send(`<@${userid}>, Welcome! Please read <#307895557815402496> and become acquainted with the rules here, then contact a staff member to be able to speak in other channels!`);
-        }, 1000);
-      }else if(memberguild.id=="315891125825044482"){
-        setTimeout(_ =>{
-          console.log("[SK2] adding role...");
-          member.addRole(memberguild.roles.get("316017088160595970")||memberguild.roles.find('name',"unverified"));
-          console.log("[SK2] sending welcome msg...");
-          let welcomeC=client.channels.get("307342989783728131")||memberguild.channels.find('name','unverified');
-          welcomeC.send(`<@${userid}>, Welcome to Sunk Nights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!**
-            1. How did you hear about this server?
-            2. Why did you join this server?
-            3. Do you promise to read <#316019707276820483>?
-            4. What is your favorite diep.io tank?
-            (you can answer these with just a sentence or two, no need to write an essay!)`).then(console.log("[SK2] Welcome msg sent"));
-        }, 1500);
-      }else if(memberguild.id=="315502587111669772"){
-        setTimeout(_=>{
-          console.log("Changing nick...");
-          member.setNickname(`(♤)${member.user.username}`.substring(0,Math.min(member.user.username+`(♤)`.length,32)));
-        });
+  let numCmds = 0;
+  const load = (startPath) =>{
+    let subset = [];
+    if (!fs.existsSync(startPath))
+      return;
+    let files=fs.readdirSync(startPath);
+    files.forEach(f=>{
+      let filename=path.join(startPath,f);
+      let stat = fs.lstatSync(filename);
+      console.log('[COMMAND LOADER] File or folder found: '+filename);
+      if (stat.isDirectory()&&(!(/\.cpscmd/.test(filename))))
+        subset = subset.concat(load(filename));
+      else if (stat.isDirectory()&&/\.cpscmd/.test(filename)){
+        try{
+          console.log('[COMMAND LOADER] Loading cmd list: '+filename);
+          let precmdlist = require(path.join(__dirname, '../../',filename));
+          precmdlist.forEach(precmd=>{
+            let cmdpath = filename+'/'+precmd[0];
+            console.log('[COMMAND LOADER] Loading cmd: '+cmdpath);
+            client.commands[precmd[0]] = new Command(precmd[1]);
+            subset.push([filename,precmd]);
+            numCmds++;
+            console.log('[COMMAND LOADER] loaded: '+cmdpath);
+          });
+        }catch(err){
+          console.error('[COMMAND LOADER][ERR] Could not load: ',path.join(__dirname, '../../',filename),err);
+        }
       }
-    } catch (err) {
-      console.log("could not add unverified role or set nick");
-    }
-  });
-
+    });
+    return subset;
+  };
+  load('./commands');
+  console.log('[COMMAND LOADER] Loaded a total of ' + numCmds + ' commands!');
   //const music = require('discord.js-music-v11');
   //music(client, { prefix: "-", anyoneCanSkip: true });
+
+  require('./GuildMemberAdd')();
 };
 
 
