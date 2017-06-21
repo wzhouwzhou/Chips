@@ -1,5 +1,5 @@
 const perms = require('../../handlers/Permissions');
-const r = require('rethinkdbdash')({
+global.r = require('rethinkdbdash')({
   servers: [
     {host: process.env.RETHINKIP, port: process.env.RETHINKPORT}
   ],
@@ -8,7 +8,7 @@ const r = require('rethinkdbdash')({
   password: process.env.RETHINKPSWD,
 });
 r.table('botStartLog').run().then( starts => {
-  console.log('[DBLOADER] Latest start: '+ starts[0]);
+  console.log('[DBLOADER][DB] Latest start: '+ starts[0][status]);
 });
 
 global.blacklist = {
