@@ -45,7 +45,7 @@ const loadsheet = function(sheet, sbk) {
       if (sheet.title == 'submissions') {
         // load sheet data into some nice data structure and put it in `ex`
       }
-      else if (sheet.title == 'members') {
+      /*else if (sheet.title == 'members') {
         if(client.guilds.get("257889450850254848")==null) return;
         console.log("Now loading sinx members");
         rows.forEach(r => {
@@ -57,7 +57,7 @@ const loadsheet = function(sheet, sbk) {
           //console.log("new pts action");
           console.log(`Loaded user pts action for user: <@${r.userid}>, ${r.points} points, approved by: <@${r.managerid}>`);
         });
-      }
+      }*/
       else if (sheet.title == 'quests') {
         // fdsa
       }
@@ -121,7 +121,7 @@ const loadsheet = function(sheet, sbk) {
       if (sheet.title == 'rawpts') {
         rows.forEach(row => {
           console.log('[DBLOADER][SBKLOADER][Points Loader] Found: ' + row['uid']);
-
+          ex.sinxUsers.set(r.uid,r);
         });
       }
 
@@ -181,6 +181,6 @@ const ex = module.exports = { // module exports
   sbkready: false,
   sheets: sheets,
   sbksheets: sbksheets,
-  sinxUsers: sinxUsers,
   getSinxPt: getSinxPt,
+  sinxUsers: sinxUsers,
 };
