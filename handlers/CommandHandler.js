@@ -31,11 +31,7 @@ module.exports = function(Discord, client) {
           console.log("Emitted eval");
         });
       },
-      delay: timeMs => {
-        return new Promise(res => {
-          setTimeout(()=>res(timeMs),timeMs);
-        });
-      },
+      delay: (ms) => new Promise( res => setTimeout(()=>res(ms),ms) ),
       times: ["years","months","weeks","days","hours","minutes","seconds"],
     };
     context.convertTime = async (obj, i) => {
