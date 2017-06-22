@@ -22,7 +22,6 @@ module.exports = {
     µs ? end += 'µs' : end += 'ms';
 
     if((content.match(/=/g)||[]).length == 0) {
-      let ans;
       if(query=="") return reply("Please enter a valid equation or expression!");
       emb = new Discord.RichEmbed().setTimestamp(new Date());
       emb.setAuthor(`New Expression Calculation`).setColor(member.displayColor);
@@ -31,6 +30,7 @@ module.exports = {
       emb.setFooter(`--Expression Calculation Attempt took ${(end)}.--`);
       return reply("Results:", {embed: emb});
     }else if((content.match(/=/g)||[]).length == 1){ //we got an equation
+      let ans;
       let emb = new Discord.RichEmbed();
       emb.setAuthor(`New Equation Calculation`).setColor(member.displayColor);
       emb.setTimestamp(new Date());
