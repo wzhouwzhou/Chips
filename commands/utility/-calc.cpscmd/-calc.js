@@ -3,7 +3,6 @@ const EXPIRE = 10000;
 module.exports = {
   name: "-calc",
   async func(msg, { member, author, content, channel, args, Discord, reply}) {
-
     if((content.match(/=/g)||[]).length > 1) return reply("Invalid equation entered");
     let query;
     let start = process.hrtime();
@@ -23,6 +22,7 @@ module.exports = {
     µs ? end += 'µs' : end += 'ms';
 
     if((content.match(/=/g)||[]).length == 0) {
+      let ans;
       if(query=="") return reply("Please enter a valid equation or expression!");
       emb = new Discord.RichEmbed().setTimestamp(new Date());
       emb.setAuthor(`New Expression Calculation`).setColor(member.displayColor);
@@ -46,13 +46,13 @@ module.exports = {
           //ans = "I am not able to do this calculation!";//console.log(err);
         }
         let hrTime = process.hrtime(start);
-  			let µs = false;
-  			end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
-  			if(end<1){
-  				µs = true;
-  				end = (hrTime[0] * 1000000 + hrTime[1] / 1000);
-  			}
-  			µs ? end += 'µs' : end += 'ms';
+        let µs = false;
+        end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
+        if(end<1){
+          µs = true;
+          end = (hrTime[0] * 1000000 + hrTime[1] / 1000);
+        }
+        µs ? end += 'µs' : end += 'ms';
 
         ans = (!ans)?"I am not able to do this calculation!":ans.toString()+'\n≈'+eval(ans.toString());
         console.log("Result: " + ans.toString());
@@ -95,13 +95,13 @@ module.exports = {
             //ans = "I am not able to do this calculation!";//console.log(err);
           }
           let hrTime = process.hrtime(start);
-    			let µs = false;
-    			let end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
-    			if(end<1){
-    				µs = true;
-    				end = (hrTime[0] * 1000000 + hrTime[1] / 1000);
-    			}
-    			µs ? end += 'µs' : end += 'ms';
+          let µs = false;
+          let end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
+          if(end<1){
+            µs = true;
+            end = (hrTime[0] * 1000000 + hrTime[1] / 1000);
+          }
+          µs ? end += 'µs' : end += 'ms';
           ans = (!ans)?"I am not able to do this calculation!":ans;
           console.log("Result: " + ans.toString());
           emb = new Discord.RichEmbed();
