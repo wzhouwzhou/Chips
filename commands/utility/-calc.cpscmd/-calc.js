@@ -35,13 +35,13 @@ module.exports = {
       emb.setAuthor(`New Equation Calculation`).setColor(member.displayColor);
       emb.setTimestamp(new Date());
 
-      if((content.match(/,/g)||[]).length == 1){
+      if((content.match(/,\s*/g)||[]).length == 1){
         let truecontent = args.join(' ');
         console.log("True content: " + truecontent);
         query=new algebra.parse(truecontent.substring(0,truecontent.indexOf(',')));
         console.log("Query: " + query);
         try{
-          ans = query.solveFor(truecontent.substring(truecontent.indexOf(',')+1));
+          ans = query.solveFor(truecontent.substring(truecontent.indexOf(',')+1).replace(/\s+/,''));
         }catch(err){
           //ans = "I am not able to do this calculation!";//console.log(err);
         }
