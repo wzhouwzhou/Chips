@@ -112,23 +112,24 @@ ex.permsList = [
       ['global.nsfw.boobs.boobs', false],
     ['global.nsfw.nsfw.*', false],//To be added/renamed
       ['global.nsfw.nsfw.info'],//To be added/renamed
-  ['global.utility.calc.*', true],
-    ['global.utility.calc.-calc', true],
-  ['global.utility.applyforpartnership', false],//To be added/renamed
-    ['global.utility.applyforpartnership.applyforpartnership', false],//To be added/renamed
-  ['global.utility.applyforstaff', false],
-    ['global.utility.applyforstaff.apply', false],
-  ['global.utility.dictionary.*', false],
-    ['global.utility.dictionary.urban', true],
-  ['global.utility.nR.*', false],
-    ['global.utility.nR.nR', false],
-  ['global.utility.perm.*', false],//To be added/renamed
-    ['global.utility.perm.perms.*', false],//To be added/renamed
-      ['global.utility.perm.perms.set', false],//To be added/renamed
-  ['global.utility.stoptyping.*', false],
-    ['global.utility.stoptyping.stoptyping', false],
-  ['global.utility.translate.*', true],
-    ['global.utility.translate.translate', true]
+  ['global.utility.*', true],
+    ['global.utility.calc.*', true],
+      ['global.utility.calc.-calc', true],
+    ['global.utility.applyforpartnership', false],//To be added/renamed
+      ['global.utility.applyforpartnership.applyforpartnership', false],//To be added/renamed
+    ['global.utility.applyforstaff', false],
+      ['global.utility.applyforstaff.apply', false],
+    ['global.utility.dictionary.*', false],
+      ['global.utility.dictionary.urban', true],
+    ['global.utility.nR.*', false],
+      ['global.utility.nR.nR', false],
+    ['global.utility.perm.*', false],//To be added/renamed
+      ['global.utility.perm.perms.*', false],//To be added/renamed
+        ['global.utility.perm.perms.set', false],//To be added/renamed
+    ['global.utility.stoptyping.*', false],
+      ['global.utility.stoptyping.stoptyping', false],
+    ['global.utility.translate.*', true],
+      ['global.utility.translate.translate', true],
 /*
   ['global.eval'              ,false], //16
 
