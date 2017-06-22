@@ -7,9 +7,19 @@ const STARTWAIT = 60000;
 
 const GAMECANCEL = 'Pokemon game cancelled! To start another one do {prefix}pokemon!';
 
-const BOOT = 'System booting up.';
+const BOOT = 'System booting up';
 const BOOTLOOP = 3;
-const BOOTWAIT = 1250;
+const BOOTWAIT = 1500;
+
+const SYSREADY = 'System is ready!';
+
+const ACTIONCHOICES = [
+  '{one}Fite',
+  '{two}Bag',
+  '{three}Pokement',
+].join('\n').replace('{one}',Constants.CHOICES[1]).replace('{two}',Constants.CHOICES[2]).replace('{three}',Constants.CHOICES[3]);
+
+const ACTIONSEMB = new Discord.RichEmbed().setTitle('Choose an action!').setDescription(ACTIONCHOICES);
 
 module.exports = {
   name: "pokemon",
@@ -39,11 +49,16 @@ module.exports = {
 
     let initialisationMsg = await agreedmsg.reply(BOOT);
     for(let i = 0; i<BOOTLOOP; i++){
-      await delay(BOOTWAIT);
       await initialisationMsg.edit(initialisationMsg.content+'.');
+      await delay(BOOTWAIT);
     }
 
-    await initialisationMsg.delete();
+    await initialisationMsg.edit(SYSREADY);
+
+    let choiceChooser = await initialisationMsg.reply('', { embed: ACTIONSEMB });
+
+    for(let i = 1; i <= 3; i++)
+      await choiceChooser.react(Constants.CHOICES[i]);
 
   }
 };
