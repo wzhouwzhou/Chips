@@ -3,7 +3,7 @@ let invite = require('./invite');
 
 console.log('[CPSCMD][INFO][invite] Building objects...');
 
-index.metadata = {
+invite.metadata = {
   category: require('../').category,
   description: 'Gives Chips\' invite code',
   usage: 'invite',
