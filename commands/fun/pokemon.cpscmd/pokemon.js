@@ -20,7 +20,7 @@ const ACTIONCHOICESRXN = [
   '{one} {cb} Fite {cb}',
   '{two} {cb} Bag {cb}',
   '{three} {cb}  Pokement {cb}',
-].join('\n').replace('{one}',Constants.CHOICES[1]).replace('{two}',Constants.CHOICES[2]).replace('{three}',Constants.CHOICES[3]).replace ('{cb}',cb);
+].join('\n').replace('{one}',Constants.CHOICES[1]).replace('{two}',Constants.CHOICES[2]).replace('{three}',Constants.CHOICES[3]).replace (/{cb}/g,cb);
 
 const ACTIONCHOICESTEXT = [
   '**__Fite__**',
