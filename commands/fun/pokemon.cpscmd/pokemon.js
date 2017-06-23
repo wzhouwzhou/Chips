@@ -18,9 +18,9 @@ const SYSREADY = 'System is ready!';
 
 const ACTIONSEMBRXN = new Discord.RichEmbed().setTitle('Choose an action!');
 [
-  '{one}|Fite'.replace('{one}',Constants.CHOICES[1]).split(/|/),
-  '{two}|Bag'.replace('{two}',Constants.CHOICES[2]).split(/|/),
-  '{three}|Pokement'.replace('{three}',Constants.CHOICES[3]).split(/|/),
+  '{one}|Fite'.replace('{one}',Constants.CHOICES[1]).split(/\|/),
+  '{two}|Bag'.replace('{two}',Constants.CHOICES[2]).split(/\|/),
+  '{three}|Pokement'.replace('{three}',Constants.CHOICES[3]).split(/\|/),
 ].forEach(f=>ACTIONSEMBRXN.addField(f[0],`${cb}${f[1]}${cb}`, true));
 
 const ACTIONCHOICESTEXT = [
