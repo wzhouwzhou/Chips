@@ -107,18 +107,18 @@ ex.permsList = [
         ['global.moderation.roles.role.update', false],//To be added/renamed
   ['global.nsfw.*', false],
     ['global.nsfw.ass.*', false],
-      ['global.nsfw.ass.ass', false],
+      ['global.nsfw.ass.ass', true],
     ['global.nsfw.boobs.*', false],
-      ['global.nsfw.boobs.boobs', false],
+      ['global.nsfw.boobs.boobs', true],
     ['global.nsfw.nsfw.*', false],//To be added/renamed
-      ['global.nsfw.nsfw.info'],//To be added/renamed
+      ['global.nsfw.nsfw.info', true],//To be added/renamed
   ['global.utility.*', true],
     ['global.utility.calc.*', true],
       ['global.utility.calc.-calc', true],
     ['global.utility.applyforpartnership', false],//To be added/renamed
       ['global.utility.applyforpartnership.applyforpartnership', false],//To be added/renamed
     ['global.utility.applyforstaff', false],
-      ['global.utility.applyforstaff.apply', false],
+      ['global.utility.applyforstaff.apply', true],
     ['global.utility.dictionary.*', false],
       ['global.utility.dictionary.urban', true],
     ['global.utility.nR.*', false],
