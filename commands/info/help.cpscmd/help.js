@@ -42,9 +42,9 @@ module.exports = {
       .setColor(1)
       .addField("Main commands", "We apologize for any inconveniences at this time, we are doing a permissions rewrite that may interfere with daily usage.")
       .addField("Informative commands", InfoMenu, true)
-      .addBlankField(true)
+      .addBlankField()
       .addField("Moderation Commands", ModMenu, true)
-      .addBlankField(true)
+      .addBlankField()
       .addField("Fun Commands", FunMenu, true)
       .setTimestamp((new Date));
     send(' ', {embed});
