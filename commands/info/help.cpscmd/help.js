@@ -1,6 +1,6 @@
 module.exports = {
   name: "help",
-  async func(msg, { send, prefix }) {      
+  async func(msg, { send, prefix, Discord }) {      
     let InfoMenu = (`**{}discordstatus** to get the current status of discord. \n
     **{}help** for this help message. \n
     **{}ping** for ping pong. \n
