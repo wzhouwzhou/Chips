@@ -1,3 +1,4 @@
+const cb = '```';
 
 const STARTMSG = 'Type __{prefix}start__ to begin playing or __stop__ or __cancel__ to cancel!';
 const STARTCONFIRM = '{prefix}start';
@@ -19,7 +20,7 @@ const ACTIONCHOICESRXN = [
   '{one}Fite',
   '{two}Bag',
   '{three}Pokement',
-].join('\n').replace('{one}',Constants.CHOICES[1]).replace('{two}',Constants.CHOICES[2]).replace('{three}',Constants.CHOICES[3]);
+].join('\n').replace('{one}',Constants.CHOICES[1]).replace('{two}',Constants.CHOICES[2]).replace('{three}',Constants.CHOICES[3]).replace (/^/,cb).replace(/$/,cb);
 
 const ACTIONCHOICESTEXT = [
   '**__Fite__**',
