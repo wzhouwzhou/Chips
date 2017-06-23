@@ -74,9 +74,6 @@ ex = {
 					{ max: 1, time: EXPIRE, errors: ['time'] }
 				);
 
-				await temp.sentmsg.react(`${Constants.emojis.CHECK}`);
-				await temp.sentmsg.react(`${Constants.emojis.X}`);
-
 				rxnCol.on('collect', r => {
 					console.log(`Collected ${r.emoji.name}`);
 					rxnCol.stop();
@@ -107,6 +104,9 @@ ex = {
 
 					return reply(START);
 				});
+
+				await temp.sentmsg.react(`${Constants.emojis.CHECK}`);
+				await temp.sentmsg.react(`${Constants.emojis.X}`);
 			}else{
 				let embed = new Discord.RichEmbed();
 		    embed

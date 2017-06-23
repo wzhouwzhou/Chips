@@ -83,12 +83,19 @@ const rxnInputPrompt = (msg, { reply, author, channel }) => {
       let rC = sentmsg.createReactionCollector(
         (r, u) => {
           if(u.id != author.id) return false;
-          if(r.emoji.toString() == Constants.emojis.CHECK&& (!confirmed)){
-            confirmed = true;
-            mCol.stop();
-            res(true);
-            return true;
-          }
+          if(!confirmed)
+            if(r.emoji.toString() == Constants.emojis.CHECK){
+              confirmed = true;
+              mCol.stop();
+              res(true);
+              return true;
+            }else if(reaction.emoji.toString() == Constants.emojis.X){
+              confirmed = true;
+              mCol.stop();
+              res(false);
+              return true;
+            }
+
           return false;
       },
       { max: 1, time: INPUTEXPIRE, errors: ['time'] } );
@@ -113,6 +120,9 @@ const rxnInputPrompt = (msg, { reply, author, channel }) => {
           res(true);
         }
       });
+      await sentmsg.react(`${Constants.emojis.CHECK}`);
+      await sentmsg.react(`${Constants.emojis.X}`);
+      
     });
   });
 };
