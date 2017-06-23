@@ -31,7 +31,7 @@ ex = {
       if((!customprefix[guild.id])||customprefix[guild.id]==prefix)
         return reply(`Set a custom prefix for me with \`\`${prefix}chipsprefix set\`\``);
       else
-        return reply(`A prefix has already been set for this server! Check it with \`\`${prefix}chipsprefix (status)\`\``);
+        return reply(`A prefix has already been set for this server! Check it with \`\`${customprefix[guild.id]}chipsprefix (status)\`\``);
     }
   }
 };
