@@ -34,7 +34,7 @@ module.exports = {
       .setAuthor(`Ban confirmation - Banning ${memberToUse.user.tag}`, memberToUse.user.displayAvatarURL)
       .setColor("RED")
       .setTitle(question)
-      .setDescription("Reason", reason || "No reason", true)
+      .setDescription(reason || "No reason")
       .setTimestamp(new Date())
       .setThumbnail(Constants.images.WARNING)
     await reply('', { embed } );
