@@ -16,11 +16,12 @@ const BOOTWAIT = 1500;
 
 const SYSREADY = 'System is ready!';
 
-const ACTIONCHOICESRXN = [
-  '{one} {cb} Fite {cb}',
-  '{two} {cb} Bag {cb}',
-  '{three} {cb}  Pokement {cb}',
-].join('\n').replace('{one}',Constants.CHOICES[1]).replace('{two}',Constants.CHOICES[2]).replace('{three}',Constants.CHOICES[3]).replace (/{cb}/g,cb);
+const ACTIONSEMBRXN = new Discord.RichEmbed().setTitle('Choose an action!');
+[
+  '{one}|Fite'.replace('{one}',Constants.CHOICES[1]).split(/|/),
+  '{two}|Bag'.replace('{two}',Constants.CHOICES[2]).split(/|/),
+  '{three}|Pokement'.replace('{three}',Constants.CHOICES[3]).split(/|/),
+].forEach(f=>ACTIONSEMBRXN.addField(f[0],`${cb}${f[1]}${cb}`, true));
 
 const ACTIONCHOICESTEXT = [
   '**__Fite__**',
@@ -28,7 +29,6 @@ const ACTIONCHOICESTEXT = [
   '**__Pokement__**',
 ].join('\n');
 
-const ACTIONSEMBRXN = new Discord.RichEmbed().setTitle('Choose an action!').setDescription(ACTIONCHOICESRXN);
 const ACTIONSEMBTEXT = new Discord.RichEmbed().setTitle('Choose an action!').setDescription(ACTIONCHOICESTEXT);
 
 module.exports = {
