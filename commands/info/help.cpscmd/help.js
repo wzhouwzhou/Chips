@@ -30,19 +30,18 @@ module.exports = {
     **{}quote** to get a quote of a message. \n
     **{}rekt** to make some people get rekt. \n
     **{}roll** to roll some dice.`.replace(/{}/g, prefix));
-      const embed = new Discord.RichEmbed()
+       const embed = new Discord.RichEmbed()
           .setAuthor('This is the Chips Bot Help Menu!', "http://www.mkrfoodproducts.com/images/gallery/image_11.jpg")
           .setTitle('')
           .setDescription('')
-          .setColor(1);
-          .setTimestamp()
-          .addField("**Main commands**", "We apologize for any inconveniences at this time, we are doing a permissions rewrite that may interfere with daily usage.")
+          .setColor(1)
+          .addField("Main commands", "We apologize for any inconveniences at this time, we are doing a permissions rewrite that may interfere with daily usage.")
+          .addField("Informative commands", InfoMenu, true)
           .addBlankField(true)
-          .addField("**Informative commands**", InfoMenu, true);
+          .addField("Moderation Commands", ModMenu, true)
           .addBlankField(true)
-          .addField("**Moderation Commands**", ModMenu, true);
-          .addBlankField(true)
-          .addField("**Fun Commands**", FunMenu, true);
-            send({embed: embed});
+          .addField("Fun Commands", FunMenu, true)
+          .setTimestamp((new Date));
+            send(' ', {embed});
               }
         };
