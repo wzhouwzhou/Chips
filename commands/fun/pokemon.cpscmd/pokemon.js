@@ -89,7 +89,7 @@ const rxnInputPrompt = (msg, { reply, author, channel }) => {
               mCol.stop();
               res(true);
               return true;
-            }else if(reaction.emoji.toString() == Constants.emojis.X){
+            }else if(r.emoji.toString() == Constants.emojis.X){
               confirmed = true;
               mCol.stop();
               res(false);
@@ -122,7 +122,7 @@ const rxnInputPrompt = (msg, { reply, author, channel }) => {
       });
       await sentmsg.react(`${Constants.emojis.CHECK}`);
       await sentmsg.react(`${Constants.emojis.X}`);
-      
+
     });
   });
 };
