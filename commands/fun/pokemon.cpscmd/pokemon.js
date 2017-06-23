@@ -32,12 +32,12 @@ const ACTIONSEMBTEXT = new Discord.RichEmbed().setTitle('Choose an action!').set
 
 module.exports = {
   name: "pokemon",
-  async func(msg, ctx = { reply, prefix, author, channel, delay }) {
-
+  async func(msg, ctx) {
+    let { reply, prefix, author, channel, delay } = ctx;
     let rxn = await rxnInputPrompt(msg, ctx);
     if(!rxn) return reply('Sorry, text based input is currently not available');
 
-    let beginmsg = await reply (STARTMSG.replace('{prefix}',prefix));
+    let beginmsg = await reply(STARTMSG.replace('{prefix}',prefix));
     let startInit = false;
 
     const startFilter = (m) => {
@@ -106,7 +106,6 @@ const rxnInputPrompt = (msg, { reply, author, channel }) => {
         { max: 1, time: INPUTEXPIRE, errors: ['time'] }
       );
 
-      channel.createMessageCollector();
       res(true);
     });
   });
