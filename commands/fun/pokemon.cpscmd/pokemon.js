@@ -84,27 +84,26 @@ const rxnInputPrompt = (msg, { reply, author, channel }) => {
         (r, u) => {
           if(u.id != author.id) return false;
           if(r.emoji.toString() == Constants.emojis.CHECK&& (!confirmed)){
+            confirmed = true;
             mCol.stop();
             res(true);
             return true;
           }
+          return false;
       },
       { max: 1, time: INPUTEXPIRE, errors: ['time'] } );
 
       mCol = channel.createMessageCollector(
         query => { if(query.content) if(/^(?:y(?:es)?)|(?:no?)$/i.test(query.content))
-          if((!temp.confirmed&&!temp.agreed)&&query.author.id==author.id){
-            temp.confirmed = true;
-            temp.agreed = /^(?:y(?:es)?)$/i.test(query.content);
-            reply(`Accepted response, continuing: ${temp.agreed}`).then(m=>{
-              setTimeout(()=>m.delete(),1000);
-            });
-            temp.usedmsg = true;
-            msgCol.stop();
+          if(!confirmed&&query.author.id==author.id){
+            confirmed = true;
+            rC.stop();
+            res(/^(?:y(?:es)?)$/i.test(query.content));
             return true;
           }
+          return false;
         },
-        { max: 1, time: EXPIRE, errors: ['time'] }
+        { max: 1, time: INPUTEXPIRE, errors: ['time'] }
       );
 
       channel.createMessageCollector();
