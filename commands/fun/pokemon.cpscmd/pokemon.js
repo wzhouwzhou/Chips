@@ -106,7 +106,13 @@ const rxnInputPrompt = (msg, { reply, author, channel }) => {
         { max: 1, time: INPUTEXPIRE, errors: ['time'] }
       );
 
-      res(true);
+      mCol.on('end', collected => {
+        if(!confirmed){
+          console.log(collected.first().name);
+          reply('No input was given so we are going with reaction controls!');
+          res(true);
+        }
+      });
     });
   });
 };
