@@ -20,7 +20,7 @@ module.exports = function() {
   client.on("message", message => {
     //prefix!
     if(message.content == '<@296855425255473154> prefix')
-      if(message.guild) message.reply(`My prefix in this server is \`\`${customprefix[message.guild.id]?customprefix[message.guild.id]:prefix}\`\` ${(!customprefix[message.guild.id])||customprefix[message.guild.id]=='-'?'You can set a custom prefix for me with \`\`-chipsprefix on\`\`':''}`)
+      if(message.guild) message.reply(`My prefix in this server is \`\`${customprefix[message.guild.id]?customprefix[message.guild.id]:prefix}\`\`. ${(!customprefix[message.guild.id])||customprefix[message.guild.id]=='-'?'You can set a custom prefix for me with \`\`-chipsprefix on\`\`':''}`)
       else message.reply('My default prefix is ``-``')
     //rekt
     if(muteTrigger&& (message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1)))
