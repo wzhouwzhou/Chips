@@ -24,6 +24,14 @@ const GameClass = class PokeGame extends Game {
     });
   }
 
+  clearPlayerData (id) {
+    return new Promise( async ( res ) => {
+      const oldData = this.playerData[id];
+      this.playerData[id] = null;
+      res(oldData);
+    });
+  }
+
   getPlayerData (id) {
     return new Promise( async (res, rej) => {
       if(!this.playerData) await this.reloadAllPlayerData();
