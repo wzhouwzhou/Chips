@@ -39,10 +39,10 @@ const GameClass = class Game {
     return this.playerCount || 0;
   }
 
-  loadPlayerData  () { }
+  reloadAllPlayerData  () { }
   clearPlayerData () { }
   setPlayerData   () { }
-  fetchPlayerData () { }
+  getPlayerData () { }
 };
 
 module.exports = GameClass;
