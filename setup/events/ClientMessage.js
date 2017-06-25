@@ -42,7 +42,7 @@ module.exports = function() {
       console.log("[CLIENTMESSAGE] Command attempt detected");
       if(message.guild&&message.member.displayName.replace(/\s+/,'').toLowerCase().indexOf('dwagon')>-1)
         if(message.guild.id==Constants.servers.SINX)
-          return message.reply('You are a dwagon, therefor you may not use my commands!');
+          return message.reply('You are a dwagon, therefore you may not use my commands!');
       CommandHandler(message, message.guild&&customprefix[message.guild.id]?customprefix[message.guild.id]:prefix);
     }
 
@@ -63,7 +63,7 @@ module.exports = function() {
 
     //======================================KEYWORD TRIGGER=========================================
     try{
-      if(message.guild&&message.guild.id==Constants.servers.SNAP){
+      if(message.guild&&message.guild.id==Constants.servers.DWAGON){
         send2(message, snLogs);
         snMsgs++;
       }
@@ -74,7 +74,7 @@ module.exports = function() {
   });
   c2.on('message', m => {
     try{
-      if(m.guild.id==Constants.servers.SK){
+      if(m.guild.id==Constants.servers.SUCKX){
         if(slSwitcher)
           send2(m,sLogs);
         else
@@ -86,7 +86,7 @@ module.exports = function() {
         send2(m,sxLogs);
         sxMsgs++;
       }else
-      if(m.guild.id==Constants.servers.STTOC){
+      if(m.guild.id==Constants.servers.STOCKS){
         send2(m,stLogs);
         stMsgs++;
       }
@@ -94,7 +94,7 @@ module.exports = function() {
   });
   c3.on('message', m => {
     try{
-      if(m.guild.id==Constants.servers.NEB){
+      if(m.guild.id==Constants.servers.STARZ){
         send2(m,nLogs);
         nMsgs++;
       }
