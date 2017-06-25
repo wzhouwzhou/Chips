@@ -53,10 +53,10 @@ module.exports = function(Discord, client) {
         let mu = 5, cb = '`', c ='▓', u = '░';
         let m, embed;
         if(emb){
-          let embed = new context.Discord.RichEmbed().setDescription(u.repeat(l));
+          let embed = new context.Discord.RichEmbed().setDescription(cb+u.repeat(l)+cb);
           await msg.channel.send('', { embed });
         }else
-          m = await msg.channel.send(u.repeat(l));
+          m = await msg.channel.send(cb+u.repeat(l)+cb);
         for(let i=1; i<Math.floor(l/mu)+1;i++) {
           await context.delay(~~1000*seconds/l);
           if(emb){
