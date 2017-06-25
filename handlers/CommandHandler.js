@@ -48,6 +48,26 @@ module.exports = function(Discord, client) {
         throw 'Invalid date!';
       }
     };
+    context.loadingBar = ( { msg, seconds = 5, l = 30, emb = false }) => {
+      return new Promise( async res => {
+        let mu = 5, cb = '`', c ='▓', u = '░';
+        let m, embed;
+        if(emb){
+          let embed = new context.Discord.RichEmbed().setDescription(u.repeat(l));
+          await msg.channel.send('', { embed });
+        }else
+          m = await msg.channel.send(u.repeat(l));
+        for(let i=1; i<Math.floor(l/mu)+1;i++) {
+          await context.delay(~~1000*seconds/l);
+          if(emb){
+            embed.setDescription(cb+c.repeat(mu*i)+u.repeat((l-mu*i))+cb);
+            await m.edit('', { embed });
+          }else
+            await m.edit(cb+c.repeat(mu*i)+u.repeat((l-mu*i))+cb);
+        }
+        res(m);
+      });
+    };
     for (const cmdn in client.commands) {
       const cmd = client.commands[cmdn];
       if (new RegExp(`^${_.escapeRegExp(cmdn)}$`).test(noprefix.split(/\s+/)[0])){
