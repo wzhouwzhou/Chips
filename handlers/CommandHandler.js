@@ -48,7 +48,7 @@ module.exports = function(Discord, client) {
         throw 'Invalid date!';
       }
     };
-    context.loadingBar = ({ msg, seconds = 5, l = 30, emb = false, mu = 5 }) => {
+    context.loadingBar = ({ msg, seconds: 5, l: 30, emb: false, mu: 5 }) => {
       return new Promise( async res => {
         let cb = '`', c ='▓', u = '░', m, embed;
         if(emb){
