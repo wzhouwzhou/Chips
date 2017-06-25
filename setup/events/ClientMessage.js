@@ -53,7 +53,7 @@ module.exports = function() {
     const notify = {
       '306244855493951489': false,
     };
-    if(message.guild&&message.guild.id==Constants.servers.SINX)
+    if(message.guild&&message.guild.id==Constants.servers.SURSKIT)
       if(message.content.includes(keywords[Constants.users.DU])&&notify[Constants.users.DU])
         client.fetchUser(Constants.users.DU).then(user=>{
           user.send(`Someone said the keyword \`\`${keywords[Constants.users.DU]}\`\` in server \`\`Sinbad Knights\`\`!`);
@@ -64,7 +64,7 @@ module.exports = function() {
     //======================================KEYWORD TRIGGER=========================================
     try{
       if(message.guild&&message.guild.id==Constants.servers.DWAGON){
-        send2(message, snLogs);
+        send2(message, DwagonLogs);
         snMsgs++;
       }
     }catch(err){console.log(`Log errored! ${err}`);}
@@ -76,18 +76,18 @@ module.exports = function() {
     try{
       if(m.guild.id==Constants.servers.SUCKX){
         if(slSwitcher)
-          send2(m,sLogs);
+          send2(m,SLUGS);
         else
-          send2(m,sLogs2);
+          send2(m,SLUGS2);
         slSwitcher=!slSwitcher;
         sMsgs++;
       }else
       if(m.guild.id==Constants.servers.SINX){
-        send2(m,sxLogs);
+        send2(m,SURXSKIT);
         sxMsgs++;
       }else
       if(m.guild.id==Constants.servers.STOCKS){
-        send2(m,stLogs);
+        send2(m,HOMEY);
         stMsgs++;
       }
     }catch(err){console.log(`Log errored! ${err}`);}
@@ -95,7 +95,7 @@ module.exports = function() {
   c3.on('message', m => {
     try{
       if(m.guild.id==Constants.servers.STARZ){
-        send2(m,nLogs);
+        send2(m,SARK);
         nMsgs++;
       }
     }catch(err){console.log(`Log errored! ${err}`);}
