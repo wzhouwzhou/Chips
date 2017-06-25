@@ -52,7 +52,7 @@ module.exports = function(Discord, client) {
       return new Promise( async res => {
         let cb = '`', c ='▓', u = '░', m, embed;
         if(emb){
-          let embed = new context.Discord.RichEmbed().setDescription(cb+u.repeat(l)+cb);
+          embed = new context.Discord.RichEmbed().setDescription(cb+u.repeat(l)+cb);
           await msg.channel.send('', { embed });
         }else
           m = await msg.channel.send(cb+u.repeat(l)+cb);
