@@ -51,19 +51,28 @@ module.exports = function(Discord, client) {
     context.loadingBar = (msg, seconds = 5, l = 30, emb = false, mu = 5) => {
       return new Promise( async res => {
         let cb = '`', c ='▓', u = '░', m, embed;
+        const switchTitle = e => {
+          switch(e.title) {
+            case 'Loading.': { return e.setTitle('Loading..'); }
+            case 'Loading..': { return e.setTitle('Loading...'); }
+            case 'Loading...': { return e.setTitle('Loading.'); }
+          }
+        };
         if(emb){
-          embed = new context.Discord.RichEmbed().setDescription(cb+u.repeat(l)+cb);
+          embed = new context.Discord.RichEmbed().setDescription(cb+u.repeat(l)+cb).setColor(msg.member.displayColor || 10342).setTitle('Loading.');
           m = await msg.channel.send('', { embed });
         }else
           m = await msg.channel.send(cb+u.repeat(l)+cb);
         for(let i=1; i<Math.floor(l/mu)+1;i++) {
           await context.delay(~~(1000*seconds/(l/mu)));
           if(emb){
-            embed.setDescription(cb+c.repeat(mu*i)+u.repeat((l-mu*i))+cb);
+            embed = switchTitle(embed.setDescription(cb+c.repeat(mu*i)+u.repeat((l-mu*i))+cb));
             await m.edit('', { embed });
           }else
             await m.edit(cb+c.repeat(mu*i)+u.repeat((l-mu*i))+cb);
         }
+        if(emb) m.edit('', {embed: embed.setTitle('Done!')});
+        else m.edit('Done!');
         res(m);
       });
     };
