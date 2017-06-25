@@ -48,17 +48,16 @@ module.exports = function(Discord, client) {
         throw 'Invalid date!';
       }
     };
-    context.loadingBar = ({ msg, seconds = 5, l = 30, emb = false }) => {
+    context.loadingBar = ({ msg, seconds = 5, l = 30, emb = false, mu = 5 }) => {
       return new Promise( async res => {
-        let mu = 5, cb = '`', c ='▓', u = '░';
-        let m, embed;
+        let cb = '`', c ='▓', u = '░', m, embed;
         if(emb){
           let embed = new context.Discord.RichEmbed().setDescription(cb+u.repeat(l)+cb);
           await msg.channel.send('', { embed });
         }else
           m = await msg.channel.send(cb+u.repeat(l)+cb);
         for(let i=1; i<Math.floor(l/mu)+1;i++) {
-          await context.delay(~~1000*seconds/l);
+          await context.delay(~~(1000*seconds/(l/mu)));
           if(emb){
             embed.setDescription(cb+c.repeat(mu*i)+u.repeat((l-mu*i))+cb);
             await m.edit('', { embed });
