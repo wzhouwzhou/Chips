@@ -55,7 +55,8 @@ module.exports = function(Discord, client) {
           switch(e.title) {
             case 'Loading.': { return e.setTitle('Loading..'); }
             case 'Loading..': { return e.setTitle('Loading...'); }
-            case 'Loading...': { return e.setTitle('Loading.'); }
+            case 'Loading...': { return e.setTitle('Loading....'); }
+            case 'Loading....': { return e.setTitle('Loading.'); }
           }
         };
         if(emb){
@@ -71,8 +72,8 @@ module.exports = function(Discord, client) {
           }else
             await m.edit(cb+c.repeat(mu*i)+u.repeat((l-mu*i))+cb);
         }
-        if(emb) m.edit('', {embed: embed.setTitle('Done!')});
-        else m.edit('Done!');
+        if(emb) m.edit('', {embed: embed.setTitle('Done Loading!').setTimestamp(new Date())});
+        else m.edit('**Done Loading!**');
         res(m);
       });
     };
