@@ -37,9 +37,9 @@ module.exports = function( send ) {
   });
   hclient.on("ready", _ => {
     testC  = hclient.channels.get(Constants.channels.TEST);
-    sLogs  = hclient.channels.get(Constants.channels.SLOGS);
+    sLogs  = hclient.channels.get(Constants.channels.SLUGS);
     dmC    = hclient.channels.get(Constants.channels.DMS);
-    snLogs = hclient.channels.get(Constants.channels.SNLOGS);
+    snLogs = hclient.channels.get(Constants.channels.DWAGONLOGS);
 
     console.log('Chips helper is ready!');
     hclient.user.setStatus("online");
@@ -72,9 +72,9 @@ module.exports = function( send ) {
     h2client.user.setGame("Chips and Chips helper are bae!");
   });
   h3client.on("ready", _ => {
-    sLogs2 = h3client.channels.get(Constants.channels.SLOGS);
-    nLogs = h3client.channels.get(Constants.channels.NLOGS);
-    stLogs = h3client.channels.get(Constants.channels.STLOGS);
+    sLogs2 = h3client.channels.get(Constants.channels.SLUGS);
+    nLogs = h3client.channels.get(Constants.channels.SARK);
+    stLogs = h3client.channels.get(Constants.channels.HOMEY);
 
     console.log('Chips helper 3 is ready!');
     h3client.user.setStatus("online");
