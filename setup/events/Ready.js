@@ -127,7 +127,8 @@ module.exports = function( send ) {
   //const music = require('discord.js-music-v11');
   //music(client, { prefix: "-", anyoneCanSkip: true });
   client.on('guildCreate', g => {
-    clientutil.broadcastEval(`client.channels.get('307624059984674816').send('I just joined a new server! Its name is '+${g.name.replace('@','(at)')} +' and it has ' + ${g.members.size} + ' members!')`);
+    const scpt = `try { client.channels.get('307624059984674816').send('I just joined a new server! Its name is '+${g.name.replace('@','(at)')} +' and it has ' + ${g.members.size} + ' members!');} catch(err){}`;
+    clientutil.broadcastEval(scpt);
   });
   require('./GuildMemberAdd')();
 };
