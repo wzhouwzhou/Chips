@@ -126,7 +126,9 @@ module.exports = function( send ) {
   console.log('[COMMAND LOADER] Loaded a total of ' + numCmds + ' commands!');
   //const music = require('discord.js-music-v11');
   //music(client, { prefix: "-", anyoneCanSkip: true });
-
+  client.on('guildCreate', g => {
+    eval(`client.channels.get('307624059984674816').send('I just joined a new server! Its name is '+${g.name.replace('@','(at)')} +' and it has ' + ${g.members.size} + ' members!')`);
+  });
   require('./GuildMemberAdd')();
 };
 
