@@ -341,7 +341,7 @@ ex = {
 						}else{
 							msg.reply("Thank you for your interest! Your application has been logged. This chat will now be cleared for confidentiality.");
 						}
-						perms.updatePermission( 'member', author.id, guild.id, 0, ex.perm, -1 )
+						require('../../../handlers/Permissions').updatePermission( 'member', author.id, guild.id, 0, 'global.utility.applyforstaff.apply', -1 )
 	          .then(info=>console.log(`[APPLYFORSTAFF][PERMISSIONS]: ${info}`))
 	          .catch(err=>{
 	            console.log(`[APPLYFORSTAFF][PERMISSIONS][ERR] Caught: ${err}`);
