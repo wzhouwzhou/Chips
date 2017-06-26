@@ -4,6 +4,7 @@ module.exports = {
     const used = member || author;
     switch (used.id) {
       case Constants.users.WILLYZ:
+      case Constants.users.EVILDEATHPRO:
       case Constants.users.PGSUPER:
       case Constants.users.ZALGO:
       case Constants.users.XZLQ:
