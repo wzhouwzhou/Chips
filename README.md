@@ -1,8 +1,10 @@
 <div align = "center">
     <p>
-        <a href="https://discord.gg/jj5FzF7/"> <img src = "https://discordapp.com/api/guilds/307623291479130132/embed.png" alt="Support server" /> </a>
+        <a href="https://discord.gg/jj5FzF7/"> <img src = "https://discordapp.com/api/guilds/307623291479130132/embed.png" alt="Support server" />Support Server</a>
     </p>
 </div>
+
+
 # Chips
 Chips bot
 mmm...Chips
