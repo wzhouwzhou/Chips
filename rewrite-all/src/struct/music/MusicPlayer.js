@@ -1,5 +1,7 @@
 
-const Queue = class MusicPlayer {
+const ytdl = require('ytdl-core');
+
+const Player = class MusicPlayer {
   constructor (vc) {
     this.voicechannel = vc;
   }
@@ -14,4 +16,4 @@ const Queue = class MusicPlayer {
   }
 };
 
-module.exports = Queue;
+module.exports = Player;
