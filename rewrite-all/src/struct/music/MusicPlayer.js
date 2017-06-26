@@ -1,3 +1,5 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
 
 const ytdl = require('ytdl-core');
 
@@ -16,4 +18,4 @@ const Player = class MusicPlayer {
   }
 };
 
-module.exports = Player;
+exports = Player;

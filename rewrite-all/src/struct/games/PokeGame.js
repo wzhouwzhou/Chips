@@ -1,3 +1,6 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+
 const Discord = require('discord.js');
 const Game = require('./Game');
 
@@ -45,4 +48,4 @@ const GameClass = class PokeGame extends Game {
 
 };
 
-module.exports = GameClass;
+exports = GameClass;

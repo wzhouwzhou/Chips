@@ -1,3 +1,6 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+
 const Discord = require('discord.js');
 
 const GameClass = class Game {
@@ -45,4 +48,4 @@ const GameClass = class Game {
   getPlayerData () { }
 };
 
-module.exports = GameClass;
+exports = GameClass;
