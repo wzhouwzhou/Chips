@@ -66,7 +66,7 @@ module.exports = function(Discord, client) {
           m = await msg.channel.send(cb+u.repeat(l)+'0%'+cb);
         for(let i=1; i<Math.floor(l/mu)+1;i++) {
           await context.delay(~~(1000*seconds/(l/mu)));
-          let percent = ((mu*i)/l).toFixed(2)+'%';
+          let percent = (100*(mu*i)/l).toFixed(2)+'%';
           if(emb){
             embed = switchTitle(embed.setDescription(cb+c.repeat(mu*i)+u.repeat((l-mu*i))+ percent +cb));
             await m.edit('', { embed });
