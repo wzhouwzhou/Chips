@@ -44,10 +44,12 @@ global.memberjoin = {
 Make sure you send your answers in this channel (don't DM them)!`,
 
     "302983444009451541": `Hai hoi! I'm just testing :>`,
+    "250801092143611905": 'Welcome to Diep Colony! Please wait for online staff to verify you!',
   },
   captcha: {
     '302983444009451541': true,
     '257889450850254848': false,
+    '250801092143611905': false,
   },
   panics: {
     0: false,
@@ -62,7 +64,8 @@ Make sure you send your answers in this channel (don't DM them)!`,
     0: {0: {}},
   },
   verifyLogC: {
-    '257889450850254848': '260864259330801674'
+    '257889450850254848': '260864259330801674',
+    '250801092143611905': '329719279132082176',
   },
 };
 

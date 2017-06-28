@@ -99,11 +99,8 @@ ex.func = async (msg, {
       if (!args[1]) return send("No channel given :<");
       try{
         const target = args[1].match(Constants.patterns.CHANNEL)[1];
-        const user = gMember(target).user;
-        targetMember = guild.members.get(user.id);
-        console.log("[VS](ok) Target: "+target);
       }catch(err){
-        return reply(`Invalid user specified`);
+        return reply(`Invalid channel specified`);
       }
 
   }

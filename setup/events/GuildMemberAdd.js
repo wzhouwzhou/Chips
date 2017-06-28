@@ -33,14 +33,14 @@ module.exports = function() {
               4. What is your favorite diep.io tank?
   (you can answer these with just a sentence or two, no need to write an essay!)`).then(console.log("[SURSKIT] Welcome msg sent")).catch(err=>console.log('welcome msg err:[sinx] '+ err));
           }, 500);
-        /*}else if(memberguild.id=="252525368865456130"){
+        }else if(memberguild.id=="250801092143611905"){
           setTimeout(() => {
-            console.log("[SK] adding role...");
-            member.addRole(memberguild.roles.get("303587467741757440")||memberguild.roles.find('name',"lollipop-unverified"));
-            console.log("[SK] sending welcome msg...");
-            let welcomeC=memberguild.channels.get("308772937731670016")||memberguild.channels.find('name','unverified');
-            welcomeC.send(`<@${userid}>, Welcome! Please read <#307895557815402496> and become acquainted with the rules here, then contact a staff member to be able to speak in other channels!`);
-          }, 700);*/
+            console.log("[DColony] adding role...");
+            member.addRole(memberguild.roles.get("329716599399514113")||memberguild.roles.find('name',"Unverified"));
+            console.log("[DColony] sending welcome msg...");
+            let welcomeC=memberguild.channels.get("329717427707576320")||memberguild.channels.find('name','unverified');
+            welcomeC.send(`<@${userid}>, Welcome! Please read <#250801092143611905> and wait for a staff member to verify you to be able to speak in other channels!`);
+          }, 1000);
         }else if(memberguild.id=="315891125825044482"){
           setTimeout(() =>{
             console.log("[SUCKX2] adding role...");
