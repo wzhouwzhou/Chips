@@ -15,9 +15,9 @@ const request = require('request');
 global.Discord = require("discord.js");
 global.client = new Discord.Client({
   fetchAllMembers:true,
-  messageCacheMaxSize:-1,
+  messageCacheMaxSize: 200,
   messageCacheLifetime:(60*60*1),
-  messageSweepInterval:(60*60*3)
+  messageSweepInterval:(60*60*2)
 });
 global.clientutil = new Discord.ShardClientUtil(client);
 setShards.id=client.shard.id;

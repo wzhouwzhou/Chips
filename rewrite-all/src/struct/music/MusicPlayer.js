@@ -10,7 +10,7 @@ const Player = class MusicPlayer {
   playNextQueue (){
     if (!this.voiceChannel) return message.reply(`Please be in a voice channel first!`);
     voiceChannel.join().then(connnection => {
-      const stream = ytdl("https://www.youtube.com/watch?v=dQw4w9WgXcQ", { filter: 'audioonly' });
+      const stream = ytdl(queue.next());
       const dispatcher = connnection.playStream(stream);
 
       dispatcher.on('end', () => voiceChannel.leave());
