@@ -16,8 +16,7 @@ module.exports = {
 		expr = expr.split(' ').join('');
 		for (let i = 0; i<expr.length; i++) {
 			if (!'0123456789+-*/()d'.includes(expr[i])) {
-				reply('error: invalid expression!');
-				return;
+				return reply('error: invalid expression!');
 			}
 		}
 		let dnumt = 0;
@@ -25,8 +24,7 @@ module.exports = {
 		while (expr.includes('d')) {
 			ncycles += 1;
 			if (ncycles>50) {
-				reply('error: too many separate dice rolls!');
-				return;
+				return reply('error: too many separate dice rolls!');
 			}
 			let dex = expr.indexOf('d');
 			let pre = dex-1;
@@ -34,23 +32,19 @@ module.exports = {
 			let dnum = 1;
 			if (pre<dex-1) dnum = parseInt(expr.substring(pre+1,dex));
 			if (dnum == 0) {
-				reply('error: invalid expression!');
-				return;
+				return reply('error: invalid expression!');
 			}
 			dnumt += dnum;
 			if (dnumt > 99) {
-				reply('error: too many dice rolls!');
-				return;
+				return reply('error: too many dice rolls!');
 			}
 			let suf = dex+1;
 			for (;suf<expr.length && '0123456789'.includes(expr[suf]); suf++);
 			if (suf==dex+1) {
-				reply('error: invalid expression!');
-				return;
+				return reply('error: invalid expression!');
 			}
 			if (suf-dex>6) {
-				reply('error: dice has too many faces!');
-				return;
+				return reply('error: dice has too many faces!');
 			}
 			let dfaces = parseInt(expr.substring(dex+1,suf));
 			let rolls = '';
@@ -67,15 +61,12 @@ module.exports = {
 			ns += expr + ' = ' + evaled;
 			ns = ns.split('*').join('\\*');
 			if (ns.length>=2000) {
-				reply('error: result exceeds message size limit!');
-				return;
+				return reply('error: result exceeds message size limit!');
 			}
-			channel.send(ns);
-			return;
+			return channel.send(ns);
 		}
 		catch (e) {
-			reply('evaluation error...');
-			return;
+			return reply('evaluation error...');
 		}
 	}
 };
