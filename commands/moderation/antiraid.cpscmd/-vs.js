@@ -119,7 +119,7 @@ ex.func = async (msg, {
         READ_MESSAGES: true,
       });
 
-
+      return reply('Done!');
     }
   }
 };
