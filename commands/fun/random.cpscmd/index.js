@@ -31,4 +31,5 @@ console.log('[CPSCMD][FUN][random] Build objects complete!');
 module.exports = [
   [dice.name,dice],
   [coin.name,coin],
+  [randombuild.name,randombuild],
 ];
