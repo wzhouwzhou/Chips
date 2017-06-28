@@ -95,14 +95,32 @@ ex.func = async (msg, {
         return reply(`Panic mode was not enabled for this server!`);
       }}
 
-    case 'setUnverifiedChannel':
+    case 'setUnverifiedChannel': {
       if (!args[1]) return send("No channel given :<");
       try{
         const target = args[1].match(Constants.patterns.CHANNEL)[1];
+        return;
       }catch(err){
         return reply(`Invalid channel specified`);
-      }
+      }}
 
+    case 'regenperms': {
+      const unverRole = guild.roles.find('name','Unverified');
+      const unverChan = guild.channels.find('name', 'unverified');
+      if(!unverRole||!unverChan) return reply('Uh oh! Antiraid role and channel names are not set properly');
+      const channels = guild.channels.filter(c => c.type === 'text');
+      for (const channel of channels.values())
+        await channel.overwritePermissions(unverRole, {
+          SEND_MESSAGES: false
+        });
+
+      await unverChan.overwritePermissions(unverRole, {
+        SEND_MESSAGES: true,
+        READ_MESSAGES: true,
+      });
+
+
+    }
   }
 };
 
