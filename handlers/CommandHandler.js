@@ -60,20 +60,21 @@ module.exports = function(Discord, client) {
           }
         };
         if(emb){
-          embed = new context.Discord.RichEmbed().setDescription(cb+u.repeat(l)+cb).setColor(msg.member.displayColor || 10342).setTitle('Loading.');
+          embed = new context.Discord.RichEmbed().setDescription(cb+u.repeat(l)+'0%'+cb).setColor(msg.member.displayColor || 10342).setTitle('Loading.');
           m = await msg.channel.send('', { embed });
         }else
-          m = await msg.channel.send(cb+u.repeat(l)+cb);
+          m = await msg.channel.send(cb+u.repeat(l)+'0%'+cb);
         for(let i=1; i<Math.floor(l/mu)+1;i++) {
           await context.delay(~~(1000*seconds/(l/mu)));
+          let percent = ((mu*i)/l).toFixed(2)+'%';
           if(emb){
-            embed = switchTitle(embed.setDescription(cb+c.repeat(mu*i)+u.repeat((l-mu*i))+cb));
+            embed = switchTitle(embed.setDescription(cb+c.repeat(mu*i)+u.repeat((l-mu*i))+ percent +cb));
             await m.edit('', { embed });
           }else
-            await m.edit(cb+c.repeat(mu*i)+u.repeat((l-mu*i))+cb);
+            await m.edit(cb+c.repeat(mu*i)+u.repeat((l-mu*i))+ percent +cb);
         }
         if(emb) m.edit('', {embed: embed.setTitle('Done Loading!').setTimestamp(new Date())});
-        else m.edit('**Done Loading!**');
+        else m.edit('**(100%) Done Loading!**');
         res(m);
       });
     };
