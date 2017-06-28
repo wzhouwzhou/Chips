@@ -35,8 +35,12 @@ module.exports = function() {
           }, 500);
         }else if(memberguild.id=="250801092143611905"){
           setTimeout(() => {
+            
             console.log("[DColony] adding role...");
-            member.addRole(memberguild.roles.get("329716599399514113")||memberguild.roles.find('name',"Unverified"));
+            let therole = memberguild.roles.get("329716599399514113")||memberguild.roles.find('name',"Unverified");
+            if(!therole) return;
+
+            member.addRole(therole);
             console.log("[DColony] sending welcome msg...");
             let welcomeC=memberguild.channels.get("329717427707576320")||memberguild.channels.find('name','unverified');
             welcomeC.send(`<@${userid}>, Welcome! Please read <#250801092143611905> and wait for a staff member to verify you to be able to speak in other channels!`);
