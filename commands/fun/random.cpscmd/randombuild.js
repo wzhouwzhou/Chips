@@ -8,7 +8,7 @@ module.exports = {
     let build = new Array(PATHS).fill(0);
 
     for(let i = 0; i < UPGRADEPTS; i++)
-      (~content.toLowerCase().indexOf('smasher')&&(!(~content.toLowerCase().indexOf('auto'))))?build[_.sample(smasher)]++:build[_.random(0,build.length)]++;
+      (~content.toLowerCase().indexOf('smasher')&&(!(~content.toLowerCase().indexOf('auto'))))?build[_.sample(smasher)]++:build[_.random(0,build.length-1)]++;
 
     return reply(build.join('/'));
   }
