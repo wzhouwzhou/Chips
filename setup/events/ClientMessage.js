@@ -70,7 +70,7 @@ module.exports = function() {
     }catch(err){console.log(`Log errored! ${err}`);}
     if(message.guild)
       filter(message);
-    detectPartyLink(message);
+    //detectPartyLink(message);
   });
   c2.on('message', m => {
     try{
