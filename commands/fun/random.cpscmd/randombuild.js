@@ -12,7 +12,7 @@ module.exports = {
     let build = new Array(PATHS).fill(0);
     let smasher = SMASHERTYPES.some(type=>joinedcontent.toLowerCase().indexOf(type) >= 0);
     let requestedUps = joinedcontent.match(/\d+/g);
-    let pts = requestedUps!=null&&requestedUps[0]<=UPGRADEPTS&&requestedUps>=0?requestedUps[0]:null;
+    let pts = requestedUps!=null&&requestedUps[0]<=UPGRADEPTS&&requestedUps[0]>=0?requestedUps[0]:null;
     for(let i = 0; i < pts||UPGRADEPTS; i++){
       let ind = (smasher&&joinedcontent.toLowerCase().indexOf('auto')<0)?_.sample(PATHS2):_.random(0,build.length-1);
       if((smasher&&build[ind]>=MAX2)||((!smasher)&&build[ind]>=MAX1)) --i;
