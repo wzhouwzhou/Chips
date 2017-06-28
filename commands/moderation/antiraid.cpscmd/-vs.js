@@ -11,6 +11,7 @@ ex.func = async (msg, {
   gMember,
   reply,
   Discord,
+  client,
 }) =>{
   if(!guild) return reply("You must use this in a server!");
   if (!args[0]) return reply("No action given :(");
@@ -29,18 +30,20 @@ ex.func = async (msg, {
         return reply(`Invalid user specified`);
       }
 
-      if(targetMember.roles.get('305302877641900052')==null&&targetMember.roles.find('name','unverified')==null)
+      if(targetMember.roles.get('305302877641900052')==null&&targetMember.roles.find('name','unverified')==null&&targetMember.roles.find('name','Unverified')==null)
         return reply(`User does not have the unverified role!`);
       try{
-        await targetMember.removeRole(guild.roles.get('305302877641900052')||guild.roles.find('name','unverified'));
-        if(memberjoin.verifyLogC[guild.id]){
+        let therole = targetMember.roles.find('name','unverified')||targetMember.roles.find('name','Unverified');
+        await targetMember.removeRole(guild.roles.get('305302877641900052')||therole);
+        if(client.memberjoin.verifyLogC[guild.id]){
           let embed = new Discord.RichEmbed();
           embed.setTitle('Member Verification').setColor(_.random(1,16777215));
           embed.setDescription(`<@${targetMember.id}> was just verified by <@${author.id}>!`);
-          guild.channels.get(memberjoin.verifyLogC[guild.id]).send('', { embed }).catch(err=>{
-            reply('Could not log the verification...');
-            console.log(err);
-          });
+          if(guild.channels.get(client.memberjoin.verifyLogC[guild.id]))
+            guild.channels.get(client.memberjoin.verifyLogC[guild.id]).send('', { embed }).catch(err=>{
+              reply('Could not log the verification...');
+              console.log(err);
+            });
         }
         return reply('User verified successfully!');
       } catch (err) {
