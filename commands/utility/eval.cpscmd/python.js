@@ -4,7 +4,7 @@ module.exports = {
   name: "python",
   async func(msg, { reply }) {
     let output = await new Promise( (res, rej) =>
-      childProcess.exec(`python -c ${args.join(' ')}`, (err, sout, serr) => {
+      childProcess.exec(`python3 -c '${args.join(' ')}'`, (err, sout, serr) => {
         return (err || serr)? rej(err || serr):res(sout);
       })
     );
