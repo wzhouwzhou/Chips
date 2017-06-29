@@ -4,7 +4,7 @@ module.exports = {
   name: "python",
   async func(msg, { reply, content, prefix }) {
     let output = await new Promise( res =>
-      childProcess.exec(`python3 -c "${content.substring((prefix+'python ').length).replace(/\\n/, '\\\\n').replace(/\n/g, '\\n').replace(/"/g, '\\"')}"`, (err, sout, serr) => {
+      childProcess.exec(`python3 -c "${content.substring((prefix+'python ').length).replace(/\\n/, '\\\\n').replace(/"/g, '\\"')}"`, (err, sout, serr) => {
         return (err || serr)? res(err || serr):res(sout);
       })
     );
