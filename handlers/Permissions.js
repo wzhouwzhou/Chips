@@ -35,6 +35,7 @@ ex.permsList = [
       ['global.fun.eat.eat', true], //14
     ['global.fun.happy.*', true],
       ['global.fun.happy.happy', true], //18
+      ['global.fun.happy.everyone', true], 
     ['global.fun.random.*', true],
       ['global.fun.random.coinflip', true], //12
       ['global.fun.random.roll', true],
