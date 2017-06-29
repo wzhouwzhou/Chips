@@ -8,6 +8,6 @@ module.exports = {
         return (err || serr)? res('Error:\n'+(err || serr)):res(sout);
       })
     );
-    return reply('Python eval:\n'+cb+'py'+output+cb);
+    return reply('Python eval:\n'+cb+'py\n'+output+cb);
   }
 };
