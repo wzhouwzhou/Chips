@@ -23,5 +23,5 @@ console.log('[CPSCMD][FUN][happy] Build objects complete!');
 
 module.exports = [
   [happy.name,happy],
-  [happy.name,everyone],
+  [everyone.name,everyone],
 ];
