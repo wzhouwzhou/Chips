@@ -27,15 +27,15 @@ module.exports = function() {
             console.log("[SURSKIT] sending welcome msg...");
             let welcomeC=memberguild.channels.get("314407824568614913")||memberguild.channels.find('name','unverified');
             welcomeC.send(`<@${userid}>, Welcome to Sinbadx Knights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!**
-              1. How did you hear about this server?
+              1. How did you hear about this server? Where did you get our discord invite link?
               2. Why did you join this server?
-              3. Do you promise to read <#297263352252727296>?
+              3. Do you promise to read and follow the rules in <#297263352252727296>?
               4. What is your favorite diep.io tank?
   (you can answer these with just a sentence or two, no need to write an essay!)`).then(console.log("[SURSKIT] Welcome msg sent")).catch(err=>console.log('welcome msg err:[sinx] '+ err));
           }, 500);
         }else if(memberguild.id=="250801092143611905"){
           setTimeout(() => {
-            
+
             console.log("[DColony] adding role...");
             let therole = memberguild.roles.get("329716599399514113")||memberguild.roles.find('name',"Unverified");
             if(!therole) return;
