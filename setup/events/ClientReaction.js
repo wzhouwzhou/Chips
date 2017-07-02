@@ -6,7 +6,7 @@ module.exports = function() {
     console.log("Reaction detected");
     if (react.message.channel.type == 'text') {
       console.log("Not in DM (->Starboard)");
-      if(disableSelfStar[react.message.guild.id]&&react.message.author.id==user.id)
+      if(client.disableSelfStar[react.message.guild.id]&&react.message.author.id==user.id)
         if(react.emoji.toString()==Constants.emojis.STAR){
           react.remove(user);
           react.message.channel.send(`<@${user.id}>, Self-starring is disabled in this server!`).then(m=>setTimeout(()=>m.delete(),6000)).catch(err=>console.log(err));
