@@ -75,7 +75,7 @@ global.memberleave = {
   msgs: {},
 };
 
-global.disableSelfStar = {
+client.disableSelfStar = {
   "257889450850254848": true,
   "302600674846310401": true,
 };
