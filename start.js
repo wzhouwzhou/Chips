@@ -1,10 +1,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 
-const child_process = require('child_process');
 const Discord = require("discord.js");
 let nodefile=["./chips.js"];
 //setup + start
-const app = require("./setup/AppSetup")(); //website start
+require("./setup/AppSetup")(); //website start
 const colors = require("chalk");
 
 const changeConsole_1 = require("./setup/logging/changeConsole");

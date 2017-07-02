@@ -1,0 +1,233 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Chips Commands</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Documentation for Chips bot's commands" />
+        <meta name="keywords" content="Chips, Discord, bot, commands, Chipsbot" />
+        <meta name="author" content="WillyZ" />
+
+        <meta property="og:title" content="Chips Commands"/>
+      	<meta property="og:image" content="https://images-ext-2.discordapp.net/external/rbjxSCMpe-j3nFxUy9SCXQlm4gz4RZYkhsuV5VK1QW4/https/cdn.discordapp.com/attachments/307625096078426123/314201502669471744/Chips.jpg?width=400&height=225"/>
+      	<meta property="og:url" content="http://chipsbot.tk:8080/commands"/>
+      	<meta property="og:site_name" content="chipsbot"/>
+      	<meta property="og:description" content="Documentation for Chips bot's commands"/>
+
+        <link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+        <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <!--<link rel="stylesheet" href="css/style.css">-->
+
+        <script src="js/modernizr-2.6.2.min.js"></script>
+    </head>
+
+    <style>
+        body {
+          font-family: "Work Sans", Arial, sans-serif;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 1.7;
+          color: #828282;
+          background: #fff;
+        }
+        .btn {
+          font-family: "Work Sans", Arial, sans-serif;
+          font-size: 16px;
+          font-weight: 400;
+          -webkit-border-radius: 30px;
+          -moz-border-radius: 30px;
+          -ms-border-radius: 30px;
+          border-radius: 30px;
+        }
+        .btn:hover, .btn:active, .btn:focus {
+          box-shadow: none !important;
+          outline: none !important;
+        }
+        #loader {
+          position: fixed;
+          left: 0px;
+          top: 30px;
+          width: 100%;
+          height: 100%;
+          z-index: 9999;
+          background: url(./img/loading.gif) center no-repeat #fff;
+        }
+
+        @-webkit-keyframes spin {
+          0% { -webkit-transform: rotate(0deg); }
+          100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        .animate-bottom {
+          position: relative;
+          -webkit-animation-name: animatebottom;
+          -webkit-animation-duration: 1s;
+          animation-name: animatebottom;
+          animation-duration: 1s
+        }
+
+        @-webkit-keyframes animatebottom {
+          from { bottom:-100px; opacity:0 }
+          to { bottom:0px; opacity:1 }
+        }
+
+        @keyframes animatebottom {
+          from{ bottom:-100px; opacity:0 }
+          to{ bottom:0; opacity:1 }
+        }
+
+        #bigcontent {
+          display: none;
+        }
+
+    </style>
+
+    <body>
+        <div id="loader"></div>
+        <div id="progress1" class="progress">
+            <div class="indeterminate"></div>
+        </div>
+
+        <div id="bigcontent" style="display:none;">
+          <h1 id="real" style="display:none" class="animate-bottom">realest sht</h1>
+          <h1 id="more" style="display:none" class="animate-bottom">more sht</h1>
+          <div class="parallax-container">
+              <div class="center-align vertical-align">Hi</div>
+              <div class="parallax"><img id="introimg" style="display: block; transform: translate3d(-50%, 0px, 0px); visibility: visible;" src="img/bg.png"></div>
+          </div>
+
+          <div class="center-align">
+              <a class="z-depth-5 center-align waves-effect waves-light yellow btn animated rubberBand" onclick="checkTTMenu()">Show Menu</a>
+          </div>
+
+          <div id="ontap" class="tap-target-wrapper"><!-- style="right: -248px; bottom: -227px; position: fixed;">-->
+              <div class="tap-target cyan" data-activates="menu">
+                  <div class="tap-target-content white-text" style="width: 356px; height: 300px; top: 0px; right: 0px; bottom: 0px; left: 0px; padding: 56px; vertical-align: bottom;">
+                      <h5>I am here</h5>
+                      <p class="white-text">Provide value and encourage return visits by introducing users to new features and functionality at contextually relevant moments.</p>
+                  </div>
+              </div>
+              <div class="tap-target-wave" style="top: 244px; left: 244px; width: 112px; height: 112px;"><a class="z-depth-5 btn btn-floating btn-large red tap-target-origin"><i class="material-icons">menu</i></a></div>
+          </div>
+
+          <div id="menu" class="fixed-action-btn toolbar" data-open="false">
+            <a class="btn-floating btn-large red">
+              <i class="large material-icons">menu</i>
+            </a>
+            <ul>
+              <li class="waves-effect waves-light"><a href="#!">Hi</a></li>
+              <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">format_quote</i></a></li>
+              <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">publish</i></a></li>
+              <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">attach_file</i></a></li>
+            </ul>
+          </div>
+
+          <div class="card sticky-action">
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+              <p><a href="#">This is a link</a></p>
+              <p class="flow-text">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+            </div>
+            <div class="card-tabs card-action">
+              <ul class="tabs tabs-fixed-width">
+                <li class="tab active"><a class="active" href="#test4">Test 1</a></li>
+                <li class="tab"><a href="#test5">Test 2</a></li>
+                <li class="tab"><a href="#test6">Test 3</a></li>
+                <li class="indicator" style="left: 0px; right: 67%"></li>
+              </ul>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+            <div class="card-action card-content grey lighten-4">
+              <div id="test4">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Test 1 text
+              </div>
+              <div id="test5">Test 2 text2</div>
+              <div id="test6">Test 3 text3</div>
+            </div>
+          </div>
+
+          <footer class="page-footer">
+              <div class="container">
+                <div class="row">
+                  <div class="col l6 s12">
+                    <h5 class="white-text">Footer Content</h5>
+                    <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+                  </div>
+                  <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Links</h5>
+                    <ul>
+                      <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                      <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                      <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                      <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="footer-copyright">
+                <div class="container">
+                © 2017 WillyZ CC-BY-NC-ND 4.0
+                <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+                </div>
+              </div>
+          </footer>
+
+          <div class="parallax-container">
+              <div class="parallax"><img style="display: block; transform: translate3d(-50%, 84px, 0px);" src="img/chipssplash.png"></div>
+          </div>
+        </div>
+
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
+
+        <script>
+            (function(){
+              $('.parallax').parallax();
+            })();
+            var shtpost, shtbot;
+            var tt1, tt1a;
+            function checkTTMenu() {
+              tt1 = $('.tap-target');
+              tt1a = document.getElementById("menu");
+              if(tt1a.getAttribute("data-open")=="false"){
+                tt1.tapTarget('open');
+              }
+            }
+            function showPage() {
+              document.getElementById("loader").style.display = "none";
+              document.getElementById("progress1").style.display = "none";
+              document.getElementById("bigcontent").style.display = "block";
+              document.getElementById("real").style.display = "block";
+              document.getElementById("introimg").style="display: block; transform: translate3d(-50%, 0px, 0px); visibility: visible;"
+            }
+            function showPage2(){
+              document.getElementById("real").style.display = "none";
+              document.getElementById("more").style.display = "block";
+              Materialize.toast('I am a toast!', 3000, 'rounded');
+            }
+            (function (){
+              shtpost = setTimeout(showPage, 1000);
+              shtbot = setTimeout(showPage2, 3000)
+            } )()
+        </script>
+
+    </body>
+</html>

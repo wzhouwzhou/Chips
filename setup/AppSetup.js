@@ -14,6 +14,7 @@ const login = require(path.join(__dirname, '../routes/login'));
 const updates = require(path.join(__dirname, '../routes/updates'));
 const useroverview = require(path.join(__dirname, '../routes/updates'));
 const index = require(path.join(__dirname, '../routes/index'));
+const cmds = require(path.join(__dirname,'../routes/commands'));
 const morgan = require('morgan');
 const morgan2 = require('morgan');
 const rfs = require('rotating-file-stream');
@@ -110,6 +111,7 @@ module.exports = function() {
     }
     }),function (req, res, next) {
       res.flash('Load Success!');
+      next();
     }
   );
 
@@ -120,10 +122,12 @@ module.exports = function() {
     }
     }),function (req, res, next) {
       res.flash('Load Success!');
+      next();
     }
   );
 
   app.use('/sinbad/login',login);
+  app.use('/commands',cmds);
   //app.use('/updates',updates);
 
   // catch 404 and forward to error handler
