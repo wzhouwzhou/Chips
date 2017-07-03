@@ -46,14 +46,14 @@ body, .onepage-wrapper, html {
   width: 4px;
   height: 4px;
   display: block;
-  color: yellow;
+  color: orange;
 }
 .onepage-pagination li a:before{
   content: '';
   position: absolute;
   width: 4px;
   height: 4px;
-  background: yellow;
+  background: orange;
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -62,8 +62,8 @@ body, .onepage-wrapper, html {
 .onepage-pagination li a.active:before{
   width: 10px;
   height: 10px;
-  background: yellow;
-  border: 1px solid yellow;
+  background: orange;
+  border: 1px solid orange;
   margin-top: -4px;
   left: 8px;
 }
