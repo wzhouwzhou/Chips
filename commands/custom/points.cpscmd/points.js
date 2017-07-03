@@ -2,7 +2,7 @@ const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).def
 
 module.exports = {
   name: "points",
-  async func(msg, {member, author, content, guild, args, gMember, reply, prefix}) {
+  async func(msg, {send, member, author, content, guild, args, gMember, reply, prefix}) {
     if(!guild||(guild.id!="257889450850254848"&&guild.id!="302983444009451541")) return;
     const used = member || author;
     let dbUser = database.sinxUsers.get(used.id);
