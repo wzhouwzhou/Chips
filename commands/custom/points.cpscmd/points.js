@@ -2,7 +2,7 @@ const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).def
 
 module.exports = {
   name: "points",
-  async func(msg, {member, author, content, guild, args, gMember, reply}) {
+  async func(msg, {member, author, content, guild, args, gMember, reply, prefix}) {
     if(!guild||(guild.id!="257889450850254848"&&guild.id!="302983444009451541")) return;
     const used = member || author;
     let dbUser = database.sinxUsers.get(used.id);
@@ -102,15 +102,16 @@ module.exports = {
       }//  time: moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')
     }else{
       let target = content.substring((`${prefix}points `).length);
-
+      await send(`[Debug]Target: ${target}`);
       searchers[guild.id] = new Searcher( guild );
 
       let mem = searchers[guild.id].searchMember(target);
+      await send(`[Debug] memid: ${mem?mem.id:'none'}`);
       // console.log("Target: "+target);
       if(mem==null) return reply(`User [${target}] was not found in this server`);
       let us = database.sinxUsers.get(mem.id);
 
-      if(us&&us.points!=0)
+      if(us&&us.pts!=0)
         return reply(`[${target}] has: ${us.pts} points`);
       else
         return reply(`[${target}] has no points`);
