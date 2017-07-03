@@ -38,6 +38,7 @@ global.memberjoin = {
   antiraidWelcome: {
     "257889450850254848": `<@&305302877641900052> Welcome to Sinbadx Knights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!** \n
   1. How did you hear about this server? Where did you get our discord invite link?
+  \t1a.If you got our invite link from a video, please provide a link, or if you got it from a friend, please tell us who.
   2. Why did you join this server?
   3. Do you promise to read and follow the rules in <#297263352252727296>?
   4. What is your favorite diep.io tank?
