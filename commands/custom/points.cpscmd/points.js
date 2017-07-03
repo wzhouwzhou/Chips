@@ -104,13 +104,18 @@ module.exports = {
       let target = content.substring((`${prefix}points `).length);
       await send(`[Debug]Target: ${target}`);
       searchers[guild.id] = new Searcher( guild );
+      let mem;
+      try{
+        let target = target.match(Constants.patterns.MENTION)[1];
+        mem = gMember(target);
+      }catch(err){
+        let list = searchers[guild.id].searchMember(target);
 
-      let list = searchers[guild.id].searchMember(target);
-
-      if(list.length>1) await send('Multiple matches found, using the first...');
-      else if(list.length<1) return await send(`User [${target}] not found!`);
-      mem = list[0];
-      await send(`[Debug] memid: ${mem?mem.id:'none'}`);
+        if(list.length>1) await send('Multiple matches found, using the first...');
+        else if(list.length<1) return await send(`User [${target}] not found!`);
+        mem = list[0];
+      }
+      // await send(`[Debug] memid: ${mem?mem.id:'none'}`);
       // console.log("Target: "+target);
       if(mem==null) return reply(`User [${target}] was not found in this server`);
       let us = database.sinxUsers.get(mem.id);
