@@ -8,7 +8,7 @@ module.exports = {
     let dbUser = database.sinxUsers.get(used.id);
     if(args[0]==null){
       if(dbUser!=null)
-        return reply(`You have: ${dbUser.points} points`);
+        return reply(`You have: ${dbUser.pts} points`);
       else
         return reply(`You have no points`);
     }else
