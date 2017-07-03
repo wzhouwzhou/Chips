@@ -1,3 +1,5 @@
+const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
+
 module.exports = {
   name: "points",
   async func(msg, {member, author, content, guild, args, gMember, reply}) {
@@ -99,49 +101,19 @@ module.exports = {
         }
       }//  time: moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')
     }else{
-      let target, us;
-      try{
-        target = args[0].match(Constants.patterns.MENTION)[1];
-      }catch(err){
-        target=args[0];
-      }
+      let target = content.substring((`${prefix}points `).length);
+
+      searchers[guild.id] = new Searcher( guild );
+
+      let mem = searchers[guild.id].searchMember(target);
       // console.log("Target: "+target);
-      if(target!=args[0]){
-        try{
-          let mem = gMember(target);
-          us = database.sinxUsers.get(mem.id);
-          if(us==null) return reply(`[${mem.displayName}] has no points`);
-          if(us.points!=0)
-            return reply(`[${mem.displayName}] has: ${us.points} points`);
-          else
-            return reply(`[${mem.displayName}] has no points`);
-        }catch(err){
-          return reply(`Target user is not in Sinbad Knights!`);
-        }
-      }else{
-        //find by nickname
-        target = content.substring(content.indexOf(target));
-        let mem = guild.members.find('displayName',target);
-        if(mem!=null){
-          us = database.sinxUsers.get(mem.id);
-          if(us==null) return reply(`[${mem.displayName}] has no points`);
-          if(us.points!=0)
-            return reply(`[${mem.displayName}] has: ${us.points} points`);
-          else
-            return reply(`[${mem.displayName}] has no points`);
-        }else{
-          let mem = guild.members.find('username',target);
-          if(mem!=null){
-            us = database.sinxUsers.get(mem.id);
-            if(us==null) return reply(`[${mem.displayName}/${mem.username}] has no points`);
-            if(us.points!=0)
-              return reply(`[${mem.displayName}/${mem.username}] has: ${us.points} points`);
-            else
-              return reply(`[${mem.displayName}/${mem.username}] has no points`);
-          }
-          return reply(`Target user ${target} not found in this server!`);
-        }
-      }
+      if(mem==null) return reply(`User [${target}] was not found in this server`);
+      let us = database.sinxUsers.get(mem.id);
+
+      if(us&&us.points!=0)
+        return reply(`[${target}] has: ${us.pts} points`);
+      else
+        return reply(`[${target}] has no points`);
     }
   }
 };

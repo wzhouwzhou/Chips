@@ -22,9 +22,9 @@ ex.permsList = [
         ['public.info.support.support', true],
   ['global.*', false],
   ['global.custom.*', false],
-    ['global.custom.points.*', false],
-      ['global.custom.points.self', false],
-      ['global.custom.points.other', false],
+    ['global.custom.points.*', true],
+      ['global.custom.points.self', true],
+      ['global.custom.points.other', true],
   ['global.fun.*', false],
     ['global.fun.-ban.*', false],
       ['global.fun.-ban.-ban', false], //4
@@ -35,7 +35,7 @@ ex.permsList = [
       ['global.fun.eat.eat', true], //14
     ['global.fun.happy.*', true],
       ['global.fun.happy.happy', true], //18
-      ['global.fun.happy.everyone', true], 
+      ['global.fun.happy.everyone', true],
     ['global.fun.random.*', true],
       ['global.fun.random.coinflip', true], //12
       ['global.fun.random.roll', true],
