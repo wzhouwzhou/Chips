@@ -106,8 +106,8 @@ module.exports = {
       searchers[guild.id] = new Searcher( guild );
       let mem;
       try{
-        let target = target.match(Constants.patterns.MENTION)[1];
-        mem = gMember(target);
+        let t = target.match(Constants.patterns.MENTION)[1];
+        mem = gMember(t);
       }catch(err){
         let list = searchers[guild.id].searchMember(target);
 
