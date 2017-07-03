@@ -40,6 +40,7 @@
           background: #fff;
           background-image: url(./img/chipssplash.png);
           background-size: cover;
+          background-position: top center;
         }
         .btn {
           color: blue;
@@ -118,9 +119,9 @@
 
             <div class = "top">
               <h1 id="real" style="display:none" class="center-align animate-bottom">realest sht</h1>
-              <h1 id="more" style="display:none" class="center-align animate-bottom">more sht</h1>
+              <h1 id="more" style="display:none" class="center-align animated bounce">Chips Bot Commands Documentation</h1>
 
-              <h1 id="more" style="display:none" class="center-align animate-bottom">more sht</h1>
+              <h1 id="kek" style="display:none" class="center-align animate-bottom">Commands</h1>
 
               <div class="center-align">
                   <a class="z-depth-5 center-align waves-effect waves-light yellow btn animated rubberBand" onclick="checkTTMenu()">Show Menu</a>
@@ -130,7 +131,7 @@
                   <div class="tap-target cyan" data-activates="menu">
                       <div class="tap-target-content white-text" style="width: 356px; height: 300px; top: 0px; right: 0px; bottom: 0px; left: 0px; padding: 56px; vertical-align: bottom;">
                           <h5>Click here to reveal the navbar</h5>
-                          <p class="white-text">The navbar lets you jump easily to different command module documentations.</p>
+                          <p class="white-text">The navbar lets you jump easily to different command module documentations. You can also use your arrow keys to navigate</p>
                       </div>
                   </div>
                   <div class="tap-target-wave" style="top: 244px; left: 244px; width: 112px; height: 112px;"><a class="z-depth-5 btn btn-floating btn-large red tap-target-origin"><i class="material-icons">menu</i></a></div>
@@ -138,20 +139,21 @@
             </div>
           </section>
           <section>
-              <div w3-include-html="/snips/menu.html"></div>
               <div class="card sticky-action">
                 <div class="card-content">
-                  <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-                  <p><a href="#">This is a link</a></p>
+                  <span class="card-title activator grey-text text-darken-4">Public Commands<i class="material-icons right">more_vert</i></span>
+                  <p><a href="" onclick="$('.main').moveTo(1);"><</a><a href="" onclick="$('.main').moveTo(3);">></a></p>
+                  <li class="btn white align-right waves-effect waves-light"><a onclick="$('.main').moveTo(3);">Info<i class="material-icons">info</i></a></li>
                   <p class="flow-text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    These commands are available to every server!
                   </p>
                 </div>
                 <div class="card-tabs card-action">
-                  <ul class="tabs tabs-fixed-width">
+                  <ul class="tabs tabs-demo tabs-fixed-width">
                     <li class="tab active"><a class="active" href="#test4">Test 1</a></li>
                     <li class="tab"><a href="#test5">Test 2</a></li>
                     <li class="tab"><a href="#test6">Test 3</a></li>
+
                     <li class="indicator" style="left: 0px; right: 67%"></li>
                   </ul>
                 </div>
@@ -171,7 +173,6 @@
           </section>
 
           <section>
-              <div w3-include-html="/snips/menu.html"></div>
               <footer class="page-footer">
                   <div class="container">
                     <div class="row">
@@ -209,6 +210,7 @@
         <script>
             (function(){
               $('.parallax').parallax();
+              $('ul.tabs').tabs({swipeable: true, responsiveThreshold: 500});
             })();
             var shtpost, shtbot;
             var tt1, tt1a;
@@ -232,13 +234,13 @@
             }
             (function (){
               shtpost = setTimeout(showPage, 500);
-              shtbot = setTimeout(showPage2, 2500)
+              shtbot = setTimeout(showPage2, 1000)
               w3.includeHTML();
             } )()
             $(".main").onepage_scroll({
                sectionContainer: "section",
                easing: "ease",
-               animationTime: 1000,
+               animationTime: 750,
                pagination: true,
                updateURL: false,
                beforeMove: function(index) {},
@@ -246,7 +248,7 @@
                loop: true,
                keyboard: true,
                responsiveFallback: false,
-               direction: "horizontal"
+               direction: "vertical"
             });
         </script>
 
