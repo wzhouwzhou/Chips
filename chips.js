@@ -58,6 +58,9 @@ Make sure you send your answers in this channel (don't DM them)!`,
   panicKick: {
     0: false,
   },
+  panicBan: {
+    o: false,
+  },
   antiraidOldVL:{ //guild: verif lvl
     0: 0,
   },

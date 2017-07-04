@@ -78,6 +78,16 @@ ex.func = async (msg, {
           memberjoin.panicKick[guild.id] = true;
           return reply(`Panic lockdown activated, verification level is now ${guild.verificationLevel}, and new members who join during this time will get rekt!`);}
 
+        case 'lockdown ban':{
+          if(memberjoin.panicKick[guild.id]) return reply('Panic lockdown is already enabled!');
+          options = 'lockdown ';
+          if(!memberjoin.panics[guild.id])
+            memberjoin.antiraidOldVL[guild.id] = guild.verificationLevel;
+          await guild.setVerificationLevel(4);
+          memberjoin.panics[guild.id] = true;
+          memberjoin.panicBan[guild.id] = true;
+          return reply(`Panic lockdown ban activated, verification level is now ${guild.verificationLevel}, and autoban initiated!`);}
+
         case 'none':{
           if(memberjoin.panics[guild.id]) return reply('Panic is already enabled!');
           memberjoin.antiraidOldVL[guild.id] = guild.verificationLevel;
