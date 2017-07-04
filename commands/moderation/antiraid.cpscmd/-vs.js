@@ -69,24 +69,25 @@ ex.func = async (msg, {
             return reply(`Panic mode was not enabled for this server!`);
           }}
         case 'lockdown':{
-          if(memberjoin.panicKick[guild.id]) return reply('Panic lockdown is already enabled!');
-          options = 'lockdown ';
-          if(!memberjoin.panics[guild.id])
-            memberjoin.antiraidOldVL[guild.id] = guild.verificationLevel;
-          await guild.setVerificationLevel(4);
-          memberjoin.panics[guild.id] = true;
-          memberjoin.panicKick[guild.id] = true;
-          return reply(`Panic lockdown activated, verification level is now ${guild.verificationLevel}, and new members who join during this time will get rekt!`);}
-
-        case 'lockdown ban':{
-          if(memberjoin.panicKick[guild.id]) return reply('Panic lockdown is already enabled!');
-          options = 'lockdown ';
-          if(!memberjoin.panics[guild.id])
-            memberjoin.antiraidOldVL[guild.id] = guild.verificationLevel;
-          await guild.setVerificationLevel(4);
-          memberjoin.panics[guild.id] = true;
-          memberjoin.panicBan[guild.id] = true;
-          return reply(`Panic lockdown ban activated, verification level is now ${guild.verificationLevel}, and autoban initiated!`);}
+          if(args[2]&&args[2]=='ban'){
+            if(memberjoin.panicKick[guild.id]) return reply('Panic lockdown is already enabled!');
+            options = 'lockdown ';
+            if(!memberjoin.panics[guild.id])
+              memberjoin.antiraidOldVL[guild.id] = guild.verificationLevel;
+            await guild.setVerificationLevel(4);
+            memberjoin.panics[guild.id] = true;
+            memberjoin.panicBan[guild.id] = true;
+            return reply(`Panic lockdown ban activated, verification level is now ${guild.verificationLevel}, and autoban initiated!`);
+          }else{
+            if(memberjoin.panicKick[guild.id]) return reply('Panic lockdown is already enabled!');
+            options = 'lockdown ';
+            if(!memberjoin.panics[guild.id])
+              memberjoin.antiraidOldVL[guild.id] = guild.verificationLevel;
+            await guild.setVerificationLevel(4);
+            memberjoin.panics[guild.id] = true;
+            memberjoin.panicKick[guild.id] = true;
+            return reply(`Panic lockdown activated, verification level is now ${guild.verificationLevel}, and new members who join during this time will get rekt!`);
+          }}
 
         case 'none':{
           if(memberjoin.panics[guild.id]) return reply('Panic is already enabled!');
