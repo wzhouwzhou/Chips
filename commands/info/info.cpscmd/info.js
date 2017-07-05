@@ -91,7 +91,7 @@ const ex = {
       infobad = new Discord.RichEmbed();
       infobad.setColor(member.displayColor).setAuthor('Server Emojis').setTitle(`Emoji List! # of emotes: ${guild.emojis.size}`);
       infobad.setDescription(`${guild.emojis.array().join(' ')}\n\n**Server icon:**`);
-      if (guild.iconURL&&guild.iconURL(2048)) infobad.setImage(guild.iconURL(2048));
+      if (guild.iconURL) infobad.setImage(guild.iconURL);
       let hrTime = process.hrtime(start);
       let µs = false;
       let end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
@@ -192,8 +192,8 @@ const ex = {
                .addField(`Highest Role: ${member.highestRole.name}`,`Total number of roles: ${member.roles.size}`, true)
                .addField(`Status:`,`    ${member.presence.status}`, true);
         infobad.addField(`Permissions number:`,member.permissions.bitfield);
-        infobad.addField(`Avatar URL`, `[Click Here](${member.user.avatarURL(2048)})`);
-        infobad.setImage(member.user.avatarURL(2048));
+        infobad.addField(`Avatar URL`, `[Click Here](${member.user.avatarURL})`);
+        infobad.setImage(member.user.avatarURL);
         return await send(`User info ${multiple?'(multiple users were found, using the first one)':''}`, {embed: infobad});
       }else{
         try{
@@ -232,8 +232,8 @@ const ex = {
                .addField(`Highest Role: ${member.highestRole.name}`,`Total number of roles: ${member.roles.size}`, true)
                .addField(`Status:`,`    ${member.presence.status}`, true);
         infobad.addField(`Permissions number:`,member.permissions.bitfield);
-        infobad.addField(`Avatar URL`, `[Click Here](${member.user.avatarURL(2048)})`);
-        infobad.setImage(member.user.avatarURL(2048));
+        infobad.addField(`Avatar URL`, `[Click Here](${member.user.avatarURL})`);
+        infobad.setImage(member.user.avatarURL);
         return await send(`User info`, {embed: infobad});
       }
     }else if(action == "role"){

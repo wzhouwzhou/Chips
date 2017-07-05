@@ -120,7 +120,7 @@ const loadsheet = function(sheet, sbk) {
     sheet.getRows({offset: 1,limit: 999999}, (err, rows) => {
       if (sheet.title == 'rawpts') {
         rows.forEach(row => {
-          console.log('[DBLOADER][SBKLOADER][Points Loader] Found: ' + row['uid']);
+          console.log('[DBLOADER][SBKLOADER][Points Loader] Found: ' + row['uid']+' has: '+row['pts']+'pts');
           ex.sinxUsers.set(row['uid'],row);
         });
       }
@@ -162,7 +162,7 @@ const getSinxPt = (id) => {
           sheet.getRows({offset: 1,limit: 999999}, (err, rows) => {
             if (sheet.title == 'rawpts') {
               rows.forEach(row=>{
-                if(row.uid==id)
+                if(row['uid']==id)
                   resolve(row.pts);
               });
             }

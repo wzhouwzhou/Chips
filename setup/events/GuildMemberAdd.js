@@ -87,7 +87,7 @@ const handleAutoKickOrBan = (gid, mem) => {
           console.log(`[Autokick for guild ${mem.guild.id}]: Failed to kick ${oldmem.id}..trying again.`);
         }
       }
-    },5000);
+    },3000);
     return false;
   }else if(memberjoin.panics[gid]&&memberjoin.panicBan[gid]){
     setTimeout(async ()=>{
@@ -100,7 +100,7 @@ const handleAutoKickOrBan = (gid, mem) => {
           console.log(`[Autoban for guild ${mem.guild.id}]: Failed to kick ${oldmem.id}..trying again.`);
         }
       }
-    },5000);
+    },3000);
     return false;
   }
   return true;
