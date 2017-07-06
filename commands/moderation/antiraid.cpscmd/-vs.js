@@ -173,7 +173,7 @@ ex.func = async (msg, {
                 if(errored) return reply('Cancelled');
                 let membersToBan = s.searchMember(theregex).filter( m=> {
                   if(thetimer){
-                    if(moment().diff(m.joinedAt, 'minutes')<thetimer)
+                    if(moment().diff(m.joinedAt, 'minutes')<(60*1000*thetimer))
                       return true;
                   }else return true;
                 });
