@@ -99,7 +99,7 @@ ex.func = async (msg, {
                     return reply('Invalid name length of '+length);
                   }
                   m.channel.send(`Okay, creating a regex that matches a name with ${length} characters`);
-                  theregex = new RegExp(`^\w{${length},${length}}$`);
+                  theregex = new RegExp(`^\\w{${length},${length}}$`);
                 }else theregex = new RegExp(m.content.toLowerCase());
                 m.channel.send(`Regex set as ${theregex}`);
                 return true;
