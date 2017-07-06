@@ -149,11 +149,11 @@ ex.func = async (msg, {
               try{
                 await channel.send(regexprompter);
                 await channel.awaitMessages(regexSaver, { max: 1, time: WAITFORSHT, errors: ['time'] });
-                if(cancelA) return thesht.reply('Cancelled');
+                if(cancelA) return reply('Cancelled');
 
                 await channel.send(timedprompter);
                 await channel.awaitMessages(timedBanner, { max: 1, time: WAITFORSHT, errors: ['time'] });
-                if(cancelB) return thesht.reply('Cancelled');
+                if(cancelB) return reply('Cancelled');
                 if(errored) return;
 
                 const confirmation = [
@@ -165,14 +165,14 @@ ex.func = async (msg, {
                 ].join('\n');
                 await channel.send(confirmation);
                 await channel.awaitMessages(confirmSettings, { max: 1, time: WAITFORSHT, errors: ['time'] });
-                if(errored) return thesht.reply('Cancelled');
+                if(errored) return reply('Cancelled');
                 let membersToBan = s.searchMember(theregex).filter( m=> {
                   if(thetimer){
                     if(moment().diff(m.joinedAt, 'minutes')<thetimer)
                       return true;
                   }else return true;
                 });
-
+                send(`Banning ${membersToBan.length} member(s)`)
                 membersToBan.forEach(m=>m.ban(`Antiraid rules set by ${thesht.author.tag}`));
 
               }catch(timed){
