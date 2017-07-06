@@ -131,6 +131,12 @@ module.exports = function( send ) {
     clientutil.broadcastEval(scpt);
     console.log('I just joined a new server! Its name is '+g.name.replace('@','(at)') +' and it has ' + g.members.size + ' members!');
   });
+
+  client.on('guildDelete', g => {
+    const scpt = `try { client.channels.get('307624059984674816').send('I just left a server! Its name was ${g.name.replace('@','(at)')} and it had ${g.members.size} members!');} catch(err){}`;
+    clientutil.broadcastEval(scpt);
+    console.log('I just left a server! Its name was '+g.name.replace('@','(at)') +' and it had ' + g.members.size + ' members!');
+  });
   require('./GuildMemberAdd')();
 };
 
