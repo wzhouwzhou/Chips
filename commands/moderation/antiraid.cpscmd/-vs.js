@@ -164,14 +164,14 @@ ex.func = async (msg, {
                 let a=s.searchMember(theregex);
                 if(thetimer)
                   a.forEach( me=> {
-                    if(Math.abs(Date.now()-me.joinedAt)<(thetimer*60*1000)) membersToBan.push(me);
+                    if(Math.abs(Date.now()-me.joinedAt)<(parseInt(thetimer)*601000)) membersToBan.push(me);
                   });
                 else membersToBan = a;
                 const confirmation = [
                   'This is just to confirm...',
                   '**You are about to activate panic lockdown and ban users who match this criteria:**',
                   length?`\tUsername length is ${length}`:`\tName passes this regexp: ${theregex}`,
-                  thetimer?`\tUser joined within ${thetimer} minutes`:'\tThe length of time the user has been in the server does not matter',
+                  thetimer?`\tUser joined within the last ${thetimer} minutes`:'\tThe length of time the user has been in the server does not matter',
                   `This apples to __${membersToBan.length}__ member(s).`,
                   '**Type __y__es or __n__o.**',
                 ].join('\n');
