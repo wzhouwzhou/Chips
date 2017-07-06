@@ -175,7 +175,8 @@ ex.func = async (msg, {
                 membersToBan.forEach(m=>m.ban(`Antiraid rules set by ${thesht.author.tag}`));
 
               }catch(timed){
-                return thesht.reply('Timed out');
+                console.log(timed);
+                return reply('Timed out');
               }
             }
             if(memberjoin.panicKick[guild.id]) return reply('Panic lockdown is already enabled!');
