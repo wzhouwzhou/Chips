@@ -92,11 +92,11 @@ ex.func = async (msg, {
                   cancelA = true;
                   return true;
                 }
-                if(m.toLowerCase().startsWith('length:')){
-                  length = _.drop(m.toLowerCase().split(/\s+/))[0];
+                if(m.content.toLowerCase().startsWith('length:')){
+                  length = _.drop(m.content.toLowerCase().split(/\s+/))[0];
                   m.channel.send(`Okay, creating a regex that matches a name with ${length} characters`);
                   theregex = new RegExp(`^\w{${length},${length}}$`);
-                }else theregex = new RegExp(m.toLowerCase());
+                }else theregex = new RegExp(m.content.toLowerCase());
                 m.channel.send(`Regex set as ${theregex}`);
                 return true;
               };
