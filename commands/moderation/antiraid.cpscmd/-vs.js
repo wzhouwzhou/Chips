@@ -5,6 +5,7 @@ ex = {};
 ex.name = "-vs";
 ex.func = async (msg, {
   send,
+  channel,
   author,
   guild,
   args,
