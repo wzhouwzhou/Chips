@@ -1,5 +1,5 @@
-//const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
-
+const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
+const moment = require('moment');
 ex = {};
 
 ex.name = "-vs";
@@ -70,6 +70,114 @@ ex.func = async (msg, {
           }}
         case 'lockdown':{
           if(args[2]&&args[2]=='ban'){
+            if(args[3]&&(args[3]=='customize'||args[3]=='customise')){
+              let s = new Searcher(guild);
+
+              let cancelA = false, cancelB = false, thesht;
+              let theregex, length=false, thetimer;
+              let errored = false;
+              const WAITFORSHT = 60*1000;
+
+              const authorFilter = (m) => {
+                if(m.author.id != author.id) return false;
+                else return true;
+              };
+
+              const cancelFilter = (m) => m.content.toLowerCase().indexOf('cancel')>-1;
+
+              const regexSaver = (m) => {
+                if(!authorFilter(m)) return false;
+                if(cancelFilter(m)) {
+                  cancelA = true;
+                  return true;
+                }
+                if(m.toLowerCase().startsWith('length:')){
+                  length = _.drop(m.toLowerCase().split(/\s+/))[0];
+                  m.channel.send(`Okay, creating a regex that matches a name with ${length} characters`);
+                  theregex = new RegExp(`^\w{${length},${length}}$`);
+                }else theregex = new RegExp(m.toLowerCase());
+                m.channel.send(`Regex set as ${theregex}`);
+                return true;
+              };
+
+              const regexprompter = [
+                'Please enter name ban parameters. This is either a **regex** or **length of name** I will match against people here.',
+                'To set a length of the name type `length:` followed by the length of the new user\'s name.',
+                '\t*For example, typing `length:5` will set it so I will ban names with a length of five.*',
+                'To set a regex simply type your regexp but __**omit**__ the starting and ending `/`',
+                '\t*For example, if your regex is `/aregexp/` you would type `aregexp`',
+                'Type __cancel__ to exit'
+              ].join('\n');
+
+              const timedBanner = (m) => {
+                if(!authorFilter(m)) return false;
+                if(cancelFilter(m)) {
+                  cancelB = true;
+                  return true;
+                }
+                if(~m.content.toLowerCase().indexOf('-1'))
+                  thetimer = false;
+                else {
+                  try{
+                    thetimer = parseInt(m.content.toLowerCase());
+                    if(isNaN(thetimer)) throw 'Invalid time given. Please start over';
+                  }catch(err){
+                    m.reply(err);
+                    errored = true;
+                    return true;
+                  }
+                }
+                thesht = m;
+                return true;
+              };
+
+              const timedprompter = [
+                '**Please enter a whole number (in minutes) that will be banned with the matcher you just set.**',
+                '\t*For example, typing `5` will set it so people who joined within 5 minutes ago whos names match the criteria you set above will be banned*',
+                'Type __cancel__ to exit, or __-1__ to ban all matches regardless of join time',
+              ].join('\n');
+
+              const confirmSettings = (m) => {
+                if(!authorFilter(m)) return false;
+                if(/^(?:y(?:es)?)|(?:no?)$/i.test(m.content.toLowerCase())){
+                  errored = !(/^(?:y(?:es)?)$/i.test(m.content.toLowerCase()));
+                }
+                return true;
+              };
+
+              try{
+                await channel.send(regexprompter);
+                await channel.awaitMessages(regexSaver, { max: 1, time: WAITFORSHT, errors: ['time'] });
+                if(cancelA) return thesht.reply('Cancelled');
+
+                await channel.send(timedprompter);
+                await channel.awaitMessages(timedBanner, { max: 1, time: WAITFORSHT, errors: ['time'] });
+                if(cancelB) return thesht.reply('Cancelled');
+                if(errored) return;
+
+                const confirmation = [
+                  'This is just to confirm...',
+                  '**You are about to activate panic lockdown and ban users who match this criteria:**',
+                  length?`\tUsername length is ${length}`:`\tName passes this regexp: ${theregex}`,
+                  thetimer?`\tUser joined within ${thetimer} minutes`:'\tThe length of time the user has been in the server does not matter',
+                  '**Type __y__es or __n__o.**',
+                ].join('\n');
+                await channel.send(confirmation);
+                await channel.awaitMessages(confirmSettings, { max: 1, time: WAITFORSHT, errors: ['time'] });
+                if(errored) return thesht.reply('Cancelled');
+                let membersToBan = s.searchMember(theregex).filter( m=> {
+                  if(thetimer){
+                    if(moment().diff(m.joinedAt, 'minutes')<thetimer)
+                      return true;
+                  }else return true;
+                });
+
+                membersToBan.forEach(m=>m.ban(`Antiraid rules set by ${thesht.author.tag}`));
+
+              }catch(timed){
+                return thesht.reply('Timed out');
+              }
+            }
             if(memberjoin.panicKick[guild.id]) return reply('Panic lockdown is already enabled!');
             options = 'lockdown ';
             if(!memberjoin.panics[guild.id])
@@ -78,6 +186,7 @@ ex.func = async (msg, {
             memberjoin.panics[guild.id] = true;
             memberjoin.panicBan[guild.id] = true;
             return reply(`Panic lockdown ban activated, verification level is now ${guild.verificationLevel}, and autoban initiated!`);
+
           }else{
             if(memberjoin.panicKick[guild.id]) return reply('Panic lockdown is already enabled!');
             options = 'lockdown ';
@@ -109,11 +218,11 @@ ex.func = async (msg, {
         return reply(`Panic mode was not enabled for this server!`);
       }}
 
-    case 'setUnverifiedChannel': {
+    case 'setUnverifiedChannel ': { //disabling
       if (!args[1]) return send("No channel given :<");
       try{
         const target = args[1].match(Constants.patterns.CHANNEL)[1];
-        return;
+        return target;
       }catch(err){
         return reply(`Invalid channel specified`);
       }}
