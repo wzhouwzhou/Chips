@@ -94,9 +94,9 @@ ex.func = async (msg, {
                 }
                 if(m.content.toLowerCase().startsWith('length:')){
                   length = m.content.toLowerCase().replace('length:','').replace(/\s+/g,'');
-                  is(isNaN(length)){
+                  if(isNaN(length)){
                     errored=true;
-                    return reply('Invalid name length of '+length)
+                    return reply('Invalid name length of '+length);
                   }
                   m.channel.send(`Okay, creating a regex that matches a name with ${length} characters`);
                   theregex = new RegExp(`^\w{${length},${length}}$`);
@@ -177,7 +177,7 @@ ex.func = async (msg, {
                       return true;
                   }else return true;
                 });
-                send(`Banning ${membersToBan.length} member(s)`)
+                send(`Banning ${membersToBan.length} member(s)`);
                 membersToBan.forEach(m=>m.ban(`Antiraid rules set by ${thesht.author.tag}`));
 
               }catch(timed){
