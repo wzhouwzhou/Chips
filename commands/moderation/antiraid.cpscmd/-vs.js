@@ -146,9 +146,20 @@ ex.func = async (msg, {
                 if(!authorFilter(m)) return false;
                 if(/^(?:y(?:es)?)|(?:no?)$/i.test(m.content.toLowerCase())){
                   errored = !(/^(?:y(?:es)?)$/i.test(m.content.toLowerCase()));
+                  return true;
                 }
-                return true;
+                return false;
               };
+
+              const useregex_duringraid = [
+                'Would you like to use this regex to ban members during the raid?',
+                '**Type __y__es to ban members who match this regex or __n__o to ban all members who join when the panic is active.**',
+              ];
+
+              const imagehash_duringraid = [
+                'Would you like to autoban members with an image during the raid?',
+                '**Type __y__es to setup or __n__o to ban all members who join when the panic is active.**',
+              ];
 
               try{
                 await channel.send(regexprompter);

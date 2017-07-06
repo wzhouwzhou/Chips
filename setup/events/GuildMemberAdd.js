@@ -76,6 +76,7 @@ module.exports = function() {
 };
 
 const handleAutoKickOrBan = (gid, mem) => {
+  const guild = mem.guild, uid= mem.id;
   if(memberjoin.panics[gid]&&memberjoin.panicKick[gid]){
     setTimeout(async ()=>{
       let oldmem = await mem.kick();
@@ -91,13 +92,15 @@ const handleAutoKickOrBan = (gid, mem) => {
     return false;
   }else if(memberjoin.panics[gid]&&memberjoin.panicBan[gid]){
     setTimeout(async ()=>{
+      if(!mem.bannable) return;
       let oldmem = await mem.ban('AntiRaid');
-
-      while(mem.guild.members.get(oldmem.id)!=null){
+      let max = 30, i=0;
+      while((await guild.fetchBans()).get(uid) == null){
         try{
           oldmem = await oldmem.ban('AntiRaid');
+          if(++i<=max) break;
         }catch(err){
-          console.log(`[Autoban for guild ${mem.guild.id}]: Failed to kick ${oldmem.id}..trying again.`);
+          console.log(`[Autoban for guild ${mem.guild.id}]: Failed to kick ${oldmem.id}..trying again... \n\tError was: ${err}`);
         }
       }
     },3000);
