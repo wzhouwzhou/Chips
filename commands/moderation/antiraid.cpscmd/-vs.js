@@ -1,5 +1,5 @@
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
-const moment = require('moment');
+
 ex = {};
 
 ex.name = "-vs";
@@ -160,23 +160,25 @@ ex.func = async (msg, {
                 await channel.awaitMessages(timedBanner, { max: 1, time: WAITFORSHT, errors: ['time'] });
                 if(cancelB) return reply('Cancelled');
                 if(errored) return;
-
+                let membersToBan = [];
+                let a=s.searchMember(theregex);
+                if(thetimer)
+                  a.forEach( me=> {
+                    if(Math.abs(Date.now()-me.joinedAt)<(thetimer*60*1000)) membersToBan.push(me);
+                  });
+                else membersToBan = a;
                 const confirmation = [
                   'This is just to confirm...',
                   '**You are about to activate panic lockdown and ban users who match this criteria:**',
                   length?`\tUsername length is ${length}`:`\tName passes this regexp: ${theregex}`,
                   thetimer?`\tUser joined within ${thetimer} minutes`:'\tThe length of time the user has been in the server does not matter',
+                  `This apples to __${membersToBan.length}__ member(s).`,
                   '**Type __y__es or __n__o.**',
                 ].join('\n');
                 await channel.send(confirmation);
                 await channel.awaitMessages(confirmSettings, { max: 1, time: WAITFORSHT, errors: ['time'] });
                 if(errored) return reply('Cancelled');
-                let membersToBan = s.searchMember(theregex).filter( m=> {
-                  if(thetimer){
-                    if(moment().diff(m.joinedAt, 'minutes')<(60*1000*thetimer))
-                      return true;
-                  }else return true;
-                });
+
                 send(`Banning ${membersToBan.length} member(s)`);
                 membersToBan.forEach(m=>m.ban(`Antiraid rules set by ${thesht.author.tag}`));
 
