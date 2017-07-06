@@ -93,7 +93,11 @@ ex.func = async (msg, {
                   return true;
                 }
                 if(m.content.toLowerCase().startsWith('length:')){
-                  length = _.drop(m.content.toLowerCase().split(/\s+/))[0];
+                  length = m.content.toLowerCase().replace('length:','').replace(/\s+/g,'');
+                  is(isNaN(length)){
+                    errored=true;
+                    return reply('Invalid name length of '+length)
+                  }
                   m.channel.send(`Okay, creating a regex that matches a name with ${length} characters`);
                   theregex = new RegExp(`^\w{${length},${length}}$`);
                 }else theregex = new RegExp(m.content.toLowerCase());
@@ -150,6 +154,7 @@ ex.func = async (msg, {
                 await channel.send(regexprompter);
                 await channel.awaitMessages(regexSaver, { max: 1, time: WAITFORSHT, errors: ['time'] });
                 if(cancelA) return reply('Cancelled');
+                if(errored) return;
 
                 await channel.send(timedprompter);
                 await channel.awaitMessages(timedBanner, { max: 1, time: WAITFORSHT, errors: ['time'] });
