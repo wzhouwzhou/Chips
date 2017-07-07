@@ -25,7 +25,10 @@ module.exports = function() {
         content: message.content,
       }, {
         conflict: 'replace'
-      }).run(_=>_).then(()=>console.log('New msg saved for user '+message.author.id));
+      }).run(_=>_).then(thing=>{
+        if(thing.inserted==1||thing.replaced==1)
+          console.log('New msg saved for user '+message.author.id);
+      });
 
       r.table('lastMessage').changes().run( (err, c) => {
         if(!err)
