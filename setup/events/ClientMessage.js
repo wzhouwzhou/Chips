@@ -30,7 +30,7 @@ module.exports = function() {
           console.log('New msg saved for user '+message.author.id);
       });
 
-      r.table('lastMessage').changes().run( (err, c) => {
+      r.table('lastMessage').changes().run( _, (err, c) => {
         if(!err)
           c.each( (err, row) => {
             if(!err){
