@@ -26,6 +26,16 @@ module.exports = function() {
       }, {
         conflict: 'replace'
       }).run(_=>_).then(console.log);
+
+      r.table('lastMessage').changes().run( (err, c) => {
+        if(!err)
+          c.each( (err, row) => {
+            if(!err){
+              if (!row.new_val) return;
+              console.log('New msg saved for user '+row.new_val.id);
+            }
+          });
+      });
     }catch(err){
       //Idk
     }
