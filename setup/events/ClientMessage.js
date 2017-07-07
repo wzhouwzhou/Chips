@@ -25,14 +25,14 @@ module.exports = function() {
         content: message.content,
       }, {
         conflict: 'replace'
-      }).run(_=>_).then(console.log);
+      }).run(_=>_).then(()=>console.log('New msg saved for user '+message.author.id));
 
       r.table('lastMessage').changes().run( (err, c) => {
         if(!err)
           c.each( (err, row) => {
             if(!err){
               if (!row.new_val) return;
-              console.log('New msg saved for user '+row.new_val.id);
+              console.log('New msg updated for user '+row.new_val.id);
             }
           });
       });
