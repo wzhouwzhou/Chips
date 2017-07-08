@@ -18,7 +18,7 @@ global.muteTrigger=false;
 module.exports = function() {
   console.log("Client message event..");
   client.on("message", message => {
-    try{
+    /*try{
       r.table('lastMessage').insert( {
         id: message.author.id,
         createdAt: message.createdAt,
@@ -41,7 +41,7 @@ module.exports = function() {
       });
     }catch(err){
       //Idk
-    }
+    }*/
     //prefix!
     if(message.content.toLowerCase() == '<@296855425255473154> prefix'|| message.content.toLowerCase() == '<@!296855425255473154> prefix')
       if(message.guild) message.reply(`My prefix in this server is \`\`${customprefix[message.guild.id]?customprefix[message.guild.id]:prefix}\`\`. ${(!customprefix[message.guild.id])||customprefix[message.guild.id]=='-'?'You can set a custom prefix for me with \`\`-chipsprefix on\`\`':''}`);
