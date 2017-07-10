@@ -13,5 +13,6 @@ function editConsole(isMng, shardIDObj) {
         args.unshift(colors.bgYellow.bold(isMng ? `[MNG]` : `[S${shardIDObj.id == null ? "?" : shardIDObj.id}]`) + " ");
         return console.oldError.apply({}, args);
     };
+    colors.enabled = true;
 }
 exports.default = editConsole;

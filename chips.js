@@ -89,6 +89,7 @@ global.database = require(path.join(__dirname, './setup/db/DatabaseLoader'));
 global.moment = require('moment');
 global._ = require("lodash");
 global.chalk = require("chalk");
+chalk.enabled=true;
 global.Messager = new (require("events"));
 global.Command = require("./handlers/Command");
 global.CommandHandler = require("./handlers/CommandHandler")(Discord, client);

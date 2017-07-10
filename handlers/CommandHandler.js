@@ -86,7 +86,7 @@ module.exports = function(Discord, client) {
         if(meta.perm!=null&&meta.perm[0]!=null){
           console.log(meta.perm[0]);
           permissions.checkMulti(msg, meta.perm[0]).then((info) =>{
-            console.log(`[Command] ${info}\n`,chalk.bold.bgBlue(`[${msg.author.tag}]`),chalk.bgBlack(`:${msg.content}`));
+            console.log(`[Command] ${info}\n`,chalk.bold.bgBlue(`\t[${msg.author.tag}]`),chalk.bgBlack(`:${msg.content}`));
             return cmd.run(msg, context);
           }).catch((reason)=>{
             if(msg.member&&(meta.customperm&&meta.customperm[0])){
@@ -95,7 +95,7 @@ module.exports = function(Discord, client) {
                 issue=true;
                 return msg.reply(`${reason}\nYou could also use this if you have \`\`${meta.customperm[0]}\`\` permissions`);
               }else{
-                console.log('[Command] Accepted due to customperm bypass:\n',chalk.bold.bgBlue(`[${msg.author.tag}]`),chalk.bgBlack(`:${msg.content}`));
+                console.log('[Command] Accepted due to customperm bypass:\n',chalk.bold.bgBlue(`\t[${msg.author.tag}]`),chalk.bgBlack(`:${msg.content}`));
                 return cmd.run(msg, context);
               }
             }else{
