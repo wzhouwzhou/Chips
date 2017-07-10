@@ -6,7 +6,7 @@ ex = {
   async func(msg, { reply, prefix, content }) {
     let reversed = '';
     if(~content.toLowerCase().indexOf('--keepwordorder')) {
-      content = content.substring((prefix+'reverse ').length).replace(/\s--keepwordorder/,'');
+      content = content.substring((prefix+'reverse ').length).replace(/\s+--keepwordorder/,'');
       reversed = rsw (content);
     }else reversed = rs(content.substring((prefix+'reverse ').length));
     return reply(`${cb}${reversed}${cb}`);
