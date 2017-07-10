@@ -2,6 +2,7 @@
 let spooky = require('./spooky');
 let reverse = require('./reverse');
 let rotate = require('./rotate');
+let randomCaps = require('./randomCaps');
 
 console.log('[CPSCMD][INFO][text] Building objects...');
 
@@ -26,10 +27,18 @@ rotate.metadata = {
   example: 'rotate \\ hello!',
   perm: [['global.fun.text.rotate']]
 };
+randomCaps.metadata = {
+  category: require('../').category,
+  description: 'Randomly caps your text',
+  usage: 'randomcaps <text>',
+  example: 'randomcaps hello!',
+  perm: [['global.fun.text.rotate']]
+};
 
 console.log('[CPSCMD][INFO][text] Build objects complete!');
 module.exports = [
   [spooky.name,spooky],
   [reverse.name, reverse],
   [rotate.name, rotate],
+  [randomCaps.name, randomCaps],
 ];
