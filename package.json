@@ -99,7 +99,8 @@
     "url-download": "0.0.8",
     "uws": "^0.14.5",
     "youtube-dl": "^1.11.1",
-    "ytdl-core": "^0.14.0"
+    "ytdl-core": "^0.14.0",
+    "ytsearcher": "^1.0.2"
   },
   "name": "chips",
   "title": "Chips",

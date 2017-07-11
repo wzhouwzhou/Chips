@@ -30,11 +30,11 @@ module.exports = function() {
             if(SBKWC)
               welcomeC.send(`<@${userid}>, Welcome to Sinbadx Knights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!**
                 1. How did you hear about this server? Where did you get our discord invite link?
-                \t1a.If you got our invite link from a video, please provide a link, or if you got it from a friend, please tell us who.
-                2. Why did you join this server?
-                3. Do you promise to read and follow the rules in <#297263352252727296>?
-                4. What is your favorite diep.io tank?
-    (you can answer these with just a sentence or two, no need to write an essay!)`).then(console.log("[SURSKIT] Welcome msg sent")).catch(err=>console.log('welcome msg err:[sinx] '+ err));
+                2. If you got our invite link online, please provide a url, or if you got it from a friend, please tell us who, e.g. SomebodyHere#1234.
+                3. Why did you join this server?
+                4. Do you promise to read and follow the rules in <#297263352252727296>?
+                5. What is your favorite diep.io tank?
+You can answer these in this channel (don't dm them!) with just a sentence or two for each, no need to write an essay!`).then(console.log("[SURSKIT] Welcome msg sent")).catch(err=>console.log('welcome msg err:[sinx] '+ err));
           }, 500);
         }else if(memberguild.id=="250801092143611905"){
           setTimeout(() => {
