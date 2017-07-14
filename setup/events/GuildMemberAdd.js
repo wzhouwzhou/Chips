@@ -30,7 +30,7 @@ module.exports = function() {
             if(SBKWC)
               welcomeC.send(`<@${userid}>, Welcome to Sinbadx Knights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!**
                 1. How did you hear about this server? Where did you get our discord invite link?
-                ***2.*** __If you got our invite link online, **please provide a url**__, or if you got it from a friend, please tell us who, e.g. SomebodyHere#1234.
+                ***2.*** __If you got our invite link online, please provide **a url, a link to the site where you got the invite link**__, or if you got it from a friend, please tell us who, e.g. SomebodyHere#1234.
                 3. Why did you join this server?
                 4. Do you promise to read and follow the rules in <#297263352252727296>?
                 5. What is your favorite diep.io tank?
