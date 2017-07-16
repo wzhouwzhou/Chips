@@ -3,12 +3,20 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 const MusicPlayer = require('./MusicPlayer');
 const YTSearcher = require('ytsearcher');
+
+const Discord = require('discord.js');
+
 const searcher = new YTSearcher(process.env.YTKEY);
 
 const GuildMusicHandler = class MusicHandler {
   constructor ( guild ) {
     this.guildid = guild.id;
     this.player = new MusicPlayer( vc );
+  }
+
+  promptSong ( songToMatch ) {
+    let searchcontent = msg.content;
+    let embed = new Discord.RichEmbed();
   }
 
   queue ( url ) {

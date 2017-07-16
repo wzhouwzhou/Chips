@@ -12,7 +12,7 @@ module.exports = function() {
           react.message.channel.send(`<@${user.id}>, Self-starring is disabled in this server!`).then(m=>setTimeout(()=>m.delete(),6000)).catch(err=>console.log(err));
         }
       if(react.emoji.toString()==Constants.emojis.STAR && react.message.guild.id=='257889450850254848')
-        client.channels.get("320752455178780672").send(`${user} just added a star to a message in ${react.message.channel}`, {embed: new Discord.RichEmbed().setDescription(react.message.content).setAuthor(react.message.author.tag)});
+        client.channels.get("320752455178780672").send(`${user.tag.replace(/@/g,'(at)')} just starred a message in ${react.message.channel}`, {embed: new Discord.RichEmbed().setDescription(react.message.content).setAuthor(react.message.author.tag).setTimestamp(new Date())});
     }else{
       if(react.message.author.id != client.user.id) return;
       console.log("DM channel emoji: " + react.emoji);
