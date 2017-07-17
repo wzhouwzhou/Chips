@@ -4,14 +4,18 @@ const twe = require('twemoji');
 
 module.exports = {
   name: "big",
-  async func(msg, { send }) {
+  async func( msg,
+  {
+    send,
+    reply
+  } ) {
     const potential = msg.content;
     let str = potential.match(/<:[\w0-9_]+:\d+>/g);
     if(str&&str[0]) {
       let id = str[0].substring(1+str[0].lastIndexOf(':'),str[0].length-1);
       let fetched= await snekfetch.get(`https://cdn.discordapp.com/emojis/${id}.png`);
       if(fetched&&fetched.body)
-        return send('Server custom emoji:',{files: [{attachment: fetched.body}]});
+        return send(' ',{files: [{attachment: fetched.body}]});
       return reply('No emoji image found');
     }else {
       str = potential;
@@ -24,7 +28,7 @@ module.exports = {
             fetched= await snekfetch.get(url);
           if(!fetched||!fetched.body)
             return reply('No emoji image found');
-          return send('Default emoji:',{files: [{attachment: fetched.body}]});
+          return send(' ',{files: [{attachment: fetched.body}]});
         }
         return reply('No emoji image found');
       }
