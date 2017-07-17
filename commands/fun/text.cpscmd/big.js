@@ -10,9 +10,8 @@ module.exports = {
     reply,
     prefix,
   } ) {
-    const potential = msg.content;
-    let str = potential.match(/<:[\w0-9_]+:\d+>/g);
-    if(str.replace(new RegExp(`${prefix}big\\s*`),'').length != 0) {
+    if(msg.content.replace(new RegExp(`${prefix}big\\s*`),'').length != 0) {
+      let str = msg.content.match(/<:[\w0-9_]+:\d+>/g);
       if(str[0]) {
         let id = str[0].substring(1+str[0].lastIndexOf(':'),str[0].length-1);
         let fetched= await snekfetch.get(`https://cdn.discordapp.com/emojis/${id}.png`);
@@ -20,7 +19,7 @@ module.exports = {
           return send(' ',{files: [{attachment: fetched.body}]});
         return reply('No emoji image found');
       } else {
-        str = potential;
+        let str = msg.content;
         if(str&&str[0]){
           let parsed = twe.parse(str).toString().match(/src="([\w|\d|:|\/|.]+")/);
           if(parsed&&parsed[0]){
