@@ -12,7 +12,7 @@ module.exports = {
   } ) {
     if(msg.content.replace(new RegExp(`${prefix}big\\s*`),'').length != 0) {
       let str = msg.content.match(/<:[\w0-9_]+:\d+>/g);
-      if(str[0]) {
+      if(str&&str[0]) {
         let id = str[0].substring(1+str[0].lastIndexOf(':'),str[0].length-1);
         let fetched= await snekfetch.get(`https://cdn.discordapp.com/emojis/${id}.png`);
         if(fetched&&fetched.body)
