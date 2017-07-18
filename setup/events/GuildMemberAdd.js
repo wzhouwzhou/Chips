@@ -1,6 +1,6 @@
 const Jimp = require('jimp');
 global.SBKWC = true;
-
+;
 module.exports = function() {
   client.on("guildMemberAdd",  async (member) => {
     let memberguild = member.guild;
@@ -29,8 +29,8 @@ module.exports = function() {
             let welcomeC=memberguild.channels.get("314407824568614913")||memberguild.channels.find('name','unverified');
             if(SBKWC)
               welcomeC.send(`${member.user}, Welcome to Sinbadx Knights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!**
-                1. How did you hear about this server? Where did you get our discord invite link?
-                ***2.*** __If you got our invite link online, please provide **a url, a link to the site where you got the invite link**__, or if you got it from a friend, please tell us who, e.g. SomebodyHere#1234.
+                1. How did you hear about this server? And for example if you respond with "Sinbad channel" Do __Not__ skip #2.
+                ***2.*** __If you got our invite link online, DO NOT SKIP THIS QUESTION please provide **a url starting with http(s)://**, ***a link to the site where you got the invite link***__, or if you got it from a friend, please tell us who, e.g. SomebodyHere#1234.
                 3. Why did you join this server?
                 4. Do you promise to read and follow the rules in <#297263352252727296>?
                 5. What is your favorite diep.io tank?
