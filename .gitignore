@@ -20,3 +20,5 @@ setup/log/access.log
 npm-debug.log
 
 *.log
+
+public/commands.html
