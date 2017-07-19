@@ -18,3 +18,5 @@ deploy2.bat
 setup/log/access.log
 
 npm-debug.log
+
+*.log
