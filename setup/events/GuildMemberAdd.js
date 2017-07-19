@@ -190,7 +190,7 @@ const antiraidCaptcha2 = (mem) => {
     let guild = mem.guild;
     let timestamp = process.hrtime();
     let captchaText = `${_.random(1,9)}`;
-    let l = _.random(2,4);
+    let l = _.random(2,3);
     let operators = ['+','-','x','/'];
     let lastUsed = '';
     for(let i = 0; i<l;i++){
