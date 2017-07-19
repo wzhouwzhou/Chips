@@ -1,6 +1,7 @@
 const Jimp = require('jimp');
 global.SBKWC = true;
-;
+const algebra = require('../../handlers/algebra-0.2.6.min');
+
 module.exports = function() {
   client.on("guildMemberAdd",  async (member) => {
     let memberguild = member.guild;
@@ -11,7 +12,11 @@ module.exports = function() {
 
       if(client.memberjoin.captcha[memberguild.id]){
         try{
-          let results = await antiraidCaptcha(member);
+          let choose = _.random(0,1);
+          let results;
+          if(!choose) results = await antiraidCaptcha(member);
+          else results = await antiraidCaptcha2(member);
+
           console.log('Captcha success results: ' + results);
         }catch(fail){
           console.log('Captcha failure results: ' + fail);
@@ -100,7 +105,7 @@ const handleAutoKickOrBan = (gid, mem) => {
           oldmem = await oldmem.ban('AntiRaid');
           if(++i<=max) break;
         }catch(err){
-          console.log(`[Autoban for guild ${mem.guild.id}]: Failed to kick ${oldmem.id}..trying again... \n\tError was: ${err}`);
+          console.log(`[Autoban for guild ${mem.guild.id}]: Failed to ban ${oldmem.id}..trying again... \n\tError was: ${err}`);
         }
       }
     },3000);
@@ -130,7 +135,7 @@ const antiraidCaptcha = (mem) => {
       image.blur(2);
 
       image.write(filepath,async ()=>{
-        let sentmsg = await mem.user.send(`<@${mem.id}>, Hello! You just joined the server \`\`${guild.name}\`\` which has an antiraid enabled.
+        let sentmsg = await mem.user.send(`${mem}, Hello! You just joined the server \`\`${guild.name}\`\` which has an antiraid enabled.
           **To start the verification process, please respond with the letters and numbers you see in this image (not case sensitive):** `,
           {files: [filepath]});
         fs.unlinkSync(filepath);
@@ -169,6 +174,84 @@ const antiraidCaptcha = (mem) => {
           if(collected.size==0&&mem.died==false) {
             console.log(`After 5 minutes, the user did not respond.`);
             mem.died = true;
+            res([mem, 'timeout']);
+          }else{
+            thisDmC.send('Uh oh, something went wrong with your verification!');
+          }
+        });
+      });
+    });
+  });
+};
+
+const antiraidCaptcha2 = (mem) => {
+  return new Promise( (res, rej) => {
+    mem.died2 = false;
+    let guild = mem.guild;
+    let timestamp = process.hrtime();
+    let captchaText = `${_.random(1,9)}`;
+    let l = _.random(2,4);
+    let operators = ['+','-','x','/'];
+    let lastUsed = '';
+    for(let i = 0; i<l;i++){
+      let temp;
+      do{
+        temp = operators[_.random(0,operators.length-1)];
+      }while(temp===lastUsed);
+      lastUsed = temp;
+      captchaText += `${lastUsed}${_.random(1,9)}`;
+    }
+    let answer = new algebra.parse(captchaText.replace(/x/g,'*')).toString();
+    captchaText+='=?';
+
+    let image = new Jimp(256, 256);
+    let filepath = `${mem.id}.captcha2.${timestamp}.${image.getExtension()}`;
+
+    Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function (font) {
+      for(const letterInd in captchaText.split(''))
+        image.print(font, 10+Math.floor(5*Math.random())+30*letterInd, 112+Math.floor(25*Math.random()), captchaText[letterInd]);
+      image.blur(2);
+
+      image.write(filepath,async ()=>{
+        let sentmsg = await mem.user.send(`${mem}, Hello! You just joined the server \`\`${guild.name}\`\` which has an antiraid enabled.
+          **To start the verification process, please respond by solving the simple math problem here (order of operations apply):** `,
+          {files: [filepath]});
+        fs.unlinkSync(filepath);
+
+        let thisDmC = sentmsg.channel;
+
+        let memIsBlind = 0;
+        const filter = (m) =>{
+          if(m.author.id != mem.id) return false;
+
+          if(m.content.toLowerCase() == answer) {
+            console.log(m.content);
+            return true;
+          } else {
+            if(mem.died2==false){
+              memIsBlind++;
+              thisDmC.send(`Incorrect! (${3-memIsBlind>0?3-memIsBlind+' tries left, please try again!':'Sorry, you have failed the captcha too many times'})`);
+              if(memIsBlind>=3){
+                mem.died2 = true;
+                rej([mem, 'failed captcha']);
+                return true;
+              }
+            }
+            return false;
+          }
+        };
+        thisDmC.awaitMessages(filter, { max: 1, time: 5*60*1000, errors: ['time'] })
+        .then(collected => {
+          if(!mem.died2){
+            console.log(collected.size);
+            thisDmC.send('Successfully verified with captcha!');
+            mem.died2 = false;
+            res([mem, 'success']);
+          }
+        }).catch(collected => {
+          if(collected.size==0&&mem.died==false) {
+            console.log(`After 5 minutes, the user did not respond.`);
+            mem.died2 = true;
             res([mem, 'timeout']);
           }else{
             thisDmC.send('Uh oh, something went wrong with your verification!');
