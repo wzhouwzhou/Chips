@@ -1,9 +1,7 @@
 const translate = require('google-translate-api');
 
-
 const ex = {
   name: "translate",
-  customperm: ['SEND_MESSAGES'],
   async func(msg, {reply, Discord, args, member }) {
     let inputContent = args.join(' ');
     let targetlang, stuffToTranslate=inputContent;
