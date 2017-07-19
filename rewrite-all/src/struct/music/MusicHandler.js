@@ -4,7 +4,8 @@ Object.defineProperty(exports, '__esModule', { value: true });
 const MusicPlayer = require('./MusicPlayer');
 const YTSearcher = require('ytsearcher');
 
-const Discord = require('discord.js');
+//const Discord = require('discord.js');
+const Logger = require('../client/Logger').default;
 
 const searcher = new YTSearcher(process.env.YTKEY);
 
@@ -14,9 +15,21 @@ const GuildMusicHandler = class MusicHandler {
     this.player = new MusicPlayer( vc );
   }
 
-  promptSong ( songToMatch ) {
+  promptSong ( msg ) {
     let searchcontent = msg.content;
-    let embed = new Discord.RichEmbed();
+    searcher.search(searchcontent, { type: 'video' }).then( searchResult => {
+      if(!searchResult.first)
+        msg.channel.send('No song found by that name');
+    }).catch(err=>{
+      msg.channel.send('Something went wrong with the search...');
+
+      Logger.log({
+        type: 'error',
+        msgmodule: 'Music',
+        logcategory: 'Handler',
+        msg: err,
+      });
+    });
   }
 
   queue ( url ) {
