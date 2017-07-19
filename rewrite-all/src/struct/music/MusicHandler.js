@@ -2,7 +2,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const MusicPlayer = require('./MusicPlayer');
-const YTSearcher = require('ytsearcher');
+const { YTSearcher } = require('ytsearcher');
 
 //const Discord = require('discord.js');
 const Logger = require('../client/Logger').default;
