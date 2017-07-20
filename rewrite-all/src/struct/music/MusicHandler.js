@@ -22,7 +22,7 @@ const GuildMusicHandler = class MusicHandler {
 
   promptSong ( searchcontent, msg ) {
     if(!this.player) return null;
-    return searcher.search(searchcontent, { type: 'video' }).then( searchResult => {
+    searcher.search(searchcontent, { type: 'video' }).then( searchResult => {
       if(!searchResult.first||!searchResult.first.url)
         msg.channel.send('No song found by that name');
       this.queue(searchResult.first.url);
@@ -36,6 +36,7 @@ const GuildMusicHandler = class MusicHandler {
         msg: err,
       });
     });
+    return this;
   }
 
   queue ( url ) {
