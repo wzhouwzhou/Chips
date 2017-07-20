@@ -76,7 +76,7 @@ const MusicPlayer = class MusicPlayer {
     if(v<0)v=0;
     if(v>2)v=2;
 
-    this.connection.player.dispatcher.setVolume(v/100);
+    this.connection.player.dispatcher.setVolume(~~v/100);
     if(this.textchannel) this.textchannel.send(`Successfully set volume to ${v}%`);
   }
 };
