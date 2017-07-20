@@ -72,4 +72,4 @@ const MusicPlayer = class MusicPlayer {
   }
 };
 
-exports = MusicPlayer;
+exports.default = MusicPlayer;
