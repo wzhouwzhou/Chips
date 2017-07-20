@@ -22,9 +22,9 @@ const MusicPlayer = class MusicPlayer {
 
   joinVC () {
     return new Promise ( async (res, rej) => {
-      if(!this.voiceChannel) rej(null);
+      if(!this.voicechannel) rej(null);
 
-      this.connection = await this.voiceChannel.join();
+      this.connection = await this.voicechannel.join();
       res(this.connection);
     });
   }
@@ -32,7 +32,7 @@ const MusicPlayer = class MusicPlayer {
   playNextQueue (){
     if (!this.textchannel) return Logger.log('Error','Music','Player','Text Channel is undefined!');
 
-    if (!this.voiceChannel) return this.textchannel.send('I am not bound to a voice channel!');
+    if (!this.voicechannel) return this.textchannel.send('I am not bound to a voice channel!');
     if (!this.queue||this.queue.length == 0) return this.textchannel.send('There is nothing left in the song queue!');
     if(this.connection) leaveVC();
 
@@ -62,13 +62,13 @@ const MusicPlayer = class MusicPlayer {
     return this.voicechannel?this.voicechannel.leave():null;
   }
 
-  queue (url) {
+  queueUrl (url) {
     this.queue.push(url);
     if(this.queue.length == 1) this.playNextQueue();
   }
 
   sample () {
-    this.queue('https://www.youtube.com/watch?v=h--P8HzYZ74');
+    this.queueUrl('https://www.youtube.com/watch?v=h--P8HzYZ74');
   }
 };
 
