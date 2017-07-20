@@ -17,6 +17,7 @@ const GuildMusicHandler = class MusicHandler {
 
   spawnPlayer (vc,tc) {
     this.player = new MusicPlayer(vc,tc);
+    return this;
   }
 
   promptSong ( searchcontent, msg ) {
@@ -38,7 +39,7 @@ const GuildMusicHandler = class MusicHandler {
   }
 
   queue ( url ) {
-    this.player.queue(url);
+    this.player.queueUrl(url);
   }
 
   setDJRole (djRID) {
