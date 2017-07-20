@@ -39,6 +39,8 @@ const MusicPlayer = class MusicPlayer {
       const song = this.looping?this.lastPlayed:this.queue.shift();
 
       this.textchannel.send(`Now playing ${song}.`);
+      this.lastPlayed = song;
+      
       const stream = ytdl( song );
 
       const dispatcher = this.connection.playStream(stream);
