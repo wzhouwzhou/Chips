@@ -44,6 +44,7 @@ const MusicPlayer = class MusicPlayer {
       const dispatcher = this.connection.playStream(stream);
       this.playing = true;
       dispatcher.once('end', () => {
+        this.playing = false;
         if(this.queue.length == 0){
           this.leaveVC();
           this.connection = null;

@@ -12,14 +12,15 @@ const searcher = new YTSearcher(process.env.YTKEY);
 const GuildMusicHandler = class MusicHandler {
   constructor ( guild ) {
     this.guildid = guild.id;
-    this.player = new MusicPlayer( vc );
+    this.player = new MusicPlayer( vc, tc );
   }
 
   promptSong ( msg ) {
     let searchcontent = msg.content;
     searcher.search(searchcontent, { type: 'video' }).then( searchResult => {
-      if(!searchResult.first)
+      if(!searchResult.first||!searchResult.first.url)
         msg.channel.send('No song found by that name');
+      this.queue(searchResult.first.url);
     }).catch(err=>{
       msg.channel.send('Something went wrong with the search...');
 
@@ -37,6 +38,4 @@ const GuildMusicHandler = class MusicHandler {
   }
 };
 
-exports = GuildMusicHandler;
-
-//`async let message= msg; const voiceChannel = message.member.voiceChannel; const ytdl = require('ytdl-core'); if (!voiceChannel) return message.reply(`Please be in a voice channel first!`); voiceChannel.join() .then(connnection => { const stream = ytdl("https://www.youtube.com/watch?v=uHeWc4cd0dc", { filter: 'audioonly' }); const dispatcher = connnection.playStream(stream); dispatcher.on('end', () => voiceChannel.leave()); });
+exports.default = GuildMusicHandler;
