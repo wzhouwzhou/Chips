@@ -38,7 +38,7 @@ const MusicPlayer = class MusicPlayer {
 
     this.joinVC().then(connection=>{
       this.connection = connection;
-      const song = this.looping?this.lastPlayed:queue.shift();
+      const song = this.looping?this.lastPlayed:this.queue.shift();
 
       this.textchannel.send(`Now playing ${song}.`);
       const stream = ytdl( song );
