@@ -34,15 +34,23 @@ const Player = class MusicPlayer {
 
     if (!this.voiceChannel) return this.textchannel.send('I am not bound to a voice channel!');
     if (!this.queue||this.queue.length == 0) return this.textchannel.send('There is nothing left in the song queue!');
+    if(this.connection) leaveVC();
 
-    if(!this.connection) joinVC().then(connection=>{
-      const stream = ytdl( queue.shift() );
-      const dispatcher = connnection.playStream(stream);
+    joinVC().then(connection=>{
+      this.connection = connection;
+      const song = this.looping?this.lastPlayed:queue.shift();
+
+      this.textchannel.send(`Now playing ${song}.`);
+      const stream = ytdl( song );
+
+      const dispatcher = this.connnection.playStream(stream);
 
       dispatcher.once('end', () => {
         if(this.queue.length == 0){
           this.leaveVC();
           this.connection = null;
+
+          this.textchannel.send('Ended! ' + (new Date).toUTCString());
         }
         else
           this.playNextQueue(); //recurse
@@ -54,9 +62,13 @@ const Player = class MusicPlayer {
     return this.voicechannel?this.voicechannel.leave():null;
   }
 
-  sample (msg) {
-    this.queue.push('https://www.youtube.com/watch?v=h--P8HzYZ74');
+  queue (url) {
+    this.queue.push(url);
     if(this.queue.length == 1) this.playNextQueue();
+  }
+
+  sample () {
+    this.queue('https://www.youtube.com/watch?v=h--P8HzYZ74');
   }
 };
 

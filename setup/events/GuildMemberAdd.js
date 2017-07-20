@@ -189,19 +189,22 @@ const antiraidCaptcha2 = (mem) => {
     mem.died2 = false;
     let guild = mem.guild;
     let timestamp = process.hrtime();
-    let captchaText = `${_.random(1,9)}`;
-    let l = _.random(2,3);
-    let operators = ['+','-','x','/'];
-    let lastUsed = '';
-    for(let i = 0; i<l;i++){
-      let temp;
-      do{
-        temp = operators[_.random(0,operators.length-1)];
-      }while(temp===lastUsed);
-      lastUsed = temp;
-      captchaText += `${lastUsed}${_.random(1,9)}`;
-    }
-    let answer = new algebra.parse(captchaText.replace(/x/g,'*')).toString();
+    let captchaText, answer;
+    do{
+      captchaText = `${_.random(1,9)}`;
+      let l = _.random(2,3);
+      let operators = ['+','-','x','/'];
+      let lastUsed = '';
+      for(let i = 0; i<l;i++){
+        let temp;
+        do{
+          temp = operators[_.random(0,operators.length-1)];
+        }while(temp===lastUsed);
+        lastUsed = temp;
+        captchaText += `${lastUsed}${_.random(1,9)}`;
+      }
+      answer = new algebra.parse(captchaText.replace(/x/g,'*')).toString();
+    }while(~~+answer!==+answer);
     captchaText+='=?';
 
     let image = new Jimp(256, 256);
@@ -223,8 +226,9 @@ const antiraidCaptcha2 = (mem) => {
         let memIsBlind = 0;
         const filter = (m) =>{
           if(m.author.id != mem.id) return false;
+          const u = algebra.parse(m.content.toLowerCase()).toString();
 
-          if(m.content.toLowerCase() == answer) {
+          if(~~+answer===+u) {
             console.log(m.content);
             return true;
           } else {
