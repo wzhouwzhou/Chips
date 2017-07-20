@@ -1,7 +1,7 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const MusicPlayer = require('./MusicPlayer');
+const MusicPlayer = require('./MusicPlayer').default;
 const { YTSearcher } = require('ytsearcher');
 
 //const Discord = require('discord.js');
@@ -10,14 +10,18 @@ const Logger = require('../client/Logger').default;
 const searcher = new YTSearcher(process.env.YTKEY);
 
 const GuildMusicHandler = class MusicHandler {
-  constructor ( guild ) {
-    this.guildid = guild.id;
-    this.player = new MusicPlayer( vc, tc );
+  constructor ( guildid, client ) {
+    this.guild = client.guilds.get(guildid);
+    this.enabled = false;
   }
 
-  promptSong ( msg ) {
-    let searchcontent = msg.content;
-    searcher.search(searchcontent, { type: 'video' }).then( searchResult => {
+  spawnPlayer (vc,tc) {
+    this.player = new MusicPlayer(vc,tc);
+  }
+
+  promptSong ( searchcontent, msg ) {
+    if(!this.player) return null;
+    return searcher.search(searchcontent, { type: 'video' }).then( searchResult => {
       if(!searchResult.first||!searchResult.first.url)
         msg.channel.send('No song found by that name');
       this.queue(searchResult.first.url);
@@ -38,7 +42,7 @@ const GuildMusicHandler = class MusicHandler {
   }
 
   setDJRole (djRID) {
-
+    this.DJR = this.guild.roles.get(djRID);
   }
 };
 
