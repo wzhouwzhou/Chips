@@ -10,6 +10,7 @@ const MusicPlayer = class MusicPlayer {
     this.voicechannel = vc;
     this.textchannel = tc;
     this.queue = new Array();
+    this.looping = false;
   }
 
   setVC ( newVC ) {
@@ -40,7 +41,7 @@ const MusicPlayer = class MusicPlayer {
 
       this.textchannel.send(`Now playing ${song}.`);
       this.lastPlayed = song;
-      
+
       const stream = ytdl( song );
 
       const dispatcher = this.connection.playStream(stream);
@@ -74,9 +75,17 @@ const MusicPlayer = class MusicPlayer {
     this.queueUrl('https://www.youtube.com/watch?v=h--P8HzYZ74');
   }
 
+  toggleNextLoop (override) {
+    if(!override || typeof override !== 'boolean')
+      this.looping = !this.looping;
+    else
+      this.looping = override;
+    if(this.textchannel) this.textchannel.send(`Successfully toggled looping of \`${this.lastPlayed}\` to ${this.looping}`);
+  }
+
   setVolume ( v ) {
     if(v<0)v=0;
-    if(v>2)v=2;
+    if(v>200)v=200;
 
     this.connection.player.dispatcher.setVolume(~~v/100);
     if(this.textchannel) this.textchannel.send(`Successfully set volume to ${v}%`);
