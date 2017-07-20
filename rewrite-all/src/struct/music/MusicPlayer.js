@@ -62,6 +62,7 @@ const MusicPlayer = class MusicPlayer {
   queueUrl (url) {
     const prel = this.queue.length;
     this.queue.push(url);
+    if(this.textchannel) this.textchannel.send(`Successfully queued ${url}, there are now ${this.queue.length} songs in the queue`);
     if(prel == 0) this.playNextQueue();
   }
 
