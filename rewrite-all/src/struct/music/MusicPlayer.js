@@ -5,7 +5,7 @@ const Logger = require('../client/Logger').default;
 
 const ytdl = require('ytdl-core');
 
-const Player = class MusicPlayer {
+const MusicPlayer = class MusicPlayer {
   constructor (vc, tc) {
     this.voicechannel = vc;
     this.textchannel = tc;
@@ -72,4 +72,4 @@ const Player = class MusicPlayer {
   }
 };
 
-exports = Player;
+exports = MusicPlayer;
