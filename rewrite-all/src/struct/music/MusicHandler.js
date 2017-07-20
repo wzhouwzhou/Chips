@@ -36,6 +36,10 @@ const GuildMusicHandler = class MusicHandler {
   queue ( url ) {
     this.player.queue(url);
   }
+
+  setDJRole (djRID) {
+
+  }
 };
 
 exports.default = GuildMusicHandler;

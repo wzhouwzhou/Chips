@@ -192,7 +192,7 @@ const antiraidCaptcha2 = (mem) => {
     let captchaText, answer;
     do{
       captchaText = `${_.random(1,9)}`;
-      let l = _.random(2,3);
+      let l = 2;
       let operators = ['+','-','x','/'];
       let lastUsed = '';
       for(let i = 0; i<l;i++){
@@ -204,7 +204,9 @@ const antiraidCaptcha2 = (mem) => {
         captchaText += `${lastUsed}${_.random(1,9)}`;
       }
       answer = new algebra.parse(captchaText.replace(/x/g,'*')).toString();
-    }while(~~+answer!==+answer);
+      console.log('Answer: '+answer);
+    }while(isNaN(+answer)||~~+answer!==+answer);
+
     captchaText+='=?';
 
     let image = new Jimp(256, 256);
