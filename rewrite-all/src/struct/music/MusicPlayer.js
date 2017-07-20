@@ -43,14 +43,14 @@ const MusicPlayer = class MusicPlayer {
 
       const dispatcher = this.connection.playStream(stream);
       dispatcher.setVolume(0.5);
-      
+
       this.playing = true;
       dispatcher.once('end', () => {
         this.playing = false;
         if(this.queue.length == 0){
           this.leaveVC();
           this.connection = null;
-          this.textchannel.send('Ended! ' + (new Date).toUTCString());
+          this.textchannel.send('Ended! ' + (new Date).toUTCString()+'\nQueue another song!');
         }
         else
           this.playNextQueue(); //recurse
@@ -64,7 +64,7 @@ const MusicPlayer = class MusicPlayer {
 
   queueUrl (url) {
     this.queue.push(url);
-    if(this.textchannel) this.textchannel.send(`Successfully queued ${url}, there ${this.queue.length==1?'is':'are'} now ${this.queue.length} song${this.queue.length==1?'':'s'} in the queue`);
+    if(this.textchannel) this.textchannel.send(`Successfully queued \`${url}\`, there ${this.queue.length==1?'is':'are'} now ${this.queue.length} song${this.queue.length==1?'':'s'} in the queue`);
     if(!this.playing) this.playNextQueue();
   }
 
