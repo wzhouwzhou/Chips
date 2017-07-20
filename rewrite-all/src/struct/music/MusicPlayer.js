@@ -34,22 +34,19 @@ const MusicPlayer = class MusicPlayer {
 
     if (!this.voicechannel) return this.textchannel.send('I am not bound to a voice channel!');
     if (!this.queue||this.queue.length == 0) return this.textchannel.send('There is nothing left in the song queue!');
-    if(this.connection) this.leaveVC();
 
-    this.joinVC().then(connection=>{
-      this.connection = connection;
+    this.joinVC().then( () => {
       const song = this.looping?this.lastPlayed:this.queue.shift();
 
       this.textchannel.send(`Now playing ${song}.`);
       const stream = ytdl( song );
 
-      const dispatcher = this.connnection.playStream(stream);
+      const dispatcher = this.connection.playStream(stream);
 
       dispatcher.once('end', () => {
         if(this.queue.length == 0){
           this.leaveVC();
           this.connection = null;
-
           this.textchannel.send('Ended! ' + (new Date).toUTCString());
         }
         else
