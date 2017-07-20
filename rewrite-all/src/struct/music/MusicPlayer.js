@@ -60,8 +60,9 @@ const MusicPlayer = class MusicPlayer {
   }
 
   queueUrl (url) {
+    const prel = this.queue.length;
     this.queue.push(url);
-    if(this.queue.length == 1) this.playNextQueue();
+    if(prel == 0) this.playNextQueue();
   }
 
   sample () {
