@@ -34,9 +34,9 @@ const MusicPlayer = class MusicPlayer {
 
     if (!this.voicechannel) return this.textchannel.send('I am not bound to a voice channel!');
     if (!this.queue||this.queue.length == 0) return this.textchannel.send('There is nothing left in the song queue!');
-    if(this.connection) leaveVC();
+    if(this.connection) this.leaveVC();
 
-    joinVC().then(connection=>{
+    this.joinVC().then(connection=>{
       this.connection = connection;
       const song = this.looping?this.lastPlayed:queue.shift();
 
