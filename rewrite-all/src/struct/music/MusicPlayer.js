@@ -42,6 +42,8 @@ const MusicPlayer = class MusicPlayer {
       const stream = ytdl( song );
 
       const dispatcher = this.connection.playStream(stream);
+      dispatcher.setVolume(0.5);
+      
       this.playing = true;
       dispatcher.once('end', () => {
         this.playing = false;
@@ -68,6 +70,14 @@ const MusicPlayer = class MusicPlayer {
 
   sample () {
     this.queueUrl('https://www.youtube.com/watch?v=h--P8HzYZ74');
+  }
+
+  setVolume ( v ) {
+    if(v<0)v=0;
+    if(v>2)v=2;
+
+    this.connection.player.dispatcher.setVolume(v/100);
+    if(this.textchannel) this.textchannel.send(`Successfully set volume to ${v}%`);
   }
 };
 
