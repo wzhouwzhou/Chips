@@ -92,8 +92,8 @@ module.exports = function() {
         snMsgs++;
       }
     }catch(err){console.log(`Log errored! ${err}`);}
-    if(message.guild)
-      filter(message);
+    //if(message.guild)
+      //filter(message);
     //detectPartyLink(message);
   });
   c2.on('message', m => {
