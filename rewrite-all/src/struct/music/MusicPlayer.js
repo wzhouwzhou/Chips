@@ -2,7 +2,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const Logger = require('../client/Logger').default;
-
+const _ = require('lodash');
 const ytdl = require('ytdl-core');
 
 const MusicPlayer = class MusicPlayer {
@@ -63,6 +63,10 @@ const MusicPlayer = class MusicPlayer {
 
   leaveVC () {
     return this.voicechannel?this.voicechannel.leave():null;
+  }
+
+  shuffleQueue () {
+    this.queue = _.shuffle(this.queue);
   }
 
   queueUrl (url) {
