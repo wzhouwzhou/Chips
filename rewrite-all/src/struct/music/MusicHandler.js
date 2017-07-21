@@ -25,7 +25,7 @@ const GuildMusicHandler = class MusicHandler {
     searcher.search(searchcontent, { type: 'video' }).then( searchResult => {
       if(!searchResult.first||!searchResult.first.url)
         msg.channel.send('No song found by that name');
-      this.queue(searchResult.first.url);
+      this._queue(searchResult.first.url);
     }).catch(err=>{
       msg.channel.send('Something went wrong with the search...');
 
@@ -39,7 +39,7 @@ const GuildMusicHandler = class MusicHandler {
     return this;
   }
 
-  queue ( url ) {
+  _queue ( url ) {
     this.player.queueUrl(url);
   }
 
