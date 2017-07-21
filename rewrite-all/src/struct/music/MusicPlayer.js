@@ -23,7 +23,7 @@ const MusicPlayer = class MusicPlayer {
 
   joinVC () {
     return new Promise ( async (res, rej) => {
-      if(!this.voicechannel) rej(null);
+      if(!this.voicechannel||this.shuttingDown) rej(null);
 
       this.connection = await this.voicechannel.join();
       res(this.connection);
@@ -31,7 +31,20 @@ const MusicPlayer = class MusicPlayer {
   }
 
   playNextQueue (){
-    if (!this.textchannel) return Logger.log('Error','Music','Player','Text Channel is undefined!');
+    if(this.shuttingDown)
+      return Logger.log({
+        type: 'error',
+        msgmodule: 'Music',
+        logcategory: 'Player',
+        msg: 'Player is shutting down!',
+      });
+    if (!this.textchannel)
+      return Logger.log({
+        type: 'error',
+        msgmodule: 'Music',
+        logcategory: 'Player',
+        msg: 'Text Channel is undefined!',
+      });
 
     if (!this.voicechannel) return this.textchannel.send('I am not bound to a voice channel!');
     if (!this.queue||(this.queue.length == 0&&!this.looping)) return this.textchannel.send('There is nothing left in the song queue!');
@@ -50,12 +63,12 @@ const MusicPlayer = class MusicPlayer {
       this.playing = true;
       this.dispatcher.once('end', () => {
         this.playing = false;
-        if(this.queue.length == 0&&!this.looping&&!this.shuttingDown){
+        if(this.queue.length == 0&&!this.looping){
           this.leaveVC();
           this.connection = null;
           this.textchannel.send('Ended! ' + (new Date).toUTCString()+'\nQueue another song!');
         }
-        else
+        else if(!this.shuttingDown)
           this.playNextQueue(); //recurse
       });
     });
@@ -70,6 +83,7 @@ const MusicPlayer = class MusicPlayer {
   }
 
   queueUrl (url) {
+    if(this.shuttingDown) return null;
     this.queue.push(url);
     if(this.textchannel) this.textchannel.send(`Successfully queued \`${url}\`.\nThere ${this.queue.length==1?'is':'are'} now ${this.queue.length} song${this.queue.length==1?'':'s'} in the queue.`);
     if(!this.playing) this.playNextQueue();
@@ -88,6 +102,7 @@ const MusicPlayer = class MusicPlayer {
   }
 
   setVolume ( v ) {
+    if(this.shuttingDown) return null;
     if(v<0)v=0;
     if(v>200)v=200;
 
