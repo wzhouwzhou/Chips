@@ -54,6 +54,12 @@ const GuildMusicHandler = class MusicHandler {
     this.player.toggleNextLoop(true);
     return this.player;
   }
+
+  stopPlayer () {
+    if(!this.player) return null;
+    this.player.shutDown();
+    this.player = null;
+  }
 };
 
 exports.default = GuildMusicHandler;

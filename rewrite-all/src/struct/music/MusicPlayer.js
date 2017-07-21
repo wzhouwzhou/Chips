@@ -96,7 +96,16 @@ const MusicPlayer = class MusicPlayer {
   }
 
   shutDown () {
+    this.setVolume(0);
+
+    this.queue = [];
+    this.toggleNextLoop(false);
     this.dispatcher.end('Force shutdown');
+    this.leaveVC();
+    this.voicechannel = null;
+    this.textchannel.send('Forcing shutdown...').then(()=>this.textchannel=null);
+    this.dispatcher = null;
+    this.playing = false;
   }
 };
 
