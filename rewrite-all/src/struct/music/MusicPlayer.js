@@ -134,17 +134,19 @@ const MusicPlayer = class MusicPlayer {
 
   skip () {
     if(this.shuttingDown) return;
-    this.dispatcher.end('Song skip');
     if(this.textchannel) this.textchannel.send('Skipping song...');
+    this.dispatcher.end('Song skip');
   }
 
   pause() {
     if(this.shuttingDown) return;
+    if(this.textchannel) this.textchannel.send('Pausing song...');
     this.dispatcher.pause();
   }
 
   unpause() {
     if(this.shuttingDown) return;
+    if(this.textchannel) this.textchannel.send('Resuming song...');
     this.dispatcher.resume();
   }
 };
