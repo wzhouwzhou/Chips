@@ -34,7 +34,7 @@ const MusicPlayer = class MusicPlayer {
     if (!this.textchannel) return Logger.log('Error','Music','Player','Text Channel is undefined!');
 
     if (!this.voicechannel) return this.textchannel.send('I am not bound to a voice channel!');
-    if (!this.queue||this.queue.length == 0) return this.textchannel.send('There is nothing left in the song queue!');
+    if (!this.queue||(this.queue.length == 0&&!this.looping)) return this.textchannel.send('There is nothing left in the song queue!');
 
     this.joinVC().then( () => {
       const song = this.looping?this.lastPlayed:this.queue.shift();
@@ -50,7 +50,7 @@ const MusicPlayer = class MusicPlayer {
       this.playing = true;
       dispatcher.once('end', () => {
         this.playing = false;
-        if(this.queue.length == 0){
+        if(this.queue.length == 0&&!this.looping){
           this.leaveVC();
           this.connection = null;
           this.textchannel.send('Ended! ' + (new Date).toUTCString()+'\nQueue another song!');
@@ -67,7 +67,7 @@ const MusicPlayer = class MusicPlayer {
 
   queueUrl (url) {
     this.queue.push(url);
-    if(this.textchannel) this.textchannel.send(`Successfully queued \`${url}\`, there ${this.queue.length==1?'is':'are'} now ${this.queue.length} song${this.queue.length==1?'':'s'} in the queue`);
+    if(this.textchannel) this.textchannel.send(`Successfully queued \`${url}\`.\nThere ${this.queue.length==1?'is':'are'} now ${this.queue.length} song${this.queue.length==1?'':'s'} in the queue.`);
     if(!this.playing) this.playNextQueue();
   }
 
