@@ -40,11 +40,19 @@ const GuildMusicHandler = class MusicHandler {
   }
 
   _queue ( url ) {
+    if(!this.player) return null;
     this.player.queueUrl(url);
+    return this.player;
   }
 
   setDJRole (djRID) {
     this.DJR = this.guild.roles.get(djRID);
+  }
+
+  loopPlayer () {
+    if(!this.player) return null;
+    this.player.toggleNextLoop(true);
+    return this.player;
   }
 };
 
