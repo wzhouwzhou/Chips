@@ -50,7 +50,7 @@ const MusicPlayer = class MusicPlayer {
       this.playing = true;
       this.dispatcher.once('end', () => {
         this.playing = false;
-        if(this.queue.length == 0&&!this.looping){
+        if(this.queue.length == 0&&!this.looping&&!this.shuttingDown){
           this.leaveVC();
           this.connection = null;
           this.textchannel.send('Ended! ' + (new Date).toUTCString()+'\nQueue another song!');
@@ -96,10 +96,11 @@ const MusicPlayer = class MusicPlayer {
   }
 
   shutDown () {
-    this.setVolume(0);
+    this.shuttingDown = true;
+    this.dispatcher.setVolume(0);
 
     this.queue = [];
-    this.toggleNextLoop(false);
+    this.looping = false;
     this.dispatcher.end('Force shutdown');
     this.leaveVC();
     this.voicechannel = null;
