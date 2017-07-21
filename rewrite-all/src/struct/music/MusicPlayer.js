@@ -44,11 +44,11 @@ const MusicPlayer = class MusicPlayer {
 
       const stream = ytdl( song );
 
-      const dispatcher = this.connection.playStream(stream);
-      dispatcher.setVolume(0.5);
+      this.dispatcher = this.connection.playStream(stream);
+      this.dispatcher.setVolume(0.5);
 
       this.playing = true;
-      dispatcher.once('end', () => {
+      this.dispatcher.once('end', () => {
         this.playing = false;
         if(this.queue.length == 0&&!this.looping){
           this.leaveVC();
@@ -91,8 +91,12 @@ const MusicPlayer = class MusicPlayer {
     if(v<0)v=0;
     if(v>200)v=200;
 
-    this.connection.player.dispatcher.setVolume(~~v/100);
+    this.dispatcher.setVolume(~~v/100);
     if(this.textchannel) this.textchannel.send(`Successfully set volume to ${v}%`);
+  }
+
+  shutDown () {
+    this.dispatcher.end('Force shutdown');
   }
 };
 
