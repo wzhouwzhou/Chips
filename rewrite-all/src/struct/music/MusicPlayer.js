@@ -52,7 +52,7 @@ const MusicPlayer = class MusicPlayer {
     this.joinVC().then( () => {
       const song = this.looping?this.lastPlayed:this.queue.shift();
 
-      this.textchannel.send(`Now playing ${song}.`);
+      this.textchannel.send(`Now playing \`${song}\`.`);
       this.lastPlayed = song;
 
       const stream = ytdl( song );
@@ -61,9 +61,17 @@ const MusicPlayer = class MusicPlayer {
       this.dispatcher.setVolume(0.5);
 
       this.playing = true;
+      this.dispatcher.on('debug', info => {
+        return Logger.log({
+          type: 'debug',
+          msgmodule: 'Music',
+          logcategory: 'Player',
+          msg: info,
+        });
+      });
       this.dispatcher.once('end', () => {
         this.playing = false;
-        if(this.queue.length == 0&&!this.looping){
+        if(this.queue.length == 0&&!this.looping&&!this.shuttingDown){
           this.leaveVC();
           this.connection = null;
           this.textchannel.send('Ended! ' + (new Date).toUTCString()+'\nQueue another song!');
@@ -85,7 +93,7 @@ const MusicPlayer = class MusicPlayer {
   queueUrl (url) {
     if(this.shuttingDown) return null;
     this.queue.push(url);
-    if(this.textchannel) this.textchannel.send(`Successfully queued \`${url}\`.\nThere ${this.queue.length==1?'is':'are'} now ${this.queue.length} song${this.queue.length==1?'':'s'} in the queue.`);
+    if(this.textchannel) this.textchannel.send(`Successfully queued ${url}.\nThere ${this.queue.length==1?'is':'are'} now ${this.queue.length} song${this.queue.length==1?'':'s'} in the queue.`);
     if(!this.playing) this.playNextQueue();
   }
 
@@ -119,9 +127,25 @@ const MusicPlayer = class MusicPlayer {
     this.dispatcher.end('Force shutdown');
     this.leaveVC();
     this.voicechannel = null;
-    this.textchannel.send('Forcing shutdown...').then(()=>this.textchannel=null);
+    if(this.textchannel) this.textchannel.send('Forcing shutdown...').then(()=>this.textchannel=null);
     this.dispatcher = null;
     this.playing = false;
+  }
+
+  skip () {
+    if(this.shuttingDown) return;
+    this.dispatcher.end('Song skip');
+    if(this.textchannel) this.textchannel.send('Skipping song...');
+  }
+
+  pause() {
+    if(this.shuttingDown) return;
+    this.dispatcher.pause();
+  }
+
+  unpause() {
+    if(this.shuttingDown) return;
+    this.dispatcher.resume();
   }
 };
 
