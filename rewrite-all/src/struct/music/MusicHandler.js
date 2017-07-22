@@ -13,6 +13,9 @@ const GuildMusicHandler = class MusicHandler {
   constructor ( guildid, client ) {
     this.guild = client.guilds.get(guildid);
     this.enabled = false;
+    this._client = client;
+    _handlers.set(guildid,this);
+
   }
 
   spawnPlayer (vc,tc) {

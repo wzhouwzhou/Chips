@@ -22,3 +22,5 @@ npm-debug.log
 *.log
 
 public/commands.html
+
+servers.json
