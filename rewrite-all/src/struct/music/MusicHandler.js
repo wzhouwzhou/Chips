@@ -35,7 +35,7 @@ const GuildMusicHandler = class MusicHandler {
       () => true,
       { time: 60*60*1000 }
     );
-    collector.on('message', m => {
+    handler.collector.on('message', m => {
       let searchQ;
       if(!!m.content.match(/^<@!?296855425255473154>\s*play/i)){
         searchQ = m.content.replace('`play','');
@@ -43,10 +43,10 @@ const GuildMusicHandler = class MusicHandler {
       }else if(!!m.content.match(/^<@!?296855425255473154>\s*skip/i)){
         handler.player.skip();
       }else if(!!~m.content.toLowerCase().indexOf('stopdemo')&&m.author.id==Constants.users.WILLYZ){
-        collector.stop();
+        handler.collector.stop();
       }
     });
-    collector.on('end', () => {
+    handler.collector.on('end', () => {
       handler.stopPlayer();
       tc.send('Demo trial has ended!');
     })
