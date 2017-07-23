@@ -27,7 +27,7 @@ const GuildMusicHandler = class MusicHandler {
 
   startDemo (vc,tc) {
     this.spawnPlayer (vc,tc);
-    spawnDemoCollector (tc, this);
+    this.constructor.spawnDemoCollector (tc, this);
   }
 
   static spawnDemoCollector (tc, handler) {
