@@ -44,6 +44,7 @@ const GuildMusicHandler = class MusicHandler {
         handler.player.skip();
       }else if(!!~m.content.toLowerCase().indexOf('stopdemo')&&m.author.id==Constants.users.WILLYZ){
         handler.collector.stop();
+        tc.send('Stopping...');
       }
     });
     handler.collector.on('end', () => {
