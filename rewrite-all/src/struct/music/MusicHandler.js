@@ -23,6 +23,39 @@ const GuildMusicHandler = class MusicHandler {
     return this;
   }
 
+  startDemo (vc,tc) {
+    this.spawnPlayer (vc,tc);
+    spawnDemoCollector (tc, this);
+  }
+
+  static spawnDemoCollector (tc, handler) {
+    handler.collector = tc.createCollector(
+      () => true,
+      { time: 60*60*1000 }
+    );
+    collector.on('message', m => {
+      let searchQ;
+      if(!!m.content.match(/^<@!?296855425255473154>\s*play/i)){
+        searchQ = m.content.replace('`play','');
+        handler.player.promptSong(searchQ, m);
+      }else if(!!m.content.match(/^<@!?296855425255473154>\s*skip/i)){
+        handler.player.skip();
+      }else if(!!~m.content.toLowerCase().indexOf('stopdemo')&&m.author.id==Constants.users.WILLYZ){
+        collector.stop();
+      }
+    });
+    collector.on('end', () => {
+      handler.stopPlayer();
+      tc.send('Demo trial has ended!');
+    })
+
+    tc.send(`Enabling demo mode and starting a 24/7 stream.
+To queue a song from youtube simply type \`<@!296855425255473154> play songNameOrURL\`
+To skip a song simply type \`<@!296855425255473154> skip\``).then(mm=>{
+      handler.player.promptSong('https://www.youtube.com/watch?v=4rdaGSlLyDE',mm);
+    });
+  }
+
   promptSong ( searchcontent, msg ) {
     if(!this.player) return null;
     searcher.search(searchcontent, { type: 'video' }).then( searchResult => {

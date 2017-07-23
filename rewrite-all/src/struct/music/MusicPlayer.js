@@ -74,10 +74,11 @@ const MusicPlayer = class MusicPlayer {
         if(this.queue.length == 0&&!this.looping&&!this.shuttingDown){
           this.leaveVC();
           this.connection = null;
+          this.dispatcher = null;
           this.textchannel.send('Ended! ' + (new Date).toUTCString()+'\nQueue another song!');
         }
         else if(!this.shuttingDown)
-          this.playNextQueue(); //recurse
+          return this.playNextQueue(); //recurse
       });
     });
   }
@@ -135,7 +136,9 @@ const MusicPlayer = class MusicPlayer {
   skip () {
     if(this.shuttingDown) return;
     if(this.textchannel) this.textchannel.send('Skipping song...');
-    this.dispatcher.end('Song skip');
+    const disp = this.dispatcher;
+    this.dispatcher = null;
+    disp.end();
   }
 
   pause() {
