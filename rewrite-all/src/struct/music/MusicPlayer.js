@@ -54,7 +54,7 @@ const MusicPlayer = class MusicPlayer {
 
       this.textchannel.send(`Now playing \`${song}\`.`);
       this.lastPlayed = song;
-
+      const info = ytdl.getInfo(song);
       const stream = ytdl( song );
       this.dispatcher = null;
       this.dispatcher = this.connection.playStream(stream);
@@ -70,15 +70,17 @@ const MusicPlayer = class MusicPlayer {
         });
       });
       this.dispatcher.on('end', () => {
-        this.playing = false;
-        if(this.queue.length == 0&&!this.looping&&!this.shuttingDown){
-          this.leaveVC();
-          this.connection = null;
-          this.dispatcher = null;
-          this.textchannel.send('Ended! ' + (new Date).toUTCString()+'\nQueue another song!');
-        }
-        else if(!this.shuttingDown)
-          return this.playNextQueue(); //recurse
+        setTimeout(()=>{
+          this.playing = false;
+          if(this.queue.length == 0&&!this.looping&&!this.shuttingDown){
+            this.leaveVC();
+            this.connection = null;
+            this.dispatcher = null;
+            this.textchannel.send('Ended! ' + (new Date).toUTCString()+'\nQueue another song!');
+          }
+          else if(!this.shuttingDown)
+            return this.playNextQueue(); //recurse
+        }, 1000);
       });
     });
   }
@@ -138,10 +140,8 @@ const MusicPlayer = class MusicPlayer {
     if(this.textchannel) this.textchannel.send('Skipping song...');
     this.playing = false;
 
-    const disp = this.dispatcher;
-    this.dispatcher = null;
-    disp.pause();
-    this.connection.disconnect();
+    this.dispatcher.pause();
+    this.leaveVC();
     this.connection = null;
   }
 
