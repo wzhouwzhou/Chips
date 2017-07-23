@@ -9,10 +9,12 @@ const Logger = require('../client/Logger').default;
 
 const searcher = new YTSearcher(process.env.YTKEY);
 
+const _handlers = new Map();
+
 const GuildMusicHandler = class MusicHandler {
   constructor ( guildid, client ) {
     this.guild = client.guilds.get(guildid);
-    this.enabled = false;
+    this.enabled = true;
     this._client = client;
     _handlers.set(guildid,this);
 
