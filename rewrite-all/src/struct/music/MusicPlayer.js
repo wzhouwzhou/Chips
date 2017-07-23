@@ -56,7 +56,7 @@ const MusicPlayer = class MusicPlayer {
       this.lastPlayed = song;
 
       const stream = ytdl( song );
-
+      this.dispatcher = null;
       this.dispatcher = this.connection.playStream(stream);
       this.dispatcher.setVolume(0.5);
 
@@ -69,7 +69,7 @@ const MusicPlayer = class MusicPlayer {
           msg: info,
         });
       });
-      this.dispatcher.once('end', () => {
+      this.dispatcher.on('end', () => {
         this.playing = false;
         if(this.queue.length == 0&&!this.looping&&!this.shuttingDown){
           this.leaveVC();
@@ -136,9 +136,13 @@ const MusicPlayer = class MusicPlayer {
   skip () {
     if(this.shuttingDown) return;
     if(this.textchannel) this.textchannel.send('Skipping song...');
+    this.playing = false;
+
     const disp = this.dispatcher;
     this.dispatcher = null;
-    disp.end();
+    disp.pause();
+    this.connection.disconnect();
+    this.connection = null;
   }
 
   pause() {
