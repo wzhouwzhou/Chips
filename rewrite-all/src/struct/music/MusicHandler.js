@@ -5,6 +5,7 @@ const MusicPlayer = require('./MusicPlayer').default;
 const { YTSearcher } = require('ytsearcher');
 
 //const Discord = require('discord.js');
+
 const Logger = require('../client/Logger').default;
 
 const searcher = new YTSearcher(process.env.YTKEY);
@@ -14,7 +15,7 @@ const _handlers = new Map();
 const cmds = [
   [
     'To queue a song from youtube:',
-    '<@296855425255473154> play songNameOrURL'
+    '<@296855425255473154> p/play songNameOrURL'
   ],[
     'To skip a song:',
     '<@296855425255473154> skip'
@@ -30,6 +31,9 @@ const cmds = [
   ],[
     'To toggle looping the player',
     '<@296855425255473154> loop'
+  ],[
+    'To set the volume of the player as a percentage from 0 to 200 (example below uses 30% volume)',
+    '<@296855425255473154> v/vol/volume 30'
   ]
 ];
 
@@ -53,14 +57,18 @@ const GuildMusicHandler = class MusicHandler {
   }
 
   static spawnDemoCollector (tc, handler, time) {
+    if(handler.demoActive) return tc.send('Demo mode is already currently active for your server!');
+
+    handler.demoActive = true;
     handler.collector = tc.createCollector(
       () => true,
       { time: (time||60)*60*1000 }
     );
     handler.collector.on('collect', async m => {
       let searchQ;
-      if(!!m.content.match(/^<@!?296855425255473154>\s*play/i)){
-        searchQ = m.content.replace(/^<@!?296855425255473154>\s*play\s*/i,'');
+      if(!!m.content.match(/^<@!?296855425255473154>\s*p(?:lay)?/i)){
+        searchQ = m.content.replace(/^<@!?296855425255473154>\s*p(?:lay)?\s*/i,'');
+        if(!searchQ||searchQ.length===0) return m.reply('You must provide a song name or url to play!');
         handler.promptSong(searchQ, tc);
       }else if(!!m.content.match(/^<@!?296855425255473154>\s*skip/i)){
         handler.player.skip();
@@ -72,7 +80,7 @@ const GuildMusicHandler = class MusicHandler {
         handler.player.toggleNextLoop();
       }else if(!!m.content.match(/^<@!?296855425255473154>\s*(unqueue|remove)/i)){
         searchQ = m.content.replace(/^<@!?296855425255473154>\s*(unqueue|remove)\s*/i,'');
-
+        if(!searchQ||searchQ.length===0) return m.reply('You must provide a url to remove from the queue');
         const ind = handler.player.queue.indexOf(searchQ);
         if(ind>-1) {
           handler.player.queue.splice(ind,1);
@@ -80,23 +88,31 @@ const GuildMusicHandler = class MusicHandler {
         }else
           await tc.send(`Could not find \`${url}\` in the queue`);
 
+      }else if(!!m.content.match(/^<@!?296855425255473154>\s*v(?:ol(?:ume)?)?\s*/i)){
+        const vol = m.content.match(/^<@!?296855425255473154>\s*v(?:ol(?:ume)?)?\s*/i)[0].match(/\d+/);
+        if(!vol) return m.reply('You must provide a volume to set!');
+
+        handler.player.setVolume(~~+vol);
       }else if(!!m.content.match(/^<@!?296855425255473154>\s*music\s*help/i)){
         let musichelp=[];
         cmds.forEach(cmd=>{
           musichelp.push(`**${cmd[0]}**\n${cmd[1]}`);
         });
         tc.send(musichelp.join('\n'));
-      }else if((!!~m.content.toLowerCase().indexOf('stopdemo'))&&m.author.id===Constants.users.WILLYZ){
+      }else if((!!~m.content.toLowerCase().indexOf('stopdemo'))&&(m.author.id===Constants.users.WILLYZ||m.author.id===Constants.users.EDP)){
         handler.collector.stop();
         tc.send('Stopping...');
       }
+
+      return true;
     });
     handler.collector.on('end', () => {
       handler.stopPlayer();
       tc.send('Demo trial has ended!');
-    })
+    });
 
-    tc.send(`Enabling demo mode and starting a 24/7 yt stream.`).then(mm=>{
+    tc.send(`Enabling demo mode for ${time&&typeof time === 'number'&&time>1?:time+'hrs'>'1 hr'} and starting a 24/7 yt stream.
+Type __<@296855425255473154> music help__ to view music cmds!`).then(mm=>{
       handler.promptSong('https://www.youtube.com/watch?v=4rdaGSlLyDE',tc);
     });
   }
