@@ -15,7 +15,7 @@ module.exports = {
       let font = path.join(__dirname,'./genericafnt/font.fnt');
 
       Jimp.loadFont( font ).then(async function (font) {
-        let avatar = await Jimp.read(author.avatarURL(2048).replace('.webp','.png'));
+        let avatar = await Jimp.read(author.displayAvatarURL.replace('.webp','.png'));
         await avatar.resize(pfpW, pfpW);
         await image.blit(avatar,pfpX,pfpY);
         image.print(font, 5, 20, 'User: ' + author.tag);
