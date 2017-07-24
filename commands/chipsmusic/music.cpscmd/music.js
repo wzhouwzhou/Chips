@@ -5,7 +5,7 @@ const _handlers = new Map();
 
 module.exports = {
   name: "music",
-  async func(msg, { args, guild, client, member, reply }) {
+  async func(msg, { args, guild, client, member, channel, reply }) {
     let h;
     if(_handlers.has(guild.id)) h = _handlers.get(guild.id);
     else{
