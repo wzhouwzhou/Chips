@@ -59,28 +59,28 @@ const GuildMusicHandler = class MusicHandler {
   }
 
   static spawnDemoCollector (tc, handler, time) {
-    if(handler.demoActive) return tc.send('Demo mode is already currently active for your server!');
+    /*if(handler.demoActive) return tc.send('Demo mode was already activated for your server!');
 
-    handler.demoActive = true;
+    handler.demoActive = true;*/
     handler.collector = tc.createCollector(
       () => true,
-      { time: (time||60)*60*1000 }
+      { time: (time||360)*60*1000 }
     );
     handler.collector.on('collect', async m => {
       let searchQ;
-      if(!!m.content.match(/^<@!?296855425255473154>\s*p(?:lay)?/i)){
+      if(m.content.match(/^<@!?296855425255473154>\s*p(?:lay)?/i)){
         searchQ = m.content.replace(/^<@!?296855425255473154>\s*p(?:lay)?\s*/i,'');
         if(!searchQ||searchQ.length===0) return m.reply('You must provide a song name or url to play!');
         handler.promptSong(searchQ, tc);
-      }else if(!!m.content.match(/^<@!?296855425255473154>\s*skip/i)){
+      }else if(m.content.match(/^<@!?296855425255473154>\s*skip/i)){
         handler.player.skip();
-      }else if(!!m.content.match(/^<@!?296855425255473154>\s*pause/i)){
+      }else if(m.content.match(/^<@!?296855425255473154>\s*pause/i)){
         handler.player.pause();
-      }else if(!!m.content.match(/^<@!?296855425255473154>\s*(unpause|resume)/i)){
+      }else if(m.content.match(/^<@!?296855425255473154>\s*(unpause|resume)/i)){
         handler.player.unpause();
-      }else if(!!m.content.match(/^<@!?296855425255473154>\s*loop/i)){
+      }else if(m.content.match(/^<@!?296855425255473154>\s*loop/i)){
         handler.player.toggleNextLoop();
-      }else if(!!m.content.match(/^<@!?296855425255473154>\s*(unqueue|remove)/i)){
+      }else if(m.content.match(/^<@!?296855425255473154>\s*(unqueue|remove)/i)){
         searchQ = m.content.replace(/^<@!?296855425255473154>\s*(unqueue|remove)\s*/i,'');
         if(!searchQ||searchQ.length===0) return m.reply('You must provide a url to remove from the queue');
         const ind = handler.player.queue.indexOf(searchQ);
@@ -90,12 +90,12 @@ const GuildMusicHandler = class MusicHandler {
         }else
           await tc.send(`Could not find \`${url}\` in the queue`);
 
-      }else if(!!m.content.match(/^<@!?296855425255473154>\s*v(?:ol(?:ume)?)?\s*/i)){
+      }else if(m.content.match(/^<@!?296855425255473154>\s*v(?:ol(?:ume)?)?\s*/i)){
         const vol = m.content.match(/v(?:ol(?:ume)?)?\s*\d+/i)[0].match(/\d+/);
         if(!vol) return m.reply('You must provide a volume to set!');
 
         handler.player.setVolume(+vol);
-      }else if(!!m.content.match(/^<@!?296855425255473154>\s*music\s*help/i)){
+      }else if(m.content.match(/^<@!?296855425255473154>\s*music\s*help/i)){
         let musichelp=[];
         cmds.forEach(cmd=>{
           musichelp.push(`**${cmd[0]}**\n${cmd[1]}`);
@@ -114,7 +114,8 @@ const GuildMusicHandler = class MusicHandler {
     });
 
     tc.send(`Enabling demo mode for ${time&&typeof time === 'number'&&time>1?time+'hrs':'1 hr'} and starting a 24/7 yt stream.
-Type __<@296855425255473154> music help__ to view music cmds!`).then(mm=>{
+Type __<@296855425255473154> music help__ to view music cmds!`)
+    .then(()=>{
       handler.promptSong('https://www.youtube.com/watch?v=4rdaGSlLyDE',tc);
     });
   }
