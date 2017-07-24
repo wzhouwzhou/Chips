@@ -55,6 +55,7 @@ const GuildMusicHandler = class MusicHandler {
   startDemo (vc,tc) {
     this.spawnPlayer (vc,tc);
     this.constructor.spawnDemoCollector (tc, this);
+    return this;
   }
 
   static spawnDemoCollector (tc, handler, time) {
@@ -90,7 +91,7 @@ const GuildMusicHandler = class MusicHandler {
           await tc.send(`Could not find \`${url}\` in the queue`);
 
       }else if(!!m.content.match(/^<@!?296855425255473154>\s*v(?:ol(?:ume)?)?\s*/i)){
-        const vol = m.content.match(/v(?:ol(?:ume)?)?\s*/i)[0].match(/\d+/);
+        const vol = m.content.match(/v(?:ol(?:ume)?)?\s*\d+/i)[0].match(/\d+/);
         if(!vol) return m.reply('You must provide a volume to set!');
 
         handler.player.setVolume(+vol);
