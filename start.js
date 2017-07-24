@@ -1,4 +1,5 @@
 Object.defineProperty(exports, "__esModule", { value: true });
+const SHARDCOUNT = 3;
 
 const Discord = require("discord.js");
 let nodefile=["./chips.js"];
@@ -12,9 +13,9 @@ changeConsole_1.default(true);
 function start() {
   console.log('Master process is running.');
   const Manager = new Discord.ShardingManager(nodefile[0], {
-    totalShards: 3,
+    totalShards: SHARDCOUNT,
   });
-  Manager.spawn().then((shards) => {
+  Manager.spawn(SHARDCOUNT, 11000).then((shards) => {
     module.exports.shards=shards;
     console.log("Spawned", colors.cyan(shards.size.toString()), "shards!");
   });
