@@ -80,7 +80,7 @@ const MusicPlayer = class MusicPlayer {
           }
           else if(!this.shuttingDown)
             return this.playNextQueue(); //recurse
-        }, 1000);
+        }, 750);
       });
     });
   }
