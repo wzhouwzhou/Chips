@@ -68,11 +68,7 @@ const GuildMusicHandler = class MusicHandler {
     );
     handler.collector.on('collect', async m => {
       let searchQ;
-      if(m.content.match(/^<@!?296855425255473154>\s*p(?:lay)?/i)){
-        searchQ = m.content.replace(/^<@!?296855425255473154>\s*p(?:lay)?\s*/i,'');
-        if(!searchQ||searchQ.length===0) return m.reply('You must provide a song name or url to play!');
-        handler.promptSong(searchQ, tc);
-      }else if(m.content.match(/^<@!?296855425255473154>\s*skip/i)){
+      if(m.content.match(/^<@!?296855425255473154>\s*skip/i)){
         handler.player.skip();
       }else if(m.content.match(/^<@!?296855425255473154>\s*pause/i)){
         handler.player.pause();
@@ -80,6 +76,10 @@ const GuildMusicHandler = class MusicHandler {
         handler.player.unpause();
       }else if(m.content.match(/^<@!?296855425255473154>\s*loop/i)){
         handler.player.toggleNextLoop();
+      }else if(m.content.match(/^<@!?296855425255473154>\s*p(?:lay)?/i)){
+        searchQ = m.content.replace(/^<@!?296855425255473154>\s*p(?:lay)?\s*/i,'');
+        if(!searchQ||searchQ.length===0) return m.reply('You must provide a song name or url to play!');
+        handler.promptSong(searchQ, tc);
       }else if(m.content.match(/^<@!?296855425255473154>\s*(unqueue|remove)/i)){
         searchQ = m.content.replace(/^<@!?296855425255473154>\s*(unqueue|remove)\s*/i,'');
         if(!searchQ||searchQ.length===0) return m.reply('You must provide a url to remove from the queue');
