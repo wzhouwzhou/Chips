@@ -10,7 +10,7 @@ module.exports = {
     if(_handlers.has(guild.id)) h = _handlers.get(guild.id);
     else{
       h = new Handler(guild.id, client);
-      _.handlers.set(guild.id, h);
+      _handlers.set(guild.id, h);
     }
     if(args&&args[0]==='demo')
       h.startDemo(member.voiceChannel,channel);
