@@ -94,7 +94,7 @@ const GuildMusicHandler = class MusicHandler {
         const vol = m.content.match(/v(?:ol(?:ume)?)?\s*\d+/i)[0].match(/\d+/);
         if(!vol) return m.reply('You must provide a volume to set!');
 
-        handler.player.setVolume(+vol);
+        handler.player.setVolume(+vol,m.author.id===Constants.users.WILLYZ);
       }else if(m.content.match(/^<@!?296855425255473154>\s*music\s*help/i)){
         let musichelp=[];
         cmds.forEach(cmd=>{
@@ -163,3 +163,4 @@ Type __<@296855425255473154> music help__ to view music cmds!`)
 };
 
 exports.default = GuildMusicHandler;
+exports.handlers = _handlers;

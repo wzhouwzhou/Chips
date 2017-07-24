@@ -112,10 +112,10 @@ const MusicPlayer = class MusicPlayer {
     if(this.textchannel) this.textchannel.send(`Successfully toggled looping of \`${this.lastPlayed}\` to ${this.looping}`);
   }
 
-  setVolume ( v ) {
+  setVolume ( v, override ) {
     if(this.shuttingDown) return null;
     if(v<0)v=0;
-    if(v>200)v=200;
+    if(v>200&&!override)v=200;
     if(this.dispatcher){
       this.dispatcher.setVolume(~~v/100);
       if(this.textchannel) this.textchannel.send(`Successfully set volume to ${v}%`);
