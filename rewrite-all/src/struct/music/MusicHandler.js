@@ -75,7 +75,7 @@ const GuildMusicHandler = class MusicHandler {
 
         const ind = handler.player.queue.indexOf(searchQ);
         if(ind) {
-          handler.queue.splice(ind,1);
+          handler.player.queue.splice(ind,1);
           await tc.send(`Removed \`${searchQ}\` from the queue`);
         }else
           await tc.send(`Could not find \`${url}\` in the queue`);
