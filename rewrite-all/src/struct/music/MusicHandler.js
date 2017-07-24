@@ -39,11 +39,12 @@ const cmds = [
 
 const GuildMusicHandler = class MusicHandler {
   constructor ( guildid, client ) {
-    this.guild = client.guilds.get(guildid);
-    this.enabled = true;
-    this._client = client;
-    _handlers.set(guildid,this);
-
+    if(!_handlers.has(guildid)){
+      this.guild = client.guilds.get(guildid);
+      this.enabled = true;
+      this._client = client;
+      _handlers.set(guildid,this);
+    }
   }
 
   spawnPlayer (vc,tc) {
@@ -89,7 +90,7 @@ const GuildMusicHandler = class MusicHandler {
           await tc.send(`Could not find \`${url}\` in the queue`);
 
       }else if(!!m.content.match(/^<@!?296855425255473154>\s*v(?:ol(?:ume)?)?\s*/i)){
-        const vol = m.content.match(/^v(?:ol(?:ume)?)?\s*/i)[0].match(/\d+/);
+        const vol = m.content.match(/v(?:ol(?:ume)?)?\s*/i)[0].match(/\d+/);
         if(!vol) return m.reply('You must provide a volume to set!');
 
         handler.player.setVolume(+vol);
