@@ -60,7 +60,7 @@ const GuildMusicHandler = class MusicHandler {
     handler.collector.on('collect', async m => {
       let searchQ;
       if(!!m.content.match(/^<@!?296855425255473154>\s*play/i)){
-        searchQ = m.content.replace(/^<@!?296855425255473154>\s*play/i,'');
+        searchQ = m.content.replace(/^<@!?296855425255473154>\s*play\s*/i,'');
         handler.promptSong(searchQ, tc);
       }else if(!!m.content.match(/^<@!?296855425255473154>\s*skip/i)){
         handler.player.skip();
@@ -71,10 +71,10 @@ const GuildMusicHandler = class MusicHandler {
       }else if(!!m.content.match(/^<@!?296855425255473154>\s*loop/i)){
         handler.player.toggleNextLoop();
       }else if(!!m.content.match(/^<@!?296855425255473154>\s*(unqueue|remove)/i)){
-        searchQ = m.content.replace(/^<@!?296855425255473154>\s*play/i,'');
+        searchQ = m.content.replace(/^<@!?296855425255473154>\s*(unqueue|remove)\s*/i,'');
 
         const ind = handler.player.queue.indexOf(searchQ);
-        if(ind) {
+        if(ind>-1) {
           handler.player.queue.splice(ind,1);
           await tc.send(`Removed \`${searchQ}\` from the queue`);
         }else
