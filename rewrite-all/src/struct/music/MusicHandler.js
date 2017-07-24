@@ -100,9 +100,7 @@ const GuildMusicHandler = class MusicHandler {
         });
         tc.send(musichelp.join('\n'));
       }else if((!!~m.content.toLowerCase().indexOf('stopdemo'))&&(m.author.id===Constants.users.WILLYZ||m.author.id===Constants.users.EDP)){
-        handler.collector.stop();-eval Handler = require('./rewrite-all/src/struct/music/MusicHandler.js').default;
-a = new Handler(guild.id, client)
-.startDemo(member.voiceChannel,channel);
+        handler.collector.stop();
         tc.send('Stopping...');
       }
 
