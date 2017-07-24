@@ -11,6 +11,28 @@ const searcher = new YTSearcher(process.env.YTKEY);
 
 const _handlers = new Map();
 
+const cmds = [
+  [
+    'To queue a song from youtube:',
+    '<@296855425255473154> play songNameOrURL'
+  ],[
+    'To skip a song:',
+    '<@296855425255473154> skip'
+  ],[
+    'To remove a song from the queue',
+    '<@296855425255473154> unqueue songurl *or* <@296855425255473154> remove songurl'
+  ],[
+    'To pause the player',
+    '<@296855425255473154> pause'
+  ],[
+    'To unpause the player',
+    '<@296855425255473154> unpause *or* <@296855425255473154> resume'
+  ],[
+    'To toggle looping the player',
+    '<@296855425255473154> loop'
+  ]
+];
+
 const GuildMusicHandler = class MusicHandler {
   constructor ( guildid, client ) {
     this.guild = client.guilds.get(guildid);
@@ -30,19 +52,41 @@ const GuildMusicHandler = class MusicHandler {
     this.constructor.spawnDemoCollector (tc, this);
   }
 
-  static spawnDemoCollector (tc, handler) {
+  static spawnDemoCollector (tc, handler, time) {
     handler.collector = tc.createCollector(
       () => true,
-      { time: 60*60*1000 }
+      { time: (time||60)*60*1000 }
     );
-    handler.collector.on('collect', m => {
+    handler.collector.on('collect', async m => {
       let searchQ;
       if(!!m.content.match(/^<@!?296855425255473154>\s*play/i)){
         searchQ = m.content.replace(/^<@!?296855425255473154>\s*play/i,'');
         handler.promptSong(searchQ, tc);
       }else if(!!m.content.match(/^<@!?296855425255473154>\s*skip/i)){
         handler.player.skip();
-      }else if(!!~m.content.toLowerCase().indexOf('stopdemo')&&m.author.id==Constants.users.WILLYZ){
+      }else if(!!m.content.match(/^<@!?296855425255473154>\s*pause/i)){
+        handler.player.pause();
+      }else if(!!m.content.match(/^<@!?296855425255473154>\s*(unpause|resume)/i)){
+        handler.player.unpause();
+      }else if(!!m.content.match(/^<@!?296855425255473154>\s*loop/i)){
+        handler.player.toggleNextLoop();
+      }else if(!!m.content.match(/^<@!?296855425255473154>\s*(unqueue|remove)/i)){
+        searchQ = m.content.replace(/^<@!?296855425255473154>\s*play/i,'');
+
+        const ind = handler.player.queue.indexOf(searchQ);
+        if(ind) {
+          handler.queue.splice(ind,1);
+          await tc.send(`Removed \`${searchQ}\` from the queue`);
+        }else
+          await tc.send(`Could not find \`${url}\` in the queue`);
+
+      }else if(!!m.content.match(/^<@!?296855425255473154>\s*music\s*help/i)){
+        let musichelp=[];
+        cmds.forEach(cmd=>{
+          musichelp.push(`**${cmd[0]}**\n${cmd[1]}`);
+        });
+        tc.send(musichelp.join('\n'));
+      }else if((!!~m.content.toLowerCase().indexOf('stopdemo'))&&m.author.id===Constants.users.WILLYZ){
         handler.collector.stop();
         tc.send('Stopping...');
       }
@@ -52,9 +96,7 @@ const GuildMusicHandler = class MusicHandler {
       tc.send('Demo trial has ended!');
     })
 
-    tc.send(`Enabling demo mode and starting a 24/7 stream.
-To queue a song from youtube simply type:\n\t<@!296855425255473154> play songNameOrURL\n
-To skip a song simply type:\n\t<@!296855425255473154> skip`).then(mm=>{
+    tc.send(`Enabling demo mode and starting a 24/7 yt stream.`).then(mm=>{
       handler.promptSong('https://www.youtube.com/watch?v=4rdaGSlLyDE',tc);
     });
   }
