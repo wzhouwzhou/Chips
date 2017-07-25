@@ -96,11 +96,9 @@ const GuildMusicHandler = class MusicHandler {
 
         handler.player.setVolume(+vol,m.author.id===Constants.users.WILLYZ);
       }else if(m.content.match(/^<@!?296855425255473154>\s*music\s*help/i)){
-        let musichelp=[];
-        cmds.forEach(cmd=>{
-          musichelp.push(`**${cmd[0]}**\n${cmd[1]}`);
-        });
-        tc.send(musichelp.join('\n'));
+        let embed =new Discord.RichEmbed().setTitle('Chips music help').setColor(12305);
+        cmds.forEach(cmd=>embed.addField(...cmd));
+        tc.send('', { embed });
       }else if((!!~m.content.toLowerCase().indexOf('stopdemo'))&&(m.author.id===Constants.users.WILLYZ||m.author.id===Constants.users.EDP)){
         handler.collector.stop();
         tc.send('Stopping...');
