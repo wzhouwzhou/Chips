@@ -24,7 +24,27 @@ module.exports = function( send ) {
   client.on("ready", async function() {
     require(path.join(__dirname, '../../handlers/DiepAddons')).getServers();
 
-  setTimeout(async function(){statusC = await client.channels.get(Constants.channels.STATUS); statusC&&send('Chips restart! **' + moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')+'**', statusC);},5000);
+    setTimeout(async function(){statusC = await client.channels.get(Constants.channels.STATUS); statusC&&send('Chips restart! **' + moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')+'**', statusC);},5000);
+
+    //Console events
+    if(client.shard.id===0)
+      stdin.addListener('data', d => {
+          if (testC == null) {
+            return;//console.log("YOU HAVEN'T DEFINED AN OUTPUT CHANNEL");
+          }
+          if (consoleTyping == false) {
+            consoleTyping = true;
+            rl.question("\x1b[1mInput? \x1b[0m", txt => {
+              console.log("\x1b[0m", "\tConsole input:", txt);
+              if (txt == "") {
+                consoleTyping = false;
+              } else {
+                evalConsoleCommand(txt);
+                consoleTyping = false;
+              }
+            });
+          }
+      });
 
     console.log('Chips is ready!');
     client.user.setStatus("online");
@@ -33,9 +53,9 @@ module.exports = function( send ) {
     else
       client.user.setGame("Do -help | (prefix)music demo","https://twitch.tv/twitch");//client.user.setGame("Do -help!");
 
-    setTimeout(_=>{DMLogger = require(path.join(__dirname, '../../handlers/DMLogger'))(Discord, client, dmC, moment);},3000);
+    setTimeout(()=>{DMLogger = require(path.join(__dirname, '../../handlers/DMLogger'))(Discord, client, dmC, moment);},3000);
   });
-  hclient.on("ready", _ => {
+  hclient.on("ready", () => {
     testC  = hclient.channels.get(Constants.channels.TEST);
     sLogs  = hclient.channels.get(Constants.channels.SLUGS);
     dmC    = hclient.channels.get(Constants.channels.DMS);
@@ -44,25 +64,6 @@ module.exports = function( send ) {
     console.log('Chips helper is ready!');
     hclient.user.setStatus("online");
     hclient.user.setGame("Chips is bae!");
-
-    //Console events
-    stdin.addListener('data', d => {
-        if (testC == null) {
-          //return;//console.log("YOU HAVEN'T DEFINED AN OUTPUT CHANNEL");
-        }
-        if (consoleTyping == false) {
-          consoleTyping = true;
-          rl.question("\x1b[1mInput? \x1b[0m", txt => {
-            console.log("\x1b[0m", "\tConsole input:", txt);
-            if (txt == "") {
-              consoleTyping = false;
-            } else {
-              evalConsoleCommand(txt);
-              consoleTyping = false;
-            }
-          });
-        }
-    });
   });
   h2client.on("ready", _ => {
     sxLogs = h2client.channels.get(Constants.channels.SXLOGS);
