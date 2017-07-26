@@ -7,7 +7,9 @@ const COOLDOWN = 60*1000;
 module.exports = {
   name:'3d',
   async func(msg, { send, prefix, content, guild }) {
-    if(content.substring(`${prefix}3d `.length).split(/\s+/).length<=5)
+    if(content.substring(`${prefix}3d `.length).split(/\s+/).length<1)
+      send ('You must provide at least one word to 3dtext!');
+    else if(content.substring(`${prefix}3d `.length).split(/\s+/).length<=5)
       if(!asciiCooldown.get(guild.id)){
         asciiCooldown.set(guild.id, true);
         setTimeout(()=>asciiCooldown.set(guild.id, false), COOLDOWN);
