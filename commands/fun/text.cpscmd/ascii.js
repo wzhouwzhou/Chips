@@ -13,6 +13,8 @@ module.exports = {
   name:'ascii',
   async func(msg, { reply, send, prefix, content, guild, args }) {
     if(!args[0]) return reply('No action specified');
+    if(args[0]==='help')
+      return reply('Usage: \`ascii font text to asciifi\`. View fonts with \`ascii listfonts\`');
 
     if(args[0]==='listfonts'){
       if(!fontlistCooldown.get(guild.id)){
