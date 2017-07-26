@@ -18,16 +18,15 @@ module.exports = {
       if(!fontlistCooldown.get(guild.id)){
         fontlistCooldown.set(guild.id, true);
         setTimeout(()=>fontlistCooldown.set(guild.id, false), COOLDOWN);
-        return reply(`Available fonts:\n${cb}${await fetchFonts()}${cb}`);
+        return reply(`Fonts:\n${cb}${await fetchFonts()}${cb}`);
       }
       return send('Woah there this command has a 1 minute cooldown please wait before trying that again!').then(m=>m.delete(3000));
     }
 
     !fontlist&&await fetchFonts();
 
-    if(!~(_.flattenDeep(fontlist).indexOf(args[0]))) return reply('Invalid font given!').then(m=>m.delete(3000));
+    if(!~(_.flattenDeep(fontlist).join('').indexOf(args[0]))) return reply('Invalid font given!').then(m=>m.delete(3000));
     font = args[0];
-
     const actionReg = new RegExp(`${_.escapeRegExp(prefix)}ascii\\s+${_.escapeRegExp(font)}\\s*`,'i');
 
     const split = content.replace(actionReg,'').split(/\s+/);
