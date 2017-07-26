@@ -11,7 +11,7 @@ const util = require('util');
 
 const ex = {
   name:'async',
-  async func(msg, { args, send, author, content, doEval }) {
+  async func(msg, { args, send, reply, author, content, doEval, guild, member, prefix }) {
     let start = process.hrtime();
     let end;
     if (whitelist.indexOf(author.id) < 0) return console.log("prohibited access to eval");
