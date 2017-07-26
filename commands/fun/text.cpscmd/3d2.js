@@ -8,7 +8,7 @@ module.exports = {
   name:'3d2',
   async func(msg, { send, prefix, content, guild }) {
     const split = content.substring(`${prefix}3d2 `.length).split(/\s+/);
-    if(split.length <= 0||split.some(w=>w.length<=0||w.match(/\s+/g)))
+    if(split.length <= 0||!split.every(w=>w.length>0&&!w.match(/\s+/g)))
       return send ('You must provide at least one word to 3dtext!');
     else if(split.length<=5)
       if(!asciiCooldown.get(guild.id)){
