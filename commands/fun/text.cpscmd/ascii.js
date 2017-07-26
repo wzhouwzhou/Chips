@@ -23,7 +23,7 @@ module.exports = {
       return send('Woah there this command has a 1 minute cooldown please wait before trying that again!').then(m=>m.delete(3000));
     }
 
-    !fontlist&&await fetchFonts();
+    (!fontlist||fontlist.length==0)&&await fetchFonts();
     console.log('Font to use: '+args[0]);
     if(fontlist.join('').indexOf(args[0])<0) return reply('Invalid font given!').then(m=>m.delete(3000));
     font = args[0];
