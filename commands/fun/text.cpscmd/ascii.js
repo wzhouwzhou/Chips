@@ -24,8 +24,8 @@ module.exports = {
     }
 
     !fontlist&&await fetchFonts();
-
-    if(!~(_.flattenDeep(fontlist).join('').indexOf(args[0]))) return reply('Invalid font given!').then(m=>m.delete(3000));
+    console.log('Font to use: '+args[0]);
+    if(fontlist.join('').indexOf(args[0])<0) return reply('Invalid font given!').then(m=>m.delete(3000));
     font = args[0];
     const actionReg = new RegExp(`${_.escapeRegExp(prefix)}ascii\\s+${_.escapeRegExp(font)}\\s*`,'i');
 
