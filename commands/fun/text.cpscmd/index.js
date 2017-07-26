@@ -5,6 +5,7 @@ let rotate = require('./rotate');
 let randomCaps = require('./randomCaps');
 let big = require('./big');
 let threed = require('./3d');
+let threed2 = require('./3d2');
 
 console.log('[CPSCMD][INFO][text] Building objects...');
 
@@ -50,6 +51,13 @@ threed.metadata = {
   example: 'big :heart:',
   perm: [['global.fun.text.rotate']]
 };
+threed2.metadata = {
+  category: require('../').category,
+  description: 'Enlarges a given emoji!',
+  usage: 'big <emoji>',
+  example: 'big :heart:',
+  perm: [['global.fun.text.rotate']]
+};
 
 console.log('[CPSCMD][INFO][text] Build objects complete!');
 module.exports = [
@@ -59,4 +67,5 @@ module.exports = [
   [randomCaps.name, randomCaps],
   [big.name, big],
   [threed.name,threed],
+  [threed2.name,threed2],
 ];
