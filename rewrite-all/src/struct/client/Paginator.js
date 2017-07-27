@@ -72,6 +72,7 @@ const Paginator = class Paginator {
       }catch(err){
         rej(err);
       }
+
       res(true);
     });
   }
@@ -118,7 +119,7 @@ const Paginator = class Paginator {
     if(typeof direction === 'string'){
       if(+direction+this.currentPage < this.pages.length) return true;
     }else if(typeof direction === 'number')
-      if(0<direction&direction<this.pages.length&&direction!==this.currentPage) return true;
+      if(-1<direction&direction<this.pages.length&&direction!==this.currentPage) return true;
     return false;
   }
 };
