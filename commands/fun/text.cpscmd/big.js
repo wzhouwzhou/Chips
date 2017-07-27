@@ -20,7 +20,7 @@ module.exports = {
             let id = e.substring(1+e.lastIndexOf(':'),e.length-1);
             emojis.push(`https://cdn.discordapp.com/emojis/${id}.png`);
           });
-          const p = new P ( msg,  {
+          const p = new Paginator ( msg,  {
             type:'paged',
             embedding: true,
             image: emojis,
