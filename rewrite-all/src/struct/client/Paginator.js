@@ -59,7 +59,7 @@ const Paginator = class Paginator {
       if(this.fielding){
         for(const fieldp of this.pages[pageNum])
           this.embed = this.embed.addField(fieldp[0],fieldp[1], fieldp[2]||false);
-        this.embed.setDescription('');
+        this.embed.setDescription('test');
       }else{
         this.embed.setDescription(this.pages[pageNum]);
       }
