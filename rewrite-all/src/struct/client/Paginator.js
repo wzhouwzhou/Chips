@@ -65,7 +65,7 @@ const Paginator = class Paginator {
     return new Promise( async (res, rej) => {
       let btns = 0;
       try{
-        for(e of this.buttons){
+        for(const e of this.buttons){
           await sentMsg.react(e);
           btns++;
         }
