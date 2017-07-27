@@ -22,11 +22,11 @@ module.exports = {
             emojis.push(`https://cdn.discordapp.com/emojis/${id}.png`);
           });
         }
-        let id = str[0].substring(1+str[0].lastIndexOf(':'),str[0].length-1);
+        /*let id = str[0].substring(1+str[0].lastIndexOf(':'),str[0].length-1);
         let fetched= await snekfetch.get(`https://cdn.discordapp.com/emojis/${id}.png`);
         if(fetched&&fetched.body)
           return send(' ',{files: [{attachment: fetched.body}]});
-        return reply('No emoji image found');
+        return reply('No emoji image found');*/
       }
       str =msg.content.replace(customR,'').split('');
       if(str&&str[0]){
@@ -37,20 +37,15 @@ module.exports = {
         });
       }
 
-      if(emojis.length<1){
+      if(emojis.length==1){
         str = msg.content;
         if(str&&str[0]){
-          let parsed = twe.parse(str).toString().match(/src="([\w|\d|:|\/|.]+")/);
-          if(parsed&&parsed[0]){
-            let url = parsed[0].substring('src="'.length, parsed[0].length-1);
-            let fetched;
-            if(url)
-              fetched= await snekfetch.get(url);
+            fetched= await snekfetch.get(emojis[0]);
             if(!fetched||!fetched.body)
               return reply('No emoji image found');
             return send(' ',{files: [{attachment: fetched.body}]});
-          }
-          return reply('No emoji image found');
+        }else{
+          return reply('No emoji image given ?');
         }
       }
 
