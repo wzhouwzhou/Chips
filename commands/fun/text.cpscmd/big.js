@@ -28,6 +28,15 @@ module.exports = {
           return send(' ',{files: [{attachment: fetched.body}]});
         return reply('No emoji image found');
       }
+      str =msg.content.replace(customR,'').split('');
+      if(str&&str[0]){
+        str.forEach(e=>{
+          let parsed = twe.parse(e).toString().match(/src="([\w|\d|:|\/|.]+")/i);
+          if(parsed&&parsed[0])
+            emojis.push(parsed[0].substring('src="'.length, parsed[0].length-1));
+        });
+      }
+
       if(emojis.length<1){
         str = msg.content;
         if(str&&str[0]){
@@ -43,16 +52,8 @@ module.exports = {
           }
           return reply('No emoji image found');
         }
-      }else{
-        str =msg.content.replace(customR,'').split('');
-        if(str&&str[0]){
-          str.forEach(e=>{
-            let parsed = twe.parse(e).toString().match(/src="([\w|\d|:|\/|.]+")/i);
-            if(parsed&&parsed[0])
-              emojis.push(parsed[0].substring('src="'.length, parsed[0].length-1));
-          });
-        }
       }
+
       if(emojis.length>0){
         const p = new Paginator ( msg,  {
           type:'paged',
