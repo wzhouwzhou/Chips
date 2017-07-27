@@ -8,60 +8,52 @@ module.exports = {
   async func( msg,
   {
     send,
+    content,
     reply,
     prefix,
   } ) {
-    if(msg.content.replace(new RegExp(`${prefix}big\\s*`),'').length != 0) {
-      customR = /<:[\w0-9_]+:\d+>/g;
-      let str = msg.content.match(customR);
-      const emojis = [];
-      if(str&&str[0]) {
-        if(str.length>1){
+    if(content.replace(new RegExp(`${prefix}big\\s*`),'').length != 0) {
+      customR = /<:[\w\d_]+:\d+>/g;
+      let str = content.match(customR);
+      const emojis = new Set();
+      if(str&&str[0])
           str.forEach(e=>{
             let id = e.substring(1+e.lastIndexOf(':'),e.length-1);
-            emojis.push(`https://cdn.discordapp.com/emojis/${id}.png`);
+            emojis.add(`https://cdn.discordapp.com/emojis/${id}.png`);
           });
-        }
-        /*let id = str[0].substring(1+str[0].lastIndexOf(':'),str[0].length-1);
-        let fetched= await snekfetch.get(`https://cdn.discordapp.com/emojis/${id}.png`);
-        if(fetched&&fetched.body)
-          return send(' ',{files: [{attachment: fetched.body}]});
-        return reply('No emoji image found');*/
-      }
-      str =msg.content.replace(customR,'').split('');
-      if(str&&str[0]){
-        str.forEach(e=>{
-          let parsed = twe.parse(e).toString().match(/src="([\w|\d|:|\/|.]+")/i);
-          if(parsed&&parsed[0])
-            emojis.push(parsed[0].substring('src="'.length, parsed[0].length-1));
-        });
-      }
 
-      if(emojis.length==1){
-        str = msg.content;
-        if(str&&str[0]){
-            fetched= await snekfetch.get(emojis[0]);
+      str = content.replace(customR,'');
+      if(str&&str[0]){
+        let parsed = twe.parse(e).toString().match(/src="([\w|\d|:|\/|.]+")/gi);
+        if(parsed&&parsed[0])
+          parsed.forEach(e=>{
+            emojis.add(e.substring('src="'.length, e.length-1));
+          });
+      }
+      const entries = emojis.keys();
+      if(emojis.size===1){
+            fetched= await snekfetch.get(entries[0]);
             if(!fetched||!fetched.body)
               return reply('No emoji image found');
             return send(' ',{files: [{attachment: fetched.body}]});
-        }else{
-          return reply('No emoji image given ?');
-        }
       }
 
-      if(emojis.length>0){
+      if(emojis.size>0){
         const p = new Paginator ( msg,  {
           type:'paged',
           embedding: true,
-          image: emojis,
+          image: entries,
           }, Discord
         );
-        if(emojis.length>0)
-          return p.sendFirst();
-        return reply('No emoji images found');
+        try{
+          return await p.sendFirst();
+        }catch(err){
+          console.error(err);
+          return reply ('Something went wrong...');
+        }
       }
-    return reply('No emoji was given');
+      return reply('No emoji was given');
     }
-  return reply('No emoji given');
+    return reply('No emoji given');
   }
 };
