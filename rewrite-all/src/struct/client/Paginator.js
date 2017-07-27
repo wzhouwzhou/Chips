@@ -51,9 +51,9 @@ const Paginator = class Paginator {
     return new Promise ( async (res, rej) =>{
       try{
         if(this.replying)
-          this.sentMsg = await _msg.reply(this.text, { embed: this.embed });
+          this.sentMsg = await this._msg.reply(this.text, { embed: this.embed });
         else
-          this.sentMsg = await _msg.channel.send(this.text, { embed: this.embed });
+          this.sentMsg = await this._msg.channel.send(this.text, { embed: this.embed });
         await this.pageButtons(this.sentMsg);
       }catch(err){
         rej(err);
