@@ -1,3 +1,5 @@
+const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Paginator;
+
 module.exports = {
   name: "help",
   async func(msg, { prefix, Discord }) {
