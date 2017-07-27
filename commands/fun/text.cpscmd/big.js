@@ -30,7 +30,7 @@ module.exports = {
             emojis.add(e.substring('src="'.length, e.length-1));
           });
       }
-      const entries = emojis.keys();
+      const entries = Array.from(emojis);
       if(emojis.size===1){
             fetched= await snekfetch.get(entries[0]);
             if(!fetched||!fetched.body)
