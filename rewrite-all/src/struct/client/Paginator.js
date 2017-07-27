@@ -33,7 +33,7 @@ const Paginator = class Paginator {
   }
 
   sendFirst () {
-    return new Promise( async (res, rej) => {
+    return new Promise( (res, rej) => {
       this.updateInternal(0);
 
       this.updateView().catch(rej);
@@ -43,7 +43,8 @@ const Paginator = class Paginator {
 
   updateInternal (pageNum) {
     if(this.embedding){
-      this.embed.setTitle(this.title||'').setFooter(this.footer||'').setColor(this.color||DEFAULTCOLOR).setAuthor(this.author);
+      this.embed.setTitle(this.title||'').setFooter(this.footer||'').setColor(this.color||DEFAULTCOLOR);
+      this.author&&this.embed.setAuthor(this.author);
 
       if(this.fielding){
         this.pages[pageNum].forEach(field=>this.embed.addField(...field));
