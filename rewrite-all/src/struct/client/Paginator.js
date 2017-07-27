@@ -104,7 +104,8 @@ const Paginator = class Paginator {
     return new Promise( async (res, rej) => {
       if(this.stopped) return res(null);
       this.collector = sentMsg.createReactionCollector( (reaction, user) => {
-        if((!!~this.buttons.indexOf(reaction.emoji.toString())||reaction.emoji.toString()=='ℹ') && this._msg.author.id === user.id) {
+        if(this._msg.author.id !== user.id) return false;
+        if(!!(~this.buttons.indexOf(reaction.emoji.toString()))||reaction.emoji.toString()==='ℹ') {
           reaction.remove(user);
           return true;
         }
