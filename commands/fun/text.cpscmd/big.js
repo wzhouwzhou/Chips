@@ -24,7 +24,7 @@ module.exports = {
 
       str = content.replace(customR,'');
       if(str&&str[0]){
-        let parsed = twe.parse(e).toString().match(/src="([\w|\d|:|\/|.]+")/gi);
+        let parsed = twe.parse(str).toString().match(/src="([\w|\d|:|\/|.]+")/gi);
         if(parsed&&parsed[0])
           parsed.forEach(e=>{
             emojis.add(e.substring('src="'.length, e.length-1));
