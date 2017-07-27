@@ -48,7 +48,7 @@ const Paginator = class Paginator {
   updateInternal (pageNum) {
     if(this.stopped) return null;
     if(this.embedding){
-      this.embed.setTitle(this.title||'').setFooter(this.footer?this.footer.replace(/{pagenum}/gi,pageNum).replace(/{totalpages}/gi,this.pages.length):`Page ${pageNum} of ${this.pages.length}`).setColor(this.color||DEFAULTCOLOR);
+      this.embed.setTitle(this.title||'').setFooter(this.footer?this.footer.replace(/{pagenum}/gi,pageNum+1).replace(/{totalpages}/gi,this.pages.length):`Page ${pageNum+1} of ${this.pages.length}`).setColor(this.color||DEFAULTCOLOR);
       this.author&&this.embed.setAuthor(this.author);
 
       if(this.fielding){
@@ -124,12 +124,12 @@ const Paginator = class Paginator {
               if(!m.content) return;
               if(/^cancel$/i.test(m.content)) mCol.stop();
 
-              const num = /^\d+$/i.test(m.content);
+              const num = m.content.match(/^\d+$/)?m.content.match(/^\d+$/)[0]:0;
               try {
                 await this.setPage(+num);
                 tempmsg.delete();
               }catch(err){
-                m.reply('Invalid page number specified!').then(mmm=>mmm.delete(3000));
+                m.reply(`Invalid page number of ${num} specified!`).then(mmm=>mmm.delete(3000));
               }
               m.delete();
             });
