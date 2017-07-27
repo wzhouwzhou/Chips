@@ -31,6 +31,7 @@ const Paginator = class Paginator {
     this.text = data.text;
     this.author = data.author;
     this.image = data.image;
+    if(!this.pages&&this.image) this.pages = new Array(this.image.length>1?this.image.length:1).fill(' ');
     this.thumbnail = data.thumbnail;
     this.buttons = data.buttons || PAGEBTNS;
     this.help = data.help;
@@ -51,7 +52,7 @@ const Paginator = class Paginator {
     if(this.stopped) return null;
     if(this.embedding){
       this.embed=new Discord.RichEmbed();
-      this.currentTitle = typeof this.title==='string'?this.title:this.title[pageNum]?this.title[pageNum]:' ';
+      this.currentTitle = this.title?typeof this.title==='string'?this.title:this.title[pageNum]?this.title[pageNum]:' ':null;
 
       this.embed.setTitle(this.currentTitle)
                 .setFooter(this.footer?this.footer.replace(/{pagenum}/gi,pageNum+1).replace(/{totalpages}/gi,this.pages.length):`Page ${pageNum+1} of ${this.pages.length}`)
@@ -64,9 +65,9 @@ const Paginator = class Paginator {
       }else{
         this.embed.setDescription(this.pages[pageNum]);
       }
-      this.currentImage = typeof this.image === 'string'?this.image:this.image[pageNum];
+      this.currentImage = this.image?typeof this.image === 'string'?this.image:this.image[pageNum]:null;
       this.currentImage&&this.embed.setImage(this.currentImage);
-      this.currentThumbnail = typeof this.thumbnail === 'string'?this.thumbnail:this.thumbnail[pageNum];
+      this.currentThumbnail = this.thumbnail?typeof this.thumbnail === 'string'?this.thumbnail:this.thumbnail[pageNum]:null;
       this.currentThumbnail&&this.embed.setThumbnail(this.currentThumbnail);
     }
     return true;
