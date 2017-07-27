@@ -66,9 +66,9 @@ const Paginator = class Paginator {
           await this.pageButtons(this.sentMsg);
         }else{
           if(this.replying)
-            this.sentMsg = await this.sentMsg.edit(this._msg.author+(typeof this.text==='string'?this.text:this.text[this.currentPage]), { embed: this.embed });
+            await this.sentMsg.edit(this._msg.author+(typeof this.text==='string'?this.text:this.text[this.currentPage]), { embed: this.embed });
           else
-            this.sentMsg = await this.sentMsg.edit(typeof this.text==='string'?this.text:this.text[this.currentPage], { embed: this.embed });
+            await this.sentMsg.edit(typeof this.text==='string'?this.text:this.text[this.currentPage], { embed: this.embed });
         }
       }catch(err){
         rej(err);
@@ -91,6 +91,7 @@ const Paginator = class Paginator {
         rej(err);
       }
       if(btns != this.buttons.length) rej('Not all buttons reacted!');
+      res(true);
     });
   }
 
