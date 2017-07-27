@@ -48,7 +48,11 @@ const Paginator = class Paginator {
   updateInternal (pageNum) {
     if(this.stopped) return null;
     if(this.embedding){
-      this.embed.setTitle(this.title||'').setFooter(this.footer?this.footer.replace(/{pagenum}/gi,pageNum+1).replace(/{totalpages}/gi,this.pages.length):`Page ${pageNum+1} of ${this.pages.length}`).setColor(this.color||DEFAULTCOLOR);
+      this.currentTitle = typeof this.title==='string'?this.title:this.title[this.currentPage]?this.title[this.currentPage]:' ';
+
+      this.embed.setTitle(this.currentTitle)
+                .setFooter(this.footer?this.footer.replace(/{pagenum}/gi,pageNum+1).replace(/{totalpages}/gi,this.pages.length):`Page ${pageNum+1} of ${this.pages.length}`)
+                .setColor(this.color||DEFAULTCOLOR);
       this.author&&this.embed.setAuthor(this.author);
 
       if(this.fielding){
@@ -64,17 +68,18 @@ const Paginator = class Paginator {
     return new Promise ( async (res, rej) =>{
       if(this.stopped) return res(null);
       try{
+        this.currentText = typeof this.text==='string'?this.text:this.text[this.currentPage]?this.text[this.currentPage]:' ';
         if(!this.sentMsg){
           if(this.replying)
-            this.sentMsg = await this._msg.reply(typeof this.text==='string'?this.text:this.text[this.currentPage], { embed: this.embed });
+            this.sentMsg = await this._msg.reply(this.currentText, { embed: this.embed });
           else
-            this.sentMsg = await this._msg.channel.send(typeof this.text==='string'?this.text:this.text[this.currentPage], { embed: this.embed });
+            this.sentMsg = await this._msg.channel.send(this.currentText, { embed: this.embed });
           await this.pageButtons(this.sentMsg);
         }else{
           if(this.replying)
-            await this.sentMsg.edit(this._msg.author+(typeof this.text==='string'?this.text:this.text[this.currentPage]), { embed: this.embed });
+            await this.sentMsg.edit(this._msg.author+this.currentText, { embed: this.embed });
           else
-            await this.sentMsg.edit(typeof this.text==='string'?this.text:this.text[this.currentPage], { embed: this.embed });
+            await this.sentMsg.edit(this.currentText, { embed: this.embed });
         }
       }catch(err){
         rej(err);
@@ -128,7 +133,7 @@ const Paginator = class Paginator {
               try {
                 await this.setPage(+num-1);
               }catch(err){
-                m.reply(`Invalid page number of ${+num} specified!`).then(mmm=>mmm.delete(3000));
+                m.reply(`Invalid page number of \`${+num}\` specified!`).then(mmm=>mmm.delete(3000));
               }
               tempmsg.delete();
               m.delete();
