@@ -3,6 +3,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 const DEFAULTCOLOR = 143526;
 const PAGEBTNS = '⏮ ⬅ ➡ ⏭ 🔢 ⏏'.split(' ');
+const TIME = 864e5;
 
 const Paginator = class Paginator {
   constructor(msg, data, Discord = require('discord.js')) {
@@ -13,6 +14,7 @@ const Paginator = class Paginator {
   }
 
   loadData ( data ) {
+    if(this.stopped) return null;
     if(!data.type) throw new Error('No data type!');
     if(data.type === 'paged')
       this.pages = data.pages;
@@ -30,10 +32,12 @@ const Paginator = class Paginator {
     this.author = data.author;
     this.buttons = data.buttons || PAGEBTNS;
     this.help = data.help;
+    return this;
   }
 
   sendFirst () {
     return new Promise( (res, rej) => {
+      if(this.stopped) res(null);
       this.updateInternal(0);
 
       this.updateView().catch(rej);
@@ -42,6 +46,7 @@ const Paginator = class Paginator {
   }
 
   updateInternal (pageNum) {
+    if(this.stopped) return null;
     if(this.embedding){
       this.embed.setTitle(this.title||'').setFooter(this.footer||'').setColor(this.color||DEFAULTCOLOR);
       this.author&&this.embed.setAuthor(this.author);
@@ -57,6 +62,7 @@ const Paginator = class Paginator {
 
   updateView () {
     return new Promise ( async (res, rej) =>{
+      if(this.stopped) return res(null);
       try{
         if(!this.sentMsg){
           if(this.replying)
@@ -80,6 +86,33 @@ const Paginator = class Paginator {
 
   pageButtons (sentMsg) {
     return new Promise( async (res, rej) => {
+      if(this.stopped) return res(null);
+      this.collector = sentMsg.createReactionCollector(
+       (reaction, user) => (!!~this.buttons.indexOf(reaction.emoji.toString())||reaction.emoji.toString()=='ℹ') && this._msg.author.id === user.id,
+       { time: TIME }
+      );
+      this.collector.on('collect', r => {
+        switch(r.emoji.toString()){
+          case '⏮':{
+            return this.setPage(0);
+          }
+          case '⏭':{
+            return this.setPage(this.pages.length-1);
+          }
+          case '⬅':{
+            return this.prevPage();
+          }
+          case '➡':{
+            return this.nextPage();
+          }
+          case '⏏':{
+            return this.collector.stop();
+          }
+        }
+      });
+
+      this.collector.on('end', () => this.shutdown());
+
       let btns = 0;
       try{
         if(this.help) await sentMsg.react('ℹ');
@@ -96,15 +129,18 @@ const Paginator = class Paginator {
   }
 
   nextPage () {
+    if(this.stopped) return null;
     return this.setPage(this.currentPage+1);
   }
 
   prevPage () {
+    if(this.stopped) return null;
     return this.setPage(this.currentPage-1);
   }
 
   setPage (num) {
     return new Promise( async (res, rej) => {
+      if(this.stopped) return res(null);
       try{
         if(!this.validateUpdatePage(num)) return rej('Invalid page');
         this.currentPage = num;
@@ -118,11 +154,26 @@ const Paginator = class Paginator {
   }
 
   validateUpdatePage (direction) {
+    if(this.stopped) return false;
     if(typeof direction === 'string'){
       if(+direction+this.currentPage < this.pages.length) return true;
     }else if(typeof direction === 'number')
       if(-1<direction&direction<this.pages.length&&direction!==this.currentPage) return true;
     return false;
+  }
+
+  shutdown () {
+    return new Promise( async (res, rej) => {
+      if(this.stopped) res(true);
+      this.stopped = true;
+      try{
+        await this.sentMsg.delete();
+        this.sentMsg = null;
+      }catch(err){
+        rej(err);
+      }
+      res(true);
+    });
   }
 };
 
