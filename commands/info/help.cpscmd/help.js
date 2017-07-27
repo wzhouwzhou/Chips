@@ -20,6 +20,7 @@ module.exports = {
     const ModMenu = ([
     '**{}ban** to ban someone.',
     '**{}clear** to clear some messages. (up to 99)',
+    '**{}botclear** to delete bot-related messages. (up to the last 100 messages are checked)',
     '**{}hackban** to ban someone by their ID',
     '**{}kick** to kick someone.',
     '**{}pmute** to give someone a muted role! (Disclaimer: this does not create a Muted role)',
