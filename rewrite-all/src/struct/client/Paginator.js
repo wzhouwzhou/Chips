@@ -48,7 +48,7 @@ const Paginator = class Paginator {
   updateInternal (pageNum, Discord = require('discord.js')) {
     if(this.stopped) return null;
     if(this.embedding){
-      if(!this.embed) this.embed=new Discord.RichEmbed();
+      this.embed=new Discord.RichEmbed();
       this.currentTitle = typeof this.title==='string'?this.title:this.title[this.currentPage]?this.title[this.currentPage]:' ';
 
       this.embed.setTitle(this.currentTitle)
@@ -58,8 +58,7 @@ const Paginator = class Paginator {
 
       if(this.fielding){
         for(const fieldp of this.pages[pageNum])
-          this.embed = this.embed.addField(fieldp[0],fieldp[1], fieldp[2]||false);
-        this.embed.setDescription('test');
+          this.embed = this.embed.addField(...fieldp,false);
       }else{
         this.embed.setDescription(this.pages[pageNum]);
       }
