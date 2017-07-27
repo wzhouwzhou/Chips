@@ -33,6 +33,7 @@ const Paginator = class Paginator {
     this.image = data.image;
     if(!this.pages&&this.image) this.pages = new Array(this.image.length>1?this.image.length:1).fill(' ');
     if(!this.title&&this.image) this.title = new Array(this.image.length>1?this.image.length:1).fill(' ');
+    if(!this.text&&this.image) this.text = new Array(this.image.length>1?this.image.length:1).fill(' ');
     this.thumbnail = data.thumbnail;
     this.buttons = data.buttons || PAGEBTNS;
     this.help = data.help;
