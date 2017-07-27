@@ -29,6 +29,7 @@ const Paginator = class Paginator {
     this.text = data.text;
     this.author = data.author;
     this.buttons = data.buttons || PAGEBTNS;
+    this.help = data.help;
   }
 
   sendFirst () {
@@ -44,16 +45,24 @@ const Paginator = class Paginator {
       }
 
       this.updateView().catch(rej);
+      res(true);
     });
   }
 
   updateView () {
     return new Promise ( async (res, rej) =>{
       try{
-        if(this.replying)
-          this.sentMsg = await this._msg.reply(this.text, { embed: this.embed });
-        else
-          this.sentMsg = await this._msg.channel.send(this.text, { embed: this.embed });
+        if(!this.sentMsg){
+          if(this.replying)
+            this.sentMsg = await this._msg.reply(this.text, { embed: this.embed });
+          else
+            this.sentMsg = await this._msg.channel.send(this.text, { embed: this.embed });
+        }else{
+          if(this.replying)
+            this.sentMsg = await this.sentMsg.edit(this._msg.author+this.text, { embed: this.embed });
+          else
+            this.sentMsg = await this.sentMsg.edit(this.text, { embed: this.embed });
+        }
         await this.pageButtons(this.sentMsg);
       }catch(err){
         rej(err);
@@ -65,6 +74,7 @@ const Paginator = class Paginator {
     return new Promise( async (res, rej) => {
       let btns = 0;
       try{
+        if(this.help) await sentMsg.react('ℹ');
         for(const e of this.buttons){
           await sentMsg.react(e);
           btns++;
@@ -87,7 +97,7 @@ const Paginator = class Paginator {
   setPage (num) {
     return new Promise( async (res, rej) => {
       try{
-        if(!this.validatePage(num)) rej('Invalid page');
+        if(!this.validateUpdatePage(num)) rej('Invalid page');
         this.currentPage = num;
         await this.updateView();
       }catch(err){
