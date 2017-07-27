@@ -59,15 +59,15 @@ const Paginator = class Paginator {
       try{
         if(!this.sentMsg){
           if(this.replying)
-            this.sentMsg = await this._msg.reply(this.text, { embed: this.embed });
+            this.sentMsg = await this._msg.reply(typeof this.text==='string'?this.text:this.text[this.currentPage], { embed: this.embed });
           else
-            this.sentMsg = await this._msg.channel.send(this.text, { embed: this.embed });
+            this.sentMsg = await this._msg.channel.send(typeof this.text==='string'?this.text:this.text[this.currentPage], { embed: this.embed });
           await this.pageButtons(this.sentMsg);
         }else{
           if(this.replying)
-            this.sentMsg = await this.sentMsg.edit(this._msg.author+this.text, { embed: this.embed });
+            this.sentMsg = await this.sentMsg.edit(this._msg.author+(typeof this.text==='string'?this.text:this.text[this.currentPage]), { embed: this.embed });
           else
-            this.sentMsg = await this.sentMsg.edit(this.text, { embed: this.embed });
+            this.sentMsg = await this.sentMsg.edit(typeof this.text==='string'?this.text:this.text[this.currentPage], { embed: this.embed });
         }
       }catch(err){
         rej(err);
