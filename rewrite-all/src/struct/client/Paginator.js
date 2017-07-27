@@ -104,12 +104,12 @@ const Paginator = class Paginator {
   setPage (num) {
     return new Promise( async (res, rej) => {
       try{
-        if(!this.validateUpdatePage(num)) rej('Invalid page');
+        if(!this.validateUpdatePage(num)) return rej('Invalid page');
         this.currentPage = num;
         this.updateInternal(this.currentPage);
         await this.updateView();
       }catch(err){
-        rej(err);
+        return rej(err);
       }
       res(true);
     });
