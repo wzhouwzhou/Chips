@@ -110,10 +110,10 @@ const Paginator = class Paginator {
             return this.setPage(this.pages.length-1);
           }
           case '⬅':{
-            return this.prevPage();
+            return this.prevPage().catch(_=>_);
           }
           case '➡':{
-            return this.nextPage();
+            return this.nextPage().catch(_=>_);
           }
           case '⏏':{
             return this.collector.stop();
