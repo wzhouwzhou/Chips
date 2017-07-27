@@ -116,7 +116,7 @@ const Paginator = class Paginator {
           case '🔢':{
             let tempmsg;
             const mCol = sentMsg.channel.createMessageCollector(
-              query => query.content.match(/^(\d+|cancel)$/i)&&query.author.id===this._msg.author.id,
+              query => (!!query.content.match(/(\d+|cancel)/i))&&query.author.id===this._msg.author.id,
               { max: 1, time: TIME2, errors: ['time'] }
             );
 
@@ -124,13 +124,13 @@ const Paginator = class Paginator {
               if(!m.content) return;
               if(/^cancel$/i.test(m.content)) mCol.stop();
 
-              const num = m.content.match(/^\d+$/)?m.content.match(/^\d+$/)[0]:0;
+              const num = m.content.match(/\d+/)?m.content.match(/\d+/)[0]:0;
               try {
-                await this.setPage(+num);
-                tempmsg.delete();
+                await this.setPage(+num-1);
               }catch(err){
-                m.reply(`Invalid page number of ${num} specified!`).then(mmm=>mmm.delete(3000));
+                m.reply(`Invalid page number of ${+num} specified!`).then(mmm=>mmm.delete(3000));
               }
+              tempmsg.delete();
               m.delete();
             });
 
