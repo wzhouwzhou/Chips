@@ -14,7 +14,7 @@ module.exports = {
       '\t**role** to get information on the role that you request!',
       '\t**server** to get information on the server!',
       '\t**user** to get information on the user that you request!',
-      '**${}quote msgid** to quote what someone said in the channel you use the command in.',
+      '**{}quote msgid** to quote what someone said in the channel you use the command in.',
       '**{}discordstatus** to get the current status of discord.',
       ].join('\n').replace(/{}/g, prefix));
     const ModMenu = ([
