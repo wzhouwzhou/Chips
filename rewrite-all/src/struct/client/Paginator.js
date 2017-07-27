@@ -48,7 +48,7 @@ const Paginator = class Paginator {
   updateInternal (pageNum) {
     if(this.stopped) return null;
     if(this.embedding){
-      this.embed.setTitle(this.title||'').setFooter(this.footer.replace(/{pagenum}/gi,pageNum).replacce(/{totalpages}/gi,this.pages.length)||`Page ${pageNum} of ${this.pages.length}`).setColor(this.color||DEFAULTCOLOR);
+      this.embed.setTitle(this.title||'').setFooter(this.footer?this.footer.replace(/{pagenum}/gi,pageNum).replace(/{totalpages}/gi,this.pages.length):`Page ${pageNum} of ${this.pages.length}`).setColor(this.color||DEFAULTCOLOR);
       this.author&&this.embed.setAuthor(this.author);
 
       if(this.fielding){
