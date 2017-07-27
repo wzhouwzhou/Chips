@@ -1,6 +1,6 @@
 module.exports = {
   name: "help",
-  async func(msg, { send, prefix, Discord }) {
+  async func(msg, { prefix, Discord }) {
     const InfoMenu = ([
       '**{}discordstatus** to get the current status of discord.',
       '**{}help** for this help message.',
@@ -35,6 +35,29 @@ module.exports = {
     '**{}rekt** to make some people get rekt.',
     '**{}roll** to roll some dice.'].join('\n').replace(/{}/g, prefix));
 
+    const p = new Paginator ( msg,  {
+      type:'paged',
+      embedding: true,
+      fielding: true,
+      title: 'Chips commands',
+      text: 'As you can see we are doing a gui overhaul, we apologize if some commands are not working or listed',
+      pages:
+      [[
+        ['Informative commands',InfoMenu],
+      ],[
+        ['Moderation commands',ModMenu],
+      ],[
+        ['Fun commands',FunMenu],
+      ]],
+      }, Discord
+    );
+    try{
+      return await p.sendFirst();
+    }catch(err){
+      console.error(err);
+      return reply ('Something went wrong...');
+    }
+    /*
     const embed = new Discord.RichEmbed()
       .setAuthor('This is the Chips Bot Help Menu!', "http://www.mkrfoodproducts.com/images/gallery/image_11.jpg")
       .setTitle('')
@@ -47,6 +70,6 @@ module.exports = {
       .addBlankField()
       .addField("Fun Commands", FunMenu, true)
       .setTimestamp((new Date));
-    send(' ', {embed});
+    send(' ', {embed});*/
   }
 };
