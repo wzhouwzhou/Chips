@@ -34,7 +34,7 @@ const Paginator = class Paginator {
 
   sendFirst () {
     return new Promise( async (res, rej) => {
-      updateInternal(0);
+      this.updateInternal(0);
 
       this.updateView().catch(rej);
       res(true);
@@ -106,7 +106,7 @@ const Paginator = class Paginator {
       try{
         if(!this.validateUpdatePage(num)) rej('Invalid page');
         this.currentPage = num;
-        updateInternal(this.currentPage);
+        this.updateInternal(this.currentPage);
         await this.updateView();
       }catch(err){
         rej(err);
