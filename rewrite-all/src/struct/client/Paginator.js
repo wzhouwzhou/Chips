@@ -87,9 +87,14 @@ const Paginator = class Paginator {
   pageButtons (sentMsg) {
     return new Promise( async (res, rej) => {
       if(this.stopped) return res(null);
-      this.collector = sentMsg.createReactionCollector(
-       (reaction, user) => (!!~this.buttons.indexOf(reaction.emoji.toString())||reaction.emoji.toString()=='ℹ') && this._msg.author.id === user.id,
-       { time: TIME }
+      this.collector = sentMsg.createReactionCollector( (reaction, user) => {
+        if((!!~this.buttons.indexOf(reaction.emoji.toString())||reaction.emoji.toString()=='ℹ') && this._msg.author.id === user.id) {
+          reaction.remove(user);
+          return true;
+        }
+        return false;
+      },
+      { time: TIME }
       );
       this.collector.on('collect', r => {
         switch(r.emoji.toString()){
