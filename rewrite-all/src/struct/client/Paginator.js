@@ -4,7 +4,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 const DEFAULTCOLOR = 143526;
 const PAGEBTNS = '⏮ ⬅ ➡ ⏭ 🔢 ⏏'.split(' ');
 const TIME = 864e5;
-
+const TIME2 = 60e3;
 const Paginator = class Paginator {
   constructor(msg, data, Discord = require('discord.js')) {
     this._msg = msg;
@@ -48,7 +48,7 @@ const Paginator = class Paginator {
   updateInternal (pageNum) {
     if(this.stopped) return null;
     if(this.embedding){
-      this.embed.setTitle(this.title||'').setFooter(this.footer||'').setColor(this.color||DEFAULTCOLOR);
+      this.embed.setTitle(this.title||'').setFooter(this.footer.replace(/{pagenum}/gi,pageNum).replacce(/{totalpages}/gi,this.pages.length)||`Page ${pageNum} of ${this.pages.length}`).setColor(this.color||DEFAULTCOLOR);
       this.author&&this.embed.setAuthor(this.author);
 
       if(this.fielding){
@@ -96,7 +96,7 @@ const Paginator = class Paginator {
       },
       { time: TIME }
       );
-      this.collector.on('collect', r => {
+      this.collector.on('collect', async r => {
         switch(r.emoji.toString()){
           case '⏮':{
             return this.setPage(0);
@@ -112,6 +112,40 @@ const Paginator = class Paginator {
           }
           case '⏏':{
             return this.collector.stop();
+          }
+          case '🔢':{
+            let tempmsg;
+            const mCol = sentMsg.channel.createMessageCollector(
+              query => query.content.match(/^(\d+|cancel)$/i)&&query.author.id===this._msg.author.id,
+              { max: 1, time: TIME2, errors: ['time'] }
+            );
+
+            mCol.on('collect', async m => {
+              if(!m.content) return;
+              if(/^cancel$/i.test(m.content)) mCol.stop();
+
+              const num = /^\d+$/i.test(m.content);
+              try {
+                await this.setPage(+num);
+                tempmsg.delete();
+              }catch(err){
+                m.reply('Invalid page number specified!').then(mmm=>mmm.delete(3000));
+              }
+              m.delete();
+            });
+
+            mCol.on('end', collected => {
+              if(collected.size===0){
+                return this._msg.reply('Timed out').then(m2=>{
+                  setTimeout(()=>{
+                    tempmsg.delete();
+                    m2.delete();
+                  }, 3000);
+                });
+              }
+            });
+
+            tempmsg = await this._msg.reply('Please enter the page number to jump to, or __cancel__ to cancel');
           }
         }
       });
