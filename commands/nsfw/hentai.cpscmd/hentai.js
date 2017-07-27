@@ -22,7 +22,7 @@ module.exports = {
     if(!channel.nsfw) return;
 
     try{
-      const embed = Discord.RichEmbed().setColor(member?member.displayColor:13512).setImage(await getHentai());
+      const embed = new Discord.RichEmbed().setColor(member?member.displayColor:13512).setImage(await getHentai());
       await send('', { embed });
     }catch(err){
       console.error(err);
