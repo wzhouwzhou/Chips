@@ -56,7 +56,8 @@ const Paginator = class Paginator {
       this.author&&this.embed.setAuthor(this.author);
 
       if(this.fielding){
-        this.pages[pageNum].forEach(field=>this.embed.addField(...field));
+        for(const fieldp of this.pages[pageNum])
+          this.embed.addField(...fieldp);
       }else{
         this.embed.setDescription(this.pages[pageNum]);
       }
