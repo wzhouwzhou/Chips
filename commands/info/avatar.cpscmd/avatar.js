@@ -38,13 +38,13 @@ module.exports = {
       }
       µs ? end += 'µs' : end += 'ms';
 
-      if(image.length===1){
+      if(pages.length===1){
         const avator = new Discord.RichEmbed()
-          .setTitle(`Avatar Image of ${msg.member.user.tag} `, ``   , true)
+          .setTitle(title[0])
           .setColor(msg.member.displayColor)
-          .addField('Avatar Link: ', `[Click Here](${targetmember.user.avatarURL})`)
+          .addField(...pages[0])
           .setFooter(`--User Avatar lookup took ${(end)}.--`,``, true)
-          .setImage(targetmember.user.avatarURL);
+          .setImage(image[0]);
         return send('', {embed: avator});
       }
 
