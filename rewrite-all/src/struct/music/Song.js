@@ -25,10 +25,10 @@ const Song = class Song {
         this.image = this._info.iurlmaxres||'http://logok.org/wp-content/uploads/2014/08/YouTube_logo.png';
         this.author = this._info.author||'Unknown Author';
         this.authorname = this.author&&this.author.name;
-        this.publishedTime = this._info.published||0;
-        this.publishedAt = moment(this.publishedTime);
+        this.publishedTime = +this._info.published||0;
+        this.publishedAt = moment(+this.publishedTime);
         if(this._info.length_seconds){
-          const tempdata = moment.duration(this._info.length_seconds,'seconds')._data;
+          const tempdata = moment.duration(+this._info.length_seconds,'seconds')._data;
           const lengths = Object.values( tempdata );
           const keys = Object.keys( tempdata );
 
