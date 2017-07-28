@@ -55,7 +55,7 @@ module.exports = {
     ''
     ].join('\n').replace(/{}/g, prefix));
 
-    const UtilityMenu = [].join('\n',content.replace(/{}/g,prefix));
+    const UtilityMenu = [].join('\n'.replace(/{}/g,prefix));
 
     const p = new Paginator ( msg,  {
       type:'paged',
