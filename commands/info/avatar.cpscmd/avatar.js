@@ -29,7 +29,7 @@ module.exports = {
           .setImage(targetmember.user.avatarURL);*/
       });
       const pages = [], title = [], image = [];
-      memberList.values.forEach( e => {
+      memberList.values().forEach( e => {
         pages.push(e.page);
         title.push(e.title);
         image.push(e.image);
