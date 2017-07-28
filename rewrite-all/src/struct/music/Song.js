@@ -27,6 +27,7 @@ const Song = class Song {
         this.authorname = this.author&&this.author.name;
         this.publishedTime = +this._info.published||0;
         this.publishedAt = moment(+this.publishedTime);
+        this.livestream = this._info.livestream;
         if(this._info.length_seconds){
           const tempdata = moment.duration(+this._info.length_seconds,'seconds')._data;
           const lengths = Object.values( tempdata );
@@ -34,8 +35,8 @@ const Song = class Song {
 
           for(const i in lengths)
             lengths[i]+=keys[i].substring(0,1);
-          this.length = (_.drop(lengths)).reverse().splice(2).join(' ');
-          if(this.length.match(/^0/)) this.length = this.length.substring( this.length.match(/\d+h/i).index);
+          this._length = (_.drop(lengths)).reverse().splice(2).join(' ');
+          if(this._length.match(/^0/)) this._length = this._length.substring( this._length.match(/\d+h/i).index);
         }
         this.ready = true;
         res(this);
@@ -45,6 +46,11 @@ const Song = class Song {
 
   get stream () {
     return ytdl(this.url);
+  }
+
+  get length () {
+    if(this.livestream&&this.livestream === '1') return 'Livestream';
+    return this._length;
   }
 };
 
