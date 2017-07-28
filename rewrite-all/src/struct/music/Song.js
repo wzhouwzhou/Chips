@@ -35,7 +35,7 @@ const Song = class Song {
           for(const i in lengths)
             lengths[i]+=keys[i].substring(0,1);
           this.length = (_.drop(lengths)).reverse().splice(2).join(' ');
-          if(this.length.match(/^0/)) this.length = this.length.substring( time.match(/\d+h/i).index);
+          if(this.length.match(/^0/)) this.length = this.length.substring( this.length.match(/\d+h/i).index);
         }
         this.ready = true;
         res(this);
