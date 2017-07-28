@@ -2,9 +2,9 @@ const chalk = require(`chalk`);
 
 module.exports = {
   name: "avatar",
-  async func(msg, { send, Discord, user, guild }) {
+  async func(msg, { Discord, author, guild }) {
     let start = process.hrtime();
-    console.log(chalk.bold.bgBlue.green(user.tag+" ")+chalk.bgWhite.red(user.id+" ")+chalk.black.bgWhite(guild.id)+chalk.cyan(" [Avatar] "));
+    console.log(chalk.bold.bgBlue.green(author.tag+" ")+chalk.bgWhite.red(author.id+" ")+chalk.black.bgWhite(guild.id)+chalk.cyan(" [Avatar] "));
     let targetmember = msg.mentions.members;
 
     if(!targetmember||targetmember.length<1)
@@ -21,12 +21,12 @@ module.exports = {
           image: member.user.avatarURL
         });
 
-        const avator = new Discord.RichEmbed()
+        /*const avator = new Discord.RichEmbed()
           .setTitle(`Avatar Image of ${msg.member.user.tag} `, ``   , true)
           .setColor(msg.member.displayColor)
           .addField('Avatar Link: ', `[Click Here](${targetmember.user.avatarURL})`)
           .setFooter(`--User Avatar lookup took ${(end)}.--`,``, true)
-          .setImage(targetmember.user.avatarURL);
+          .setImage(targetmember.user.avatarURL);*/
       });
       const pages = [], title = [], image = [];
       memberList.values.forEach( e => {
