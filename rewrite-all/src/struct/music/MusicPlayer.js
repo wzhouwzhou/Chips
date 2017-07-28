@@ -85,15 +85,16 @@ const MusicPlayer = class MusicPlayer {
 
   shuffleQueue () {
     this.queue = _.shuffle(this.queue);
+    return this.queue;
   }
 
   queueSong (song) {
     if(this.shuttingDown) return null;
-    song.loadInfo().then(()=>{
+    return song.loadInfo().then(()=>{
       this.queue.push(song);
-      if(this.textchannel) this.textchannel.send(`Successfully queued ${song.title}.\nThere ${this.queue.length==1?'is':'are'} now ${this.queue.length} song${this.queue.length==1?'':'s'} in the queue.`);
-      if(!this.playing) this.playNextQueue();
-    });
+      if(this.textchannel) return this.textchannel.send(`Successfully queued ${song.title}.\nThere ${this.queue.length==1?'is':'are'} now ${this.queue.length} song${this.queue.length==1?'':'s'} in the queue.`);
+      if(!this.playing) return this.playNextQueue();
+    }).catch(err=>Logger.error({msg: err}));
   }
 
   sample (self) {

@@ -31,8 +31,6 @@ module.exports = {
     const FunMenu = ([
     '**{}aboose** for aboose.',
     '**{}-ban [mention user]** to ban people (Disclaimer: This is a fake ban).',
-    '**{}-calc [equation]** to calculate some equations!',
-    '**{}translate [text]** or **{}translate text targetlang:spanish** to translate some text',
     '**{}cat** to create a cat.',
     '**{}coinflip** to flip a coin.',
     '**{}dog** to create a dog.',
@@ -52,10 +50,14 @@ module.exports = {
     '**{}spooky [text]** to spread your letters out',
     '**{}big [emoji1, emoji2]** to enlarge one or more emojis',
     '**{}rotate [/ text]** *and* **{}rotate [\\ text]** to push your text around',
-    ''
     ].join('\n').replace(/{}/g, prefix));
 
-    const UtilityMenu = [].join('\n'.replace(/{}/g,prefix));
+    const UtilityMenu = ([
+      '**{}-calc [equation or expression]** to calculate some things! The equation solver can only solve basic algebra up to cubics',
+      '**{}urban [text]** To search up something in the urban dictionary. Add __--allownsfw__ somewhere in your search query to turn off the censor',
+      '**{}translate [text]** or **{}translate text targetlang:spanish** to translate some text',
+      '**{}stoptyping** for if a chips command errored and is stuck "typing" in the channel.'
+    ].join('\n').replace(/{}/g,prefix));
 
     const p = new Paginator ( msg,  {
       type:'paged',
@@ -70,6 +72,8 @@ module.exports = {
         ['Moderation commands',ModMenu],
       ],[
         ['Fun commands',FunMenu],
+      ],[
+        ['Utility commands',UtilityMenu],
       ]],
       }, Discord
     );
