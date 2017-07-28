@@ -161,8 +161,11 @@ const Paginator = class Paginator {
                 });
               }
             });
-
             tempmsg = await this._msg.reply('Please enter the page number to jump to, or __cancel__ to cancel');
+            return tempmsg;
+          }
+          case 'ℹ':{
+            this.setPage('help');
           }
         }
       });
