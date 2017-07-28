@@ -138,7 +138,7 @@ const MusicPlayer = class MusicPlayer {
     if(this.textchannel) this.textchannel.send('Skipping song...');
     this.playing = false;
 
-    this.dispatcher.pause();
+    this.dispatcher&&this.dispatcher.pause();
     this.leaveVC();
     this.connection = null;
   }
@@ -146,13 +146,15 @@ const MusicPlayer = class MusicPlayer {
   pause() {
     if(this.shuttingDown) return;
     if(this.textchannel) this.textchannel.send('Pausing song...');
-    this.dispatcher.pause();
+    this.dispatcher&&this.dispatcher.pause();
+    return this;
   }
 
   unpause() {
     if(this.shuttingDown) return;
     if(this.textchannel) this.textchannel.send('Resuming song...');
     this.dispatcher.resume();
+    return this;
   }
 };
 
