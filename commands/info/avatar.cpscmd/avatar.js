@@ -1,4 +1,5 @@
 const chalk = require(`chalk`);
+const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Paginator;
 
 module.exports = {
   name: "avatar",
