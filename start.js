@@ -1,5 +1,5 @@
 Object.defineProperty(exports, "__esModule", { value: true });
-const SHARDCOUNT = 3;
+const SHARDCOUNT = 2;
 
 const Discord = require("discord.js");
 let nodefile=["./chips.js"];

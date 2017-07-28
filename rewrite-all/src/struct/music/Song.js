@@ -32,7 +32,7 @@ const Song = class Song {
           const lengths = Object.values( tempdata );
           const keys = Object.keys( tempdata );
 
-          for(i in lengths)
+          for(const i in lengths)
             lengths[i]+=keys[i].substring(0,1);
           this.length = (_.drop(lengths)).reverse().splice(2).join(' ');
           if(this.length.match(/^0/)) this.length = this.length.substring( time.match(/\d+h/i).index);
