@@ -60,12 +60,12 @@ const GuildMusicHandler = class MusicHandler {
   }
 
   static spawnDemoCollector (tc, handler, time) {
-    /*if(handler.demoActive) return tc.send('Demo mode was already activated for your server!');
+    if(handler.demoActive) return tc.send('Demo mode was already activated for your server!');
 
-    handler.demoActive = true;*/
+    handler.demoActive = true;
     handler.collector = tc.createCollector(
       () => true,
-      { time: (time||360)*60*1000 }
+      { time: (time||1440)*60*1000 }
     );
     handler.collector.on('collect', async m => {
       let searchQ;
