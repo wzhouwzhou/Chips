@@ -148,7 +148,7 @@ const Paginator = class Paginator {
                 m.reply(`Invalid page number of \`${+num}\` specified!`).then(mmm=>mmm.delete(3000));
               }
               tempmsg.delete();
-              m.delete();
+              return m.delete();
             });
 
             mCol.on('end', collected => {

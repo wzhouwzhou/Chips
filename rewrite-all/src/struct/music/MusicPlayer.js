@@ -1,9 +1,8 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const Logger = require('../client/Logger').default;
+const Logger = require('../client/Logger').create('Music','Player');
 const _ = require('lodash');
-const ytdl = require('ytdl-core');
 
 const MusicPlayer = class MusicPlayer {
   constructor (vc, tc) {
@@ -32,17 +31,11 @@ const MusicPlayer = class MusicPlayer {
 
   playNextQueue (){
     if(this.shuttingDown)
-      return Logger.log({
-        type: 'error',
-        msgmodule: 'Music',
-        logcategory: 'Player',
+      return Logger.error({
         msg: 'Player is shutting down!',
       });
     if (!this.textchannel)
-      return Logger.log({
-        type: 'error',
-        msgmodule: 'Music',
-        logcategory: 'Player',
+      return Logger.error({
         msg: 'Text Channel is undefined!',
       });
 
@@ -52,10 +45,13 @@ const MusicPlayer = class MusicPlayer {
     this.joinVC().then( () => {
       const song = this.looping?this.lastPlayed:this.queue.shift();
 
-      this.textchannel.send(`Now playing \`${song}\`.`);
+      this.textchannel.send(`Now playing \`${song.title}\`.`);
+      Logger.debug({
+        msg: `Now playing \`${song.title}\`.`,
+      });
       this.lastPlayed = song;
-      const info = ytdl.getInfo(song);
-      const stream = ytdl( song );
+
+      const stream = song.stream;
       this.dispatcher = null;
       this.dispatcher = this.connection.playStream(stream);
       this.dispatcher.setVolume(0.5);
@@ -93,15 +89,15 @@ const MusicPlayer = class MusicPlayer {
     this.queue = _.shuffle(this.queue);
   }
 
-  queueUrl (url) {
+  queueSong (song) {
     if(this.shuttingDown) return null;
-    this.queue.push(url);
-    if(this.textchannel) this.textchannel.send(`Successfully queued ${url}.\nThere ${this.queue.length==1?'is':'are'} now ${this.queue.length} song${this.queue.length==1?'':'s'} in the queue.`);
+    this.queue.push(song);
+    if(this.textchannel) this.textchannel.send(`Successfully queued ${song.title}.\nThere ${this.queue.length==1?'is':'are'} now ${this.queue.length} song${this.queue.length==1?'':'s'} in the queue.`);
     if(!this.playing) this.playNextQueue();
   }
 
-  sample () {
-    this.queueUrl('https://www.youtube.com/watch?v=h--P8HzYZ74');
+  sample (self) {
+    this.queueSong(new Song('https://www.youtube.com/watch?v=h--P8HzYZ74',self));
   }
 
   toggleNextLoop (override) {

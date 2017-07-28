@@ -10,18 +10,37 @@ const Song = class Song {
     this.url = url;
     this.dj = DJ;
     this.ready = false;
-    ytdl.getInfo(this.url).then(info=>{
-      this.info = info;
-      if(info.length_seconds){
-        const tempdata = moment.duration(info.length_seconds,'seconds')._data;
-        const lengths = Object.values( tempdata );
-        const keys = Object.keys( tempdata );
+    this.loadInfo();
+  }
 
-        for(i in arr)
-          lengths[i]+=keys[i].substring(0,1);
-        this.length = (_.drop(lengths)).reverse().splice(2).join(' ');
-        if(this.length.match(/^0/)) this.length = this.length.substring( time.match(/\d+h/i).index);
-      }
+  loadInfo () {
+    return new Promise( (res,rej) => {
+      ytdl.getInfo(this.url).then(info=>{
+        this._info = info;
+        this.title = this._info.title||'No title';
+        this.name = this.title;
+        this.description = this._info.description||'No description';
+        this.relatedVideos = this._info.relatedVideos;
+        this.viewcount = this._info.viewcount||0;
+        this.keywords = this._info.keywords||'No keywords';
+        this.image = this._info.iurlmaxres||'http://logok.org/wp-content/uploads/2014/08/YouTube_logo.png';
+        this.author = this._info.author||'Unknown Author';
+        this.authorname = this.author&&this.author.name;
+        this.publishedTime = this._info.published||0;
+        this.publishedAt = moment(publishedTime);
+        if(this._info.length_seconds){
+          const tempdata = moment.duration(this._info.length_seconds,'seconds')._data;
+          const lengths = Object.values( tempdata );
+          const keys = Object.keys( tempdata );
+
+          for(i in arr)
+            lengths[i]+=keys[i].substring(0,1);
+          this.length = (_.drop(lengths)).reverse().splice(2).join(' ');
+          if(this.length.match(/^0/)) this.length = this.length.substring( time.match(/\d+h/i).index);
+        }
+        this.ready = true;
+        res(this);
+      }).catch(rej);
     });
   }
 

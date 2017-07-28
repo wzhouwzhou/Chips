@@ -1,3 +1,6 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+
 /*const logmodes = [
   'production',
   'info'
@@ -8,15 +11,16 @@ const chalk = require('chalk');
 chalk.enabled = true;
 
 class Logger {
-  constructor( logLevel = 'verbose', prefix = '' ){
+  constructor( mmodule = 'main', category = 'chips.js', logLevel = 'verbose', prefix = '' ){
+    this.msgmodule = mmodule;
     this.logLevel = logLevel;
     this.prefix = prefix;
   }
 
-  log( info ){
+  log( logstuff ){
     let stuff = Object.assign({},
-      { type: 'info', msgmodule: 'main', logcategory: 'chips', msg: 'none' },
-      info
+      { type: 'info', msgmodule: this.msgmodule, logcategory: this.msgmodule, msg: 'none' },
+      logstuff
     );
 
     let { type, msgmodule, logcategory, msg } = stuff;
@@ -39,8 +43,31 @@ class Logger {
     time=(this.prefix||'')+time;
     console.log(time, type, msgmodule, logcategory, msg);
   }
+
+  error ( logstuff ) {
+    return this.log( Object.assign({},
+      { type: 'error' },
+      logstuff
+    ) );
+  }
+
+  info ( logstuff ) {
+    return this.log( Object.assign({},
+      { type: 'info' },
+      logstuff
+    ) );
+  }
+
+  debug ( logstuff ) {
+    return this.log( Object.assign({},
+      { type: 'debug' },
+      logstuff
+    ) );
+  }
 }
 
 Logger.default = new Logger();
-
-module.exports = Logger;
+Logger.create = (mmodule, category, logLevel, prefix) => {
+  return new Logger(mmodule, category, logLevel, prefix);
+}
+exports.Logger = Logger;

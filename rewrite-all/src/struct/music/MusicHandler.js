@@ -2,6 +2,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const MusicPlayer = require('./MusicPlayer').default;
+const { Song } = require('./Song');
 const { YTSearcher } = require('ytsearcher');
 
 //const Discord = require('discord.js');
@@ -79,7 +80,7 @@ const GuildMusicHandler = class MusicHandler {
       }else if(m.content.match(/^<@!?296855425255473154>\s*p(?:lay)?/i)){
         searchQ = m.content.replace(/^<@!?296855425255473154>\s*p(?:lay)?\s*/i,'');
         if(!searchQ||searchQ.length===0) return m.reply('You must provide a song name or url to play!');
-        handler.promptSong(searchQ, tc);
+        handler.promptSong(searchQ, m.channel.id===tc.id?m.member:null);
       }else if(m.content.match(/^<@!?296855425255473154>\s*(unqueue|remove)/i)){
         searchQ = m.content.replace(/^<@!?296855425255473154>\s*(unqueue|remove)\s*/i,'');
         if(!searchQ||searchQ.length===0) return m.reply('You must provide a url to remove from the queue');
@@ -113,17 +114,18 @@ const GuildMusicHandler = class MusicHandler {
 
     tc.send(`Enabling demo mode for ${time&&typeof time === 'number'&&time>1?time+'hrs':'1 hr'} and starting a 24/7 yt stream.
 Type __<@296855425255473154> music help__ to view music cmds!`)
-    .then(()=>{
-      handler.promptSong('https://www.youtube.com/watch?v=4rdaGSlLyDE',tc);
+    .then(mm=>{
+      handler.promptSong('https://www.youtube.com/watch?v=4rdaGSlLyDE',mm);
     });
   }
 
-  promptSong ( searchcontent, channel ) {
+  promptSong ( searchcontent, msg ) {
+    const channel = msg.channel;
     if(!this.player) return null;
     searcher.search(searchcontent, { type: 'video' }).then( searchResult => {
       if(!searchResult.first||!searchResult.first.url)
         channel.send('No song found by that name');
-      this._queue(searchResult.first.url);
+      this._queue(new Song(searchResult.first.url, msg.member));
     }).catch(err=>{
       channel.send('Something went wrong with the search...');
 
@@ -137,9 +139,9 @@ Type __<@296855425255473154> music help__ to view music cmds!`)
     return this;
   }
 
-  _queue ( url ) {
+  _queue ( song ) {
     if(!this.player) return null;
-    this.player.queueUrl(url);
+    this.player.queueSong(song);
     return this.player;
   }
 
