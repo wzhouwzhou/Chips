@@ -46,7 +46,7 @@ const MusicPlayer = class MusicPlayer {
     this.joinVC().then( () => {
       const song = this.looping?this.lastPlayed:this.queue.shift();
 
-      this.textchannel.send(`Now playing \`${song.title}\`.`);
+      this.textchannel.send(`Now playing \`${song.title}\` (${song.length}). ${song.image}`);
       Logger.debug({
         msg: `Now playing \`${song.title}\`.`,
       });
@@ -59,10 +59,7 @@ const MusicPlayer = class MusicPlayer {
 
       this.playing = true;
       this.dispatcher.on('debug', info => {
-        return Logger.log({
-          type: 'debug',
-          msgmodule: 'Music',
-          logcategory: 'Player',
+        return Logger.debug({
           msg: info,
         });
       });

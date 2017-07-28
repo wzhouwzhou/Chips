@@ -26,7 +26,7 @@ const Song = class Song {
         this.author = this._info.author||'Unknown Author';
         this.authorname = this.author&&this.author.name;
         this.publishedTime = this._info.published||0;
-        this.publishedAt = moment(publishedTime);
+        this.publishedAt = moment(this.publishedTime);
         if(this._info.length_seconds){
           const tempdata = moment.duration(this._info.length_seconds,'seconds')._data;
           const lengths = Object.values( tempdata );
