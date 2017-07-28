@@ -92,7 +92,7 @@ const MusicPlayer = class MusicPlayer {
 
   queueSong (song) {
     if(this.shuttingDown) return null;
-    song.loadInfo.then(()=>{
+    song.loadInfo().then(()=>{
       this.queue.push(song);
       if(this.textchannel) this.textchannel.send(`Successfully queued ${song.title}.\nThere ${this.queue.length==1?'is':'are'} now ${this.queue.length} song${this.queue.length==1?'':'s'} in the queue.`);
       if(!this.playing) this.playNextQueue();
