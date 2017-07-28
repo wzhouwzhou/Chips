@@ -7,7 +7,7 @@ const { YTSearcher } = require('ytsearcher');
 
 //const Discord = require('discord.js');
 
-const Logger = require('../client/Logger').default;
+const Logger = require('../client/Logger').create('Music','Handler');
 
 const searcher = new YTSearcher(process.env.YTKEY);
 
@@ -129,10 +129,7 @@ Type __<@296855425255473154> music help__ to view music cmds!`)
     }).catch(err=>{
       channel.send('Something went wrong with the search...');
 
-      Logger.log({
-        type: 'error',
-        msgmodule: 'Music',
-        logcategory: 'Handler',
+      Logger.error({
         msg: err,
       });
     });

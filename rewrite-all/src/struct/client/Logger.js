@@ -67,7 +67,7 @@ class Logger {
 }
 
 Logger.default = new Logger();
-Logger.create = (mmodule, category, logLevel, prefix) => {
+exports.create = (mmodule, category, logLevel, prefix) => {
   return new Logger(mmodule, category, logLevel, prefix);
-}
+};
 exports.Logger = Logger;
