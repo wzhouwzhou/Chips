@@ -6,11 +6,12 @@ const _ = require('lodash');
 const snekfetch = require('snekfetch');
 
 const MusicPlayer = class MusicPlayer {
-  constructor (vc, tc) {
+  constructor (vc, tc, Discord=require('discord.js')) {
     this.voicechannel = vc;
     this.textchannel = tc;
     this.queue = new Array();
     this.looping = false;
+    this.Discord = Discord;
   }
 
   setVC ( newVC ) {
@@ -45,11 +46,11 @@ const MusicPlayer = class MusicPlayer {
 
     this.joinVC().then( () => {
       const song = this.looping?this.lastPlayed:this.queue.shift();
-
-      this.textchannel.send(`Now playing \`${song.title}\` (${song.length}). ${song.image}`);
-      Logger.debug({
-        msg: `Now playing \`${song.title}\`.`,
-      });
+      let embed = new this.Discord.RichEmbed().setTitle('Now playing...');
+      embed.setDescription(song.title).setFooter('Length: '+song.length);
+      embed.setImage(song.image);
+      this.textchannel.send('', { embed });
+      Logger.debug({ msg: `Now playing \`${song.title}\`.` });
       this.lastPlayed = song;
 
       const stream = song.stream;
@@ -58,10 +59,8 @@ const MusicPlayer = class MusicPlayer {
       this.dispatcher.setVolume(0.5);
 
       this.playing = true;
-      this.dispatcher.on('debug', info => {
-        return Logger.debug({
-          msg: info,
-        });
+      this.dispatcher.on('debug', msg => {
+        return Logger.debug({ msg });
       });
       this.dispatcher.on('end', () => {
         setTimeout(()=>{
@@ -70,7 +69,8 @@ const MusicPlayer = class MusicPlayer {
             this.leaveVC();
             this.connection = null;
             this.dispatcher = null;
-            this.textchannel.send('Ended! ' + (new Date).toUTCString()+'\nQueue another song!');
+            embed = new this.Discord.RichEmbed.setTitle('Queue ended!').setDescription('Queue another song!').setTimestamp(new Date());
+            this.textchannel.send('', { embed });
           }
           else if(!this.shuttingDown)
             return this.playNextQueue(); //recurse
@@ -92,7 +92,10 @@ const MusicPlayer = class MusicPlayer {
     if(this.shuttingDown) return null;
     return song.loadInfo().then(()=>{
       this.queue.push(song);
-      if(this.textchannel) this.textchannel.send(`Successfully queued ${song.title}.\nThere ${this.queue.length==1?'is':'are'} now ${this.queue.length} song${this.queue.length==1?'':'s'} in the queue.`);
+      const embed = new this.Discord.RichEmbed().setTitle(`Successfully queued ${song.title}`);
+      embed.setDescription(`There ${this.queue.length==1?'is':'are'} now ${this.queue.length} song${this.queue.length==1?'':'s'} in the queue.`);
+
+      if(this.textchannel) this.textchannel.send('', { embed });
       if(!this.playing) return this.playNextQueue();
     }).catch(err=>Logger.error({msg: err}));
   }
