@@ -13,13 +13,14 @@ chalk.enabled = true;
 class Logger {
   constructor( mmodule = 'main', category = 'chips.js', logLevel = 'verbose', prefix = '' ){
     this.msgmodule = mmodule;
+    this.category = category;
     this.logLevel = logLevel;
     this.prefix = prefix;
   }
 
   log( logstuff ){
     let stuff = Object.assign({},
-      { type: 'info', msgmodule: this.msgmodule, logcategory: this.msgmodule, msg: 'none' },
+      { type: 'info', msgmodule: this.msgmodule, logcategory: this.category, msg: 'none' },
       logstuff
     );
 
