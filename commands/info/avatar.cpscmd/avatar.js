@@ -42,7 +42,7 @@ module.exports = {
         const avator = new Discord.RichEmbed()
           .setTitle(title[0])
           .setColor(msg.member.displayColor)
-          .addField(...pages[0])
+          .addField(...pages[0][0])
           .setFooter(`--User Avatar lookup took ${(end)}.--`,``, true)
           .setImage(image[0]);
         return send('', {embed: avator});
