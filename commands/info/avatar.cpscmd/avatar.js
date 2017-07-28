@@ -2,16 +2,38 @@ const chalk = require(`chalk`);
 
 module.exports = {
   name: "avatar",
-  async func(msg, { send, Discord }) {
+  async func(msg, { send, Discord, user, guild }) {
     let start = process.hrtime();
-    let member = msg.mentions.members.first();
+    console.log(chalk.bold.bgBlue.green(user.tag+" ")+chalk.bgWhite.red(user.id+" ")+chalk.black.bgWhite(guild.id)+chalk.cyan(" [Avatar] "));
+    let targetmember = msg.mentions.members;
 
-    if(!member)
+    if(!targetmember||targetmember.length<1)
       return msg.reply("Please mention a valid member of this server");
 
     else {
+      const memberList = new Map();
 
-      console.log(chalk.bold.bgBlue.green(msg.member.user.tag+" ")+chalk.bgWhite.red(msg.member.user.id+" ")+chalk.black.bgWhite(msg.guild.id)+chalk.cyan(" [Avatar] "));
+      targetmember.forEach(member=>{
+
+        memberList.set(member.id,{
+          title: `Avatar Image of ${member.user.tag} `,
+          page: ['Avatar Link: ', `[Click Here](${member.user.avatarURL})`],
+          image: member.user.avatarURL
+        });
+
+        const avator = new Discord.RichEmbed()
+          .setTitle(`Avatar Image of ${msg.member.user.tag} `, ``   , true)
+          .setColor(msg.member.displayColor)
+          .addField('Avatar Link: ', `[Click Here](${targetmember.user.avatarURL})`)
+          .setFooter(`--User Avatar lookup took ${(end)}.--`,``, true)
+          .setImage(targetmember.user.avatarURL);
+      });
+      const pages = [], title = [], image = [];
+      memberList.values.forEach( e => {
+        pages.push(e.page);
+        title.push(e.title);
+        image.push(e.image);
+      });
 
       let hrTime = process.hrtime(start);
       let µs = false;
@@ -22,14 +44,23 @@ module.exports = {
       }
       µs ? end += 'µs' : end += 'ms';
 
-      const avator = new Discord.RichEmbed()
-        .setTitle(`Avatar Image of ${msg.member.user.tag} `, ``   , true)
-        .setColor(msg.member.displayColor)
-        .addField('Avatar Link: ', `[Click Here](${msg.member.user.avatarURL})`)
-        .setFooter(`--User Avatar lookup and calculations took ${(end)}.--`,``, true)
-        .setImage(msg.member.user.avatarURL);
-
-      return send('', {embed: avator});
+      const p = new Paginator ( msg,  {
+        type:'paged',
+        embedding: true,
+        fielding: true,
+        title,
+        text:' ',
+        pages,
+        image,
+        footer: `--User Avatar lookup took ${(end)}.--`,
+        }, Discord
+      );
+      try{
+        return await p.sendFirst();
+      }catch(err){
+        console.error(err);
+        return reply ('Something went wrong...');
+      }
     }
   }
 };
