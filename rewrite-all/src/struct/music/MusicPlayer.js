@@ -3,6 +3,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 const Logger = require('../client/Logger').create('Music','Player');
 const _ = require('lodash');
+const snekfetch = require('snekfetch');
 
 const MusicPlayer = class MusicPlayer {
   constructor (vc, tc) {
@@ -91,9 +92,11 @@ const MusicPlayer = class MusicPlayer {
 
   queueSong (song) {
     if(this.shuttingDown) return null;
-    this.queue.push(song);
-    if(this.textchannel) this.textchannel.send(`Successfully queued ${song.title}.\nThere ${this.queue.length==1?'is':'are'} now ${this.queue.length} song${this.queue.length==1?'':'s'} in the queue.`);
-    if(!this.playing) this.playNextQueue();
+    song.loadInfo.then(()=>{
+      this.queue.push(song);
+      if(this.textchannel) this.textchannel.send(`Successfully queued ${song.title}.\nThere ${this.queue.length==1?'is':'are'} now ${this.queue.length} song${this.queue.length==1?'':'s'} in the queue.`);
+      if(!this.playing) this.playNextQueue();
+    });
   }
 
   sample (self) {

@@ -10,7 +10,6 @@ const Song = class Song {
     this.url = url;
     this.dj = DJ;
     this.ready = false;
-    this.loadInfo();
   }
 
   loadInfo () {
