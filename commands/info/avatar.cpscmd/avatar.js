@@ -3,12 +3,12 @@ const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Pa
 
 module.exports = {
   name: "avatar",
-  async func(msg, { send, Discord, author, guild }) {
+  async func(msg, { send, Discord, author, guild, reply }) {
     let start = process.hrtime();
     console.log(chalk.bold.bgBlue.green(author.tag+" ")+chalk.bgWhite.red(author.id+" ")+chalk.black.bgWhite(guild.id)+chalk.cyan(" [Avatar] "));
     let targetmember = msg.mentions.members;
 
-    if(!targetmember||targetmember.length<1)
+    if(!targetmember||targetmember.size<1)
       return msg.reply("Please mention a valid member of this server");
 
     else {
