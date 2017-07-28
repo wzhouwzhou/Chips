@@ -6,7 +6,7 @@ const ytdl = require('ytdl-core');
 
 const Song = class Song {
   constructor ( url, DJ ) {
-    if(!this.url) throw new Error('No url specified');
+    if(!url) throw new Error('No url specified');
     this.url = url;
     this.dj = DJ;
     this.ready = false;
