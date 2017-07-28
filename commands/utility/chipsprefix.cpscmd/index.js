@@ -1,7 +1,7 @@
 
 let chipsprefix = require('./chipsprefix');
 
-console.log('[CPSCMD][MODERATION][chipsprefix] Building objects...');
+console.log('[CPSCMD][UTILITY][chipsprefix] Building objects...');
 
 chipsprefix.metadata = {
   category: require('../').category,
@@ -12,7 +12,7 @@ chipsprefix.metadata = {
   customperm: ['ADMINISTRATOR'],
 };
 
-console.log('[CPSCMD][MODERATION][chipsprefix] Build objects complete!');
+console.log('[CPSCMD][UTILITY][chipsprefix] Build objects complete!');
 module.exports = [
   [chipsprefix.name,chipsprefix]
 ];
