@@ -3,7 +3,7 @@ const chalk = require(`chalk`);
 module.exports = {
   name: "avatar",
   async func(msg, { send, Discord }) {
-    let start = (new Date).getTime();
+    let start = process.hrtime();
     let member = msg.mentions.members.first();
 
     if(!member)
