@@ -31,7 +31,7 @@ module.exports = {
       });
       const pages = [], title = [], image = [];
       memberList.forEach( e => {
-        pages.push(e.page);
+        pages.push([e.page]);
         title.push(e.title);
         image.push(e.image);
       });
@@ -50,10 +50,9 @@ module.exports = {
         embedding: true,
         fielding: true,
         title,
-        text:' ',
         pages,
         image,
-        footer: `--User Avatar lookup took ${(end)}.--`,
+        text: `Avatar lookup took ${(end)}.`,
         }, Discord
       );
       try{
