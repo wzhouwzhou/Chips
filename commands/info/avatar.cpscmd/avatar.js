@@ -18,8 +18,8 @@ module.exports = {
 
         memberList.set(member.id,{
           title: `Avatar Image of ${member.user.tag} `,
-          page: ['Avatar Link: ', `[Click Here](${member.user.avatarURL})`],
-          image: member.user.avatarURL
+          page: ['Avatar Link: ', `[Click Here](${member.user.displayAvatarURL})`],
+          image: member.user.displayAvatarURL
         });
       });
       const pages = [], title = [], image = [];
