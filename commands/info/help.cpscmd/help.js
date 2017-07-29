@@ -36,6 +36,7 @@ module.exports = {
     '**{}dog** to create a dog.',
     '**{}exposed** for exposed.',
     '**{}confoosed** for confoosed',
+    '**{}everyone** for when someone pings everyone'
     '**{}eat** for your own bag of chips.',
     '**{}happy** (credits to Tani)',
     '**{}lenny** to make a lenny face.',
