@@ -47,7 +47,7 @@ const MusicPlayer = class MusicPlayer {
     this.joinVC().then( () => {
       const song = this.looping?this.lastPlayed:this.queue.shift();
       let embed = new this.Discord.RichEmbed().setTitle('Now playing...').setColor(1);
-      embed.setDescription(song.title).setFooter('Length: '+song.length);
+      embed.setDescription(`${song.title}\nThumbnail:`).setFooter('Length: '+song.length);
       embed.setImage(song.image);
       this.textchannel.send('', { embed });
       Logger.debug({ msg: `Now playing \`${song.title}\`.` });
