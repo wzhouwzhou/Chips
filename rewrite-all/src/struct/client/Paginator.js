@@ -199,16 +199,21 @@ const Paginator = class Paginator {
 
   setPage (num) {
     return new Promise( async (res, rej) => {
-      if(this.stopped) return res(null);
-      try{
-        if(!this.validateUpdatePage(num)) return rej('Invalid page');
-        this.currentPage = num;
-        this.updateInternal(this.currentPage);
+      if(num!=='help'){
+        if(this.stopped) return res(null);
+        try{
+          if(!this.validateUpdatePage(num)) return rej('Invalid page');
+          this.currentPage = num;
+          this.updateInternal(this.currentPage);
+          await this.updateView();
+        }catch(err){
+          return rej(err);
+        }
+        res(true);
+      }else{
+        this.updateInternal('help');
         await this.updateView();
-      }catch(err){
-        return rej(err);
       }
-      res(true);
     });
   }
 
