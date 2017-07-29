@@ -69,7 +69,7 @@ const MusicPlayer = class MusicPlayer {
             this.leaveVC();
             this.connection = null;
             this.dispatcher = null;
-            embed = new this.Discord.RichEmbed().setTitle('Queue ended!').setDescription('Queue another song!').setTimestamp(new Date().setColor(8060672));
+            embed = new this.Discord.RichEmbed().setTitle('Queue ended!').setDescription('Queue another song!').setTimestamp(new Date()).setColor(8060672);
             this.textchannel.send('', { embed });
           }
           else if(!this.shuttingDown)
