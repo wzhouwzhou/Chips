@@ -5,7 +5,7 @@ module.exports = function( send ) {
     client.login(process.env.BETATOKEN);
   else
     client.login(process.env.TOKEN);
-  /*if(client.id!="309504998864060416"){
+  if(client.id!="309504998864060416"){
     hclient.login(process.env.HTOKEN);
     h2client.login(process.env.H2TOKEN);
   }
@@ -14,7 +14,7 @@ module.exports = function( send ) {
   if(process.env.C2TOKEN!=null&&process.env.C2TOKEN!="")
     c2.login(process.env.C2TOKEN);
   else
-    c2.login(require(path.join(__dirname, '../sBotT'))[0]);*/
+    c2.login(require(path.join(__dirname, '../sBotT'))[0]);
 
   if(process.env.C3TOKEN!=null&&process.env.C3TOKEN!="")
     c3.login(process.env.C3TOKEN);
