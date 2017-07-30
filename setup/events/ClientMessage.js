@@ -193,29 +193,35 @@ async function detectPartyLink(message){
   }
 }
 
-const handleAntiLink = async (message) => {
-  if(!message.guild) return false;
-  if(~antilinkExemptedC.indexOf(message.channel.id)) return false;
-  const gid = message.guild.id;
-  if(!antilink[gid]) return false;
+const handleAntiLink = (message) => {
+  return new Promise( res => {
+    if(!message.guild) return res(false);
+    if(~antilinkExemptedC.indexOf(message.channel.id)) return res(false);
+    const gid = message.guild.id;
+    if(!antilink[gid]) return res(false);
 
-  const content = message.content;
+    const content = message.content;
 
-  let potentialInvite = content.match(/(d\s*i\s*s\s*c\s*o\s*r\s*d\s*\.\s*g\s*g|d\s*i\s*s\s*c\s*o\s*r\s*d\s*a\s*p\s*p\s*\.\s*c\s*o\s*m\s*\/\s*i\s*n\s*v\s*i\s*t\s*e|d\s*i\s*s\s*c\s*o\s*r\s*d\s*\.\s*i\s*o|d\s*i\s*s\s*c\s*o\s*r\s*d\s*\.\s*m\s*e)\s*\/\s*[\w\s.-]+/gi);
-  if(!potentialInvite||!potentialInvite[0]) return false;
+    let potentialInvite = content.match(/(d\s*i\s*s\s*c\s*o\s*r\s*d\s*\.\s*g\s*g|d\s*i\s*s\s*c\s*o\s*r\s*d\s*a\s*p\s*p\s*\.\s*c\s*o\s*m\s*\/\s*i\s*n\s*v\s*i\s*t\s*e|d\s*i\s*s\s*c\s*o\s*r\s*d\s*\.\s*i\s*o|d\s*i\s*s\s*c\s*o\s*r\s*d\s*\.\s*m\s*e)\s*\/\s*[\w\s.-]+/gi);
+    if(!potentialInvite||!potentialInvite[0]) return res(false);
 
-  potentialInvite = potentialInvite.replace(/\s+/g,'');
-  if(potentialInvite.match(/(discord\.\io|discord\.me)\/\w+/gi)) {
-    message.reply('Invites are disabled in this server! You have been warned...');
-    message.delete();
-    return true;
-  }else{
-    const matched = potentialInvite.match(/(discord\.gg|discordapp\.com\/invite)\/\w+/gi);
-    if(!matched) return false;
-    const invite = await client.fetchInvite(matched);
-    if(invite.guild.id===message.guild.id) return false;
-    message.reply('Invites are disabled.in this server! You have been warned...');
-    message.delete();
-    return true;
-  }
+    potentialInvite = potentialInvite.join('¡™£¢∞§¶•ªº').replace(/\s+/g,'').split('¡™£¢∞§¶•ªº');
+    potentialInvite.forEach( async ainvite => {
+      if(ainvite.match(/(discord\.\io|discord\.me)\/\w+/gi)) {
+        message.reply('Invites are disabled in this server! You have been warned...');
+        message.delete();
+        return res(true);
+      }else{
+        const matched = ainvite.match(/(discord\.gg|discordapp\.com\/invite)\/\w+/gi);
+        if(!matched) return res(false);
+        const invite = await client.fetchInvite(matched);
+        if(invite.guild.id!==message.guild.id){
+          message.reply('Invites are disabled.in this server! You have been warned...');
+          message.delete();
+          return res(true);
+        }
+      }
+    });
+    res(false);
+  });
 };
