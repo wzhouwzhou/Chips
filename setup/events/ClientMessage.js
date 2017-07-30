@@ -214,7 +214,12 @@ const handleAntiLink = (message) => {
       }else{
         const matched = ainvite.match(/(discord\.gg|discordapp\.com\/invite)\/\w+/gi);
         if(!matched) return res(false);
-        const invite = await client.fetchInvite(matched);
+        let invite;
+        try{
+          invite = await client.fetchInvite(matched);
+        }catch(err){
+          res(false);
+        }
         if(invite.guild.id!==message.guild.id){
           message.reply('Invites are disabled.in this server! You have been warned...');
           message.delete();
