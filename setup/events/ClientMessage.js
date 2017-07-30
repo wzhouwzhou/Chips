@@ -13,12 +13,12 @@ const steps = {
   2: ["Step 2 text: Gamemode", 4]
 };
 
-const antilink = {
+client.antilink = {
   '340162857155035148': true,
   '257889450850254848': true,
 };
 
-const antilinkExemptedC = [
+client.antilinkExemptedC = [
   '0',
 ];
 
@@ -197,9 +197,9 @@ const handleAntiLink = (message) => {
   return new Promise( res => {
     if(!message.guild) return res(false);
     if(message.member.hasPermission('ADMINISTRATOR')) return res(false);
-    if(~antilinkExemptedC.indexOf(message.channel.id)) return res(false);
+    if(~client.antilinkExemptedC.indexOf(message.channel.id)) return res(false);
     const gid = message.guild.id;
-    if(!antilink[gid]) return res(false);
+    if(!client.antilink[gid]) return res(false);
 
     const content = message.content;
 
