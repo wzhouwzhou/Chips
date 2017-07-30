@@ -218,7 +218,7 @@ const handleAntiLink = (message) => {
         try{
           invite = await client.fetchInvite(matched);
         }catch(err){
-          res(false);
+          return res(false);
         }
         if(invite.guild.id!==message.guild.id){
           message.reply('Invites are disabled.in this server! You have been warned...');
@@ -227,6 +227,6 @@ const handleAntiLink = (message) => {
         }
       }
     });
-    res(false);
+    return res(false);
   });
 };
