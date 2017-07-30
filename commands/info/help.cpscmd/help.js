@@ -60,6 +60,12 @@ module.exports = {
       '**{}stoptyping** for if a chips command errored and is stuck "typing" in the channel.'
     ].join('\n').replace(/{}/g,prefix));
 
+    const MusicMenu = ([
+      '**{}music demo** to begin the music demo.',
+      '__This **Open Beta** feature is still being heavily developed and is not necessarily stable at all times__. We apologize in advance.',
+      'Mention me once demo is activated for music commands: __@Chips music help__',
+      'Server specific prefixes do not work. The only prefix usable with Chips music is mentioning chips',
+    ]).join('\n').replace(/{}/g,prefix);
     const p = new Paginator ( msg,  {
       type:'paged',
       embedding: true,
@@ -75,6 +81,8 @@ module.exports = {
         ['Fun commands',FunMenu],
       ],[
         ['Utility commands',UtilityMenu],
+      ],[
+        ['Music commands (Open beta)',MusicMenu],
       ]],
       }, Discord
     );
