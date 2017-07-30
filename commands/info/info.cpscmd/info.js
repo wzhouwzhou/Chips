@@ -357,8 +357,8 @@ const ex = {
 
 const userData = (member, infobad, convertTime, times) => {
   return new Promise( async res => {
-    let pfp = await Jimp.read(author.displayAvatarURL);
-    let pfp2 = (await Jimp.read(author.displayAvatarURL)).clone();
+    let pfp = await Jimp.read(member.user.displayAvatarURL);
+    let pfp2 = (await Jimp.read(member.user.displayAvatarURL)).clone();
     pfp =  pfp.resize(512, 512, Jimp.RESIZE_BEZIER);
     pfp2 =  pfp2.resize(512, 512, Jimp.RESIZE_BEZIER);
     const status = (()=>{
