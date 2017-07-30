@@ -429,7 +429,7 @@ const userData = (member, infobad, convertTime, times) => {
     //infobad.addField(`Avatar URL`, `[Click Here](${member.user.avatarURL})`);
     //infobad.setThumbnail(member.user.avatarURL);
     infobad.setColor(member.displayColor);
-    const name = `${member.id}${process.hrtime()}profileEdited.png`;
+    const name = `${member.id}${process.hrtime().join('')}profileEdited.png`;
 
     pfp.write(name,async ()=>{
       infobad.attachFile(name).setThumbnail('attachment://'+name);
