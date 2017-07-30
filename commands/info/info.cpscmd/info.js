@@ -1,4 +1,9 @@
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
+const Jimp = require('jimp');
+const ONLINE = 'https://cdn.discordapp.com/emojis/313956277808005120.png';
+const IDLE = 'https://cdn.discordapp.com/emojis/313956277220802560.png';
+const DND = 'https://cdn.discordapp.com/emojis/313956276893646850.png';
+const INVIS = 'https://cdn.discordapp.com/emojis/313956277237710868.png';
 
 const ex = {
   name: "info",
@@ -352,6 +357,47 @@ const ex = {
 
 const userData = (member, infobad, convertTime, times) => {
   return new Promise( async res => {
+    let pfp = await Jimp.read(author.displayAvatarURL);
+    let pfp2 = (await Jimp.read(author.displayAvatarURL)).clone();
+    pfp =  pfp.resize(512, 512, Jimp.RESIZE_BEZIER);
+    pfp2 =  pfp2.resize(512, 512, Jimp.RESIZE_BEZIER);
+    const status = (()=>{
+      switch(member.presence.status){
+        case 'online': return ONLINE;
+        case 'idle': return IDLE;
+        case 'dnd': return DND;
+        default: return INVIS;
+      }
+    })();
+    let stat = await Jimp.read(status);
+    stat = stat.resize(320, 320, Jimp.RESIZE_BEZIER);
+
+
+    for(let x=0; x<512; x++)
+      for(let y =0; y<512; y++){
+      if((x-256)**2+(y-256)**2 > 255**2){
+        pfp.setPixelColor(0x00, x, y);
+        pfp2.setPixelColor(0x00, x, y);
+      }
+    }
+    pfp = pfp.blit(stat,275,267);
+    const thex = 432, they = 432, w1=90, w2=59;
+
+    for(let x=0; x<512; x++)
+      for(let y =0; y<512; y++){
+      if(((x-thex)**2+(y-they)**2 >= w2**2)&&((x-thex)**2+(y-they)**2 <= w1**2))
+        pfp.setPixelColor(0x000000, x, y);
+    }
+
+    for(let x=0; x<512; x++)
+      for(let y =0; y<512; y++){
+      if((x-thex)**2+(y-they)**2 >= w1**2)
+        pfp.setPixelColor(pfp2.getPixelColor(x, y), x, y);
+    }
+
+    pfp = pfp.resize(128, 128, Jimp.RESIZE_BEZIER);
+
+
     const membername = member.displayName.replace('@','(at)');
     let highest = "years";
     diff = await convertTime(member.joinedAt,times.indexOf(highest));
@@ -381,10 +427,14 @@ const userData = (member, infobad, convertTime, times) => {
     //infobad.addField(`Status:`,`    ${member.presence.status}`, true);
     infobad.addField(`Permissions number:`,member.permissions.bitfield);
     //infobad.addField(`Avatar URL`, `[Click Here](${member.user.avatarURL})`);
-    infobad.setThumbnail(member.user.avatarURL);
+    //infobad.setThumbnail(member.user.avatarURL);
     infobad.setColor(member.displayColor);
+    const name = `${member.id}${process.hrtime()}profileEdited.png`;
 
-    res(infobad);
+    pfp.write(name,async ()=>{
+      infobad.attachFile(name).setThumbnail('attachment://'+name);
+      return res(infobad);
+    });
   });
 };
 
