@@ -162,7 +162,7 @@ const ex = {
             }
           }
         }
-        const embed = await userData (member, infobad, convertTime);
+        const embed = await userData (member, infobad, convertTime, times);
 
         return await send(`User info ${multiple?'(multiple users were found, using the first one)':''}`, {embed});
       }else{
@@ -175,7 +175,7 @@ const ex = {
             return msg.reply(err);
           }
         }
-        const embed = await userData (member, infobad, convertTime);
+        const embed = await userData (member, infobad, convertTime, times);
 
         return await send(`User info`, {embed});
       }
@@ -350,7 +350,7 @@ const ex = {
   }
 };
 
-const userData = (member, infobad, convertTime) => {
+const userData = (member, infobad, convertTime, times) => {
   return new Promise( async res => {
     const membername = member.displayName.replace('@','(at)');
     let highest = "years";
