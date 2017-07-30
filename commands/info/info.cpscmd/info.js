@@ -104,7 +104,7 @@ const ex = {
       return send('', {embed: infobad});
     }else if(action=="user"){
       let member=used;
-      let membername = member.displayName.replace('@','(at)');
+
       let multiple = false;
       if (args[1]){
         try{ //get mention:
@@ -162,39 +162,9 @@ const ex = {
             }
           }
         }
+        const embed = await userData (member, infobad, convertTime);
 
-        membername = member.displayName.replace('@','(at)');
-        let highest = "years";
-        diff = await convertTime(member.joinedAt,times.indexOf(highest));
-        diff = `${diff[0]} ${times[diff[1]]}`;
-
-        let diff2;
-        highest = "years";
-        if(member.lastMessage){
-          diff2 = await convertTime(member.lastMessage.createdAt,times.indexOf(highest));
-          //send("diff2-1: " + diff2);
-          diff2 = `${diff2[0]} ${times[diff2[1]]}`;
-          //send("diff2-2: " + diff2);
-        }else diff2="NAN";
-
-        let diff3;
-        highest = "years";
-        diff3 = await convertTime(member.user.createdAt, times.indexOf(highest));
-        diff3 = `${diff3[0]} ${times[diff3[1]]}`;
-
-        infobad.addField(`User tag: `, `${member.user.tag}`   , true)
-               .addField(`User id:  `, `${member.id}`         , true)
-               .addField(`Nickname: `, `${membername}`, true);
-        infobad.addField(`Joined Discord on ${member.user.createdAt.toUTCString()}`,`That's about ${diff3} ago!`);
-        infobad.addField(`Joined the server on: ${member.joinedAt.toUTCString()}`,`That's about ${diff} ago!`);
-        infobad.addField(`${member.lastMessage?"Last seen here at: "+member.lastMessage.createdAt.toUTCString():"Last seen here: Unknown"}`,`${diff2!="NAN"?"That's about "+diff2+" ago!":"Time ago: Unknown"}`);
-        infobad.addField(`Colour: `,`${member.displayHexColor}`,true)
-               .addField(`Highest Role: ${member.highestRole.name}`,`Total number of roles: ${member.roles.size}`, true)
-               .addField(`Status:`,`    ${member.presence.status}`, true);
-        infobad.addField(`Permissions number:`,member.permissions.bitfield);
-        infobad.addField(`Avatar URL`, `[Click Here](${member.user.avatarURL})`);
-        infobad.setImage(member.user.avatarURL);
-        return await send(`User info ${multiple?'(multiple users were found, using the first one)':''}`, {embed: infobad});
+        return await send(`User info ${multiple?'(multiple users were found, using the first one)':''}`, {embed});
       }else{
         try{
           let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
@@ -205,36 +175,9 @@ const ex = {
             return msg.reply(err);
           }
         }
-        let highest = "years";
-        diff = await convertTime(member.joinedAt,times.indexOf(highest));
-        diff = `${diff[0]} ${times[diff[1]]}`;
+        const embed = await userData (member, infobad, convertTime);
 
-        let diff2;
-        highest = "years";
-        if(member.lastMessage){
-          diff2 = await convertTime(member.lastMessage.createdAt,times.indexOf(highest));
-          //send("diff2-1: " + diff2);
-          diff2 = `${diff2[0]} ${times[diff2[1]]}`;
-          //send("diff2-2: " + diff2);
-        }else diff2="NAN";
-
-        let diff3;
-        highest = "years";
-        diff3 = await convertTime(member.user.createdAt, times.indexOf(highest));
-        diff3 = `${diff3[0]} ${times[diff3[1]]}`;
-        infobad.addField(`User tag: `, `${member.user.tag}`   , true)
-               .addField(`User id:  `, `${member.id}`         , true)
-               .addField(`Nickname: `, `${membername}`, true);
-        infobad.addField(`Joined Discord on ${member.user.createdAt.toUTCString()}`,`That's about ${diff3} ago!`);
-        infobad.addField(`Joined the server on: ${member.joinedAt.toUTCString()}`,`That's about ${diff} ago!`);
-        infobad.addField(`${member.lastMessage?"Last seen here at: "+member.lastMessage.createdAt.toUTCString():"Last seen here: Unknown"}`,`${diff2!="NAN"?"That's about "+diff2+" ago!":"Time ago: Unknown"}`);
-        infobad.addField(`Colour: `,`${member.displayHexColor}`,true)
-               .addField(`Highest Role: ${member.highestRole.name}`,`Total number of roles: ${member.roles.size}`, true)
-               .addField(`Status:`,`    ${member.presence.status}`, true);
-        infobad.addField(`Permissions number:`,member.permissions.bitfield);
-        infobad.addField(`Avatar URL`, `[Click Here](${member.user.avatarURL})`);
-        infobad.setImage(member.user.avatarURL);
-        return await send(`User info`, {embed: infobad});
+        return await send(`User info`, {embed});
       }
     }else if(action == "role"){
       try{
@@ -405,6 +348,44 @@ const ex = {
       }
     }
   }
+};
+
+const userData = (member, infobad, convertTime) => {
+  return new Promise( async res => {
+    const membername = member.displayName.replace('@','(at)');
+    let highest = "years";
+    diff = await convertTime(member.joinedAt,times.indexOf(highest));
+    diff = `${diff[0]} ${times[diff[1]]}`;
+
+    /*let diff2;
+    highest = "years";
+    if(member.lastMessage){
+      diff2 = await convertTime(member.lastMessage.createdAt,times.indexOf(highest));
+      //send("diff2-1: " + diff2);
+      diff2 = `${diff2[0]} ${times[diff2[1]]}`;
+      //send("diff2-2: " + diff2);
+    }else diff2="NAN";*/
+
+    let diff3;
+    highest = "years";
+    diff3 = await convertTime(member.user.createdAt, times.indexOf(highest));
+    diff3 = `${diff3[0]} ${times[diff3[1]]}`;
+    infobad.addField(`${member.user.tag}: `, `${member.presence.game||'Not playing anything.'}`, true);
+    infobad.addField('User id:', `${member.id}`, true)
+           .addField('Nickname:', `${membername}`, true);
+    infobad.addField(`Joined Discord on ${member.user.createdAt.toUTCString()}`,`That's about ${diff3} ago!`);
+    infobad.addField('Joined',`About ${diff} ago on ${member.joinedAt.toUTCString()}`);
+    //infobad.addField(`${member.lastMessage?"Last seen here at: "+member.lastMessage.createdAt.toUTCString():"Last seen here: Unknown"}`,`${diff2!="NAN"?"That's about "+diff2+" ago!":"Time ago: Unknown"}`);
+    infobad.addField(`Colour: `,`${member.displayHexColor}`,true)
+           .addField(`Highest Role: ${member.highestRole.name}`,`Total number of roles: ${member.roles.size}`, true);
+    //infobad.addField(`Status:`,`    ${member.presence.status}`, true);
+    infobad.addField(`Permissions number:`,member.permissions.bitfield);
+    //infobad.addField(`Avatar URL`, `[Click Here](${member.user.avatarURL})`);
+    infobad.setImage(member.user.avatarURL);
+    infobad.setColor(member.displayColor);
+
+    res(infobad);
+  });
 };
 
 module.exports = ex;
