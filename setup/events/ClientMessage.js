@@ -13,11 +13,20 @@ const steps = {
   2: ["Step 2 text: Gamemode", 4]
 };
 
+const antilink = {
+  '340162857155035148': true,
+  '257889450850254848': true,
+};
+
+const antilinkExemptedC = [
+  '0',
+];
+
 global.muteTrigger=false;
 
 module.exports = function() {
   console.log("Client message event..");
-  client.on("message", message => {
+  client.on("message", async message => {
     /*try{
       r.table('lastMessage').insert( {
         id: message.author.id,
@@ -51,7 +60,7 @@ module.exports = function() {
       return message.channel.send("Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE");
 
     if (message.author.bot) return;
-
+    if(await handleAntiLink(message)) return;
     //wowbleach trigger
     if(message.content.toLowerCase().indexOf("wowbleach")>-1) message.channel.send(" \ _ \ _ \ <:Bleach:274628490844962826>\n\ <:WOW:290865903384657920>");
 
@@ -183,3 +192,30 @@ async function detectPartyLink(message){
     //not a party link or something went wrong.
   }
 }
+
+const handleAntiLink = async (message) => {
+  if(!message.guild) return false;
+  if(~antilinkExemptedC.indexOf(message.channel.id)) return false;
+  const gid = message.guild.id;
+  if(!antilink[gid]) return false;
+
+  const content = message.content;
+
+  let potentialInvite = content.match(/(d\s*i\s*s\s*c\s*o\s*r\s*d\s*\.\s*g\s*g|d\s*i\s*s\s*c\s*o\s*r\s*d\s*a\s*p\s*p\s*\.\s*c\s*o\s*m\s*\/\s*i\s*n\s*v\s*i\s*t\s*e|d\s*i\s*s\s*c\s*o\s*r\s*d\s*\.\s*i\s*o|d\s*i\s*s\s*c\s*o\s*r\s*d\s*\.\s*m\s*e)\s*\/\s*[\w\s.-]+/gi);
+  if(!potentialInvite||!potentialInvite[0]) return false;
+
+  potentialInvite = potentialInvite.replace(/\s+/g,'');
+  if(potentialInvite.match(/(discord\.\io|discord\.me)\/\w+/gi)) {
+    message.reply('Invites are disabled in this server! You have been warned...');
+    message.delete();
+    return true;
+  }else{
+    const matched = potentialInvite.match(/(discord\.gg|discordapp\.com\/invite)\/\w+/gi);
+    if(!matched) return false;
+    const invite = await client.fetchInvite(matched);
+    if(invite.guild.id===message.guild.id) return false;
+    message.reply('Invites are disabled.in this server! You have been warned...');
+    message.delete();
+    return true;
+  }
+};
