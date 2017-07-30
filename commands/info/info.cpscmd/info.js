@@ -418,12 +418,12 @@ const userData = (member, infobad, convertTime, times) => {
     diff3 = `${diff3[0]} ${times[diff3[1]]}`;
     infobad.addField(`${member.user.tag}: `, `${member.presence.game?member.presence.game.name:'Not playing anything.'}`, true);
     infobad.addField('User id:', `${member.id}`, true)
-           .addField('Nickname:', `${membername}`, true);
+           .addField(`Nickname: ${membername}`, `Colour: ${member.displayHexColor}`, true);
     infobad.addField(`Joined Discord on ${member.user.createdAt.toUTCString()}`,`That's about ${diff3} ago!`);
-    infobad.addField('Joined',`About ${diff} ago on ${member.joinedAt.toUTCString()}`);
+    infobad.addField(`Joined ${member.guild.name}`,`About ${diff} ago on ${member.joinedAt.toUTCString()}`);
     //infobad.addField(`${member.lastMessage?"Last seen here at: "+member.lastMessage.createdAt.toUTCString():"Last seen here: Unknown"}`,`${diff2!="NAN"?"That's about "+diff2+" ago!":"Time ago: Unknown"}`);
-    infobad.addField(`Colour: `,`${member.displayHexColor}`,true)
-           .addField(`Highest Role: ${member.highestRole.name}`,`Total number of roles: ${member.roles.size}`, true);
+    //infobad.addField(`Colour: `,`${member.displayHexColor}`,true)
+    infobad.addField(`Highest Role: ${member.highestRole.name}`,`Total number of roles: ${member.roles.size}`, true);
     //infobad.addField(`Status:`,`    ${member.presence.status}`, true);
     infobad.addField(`Permissions number:`,member.permissions.bitfield);
     //infobad.addField(`Avatar URL`, `[Click Here](${member.user.avatarURL})`);
