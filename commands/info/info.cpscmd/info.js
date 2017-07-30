@@ -370,7 +370,7 @@ const userData = (member, infobad, convertTime, times) => {
     highest = "years";
     diff3 = await convertTime(member.user.createdAt, times.indexOf(highest));
     diff3 = `${diff3[0]} ${times[diff3[1]]}`;
-    infobad.addField(`${member.user.tag}: `, `${member.presence.game||'Not playing anything.'}`, true);
+    infobad.addField(`${member.user.tag}: `, `${member.presence.game?member.presence.game.name:'Not playing anything.'}`, true);
     infobad.addField('User id:', `${member.id}`, true)
            .addField('Nickname:', `${membername}`, true);
     infobad.addField(`Joined Discord on ${member.user.createdAt.toUTCString()}`,`That's about ${diff3} ago!`);
@@ -381,7 +381,7 @@ const userData = (member, infobad, convertTime, times) => {
     //infobad.addField(`Status:`,`    ${member.presence.status}`, true);
     infobad.addField(`Permissions number:`,member.permissions.bitfield);
     //infobad.addField(`Avatar URL`, `[Click Here](${member.user.avatarURL})`);
-    infobad.setImage(member.user.avatarURL);
+    infobad.setThumbnail(member.user.avatarURL);
     infobad.setColor(member.displayColor);
 
     res(infobad);
