@@ -381,7 +381,16 @@ const userData = (member, infobad, convertTime, times) => {
       }
     }
     pfp = pfp.blit(stat,275,267);
-    const thex = 432, they = 432, w1=90, w2=59;
+    const thex = 432, they = 432, w1=90, w2=59, w3=50;
+
+    for(let x=0; x<512; x++)
+      for(let y =0; y<512; y++){
+      if(((x-thex)**2+(y-they)**2 >= w3**2)&&((x-thex)**2+(y-they)**2 <= w2**2)){
+        let {r,g,b,a} = Jimp.intToRGBA(pfp.getPixelColor(x, y));
+        a = currentC.a>172?172:a;
+        pfp.setPixelColor(Jimp.rgbaToInt(r,g,b,a), x, y);
+      }
+    }
 
     for(let x=0; x<512; x++)
       for(let y =0; y<512; y++){
@@ -416,7 +425,7 @@ const userData = (member, infobad, convertTime, times) => {
     highest = "years";
     diff3 = await convertTime(member.user.createdAt, times.indexOf(highest));
     diff3 = `${diff3[0]} ${times[diff3[1]]}`;
-    infobad.addField(`${member.user.tag}: `, `${member.presence.game?member.presence.game.name:'Not playing anything.'}`, true);
+    infobad.addField(`${member.user.tag}: `, `${member.presence.game&&member.presence.game.streaming?'Streaming':'Playing'}${member.presence.game?member.presence.game.name:'nothing.'}`, true);
     infobad.addField('User id:', `${member.id}`, true)
            .addField(`Nickname: ${membername}`, `Colour: ${member.displayHexColor}`, true);
     infobad.addField(`Joined Discord on ${member.user.createdAt.toUTCString()}`,`That's about ${diff3} ago!`);
