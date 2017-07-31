@@ -380,27 +380,28 @@ const userData = (member, infobad, convertTime, times) => {
         pfp2.setPixelColor(0x00, x, y);
       }
     }
-    pfp = pfp.blit(stat,275,267);
-    const thex = 432, they = 432, w1=90, w2=59, w3=50;
+    pfp = pfp.blit(stat,275,275);
+
+    const thex = 432, they = 432, r1=90, r2=63, r3=49;
 
     for(let x=0; x<512; x++)
       for(let y =0; y<512; y++){
-      if(((x-thex)**2+(y-they)**2 >= w3**2)&&((x-thex)**2+(y-they)**2 <= w2**2)){
+      if(((x-thex)**2+(y-they)**2 >= r3**2)&&((x-thex)**2+(y-they)**2 <= r2**2)){
         let {r,g,b,a} = Jimp.intToRGBA(pfp.getPixelColor(x, y));
-        a = a>172?172:a;
+        a = a>172?160:a;
         pfp.setPixelColor(Jimp.rgbaToInt(r,g,b,a), x, y);
       }
     }
 
     for(let x=0; x<512; x++)
       for(let y =0; y<512; y++){
-      if(((x-thex)**2+(y-they)**2 >= w2**2)&&((x-thex)**2+(y-they)**2 <= w1**2))
+      if(((x-thex)**2+(y-they)**2 >= r2**2)&&((x-thex)**2+(y-they)**2 <= r1**2))
         pfp.setPixelColor(0x000000, x, y);
     }
 
     for(let x=0; x<512; x++)
       for(let y =0; y<512; y++){
-      if((x-thex)**2+(y-they)**2 >= w1**2)
+      if((x-thex)**2+(y-they)**2 >= r1**2)
         pfp.setPixelColor(pfp2.getPixelColor(x, y), x, y);
     }
 
