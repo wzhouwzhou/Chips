@@ -426,7 +426,7 @@ const userData = (member, infobad, convertTime, times) => {
     highest = "years";
     diff3 = await convertTime(member.user.createdAt, times.indexOf(highest));
     diff3 = `${diff3[0]} ${times[diff3[1]]}`;
-    infobad.addField(`${member.user.tag}: `, `${member.presence.game&&member.presence.game.streaming?'Streaming':'Playing'}${member.presence.game?member.presence.game.name:'nothing.'}`, true);
+    infobad.addField(`${member.user.tag}: `, `${member.presence.game&&member.presence.game.streaming?'Streaming':'Playing'} ${member.presence.game?member.presence.game.name:'nothing.'}`, true);
     infobad.addField('User id:', `${member.id}`, true)
            .addField(`Nickname: ${membername}`, `Colour: ${member.displayHexColor}`, true);
     infobad.addField(`Joined Discord on ${member.user.createdAt.toUTCString()}`,`That's about ${diff3} ago!`);
