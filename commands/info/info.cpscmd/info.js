@@ -108,7 +108,7 @@ const ex = {
       infobad.setFooter(`--Server info lookup and calculations took ${(end)}.--`);
       return send('', {embed: infobad});
     }else if(action=="user"){
-      const waitingE = new Discord.RichEmbed().attachFile('loading.gif').setImage('attachment://loading.gif').setColor(member.displayColor).setTitle('Loading data...please wait');
+      const waitingE = new Discord.RichEmbed().attachFile('loading.gif').setImage('attachment://loading.gif').setColor(msg.member.displayColor).setTitle('Loading data...please wait');
       const waiting = await send(' ', {embed: waitingE});
 
       let member=used;
