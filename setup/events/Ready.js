@@ -51,7 +51,7 @@ module.exports = function( send ) {
     if(process.env.BETA=="true")
       client.user.setGame("Chips PTB","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
     else
-      client.user.setGame("Do -help | (prefix)music demo","https://twitch.tv/twitch");//client.user.setGame("Do -help!");
+      client.user.setGame("Do -help | -music demo","https://twitch.tv/twitch");//client.user.setGame("Do -help!");
 
     setTimeout(()=>{DMLogger = require(path.join(__dirname, '../../handlers/DMLogger'))(Discord, client, dmC, moment);},3000);
   });
