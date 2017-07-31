@@ -171,7 +171,8 @@ const ex = {
           }
         }
         const embed = await userData (member, infobad, convertTime, times);
-        return waiting.edit(`User info ${multiple?'(multiple users were found, using the first one)':''}`, {embed});
+        await waiting.delete();
+        return send(`${multiple?'(multiple users were found, using the first one)':''}`, {embed});
       }else{
         try{
           let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
@@ -183,7 +184,8 @@ const ex = {
           }
         }
         const embed = await userData (member, infobad, convertTime, times);
-        return waiting.edit(`User info`, {embed});
+        await waiting.delete();
+        return send('', {embed});
       }
     }else if(action == "role"){
       try{
