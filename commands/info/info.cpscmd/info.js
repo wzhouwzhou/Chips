@@ -387,7 +387,7 @@ const userData = (member, infobad, convertTime, times) => {
       for(let y =0; y<512; y++){
       if(((x-thex)**2+(y-they)**2 >= w3**2)&&((x-thex)**2+(y-they)**2 <= w2**2)){
         let {r,g,b,a} = Jimp.intToRGBA(pfp.getPixelColor(x, y));
-        a = currentC.a>172?172:a;
+        a = a>172?172:a;
         pfp.setPixelColor(Jimp.rgbaToInt(r,g,b,a), x, y);
       }
     }
