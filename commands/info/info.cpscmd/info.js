@@ -171,7 +171,7 @@ const ex = {
           }
         }
         const embed = await userData (member, infobad, convertTime, times);
-        await waiting.delete();
+        waiting.delete();
         return send(`${multiple?'(multiple users were found, using the first one)':''}`, {embed});
       }else{
         try{
@@ -184,7 +184,7 @@ const ex = {
           }
         }
         const embed = await userData (member, infobad, convertTime, times);
-        await waiting.delete();
+        waiting.delete();
         return send('', {embed});
       }
     }else if(action == "role"){
