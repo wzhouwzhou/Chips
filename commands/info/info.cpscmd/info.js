@@ -108,6 +108,9 @@ const ex = {
       infobad.setFooter(`--Server info lookup and calculations took ${(end)}.--`);
       return send('', {embed: infobad});
     }else if(action=="user"){
+      const waitingE = new Discord.RichEmbed().attachFile('loading.gif').setImage('attachment://loading.gif').setColor(member.displayColor).setTitle('Loading data...please wait');
+      const waiting = await send(' ', {embed: waitingE});
+
       let member=used;
 
       let multiple = false;
@@ -168,8 +171,7 @@ const ex = {
           }
         }
         const embed = await userData (member, infobad, convertTime, times);
-
-        return await send(`User info ${multiple?'(multiple users were found, using the first one)':''}`, {embed});
+        return waiting.edit(`User info ${multiple?'(multiple users were found, using the first one)':''}`, {embed});
       }else{
         try{
           let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
@@ -181,8 +183,7 @@ const ex = {
           }
         }
         const embed = await userData (member, infobad, convertTime, times);
-
-        return await send(`User info`, {embed});
+        return waiting.edit(`User info`, {embed});
       }
     }else if(action == "role"){
       try{
