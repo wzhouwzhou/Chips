@@ -109,6 +109,7 @@ const GuildMusicHandler = class MusicHandler {
     });
     handler.collector.on('end', () => {
       handler.stopPlayer();
+      handler.demoActive = false;
       tc.send('Demo trial has ended!');
     });
 
