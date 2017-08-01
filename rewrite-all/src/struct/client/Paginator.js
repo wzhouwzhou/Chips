@@ -106,7 +106,7 @@ const Paginator = class Paginator {
       this.collector = sentMsg.createReactionCollector( (reaction, user) => {
         if(this._msg.author.id !== user.id) return false;
         if(!!(~this.buttons.indexOf(reaction.emoji.toString()))||reaction.emoji.toString()==='ℹ') {
-          reaction.remove(user);
+          reaction.remove(user).catch(()=>console.log(`g${this._msg.guild.id} [Paginator] could not remove reactions`));
           return true;
         }
         return false;
@@ -148,7 +148,7 @@ const Paginator = class Paginator {
                 m.reply(`Invalid page number of \`${+num}\` specified!`).then(mmm=>mmm.delete(3000));
               }
               tempmsg.delete();
-              return m.delete();
+              return m.delete().catch(_=>_);
             });
 
             mCol.on('end', collected => {

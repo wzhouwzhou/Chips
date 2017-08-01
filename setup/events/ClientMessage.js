@@ -210,7 +210,7 @@ const handleAntiLink = (message) => {
     potentialInvite.forEach( async ainvite => {
       if(ainvite.match(/(discord\.\io|discord\.me)\/\w+/gi)) {
         message.reply('Invites are disabled in this server! You have been warned...');
-        message.delete();
+        message.delete().catch(()=>console.log(`g${message.guild.id}: Could not delete msg (antilink)`));
         return res(true);
       }else{
         const matched = ainvite.match(/(discord\.gg|discordapp\.com\/invite)\/\w+/gi);
@@ -223,7 +223,7 @@ const handleAntiLink = (message) => {
         }
         if(invite.guild.id!==message.guild.id){
           message.reply('Invites are disabled.in this server! You have been warned...');
-          message.delete();
+          message.delete().catch(()=>console.log(`g${message.guild.id}: Could not delete msg (antilink)`));
           return res(true);
         }
       }
