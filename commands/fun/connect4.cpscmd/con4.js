@@ -2,7 +2,7 @@ const CON4 = require('connect-four');
 const EventEmitter = require('events');
 
 const EMPTY = '⚫', BLUE = '🔵', RED = '🔴';
-
+const TIME = 5*60*10e3;
 const games = new WeakMap();
 
 const ex = {
@@ -14,7 +14,7 @@ const ex = {
 
     const mCol = channel.createMessageCollector(
       query => !!query.content.match(/\d+/g)&&query.content.match(/\d+/g)[0]&&query.content.match(/\d+/g)[0].length===query.content.length,
-      { max: 1, time: TIME2, errors: ['time'] }
+      { time: TIME, errors: ['time'] }
     );
 
     mCol.on('collect', async m => {
@@ -23,7 +23,7 @@ const ex = {
 
       const num = m.content.match(/\d+/)?m.content.match(/\d+/)[0]:0;
       try {
-        await currentGame.playCol(num);
+        currentGame.playGame(num);
       }catch(err){
         m.delete();
       }
