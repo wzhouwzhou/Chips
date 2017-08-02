@@ -8,7 +8,7 @@ const games = new WeakMap();
 const ex = {
   name: "con4",
   customperm: ['SEND_MESSAGES'],
-  async func(msg, {Discord, member, channel }) {
+  async func(msg, {Discord, member, send, channel }) {
     console.log('Creating con4 game...');
     const currentGame = new C4Game(channel, member.user);
     games.set(channel, currentGame);
@@ -38,7 +38,7 @@ const ex = {
       }catch(err){
         console.error(err);
       }
-      m.delete.catch(_=>_);
+      m.delete().catch(_=>_);
     });
 
     mCol.on('end', collected => {
@@ -131,7 +131,7 @@ const C4Game = class C4Game extends EventEmitter {
       .setColor(this.player=='red'?16711680:255)
       .setAuthor(`${this.player1?'('+this.player1.tag+')':''}Red vs ${this.player2?'('+this.player2.tag+')':''}Blue`)
       .setDescription(this.toString())
-      .addField(`${this.player?this.player.substring(0,1).toUpperCase():'Red'}${this.player?this.player.substring(1):''} to move.`,'\u200B');
+      .addField(`${this.player&&this.player=='red'?'Blue':'Red'} to move.`,'\u200B');
   }
 
   send () {
