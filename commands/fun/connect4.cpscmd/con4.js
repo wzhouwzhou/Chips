@@ -55,8 +55,9 @@ const ex = {
         .setAuthor(`${game.player1?'('+game.player1.tag+')':''}Red vs ${game.player2?'('+game.player2.tag+')':''}Blue`)
         .setDescription(game.toString())
         .addField(`Game ended!`,'\u200B');
-      await game.send();
+      await send('', {embed: game.embed});
       games.delete(channel);
+      mCol.stop();
     });
     console.log('Con4 game setup complete');
   }
