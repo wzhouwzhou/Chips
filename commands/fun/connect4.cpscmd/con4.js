@@ -10,11 +10,11 @@ const ex = {
   customperm: ['SEND_MESSAGES'],
   async func(msg, {Discord, member, channel }) {
     console.log('Creating con4 game...');
-    const currentGame = new C4Game(channel, member);
+    const currentGame = new C4Game(channel, member.user);
     games.set(channel, currentGame);
     console.log('Creating collector...');
     const mCol = channel.createMessageCollector(
-      query => true,//!!query.content.match(/\d+/g)&&query.content.match(/\d+/g)[0]&&query.content.match(/\d+/g)[0].length===query.content.length,
+      query => (!!query.content.match(/\d+/g))&&query.content.match(/\d+/g)[0]&&query.content.match(/\d+/g)[0].length===query.content.length,
       { time: TIME, errors: ['time'] }
     );
     console.log('Adding on-collect...');
@@ -34,11 +34,11 @@ const ex = {
         console.log('Game: '+result);
         if(result == 'Woah too fast!'){
           send('Too fast...');
-          m.delete();
         }
       }catch(err){
-        m.delete();
+        console.error(err);
       }
+      m.delete.catch(_=>_);
     });
 
     mCol.on('end', collected => {
@@ -101,7 +101,7 @@ const C4Game = class C4Game extends EventEmitter {
     if(!this.updatable) return 'Woah too fast!';
     this.updatable = false;
     if(this.checkEnded()) return this.updatable=true;
-    this.player= (!this.player||this.play!=='blue')?'red':'blue';
+    this.player= (!this.player||this.play==='blue')?'red':'blue';
     if(!this.game.validMove(col-1)) {
       this.updatable=true;
       return 'Invalid move!';
