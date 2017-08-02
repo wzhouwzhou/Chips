@@ -23,10 +23,14 @@ const ex = {
       console.log(m.content);
       if(/^quit$/i.test(m.content)) currentGame.game.end();
 
-      const num = m.content.match(/\d+/)?m.content.match(/\d+/)[0]:0;
+      const num = m.content.match(/\d+/)?m.content.match(/\d+/)[0]:-1;
+      if(num==='-1'){
+        console.log('Invalid num');
+        return;
+      }
       console.log('Num: '+num);
       try {
-        currentGame.playGame(+num);
+        console.log('Game: '+currentGame.playGame(+num));
       }catch(err){
         m.delete();
       }
