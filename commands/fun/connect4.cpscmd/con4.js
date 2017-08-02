@@ -138,7 +138,7 @@ const C4Game = class C4Game extends EventEmitter {
     return new Promise( async res => {
       if(!this.tc) return res(false);
       this.embedify();
-      this.currentMsg&&await this.currentMsg.delete();
+      this.currentMsg&& this.currentMsg.delete().catch(_=>_);
       this.currentMsg = await this.tc.send('',{embed: this.embed});
       res(this.currentMsg);
     });
