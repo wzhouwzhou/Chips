@@ -13,17 +13,18 @@ const ex = {
     games.set(channel, currentGame);
 
     const mCol = channel.createMessageCollector(
-      query => !!query.content.match(/\d+/g)&&query.content.match(/\d+/g)[0]&&query.content.match(/\d+/g)[0].length===query.content.length,
+      query => true,//!!query.content.match(/\d+/g)&&query.content.match(/\d+/g)[0]&&query.content.match(/\d+/g)[0].length===query.content.length,
       { time: TIME, errors: ['time'] }
     );
 
     mCol.on('collect', async m => {
       if(!m.content) return;
+      console.log(m.content);
       if(/^quit$/i.test(m.content)) currentGame.game.end();
 
       const num = m.content.match(/\d+/)?m.content.match(/\d+/)[0]:0;
       try {
-        currentGame.playGame(num);
+        currentGame.playGame(+num);
       }catch(err){
         m.delete();
       }
@@ -56,6 +57,7 @@ const C4Game = class C4Game extends EventEmitter {
     this.player2 = player2;
     this.game = new CON4;
     this.board = this.createBoard(col,row);
+    this.send();
   }
 
   createBoard (c=7,r=6) {
