@@ -9,14 +9,15 @@ const ex = {
   name: "con4",
   customperm: ['SEND_MESSAGES'],
   async func(msg, {Discord, member, channel }) {
+    console.log('Creating con4 game...');
     const currentGame = new C4Game(channel, member);
     games.set(channel, currentGame);
-
+    console.log('Creating collector...');
     const mCol = channel.createMessageCollector(
       query => true,//!!query.content.match(/\d+/g)&&query.content.match(/\d+/g)[0]&&query.content.match(/\d+/g)[0].length===query.content.length,
       { time: TIME, errors: ['time'] }
     );
-
+    console.log('Adding on-collect...');
     mCol.on('collect', async m => {
       if(!m.content) return;
       console.log(m.content);
@@ -37,6 +38,7 @@ const ex = {
     });
 
     currentGame.on('ended', async game=>{
+      console.log('Con4 game ended');
       game.embed = new Discord.RichEmbed()
         .setTitle('Connect Four')
         .setColor(game.player=='red'?16711680:255)
@@ -46,6 +48,7 @@ const ex = {
       await game.send();
       games.delete(channel);
     });
+    consele.log('Con4 game setup complete');
   }
 };
 
@@ -122,7 +125,7 @@ const C4Game = class C4Game extends EventEmitter {
       if(!this.tc) return res(false);
       this.embedify();
       this.currentMsg&&await this.currentMsg.delete();
-      this.currentMsg = await tc.send('',{embed: this.embed});
+      this.currentMsg = await this.tc.send('',{embed: this.embed});
       res(this.currentMsg);
     });
   }
