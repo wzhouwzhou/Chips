@@ -30,7 +30,12 @@ const ex = {
       }
       console.log('Num: '+num);
       try {
-        console.log('Game: '+currentGame.playGame(+num));
+        result = currentGame.playGame(+num);
+        console.log('Game: '+result);
+        if(result == 'Woah too fast!'){
+          send('Too fast...');
+          m.delete();
+        }
       }catch(err){
         m.delete();
       }
@@ -60,6 +65,7 @@ const ex = {
 const C4Game = class C4Game extends EventEmitter {
   constructor(tc, player1, player2, row=6, col=7){
     super();
+    this.updatable = true;
     this.tc = tc;
     this.player1 = player1;
     this.player2 = player2;
