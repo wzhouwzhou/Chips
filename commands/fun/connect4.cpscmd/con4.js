@@ -101,7 +101,7 @@ const C4Game = class C4Game extends EventEmitter {
     if(!this.updatable) return 'Woah too fast!';
     this.updatable = false;
     if(this.checkEnded()) return this.updatable=true;
-    this.player= (!this.player||this.play==='blue')?'red':'blue';
+    this.player= (!this.player||this.player==='blue')?'red':'blue';
     if(!this.game.validMove(col-1)) {
       this.updatable=true;
       return 'Invalid move!';
