@@ -24,7 +24,7 @@ const ex = {
       if(/^quit$/i.test(m.content)) currentGame.game.end();
 
       const num = m.content.match(/\d+/)?m.content.match(/\d+/)[0]:-1;
-      if(num==='-1'){
+      if(num==='-1'||num==-1){
         console.log('Invalid num');
         return;
       }
@@ -100,9 +100,12 @@ const C4Game = class C4Game extends EventEmitter {
   playGame (col) {
     if(!this.updatable) return 'Woah too fast!';
     this.updatable = false;
-    if(this.checkEnded()) return;
-    this.player= (!this.player||this.player==='blue')?'red':'blue';
-    if(!this.game.validMove(col-1)) return 'Invalid move!';
+    if(this.checkEnded()) return this.updatable=true;
+    this.player= (!this.player||this.play!=='blue')?'red':'blue';
+    if(!this.game.validMove(col-1)) {
+      this.updatable=true;
+      return 'Invalid move!';
+    }
     this.game.play(this.player, col-1);
     this.playCol(col, this.player);
     this.checkEnded();
