@@ -24,6 +24,7 @@ const ex = {
       if(/^quit$/i.test(m.content)) currentGame.game.end();
 
       const num = m.content.match(/\d+/)?m.content.match(/\d+/)[0]:0;
+      console.log('Num: '+num);
       try {
         currentGame.playGame(+num);
       }catch(err){
@@ -48,7 +49,7 @@ const ex = {
       await game.send();
       games.delete(channel);
     });
-    consele.log('Con4 game setup complete');
+    console.log('Con4 game setup complete');
   }
 };
 
