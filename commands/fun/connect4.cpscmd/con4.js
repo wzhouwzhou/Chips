@@ -9,6 +9,7 @@ const ex = {
   name: "con4",
   customperm: ['SEND_MESSAGES'],
   async func(msg, {Discord, member, send, channel }) {
+    if(games.has(channel)) return send('There is already a game going on.');
     console.log('Creating con4 game...');
     const currentGame = new C4Game(channel, member.user);
     games.set(channel, currentGame);
@@ -33,12 +34,12 @@ const ex = {
         result = currentGame.playGame(+num);
         console.log('Game: '+result);
         if(result == 'Woah too fast!'){
-          send('Too fast...');
+          return send('Too fast...');
         }
-      }catch(err){
+        m.delete().catch(_=>_);
+      }catch(err){ //'Invalid move!'
         console.error(err);
       }
-      m.delete().catch(_=>_);
     });
 
     mCol.on('end', collected => {
@@ -105,12 +106,13 @@ const C4Game = class C4Game extends EventEmitter {
     this.player= (!this.player||this.player==='blue')?'red':'blue';
     if(!this.game.validMove(col-1)) {
       this.updatable=true;
-      return 'Invalid move!';
+      throw new Error('Invalid move');
     }
     this.game.play(this.player, col-1);
     this.playCol(col, this.player);
-    this.checkEnded();
-    return this.send().then(()=>this.updatable = true);
+    if(!this.checkEnded())
+      this.send().then(()=>this.updatable = true);
+    else this.updatable=true;
   }
 
   checkEnded () {
