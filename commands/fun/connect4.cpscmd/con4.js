@@ -10,6 +10,8 @@ const ex = {
   customperm: ['SEND_MESSAGES'],
   async func(msg, {Discord, member, send, channel }) {
     if(games.has(channel)) return send('There is already a game going on.');
+
+
     console.log('Creating con4 game...');
     const currentGame = new C4Game(channel, member.user);
     games.set(channel, currentGame);
@@ -50,6 +52,7 @@ const ex = {
 
     currentGame.on('ended', async game=>{
       console.log('Con4 game ended');
+      game.currentMsg.delete().catch(_=>_);
       game.embed = new Discord.RichEmbed()
         .setTitle('Connect Four')
         .setColor(game.player=='red'?16711680:255)
@@ -145,6 +148,18 @@ const C4Game = class C4Game extends EventEmitter {
       this.currentMsg = await this.tc.send('',{embed: this.embed});
       res(this.currentMsg);
     });
+  }
+};
+
+const Con4Player = class Con4Player {
+  constructor(userid, guild, c, host){
+    this.member = guild.members.get(userid);
+    this.color = c;
+    this.host = host;
+  }
+
+  get name () {
+    return this.member.user.tag;
   }
 };
 
