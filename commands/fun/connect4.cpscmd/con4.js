@@ -76,7 +76,10 @@ const C4Game = class C4Game extends EventEmitter {
     this.tc = tc;
     this.player1 = player1;
     this.player2 = player2;
-    this.game = new CON4;
+    this.game = new CON4({
+      rows: row,
+      cols: col,
+    });
     this.board = this.createBoard(col,row);
     this.send();
   }
