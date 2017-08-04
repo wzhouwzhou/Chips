@@ -8,12 +8,14 @@ const games = new WeakMap();
 const ex = {
   name: "con4",
   customperm: ['SEND_MESSAGES'],
-  async func(msg, {Discord, member, send, channel }) {
+  async func(msg, {Discord, member, send, channel, args }) {
     if(games.has(channel)) return send('There is already a game going on.');
 
+    const row = +args[1]||6;
+    const col = +args[0]||7;
 
     console.log('Creating con4 game...');
-    const currentGame = new C4Game(channel, member.user);
+    const currentGame = new C4Game(channel, member.user, null, row, col);
     games.set(channel, currentGame);
     console.log('Creating collector...');
     const mCol = channel.createMessageCollector(
