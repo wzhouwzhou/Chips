@@ -3,20 +3,21 @@ const EventEmitter = require('events');
 
 const EMPTY = '⚫', BLUE = '🔵', RED = '🔴';
 const TIME = 5*60*10e3;
+const STARTWAIT = 10*60*10e3;
 const games = new WeakMap();
 
 const ex = {
   name: "con4",
   customperm: ['SEND_MESSAGES'],
   async func(msg, {Discord, member, send, channel, args }) {
-    if(games.has(channel)) return send('There is already a game going on.');
+    if(games.has(channel.id)) return send('There is already a game going on.');
 
     const row = +args[1]||6;
     const col = +args[0]||7;
 
     console.log('Creating con4 game...');
     const currentGame = new C4Game(channel, member.user, null, row, col);
-    games.set(channel, currentGame);
+    games.set(channel.id, currentGame);
     console.log('Creating collector...');
     const mCol = channel.createMessageCollector(
       query => (!!query.content.match(/\d+/g))&&query.content.match(/\d+/g)[0]&&query.content.match(/\d+/g)[0].length===query.content.length,
@@ -48,8 +49,10 @@ const ex = {
 
     mCol.on('end', collected => {
       if(collected.size===0){
-        return this._msg.reply('Timed out, game was not saved to memory');
+        this._msg.reply('Timed out, game was not saved to memory');
+        games.delete(channel.id);
       }
+      console.log('MCol ended');
     });
 
     currentGame.on('ended', async game=>{
@@ -62,7 +65,7 @@ const ex = {
         .setDescription(game.toString())
         .addField(`Game ended!`,'\u200B');
       await send('', {embed: game.embed});
-      games.delete(channel);
+      games.delete(channel.id);
       mCol.stop();
     });
     console.log('Con4 game setup complete');
@@ -166,6 +169,29 @@ const Con4Player = class Con4Player {
   get name () {
     return this.member.user.tag;
   }
+};
+
+const promptPlayer = (prefix, targetMember) => {
+  return new Promise( async (res,rej) => {
+    const startFilter = (m) => {
+      if(m.author.id !== author.id) {
+        if((new RegExp(`${_.escapeRegExp(prefix)}con4(join|decline)`,'gi')).test(m.content.toLowerCase().replace(/\s+/g,'')))
+          if((!targetMember)||targetMember.id===m.author.id)
+            return res(m.member);
+        return false;
+      }
+      m.reply('You can\'t join your own game!');
+      return false;
+    };
+    let startCol;
+    try{
+      startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
+    }catch(startCCollected){
+      return reply('Timed out');
+    }
+
+    startCol.first()&& reply('Timed out');
+  });
 };
 
 module.exports = ex;
