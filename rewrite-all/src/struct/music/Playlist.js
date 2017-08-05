@@ -23,15 +23,15 @@ const Playlist = class Playlist extends Array {
   }
 
   shuffle () {
-    for(
+    for (
       let i = this.length;
       i;
-    ){
-      const r = _.random(0,i-1);
-      const temp = this[--i];
-      this[i] = this[r];
-      this[r] = temp;
+      i--
+    ) {
+      let j = ~~(crypto.randomBytes(1)[0]/255-1e-6 * i);
+      [this[j], this[i-1]] = [this[i-1], this[j]];
     }
+
     return this;
   }
 };
