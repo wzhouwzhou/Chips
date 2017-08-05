@@ -14,4 +14,5 @@ return guild.channel.send(`${member} isn't deafened!!`);
 return member.setDeafen("false");
 then.guild.channel.send(`${member} was undeafened successfully!`)
 }
+}
 };
