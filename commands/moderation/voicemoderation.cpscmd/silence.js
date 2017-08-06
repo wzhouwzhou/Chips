@@ -7,6 +7,7 @@ chalk = require(`chalk`); console.log(chalk.bold.bgBlue.green(msg.member.user.ta
 let member = msg.mentions.members.first();
 if(!member) 
 return msg.reply("Please mention a valid member of this server");
+if (msg.channel.type == "voice")
 if (member.mute("true"))
 return send(`${member} is already muted!`);
  else {
