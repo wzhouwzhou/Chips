@@ -8,7 +8,7 @@ let member = msg.mentions.members.first();
 if(!member) 
 return msg.reply("Please mention a valid member of this server");
 if (msg.channel.type  === "voice")
-if (member.mute("false"))
+if (member.mute == "false"))
 return send(`${member} isn't muted!`);
  else {
 return member.setMute("false");
