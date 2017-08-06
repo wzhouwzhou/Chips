@@ -12,7 +12,7 @@ if (member.mute("false"))
 return send(`${member} isn't muted!`);
  else {
 return member.setMute("false");
-then.send(`${member} was unmuted successfully!`)
+send(`${member} was unmuted successfully!`)
 }
 }
 };
