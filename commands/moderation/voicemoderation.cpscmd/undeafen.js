@@ -9,10 +9,10 @@ if(!member)
 return msg.reply("Please mention a valid member of this server");
 if (msg.channel.type  === "voice")
 if (member.deaf("false"))
-return guild.channel.send(`${member} isn't deafened!!`);
+return send(`${member} isn't deafened!!`);
  else {
 return member.setDeafen("false");
-then.guild.channel.send(`${member} was undeafened successfully!`)
+then.send(`${member} was undeafened successfully!`)
 }
 }
 };
