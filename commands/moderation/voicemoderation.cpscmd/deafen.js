@@ -8,7 +8,7 @@ let member = msg.mentions.members.first();
 if(!member) 
 return msg.reply("Please mention a valid member of this server");
 if (msg.channel.type  === "voice")
-if (member.deaf("true"))
+if (member.deaf == "true")
 return send(`${member} is already deafened!`);
  else {
 return member.setDeafen("true");
