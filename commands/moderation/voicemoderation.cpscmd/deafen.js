@@ -12,7 +12,7 @@ if (member.deaf("true"))
 return send(`${member} is already deafened!`);
  else {
 return member.setDeafen("true");
-then.send(`${member} was deafened successfully!`)
+send(`${member} was deafened successfully!`)
 }
 }
 };
