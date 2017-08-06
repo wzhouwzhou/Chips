@@ -13,7 +13,7 @@ silence.metadata = {
   perm: [['global.moderation.voicemoderation.silence']],
   customperm: ['MUTE_MEMBERS'],
 };
-deafen.metadata = {
+unsilence.metadata = {
   category: require('../').category,
   description: 'This command lets you unmute people!',
   usage: 'unsilence <User>',
