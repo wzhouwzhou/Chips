@@ -9,10 +9,10 @@ if(!member)
 return msg.reply("Please mention a valid member of this server");
 if (msg.channel.type  === "voice")
 if (member.mute("true"))
-return guild.channel.send(`${member} is already muted!`);
+return send(`${member} is already muted!`);
  else {
 return member.setMute("true");
-then.guild.channel.send(`${member} was muted successfully!`)
+then.send(`${member} was muted successfully!`)
 }
 }
 };
