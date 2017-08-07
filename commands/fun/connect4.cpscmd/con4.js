@@ -199,7 +199,7 @@ const Con4Player = class Con4Player {
 };
 
 const promptPlayer = (author, send, prefix, channel, targetMember) => {
-  targetMember&&prompting.set(targetMember.id, true);
+  targetMember!=null&&targetMember.id!=null&&prompting.set(targetMember.id, true);
   return new Promise( async (res,rej) => {
     const startFilter = (m) => {
       if(m.author.bot) return false;
@@ -207,7 +207,7 @@ const promptPlayer = (author, send, prefix, channel, targetMember) => {
         if((new RegExp(`${_.escapeRegExp(prefix)}con4(join|decline)`,'gi')).test(m.content.toLowerCase().replace(/\s+/g,'')))
           if((!targetMember)||targetMember.id===m.author.id)
             if(~m.content.toLowerCase().indexOf('join'))
-              return res(m.member);
+              return res(targetMember||m.member);
             else if(~m.content.toLowerCase().indexOf('decline'))
               return res('decline');
         return false;
@@ -253,20 +253,21 @@ const promptInvitee = ({send, channel, author}) => {
 
     let startCol;
     try{
-      await send(`${targetMember||''} Please mention who you want to invite to this game, or __none__ to allow anyone to join`);
+      await send(`${author||''} Please mention who you want to invite to this game, or __none__ to allow anyone to join`);
       startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
     }catch(err){
       console.error(err);
       return rej('Timed out');
     }
 
-    !startCol.first()&& rej(null);
-    res(startCol.first());
+    if(!startCol.first()) return rej(null);
+    res(startCol.first().mentions.members.first()||startCol.first().content);
   });
 };
 
 const validN = n => (+n)===n&&n===(n|0)&&n>0;
 
 ex._games = games;
+ex._prompting = prompting;
 
 module.exports = ex;
