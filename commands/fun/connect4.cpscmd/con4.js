@@ -198,12 +198,14 @@ const Con4Player = class Con4Player {
 const promptPlayer = (author, send, prefix, channel, targetMember) => {
   return new Promise( async (res,rej) => {
     const startFilter = (m) => {
+      if(m.author.bot) return false;
       if(m.author.id !== author.id) {
         if((new RegExp(`${_.escapeRegExp(prefix)}con4(join|decline)`,'gi')).test(m.content.toLowerCase().replace(/\s+/g,'')))
           if((!targetMember)||targetMember.id===m.author.id)
-            if(~m.content.indexOf('join'))
+            if(~m.content.toLowerCase().indexOf('join'))
               return res(m.member);
-            else return res('decline');
+            else if(~m.content.toLowerCase().indexOf('decline'))
+              return res('decline');
         return false;
       }
       m.reply('You can\'t join your own game!');
@@ -229,6 +231,7 @@ const promptInvitee = ({send, channel, author}) => {
     let targetMember;
 
     const startFilter = (m) => {
+      if(m.author.bot) return false;
       if(m.author.id === author.id) {
         targetMember=m.mentions.members.first();
         if(targetMember)
