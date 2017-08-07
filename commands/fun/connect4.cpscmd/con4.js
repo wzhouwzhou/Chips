@@ -24,14 +24,16 @@ const ex = {
       col = 7;
       row = 6;
     }
+    col = +col;
+    row = +row;
 
-    if(col>20) return send(`${20-col} too many columns!`);
+    if(col>20) return send(`${col-20} too many columns!`);
     if(row*col>190) return send(`Board is too large! ${col}x${row}`);
 
     send(`Creating a ${col} x ${row} con4 game...`);
     console.log(`Creating a ${col} x ${row} con4 game for channel ${channel.id}...`);
 
-    const currentGame = new C4Game(channel, member.user, null, row, col);
+    const currentGame = new C4Game(channel, member.user, member.user, row, col);
     games.set(channel.id, currentGame);
     console.log('Creating collector...');
     const mCol = channel.createMessageCollector(
