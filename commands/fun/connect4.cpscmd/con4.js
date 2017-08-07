@@ -16,7 +16,7 @@ const ex = {
       if(args[1]) row = args[1];
       else row = 6;
 
-      if(!validN(row)||!validN(col)){
+      if(!validN(+row)||!validN(+col)){
         if(args[0]!=='invite')
           return send('Invalid board size!');
       }
