@@ -5,11 +5,13 @@ const EMPTY = '⚫', BLUE = '🔵', RED = '🔴';
 const TIME = 5*60*10e3;
 const STARTWAIT = 10*60*10e3;
 const games = new Map();
+const prompting = new Map();
 
 const ex = {
   name: "con4",
   async func(msg, ctx) {
-    let {Discord, author, member, send, channel, args } = ctx;
+    let {Discord, author, member, send, channel, args, prefix } = ctx;
+    if(prompting.has(author.id)) return;
 
     if(games.has(channel.id)) return send('There is already a game going on.');
     let row, col, othermember;
@@ -34,7 +36,8 @@ const ex = {
     othermember = await promptInvitee(ctx);
     othermember = await promptPlayer (author, send, prefix, channel, othermember);
 
-    if(othermember==='decline') return reply('Game was declined!');
+    if(othermember=='decline') return reply('Game was declined!');
+    prompting.delete(othermember.id);
 
     send(`Creating a ${col} x ${row} con4 game...`);
 
@@ -196,6 +199,7 @@ const Con4Player = class Con4Player {
 };
 
 const promptPlayer = (author, send, prefix, channel, targetMember) => {
+  prompting.set(targetMember.id, true);
   return new Promise( async (res,rej) => {
     const startFilter = (m) => {
       if(m.author.bot) return false;
