@@ -32,7 +32,7 @@ const ex = {
     if(row*col>190) return send(`Board is too large! ${col}x${row}`);
 
     othermember = await promptInvitee(ctx);
-    othermember = await promptPlayer (send, prefix, channel, othermember);
+    othermember = await promptPlayer (author, send, prefix, channel, othermember);
 
     if(othermember==='decline') return reply('Game was declined!');
 
@@ -195,7 +195,7 @@ const Con4Player = class Con4Player {
   }
 };
 
-const promptPlayer = (send, prefix, channel, targetMember) => {
+const promptPlayer = (author, send, prefix, channel, targetMember) => {
   return new Promise( async (res,rej) => {
     const startFilter = (m) => {
       if(m.author.id !== author.id) {
@@ -224,7 +224,7 @@ const promptPlayer = (send, prefix, channel, targetMember) => {
   });
 };
 
-const promptInvitee = ({send, channel}) => {
+const promptInvitee = ({send, channel, author}) => {
   return new Promise ( async (res,rej) => {
     let targetMember;
 
