@@ -56,7 +56,7 @@ const ex = {
     games.set(channel.id, currentGame);
     console.log('Creating collector...');
     const mCol = channel.createMessageCollector(
-      query => (!!query.content.match(/\d+/g))&&query.content.match(/\d+/g)[0]&&query.content.match(/\d+/g)[0].length===query.content.length,
+      query => query.content.match(/(quit|stop|forfeit)/i)||((!!query.content.match(/\d+/g))&&query.content.match(/\d+/g)[0]&&query.content.match(/\d+/g)[0].length===query.content.length),
       { time: TIME, errors: ['time'] }
     );
     console.log('Adding on-collect...');
