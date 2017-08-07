@@ -32,7 +32,7 @@ const ex = {
     if(row*col>190) return send(`Board is too large! ${col}x${row}`);
 
     othermember = await promptInvitee(ctx);
-    othermember = await promptPlayer (send, prefix, othermember);
+    othermember = await promptPlayer (send, prefix, channel, othermember);
 
     if(othermember==='decline') return reply('Game was declined!');
 
@@ -195,7 +195,7 @@ const Con4Player = class Con4Player {
   }
 };
 
-const promptPlayer = (send, prefix, targetMember) => {
+const promptPlayer = (send, prefix, channel, targetMember) => {
   return new Promise( async (res,rej) => {
     const startFilter = (m) => {
       if(m.author.id !== author.id) {
@@ -214,7 +214,7 @@ const promptPlayer = (send, prefix, targetMember) => {
     try{
       send(`${targetMember||''} Please type __${_.escapeRegExp(prefix)}con4 join__ or __${_.escapeRegExp(prefix)}con4 decline__ to join the game`);
       startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
-    }catch(startCCollected){
+    }catch(err){
       return rej('Timed out');
     }
 
@@ -242,7 +242,7 @@ const promptInvitee = ({send, channel}) => {
     try{
       send(`${targetMember||''} Please mention who you want to invite to this game, or __none__ to allow anyone to join`);
       startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
-    }catch(startCCollected){
+    }catch(err){
       return rej('Timed out');
     }
 
