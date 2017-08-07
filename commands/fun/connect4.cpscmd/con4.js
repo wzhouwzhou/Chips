@@ -4,7 +4,7 @@ const EventEmitter = require('events');
 const EMPTY = '⚫', BLUE = '🔵', RED = '🔴';
 const TIME = 5*60*10e3;
 const STARTWAIT = 10*60*10e3;
-const games = new WeakMap();
+const games = new Map();
 
 const ex = {
   name: "con4",
@@ -193,5 +193,7 @@ const promptPlayer = (prefix, targetMember) => {
     startCol.first()&& reply('Timed out');
   });
 };
+
+ex._games = games;
 
 module.exports = ex;
