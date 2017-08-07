@@ -13,7 +13,7 @@ module.exports = {
     if (!member.serverDeaf)
       return send(`${member} isn't server deafened!`);
     else {
-      member.setDeafen(false);
+      member.setDeaf(false);
       return send(`${member} was un-serverdeafened successfully!`);
     }
   }
