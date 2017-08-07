@@ -199,7 +199,7 @@ const Con4Player = class Con4Player {
 };
 
 const promptPlayer = (author, send, prefix, channel, targetMember) => {
-  prompting.set(targetMember.id, true);
+  targetMember&&prompting.set(targetMember.id, true);
   return new Promise( async (res,rej) => {
     const startFilter = (m) => {
       if(m.author.bot) return false;
@@ -218,7 +218,7 @@ const promptPlayer = (author, send, prefix, channel, targetMember) => {
 
     let startCol;
     try{
-      send(`${targetMember||''} Please type __${_.escapeRegExp(prefix)}con4 join__ or __${_.escapeRegExp(prefix)}con4 decline__ to join the game`);
+      await send(`${targetMember||''} Please type __${_.escapeRegExp(prefix)}con4 join__ or __${_.escapeRegExp(prefix)}con4 decline__ to join the game`);
       startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
     }catch(err){
       console.error(err);
@@ -242,7 +242,7 @@ const promptInvitee = ({send, channel, author}) => {
             send('You can\'t really be inviting yourself?');
             return false;
           }
-          return res(m.member);
+          return res(targetMember);
         }
         else if(~m.content.indexOf('none'))
           return res(null);
@@ -253,7 +253,7 @@ const promptInvitee = ({send, channel, author}) => {
 
     let startCol;
     try{
-      send(`${targetMember||''} Please mention who you want to invite to this game, or __none__ to allow anyone to join`);
+      await send(`${targetMember||''} Please mention who you want to invite to this game, or __none__ to allow anyone to join`);
       startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
     }catch(err){
       console.error(err);
