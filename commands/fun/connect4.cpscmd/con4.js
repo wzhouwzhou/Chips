@@ -8,32 +8,39 @@ const games = new Map();
 
 const ex = {
   name: "con4",
-  async func(msg, {Discord, member, send, channel, args }) {
+  async func(msg, ctx) {
+    let {Discord, member, send, channel, args } = ctx;
+
     if(games.has(channel.id)) return send('There is already a game going on.');
-    let row, col;
+    let row, col, othermember;
     if(args[0]){
       col = +args[0];
       if(args[1]) row = args[1];
       else row = 6;
 
-      if(!validN(+row)||!validN(+col)){
-        if(args[0]!=='invite')
-          return send('Invalid board size!');
-      }
+      if(!validN(+row)||!validN(+col))
+        return send('Invalid board size!');
     }else{
       col = 7;
       row = 6;
     }
+
     col = +col;
     row = +row;
 
     if(col>20) return send(`${col-20} too many columns!`);
     if(row*col>190) return send(`Board is too large! ${col}x${row}`);
 
+    othermember = await promptInvitee(ctx);
+    othermember = promptPlayer (send, prefix, othermember);
+
+    if(othermember==='decline') return reply('Game was declined!');
+
     send(`Creating a ${col} x ${row} con4 game...`);
+
     console.log(`Creating a ${col} x ${row} con4 game for channel ${channel.id}...`);
 
-    const currentGame = new C4Game(channel, member.user, member.user, row, col);
+    const currentGame = new C4Game(channel, member.user, othermember.user, row, col);
     games.set(channel.id, currentGame);
     console.log('Creating collector...');
     const mCol = channel.createMessageCollector(
@@ -188,28 +195,62 @@ const Con4Player = class Con4Player {
   }
 };
 
-const promptPlayer = (prefix, targetMember) => {
+const promptPlayer = (send, prefix, targetMember) => {
   return new Promise( async (res,rej) => {
     const startFilter = (m) => {
       if(m.author.id !== author.id) {
         if((new RegExp(`${_.escapeRegExp(prefix)}con4(join|decline)`,'gi')).test(m.content.toLowerCase().replace(/\s+/g,'')))
           if((!targetMember)||targetMember.id===m.author.id)
-            return res(m.member);
+            if(~m.content.indexOf('join'))
+              return res(m.member);
+            else return res('decline');
         return false;
       }
       m.reply('You can\'t join your own game!');
       return false;
     };
+
     let startCol;
     try{
+      send(`${targetMember||''} Please type __${_.escapeRegExp(prefix)}con4 join__ or __${_.escapeRegExp(prefix)}con4 decline__ to join the game`);
       startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
     }catch(startCCollected){
-      return reply('Timed out');
+      return rej('Timed out');
     }
 
-    startCol.first()&& reply('Timed out');
+    !startCol.first()&& rej('Timed out');
+    res(targetMember);
   });
 };
+
+const promptInvitee = ({send, channel}) => {
+  return new Promise ( async (res,rej) => {
+
+    const startFilter = (m) => {
+      if(m.author.id === author.id) {
+        let targetMember=m.mentions.members.first();
+        if(targetMember)
+          return res(m.member);
+        else if(~m.content.indexOf('none'))
+          return res(null);
+        return false;
+      }
+      return false;
+    };
+
+    let startCol;
+    try{
+      send(`${targetMember||''} Please mention who you want to invite to this game, or __none__ to allow anyone to join`);
+      startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
+    }catch(startCCollected){
+      return rej('Timed out');
+    }
+
+    !startCol.first()&& rej('Timed out');
+    res(null);
+  });
+};
+
 const validN = n => (+n)===n&&n===(n|0)&&n>0;
 
 ex._games = games;
