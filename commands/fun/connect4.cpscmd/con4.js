@@ -10,7 +10,7 @@ const prompting = new Map();
 const ex = {
   name: "con4",
   async func(msg, ctx) {
-    let {Discord, author, member, send, channel, args, prefix } = ctx;
+    let {Discord, author, reply, member, send, channel, args, prefix } = ctx;
     if(prompting.has(author.id)) return;
 
     if(games.has(channel.id)) return send('There is already a game going on.');
@@ -37,7 +37,7 @@ const ex = {
     othermember = await promptPlayer (author, send, prefix, channel, othermember);
 
     if(othermember=='decline') return reply('Game was declined!');
-    prompting.delete(othermember.id);
+    if(othermember&&othermember.id) prompting.delete(othermember.id);
 
     send(`Creating a ${col} x ${row} con4 game...`);
 
