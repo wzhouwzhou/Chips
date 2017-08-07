@@ -32,7 +32,7 @@ const ex = {
     if(row*col>190) return send(`Board is too large! ${col}x${row}`);
 
     othermember = await promptInvitee(ctx);
-    othermember = promptPlayer (send, prefix, othermember);
+    othermember = await promptPlayer (send, prefix, othermember);
 
     if(othermember==='decline') return reply('Game was declined!');
 
