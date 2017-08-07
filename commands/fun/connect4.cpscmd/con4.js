@@ -8,14 +8,29 @@ const games = new Map();
 
 const ex = {
   name: "con4",
-  customperm: ['SEND_MESSAGES'],
   async func(msg, {Discord, member, send, channel, args }) {
     if(games.has(channel.id)) return send('There is already a game going on.');
+    let row, col;
+    if(args[0]){
+      col = +args[0];
+      if(args[1]) row = args[1];
+      else row = 6;
 
-    const row = +args[1]||6;
-    const col = +args[0]||7;
+      if(!validN(row)||!validN(col)){
+        if(args[0]!=='invite')
+          return send('Invalid board size!');
+      }
+    }else{
+      col = 7;
+      row = 6;
+    }
 
-    console.log('Creating con4 game...');
+    if(col>20) return send(`${20-col} too many columns!`);
+    if(row*col>190) return send(`Board is too large! ${col}x${row}`);
+
+    send(`Creating a ${col} x ${row} con4 game...`);
+    console.log(`Creating a ${col} x ${row} con4 game for channel ${channel.id}...`);
+
     const currentGame = new C4Game(channel, member.user, null, row, col);
     games.set(channel.id, currentGame);
     console.log('Creating collector...');
@@ -193,6 +208,7 @@ const promptPlayer = (prefix, targetMember) => {
     startCol.first()&& reply('Timed out');
   });
 };
+const validN = n => (+n)===n&&n===(n|0)&&n>0;
 
 ex._games = games;
 
