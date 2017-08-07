@@ -66,6 +66,7 @@ const ex = {
       if(/quit/i.test(m.content.toLowerCase())) {
         currentGame.game.end();
         currentGame.emit('ended', currentGame);
+        mCol.stop();
       }
 
       const num = m.content.match(/\d+/)?m.content.match(/\d+/)[0]:-1;
