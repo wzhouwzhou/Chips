@@ -208,7 +208,7 @@ const promptPlayer = (author, send, prefix, channel, targetMember) => {
               return res('decline');
         return false;
       }
-      m.reply('You can\'t join your own game!');
+      targetMember.id!==author.id&&m.reply('You can\'t join your own game!');
       return false;
     };
 
@@ -234,8 +234,13 @@ const promptInvitee = ({send, channel, author}) => {
       if(m.author.bot) return false;
       if(m.author.id === author.id) {
         targetMember=m.mentions.members.first();
-        if(targetMember)
+        if(targetMember){
+          if(targetMember.id===author.id) {
+            send('You can\'t really be inviting yourself?');
+            return false;
+          }
           return res(m.member);
+        }
         else if(~m.content.indexOf('none'))
           return res(null);
         return false;
