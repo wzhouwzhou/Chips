@@ -63,7 +63,10 @@ const ex = {
     mCol.on('collect', async m => {
       if(!m.content) return;
       console.log(m.content);
-      if(/^quit$/i.test(m.content)) currentGame.game.end();
+      if(/quit/i.test(m.content.toLowerCase())) {
+        currentGame.game.end();
+        currentGame.emit('ended', currentGame);
+      }
 
       const num = m.content.match(/\d+/)?m.content.match(/\d+/)[0]:-1;
       if(num==='-1'||num==-1){
@@ -97,7 +100,7 @@ const ex = {
       game.embed = new Discord.RichEmbed()
         .setTitle('Connect Four')
         .setColor(game.player=='red'?16711680:255)
-        .setAuthor(`${game.player1?'('+game.player1.tag+')':''}Red vs ${game.player2?'('+game.player2.tag+')':''}Blue`)
+        .setAuthor(`${game.player1?game.player1.tag:''}${RED} vs ${BLUE}${game.player2?game.player2.tag:''}`)
         .setDescription(game.toString())
         .addField(`Game ended!`,'\u200B');
       await send('', {embed: game.embed});
@@ -179,7 +182,7 @@ const C4Game = class C4Game extends EventEmitter {
     this.embed = new Discord.RichEmbed()
       .setTitle('Connect Four')
       .setColor(this.player=='red'?16711680:255)
-      .setAuthor(`${this.player1?'('+this.player1.tag+')':''}Red vs ${this.player2?'('+this.player2.tag+')':''}Blue`)
+      .setAuthor(`${this.player1?this.player1.tag:''}${RED} vs ${BLUE}${this.player2?this.player2.tag:''}`)
       .setDescription(this.toString())
       .addField(`${this.player&&this.player=='red'?'Blue':'Red'} to move.`,'\u200B');
   }
