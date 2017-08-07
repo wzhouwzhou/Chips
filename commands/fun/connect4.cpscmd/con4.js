@@ -203,22 +203,24 @@ const promptPlayer = (author, send, prefix, channel, targetMember) => {
   return new Promise( async (res,rej) => {
     const startFilter = (m) => {
       if(m.author.bot) return false;
-      if(m.author.id !== author.id) {
-        if((new RegExp(`${_.escapeRegExp(prefix)}con4(join|decline)`,'gi')).test(m.content.toLowerCase().replace(/\s+/g,'')))
-          if((!targetMember)||targetMember.id===m.author.id)
-            if(~m.content.toLowerCase().indexOf('join'))
-              return res(targetMember||m.member);
-            else if(~m.content.toLowerCase().indexOf('decline'))
-              return res('decline');
-        return false;
-      }
-      targetMember.id!==author.id&&m.reply('You can\'t join your own game!');
+      if((new RegExp(`${_.escapeRegExp(prefix)}con4(join|decline)`,'gi')).test(m.content.toLowerCase().replace(/\s+/g,'')))
+        if(m.author.id !== author.id) {
+            if((!targetMember)||targetMember.id===m.author.id)
+              if(~m.content.toLowerCase().indexOf('join'))
+                return res(targetMember||m.member);
+              else if(targetMember&&!!~m.content.toLowerCase().indexOf('decline'))
+                return res('decline');
+          return false;
+        }
+
       return false;
     };
 
     let startCol;
     try{
-      await send(`${targetMember||''} Please type __${_.escapeRegExp(prefix)}con4 join__ or __${_.escapeRegExp(prefix)}con4 decline__ to join the game`);
+      let str = `${targetMember||''} Please type __${_.escapeRegExp(prefix)}con4 join__ to join the game`;
+      if(targetMember) str+=` or __${_.escapeRegExp(prefix)}con4 decline__`;
+      await send(str);
       startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
     }catch(err){
       console.error(err);
