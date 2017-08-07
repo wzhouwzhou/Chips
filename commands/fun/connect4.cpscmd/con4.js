@@ -14,6 +14,7 @@ const ex = {
     if(prompting.has(author.id)) return;
 
     if(games.has(channel.id)) return send('There is already a game going on.');
+
     let row, col, othermember;
     if(args[0]){
       col = +args[0];
@@ -33,9 +34,14 @@ const ex = {
     if(col>20) return send(`${col-20} too many columns!`);
     if(row*col>190) return send(`Board is too large! ${col}x${row}`);
 
-    othermember = await promptInvitee(ctx);
-    othermember = await promptPlayer (author, send, prefix, channel, othermember);
-
+    games.set(channel.id, currentGame);
+    try{
+      othermember = await promptInvitee(ctx);
+      othermember = await promptPlayer (author, send, prefix, channel, othermember);
+    }catch(err){
+      games.delete(channel.id);
+      return console.error(err);
+    }
     if(othermember=='decline') return reply('Game was declined!');
     if(othermember&&othermember.id) prompting.delete(othermember.id);
 
