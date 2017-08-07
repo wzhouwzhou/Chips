@@ -21,7 +21,7 @@ const ex = {
       if(args[1]) row = args[1];
       else row = 6;
 
-      if(!validN(+row)||!validN(+col))
+      if(!validN(+row)||!validN(+col)&&args[0].toLowerCase()!=='join')
         return send('Invalid board size!');
     }else{
       col = 7;
@@ -46,7 +46,7 @@ const ex = {
       games.delete(channel.id);
       return reply('Game was declined!');
     }
-    if(othermember&&othermember.id) prompting.delete(othermember.id);
+    if(othermember&&othermember.id) setTimeout(()=>prompting.delete(othermember.id),1000);
 
     send(`Creating a ${col} x ${row} con4 game...`);
 
