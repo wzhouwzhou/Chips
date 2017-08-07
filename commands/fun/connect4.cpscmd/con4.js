@@ -34,7 +34,7 @@ const ex = {
     if(col>20) return send(`${col-20} too many columns!`);
     if(row*col>190) return send(`Board is too large! ${col}x${row}`);
 
-    games.set(channel.id, currentGame);
+    games.set(channel.id, channel);
     try{
       othermember = await promptInvitee(ctx);
       othermember = await promptPlayer (author, send, prefix, channel, othermember);
