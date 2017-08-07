@@ -225,8 +225,7 @@ const promptPlayer = (author, send, prefix, channel, targetMember) => {
       return rej('Timed out');
     }
 
-    !startCol.first()&& rej('Timed out');
-    res(targetMember);
+    !startCol.first() && rej(null);
   });
 };
 
@@ -261,8 +260,8 @@ const promptInvitee = ({send, channel, author}) => {
       return rej('Timed out');
     }
 
-    !startCol.first()&& rej('Timed out');
-    res(null);
+    !startCol.first()&& rej(null);
+    res(startCol.first());
   });
 };
 
