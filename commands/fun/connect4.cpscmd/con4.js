@@ -61,6 +61,8 @@ const ex = {
     );
     console.log('Adding on-collect...');
     mCol.on('collect', async m => {
+      if(m.author.id!=currentGame.nowPlaying.id) return;
+
       if(!m.content) return;
       console.log(m.content);
       if(/quit/i.test(m.content.toLowerCase())) {
@@ -119,6 +121,7 @@ const C4Game = class C4Game extends EventEmitter {
     this.tc = tc;
     this.player1 = player1;
     this.player2 = player2;
+    this.nowPlaying = player1;
     this.game = new CON4({
       rows: row,
       cols: col,
@@ -155,6 +158,7 @@ const C4Game = class C4Game extends EventEmitter {
     this.updatable = false;
     if(this.checkEnded()) return this.updatable=true;
     this.player= (!this.player||this.player==='blue')?'red':'blue';
+    this.nowPlaying = this.nowPlaying.id==this.player1.id?this.player2:this.player1;
     if(!this.game.validMove(col-1)) {
       this.updatable=true;
       throw new Error('Invalid move');
