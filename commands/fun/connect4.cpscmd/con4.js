@@ -42,7 +42,10 @@ const ex = {
       games.delete(channel.id);
       return console.error(err);
     }
-    if(othermember=='decline') return reply('Game was declined!');
+    if(othermember=='decline') {
+      games.delete(channel.id);
+      return reply('Game was declined!');
+    }
     if(othermember&&othermember.id) prompting.delete(othermember.id);
 
     send(`Creating a ${col} x ${row} con4 game...`);
