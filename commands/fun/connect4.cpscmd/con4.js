@@ -215,6 +215,7 @@ const promptPlayer = (send, prefix, channel, targetMember) => {
       send(`${targetMember||''} Please type __${_.escapeRegExp(prefix)}con4 join__ or __${_.escapeRegExp(prefix)}con4 decline__ to join the game`);
       startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
     }catch(err){
+      console.error(err);
       return rej('Timed out');
     }
 
@@ -225,10 +226,11 @@ const promptPlayer = (send, prefix, channel, targetMember) => {
 
 const promptInvitee = ({send, channel}) => {
   return new Promise ( async (res,rej) => {
+    let targetMember;
 
     const startFilter = (m) => {
       if(m.author.id === author.id) {
-        let targetMember=m.mentions.members.first();
+        targetMember=m.mentions.members.first();
         if(targetMember)
           return res(m.member);
         else if(~m.content.indexOf('none'))
@@ -243,6 +245,7 @@ const promptInvitee = ({send, channel}) => {
       send(`${targetMember||''} Please mention who you want to invite to this game, or __none__ to allow anyone to join`);
       startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
     }catch(err){
+      console.error(err);
       return rej('Timed out');
     }
 
