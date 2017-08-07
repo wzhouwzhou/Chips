@@ -9,7 +9,7 @@ const games = new Map();
 const ex = {
   name: "con4",
   async func(msg, ctx) {
-    let {Discord, member, send, channel, args } = ctx;
+    let {Discord, author, member, send, channel, args } = ctx;
 
     if(games.has(channel.id)) return send('There is already a game going on.');
     let row, col, othermember;
