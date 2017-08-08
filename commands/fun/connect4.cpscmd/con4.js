@@ -157,12 +157,12 @@ const C4Game = class C4Game extends EventEmitter {
     if(!this.updatable) return 'Woah too fast!';
     this.updatable = false;
     if(this.checkEnded()) return this.updatable=true;
-    this.player= (!this.player||this.player==='blue')?'red':'blue';
-    this.nowPlaying = this.nowPlaying.id==this.player1.id?this.player2:this.player1;
     if(!this.game.validMove(col-1)) {
       this.updatable=true;
       throw new Error('Invalid move');
     }
+    this.player= (!this.player||this.player==='blue')?'red':'blue';
+    this.nowPlaying = this.nowPlaying.id==this.player1.id?this.player2:this.player1;
     this.game.play(this.player, col-1);
     this.playCol(col, this.player);
     if(!this.checkEnded())
