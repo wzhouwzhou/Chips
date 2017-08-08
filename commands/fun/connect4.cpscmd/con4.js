@@ -33,6 +33,7 @@ const ex = {
 
     if(col>20) return send(`${col-20} too many columns!`);
     if(row*col>190) return send(`Board is too large! ${col}x${row}`);
+    if(row<4&&col<4) return send(`Board is too small! ${col}x${row}`);
 
     games.set(channel.id, channel);
     try{
