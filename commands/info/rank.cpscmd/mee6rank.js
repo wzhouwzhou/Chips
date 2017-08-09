@@ -152,12 +152,10 @@ const userData = (member, infobad) => {
 
     const membername = member.displayName.replace('@','(at)');
 
-    infobad.addField(`${member.user.tag}: `, `${member.presence.game&&member.presence.game.streaming?'Streaming':'Playing'} ${member.presence.game?member.presence.game.name:'nothing.'}`, true);
-    infobad.addField('User id:', `${member.id}`, true)
-           .addField(`Nickname: ${membername}`, `Colour: ${member.displayHexColor}`, true);
+    infobad.addField(`${member.user.tag} AKA ${membername}`,`${member.id}`);
 
     infobad.addField(`Ranked ${data.rank}/${data.lb_length}`,`Level ${data.lvl} with ${data.total_xp} total xp!`);
-    infobad.addField(`${data.xp}/${data.lvl}`,`${data.xp_percent}% there to the next level!`);
+    infobad.addField(`${data.xp}/${data.lvl_xp}`,`${data.xp_percent}% there to the next level!`);
     infobad.setColor(member.displayColor);
     const name = `${member.id}${process.hrtime().join('')}profileEdited.png`;
 
