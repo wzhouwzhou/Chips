@@ -166,11 +166,7 @@ const antiraidCaptcha = (mem) => {
         .then(collected => {
           if(!mem.died){
             console.log(collected.size);
-            if(guild.id=='257889450850254848'){
-              thisDmC.send('Success! Now, please return tho Sinbad Knights and fully answer the questions in #unverified');
-            }else {
-              thisDmC.send('Successfully verified with captcha!');
-            }
+            thisDmC.send('Successfully verified with captcha!');
             mem.died = false;
             res([mem, 'success']);
           }
@@ -254,11 +250,7 @@ const antiraidCaptcha2 = (mem) => {
         .then(collected => {
           if(!mem.died2){
             console.log(collected.size);
-            if(guild.id=='257889450850254848'){
-              thisDmC.send('Success! Now, please return tho Sinbad Knights and fully answer the questions in #unverified');
-            }else {
-              thisDmC.send('Successfully verified with captcha!');
-            }
+            thisDmC.send('Successfully verified with captcha!');
             mem.died2 = false;
             res([mem, 'success']);
           }
