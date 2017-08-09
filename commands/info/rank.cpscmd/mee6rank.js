@@ -156,8 +156,8 @@ const userData = (member, infobad) => {
     infobad.addField('User id:', `${member.id}`, true)
            .addField(`Nickname: ${membername}`, `Colour: ${member.displayHexColor}`, true);
 
-    infobad.addField(`Ranked ${data.rank}/${data.lb_length}`,`Level ${data.lvl} with ${total_xp} total xp!`);
-    infobad.addField(`${xp}/${lvl}`,`${xp_percent}% there to the next level!`);
+    infobad.addField(`Ranked ${data.rank}/${data.lb_length}`,`Level ${data.lvl} with ${data.total_xp} total xp!`);
+    infobad.addField(`${data.xp}/${data.lvl}`,`${data.xp_percent}% there to the next level!`);
     infobad.setColor(member.displayColor);
     const name = `${member.id}${process.hrtime().join('')}profileEdited.png`;
 
