@@ -4,7 +4,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 const needle = require('needle');
 const m6api = 'https://mee6.xyz/levels/';
 const m6apiSuffix = '?limit=-1&json=1';
-mee6Rank = (sid, uid) => {
+const mee6Rank = (sid, uid) => {
   return new Promise((res, rej) => {
     if(!sid) rej('No server id');
     if(!uid) rej('No user id');
