@@ -216,7 +216,7 @@ const antiraidCaptcha2 = (mem) => {
       for(const letterInd in captchaText.split(''))
         image.print(font, 10+Math.floor(5*Math.random())+30*letterInd, 112+Math.floor(25*Math.random()), captchaText[letterInd]);
       image.blur(2);
-
+      console.log('Creating image...');
       image.write(filepath,async ()=>{
         let sentmsg = await mem.user.send(`${mem}, Hello! You just joined the server \`\`${guild.name}\`\` which has an antiraid enabled.
           **To start the verification process, please respond by solving the simple math problem here (order of operations apply):** `,
@@ -226,6 +226,7 @@ const antiraidCaptcha2 = (mem) => {
         let thisDmC = sentmsg.channel;
 
         let memIsBlind = 0;
+        console.log('Creating filter...');
         const filter = (m) =>{
           if(m.author.id != mem.id) return false;
           const u = algebra.parse(m.content.toLowerCase()).toString();
@@ -246,10 +247,11 @@ const antiraidCaptcha2 = (mem) => {
             return false;
           }
         };
+        console.log('Awaiting messages..');
         thisDmC.awaitMessages(filter, { max: 1, time: 5*60*1000, errors: ['time'] })
         .then(collected => {
           if(!mem.died2){
-            console.log(collected.size);
+            console.log('Success'+collected.size);
             thisDmC.send('Successfully verified with captcha!');
             mem.died2 = false;
             res([mem, 'success']);
@@ -260,6 +262,7 @@ const antiraidCaptcha2 = (mem) => {
             mem.died2 = true;
             res([mem, 'timeout']);
           }else{
+            console.log(collected);
             thisDmC.send('Uh oh, something went wrong with your verification!');
           }
         });
