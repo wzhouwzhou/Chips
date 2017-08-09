@@ -95,17 +95,17 @@ module.exports = function() {
         });
 
     //======================================KEYWORD TRIGGER=========================================
-    try{
+    /*try{
       if(message.guild&&message.guild.id==Constants.servers.DWAGON){
         send2(message, DwagonLogs);
         snMsgs++;
       }
-    }catch(err){console.log(`Log errored! ${err}`);}
+    }catch(err){console.log(`Log errored! ${err}`);}*/
     //if(message.guild)
       //filter(message);
     //detectPartyLink(message);
   });
-  c2.on('message', m => {
+  /*c2.on('message', m => {
     try{
       if(m.guild.id==Constants.servers.SUCKX){
         if(slSwitcher)
@@ -132,7 +132,7 @@ module.exports = function() {
         nMsgs++;
       }
     }catch(err){console.log(`Log errored! ${err}`);}
-  });
+  });*/
 
   require('./ClientReaction')();
 };

@@ -89,9 +89,9 @@ module.exports = function( send ) {
   });
 
   client.on("debug", console.log);
-  hclient.on("debug", console.log);
-  h2client.on("debug", console.log);
-  h3client.on("debug", console.log);
+  //hclient.on("debug", console.log);
+  //h2client.on("debug", console.log);
+  //h3client.on("debug", console.log);
   let numCmds = 0;
   const load = (startPath) =>{
     let subset = [];
