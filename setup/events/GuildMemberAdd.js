@@ -205,7 +205,7 @@ const antiraidCaptcha2 = (mem) => {
       }
       answer = new algebra.parse(captchaText.replace(/x/g,'*')).toString();
       console.log('Answer: '+answer);
-    }while(isNaN(+answer)||~~+answer!==+answer);
+    }while(isNaN(+answer)||~~+answer!==+answer||(+answer)<0);
 
     captchaText+='=?';
 
