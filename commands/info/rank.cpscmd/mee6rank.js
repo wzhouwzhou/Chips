@@ -9,7 +9,8 @@ const m6r = require('../../../rewrite-all/src/deps/functions/mee6rankF').mee6Ran
 
 const ex = {
   name: "mee6rank",
-  async func(msg, {send, member, author, guild, args, gMember, reply, content, prefix, Discord }) {
+  async func(msg, {send, author, guild, args, gMember, reply, content, prefix, Discord }) {
+    let member = msg.member;
     const waitingE = new Discord.RichEmbed().attachFile('loading.gif').setImage('attachment://loading.gif').setColor(msg.member.displayColor).setTitle('Loading data...please wait');
     const waiting = await send(' ', {embed: waitingE});
 
@@ -19,10 +20,10 @@ const ex = {
     let infobad = new Discord.RichEmbed().setColor(member.displayColor).setFooter(new Date());
 
     let multiple = false;
-    if (args[1]){
+    if (args[0]){
       try{ //get mention:
         console.log("Trying to find user by mention..");
-        let target = args[1].match(Constants.patterns.MENTION)[1];
+        let target = args[0].match(Constants.patterns.MENTION)[1];
         member = gMember(target);
         if(member.id!=author.id){
           try{
