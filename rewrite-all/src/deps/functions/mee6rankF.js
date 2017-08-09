@@ -22,7 +22,7 @@ const mee6Rank = (sid, uid) => {
       }
       const filter = (user) => user.id == uid;
       const userI = members.findIndex(filter);
-      if(!userI||userI<0) return res(null);
+      if(userI==null||userI<0) return res(null);
       const userO = members[userI];
       const data = Object.assign({}, userO,
         {
