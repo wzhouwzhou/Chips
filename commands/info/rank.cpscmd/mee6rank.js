@@ -12,8 +12,8 @@ const ex = {
   async func(msg, {send, member, author, guild, args, gMember, reply, content, prefix, Discord }) {
     const waitingE = new Discord.RichEmbed().attachFile('loading.gif').setImage('attachment://loading.gif').setColor(msg.member.displayColor).setTitle('Loading data...please wait');
     const waiting = await send(' ', {embed: waitingE});
-    console.log("[Info] Action: "+action);
-    console.log("[Info] Creating new searcher for guild " + guild.id);
+
+    console.log("[Mee6Rank] Creating new searcher for guild " + guild.id);
     let options = { guild: guild };
     searchers[guild.id] = new Searcher( options.guild );
     let infobad = new Discord.RichEmbed().setColor(member.displayColor).setFooter(new Date());
@@ -27,20 +27,20 @@ const ex = {
         if(member.id!=author.id){
           try{
             let info = await permissions.checkMulti(msg, ['global.info.info.user.other']);
-            console.log("[Info] "+ info);
+            console.log("[Mee6Rank] "+ info);
           }catch(err){
             if(!member.hasPermission(ex.customperm[0])){
-              console.log("Rejected info user other to " + used.id);
+              console.log("Rejected mee6rank other to " + used.id);
               return reply(err);
             }
           }
         }else{
           try{
             let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
-            console.log("[Info] "+ info);
+            console.log("[Mee6Rank] "+ info);
           }catch(err){
             if(!member.hasPermission(ex.customperm[0])){
-              console.log("Rejected info self other to " + used.id);
+              console.log("Rejected mee6rank self to " + used.id);
               return reply(err);
             }
           }
@@ -48,7 +48,7 @@ const ex = {
         if(member==null) throw "NotMemberMention";
       }catch(err){  //gMember failed:
         console.log("Finding by mention failed...");
-        member = content.substring(`${prefix}info ${action} `.length);
+        member = content.substring(`${prefix}mee6rank `.length);
         let list = searchers[guild.id].searchMember(member);
         if(list.length>1) multiple = true;
         else if(list.length<1) return await send(`User [${member}] not found!`);
@@ -56,20 +56,20 @@ const ex = {
         if(member.id!=author.id){
           try{
             let info = await permissions.checkMulti(msg, ['global.info.info.user.other']);
-            console.log("[Info] "+ info);
+            console.log("[Mee6Rank] "+ info);
           }catch(err){
             if(!member.hasPermission(ex.customperm[0])){
-              console.log("Rejected info user other to " + used.id);
+              console.log("Rejected mee6rank other to " + used.id);
               return reply(err);
             }
           }
         }else{
           try{
             let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
-            console.log("[Info] "+ info);
+            console.log("[Mee6Rank] "+ info);
           }catch(err){
             if(!member.hasPermission(ex.customperm[0])){
-              console.log("Rejected info self other to " + used.id);
+              console.log("Rejected mee6rank self to " + used.id);
               return reply(err);
             }
           }
@@ -81,10 +81,10 @@ const ex = {
     }else{
       try{
         let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
-        console.log("[Command] "+ info);
+        console.log("[Mee6Rank] "+ info);
       }catch(err){
         if(!member.hasPermission(ex.customperm[0])){
-          console.log("Rejected info user (self) to " + used.id);
+          console.log("Rejected mee6rank self to " + used.id);
           return reply(err);
         }
       }
