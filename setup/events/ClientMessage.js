@@ -136,10 +136,10 @@ module.exports = function() {
 
   require('./ClientReaction')();
 };
-
+/*
 async function dmHandle (message) {
   if(database.sheets[`botlog`]==null) return message.channel.send("Bot is still starting up...");
-  DMLogger(message);
+  //DMLogger(message);
   if(message.content==(prefix+"help")){
     message.channel.sendMessage(`Do -helppt`);
     return;
@@ -150,7 +150,7 @@ async function dmHandle (message) {
     console.log("helppt");
   }
 }
-
+*/
 async function reactOptions(message) {
   let stepNum = submStep[`${message.author.id}`];
   let text = steps[stepNum][0];
