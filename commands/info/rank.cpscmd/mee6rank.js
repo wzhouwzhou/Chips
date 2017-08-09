@@ -155,7 +155,7 @@ const userData = (member, infobad) => {
     infobad.addField(`${member.user.tag} AKA ${membername}`,`${member.id}`);
 
     infobad.addField(`Ranked ${data.rank}/${data.lb_length}`,`Level ${data.lvl} with ${data.total_xp} total xp!`);
-    infobad.addField(`${data.xp}/${data.lvl_xp}`,`${data.xp_percent}% there to the next level!`);
+    infobad.addField(`Level xp: ${data.xp}/${data.lvl_xp}`,`${data.xp_percent}% (${data.lvl_xp-data.xp} xp) there to level ${data.lvl+1}!`);
     infobad.setColor(member.displayColor);
     const name = `${member.id}${process.hrtime().join('')}profileEdited.png`;
 
