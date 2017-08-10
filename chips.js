@@ -204,4 +204,4 @@ require('./setup/events/Ready')(send);
 require('./setup/events/ClientMessage')();
 global.permissions = require('./handlers/Permissions.js');
 setInterval(selfping, 1000*60*10);
-setInterval(msgStatus, 1000*60*30);
+//setInterval(msgStatus, 1000*60*30);

@@ -12,7 +12,7 @@ module.exports = function() {
 
       if(client.memberjoin.captcha[memberguild.id]){
         try{
-          let choose = _.random(0,1);
+          let choose = true;//_.random(0,1);
           let results;
           if(!choose) results = await antiraidCaptcha(member);
           else results = await antiraidCaptcha2(member);
@@ -227,10 +227,16 @@ const antiraidCaptcha2 = (mem) => {
 
         let memIsBlind = 0;
         console.log('Creating filter...');
-        const filter = (m) =>{
+        const filter2 = (m) =>{
+          console.log('m received');
           if(m.author.id != mem.id) return false;
-          const u = algebra.parse(m.content.toLowerCase()).toString();
-
+          let u;
+          try{
+            u = algebra.parse(m.content.toLowerCase()).toString();
+          }catch(err){
+            console.error(err);
+          }
+          console.log('Checking answer');
           if(~~+answer===+u) {
             console.log(m.content);
             return true;
@@ -247,23 +253,21 @@ const antiraidCaptcha2 = (mem) => {
             return false;
           }
         };
-        console.log('Awaiting messages..');
-        thisDmC.awaitMessages(filter, { max: 1, time: 5*60*1000, errors: ['time'] })
-        .then(collected => {
-          if(!mem.died2){
-            console.log('Success'+collected.size);
-            thisDmC.send('Successfully verified with captcha!');
-            mem.died2 = false;
-            res([mem, 'success']);
-          }
-        }).catch(collected => {
+        console.log('Awaiting messages..' + thisDmC.type);
+        let mCol = thisDmC.createMessageCollector(filter2,{ max: 1, time: 5*60*1000, errors: ['time'] });
+        mCol.on('end', collected => {
           if(collected.size==0&&mem.died==false) {
             console.log(`After 5 minutes, the user did not respond.`);
             mem.died2 = true;
-            res([mem, 'timeout']);
+            return res([mem, 'timeout']);
+          }else if(!mem.died2){
+            console.log('Success'+collected.size);
+            thisDmC.send('Successfully verified with captcha!');
+            mem.died2 = false;
+            return res([mem, 'success']);
           }else{
             console.log(collected);
-            thisDmC.send('Uh oh, something went wrong with your verification!');
+            return thisDmC.send('Uh oh, something went wrong with your verification!');
           }
         });
       });

@@ -76,9 +76,11 @@ const ex = {
           }
         }
       }
-      const embed = await userData (member, infobad);
+      name = `${member.id}${process.hrtime().join('')}statProfileEdited.png`;
+      const embed = await userData (member, infobad, name);
       waiting.delete();
-      return send(`${multiple?'(multiple users were found, using the first one)':''}`, {embed});
+      await send(`${multiple?'(multiple users were found, using the first one)':''}`, {embed});
+      fs.unlinkSync(name);
     }else{
       try{
         let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
@@ -89,15 +91,17 @@ const ex = {
           return reply(err);
         }
       }
-      const embed = await userData (member, infobad);
+      name = `${member.id}${process.hrtime().join('')}statProfileEdited.png`;
+      const embed = await userData (member, infobad, name);
       waiting.delete();
-      return send('', {embed});
+      await send('', {embed});
+      fs.unlinkSync(name);
     }
 
   }
 };
 
-const userData = (member, infobad) => {
+const userData = (member, infobad, name) => {
   return new Promise( async res => {
     let pfp = await Jimp.read(member.user.displayAvatarURL);
     let pfp2 = (await Jimp.read(member.user.displayAvatarURL)).clone();
@@ -158,7 +162,6 @@ const userData = (member, infobad) => {
     infobad.addField(`Ranked ${data.rank}/${data.lb_length}`,`Level ${data.lvl} with ${data.total_xp} total xp!`);
     infobad.addField(`Level xp: ${data.xp}/${data.lvl_xp}`,`${data.xp_percent}% (${data.lvl_xp-data.xp} xp) there to level ${data.lvl+1}!`);
     infobad.setColor(member.displayColor);
-    const name = `${member.id}${process.hrtime().join('')}profileEdited.png`;
 
     pfp.write(name,async ()=>{
       infobad.attachFile(name).setThumbnail('attachment://'+name);
