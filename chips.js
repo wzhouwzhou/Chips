@@ -49,7 +49,7 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
   },
   captcha: {
     '302983444009451541': true,
-    '257889450850254848': true,
+    '257889450850254848': false,
     '250801092143611905': false,
     '329024870887456768': true,
   },

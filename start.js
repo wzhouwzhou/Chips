@@ -107,6 +107,7 @@ apiRedirect.listen(apiPort, () => {
 });
 
 stdRedirect.use('/', stdOpen);
-stdRedirect.listen(stdPort, () => {
+/*stdRedirect.listen(stdPort, () => {
   console.log('std proxy listening on port' + stdPort);
 });
+*/
