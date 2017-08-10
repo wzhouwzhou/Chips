@@ -99,12 +99,17 @@ module.exports = function() {
     req.logout();
     res.redirect('/sinbad');
   });
-  
+
   const httpProxy = require('http-proxy');
   const stdProxy = httpProxy.createProxyServer();
 
   app.get('/api', function(req,res){
     console.log('Redirecting api from 8080 to 8880');
+    stdProxy.web(req, res, {target: 'http://localhost:8880'});
+  });
+
+  app.get('/api/*', function(req,res){
+    console.log('Redirecting api/* from 8080 to 8880');
     stdProxy.web(req, res, {target: 'http://localhost:8880'});
   });
   // routes
