@@ -71,19 +71,42 @@ app.use("/", router);
 app.listen(port, () => {
   console.log("2469 api listening on port " + port);
 });
+
 const httpProxy = require('http-proxy');
 const apiProxy = httpProxy.createProxyServer();
+const stdProxy = httpProxy.createProxyServer();
 
-const redirect = express();
-const httpOpen = express.Router();
-const port2 = 8880;
-httpOpen.get('*',function(req,res){
+const apiRedirect = express();
+const apiOpen = express.Router();
+
+const stdRedirect = express();
+const stdOpen = express.Router();
+
+const apiPort = 8880;
+const stdPort = 80;
+
+apiOpen.get('*',function(req,res){
   apiProxy.web(req, res, {target: 'http://localhost:2469'});
   console.log('Redirected from 8880 to 2469');
   //res.redirect('http://chipsbot.tk:2469'+req.url);
 });
 
-redirect.use('/', httpOpen);
-redirect.listen(port2, () => {
-  console.log('redirect proxy listening on port' + port2);
+stdOpen.get('/api', function(req,res){
+  console.log('Redirecting api from 80 to 8880');
+  stdProxy.web(req, res, {target: 'http://localhost:8880'});
+});
+
+stdOpen.get('/', function(req,res){
+  console.log('Redirecting / from 80 to 8080');
+  stdProxy.web(req,res, {target: 'http://localhost:8080'});
+});
+
+apiRedirect.use('/', apiOpen);
+apiRedirect.listen(apiPort, () => {
+  console.log('api proxy listening on port' + apiPort);
+});
+
+stdRedirect.use('/', stdOpen);
+stdRedirect.listen(stdPort, () => {
+  console.log('std proxy listening on port' + stdPort);
 });
