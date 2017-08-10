@@ -64,6 +64,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^2.1.2",
     "har-schema": "^2.0.0",
+    "http-proxy": "^1.16.2",
     "jimp": "^0.2.28",
     "jquery": "^3.2.1",
     "json-stable-stringify": "^1.0.1",

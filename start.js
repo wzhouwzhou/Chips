@@ -71,13 +71,18 @@ app.use("/", router);
 app.listen(port, () => {
   console.log("2469 api listening on port " + port);
 });
+const httpProxy = require('http-proxy');
+const apiProxy = httpProxy.createProxyServer();
 
 const redirect = express();
 const httpOpen = express.Router();
 const port2 = 8880;
 httpOpen.get('*',function(req,res){
-  res.redirect('http://localhost:2469'+req.url);
+  apiProxy.web(req, res, {target: 'http://localhost:2469'});
+  console.log('Redirected from 8880 to 2469');
+  //res.redirect('http://chipsbot.tk:2469'+req.url);
 });
+
 redirect.use('/', httpOpen);
 redirect.listen(port2, () => {
   console.log('redirect proxy listening on port' + port2);
