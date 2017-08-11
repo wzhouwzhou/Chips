@@ -158,12 +158,14 @@ const userData = (member, infobad, name) => {
     const membername = member.displayName.replace('@','(at)');
 
     infobad.addField(`${member.user.tag} AKA ${membername}`,`${member.id}`);
-
-    infobad.addField(`Ranked ${data.rank}/${data.lb_length}`,`Level ${data.lvl} with ${data.total_xp} total xp!`);
-    infobad.addField(`Level xp: ${data.xp}/${data.lvl_xp}`,`${data.xp_percent}% (${data.lvl_xp-data.xp} xp) there to level ${data.lvl+1}!`);
+    if(!data||data.xp==null){
+      infobad.setDescription('User is not ranked!');
+    }else{
+      infobad.addField(`Ranked ${data.rank}/${data.lb_length}`,`Level ${data.lvl} with ${data.total_xp} total xp!`);
+      infobad.addField(`Level xp: ${data.xp}/${data.lvl_xp}`,`${data.xp_percent}% (${data.lvl_xp-data.xp} xp) there to level ${data.lvl+1}!`);
+    }
     infobad.setColor(member.displayColor);
-
-    pfp.write(name,async ()=>{
+    pfp.write(name, ()=>{
       infobad.attachFile(name).setThumbnail('attachment://'+name);
       return res(infobad);
     });
