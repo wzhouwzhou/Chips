@@ -76,11 +76,11 @@ const ex = {
           }
         }
       }
-      name = `${member.id}${process.hrtime().join('')}statProfileEdited.png`;
+      const name = `${member.id}${process.hrtime().join('')}statProfileEdited.png`;
       const embed = await userData (member, infobad, name);
       waiting.delete();
       await send(`${multiple?'(multiple users were found, using the first one)':''}`, {embed});
-      fs.unlinkSync(name);
+      return fs.unlinkSync(name);
     }else{
       try{
         let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
@@ -91,11 +91,11 @@ const ex = {
           return reply(err);
         }
       }
-      name = `${member.id}${process.hrtime().join('')}statProfileEdited.png`;
+      const name = `${member.id}${process.hrtime().join('')}statProfileEdited.png`;
       const embed = await userData (member, infobad, name);
       waiting.delete();
       await send('', {embed});
-      fs.unlinkSync(name);
+      return fs.unlinkSync(name);
     }
 
   }
@@ -105,8 +105,8 @@ const userData = (member, infobad, name) => {
   return new Promise( async res => {
     let pfp = await Jimp.read(member.user.displayAvatarURL);
     let pfp2 = (await Jimp.read(member.user.displayAvatarURL)).clone();
-    pfp =  pfp.resize(512, 512, Jimp.RESIZE_BEZIER);
-    pfp2 =  pfp2.resize(512, 512, Jimp.RESIZE_BEZIER);
+    pfp =  pfp.resize(1024, 1024, Jimp.RESIZE_BEZIER);
+    pfp2 =  pfp2.resize(1024, 1024, Jimp.RESIZE_BEZIER);
     const status = (()=>{
       switch(member.presence.status){
         case 'online': return ONLINE;
@@ -116,22 +116,22 @@ const userData = (member, infobad, name) => {
       }
     })();
     let stat = await Jimp.read(status);
-    stat = stat.resize(320, 320, Jimp.RESIZE_BEZIER);
+    stat = stat.resize(640, 640, Jimp.RESIZE_BEZIER);
 
 
-    for(let x=0; x<512; x++)
-      for(let y =0; y<512; y++){
-      if((x-256)**2+(y-256)**2 > 255**2){
+    for(let x=0; x<1024; x++)
+      for(let y =0; y<1024; y++){
+      if((x-512)**2+(y-512)**2 > 511**2){
         pfp.setPixelColor(0x00, x, y);
         pfp2.setPixelColor(0x00, x, y);
       }
     }
-    pfp = pfp.blit(stat,275,275);
+    pfp = pfp.blit(stat,550,550);
 
-    const thex = 432, they = 432, r1=90, r2=63, r3=49;
+    const thex = 864, they = 864, r1=180, r2=126, r3=98;
 
-    for(let x=0; x<512; x++)
-      for(let y =0; y<512; y++){
+    for(let x=0; x<1024; x++)
+      for(let y =0; y<1024; y++){
       if(((x-thex)**2+(y-they)**2 >= r3**2)&&((x-thex)**2+(y-they)**2 <= r2**2)){
         let {r,g,b,a} = Jimp.intToRGBA(pfp.getPixelColor(x, y));
         a = a>172?160:a;
@@ -139,19 +139,19 @@ const userData = (member, infobad, name) => {
       }
     }
 
-    for(let x=0; x<512; x++)
-      for(let y =0; y<512; y++){
+    for(let x=0; x<1024; x++)
+      for(let y =0; y<1024; y++){
       if(((x-thex)**2+(y-they)**2 >= r2**2)&&((x-thex)**2+(y-they)**2 <= r1**2))
         pfp.setPixelColor(0x000000, x, y);
     }
 
-    for(let x=0; x<512; x++)
-      for(let y =0; y<512; y++){
+    for(let x=0; x<1024; x++)
+      for(let y =0; y<1024; y++){
       if((x-thex)**2+(y-they)**2 >= r1**2)
         pfp.setPixelColor(pfp2.getPixelColor(x, y), x, y);
     }
 
-    pfp = pfp.resize(128, 128, Jimp.RESIZE_BEZIER);
+    pfp = pfp.resize(512, 512, Jimp.RESIZE_BEZIER);
 
     const data = await m6r(member.guild.id, member.id);
 
