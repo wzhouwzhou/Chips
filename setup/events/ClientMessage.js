@@ -18,8 +18,16 @@ client.antilink = {
   '257889450850254848': true,
 };
 
+client.antiDiepLink = {
+  '257889450850254848': true
+};
+
 client.antilinkExemptedC = [
   '0',
+];
+
+client.antiDiepLinkExemptedC = [
+  '286249976340676608','260853975216029697'
 ];
 
 global.muteTrigger=false;
@@ -61,6 +69,7 @@ module.exports = function() {
 
     if (message.author.bot) return;
     if(await handleAntiLink(message)) return;
+    if(await handleAntiDiepLink(message)) return;
     //wowbleach trigger
     if(message.content.toLowerCase().indexOf("wowbleach")>-1) message.channel.send(" \ _ \ _ \ <:Bleach:274628490844962826>\n\ <:WOW:290865903384657920>");
 
@@ -229,5 +238,21 @@ const handleAntiLink = (message) => {
       }
     });
     return res(false);
+  });
+};
+
+const handleAntiDiepLink = (message) => {
+  return new Promise( res=>{
+    if(!message.guild) return res(false);
+    if(message.member.hasPermission('ADMINISTRATOR')) return res(false);
+    if(~client.antiDiepLinkExemptedC.indexOf(message.channel.id)) return res(false);
+    const gid = message.guild.id;
+    if(!client.antiDiepLink[gid]) return res(false);
+
+    if(message.content.replace(/\s+/g,'').match(/(?:http(?:s)?\:\/\/)?diep\.io\/#((?:(?:[0-9a-f]){2,2}){10,})(?:\/)?/i)){
+      message.reply('You are not allowed to post your diep links here!').then(m=>m.delete(5000));
+      res(message.delete());
+    }
+    res(false);
   });
 };
