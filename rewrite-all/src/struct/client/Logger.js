@@ -48,21 +48,21 @@ class Logger {
   error ( logstuff ) {
     return this.log( Object.assign({},
       { type: 'error' },
-      logstuff
+      { msg: logstuff }
     ) );
   }
 
   info ( logstuff ) {
     return this.log( Object.assign({},
       { type: 'info' },
-      logstuff
+      { msg: logstuff}
     ) );
   }
 
   debug ( logstuff ) {
     return this.log( Object.assign({},
       { type: 'debug' },
-      logstuff
+      { msg: logstuff }
     ) );
   }
 }

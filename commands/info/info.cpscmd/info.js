@@ -80,7 +80,6 @@ const ex = {
         [`Text channel count:`, textC, true],
         [`Voice channel count:`, voiceC, true],
         [`Server region (voice): `, guild.region, true],
-        ['Default channel:',`<#${guild.defaultChannel.id}>`, true],
         [`AFK voice channel: ${guild.afkChannelID?'#'+guild.channels.get(guild.afkChannelID).name:''}`,`${guild.afkChannelID?'AFK Timeout: '+ guild.afkTimeout/60 +' minute(s)':'None'}` ],
         [`Date created: ${guild.createdAt.toUTCString()}`, `That's about ${diff} days ago!`],
         ['Member count:', `${guild.memberCount>1?guild.memberCount+'members':'1 member'}`, true],

@@ -13,11 +13,12 @@ module.exports = {
     const m = await sentmsg.edit(`Pong!`);
     const editMetrics = m.editedAt - m.createdAt;
 
-    const edit1 = m.editedAt;
-    await sentmsg.react('🇭');
+    //const edit1 = m.editedAt;
+    //await sentmsg.react('🇭');
+    const now2 = Date.now();
     await sentmsg.react('🇮');
     now = Date.now();
-    const reactMetrics = (now - edit1)/2;
+    const reactMetrics = (now - now2)/2;
     let creactMetrics;
     try{
       await sentmsg.clearReactions();

@@ -130,9 +130,7 @@ Type __<@296855425255473154> music help__ to view music cmds!`)
     }).catch(err=>{
       channel.send('Something went wrong with the search...');
 
-      Logger.error({
-        msg: err,
-      });
+      Logger.error(err);
     });
     return this;
   }

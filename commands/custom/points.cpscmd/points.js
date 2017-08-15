@@ -2,15 +2,100 @@ const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).def
 
 module.exports = {
   name: "points",
-  async func(msg, {send, member, author, content, guild, args, gMember, reply, prefix}) {
+  async func(msg, {send, member, author, content, guild, args, gMember, reply, prefix, Discord}) {
     if(!guild||(guild.id!="257889450850254848"&&guild.id!="302983444009451541")) return;
     const used = member || author;
     let dbUser = database.sinxUsers.get(used.id);
+
+    let embed = new Discord.RichEmbed;
     if(args[0]==null){
-      if(dbUser!=null)
-        return reply(`You have: ${dbUser.pts} points`);
-      else
-        return reply(`You have no points`);
+      if(dbUser!=null&&dbUser.pts!=0){
+        const theMember = guild.members.get(dbUser.uid);
+        embed.setTitle(theMember?theMember.user.tag:dbUser.unm);
+        embed.setColor(theMember?theMember.displayColor:member.displayColor);
+        embed.addField(`Ranked #${dbUser.rnk}`,`${dbUser.rnk_2}`);
+
+        let nextUser2, nextUser, temp = [], ind = -1;
+
+        Array.from(database.sinxUsers).forEach(e=>temp.push([e[1],+e[1].rnk]));
+        temp.sort( (a,b) => a[1]-b[1]);
+        console.log('tempsize'+temp.length);
+        nextUser = temp[0][0];
+        ind = temp.findIndex(a=> a[1]==+dbUser.rnk);
+        console.log('ind'+ind);
+        while(!0){
+          if(ind<0){
+            ind=0;
+            break;
+          }
+          if(temp[ind][1]<+dbUser.rnk)break;
+          --ind;
+          console.log('newind' + ind);
+        }
+        nextUser2 = temp[ind][0];
+        diffP = temp[ind][0].pts-+dbUser.pts;
+
+        let str2 = `${
+        +dbUser.rnk==1
+          ?
+            'You have the most points'
+          :
+            (((+nextUser.pts)-(+dbUser.pts))+' ')
+            +(((+nextUser.pts)-(+dbUser.pts))=='1'?'point':'points')
+            +' to go to catch up to ' + nextUser.unm +'(#1)'
+            +'\n'+
+            diffP+' '+(diffP==1?'point':'points')+
+            ' to go to catch up to '+
+            nextUser2.unm+'(#'+nextUser2.rnk+')'}`;
+
+        embed.addField(`${dbUser.pts} ${dbUser.pts==1?'point':'points'}`,str2);
+        return reply('', {embed});
+      }else{
+        const arr =Array.from(database.sinxUsers);
+        let lowest;
+        arr.forEach(e=>{
+          if(e&&e[1]&&e[1].rnk){
+            if(lowest==null) lowest = e[1];
+            else if(lowest.rnk&&(+e[1].rnk)>=(+lowest.rnk)) lowest = e[1];
+          }
+        });
+        embed.setTitle(member.user.tag);
+        embed.setColor(member.displayColor);
+        embed.addField(`Ranked #${+lowest.rnk+1}`,`${lowest.rnk_2}`);
+
+        let nextUser;
+        Array.from(database.sinxUsers).forEach(e=>{
+          if(!nextUser) nextUser = e[1];
+          else if(e[1].pts>0&&e[1].rnk>=nextUser.rnk-1)nextUser = e[1];
+        });
+        let nextUser2, diffN, diffP;
+        //Array.from(database.sinxUsers).find(e=>e[1].rnk==dbUser.rnk-1);
+        Array.from(database.sinxUsers).forEach(e=>{
+          if(!nextUser2){
+            nextUser2 = e[1];
+            diffN = nextUser2.rnk-dbUser.rnk;
+            diffP = nextUser2.pts-dbUser.pts;
+          }else{
+            if(e[1].rnk-dbUser.rnk>=diffN||e[1].rnk-dbUser.rnk>=diffN<=0) return;
+            diffN = e[1].rnk-dbUser.rnk;
+            diffP = e[1].pts-dbUser.pts;
+            nextUser2 = e[1];
+          }
+        });
+
+        let stats1 =`${arr.every(e=>{
+          if(e&&e[1]&&e[1].pts)
+            return e.pts == '0';
+          else return true;
+        })
+        ?'You have the most points somehow'
+        :(lowest.pts+' ') +(lowest.pts>1?'points':'point')+' to go to catch up to ' + nextUser.unm}
+${diffP} points to go to catch up to ${nextUser2.unm} (#${nextUser2.rnk})`;
+
+        embed.addField(`0 points`,
+        stats1);
+        return reply('Your points stats', {embed});
+      }
     }else
     if(args[0]=="add"){
       if(!used.hasPermission("KICK_MEMBERS")){
@@ -102,7 +187,7 @@ module.exports = {
       }//  time: moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')
     }else{
       let target = content.substring((`${prefix}points `).length);
-      await send(`[Debug]Target: ${target}`);
+      //await send(`[Debug]Target: ${target}`);
       searchers[guild.id] = new Searcher( guild );
       let mem;
       try{
@@ -118,12 +203,74 @@ module.exports = {
       // await send(`[Debug] memid: ${mem?mem.id:'none'}`);
       // console.log("Target: "+target);
       if(mem==null) return reply(`User [${target}] was not found in this server`);
-      let us = database.sinxUsers.get(mem.id);
+      let dbUser = database.sinxUsers.get(mem.id);
 
-      if(us&&us.pts!=0)
-        return reply(`[${target}] has: ${us.pts} points`);
-      else
-        return reply(`[${target}] has no points`);
+      if(dbUser&&dbUser.pts!=0){
+        const theMember = guild.members.get(dbUser.uid);
+        embed.setTitle(theMember?theMember.user.tag:dbUser.unm);
+        embed.setColor(theMember?theMember.displayColor:member.displayColor);
+        embed.addField(`Ranked #${dbUser.rnk}`,`${dbUser.rnk_2}`);
+
+        let nextUser, nextUser2, temp = [], ind = -1;
+
+        Array.from(database.sinxUsers).forEach(e=>temp.push([e[1],+e[1].rnk]));
+        temp.sort( (a,b) => a[1]-b[1]);
+        console.log('tempsize'+temp.length);
+        nextUser = temp[0][0];
+        ind = temp.findIndex(a=> a[1]==+dbUser.rnk);
+        console.log('ind'+ind);
+        while(!0){
+          if(ind<0){
+            ind=0;
+            break;
+          }
+          if(temp[ind][1]<+dbUser.rnk)break;
+          --ind;
+          console.log('newind' + ind);
+        }
+        nextUser2 = temp[ind][0];
+        diffP = temp[ind][0].pts-+dbUser.pts;
+
+        let str2 = `${
+        +dbUser.rnk==1
+          ?
+            (used.id==dbUser.uid?'You have':'has') +' the most points'
+          :
+            (((+nextUser.pts)-(+dbUser.pts))+' ')
+            +(((+nextUser.pts)-(+dbUser.pts))=='1'?'point':'points')
+            +' to go to catch up to ' + nextUser.unm +'(#1)'
+            +'\n'+
+            diffP+' '+(diffP==1?'point':'points')+
+            ' to go to catch up to '+
+            nextUser2.unm+'(#'+nextUser2.rnk+')'}`;
+
+        embed.addField(`${dbUser.pts} ${dbUser.pts==1?'point':'points'}`,str2);
+        return reply(`Stats for ${target}`, {embed});
+      }else{
+        const arr =Array.from(database.sinxUsers);
+        let lowest;
+        arr.forEach(e=>{
+          if(e&&e[1]&&e[1].rnk){
+            if(lowest==null) lowest = e[1];
+            else if(lowest.rnk&&(+e[1].rnk)>=(+lowest.rnk)) lowest = e[1];
+          }
+        });
+        embed.setTitle(mem.user.tag);
+        embed.setColor(mem.displayColor);
+        embed.addField(`Ranked #${+lowest.rnk+1}`,`${lowest.rnk_2}`);
+        let nextUser;// = Array.from(database.sinxUsers).find(e=>e[1].rnk==lowest.rnk-1);
+
+        Array.from(database.sinxUsers).forEach(e=>{
+          if(!nextUser) nextUser = e[1];
+          else if(e[1].pts>0&&e[1].rnk>=nextUser.rnk-1)nextUser = e[1];
+        });
+        embed.addField(`0 points`,`${arr.every(e=>{
+          if(e&&e[1]&&e[1].pts)
+            return e.pts == '0';
+          else return true;
+        })?'You have the most points somehow':lowest.pts+' '+(lowest.pts=='1'?'point':'points') +' to go to catch up to ' + nextUser.unm}`);
+        return reply(`Stats for ${target}`, {embed});
+      }
     }
   }
 };

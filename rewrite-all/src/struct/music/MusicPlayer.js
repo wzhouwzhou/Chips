@@ -3,7 +3,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 const Logger = require('../client/Logger').create('Music','Player');
 const _ = require('lodash');
-const snekfetch = require('snekfetch');
+//const snekfetch = require('snekfetch');
 
 const MusicPlayer = class MusicPlayer {
   constructor (vc, tc, Discord=require('discord.js')) {
@@ -33,13 +33,9 @@ const MusicPlayer = class MusicPlayer {
 
   playNextQueue (){
     if(this.shuttingDown)
-      return Logger.error({
-        msg: 'Player is shutting down!',
-      });
+      return Logger.error('Player is shutting down!');
     if (!this.textchannel)
-      return Logger.error({
-        msg: 'Text Channel is undefined!',
-      });
+      return Logger.error('Text Channel is undefined!');
 
     if (!this.voicechannel) return this.textchannel.send('I am not bound to a voice channel!');
     if (!this.queue||(this.queue.length == 0&&!this.looping)) return this.textchannel.send('There is nothing left in the song queue!');
@@ -50,7 +46,7 @@ const MusicPlayer = class MusicPlayer {
       embed.setDescription(`${song.title}\nby: ${song.authorname}`).setFooter('Length: '+song.length);
       embed.setImage(song.image);
       this.textchannel.send('', { embed });
-      Logger.debug({ msg: `Now playing \`${song.title}\`.` });
+      Logger.debug(`Now playing \`${song.title}\`.`);
       this.lastPlayed = song;
 
       const stream = song.stream;
@@ -59,9 +55,8 @@ const MusicPlayer = class MusicPlayer {
       this.dispatcher.setVolume(0.5);
 
       this.playing = true;
-      this.dispatcher.on('debug', msg => {
-        return Logger.debug({ msg });
-      });
+      this.dispatcher.on('debug', Logger.debug);
+
       this.dispatcher.on('end', () => {
         setTimeout(()=>{
           this.playing = false;
@@ -97,7 +92,7 @@ const MusicPlayer = class MusicPlayer {
 
       if(this.textchannel) this.textchannel.send('', { embed });
       if(!this.playing) return this.playNextQueue();
-    }).catch(err=>Logger.error({msg: err}));
+    }).catch(Logger.error);
   }
 
   sample (self) {
