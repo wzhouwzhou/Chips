@@ -52,7 +52,7 @@ module.exports = {
         return reply('', {embed});
       }else{
         let temp = [], firstPlace, lowest, diffP;
-        Array.from(database.sinxUsers).forEach(e=>temp.push([e[1],+e[1].rnk]));
+        Array.from(database.sinxUsers).forEach(e=>temp.push([e[1],(+e[1].pts)]));
         temp.sort( (a,b) => a[1]-b[1]);
         firstPlace = temp[0][0];
         lowest = temp[temp.length-1][0];
@@ -76,7 +76,7 @@ ${diffP} points to go to catch up to ${lowest.unm} (#${lowest.rnk})`;
         return reply('Your points stats', {embed});
       }
     }else
-    if(args[0]=="add"){
+    /*if(args[0]=="add"){
       if(!used.hasPermission("KICK_MEMBERS")){
         switch (used.id) {
           case Constants.users.WILLYZ:
@@ -164,7 +164,7 @@ ${diffP} points to go to catch up to ${lowest.unm} (#${lowest.rnk})`;
           return reply(`Are you sure target user is in Sinbad Knights?`);
         }
       }//  time: moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')
-    }else{
+    }else*/{
       let target = content.substring((`${prefix}points `).length);
       //await send(`[Debug]Target: ${target}`);
       searchers[guild.id] = new Searcher( guild );
