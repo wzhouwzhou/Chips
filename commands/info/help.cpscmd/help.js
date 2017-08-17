@@ -82,7 +82,9 @@ module.exports = {
       ],[
         ['Moderation commands',ModMenu],
       ],[
-        ['Fun commands',FunMenu],
+        ['Fun commands (page 1)',FunMenu],
+      ],[
+        ['Fun commands (page 2)', FunMenu2],
       ],[
         ['Utility commands',UtilityMenu],
       ],[
