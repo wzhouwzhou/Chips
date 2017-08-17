@@ -29,6 +29,8 @@ module.exports = {
     ].join('\n').replace(/{}/g, prefix));
 
     const FunMenu = ([
+    '**{}con4 length width** to play connect four (beta).',
+    'For example, **{}con4 12 6** will create a 12x6 board with 6 columns and 12 rows',
     '**{}aboose** for aboose.',
     '**{}-ban [mention user]** to ban people (Disclaimer: This is a fake ban).',
     '**{}cat** to create a cat.',
@@ -40,6 +42,8 @@ module.exports = {
     '**{}eat** for your own bag of chips.',
     '**{}happy** (credits to Tani)',
     '**{}lenny** to make a lenny face.',
+    ].join('\n').replace(/{}/g, prefix));
+    const FunMenu2 = ([
     '**{}nsfw** to get NSFW commands',
     '**{}rekt** to make some people get rekt.',
     '**{}roll** to roll some dice.',
