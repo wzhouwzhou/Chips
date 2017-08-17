@@ -14,7 +14,7 @@ module.exports = function() {
       if(react.message.guild.id=='257889450850254848')
         //if(react.emoji.toString()==Constants.emojis.STAR)
           react.message.guild.channels.get("320752455178780672").send(`${user.tag.replace(/@/g,'(at)')} just reacted with ${react.emoji.toString()} to a message in ${react.message.channel}`, {embed: new Discord.RichEmbed().setDescription(react.message.content).setAuthor(react.message.author.tag).setTimestamp(new Date()).setColor(react.message.member?react.message.member.displayColor:_.random(0,16777215))});
-    }else{
+    }/*else{
       if(react.message.author.id != client.user.id) return;
       console.log("DM channel emoji: " + react.emoji);
       if(react.message.author.id!=client.user.id) return;
@@ -26,6 +26,6 @@ module.exports = function() {
       else if(react.emoji.toString()=="2⃣"){react.message.channel.sendMessage("Hi: two");}
       else if(react.emoji.toString()==":three:"){react.message.channel.sendMessage("Hi: three");}
       react.message.delete();
-    }
+    }*/
   });
 };
