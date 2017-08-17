@@ -66,19 +66,19 @@ module.exports = {
         let nextUser;
         Array.from(database.sinxUsers).forEach(e=>{
           if(!nextUser) nextUser = e[1];
-          else if(e[1].pts>0&&e[1].rnk>=nextUser.rnk-1)nextUser = e[1];
+          else if(e[1].pts>0&&nextUser!=null&&+e[1].rnk>=+nextUser.rnk-1) nextUser = e[1];
         });
         let nextUser2, diffN, diffP;
         //Array.from(database.sinxUsers).find(e=>e[1].rnk==dbUser.rnk-1);
         Array.from(database.sinxUsers).forEach(e=>{
           if(!nextUser2){
             nextUser2 = e[1];
-            diffN = nextUser2.rnk-dbUser.rnk;
-            diffP = nextUser2.pts-dbUser.pts;
+            diffN = +nextUser2.rnk-(+dbUser.rnk||-1);
+            diffP = +nextUser2.pts-(+dbUser.rnk||-1);
           }else{
             if(e[1].rnk-dbUser.rnk>=diffN||e[1].rnk-dbUser.rnk>=diffN<=0) return;
-            diffN = e[1].rnk-dbUser.rnk;
-            diffP = e[1].pts-dbUser.pts;
+            diffN = e[1].rnk-(dbUser.rnk||-1);
+            diffP = e[1].pts-(dbUser.rnk||-1);
             nextUser2 = e[1];
           }
         });
