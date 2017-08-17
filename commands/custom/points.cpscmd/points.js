@@ -60,7 +60,7 @@ module.exports = {
 
         embed.setTitle(member.user.tag);
         embed.setColor(member.displayColor);
-        embed.addField(`Ranked #${+lowest.rnk+1}`,`---`);
+        embed.addField(`Ranked #${+firstPlace.rnk+1}`,`---`);
 
         let stats1 =`${Array.from(database.sinxUsers).every(e=>{
           if(e&&e[1]&&e[1].pts)
