@@ -61,7 +61,7 @@ module.exports = {
         });
         embed.setTitle(member.user.tag);
         embed.setColor(member.displayColor);
-        embed.addField(`Ranked #${+lowest.rnk+1}`,`${lowest.rnk_2}`);
+        embed.addField(`Ranked #${+lowest.rnk+1}`,`${lowest.rnk_2||'---'}`);
 
         let nextUser;
         Array.from(database.sinxUsers).forEach(e=>{
@@ -257,7 +257,7 @@ ${diffP} points to go to catch up to ${nextUser2.unm} (#${nextUser2.rnk})`;
         });
         embed.setTitle(mem.user.tag);
         embed.setColor(mem.displayColor);
-        embed.addField(`Ranked #${+lowest.rnk+1}`,`${lowest.rnk_2}`);
+        embed.addField(`Ranked #${+lowest.rnk+1}`,`${lowest.rnk_2||'---'}`);
         let nextUser;// = Array.from(database.sinxUsers).find(e=>e[1].rnk==lowest.rnk-1);
 
         Array.from(database.sinxUsers).forEach(e=>{
