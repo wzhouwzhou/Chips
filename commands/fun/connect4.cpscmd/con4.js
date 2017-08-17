@@ -2,17 +2,43 @@ const CON4 = require('connect-four');
 const EventEmitter = require('events');
 
 const EMPTY = '⚫', BLUE = '🔵', RED = '🔴';
+const ctitles = [
+  ...[
+    'one',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six',
+    'seven',
+    'eight',
+    'nine',
+    'keycap_ten'
+  ].map(e=>`:${e}:`),
+  ...[
+    ':11:346095871357616132',
+    ':12:346095871747817473',
+    ':13:346095871496028183',
+    ':14:346097689529942026',
+    ':15:346098630995869697',
+    ':16:346099374818066452',
+    ':17:346100265646292996',
+    ':18:346101592493391874',
+    ':19:346103612323135491',
+    ':20:346103612654485505',
+  ].map(e=>`<${e}>`),
+];
 const TIME = 5*60*10e3;
 const STARTWAIT = 10*60*10e3;
 const games = new Map();
 const prompting = new Map();
-
+const promptingAll = new Map();
 const ex = {
   name: "con4",
   async func(msg, ctx) {
     let {Discord, author, reply, member, send, channel, args, prefix } = ctx;
     if(prompting.has(author.id)) return;
-
+    if(promptingAll.has(channel.id)) return;
     if(games.has(channel.id)) return send('There is already a game going on.');
 
     let row, col, othermember;
@@ -32,7 +58,7 @@ const ex = {
     row = +row;
 
     if(col>20) return send(`${col-20} too many columns!`);
-    if(row*col>190) return send(`Board is too large! ${col}x${row}`);
+    if(row*col>180) return send(`Board is too large! ${col}x${row}`);
     if(row<4&&col<4) return send(`Board is too small! ${col}x${row}`);
 
     games.set(channel.id, channel);
@@ -47,7 +73,10 @@ const ex = {
       games.delete(channel.id);
       return reply('Game was declined!');
     }
-    if(othermember&&othermember.id) setTimeout(()=>prompting.delete(othermember.id),1000);
+    if(othermember&&othermember.id) setTimeout(()=>{
+      prompting.delete(othermember.id);
+      promptingAll.delete(channel.id);
+    },1000);
 
     send(`Creating a ${col} x ${row} con4 game...`);
 
@@ -94,6 +123,8 @@ const ex = {
       if(collected.size===0){
         this._msg.reply('Timed out, game was not saved to memory');
         games.delete(channel.id);
+        promptingAll.delete(channel.id);
+        prompting.delete(this._msg.author.id);
       }
       console.log('MCol ended');
     });
@@ -127,6 +158,7 @@ const C4Game = class C4Game extends EventEmitter {
       rows: row,
       cols: col,
     });
+    this.cols = col;
     this.board = this.createBoard(col,row);
     this.send();
   }
@@ -181,7 +213,7 @@ const C4Game = class C4Game extends EventEmitter {
   }
 
   toString () {
-    return this.board.map(r=>r.join('')).join('\n');
+    return ctitles.slice(0,this.cols).join('')+this.board.map(r=>r.join('')).join('\n');
   }
 
   embedify () {
@@ -218,6 +250,7 @@ const Con4Player = class Con4Player {
 
 const promptPlayer = (author, send, prefix, channel, targetMember) => {
   targetMember!=null&&targetMember.id!=null&&prompting.set(targetMember.id, true);
+  targetMember==null&&promptingAll.set(channel.id, true);
   return new Promise( async (res,rej) => {
     const startFilter = (m) => {
       if(m.author.bot) return false;
