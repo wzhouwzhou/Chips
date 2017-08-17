@@ -59,9 +59,9 @@ module.exports = function() {
 
   if(process.env.BETA&&process.env.BETA=="true")
     passport.use(new Strategy({
-        clientID: process.env.ID,
-        clientSecret: process.env.SECRET,
-        callbackURL: 'http://williamzhou.us.to/sinbad/user/',
+        clientID: process.env.ID||'296855425255473154',
+        clientSecret: process.env.SECRET||'secret',
+        callbackURL: 'http://chipsbot.tk/sinbad/user/',
         scope: botScopes
     }, function(accessToken, refreshToken, profile, done) {
         process.nextTick(function() {
@@ -70,9 +70,9 @@ module.exports = function() {
     }));
   else
     passport.use(new Strategy({
-        clientID: process.env.ID,
-        clientSecret: process.env.SECRET,
-        callbackURL: 'https://chipsbot.herokuapp.com/sinbad/user/',
+        clientID: process.env.ID||'296855425255473154',
+        clientSecret: process.env.SECRET||'secret',
+        callbackURL: 'http://chipsbot.tk/sinbad/user/',
         scope: botScopes
     }, function(accessToken, refreshToken, profile, done) {
         process.nextTick(function() {
@@ -81,7 +81,7 @@ module.exports = function() {
     }));
 
   app.use(session({
-      secret: process.env.SECRET,
+      secret: process.env.SECRET||'secret',
       resave: false,
       saveUninitialized: false
   }));
