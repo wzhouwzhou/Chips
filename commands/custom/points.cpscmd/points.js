@@ -60,7 +60,7 @@ module.exports = {
 
         embed.setTitle(member.user.tag);
         embed.setColor(member.displayColor);
-        embed.addField(`Ranked #${+lowest.rnk+1}`,`${lowest.rnk_2||'---'}`);
+        embed.addField(`Ranked #${+lowest.rnk+1}`,`---`);
 
         let stats1 =`${Array.from(database.sinxUsers).every(e=>{
           if(e&&e[1]&&e[1].pts)
@@ -68,7 +68,7 @@ module.exports = {
           else return true;
         })
         ?'You have the most points somehow'
-        :(firstPlace.pts+' ') +(firstPlace.pts>1?'points':'point')+' to go to catch up to ' + firstPlace.unm+'(#1)'}
+        :(firstPlace.pts+' ') +(firstPlace.pts>1?'points':'point')+' to go to catch up to ' + firstPlace.unm+'(#'+firstPlace.rnk+')'}
 ${diffP} points to go to catch up to ${lowest.unm} (#${lowest.rnk})`;
 
         embed.addField(`0 points`,
@@ -236,7 +236,7 @@ ${diffP} points to go to catch up to ${lowest.unm} (#${lowest.rnk})`;
         });
         embed.setTitle(mem.user.tag);
         embed.setColor(mem.displayColor);
-        embed.addField(`Ranked #${+lowest.rnk+1}`,`${lowest.rnk_2||'---'}`);
+        embed.addField(`Ranked #${+lowest.rnk+1}`,`---`);
         let nextUser;// = Array.from(database.sinxUsers).find(e=>e[1].rnk==lowest.rnk-1);
 
         Array.from(database.sinxUsers).forEach(e=>{
