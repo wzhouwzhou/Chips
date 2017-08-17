@@ -51,46 +51,25 @@ module.exports = {
         embed.addField(`${dbUser.pts} ${dbUser.pts==1?'point':'points'}`,str2);
         return reply('', {embed});
       }else{
-        const arr =Array.from(database.sinxUsers);
-        let lowest;
-        arr.forEach(e=>{
-          if(e&&e[1]&&e[1].rnk){
-            if(lowest==null) lowest = e[1];
-            else if(lowest.rnk&&(+e[1].rnk)>=(+lowest.rnk)) lowest = e[1];
-          }
-        });
+        let temp = [], firstPlace, lowest, diffP;
+        Array.from(database.sinxUsers).forEach(e=>temp.push([e[1],+e[1].rnk]));
+        temp.sort( (a,b) => a[1]-b[1]);
+        firstPlace = temp[0][0];
+        lowest = temp[temp.length-1][0];
+        diffP = temp[ind][0].pts;
+
         embed.setTitle(member.user.tag);
         embed.setColor(member.displayColor);
         embed.addField(`Ranked #${+lowest.rnk+1}`,`${lowest.rnk_2||'---'}`);
 
-        let nextUser;
-        Array.from(database.sinxUsers).forEach(e=>{
-          if(!nextUser) nextUser = e[1];
-          else if(e[1].pts>0&&nextUser!=null&&+e[1].rnk>=+nextUser.rnk-1) nextUser = e[1];
-        });
-        let nextUser2, diffN, diffP;
-        //Array.from(database.sinxUsers).find(e=>e[1].rnk==dbUser.rnk-1);
-        Array.from(database.sinxUsers).forEach(e=>{
-          if(!nextUser2){
-            nextUser2 = e[1];
-            diffN = +nextUser2.rnk-(+dbUser.rnk||-1);
-            diffP = +nextUser2.pts-(+dbUser.rnk||-1);
-          }else{
-            if(e[1].rnk-dbUser.rnk>=diffN||e[1].rnk-dbUser.rnk>=diffN<=0) return;
-            diffN = e[1].rnk-(dbUser.rnk||-1);
-            diffP = e[1].pts-(dbUser.rnk||-1);
-            nextUser2 = e[1];
-          }
-        });
-
-        let stats1 =`${arr.every(e=>{
+        let stats1 =`${Array.from(database.sinxUsers).every(e=>{
           if(e&&e[1]&&e[1].pts)
             return e.pts == '0';
           else return true;
         })
         ?'You have the most points somehow'
-        :(lowest.pts+' ') +(lowest.pts>1?'points':'point')+' to go to catch up to ' + nextUser.unm}
-${diffP} points to go to catch up to ${nextUser2.unm} (#${nextUser2.rnk})`;
+        :(firstPlace.pts+' ') +(firstPlace.pts>1?'points':'point')+' to go to catch up to ' + firstPlace.unm+'(#1)'}
+${diffP} points to go to catch up to ${lowest.unm} (#${lowest.rnk})`;
 
         embed.addField(`0 points`,
         stats1);
