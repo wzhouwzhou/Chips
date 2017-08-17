@@ -56,7 +56,7 @@ module.exports = {
         temp.sort( (a,b) => a[1]-b[1]);
         firstPlace = temp[0][0];
         lowest = temp[temp.length-1][0];
-        diffP = temp[ind][0].pts;
+        diffP = lowest.pts;
 
         embed.setTitle(member.user.tag);
         embed.setColor(member.displayColor);
