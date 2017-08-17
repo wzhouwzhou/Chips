@@ -213,7 +213,7 @@ const C4Game = class C4Game extends EventEmitter {
   }
 
   toString () {
-    return ctitles.slice(0,this.cols).join('')+this.board.map(r=>r.join('')).join('\n');
+    return `${ctitles.slice(0,this.cols).join('')}\n${this.board.map(r=>r.join('')).join('\n')}`;
   }
 
   embedify () {
