@@ -89,7 +89,11 @@ const memallo = startprobe.metric({
   name: 'internalMAllo',
 });
 setInterval(async()=> {
-  memallo.set (await Manager.broadcastEval(`process.memoryUsage().heapTotal / 1024 / 1024`)).reduce((p,v)=>p+v,0);
+  try{
+    memallo.set (await Manager.broadcastEval(`process.memoryUsage().heapTotal / 1024 / 1024`)).reduce((p,v)=>p+v,0);
+  }catch(err){
+    //idk;
+  }
 }, 750);
 
 router.use('/api/inGuild', (req, res) => {
