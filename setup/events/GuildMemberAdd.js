@@ -33,11 +33,12 @@ module.exports = function() {
             console.log("[SURSKIT] sending welcome msg...");
             let welcomeC=memberguild.channels.get("314407824568614913")||memberguild.channels.find('name','unverified');
             if(SBKWC)
-              welcomeC.send(`${member.user}, Welcome to Sinbadx Knights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!**
-                1. How did you hear about this server? And for example if you respond with "Sinbad channel" Do __Not__ skip #2.
-                ***2.*** __If you got our invite link online, DO NOT SKIP THIS QUESTION please provide **a url starting with http(s)://**, ***a link to the site where you got the invite link***__, or if you got it from a friend, please tell us who, e.g. SomebodyHere#1234.
+              welcomeC.send(`${member.user}, Welcome to Sinbadx Knights! **You must answer these questions to be verified and be able to speak in the other channels!**
+                1. How did you hear about this server?
+                2. If you got our invite link online (e.g. on youtube), please provide **a url** (something that looks like https://youtu.be/something) to where you got it. (We don't want a discord.gg link)
+                \tIf you got it from a friend, please tell us who like so: **SomebodyHere#1234**.
                 3. Why did you join this server?
-                4. Do you promise to read and follow the rules in <#346261470369021953>?
+                4. Did you read <#348082661060771841>? You must promise to follow the rules and agree to the bot TOS.
                 5. What is your favorite diep.io tank?
 You can answer these in this channel (don't dm them!) with just a sentence or two for each, no need to write an essay!`).then(console.log("[SURSKIT] Welcome msg sent")).catch(err=>console.log('welcome msg err:[sinx] '+ err));
           }, 500);
