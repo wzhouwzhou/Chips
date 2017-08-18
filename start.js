@@ -78,6 +78,20 @@ setInterval(async()=> {
   histogram.update(latency);
 }, 2000);
 
+const memused = startprobe.metric({
+  name: 'internalMUsed',
+});
+setInterval(async()=> {
+  memused.set (await Manager.broadcastEval(`process.memoryUsage().heapUsed / 1024 / 1024`)).reduce((p,v)=>p+v,0);
+}, 750);
+
+const memallo = startprobe.metric({
+  name: 'internalMAllo',
+});
+setInterval(async()=> {
+  memallo.set (await Manager.broadcastEval(`process.memoryUsage().heapTotal / 1024 / 1024`)).reduce((p,v)=>p+v,0);
+}, 750);
+
 router.use('/api/inGuild', (req, res) => {
   if (!req.headers.guildid) return res.json({error: 'guildid missing from header'});
   Manager.broadcastEval(`this.guilds.has("${req.headers.guildid}")`).then(results => {
