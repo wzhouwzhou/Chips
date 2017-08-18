@@ -1,5 +1,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require('express');
+const pmx = require('pmx').init({
+  network       : true,
+  ports         : true,
+});
+const startprobe = pmx.probe();
 
 const SHARDCOUNT = 2;
 
@@ -53,6 +58,25 @@ router.use('/api/membercount', (req,res) => {
     return res.json({error: err});
   });
 });
+
+const usercount = startprobe.metric({
+  name    : 'Total Users',
+});
+setInterval( async ()=> {
+  usercount.set((await Manager.broadcastEval(`let m = 0; this.guilds.forEach(g=>m+=g.members.size); m`)).reduce((p,v)=>p+v,0));
+}, 5000);
+
+const histogram = startprobe.histogram({
+  name        : 'cpuavg',
+  measurement : 'mean'
+});
+
+let latency = 0;
+
+setInterval(async()=> {
+  latency = (await Manager.broadcastEval(`Math.ceil(require('os').loadavg()[1] * 1000) / 100`)).reduce((p,v)=>p+v,0);
+  histogram.update(latency);
+}, 2000);
 
 router.use('/api/inGuild', (req, res) => {
   if (!req.headers.guildid) return res.json({error: 'guildid missing from header'});
