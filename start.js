@@ -74,7 +74,7 @@ const histogram = startprobe.histogram({
 let latency = 0;
 
 setInterval(async()=> {
-  latency = (await Manager.broadcastEval(`Math.ceil(require('os').loadavg()[1] * 1000) / 100`)).reduce((p,v)=>p+v,0);
+  latency = (await Manager.broadcastEval(`require('os').loadavg()[1] * 100`)).reduce((p,v)=>p+v,0);
   histogram.update(latency);
 }, 2000);
 
@@ -82,7 +82,11 @@ const memused = startprobe.metric({
   name: 'internalMUsed',
 });
 setInterval(async()=> {
-  memused.set (await Manager.broadcastEval(`process.memoryUsage().heapUsed / 1024 / 1024`)).reduce((p,v)=>p+v,0);
+  try{
+    memused.set (await Manager.broadcastEval(`process.memoryUsage().heapUsed / 1024 / 1024`)).reduce((p,v)=>p+v,0);
+  }catch(err){
+  //;
+  }
 }, 750);
 
 const memallo = startprobe.metric({
