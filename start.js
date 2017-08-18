@@ -37,33 +37,33 @@ router.use(function (req, res, next) {
 
 router.use('/api/guildcount', (req,res) => {
   Manager.broadcastEval(`this.guilds.size`).then(results=>
-    res.json(JSON.stringify({count: results.reduce((p,v) => p+v, 0)}))
+    res.json({count: results.reduce((p,v) => p+v, 0)})
   ).catch(err=>{
     console.error(err);
-    return res.json(JSON.stringify({error: err}));
+    return res.json({error: err});
   });
 });
 
 router.use('/api/membercount', (req,res) => {
   Manager.broadcastEval(`let m = 0; this.guilds.forEach(g=>m+=g.members.size); m`)
   .then(results =>
-    res.json(JSON.stringify({count: results.reduce((p,v) => p+v, 0)}))
+    res.json({count: results.reduce((p,v) => p+v, 0)})
   ).catch(err=>{
     console.error(err);
-    return res.json(JSON.stringify({error: err}));
+    return res.json({error: err});
   });
 });
 
 router.use('/api/inGuild', (req, res) => {
-  if (!req.headers.guildid) return res.json(JSON.stringify({error: 'guildid missing from header'}));
+  if (!req.headers.guildid) return res.json({error: 'guildid missing from header'});
   Manager.broadcastEval(`this.guilds.has("${req.headers.guildid}")`).then(results => {
     if (~results.indexOf(true))
-      return res.json(JSON.stringify({in: true}));
+      return res.json({in: true});
     else
-      return res.json(JSON.stringify({in: false}));
+      return res.json({in: false});
   }).catch(err=>{
     console.error(err);
-    return res.json(JSON.stringify({error: err}));
+    return res.json({error: err});
   });
 });
 
