@@ -2,6 +2,7 @@
 let ban = require('./ban');
 let hackban = require('./hackban');
 let reactban = require('./reactban');
+let unban = require('./unban');
 let roleban = {};
 console.log('[CPSCMD][MODERATION][ban] Building objects...');
 
@@ -29,6 +30,14 @@ reactban.metadata = {
   perm: [['global.moderation.bans.reactban']],
   customperm: ['BAN_MEMBERS'],
 };
+unban.metadata = {
+  category: require('../').category,
+  description: 'This command lets you unban server members!',
+  usage: 'unban <User> <Optional Reason>',
+  example: 'unban @周珺 • WillyZ#6686 Being dumb.',
+  perm: [['global.moderation.bans.ban']],
+  customperm: ['BAN_MEMBERS'],
+};
 roleban.metadata = {
   category: require('../').category,
   description: 'This command lets you ban people from having a certain role!',
@@ -41,5 +50,6 @@ roleban.metadata = {
 console.log('[CPSCMD][MODERATION][ban] Build objects complete!');
 module.exports = [
   [ban.name,ban],
-  [hackban.name,hackban]
+  [hackban.name,hackban],
+  [unban.name,unban]
 ];
