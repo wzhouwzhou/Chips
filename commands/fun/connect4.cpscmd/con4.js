@@ -82,7 +82,7 @@ const ex = {
 
     console.log(`Creating a ${col} x ${row} con4 game for channel ${channel.id}...`);
 
-    const currentGame = new C4Game(channel, member.user, othermember.user, row, col);
+    const currentGame = new C4Game(channel, ..._.shuffle([member.user, othermember.user]), row, col);
     games.set(channel.id, currentGame);
     console.log('Creating collector...');
     const mCol = channel.createMessageCollector(

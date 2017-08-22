@@ -20,7 +20,7 @@ module.exports = {
       if(!fontlistCooldown.get(guild.id)){
         fontlistCooldown.set(guild.id, true);
         setTimeout(()=>fontlistCooldown.set(guild.id, false), COOLDOWN);
-        return reply(`Fonts:\n${cb}${await fetchFonts()}${cb}`);
+        return send(`Fonts:\n${cb}${await fetchFonts()}${cb}`);
       }
       return send('Woah there this command has a 1 minute cooldown please wait before trying that again!').then(m=>m.delete(3000));
     }
