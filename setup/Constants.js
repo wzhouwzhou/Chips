@@ -101,4 +101,23 @@ https://www.youtube.com/channel/UCLun-hgcYUgNvCCj4sIa-jA/videos
 Javascript reference/docs:| https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 discord.js documentation:| https://discord.js.org/#!/docs/`;
 
+ex.playlists = [
+  [
+    'https://www.youtube.com/watch?v=6O82MXNccsk',
+    'https://www.youtube.com/watch?v=JhIEsQ15sSI',
+    'https://www.youtube.com/watch?v=VzB_5U-TZUI',
+    'https://www.youtube.com/watch?v=YTJdKUAnhd0',
+    'https://www.youtube.com/watch?v=2-UCv2N0QX0',
+    'https://www.youtube.com/watch?v=am4Ywpxpgmg',
+    'https://www.youtube.com/watch?v=uCj4f7ECa4E',
+    'https://www.youtube.com/watch?v=nnbkbTiRA4g',
+    'https://www.youtube.com/watch?v=NsgCUfg-ZP4',
+    'https://www.youtube.com/watch?v=TuI8EWxI-XM',
+    'https://www.youtube.com/watch?v=YJVIV8Nvbt4',
+    'https://www.youtube.com/watch?v=rc_WvczuVu4',
+    'https://www.youtube.com/watch?v=SUSPQc-jk7s',
+    'https://www.youtube.com/watch?v=JVo3FLB2BAA',
+    'https://www.youtube.com/watch?v=I9YN8Yc_kCI',
+  ]
+];
 module.exports = ex;
