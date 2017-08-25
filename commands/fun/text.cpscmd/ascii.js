@@ -39,6 +39,7 @@ module.exports = {
         asciiCooldown.set(guild.id, true);
         setTimeout(()=>asciiCooldown.set(guild.id, false), COOLDOWN);
         return split.forEach(word=> (word&&!word.match(/\s+/))&&asciify( word, { font }, (e,r) => {
+          (r.match(/\s+/)||[''])[0].length==r.length;
           const str = `${cb}${r&&r.length<1900?r:word.length<1800?'too long to asciify:\n'+word:'something too long'}${cb}`;
           if(split.indexOf(word)===0) return reply(str);
           return send(str);
