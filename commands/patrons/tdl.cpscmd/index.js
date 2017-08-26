@@ -1,5 +1,6 @@
 
 let tdl = require('./tdl');
+let wendy = require('./wendy');
 console.log('[CPSCMD][PATRONS][tdl] Building objects...');
 
 tdl.metadata = {
@@ -11,7 +12,17 @@ tdl.metadata = {
   customperm: ['SEND_MESSAGES'],
 };
 
+wendy.metadata = {
+  category: require('../').category,
+  description: 'A custom cmd for our second patron!',
+  usage: 'wendy',
+  example: 'wendy',
+  perm: [['public.info.support.support']],
+  customperm: ['SEND_MESSAGES'],
+};
+
 console.log('[CPSCMD][UTILITY][perm] Build objects complete!');
 module.exports = [
   [tdl.name,tdl],
+  [wendy.name,wendy]
 ];
