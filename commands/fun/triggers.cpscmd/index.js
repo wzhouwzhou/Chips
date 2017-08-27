@@ -4,6 +4,7 @@ let confoosed = require('./confoosed');
 let exposed = require('./exposed');
 let lenny = require('./lenny');
 let rekt = require('./rekt');
+let triggered = require('./triggered');
 
 console.log('[CPSCMD][FUN][triggers] Building objects...');
 aboose.metadata = {
@@ -41,6 +42,13 @@ rekt.metadata = {
   example: 'rekt',
   perm: [['global.fun.triggers.rekt']],
 };
+triggered.metadata = {
+  category: require('../').category,
+  description: 'TRIGGERED!',
+  usage: 'triggered',
+  example: 'triggered',
+  perm: [['global.fun.triggers.rekt']],
+};
 
 console.log('[CPSCMD][FUN][triggers] Build objects complete!');
 module.exports = [
@@ -49,4 +57,5 @@ module.exports = [
   [exposed.name,exposed],
   [lenny.name,lenny],
   [rekt.name,rekt],
+  [triggered.name,triggered],
 ];
