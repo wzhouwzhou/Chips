@@ -12,7 +12,6 @@ const rrequire = (m) => {
 };
 exports.rrequire = rrequire;
 
-
 const Exporter = class Exporter {
   define (temp, key, modu) {
     Object.defineProperty(temp, key, {
@@ -26,6 +25,14 @@ const Exporter = class Exporter {
       packages: {},
       functions: {},
     };
+    Object.defineProperty(data.packages, 'chalk', {
+      get: (() => {
+        const chalk = require('chalk');
+        chalk.enabled = true;
+        return chalk;
+      }),
+      configurable: false,
+    });
     [
       [
         'packages',
@@ -60,7 +67,6 @@ const Exporter = class Exporter {
           'rethinkdbdash',
           'rethinkdb',
           ['google-spreadsheet', ['google-spreadsheet','GoogleSpreadsheet']],
-          'chalk',
           'express-ejs-extend',
           'passport',
           'http-proxy',
