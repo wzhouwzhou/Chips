@@ -4,6 +4,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Handler = class CommandHandler {
   constructor (client) {
     this.client = client;
+    this.prefix = client.prefix;
+    this.prefix = client.database.prefixStore;
+  }
+
+  handle (msg, prefix) {
+
+  }
+
+  prehandle (msg) {
+
   }
 };
 
