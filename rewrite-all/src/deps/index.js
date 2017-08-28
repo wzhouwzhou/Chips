@@ -35,7 +35,13 @@ const Exporter = class Exporter {
       'moment',
       'ytsearcher',
       'discordblacklist',
-      
+      'pm2',
+      'connect-four',
+      'needle',
+      'request',
+      'got',
+      'snekfetch',
+      'child_process'
     ].forEach(m => {
       if(typeof m === 'string')
         return this.define(data, m, m);
