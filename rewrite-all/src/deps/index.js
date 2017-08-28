@@ -18,3 +18,12 @@ exports._ = _;
 
 const path = rrequire('path');
 exports.path = path;
+
+const bodyParser = rrequire('body-parser');
+exports.bodyParser = bodyParser;
+
+const cookieParser = rrequire('cookie-parser');
+exports.cookieParser = cookieParser;
+
+const express = rrequire('express');
+exports.express = rrequire('express');
