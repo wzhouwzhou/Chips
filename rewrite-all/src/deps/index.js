@@ -58,7 +58,10 @@ const Exporter = class Exporter {
       'express-ejs-extend',
       'passport',
       'http-proxy',
-      
+      'asciify',
+      'assert',
+      'pmx',
+      ['cheerio',['cheerio','$']],
     ].forEach(m => {
       if(typeof m === 'string')
         return this.define(data, m, m);
