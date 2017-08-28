@@ -11,6 +11,7 @@ const session = require('express-session');
 const flash=require("connect-flash");
 const sinbad = require(path.join(__dirname, '../routes/sinbad'));
 const login = require(path.join(__dirname, '../routes/login'));
+const vy = require(path.join(__dirname, '../routes/vy'));
 const updates = require(path.join(__dirname, '../routes/updates'));
 const useroverview = require(path.join(__dirname, '../routes/updates'));
 const index = require(path.join(__dirname, '../routes/index'));
@@ -141,6 +142,7 @@ module.exports = function() {
 
   app.use('/sinbad/login',login);
   app.use('/commands',cmds);
+  app.use('/vy',vy);
   //app.use('/updates',updates);
 
   // catch 404 and forward to error handler

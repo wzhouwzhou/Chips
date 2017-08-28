@@ -118,6 +118,8 @@ ex.playlists = [
     'https://www.youtube.com/watch?v=SUSPQc-jk7s',
     'https://www.youtube.com/watch?v=JVo3FLB2BAA',
     'https://www.youtube.com/watch?v=I9YN8Yc_kCI',
+    'https://www.youtube.com/watch?v=wRmkrxgIZvo',
+    
   ]
 ];
 module.exports = ex;
