@@ -41,7 +41,11 @@ const Exporter = class Exporter {
       'request',
       'got',
       'snekfetch',
-      'child_process'
+      'child_process',
+      'jimp',
+      'jsonfile',
+      'url-download',
+      
     ].forEach(m => {
       if(typeof m === 'string')
         return this.define(data, m, m);
