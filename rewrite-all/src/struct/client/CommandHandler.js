@@ -8,6 +8,13 @@ const Handler = class CommandHandler {
     this.prefix = client.database.prefixStore;
   }
 
+  prehandle (msg) {
+    if(this.globalBannedUser(msg.author.id)) return true;
+
+    for(const p of this.prefix){
+    }
+  }
+
   handle (msg, prefix) {
 
   }
