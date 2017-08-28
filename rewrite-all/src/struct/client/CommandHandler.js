@@ -41,7 +41,7 @@ const Handler = class CommandHandler {
 
   }
 
-  prehandle (msg) {
+  posthandle (msg) {
 
   }
 };
