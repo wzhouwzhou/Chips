@@ -54,7 +54,11 @@ const Exporter = class Exporter {
       'rethinkdbdash',
       'rethinkdb',
       ['google-spreadsheet',['google-spreadsheet','GoogleSpreadsheet']],
-
+      'chalk',
+      'express-ejs-extend',
+      'passport',
+      'http-proxy',
+      
     ].forEach(m => {
       if(typeof m === 'string')
         return this.define(data, m, m);
