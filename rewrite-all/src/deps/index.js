@@ -13,13 +13,18 @@ const rrequire = (m) => {
 exports.rrequire = rrequire;
 
 const Exporter = class Exporter {
-  define (temp, key, modu) {
+  define (temp, key, modu, options) {
     Object.defineProperty(temp, key, {
-      get: (() => rrequire(modu)),
+      get: (() => {
+        const m = rrequire(modu);
+        if(~(typeof m).indexOf('function')) return m(options);
+        return m;
+      }),
       configurable: false,
     });
     return temp;
   }
+
   serialize(){
     const data = {
       packages: {},
@@ -71,16 +76,26 @@ const Exporter = class Exporter {
       'assert',
       'pmx',
       ['cheerio', ['cheerio','$']],
-    ].forEach(s=>{
-      s[1].forEach(m => {
-        if(typeof m === 'string')
-          return this.define(data[s[0]], m, m);
-        if(m[1] === undefined)
-          return this.define(data[s[0]], m[0], m[0]);
-        if(typeof m[1] === 'string')
-          return this.define(data[s[0]], m[1], m[0]);
-        m[1].forEach(k => this.define(data[s[0]], k, m[0]));
-      });
+    ].forEach(m => {
+      if(typeof m === 'string')
+        return this.define(data['packages'], m, m);
+      if(m[1] === undefined)
+        return this.define(data['packages'], m[0], m[0]);
+      if(typeof m[1] === 'string')
+        return this.define(data['packages'], m[1], m[0]);
+      m[1].forEach(k => this.define(data['packages'], k, m[0]));
+    });
+
+    [
+      'mee6rankF'
+    ].forEach(f => {
+      if(typeof f === 'string')
+        return this.define(data[s[0]], f, f);
+      if(f[1] === undefined)
+        return this.define(data[s[0]], f[0], f[0]);
+      if(typeof f[1] === 'string')
+        return this.define(data[s[0]], f[1], f[0]);
+      f[1].forEach(k => this.define(data[s[0]], k, f[0], data.packages));
     });
 
     return data;
