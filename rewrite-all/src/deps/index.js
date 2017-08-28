@@ -7,38 +7,41 @@ const rrequire = (m) => {
 };
 exports.rrequire = rrequire;
 
-const Discord = rrequire('discord.js');
+const Discord = (()=>rrequire('discord.js'))();
 exports.Discord = Discord;
 exports.djs = Discord;
 
-const fs = rrequire('fs');
+const fs = (()=>rrequire('fs'))();
 exports.fs = fs;
 
-const _ = rrequire('lodash');
+const _ = (()=>rrequire('lodash'))();
 exports._ = _;
 exports.lodash = _;
 
-const path = rrequire('path');
+const path = (()=>rrequire('path'))();
 exports.path = path;
 
-const bodyParser = rrequire('body-parser');
+const bodyParser = (()=>rrequire('body-parser'))();
 exports.bodyParser = bodyParser;
 
-const cookieParser = rrequire('cookie-parser');
+const cookieParser = (()=>rrequire('cookie-parser'))();
 exports.cookieParser = cookieParser;
 
-const express = rrequire('express');
+const express = (()=>rrequire('express'))();
 exports.express = express;
 
-const session = rrequire('express-session');
+const session = (()=>rrequire('express-session'))();
 exports.session = session;
 
-const flash = rrequire("connect-flash");
+const flash = (()=>rrequire("connect-flash"))();
 exports.flash = flash;
 
-const morgan = rrequire('morgan');
+const morgan = (()=>rrequire('morgan'))();
 exports.morgan = morgan;
 
-const rfs = rrequire('rotating-file-stream');
+const rfs = (()=>rrequire('rotating-file-stream'))();
 exports.rfs = rfs;
 exports.rotating_file_stream = rfs;
+
+const crypto = (()=>rrequire("crypto"))();
+exports.crypto = crypto;
