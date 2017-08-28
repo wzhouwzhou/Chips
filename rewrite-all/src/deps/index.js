@@ -2,8 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 
 const rrequire = (m) => {
-  delete require.cache[require.resolve(m)];
-  return require(m);
+  try{
+    delete require.cache[require.resolve(m)];
+    return require(m);
+  }catch(err){
+    console.error(err);
+    return null;
+  }
 };
 exports.rrequire = rrequire;
 
@@ -45,7 +50,11 @@ const Exporter = class Exporter {
       'jimp',
       'jsonfile',
       'url-download',
-      
+      ['events', 'EventEmitter'],
+      'rethinkdbdash',
+      'rethinkdb',
+      ['google-spreadsheet',['google-spreadsheet','GoogleSpreadsheet']],
+
     ].forEach(m => {
       if(typeof m === 'string')
         return this.define(data, m, m);
