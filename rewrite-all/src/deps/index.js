@@ -7,41 +7,48 @@ const rrequire = (m) => {
 };
 exports.rrequire = rrequire;
 
-const Discord = (()=>rrequire('discord.js'))();
-exports.Discord = Discord;
-exports.djs = Discord;
 
-const fs = (()=>rrequire('fs'))();
-exports.fs = fs;
+const Exporter = class Exporter {
+  define (temp, key, modu) {
+    Object.defineProperty(temp, key, {
+      get: (() => rrequire(modu)),
+      configurable: false,
+    });
+    return temp;
+  }
+  serialize(){
+    const data = {};
+    [
+      ['discord.js', ['Discord', 'djs']],
+      'fs',
+      ['lodash',['_','lodash']],
+      'path',
+      'body-parser',
+      'cookie-parser',
+      'express',
+      'express-session',
+      'connect-flash',
+      'morgan',
+      ['rotating-file-stream', ['rfs','rotating_file_stream']],
+      'crypto',
+      ['ytdl-core', 'ytdl'],
+      'moment',
+      'ytsearcher',
+      'discordblacklist',
+      
+    ].forEach(m => {
+      if(typeof m === 'string')
+        return this.define(data, m, m);
+      if(m[1] === undefined)
+        return this.define(data, m[0], m[0]);
+      if(typeof m[1] === 'string')
+        return this.define(data, m[1], m[0]);
+      m[1].forEach(k => {
+        this.define(data, k, m[0]);
+      });
+    });
 
-const _ = (()=>rrequire('lodash'))();
-exports._ = _;
-exports.lodash = _;
-
-const path = (()=>rrequire('path'))();
-exports.path = path;
-
-const bodyParser = (()=>rrequire('body-parser'))();
-exports.bodyParser = bodyParser;
-
-const cookieParser = (()=>rrequire('cookie-parser'))();
-exports.cookieParser = cookieParser;
-
-const express = (()=>rrequire('express'))();
-exports.express = express;
-
-const session = (()=>rrequire('express-session'))();
-exports.session = session;
-
-const flash = (()=>rrequire("connect-flash"))();
-exports.flash = flash;
-
-const morgan = (()=>rrequire('morgan'))();
-exports.morgan = morgan;
-
-const rfs = (()=>rrequire('rotating-file-stream'))();
-exports.rfs = rfs;
-exports.rotating_file_stream = rfs;
-
-const crypto = (()=>rrequire("crypto"))();
-exports.crypto = crypto;
+    return data;
+  }
+};
+exports.default = (new Exporter).serialize();
