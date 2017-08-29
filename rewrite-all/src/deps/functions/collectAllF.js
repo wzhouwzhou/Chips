@@ -1,7 +1,9 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
 
-exports.default = () => {
+const grammarJoin = require('./grammarJoinF').default();
+
+exports.default = ({_}) => {
   // options must contain mfilter and rfilter,
   // a users object that either has an allowAll = true or array of userids
   // accepted/deniedMsgs and accepted/deniedRxns
@@ -9,7 +11,9 @@ exports.default = () => {
   // reply (boolean whether to reply in prompt)
   const collectAll = (msg, { options }) => {
     const channel = msg.channel;
-    const { users, promptMsg, expire, numMsgs, acceptedMsgs, deniedMsgs } = options;
+    const { users, promptMsg, expire, numMsgs, acceptedMsgs, deniedMsgs, acceptedRxns, deniedRxns } = options;
+    if(!(deniedMsgs||deniedRxns||acceptedMsgs||acceptedRxns)) throw new Error('No choices to validate');
+
     const allMsgs = [...acceptedMsgs, ...deniedMsgs];
     return new Promise( (res, rej) => {
       let externalMsgCounter = 0;
@@ -33,7 +37,18 @@ exports.default = () => {
         res(collected);
       });
 
-      if(options.reply) msg.reply(options.prompt||`Please type `);
+      let defaultPrompt = 'Please ', someAccept = false, someDeny = false;
+      if(acceptedMsgs&&acceptedMsgs.length>0) {
+        defaultPrompt+=`type __${_.escapeRegExp(grammarJoin(acceptedMsgs))}__`;
+        someAccept = true;
+      }
+      if(acceptedRxns&&acceptedRxns.length>0) {
+        if(defaultPrompt.match(/^Please type[^]+/))
+          defaultPrompt += 'or ';
+        defaultPrompt+=`react with ${_.escapeRegExp(grammarJoin(acceptedMsgs))}`;
+        someAccept = true;
+      }
+      if(options.reply) msg.reply(promptMsg||defaultPrompt);
     });
   };
   return collectAll;
