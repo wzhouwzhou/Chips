@@ -6,7 +6,7 @@ exports.default = () => {
     if(typeof n === 'object')
       n = n.count || n.num || n.n || 0;
     if(arr.constructor.name === 'Array')
-      return arr.slice(n);
+      return arr.slice(0,n);
     return arr;
   };
   return first;
