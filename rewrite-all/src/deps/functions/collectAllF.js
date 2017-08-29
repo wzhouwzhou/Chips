@@ -48,7 +48,26 @@ exports.default = ({_}) => {
         defaultPrompt+=`react with ${_.escapeRegExp(grammarJoin(acceptedMsgs))}`;
         someAccept = true;
       }
+      if(someAccept)
+        defaultPrompt+=' to accept/continue, or ';
+
+      if(deniedMsgs&&deniedMsgs.length>0) {
+        defaultPrompt+=`type __${_.escapeRegExp(grammarJoin(deniedMsgs))}__`;
+        someDeny = true;
+      }
+      if(deniedRxns&&deniedRxns.length>0) {
+        if(defaultPrompt.match(/^Please type[^]+/))
+          defaultPrompt += 'or ';
+        defaultPrompt+=`react with ${_.escapeRegExp(grammarJoin(deniedMsgs))}`;
+        someDeny = true;
+      }
+
+      if(someDeny)
+        defaultPrompt+=' to reject/stop, or ';
+
+
       if(options.reply) msg.reply(promptMsg||defaultPrompt);
+      else msg.channel.send(promptMsg||defaultPrompt);
     });
   };
   return collectAll;
