@@ -95,6 +95,7 @@ const Exporter = class Exporter {
       'firstF',
       'checkNumberF',
       'collectAllF',
+      'delayF',
     ].forEach(f => {
       if(typeof f === 'string')
         return this.define(data[s[0]], f, f);
