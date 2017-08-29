@@ -30,7 +30,8 @@ const genDefaultP = ({ deniedMsgs, deniedRxns, acceptedMsgs, acceptedRxns, _ }) 
   }
 
   if(someDeny)
-    defaultPrompt+=' to reject/stop, or ';
+    defaultPrompt+=' to reject/stop';
+  defaultPrompt+='.';
   return defaultPrompt;
 };
 
