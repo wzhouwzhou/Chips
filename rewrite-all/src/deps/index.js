@@ -96,6 +96,8 @@ const Exporter = class Exporter {
       'checkNumberF',
       'collectAllF',
       'delayF',
+      ['reverseF',['rs','reverse']],
+      ['reverseWF',['rsw','reverseW']],
     ].forEach(f => {
       if(typeof f === 'string')
         return this.define(data[s[0]], f, f);

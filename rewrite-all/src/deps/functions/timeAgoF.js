@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 const times = ["years","months","weeks","days","hours","minutes","seconds"];
 
-exports.default = ({ moment }) => {
-  const timeAgo = (date, time) => {
+exports.default = ({ moment }) =>
+  timeAgo = (date, time) => {
     if(date instanceof Date){
       if(!~times.indexOf(time)) throw 'Invalid unit of time given';
       let i = times.indexOf(time);
@@ -17,7 +17,5 @@ exports.default = ({ moment }) => {
     }else{
       throw 'Invalid date!';
     }
-  };
-
-  return timeAgo;
-};
+  }
+;
