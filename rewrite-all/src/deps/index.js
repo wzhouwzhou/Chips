@@ -93,6 +93,8 @@ const Exporter = class Exporter {
       'execF',
       'lastF',
       'firstF',
+      'checkNumberF',
+      'collectAllF',
     ].forEach(f => {
       if(typeof f === 'string')
         return this.define(data[s[0]], f, f);
