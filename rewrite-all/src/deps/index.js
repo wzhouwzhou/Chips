@@ -17,7 +17,8 @@ const Exporter = class Exporter {
     Object.defineProperty(temp, key, {
       get: (() => {
         const m = rrequire(modu);
-        if(~(typeof m).indexOf('function')) return m(options);
+        const de = m.default;
+        if(de && (~(typeof de).indexOf('function'))) return de(options);
         return m;
       }),
       configurable: false,
