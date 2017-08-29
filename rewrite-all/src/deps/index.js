@@ -3,8 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 const rrequire = (m) => {
   try{
-    delete require.cache[require.resolve(m)];
-    return require(m);
+    if(m.match(/^[^]*%delete%[^]*$/i))
+      delete require.cache[require.resolve(m.replace(/%delete%/g,''))];
+    return require(m.replace(/%delete%/g,''));
   }catch(err){
     console.error(err);
     return null;
