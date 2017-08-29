@@ -7,23 +7,23 @@ exports.default = () => {
     const data = {};
 
     if(!strict){
-      data.positive = +x>0;
-      data.negative = +x<0;
-      data.zero = +x==0;
+      data.positive = +value>0;
+      data.negative = +value<0;
+      data.zero = +value==0;
 
-      const whole = (+x|0) == +x;
+      const whole = (+value|0) == +value;
       data.integer = whole;
-      data.whole = whole&&+x>=0;
-      data.natural = whole&&+x>0;
+      data.whole = whole&&+value>=0;
+      data.natural = whole&&+value>0;
     }else{
-      data.positive = x>0;
-      data.negative = x<0;
-      data.zero = x===0;
+      data.positive = value>0;
+      data.negative = value<0;
+      data.zero = value===0;
 
-      const whole = (x|0) === x;
+      const whole = (value|0) === value;
       data.integer = whole;
-      data.whole = whole&&x>=0;
-      data.natural = whole&&x>0;
+      data.whole = whole&&value>=0;
+      data.natural = whole&&value>0;
     }
     return data;
   };
