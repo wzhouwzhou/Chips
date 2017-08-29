@@ -97,7 +97,7 @@ const Exporter = class Exporter {
       'collectAllF',
       'delayF',
       ['reverseF',['rs','reverse']],
-      ['reverseWF',['rsw','reverseW']],
+      ['reverseWF',['rws','reverseW']],
     ].forEach(f => {
       if(typeof f === 'string')
         return this.define(data[s[0]], f, f);
