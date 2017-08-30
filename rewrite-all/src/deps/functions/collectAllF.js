@@ -47,7 +47,7 @@ exports.default = ({_}) => {
     if(!(deniedMsgs||deniedRxns||acceptedMsgs||acceptedRxns)) throw new Error('No choices to validate');
 
     const allMsgs = [...acceptedMsgs, ...deniedMsgs];
-    return new Promise( (res, rej) => {
+    return new Promise( async (res, rej) => {
       let externalMsgCounter = 0;
       const mcol = channel.createMessageCollector(
         m=>{
@@ -69,6 +69,7 @@ exports.default = ({_}) => {
         res(collected);
       });
       const defaultPrompt = genDefaultP({ deniedMsgs, deniedRxns, acceptedMsgs, acceptedRxns, _ });
+
       if(options.reply) msg.reply(promptMsg||defaultPrompt);
       else msg.channel.send(promptMsg||defaultPrompt);
     });
