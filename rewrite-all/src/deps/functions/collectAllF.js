@@ -35,13 +35,13 @@ const genDefaultP = ({ deniedMsgs, deniedRxns, acceptedMsgs, acceptedRxns, _ }) 
   return defaultPrompt;
 };
 
-exports.default = ({_}) => {
+exports.default = ({_}) =>
   // options must contain mfilter and rfilter,
   // a users object that either has an allowAll = true or array of userids
   // accepted/deniedMsgs and accepted/deniedRxns
   // expire (time in ms)
   // reply (boolean whether to reply in prompt)
-  const collectAll = (msg, { options }) => {
+  (msg, { options }) => {
     const channel = msg.channel;
     const { users, promptMsg, expire, numMsgs, acceptedMsgs, deniedMsgs, acceptedRxns, deniedRxns } = options;
     if(!(deniedMsgs||deniedRxns||acceptedMsgs||acceptedRxns)) throw new Error('No choices to validate');
@@ -70,9 +70,20 @@ exports.default = ({_}) => {
       });
       const defaultPrompt = genDefaultP({ deniedMsgs, deniedRxns, acceptedMsgs, acceptedRxns, _ });
 
-      if(options.reply) msg.reply(promptMsg||defaultPrompt);
-      else msg.channel.send(promptMsg||defaultPrompt);
+      const sentmsg = options.reply?await msg.reply(promptMsg||defaultPrompt):await msg.channel.send(promptMsg||defaultPrompt);
+      sentmsg.createReactionCollector(
+        (reaction, user) => {
+          if(user.id != author.id) return false;
+          if(temp.confirmed||!temp.next) return false;
+          if(reaction.emoji.toString() == Constants.emojis.X){
+            reply("Accepted choice " + reaction.emoji.name);
+            temp.confirmed=true;
+            temp.next=false;
+            temp.rxn = true;
+            return true;
+          }
+        },{ max: 1, time: STEP3EXPIRE, errors: ['time'] }
+      );
     });
-  };
-  return collectAll;
-};
+  }
+;
