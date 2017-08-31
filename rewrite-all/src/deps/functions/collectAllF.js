@@ -78,13 +78,14 @@ exports.default = ({_}) =>
 
           if(user.id != author.id) return false;
           if(temp.confirmed||!temp.next) return false;
-          if(reaction.emoji.toString() == Constants.emojis.X){
+          if(!~allRxns.indexOf(reaction.emoji.toString())) return false;
+
             reply("Accepted choice " + reaction.emoji.name);
             temp.confirmed=true;
             temp.next=false;
             temp.rxn = true;
             return true;
-          }
+
         },{ max: numRxns || 1, time: expire||EXPIRE }
       );
     });
