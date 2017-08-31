@@ -100,12 +100,12 @@ const Exporter = class Exporter {
       ['reverseWF',['rws','reverseW']],
     ].forEach(f => {
       if(typeof f === 'string')
-        return this.define(data[s[0]], f, f);
+        return this.define(data['functions'], f, f);
       if(f[1] === undefined)
-        return this.define(data[s[0]], f[0], f[0]);
+        return this.define(data['functions'], f[0], f[0]);
       if(typeof f[1] === 'string')
-        return this.define(data[s[0]], f[1], f[0]);
-      f[1].forEach(k => this.define(data[s[0]], k, f[0], data.packages));
+        return this.define(data['functions'], f[1], f[0]);
+      f[1].forEach(k => this.define(data['functions'], k, f[0], data.packages));
     });
 
     return data;
