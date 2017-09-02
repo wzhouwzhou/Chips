@@ -31,7 +31,7 @@ const ex= {
     if (reason == "") reason = "None";
     const user = gMember(target).user;
     if(user.id==bot.user.id) return send(`NO!!`);
-		if(!used.hasPermission("BAN_MEMBERS")){
+		/*if(!used.hasPermission("BAN_MEMBERS")){
 	    switch (used.id) {
 	      case Constants.users.WILLYZ:
 	      case Constants.users.EVILDEATHPRO:
@@ -47,7 +47,7 @@ const ex= {
 	      default:
 	        return send(`No bans for you, <@${used.id}>!`);
 	    }
-		}
+		}*/
     // console.log("Target: "+target);
     if (neko.indexOf(user.id) >= 0) {
 			if(author.id!=Constants.users.KONEKO&&author.id!=Constants.users.WILLYZ){
