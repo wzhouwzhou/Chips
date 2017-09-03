@@ -42,10 +42,13 @@ const MusicPlayer = class MusicPlayer {
 
     this.joinVC().then( () => {
       const song = this.looping?this.lastPlayed:this.queue.shift();
-      let embed = new this.Discord.RichEmbed().setTitle('Now playing...').setColor(1);
-      embed.setDescription(`${song.title}\nby: ${song.authorname}`).setFooter('Length: '+song.length);
-      embed.setImage(song.image);
-      this.textchannel.send('', { embed });
+      let embed;
+      if(!this.looping){
+        embed = new this.Discord.RichEmbed().setTitle('Now playing...').setColor(1);
+        embed.setDescription(`${song.title}\nby: ${song.authorname}`).setFooter('Length: '+song.length);
+        embed.setImage(song.image);
+        this.textchannel.send('', { embed });
+      }
       Logger.debug(`Now playing \`${song.title}\`.`);
       this.lastPlayed = song;
 
@@ -104,7 +107,7 @@ const MusicPlayer = class MusicPlayer {
       this.looping = !this.looping;
     else
       this.looping = override;
-    if(this.textchannel) this.textchannel.send(`Successfully toggled looping of \`${this.lastPlayed}\` to ${this.looping}`);
+    if(this.textchannel) this.textchannel.send(`Successfully toggled looping of \`${this.lastPlayed.name}\` to ${this.looping}`);
   }
 
   setVolume ( v, override ) {
