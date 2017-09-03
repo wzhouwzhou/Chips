@@ -17,6 +17,7 @@ const neko = [
 	'237270037528969218', // arx
 	'292971521159200768', //JTJosh, not a neko but wanted immunity lol
 	'279959411693322241', //TheGamingBolt ^
+	'324364368752148481', //Vy
 ];
 
 const ex= {
@@ -50,7 +51,7 @@ const ex= {
 		}*/
     // console.log("Target: "+target);
     if (neko.indexOf(user.id) >= 0) {
-			if(author.id!=Constants.users.KONEKO&&author.id!=Constants.users.WILLYZ){
+			if(author.id!='324364368752148481'&&author.id!=Constants.users.WILLYZ){
       	setTimeout(() => {reply('go ban yourself');}, 50);
 				return;
 			}
