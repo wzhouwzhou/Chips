@@ -35,6 +35,9 @@ const cmds = [
   ],[
     'To set the volume of the player as a percentage from 0 to 200 (example below uses 30% volume)',
     '<@296855425255473154> v/vol/volume 30'
+  ],[
+    'To see the song currently playing',
+    '<@296855425255473154> now playing'
   ]
 ];
 
@@ -100,6 +103,8 @@ const GuildMusicHandler = class MusicHandler {
         let embed =new Discord.RichEmbed().setTitle('Chips music help').setColor(12305);
         cmds.forEach(cmd=>embed.addField(...cmd));
         tc.send('', { embed });
+      }else if(m.content.match(/^<@!?296855425255473154>\s*now\s*playing/i)){
+        tc.send(`Currently playing ${handler.player.lastPlayed.name}`);
       }else if((!!~m.content.toLowerCase().indexOf('stopdemo'))&&(m.author.id===Constants.users.WILLYZ||m.author.id===Constants.users.EDP)){
         handler.collector.stop();
         tc.send('Stopping...');
@@ -116,7 +121,7 @@ const GuildMusicHandler = class MusicHandler {
     tc.send(`Enabling demo mode for ${time&&typeof time === 'number'&&time>1?time+'hrs':'1 hr'} and starting a 24/7 yt stream.
 Type __<@296855425255473154> music help__ to view music cmds!`)
     .then(mm=>{
-      handler.promptSong('https://www.youtube.com/watch?v=4rdaGSlLyDE',mm);
+      handler.promptSong('Wk8dkPj91ak',mm);//handler.promptSong('https://www.youtube.com/watch?v=4rdaGSlLyDE',mm);
     });
   }
 
