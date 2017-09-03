@@ -114,8 +114,9 @@ const MusicPlayer = class MusicPlayer {
     if(this.shuttingDown) return null;
     if(v<0)v=0;
     if(v>200&&!override)v=200;
+    this.volume = ~~(v/100);
     if(this.dispatcher){
-      this.dispatcher.setVolume(~~v/100);
+      this.dispatcher.setVolume(~~(v/100));
       if(this.textchannel) this.textchannel.send(`Successfully set volume to ${v}%`);
     }
   }
