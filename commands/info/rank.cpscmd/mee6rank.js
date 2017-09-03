@@ -11,7 +11,7 @@ const ex = {
   name: "mee6rank",
   async func(msg, {send, author, guild, args, gMember, reply, content, prefix, Discord }) {
     let member = msg.member;
-    const waitingE = new Discord.RichEmbed().attachFile('loading.gif').setImage('attachment://loading.gif').setColor(msg.member.displayColor).setTitle('Loading data...please wait');
+    const waitingE = new Discord.RichEmbed().attachFile('loading.gif').setAuthor('Loading...','attachment://loading.gif','http://chipsbot.tk').setColor(msg.member.displayColor);
     const waiting = await send(' ', {embed: waitingE});
 
     console.log("[Mee6Rank] Creating new searcher for guild " + guild.id);
