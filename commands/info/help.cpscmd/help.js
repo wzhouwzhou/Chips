@@ -60,6 +60,7 @@ module.exports = {
     '**{}spooky [text]** to spread your letters out',
     '**{}big [emoji1, emoji2]** to enlarge one or more emojis',
     '**{}rotate [/ text]** *and* **{}rotate [\\ text]** to push your text around',
+    '**{}derp [text]** to make your text derpy (capitalises every other letter)',
     ].join('\n').replace(/{}/g, prefix));
 
     const UtilityMenu = ([
