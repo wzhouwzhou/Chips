@@ -43,11 +43,11 @@ module.exports = {
     else if(weighted < 400) scale = "That's about average!";
     else if(weighted < 500) scale = "That's slightly below average!";
     else if(weighted < 600) scale = "I might be lagging a bit!";
-    else if(weighted < 700) scale = "I think I am lagging a fair amount! Try doing -discordstats to see if it's a problem on Discord's end!";
-    else if(weighted < 800) scale = "Perhaps I am having issues with the internet! Try doing -discordstats to see if it's a problem on Discord's end!";
-    else if(weighted < 900) scale = "That's pretty bad! Try doing -discordstats to see if it's a problem on Discord's end!";
-    else if(weighted < 1000)scale = "That's poor! Perhaps I just restarted? Try doing -discordstats to see if it's a problem on Discord's end!";
-    else if(weighted > 1000)scale = "Help! Something must be wrong with me or Discord! Perhaps I just restarted? Try doing -discordstats to see if it's a problem on Discord's end!";
+    else if(weighted < 700) scale = "I think I am lagging a fair amount! Try doing -discordstatus to see if it's a problem on Discord's end!";
+    else if(weighted < 800) scale = "Perhaps I am having issues with the internet! Try doing -discordstatus to see if it's a problem on Discord's end!";
+    else if(weighted < 900) scale = "That's pretty bad! Try doing -discordstatus to see if it's a problem on Discord's end!";
+    else if(weighted < 1000)scale = "That's poor! Perhaps I just restarted? Try doing -discordstatus to see if it's a problem on Discord's end!";
+    else if(weighted > 1000)scale = "Help! Something must be wrong with me or Discord! Perhaps I just restarted? Try doing -discordstatus to see if it's a problem on Discord's end!";
 
     console.log("ping pong! " + author.username + "'s ping was " + wsPing + "ms!");
 
