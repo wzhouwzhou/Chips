@@ -66,7 +66,8 @@ module.exports = {
       '**{}-calc [equation or expression]** to calculate some things! The equation solver can only solve basic algebra up to cubics',
       '**{}urban [text]** To search up something in the urban dictionary. Add __--allownsfw__ somewhere in your search query to turn off the censor',
       '**{}translate [text]** or **{}translate text targetlang:spanish** to translate some text',
-      '**{}stoptyping** for if a chips command errored and is stuck "typing" in the channel.'
+      '**{}stoptyping** for if a chips command errored and is stuck "typing" in the channel.',
+      '**{}password (length) (numerical/alphanumeric/hex/unicode)** to generate a cryptographically strong password!',
     ].join('\n').replace(/{}/g,prefix));
 
     const MusicMenu = ([
