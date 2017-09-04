@@ -5,7 +5,7 @@ module.exports = {
   async func(msg, { guild, author, args, reply}) {
     const numQ = args.join(' ').match(/^[^\d]*(\d+)[^\d]*$/);
     const length = numQ?+(numQ[1]):10;
-
+    if(length>1800) return reply('Password is too long!');
     const generated = crypto.randomBytes(+length);
     const optionsQ = args.join(' ').match(/^[^aunh]*(uni(?!code)|unicode|alphanumer(?:ic)?(?!(?:al))|(?!alpha)an|(?!alpha)numerical|number|num(?!(?:er(?:ic)?))|hex)[^]*$/i);
     const options = optionsQ?optionsQ[1]:'an';
