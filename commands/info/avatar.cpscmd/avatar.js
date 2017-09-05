@@ -9,7 +9,13 @@ module.exports = {
     let targetmember = msg.mentions.members;
 
     if(!targetmember||targetmember.size<1)
-      let hrTime = process.hrtime(start);
+  const selftar = new Discord.RichEmbed()
+  .setTitle(`Avatar Image of ${author.tag}` , true)
+  .setColor(member.displayColor)
+  .addField('Avatar Link: ', `[Click Here](${author.avatarURL})`)
+  .setImage(author.avatarURL);
+
+  let hrTime = process.hrtime(start);
       let µs = false;
       let end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
       if(end<1){
@@ -17,14 +23,7 @@ module.exports = {
         end = (hrTime[0] * 1000000 + hrTime[1] / 1000)
        }
        µs ? end += 'µs' : end += 'ms';
- 
-  const selftar = new Discord.RichEmbed()
-  .setTitle(`Avatar Image of ${author.tag} `, ``   , true)
-  .setColor(member.displayColor)
-  .addField('Avatar Link: ', `[Click Here](${author.avatarURL})`)
-  .setFooter(`--User Avatar lookup and calculations took ${(end)}.--`,``, true)
-  .setImage(author.avatarURL);
-  
+  selftar.setFooter(`--User Avatar lookup and calculations took ${(end)}.--`,, true)
   return send({embed: selftar});
 
     else {
