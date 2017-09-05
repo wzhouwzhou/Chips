@@ -17,14 +17,14 @@ module.exports = {
     ].join('\n'));
 
     const Table = ([
-      ['1    ','Introductions'],
-      ['2    ','Table of Contents'],
-      ['3    ','Informative commands'],
-      ['4    ','Moderation commands'],
+      ['1_    _','Introductions'],
+      ['2_    _','Table of Contents'],
+      ['3_    _','Informative commands'],
+      ['4_    _','Moderation commands'],
       ['5/6 ' ,'Fun/Games'],
-      ['7    ','Utility commands'],
-      ['8    ','(Experimental) Music information'],
-      ['9    ','Additional bot information'],
+      ['7_    _','Utility commands'],
+      ['8_    _','(Experimental) Music information'],
+      ['9_    _','Additional bot information'],
     ].map(e=>`**P. ${e[0]}**¬\n\t${e[1]}`).join('\n'));
 
     const InfoMenu = ([
