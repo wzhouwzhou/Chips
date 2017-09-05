@@ -57,7 +57,7 @@ const Paginator = class Paginator {
       this.currentTitle = this.title?typeof this.title==='string'?this.title:this.title[pageNum]?this.title[pageNum]:' ':null;
 
       this.embed.setTitle(this.currentTitle)
-                .setFooter(this.footer?this.footer.replace(/{pagenum}/gi,pageNum+1).replace(/{totalpages}/gi,this.pages.length):`Page ${pageNum+1} of ${this.pages.length}`)
+                .setFooter(this.footer?typeof this.footer==='string'?this.footer.replace(/{pagenum}/gi,pageNum+1).replace(/{totalpages}/gi,this.pages.length):this.footer[pageNum]?this.footer[pageNum].replace(/{pagenum}/gi,pageNum+1).replace(/{totalpages}/gi,this.pages.length):`Page ${pageNum+1} of ${this.pages.length}`:`Page ${pageNum+1} of ${this.pages.length}`)
                 .setColor(this.color||DEFAULTCOLOR);
       this.author&&this.embed.setAuthor(this.author);
 

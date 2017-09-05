@@ -139,10 +139,10 @@ module.exports = {
         ...new Array(7).fill(null),
         'https://cdn.discordapp.com/attachments/307625096078426123/314201502669471744/Chips.jpg',
       ],
-      /*footer: [
+      footer: [
         ...new Array(7).fill(null),
         'Image made by @xdlf#6477.'
-      ]*/}, Discord
+      ]}, Discord
     );
     try{
       return await p.sendFirst();
