@@ -35,6 +35,6 @@ module.exports = {
     "SPEAK": false
     }));
 
-    return await send("Muted role created!");
+    return await send("Chips Mute role created!");
   }
 };
