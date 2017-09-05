@@ -9,7 +9,23 @@ module.exports = {
     let targetmember = msg.mentions.members;
 
     if(!targetmember||targetmember.size<1)
-      return msg.reply("Please mention a valid member of this server");
+      let hrTime = process.hrtime(start);
+      let µs = false;
+      let end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
+      if(end<1){
+        µs = true;
+        end = (hrTime[0] * 1000000 + hrTime[1] / 1000)
+       }
+       µs ? end += 'µs' : end += 'ms';
+ 
+  const selftar = new Discord.RichEmbed()
+  .setTitle(`Avatar Image of ${author.tag} `, ``   , true)
+  .setColor(member.displayColor)
+  .addField('Avatar Link: ', `[Click Here](${author.avatarURL})`)
+  .setFooter(`--User Avatar lookup and calculations took ${(end)}.--`,``, true)
+  .setImage(author.avatarURL);
+  
+  return send({embed: selftar});
 
     else {
       const memberList = new Map();
