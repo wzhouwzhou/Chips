@@ -138,11 +138,11 @@ module.exports = {
         ...AdditionalSht,
       ]],
       image: [
-        ...new Array(7).fill(null),
+        ...new Array(8).fill(null),
         'https://cdn.discordapp.com/attachments/307625096078426123/314201502669471744/Chips.jpg',
       ],
       footer: [
-        ...new Array(7).fill(null),
+        ...new Array(8).fill(null),
         'Image made by @xdlf#6477.'
       ]}, Discord
     );
