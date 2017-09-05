@@ -17,9 +17,9 @@ module.exports = {
 
     const mem = gMember(target);
 
-    let list = searchers[guild.id].searchRole("Muted");
+    let list = searchers[guild.id].searchRole("Chips Muted");
     if(list.length>1) console.log("Multiple mute roles found, using first one..");
-    else if(list.length<1) return await reply(`A mute role was not found in this server!`);
+    else if(list.length<1) return await reply(`A Chips mute role was not found in this server! Please use -chipsmutebuild and make a mute role!`);
     let muterole = list[0] || guild.roles.get("295551520425115649");
 
     mem.addRole(muterole);
