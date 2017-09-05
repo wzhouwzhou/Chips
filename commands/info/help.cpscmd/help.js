@@ -3,6 +3,29 @@ const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Pa
 module.exports = {
   name: "help",
   async func(msg, { prefix, Discord }) {
+    const IntroMenu1 = ([
+      'Thank you for using Chips!',
+      'Chips is a multipurpose bot under heavy development!',
+      "We're working on a gui update and structural rewrite right now, so apologies if some commands are not listed",
+    ].join('\n'));
+
+    const IntroMenu2 = ([
+      'You can use the arrow button reactions to navigate the help menu as well as other features of the bot that support it!',
+      'The 🔢 button will let you jump to a specific page number.',
+      'The ⏏ button will close this menu!',
+      "Each command will update with your server's custom prefix!",
+      `The prefix for your server is ${_.escapeRegExp(prefix)}`,
+    ].join('\n'));
+
+    const IntroMenu3 = ([
+      ['2  ','Informative commands'],
+      ['3  ','Moderation commands'],
+      ['4-5','Fun/Games'],
+      ['6  ','Utility commands'],
+      ['7  ','(Experimental) Music information'],
+      ['8  ','Additional bot information'],
+    ].map(e=>`**P. ${e[0]}**\t¬\n\t\t${e[1]}`).join('\n'));
+
     const InfoMenu = ([
       '**{}help** for this help message.',
       '**{}ping** for more info about ping than you could ever want.',
@@ -19,48 +42,49 @@ module.exports = {
       ].join('\n').replace(/{}/g, prefix));
 
     const ModMenu = ([
-    '**{}ban [mention user]** to ban someone.',
-    '**{}clear [amount]** to clear some messages. (up to 99)',
-    '**{}botclear [amount]** to delete bot-related messages. (up to the last 100 messages are checked)',
-    '**{}hackban [user id]** to ban someone by their ID',
-    '**{}kick [mention user]** to kick someone.',
-    '**{}silence [mention user]** to server-mute someone.',
-    '**{}deafen [mention user]** to deafen someone.',
-    '**{}unsilence [mention user]** to unserver-mute someone.',
-    '**{}undeafen [mention user]** to undeafen someone.',
-    '**{}pmute [mention user]** to give someone a muted role! (Disclaimer: this does not create a Muted role, manually remove the mute role to unmute)',
-    '**{}chipsprefix on** to begin custom prefix setup, use **{}chipsprefix off** to turn off custom prefix',
+      '**{}ban [mention user]** to ban someone.',
+      '**{}clear [amount]** to clear some messages. (up to 99)',
+      '**{}botclear [amount]** to delete bot-related messages. (up to the last 100 messages are checked)',
+      '**{}hackban [user id]** to ban someone by their ID',
+      '**{}kick [mention user]** to kick someone.',
+      '**{}silence [mention user]** to server-mute someone.',
+      '**{}deafen [mention user]** to deafen someone.',
+      '**{}unsilence [mention user]** to unserver-mute someone.',
+      '**{}undeafen [mention user]** to undeafen someone.',
+      '**{}pmute [mention user]** to give someone a muted role! (Disclaimer: this does not create a Muted role, manually remove the mute role to unmute)',
+      '**{}chipsprefix on** to begin custom prefix setup, use **{}chipsprefix off** to turn off custom prefix',
     ].join('\n').replace(/{}/g, prefix));
 
     const FunMenu = ([
-    '**{}con4 length width** to play connect four (beta).',
-    'For example, **{}con4 12 6** will create a 12x6 board with 6 columns and 12 rows',
-    '**{}aboose** for aboose.',
-    '**{}-ban [mention user]** to ban people (Disclaimer: This is a fake ban).',
-    '**{}cat** to create a cat.',
-    '**{}coinflip** to flip a coin.',
-    '**{}dog** to create a dog.',
-    '**{}exposed** for exposed.',
-    '**{}confoosed** for confoosed',
-    '**{}everyone** for when someone pings everyone',
-    '**{}eat** for your own bag of chips.',
-    '**{}happy** (credits to Tani)',
-    '**{}lenny** to make a lenny face.',
+      '**{}con4 length width** to play connect four (beta).',
+      'For example, **{}con4 12 6** will create a 12x6 board with 6 columns and 12 rows',
+      '**{}aboose** for aboose.',
+      '**{}-ban [mention user]** to ban people (Disclaimer: This is a fake ban).',
+      '**{}cat** to create a cat.',
+      '**{}coinflip** to flip a coin.',
+      '**{}dog** to create a dog.',
+      '**{}exposed** for exposed.',
+      '**{}confoosed** for confoosed',
+      '**{}everyone** for when someone pings everyone',
+      '**{}eat** for your own bag of chips.',
+      '**{}happy** (credits to Tani)',
+      '**{}lenny** to make a lenny face.',
     ].join('\n').replace(/{}/g, prefix));
+
     const FunMenu2 = ([
-    '**{}nsfw** to get NSFW commands',
-    '**{}rekt** to make some people get rekt.',
-    '**{}everyone** to get some at everyone pictures!',
-    '**{}roll** to roll some dice.',
-    '**{}3d [text]** convert some text to 3d (1minute cooldown)',
-    '**{}3d2 [text]** convert some text to 3d in another font (1minute cooldown)',
-    '**{}ascii help** to see how to asciify some text.',
-    '**{}reverse [text]** to reverse your text',
-    '**{}randomcaps [text]** to make your text look weird',
-    '**{}spooky [text]** to spread your letters out',
-    '**{}big [emoji1, emoji2]** to enlarge one or more emojis',
-    '**{}rotate [/ text]** *and* **{}rotate [\\ text]** to push your text around',
-    '**{}derp [text]** to make your text derpy (capitalises every other letter)',
+      '**{}nsfw** to get NSFW commands',
+      '**{}rekt** to make some people get rekt.',
+      '**{}everyone** to get some at everyone pictures!',
+      '**{}roll** to roll some dice.',
+      '**{}3d [text]** convert some text to 3d (1minute cooldown)',
+      '**{}3d2 [text]** convert some text to 3d in another font (1minute cooldown)',
+      '**{}ascii help** to see how to asciify some text.',
+      '**{}reverse [text]** to reverse your text',
+      '**{}randomcaps [text]** to make your text look weird',
+      '**{}spooky [text]** to spread your letters out',
+      '**{}big [emoji1, emoji2]** to enlarge one or more emojis',
+      '**{}rotate [/ text]** *and* **{}rotate [\\ text]** to push your text around',
+      '**{}derp [text]** to make your text derpy (capitalises every other letter)',
     ].join('\n').replace(/{}/g, prefix));
 
     const UtilityMenu = ([
@@ -77,14 +101,26 @@ module.exports = {
       'Mention me once demo is activated for music commands: __@Chips music help__',
       'Server specific prefixes do not work. The only prefix usable with Chips music is mentioning chips',
     ]).join('\n').replace(/{}/g,prefix);
+
+    const AdditionalSht = ([
+      ['Invite Link:',`[Click Here!](${Constants.BOTINVITE})`],
+      ['Support Server:', `[Click Here](${Constants.SUPPORTINVITE})`],
+      ['Official Website: (currently down right now...sorry!)',`[${Constants.WEBSITE}](${Constants.WEBSITE})`],
+      ["Feeling generous? Donate here to help us pay for hosting and keep our bot updated constantly!", "[https://www.paypal.me/wzhouwzhou](https://www.paypal.me/wzhouwzhou)"]
+    ]);
+
     const p = new Paginator ( msg,  {
       type:'paged',
       embedding: true,
       fielding: true,
-      title: 'Chips commands',
-      text: 'As you can see we are doing a gui overhaul, we apologize if some commands are not working or listed',
+      title: 'The Chips Help Menu',
+      text: ' ',
       pages:
       [[
+        ['Thank you', IntroMenu1],
+        ['How to', IntroMenu2],
+        ['Tabel of Contents', IntroMenu3],
+      ],[
         ['Informative commands',InfoMenu],
       ],[
         ['Moderation commands',ModMenu],
@@ -96,8 +132,17 @@ module.exports = {
         ['Utility commands',UtilityMenu],
       ],[
         ['Music commands (Open beta)',MusicMenu],
+      ],[
+        ...AdditionalSht,
       ]],
-      }, Discord
+      image: [
+        ...new Array(7).fill(null),
+        'https://cdn.discordapp.com/attachments/307625096078426123/314201502669471744/Chips.jpg',
+      ],
+      /*footer: [
+        ...new Array(7).fill(null),
+        'Image made by @xdlf#6477.'
+      ]*/}, Discord
     );
     try{
       return await p.sendFirst();
