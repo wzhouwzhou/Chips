@@ -4,7 +4,6 @@ module.exports = {
   name: "help",
   async func(msg, { prefix, Discord }) {
     const IntroMenu1 = ([
-      'Thank you for using Chips!',
       'Chips is a multipurpose bot under heavy development!',
       "We're working on a gui update and structural rewrite right now, so apologies if some commands are not listed",
     ].join('\n'));
@@ -17,14 +16,16 @@ module.exports = {
       `The prefix for your server is ${_.escapeRegExp(prefix)}`,
     ].join('\n'));
 
-    const IntroMenu3 = ([
-      ['2  ','Informative commands'],
-      ['3  ','Moderation commands'],
-      ['4-5','Fun/Games'],
-      ['6  ','Utility commands'],
-      ['7  ','(Experimental) Music information'],
-      ['8  ','Additional bot information'],
-    ].map(e=>`**P. ${e[0]}**\t¬\n\t\t${e[1]}`).join('\n'));
+    const Table = ([
+      ['1   ','Introductions'],
+      ['2   ','Table of Contents'],
+      ['3   ','Informative commands'],
+      ['4   ','Moderation commands'],
+      ['5/6 ' ,'Fun/Games'],
+      ['7   ','Utility commands'],
+      ['8   ','(Experimental) Music information'],
+      ['9   ','Additional bot information'],
+    ].map(e=>`**P. ${e[0]}**¬\n\t${e[1]}`).join('\n'));
 
     const InfoMenu = ([
       '**{}help** for this help message.',
@@ -117,9 +118,10 @@ module.exports = {
       text: ' ',
       pages:
       [[
-        ['Thank you', IntroMenu1],
+        ['Introductions', IntroMenu1],
         ['How to', IntroMenu2],
-        ['Tabel of Contents', IntroMenu3],
+      ],[
+        ['Table of Contents', Table],
       ],[
         ['Informative commands',InfoMenu],
       ],[
