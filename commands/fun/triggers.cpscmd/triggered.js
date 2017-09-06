@@ -1,6 +1,6 @@
 module.exports = {
   name: "triggered",
   async func(msg, { send }) {
-    send("https://tenor.com/view/triggered-trigger-warning-gif-5218036");
+    send("https://cdn.discordapp.com/attachments/322051795394494484/340559714498904067/triggered.gif");
   }
 };
