@@ -71,13 +71,14 @@ const ex= {
     const usernm = user.username;
 
     reply(`User banned successfully!`);
-		const mee6name = guild.members.get('159985870458322944')?guild.members.get('159985870458322944').displayName:'Mee6';
-    channel.createWebhook(mee6name, Constants.avatars.MEE6)
-      .then (whook => whook.edit(mee6name, Constants.avatars.MEE6))
-      .then(hook => hook.send(`**${usernm}** left`)
-      .then(() => { hook.delete(); })
-      .catch(console.error)
-    );
+		const mee6name = guild.members.get('159985870458322944')?guild.members.get('159985870458322944').displayName:null;
+		if(mee6name)
+	    channel.createWebhook(mee6name, Constants.avatars.MEE6)
+	      .then (whook => whook.edit(mee6name, Constants.avatars.MEE6))
+	      .then(hook => hook.send(`**${usernm}** left`)
+	      .then(() => { hook.delete(); })
+	      .catch(console.error)
+	    );
   }
 };
 
