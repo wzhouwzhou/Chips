@@ -21,7 +21,7 @@ module.exports = {
       ['2_    _','Table of Contents'],
       ['3_    _','Informative commands'],
       ['4_    _','Moderation commands'],
-      ['5/6 ' ,'Fun/Games'],
+      ['5/6' ,'Fun/Games'],
       ['7_    _','Utility commands'],
       ['8_    _','(Experimental) Music information'],
       ['9_    _','Additional bot information'],
