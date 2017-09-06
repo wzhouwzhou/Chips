@@ -98,6 +98,10 @@ const Exporter = class Exporter {
       'delayF',
       ['reverseF',['rs','reverse']],
       ['reverseWF',['rws','reverseW']],
+      'timeAgoF',
+      'grammarJoinF',
+      'fetchMessagesRF',
+      'massDeleteF',
     ].forEach(f => {
       if(typeof f === 'string')
         return this.define(data['functions'], f, f);
