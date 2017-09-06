@@ -12,8 +12,8 @@ module.exports = {
 
       const selftar = new Discord.RichEmbed()
       .setTitle(`Avatar Image of ${author.tag} `, ``   , true)
-      .setColor(member.displayColor)
-      .addField('Avatar Link: ', `[Click Here](${author.avatarURL})`)
+      .setColor(guild?msg.member.displayColor:71340)
+      .addField('Avatar Link: ', `[Click Here](${author.avatarURL||author.displayAvatarURL})`)
       .setImage(author.avatarURL);
 
       let µs = false;
@@ -33,7 +33,7 @@ module.exports = {
 
         memberList.set(member.id,{
           title: `Avatar Image of ${member.user.tag} `,
-          page: ['Avatar Link: ', `[Click Here](${member.user.displayAvatarURL})`],
+          page: ['Avatar Link: ', `[Click Here](${member.user.avatarURL||member.user.displayAvatarURL})`],
           image: member.user.displayAvatarURL
         });
       });
@@ -47,7 +47,7 @@ module.exports = {
       if(pages.length===1){
         const avator = new Discord.RichEmbed()
           .setTitle(title[0])
-          .setColor(msg.member.displayColor)
+          .setColor(guild?msg.member.displayColor:71340)
           .addField(...pages[0][0])
           .setImage(image[0]);
 
