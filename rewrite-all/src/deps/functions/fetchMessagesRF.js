@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 
 const Logger = require('../../struct/client/Logger').create('exports','fetchMessagesRF');
-const firstF = require('./firstF').default();
 
-exports.default = ({ Discord }) => {
+exports.default = ({ Discord, _ }) => {
+  const firstF = require('./firstF').default({_});
   const { Collection } = Discord;
   const fetchMessagesR = ( channel, options = { limit: 100 }, collection = new Collection() ) => {
     const limit = options.limit;
