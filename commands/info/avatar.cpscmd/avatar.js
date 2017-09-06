@@ -7,27 +7,26 @@ module.exports = {
     let start = process.hrtime();
     console.log(chalk.bold.bgBlue.green(author.tag+" ")+chalk.bgWhite.red(author.id+" ")+chalk.black.bgWhite(guild.id)+chalk.cyan(" [Avatar] "));
     let targetmember = msg.mentions.members;
-
-    if(!targetmember||targetmember.size<1)
+    if(!targetmember||targetmember.size<1){
       let hrTime = process.hrtime(start);
+
+      const selftar = new Discord.RichEmbed()
+      .setTitle(`Avatar Image of ${author.tag} `, ``   , true)
+      .setColor(member.displayColor)
+      .addField('Avatar Link: ', `[Click Here](${author.avatarURL})`)
+      .setImage(author.avatarURL);
+
       let µs = false;
       let end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
       if(end<1){
         µs = true;
-        end = (hrTime[0] * 1000000 + hrTime[1] / 1000)
+        end = (hrTime[0] * 1000000 + hrTime[1] / 1000);
        }
        µs ? end += 'µs' : end += 'ms';
- 
-  const selftar = new Discord.RichEmbed()
-  .setTitle(`Avatar Image of ${author.tag} `, ``   , true)
-  .setColor(member.displayColor)
-  .addField('Avatar Link: ', `[Click Here](${author.avatarURL})`)
-  .setFooter(`--User Avatar lookup and calculations took ${(end)}.--`,``, true)
-  .setImage(author.avatarURL);
-  
-  return send({embed: selftar});
+       selftar.setFooter(`--User Avatar lookup and calculations took ${(end)}.--`,``, true);
 
-    else {
+      return send({embed: selftar});
+    }else {
       const memberList = new Map();
 
       targetmember.forEach(member=>{
@@ -45,6 +44,25 @@ module.exports = {
         image.push(e.image.replace(/\?size=\d+/g,''));
       });
 
+      if(pages.length===1){
+        const avator = new Discord.RichEmbed()
+          .setTitle(title[0])
+          .setColor(msg.member.displayColor)
+          .addField(...pages[0][0])
+          .setImage(image[0]);
+
+        let hrTime = process.hrtime(start);
+        let µs = false;
+        let end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
+        if(end<1){
+          µs = true;
+          end = (hrTime[0] * 1000000 + hrTime[1] / 1000);
+        }
+        µs ? end += 'µs' : end += 'ms';
+        avator.setFooter(`--User Avatar lookup took ${(end)}.--`,``, true);
+        return send('', {embed: avator});
+      }
+
       let hrTime = process.hrtime(start);
       let µs = false;
       let end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
@@ -53,16 +71,6 @@ module.exports = {
         end = (hrTime[0] * 1000000 + hrTime[1] / 1000);
       }
       µs ? end += 'µs' : end += 'ms';
-
-      if(pages.length===1){
-        const avator = new Discord.RichEmbed()
-          .setTitle(title[0])
-          .setColor(msg.member.displayColor)
-          .addField(...pages[0][0])
-          .setFooter(`--User Avatar lookup took ${(end)}.--`,``, true)
-          .setImage(image[0]);
-        return send('', {embed: avator});
-      }
 
       const p = new Paginator ( msg,  {
         type:'paged',
