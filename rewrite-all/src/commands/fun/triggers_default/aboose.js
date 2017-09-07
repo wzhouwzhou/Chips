@@ -4,52 +4,59 @@ Object.defineProperty(exports,'__esModule', { value: true });
 const Logger = require('../../../struct/client/Logger').create('command','aboose');
 const COLOR = 1;
 
-exports.name = /^ab(?:o){2,}se/i;
+exports.name = 'aboose';
+exports.trigger = /^ab(?:o){2,}se/i;
 
-exports.config = {
-  inhibitors: {
-    guildOnly: !1,
-    ownerOnly: !1,
+exports.metadata = {
+  categories: ['fun'],
+
+  exec_config: {
+    inhibitors: {
+      guildOnly: !1,
+      ownerOnly: !1,
+      enabled: !0,
+      hidden: !1,
+    },
+
+    bot_permissions: {
+      custom: {
+        required: [
+          'global.fun.triggers_default.aboose',
+        ],
+        optional: [],
+      },
+
+      native: {
+        require: [
+          'SEND_MESSAGES',
+        ],
+        optional: [
+          'EMBED_LINKS',
+        ]
+      },
+    },
+
+    user_permissions: {
+      custom: {
+        required: [
+          'global.fun.triggers_default.aboose',
+        ],
+        optional: [],
+      },
+
+      native: {
+        require: [
+          'SEND_MESSAGES',
+        ],
+        optional: [],
+      },
+    },
   },
 
-  bot_permissions: {
-    custom: {
-      required: [
-        'global.fun.triggers_default.aboose',
-      ],
-      optional: [],
-    },
-
-    native: {
-      require: [
-        'SEND_MESSAGES',
-      ],
-      optional: [
-        'EMBED_LINKS',
-      ]
-    },
+  help: {
+    usage: ['aboose',"The command works with 2 or more o's, so aboooose would work as well." ],
+    example: 'aboooose',
   },
-
-  user_permissions: {
-    custom: {
-      required: [
-        'global.fun.triggers_default.aboose',
-      ],
-      optional: [],
-    },
-
-    native: {
-      require: [
-        'SEND_MESSAGES',
-      ],
-      optional: [],
-    },
-  },
-};
-
-exports.help = {
-  usage: ['aboose',"The command works with 2 or more o's, so aboooose would work as well." ],
-  example: 'aboooose',
 };
 
 exports.handle = async (ctx, modules) => {
