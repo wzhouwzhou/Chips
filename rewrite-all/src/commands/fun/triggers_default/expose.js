@@ -61,13 +61,20 @@ exports.metadata = {
   },
 };
 
-exports.handle = async (ctx, modules) => {
+exports.handle = async (
+  ctx,
+  modules
+) => {
   Logger.debug('Entered handle');
 
   return await this.selfPreHandle (ctx, modules);
 };
 
-exports.selfPreHandle = async (ctx, modules, settings = {}) => {
+exports.selfPreHandle = async (
+  ctx,
+  modules,
+  settings = {}
+) => {
   Logger.debug('Entered selfPreHandle');
 
   settings.embeddable = ctx.guild ? ctx.guild.me.hasPermission('EMBED_LINKS') : !0;
@@ -78,7 +85,11 @@ exports.selfPreHandle = async (ctx, modules, settings = {}) => {
   return await this.selfPostHandle(ctx, modules, settings, result);
 };
 
-exports.exec = async ({ send }, { Discord }, { embeddable, color, EXPOSE }) => {
+exports.exec = async (
+  { send },
+  { Discord },
+  { embeddable, color, EXPOSE }
+) => {
   Logger.debug('Entered exec');
 
   return embeddable
@@ -86,7 +97,12 @@ exports.exec = async ({ send }, { Discord }, { embeddable, color, EXPOSE }) => {
     : await send(EXPOSE);
 };
 
-exports.selfPostHandle  = async (ctx, modules, settings, result) => {
+exports.selfPostHandle  = async (
+  ctx,
+  modules,
+  settings,
+  result
+) => {
   Logger.debug('Entered selfPostHandle');
 
   return result;
