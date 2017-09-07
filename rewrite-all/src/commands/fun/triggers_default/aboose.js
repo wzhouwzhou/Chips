@@ -4,6 +4,8 @@ Object.defineProperty(exports,'__esModule', { value: true });
 const Logger = require('../../../struct/client/Logger').create('command','aboose');
 const COLOR = 1;
 
+Logger.debug('Entered into aboose.js');
+
 exports.name = 'aboose';
 exports.trigger = /^ab(?:o){2,}se/i;
 
