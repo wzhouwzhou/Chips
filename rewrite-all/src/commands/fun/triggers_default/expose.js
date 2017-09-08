@@ -57,7 +57,7 @@ exports.metadata = {
 
   help: {
     usage: ['expose',"The command works with 1 or more o's, so expooosed would work as well." ],
-    example: 'expooosed',
+    example: ['expooosed'],
   },
 };
 

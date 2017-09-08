@@ -57,7 +57,7 @@ exports.metadata = {
 
   help: {
     usage: ['aboose',"The command works with 2 or more o's, so aboooose would work as well." ],
-    example: 'aboooose',
+    example: ['aboooose'],
   },
 };
 
