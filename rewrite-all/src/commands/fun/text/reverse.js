@@ -38,7 +38,7 @@ exports.metadata = {
       },
 
       native: {
-        require: [
+        required: [
           'SEND_MESSAGES',
         ],
         optional: [
@@ -56,7 +56,7 @@ exports.metadata = {
       },
 
       native: {
-        require: [
+        required: [
           'SEND_MESSAGES',
         ],
         optional: [],
