@@ -102,6 +102,7 @@ const Exporter = class Exporter {
       'grammarJoinF',
       'fetchMessagesRF',
       'massDeleteF',
+      'randomCapsF',
     ].forEach(f => {
       if(typeof f === 'string')
         return this.define(data['functions'], f, f);
