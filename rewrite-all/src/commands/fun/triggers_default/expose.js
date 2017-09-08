@@ -9,65 +9,13 @@ Logger.debug('Entered into exposed.js');
 exports.name = 'exposed';
 exports.trigger = /^expo+se/i;
 
-exports.metadata = {
-  categories: ['fun'],
+Logger.debug('Assembling exposed metadata...');
+const metarel = '/metadata/exposed.json';
 
-  exec_config: {
-    ratelimit_default: {
-      user: 0.5,
-      member: 0.1,
-      role: 0.01,
-      channel: 0.01,
-      guild: 0.001,
-    },
-
-    inhibitors: {
-      guildOnly: !1,
-      ownerOnly: !1,
-      enabled: !0,
-      hidden: !1,
-    },
-
-    bot_permissions: {
-      custom: {
-        required: [
-          'global.fun.triggers_default.expose',
-        ],
-        optional: [],
-      },
-
-      native: {
-        required: [
-          'SEND_MESSAGES',
-        ],
-        optional: [
-          'EMBED_LINKS',
-        ]
-      },
-    },
-
-    user_permissions: {
-      custom: {
-        required: [
-          'global.fun.triggers_default.expose',
-        ],
-        optional: [],
-      },
-
-      native: {
-        required: [
-          'SEND_MESSAGES',
-        ],
-        optional: [],
-      },
-    },
-  },
-
-  help: {
-    usage: ['expose',"The command works with 1 or more o's, so expooosed would work as well." ],
-    example: ['expooosed'],
-  },
-};
+exports.metapath = __dirname+metarel;
+exports.metadata = require(`.${metarel}`);
+delete require.cache[require.resolve(`.${metarel}`)];
+Logger.debug('Metadata assembly done!');
 
 exports.handle = async (
   ctx,

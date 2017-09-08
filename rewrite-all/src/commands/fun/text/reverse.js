@@ -8,67 +8,13 @@ Logger.debug('Entered into reverse.js');
 
 exports.name = 'reverse';
 
-exports.metadata = {
-  categories: ['fun'],
+Logger.debug('Assembling reverse metadata...');
+const metarel = '/metadata/reverse.json';
 
-  exec_config: {
-    ratelimit_default: {
-      user: 1,
-      member: 0.1,
-      role: 0.01,
-      channel: 0.01,
-      guild: 0.001,
-    },
-
-    flags: ['--keepwordorder'],
-
-    inhibitors: {
-      guildOnly: !1,
-      ownerOnly: !1,
-      enabled: !0,
-      hidden: !1,
-    },
-
-    bot_permissions: {
-      custom: {
-        required: [
-          'global.fun.text.reverse',
-        ],
-        optional: [],
-      },
-
-      native: {
-        required: [
-          'SEND_MESSAGES',
-        ],
-        optional: [
-          'EMBED_LINKS',
-        ]
-      },
-    },
-
-    user_permissions: {
-      custom: {
-        required: [
-          'global.fun.text.reverse',
-        ],
-        optional: [],
-      },
-
-      native: {
-        required: [
-          'SEND_MESSAGES',
-        ],
-        optional: [],
-      },
-    },
-  },
-
-  help: {
-    usage: ['reverse','This command reverses some text, you can add the --keepwordorder flag to reverse each word separately.' ],
-    example: ['reverse some testing text'],
-  },
-};
+exports.metapath = __dirname+metarel;
+exports.metadata = require(`.${metarel}`);
+delete require.cache[require.resolve(`.${metarel}`)];
+Logger.debug('Metadata assembly done!');
 
 exports.handle = async (
   ctx,

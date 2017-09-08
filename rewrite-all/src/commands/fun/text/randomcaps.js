@@ -8,65 +8,13 @@ Logger.debug('Entered into randomcaps.js');
 
 exports.name = 'randomcaps';
 
-exports.metadata = {
-  categories: ['fun'],
+Logger.debug('Assembling randomcaps metadata...');
+const metarel = '/metadata/randomcaps.json';
 
-  exec_config: {
-    ratelimit_default: {
-      user: 3,
-      member: 1,
-      role: 0.01,
-      channel: 0.01,
-      guild: 0.001,
-    },
-
-    inhibitors: {
-      guildOnly: !1,
-      ownerOnly: !1,
-      enabled: !0,
-      hidden: !1,
-    },
-
-    bot_permissions: {
-      custom: {
-        required: [
-          'global.fun.text.randomcaps',
-        ],
-        optional: [],
-      },
-
-      native: {
-        required: [
-          'SEND_MESSAGES',
-        ],
-        optional: [
-          'EMBED_LINKS',
-        ]
-      },
-    },
-
-    user_permissions: {
-      custom: {
-        required: [
-          'global.fun.text.randomcaps',
-        ],
-        optional: [],
-      },
-
-      native: {
-        required: [
-          'SEND_MESSAGES',
-        ],
-        optional: [],
-      },
-    },
-  },
-
-  help: {
-    usage: ['randomcaps','This command randomly capitalises the letters in your sentences.' ],
-    example: ['randomcaps some testing text'],
-  },
-};
+exports.metapath = __dirname+metarel;
+exports.metadata = require(`.${metarel}`);
+delete require.cache[require.resolve(`.${metarel}`)];
+Logger.debug('Metadata assembly done!');
 
 exports.handle = async (
   ctx,

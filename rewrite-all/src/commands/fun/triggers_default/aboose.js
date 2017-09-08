@@ -9,65 +9,13 @@ Logger.debug('Entered into aboose.js');
 exports.name = 'aboose';
 exports.trigger = /^ab(?:o){2,}se/i;
 
-exports.metadata = {
-  categories: ['fun'],
+Logger.debug('Assembling aboose metadata...');
+const metarel = '/metadata/aboose.json';
 
-  exec_config: {
-    ratelimit_default: {
-      user: 0.5,
-      member: 0.1,
-      role: 0.01,
-      channel: 0.01,
-      guild: 0.001,
-    },
-
-    inhibitors: {
-      guildOnly: !1,
-      ownerOnly: !1,
-      enabled: !0,
-      hidden: !1,
-    },
-
-    bot_permissions: {
-      custom: {
-        required: [
-          'global.fun.triggers_default.aboose',
-        ],
-        optional: [],
-      },
-
-      native: {
-        required: [
-          'SEND_MESSAGES',
-        ],
-        optional: [
-          'EMBED_LINKS',
-        ]
-      },
-    },
-
-    user_permissions: {
-      custom: {
-        required: [
-          'global.fun.triggers_default.aboose',
-        ],
-        optional: [],
-      },
-
-      native: {
-        required: [
-          'SEND_MESSAGES',
-        ],
-        optional: [],
-      },
-    },
-  },
-
-  help: {
-    usage: ['aboose',"The command works with 2 or more o's, so aboooose would work as well." ],
-    example: ['aboooose'],
-  },
-};
+exports.metapath = __dirname+metarel;
+exports.metadata = require(`.${metarel}`);
+delete require.cache[require.resolve(`.${metarel}`)];
+Logger.debug('Metadata assembly done!');
 
 exports.handle = async (
   ctx,
