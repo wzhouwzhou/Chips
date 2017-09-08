@@ -12,6 +12,14 @@ exports.metadata = {
   categories: ['fun'],
 
   exec_config: {
+    ratelimit_default: {
+      user: 1,
+      member: 0.1,
+      role: 0.01,
+      channel: 0.01,
+      guild: 0.001,
+    },
+
     flags: ['--keepwordorder'],
 
     inhibitors: {
