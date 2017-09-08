@@ -1,26 +1,24 @@
 'use strict';
 Object.defineProperty(exports,'__esModule', { value: true });
 
-const Logger = require('../../../struct/client/Logger').create('command','reverse');
+const Logger = require('../../../struct/client/Logger').create('command','randomcaps');
 const COLOR = 1;
 
-Logger.debug('Entered into reverse.js');
+Logger.debug('Entered into randomcaps.js');
 
-exports.name = 'reverse';
+exports.name = 'randomcaps';
 
 exports.metadata = {
   categories: ['fun'],
 
   exec_config: {
     ratelimit_default: {
-      user: 1,
-      member: 0.1,
+      user: 3,
+      member: 1,
       role: 0.01,
       channel: 0.01,
       guild: 0.001,
     },
-
-    flags: ['--keepwordorder'],
 
     inhibitors: {
       guildOnly: !1,
@@ -32,7 +30,7 @@ exports.metadata = {
     bot_permissions: {
       custom: {
         required: [
-          'global.fun.text.reverse',
+          'global.fun.text.randomcaps',
         ],
         optional: [],
       },
@@ -50,7 +48,7 @@ exports.metadata = {
     user_permissions: {
       custom: {
         required: [
-          'global.fun.text.reverse',
+          'global.fun.text.randomcaps',
         ],
         optional: [],
       },
@@ -65,8 +63,8 @@ exports.metadata = {
   },
 
   help: {
-    usage: ['reverse','This command reverses some text, you can add the --keepwordorder flag to reverse each word separately.' ],
-    example: ['reverse some testing text'],
+    usage: ['randomcaps','This command randomly capitalises the letters in your sentences.' ],
+    example: ['randomcaps some testing text'],
   },
 };
 
@@ -90,24 +88,20 @@ exports.selfPreHandle = async (
   settings.color = ctx.guild ? ctx.member.displayColor : COLOR;
   settings.cb = '\u0070'.repeat(3);
 
-  const woReg = /--keep(?:w(?:ord)?)?order/gi;
-  settings.wordOrder = woReg.test(ctx.suffix);
-  settings._content = ctx.suffix.replace(woReg,'');
-
   const result = await this.exec(ctx, modules, settings);
   return await this.selfPostHandle(ctx, modules, settings, result);
 };
 
 exports.exec = async (
-  { send },
-  { Discord, rs, rws },
-  { embeddable, color, cb, wordOrder, _content },
+  { send, suffix },
+  { Discord, randomCapsF },
+  { embeddable, color, cb },
 ) => {
   Logger.debug('Entered exec');
-  const reversed = wordOrder ? rws(_content) : rs(_content);
+
   return embeddable
-    ? await send('', { embed: new Discord.MessageEmbed().setDescription(reversed).setColor(color) })
-    : await send(cb+reversed+cb);
+    ? await send('', { embed: new Discord.MessageEmbed().setDescription(randomCapsF(suffix)).setColor(color) })
+    : await send(cb+randomCapsF(suffix)+cb);
 };
 
 exports.selfPostHandle  = async (
