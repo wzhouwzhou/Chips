@@ -48,7 +48,7 @@ exports.exec = async (
   Logger.debug('Entered exec');
 
   return embeddable
-    ? await send('', { embed: new Discord.MessageEmbed().setDescription(randomCapsF(suffix)).setColor(color) })
+    ? await send(new Discord.MessageEmbed().setDescription(randomCapsF(suffix)).setColor(color))
     : await send(cb+randomCapsF(suffix)+cb);
 };
 

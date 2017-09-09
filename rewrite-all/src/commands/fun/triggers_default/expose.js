@@ -49,7 +49,7 @@ exports.exec = async (
   Logger.debug('Entered exec');
 
   return embeddable
-    ? await send('', { embed: new Discord.MessageEmbed().setDescription(EXPOSE).setColor(color) })
+    ? await send(new Discord.MessageEmbed().setDescription(EXPOSE).setColor(color))
     : await send(EXPOSE);
 };
 

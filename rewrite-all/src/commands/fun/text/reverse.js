@@ -52,7 +52,7 @@ exports.exec = async (
   Logger.debug('Entered exec');
   const reversed = wordOrder ? rws(_content) : rs(_content);
   return embeddable
-    ? await send('', { embed: new Discord.MessageEmbed().setDescription(reversed).setColor(color) })
+    ? await send(new Discord.MessageEmbed().setDescription(reversed).setColor(color))
     : await send(cb+reversed+cb);
 };
 
