@@ -1,5 +1,5 @@
 'use strict';
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, '__esModule', { value: true });
 
 const grammarJoin = require('./grammarJoinF').default();
 const EXPIRE = 5*60*10e3;

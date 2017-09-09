@@ -1,5 +1,5 @@
 'use strict';
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, '__esModule', { value: true });
 
 exports.default = ({_}) => (arr, n) => {
     let clone=!0;
