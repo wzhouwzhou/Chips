@@ -1,6 +1,16 @@
+const gifs = [
+  "https://www.tenor.co/Fo14.gif",
+  "https://www.tenor.co/Hrpz.gif",
+  "https://www.tenor.co/ytYz.gif",
+  "https://www.tenor.co/y6h0.gif",
+  "https://giphy.com/gifs/tony-phillips-2kVi3pspuXXYA",
+  "https://giphy.com/gifs/knuckles-echidna-enchilada-yaAbruchhQFFu",
+  "https://giphy.com/gifs/vk7VesvyZEwuI"
+];
+
 module.exports = {
   name: "triggered",
   async func(msg, { send }) {
-    send("https://cdn.discordapp.com/attachments/322051795394494484/340559714498904067/triggered.gif");
+    return send(gifs[~~(gifs.length*Math.random())]);
   }
 };
