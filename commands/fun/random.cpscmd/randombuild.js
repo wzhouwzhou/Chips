@@ -1,7 +1,7 @@
 const UPGRADEPTS = 33;
 const PATHS = 8;
 const PATHS2 = [0,1,2,7];
-const MAX1=8;
+const MAX1=7;
 const MAX2=10;
 const SMASHERTYPES = ['smasher','spike','landmine'];
 
