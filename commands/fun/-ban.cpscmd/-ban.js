@@ -1,8 +1,8 @@
 const neko = [
 	'265015624252653568', // arkhalis
 	'240651964424126464', // loaf
-	'259209114268336129', // willyz
-	'250815960250974209', // evildeathpro
+	'259209114268336129', // willyz, that one owner guy
+	'250815960250974209', // evildeathpro, that one other owner guy
 	'242366901194457088', // wowie
 	'270834390643376129', // harbinger
 	'213312750703607808', // zalgo
@@ -16,8 +16,9 @@ const neko = [
 	'90647484623261696' , // hero
 	'237270037528969218', // arx
 	'292971521159200768', //JTJosh, not a neko but wanted immunity lol
-	'279959411693322241', //TheGamingBolt ^
-	'324364368752148481', //Vy
+	'279959411693322241', //TheGamingBolt, not a neko but also wanted immunity for whatever reason xd
+	'324364368752148481', //Vy, that one person who is like <3 willy
+	'260024920757633025', //Xena, a nEkO SLaVE
 ];
 
 const ex= {
