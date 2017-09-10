@@ -5,7 +5,8 @@ const gifs = [
   "https://www.tenor.co/y6h0.gif",
   "https://giphy.com/gifs/tony-phillips-2kVi3pspuXXYA",
   "https://giphy.com/gifs/knuckles-echidna-enchilada-yaAbruchhQFFu",
-  "https://giphy.com/gifs/vk7VesvyZEwuI"
+  "https://giphy.com/gifs/vk7VesvyZEwuI",
+  "https://www.tenor.co/viTW.gif"
 ];
 
 module.exports = {
