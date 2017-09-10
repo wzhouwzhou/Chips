@@ -106,7 +106,7 @@ const Paginator = class Paginator {
       this.collector = sentMsg.createReactionCollector( (reaction, user) => {
         if(this._msg.author.id !== user.id) return false;
         if(!!(~this.buttons.indexOf(reaction.emoji.toString()))||reaction.emoji.toString()==='ℹ') {
-          reaction.remove(user).catch(()=>console.log(`g${this._msg.guild.id||'dm'} [Paginator] could not remove reactions`));
+          reaction.remove(user).catch(()=>console.log(`g${this._msg.guild?this._msg.guild.id:':dm'} [Paginator] could not remove reactions`));
           return true;
         }
         return false;

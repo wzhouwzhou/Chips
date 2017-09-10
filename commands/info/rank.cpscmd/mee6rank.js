@@ -5,7 +5,7 @@ const IDLE = 'https://cdn.discordapp.com/emojis/313956277220802560.png';
 const DND = 'https://cdn.discordapp.com/emojis/313956276893646850.png';
 const INVIS = 'https://cdn.discordapp.com/emojis/313956277237710868.png';
 
-const m6r = require('../../../rewrite-all/src/deps/functions/mee6rankF').mee6Rank;
+const m6r = require('../../../rewrite-all/src/deps/functions/mee6rankF').default({needle: require('needle')});
 
 const ex = {
   name: "mee6rank",
