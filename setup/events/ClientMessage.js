@@ -79,7 +79,7 @@ module.exports = function() {
     //console.log(monitorMode);
     if (monitorMode && message.channel == testC)
       console.log("\n", chalk.bold.bgBlue("Social spy: "), chalk.bgBlack("\n\t[" + message.author.username + "] message content: " + message.content));
-
+    if (message.guild.id==Constants.servers.SINX&&message.author.id=='304322292769488906'&&(/^[^]*(commandnotfound)[^]*$/).test(message.content.toLowerCase().replace(/\s+/,'')) message.delete(); 
     if (message.content.toLowerCase().startsWith(message.guild&&customprefix[message.guild.id]?customprefix[message.guild.id].toLowerCase():prefix.toLowerCase())){
       console.log("[CLIENTMESSAGE] Command attempt detected");
       if(message.guild&&message.member.displayName.replace(/\s+/,'').toLowerCase().indexOf('dwagon')>-1)
