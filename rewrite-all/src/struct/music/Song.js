@@ -45,7 +45,7 @@ const Song = class Song {
   }
 
   get stream () {
-    return ytdl(this.url);
+    return ytdl(this.url, {filter: 'audioonly'});
   }
 
   get length () {

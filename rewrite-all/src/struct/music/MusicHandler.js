@@ -118,10 +118,10 @@ const GuildMusicHandler = class MusicHandler {
       tc.send('Demo trial has ended!');
     });
 
-    tc.send(`Enabling demo mode for ${time&&typeof time === 'number'&&time>1?time+'hrs':'1 hr'} and starting a 24/7 yt stream.
-Type __<@296855425255473154> music help__ to view music cmds!`)
+    tc.send(`Enabling demo mode for this server!
+**Type __<@296855425255473154> music help__ to view music cmds!**`)
     .then(mm=>{
-      handler.promptSong('Wk8dkPj91ak',mm);//handler.promptSong('https://www.youtube.com/watch?v=4rdaGSlLyDE',mm);
+      //handler.promptSong('Wk8dkPj91ak',mm);//handler.promptSong('https://www.youtube.com/watch?v=4rdaGSlLyDE',mm);
     });
   }
 
