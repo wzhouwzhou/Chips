@@ -57,7 +57,7 @@ const fetchFonts = () => {
     asciify.getFonts( (err, fonts) =>  {
       err&&rej(err);
       fonts.forEach(font=>{
-        list.push((font+' '.repeat(20)).substring(0,18));
+        list.push((font+' '.repeat(20)).substring(0,17));
         if(list.length%5===4)list.push('\n');
 
         if(list.join('').length>1900){
