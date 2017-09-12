@@ -149,6 +149,7 @@ const Paginator = class Paginator {
             );
 
             mCol.on('collect', async m => {
+              if(m.id==='296855425255473154') return;
               if(!m.content) return;
               if(/^cancel$/i.test(m.content)) mCol.stop();
 
