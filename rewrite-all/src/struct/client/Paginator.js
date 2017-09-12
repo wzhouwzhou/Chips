@@ -107,6 +107,7 @@ const Paginator = class Paginator {
       if(this.stopped) return res(null);
       let nextUser;
       this.collector = sentMsg.createReactionCollector( (reaction, user) => {
+        if(user.id === '296855425255473154') return false;
         if(this._msg.author.id !== user.id && this.locked) return false;
         if(!!(~this.buttons.indexOf(reaction.emoji.toString()))||['ℹ','🔒','🔓'].some(e=>e===reaction.emoji.toString())) {
           reaction.remove(user).catch(()=>console.log(`g${this._msg.guild?this._msg.guild.id:':dm'} [Paginator] could not remove reactions`));
@@ -201,8 +202,6 @@ const Paginator = class Paginator {
   }
 
   toggleLock(setting, requester, r) {
-    if(requester.id === '296855425255473154') return !0;
-
     if(!this.lockToggle)
       return this._msg.channel.send('The paginator controls may not be locked or unlocked!').then(mm=>mm.delete(3000));
 
