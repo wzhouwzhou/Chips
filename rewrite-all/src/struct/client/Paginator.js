@@ -144,7 +144,7 @@ const Paginator = class Paginator {
           case '🔢':{
             let tempmsg;
             const mCol = sentMsg.channel.createMessageCollector(
-              query => (!!query.content.match(/(\d+|cancel)/i))&&query.author.id===this._msg.author.id,
+              query => (!!query.content.match(/(\d+|cancel)/i))&&query.author.id===nextUser||this._msg.author.id,
               { max: 1, time: TIME2, errors: ['time'] }
             );
 
@@ -156,7 +156,7 @@ const Paginator = class Paginator {
               try {
                 await this.setPage(+num-1);
               }catch(err){
-                m.reply(`Invalid page number of \`${+num}\` specified!`).then(mmm=>mmm.delete(3000));
+                m.channel.send(`${nextUser||this._msg.author}, Invalid page number of \`${+num}\` specified!`).then(mmm=>mmm.delete(3000));
               }
               tempmsg.delete();
               return m.delete().catch(_=>_);
@@ -164,7 +164,7 @@ const Paginator = class Paginator {
 
             mCol.on('end', collected => {
               if(collected.size===0){
-                return this._msg.reply('Timed out').then(m2=>{
+                return this._msg.channel.send(`${nextUser||this._msg.author}, Timed out`).then(m2=>{
                   setTimeout(()=>{
                     tempmsg.delete();
                     m2.delete();
@@ -172,7 +172,7 @@ const Paginator = class Paginator {
                 });
               }
             });
-            tempmsg = await this._msg.reply('Please enter the page number to jump to, or __cancel__ to cancel');
+            tempmsg = await this._msg.channel.send(`${nextUser||this._msg.author}, Please enter the page number to jump to, or __cancel__ to cancel`);
             return tempmsg;
           }
           case 'ℹ':{
