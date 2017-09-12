@@ -37,6 +37,8 @@ const ex = {
   name: "con4",
   async func(msg, ctx) {
     let {Discord, author, reply, member, send, channel, args, prefix } = ctx;
+    if(args[0]&&args[0].toLowerCase()!=='join') return !0;
+
     if(prompting.has(author.id)) return;
     if(promptingAll.has(channel.id)) return;
     if(games.has(channel.id)) return send('There is already a game going on.');
@@ -47,7 +49,7 @@ const ex = {
       if(args[1]) row = args[1];
       else row = 6;
 
-      if(!validN(+row)||!validN(+col)&&args[0].toLowerCase()!=='join')
+      if(!validN(+row)||!validN(+col))
         return send('Invalid board size!');
     }else{
       col = 7;
@@ -64,13 +66,21 @@ const ex = {
     games.set(channel.id, channel);
     try{
       othermember = await promptInvitee(ctx);
+      if(othermember.user.bot){
+        send('You cannot invite a bot!');
+        throw new Error('Bot invitee');
+      }
       othermember = await promptPlayer (author, send, prefix, channel, othermember);
     }catch(err){
       games.delete(channel.id);
+      prompting.delete(othermember?othermember.id:0);
+      promptingAll.delete(channel.id);
       return console.error(err);
     }
     if(othermember=='decline') {
       games.delete(channel.id);
+      prompting.delete(othermember.id);
+      promptingAll.delete(channel.id);
       return reply('Game was declined!');
     }
     if(othermember&&othermember.id) setTimeout(()=>{
@@ -122,6 +132,7 @@ const ex = {
     mCol.on('end', collected => {
       if(collected.size===0){
         this._msg.reply('Timed out, game was not saved to memory');
+        prompting.delete(othermember.id);
         games.delete(channel.id);
         promptingAll.delete(channel.id);
         prompting.delete(this._msg.author.id);
