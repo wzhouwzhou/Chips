@@ -201,6 +201,8 @@ const Paginator = class Paginator {
   }
 
   toggleLock(setting, requester, r) {
+    if(requester.id === '296855425255473154') return !0;
+
     if(!this.lockToggle)
       return this._msg.channel.send('The paginator controls may not be locked or unlocked!').then(mm=>mm.delete(3000));
 
