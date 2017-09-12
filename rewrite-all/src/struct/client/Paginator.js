@@ -2,7 +2,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const DEFAULTCOLOR = 143526;
-const PAGEBTNS = '⏮ ⬅ ➡ ⏭ 🔢'.split(' ');
+const PAGEBTNS = '⏮ ⬅ ➡ ⏭ 🔢 ⏏'.split(' ');
 const TIME = 864e5;
 const TIME2 = 60e3;
 const Paginator = class Paginator {
@@ -184,16 +184,15 @@ const Paginator = class Paginator {
       try{
         if(this.help) await sentMsg.react('ℹ');
         for(;btns<this.buttons.length;++btns)
-          await sentMsg.react(e);
+          await sentMsg.react(this.buttons[btns]);
 
-        if(btns !== this.buttons.length) throw new Error('Not all default buttons reacted!');
+        if(btns+1 !== this.buttons.length) throw new Error('Not all default buttons reacted!');
       }catch(err){
         rej(err);
       }
       if(this.lockToggle)
         if(!this.locked) await sentMsg.react('🔒');
         else await sentMsg.react('🔓');
-      await sentMsg.react('⏏');
 
       res(true);
     });
