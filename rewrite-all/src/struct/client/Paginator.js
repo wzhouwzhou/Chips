@@ -135,10 +135,10 @@ const Paginator = class Paginator {
             return this.collector.stop();
           }
           case '🔒':{
-            return this.toggleLock(!0, nextUser);
+            return this.toggleLock(!0, nextUser, r);
           }
           case '🔓':{
-            return this.toggleLock(!1, nextUser);
+            return this.toggleLock(!1, nextUser, r);
           }
           case '🔢':{
             let tempmsg;
@@ -200,7 +200,7 @@ const Paginator = class Paginator {
     });
   }
 
-  toggleLock(setting, requester) {
+  toggleLock(setting, requester, r) {
     if(!this.lockToggle)
       return this._msg.channel.send('The paginator controls may not be locked or unlocked!').then(mm=>mm.delete(3000));
 
@@ -209,6 +209,7 @@ const Paginator = class Paginator {
         return this._msg.channel.send('The paginator controls are already locked!').then(mm=>mm.delete(3000));
       else if(this._msg.author.id === requester.id) {
         this.locked = true;
+        r.remove('296855425255473154');
         this.sentMsg.react('🔓');
         return this._msg.reply('Only you can operate paginator controls now!').then(mm=>mm.delete(3000));
       } else
@@ -218,8 +219,9 @@ const Paginator = class Paginator {
     if(!this.locked)
       return this._msg.channel.send('The paginator controls are already unlocked!').then(mm=>mm.delete(3000));
     else if(this._msg.author.id === requester.id) {
-      this.locked = true;
+      this.locked = false;
       this.sentMsg.react('🔒');
+      r.remove('296855425255473154');
       return this._msg.reply('Everyone can operate the paginator controls now!').then(mm=>mm.delete(3000));
     } else
       return this._msg.channel.send('You cannot unlock the paginator controls!').then(mm=>mm.delete(3000));
