@@ -105,10 +105,12 @@ const Paginator = class Paginator {
   pageButtons (sentMsg) {
     return new Promise( async (res, rej) => {
       if(this.stopped) return res(null);
+      let nextUser;
       this.collector = sentMsg.createReactionCollector( (reaction, user) => {
         if(this._msg.author.id !== user.id && this.locked) return false;
-        if(!!(~this.buttons.indexOf(reaction.emoji.toString()))||reaction.emoji.toString()==='ℹ') {
+        if(!!(~this.buttons.indexOf(reaction.emoji.toString()))||['ℹ','🔒','🔓'].some(e=>e===reaction.emoji.toString())) {
           reaction.remove(user).catch(()=>console.log(`g${this._msg.guild?this._msg.guild.id:':dm'} [Paginator] could not remove reactions`));
+          nextUser = user;
           return true;
         }
         return false;
@@ -133,10 +135,10 @@ const Paginator = class Paginator {
             return this.collector.stop();
           }
           case '🔒':{
-            return this.toggleLock(!0);
+            return this.toggleLock(!0, nextUser);
           }
           case '🔓':{
-            return this.toggleLock(!1);
+            return this.toggleLock(!1, nextUser);
           }
           case '🔢':{
             let tempmsg;
