@@ -43,6 +43,7 @@ module.exports = {
           type:'paged',
           embedding: true,
           image: entries,
+          lockToggle: !0,
           }, Discord
         );
         try{
