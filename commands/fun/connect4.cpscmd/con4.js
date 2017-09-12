@@ -316,8 +316,10 @@ const promptInvitee = ({send, channel, author}) => {
           }
           return res(targetMember);
         }
-        else if(~m.content.indexOf('none'))
-          return res(null);
+        else if(~m.content.indexOf('none')){
+          res(null);
+          return true;
+        }
         return false;
       }
       return false;
