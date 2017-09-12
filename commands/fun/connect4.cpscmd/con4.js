@@ -37,6 +37,7 @@ const ex = {
   name: "con4",
   async func(msg, ctx) {
     let {Discord, author, reply, member, send, channel, args, prefix } = ctx;
+    let mcol, silentQuit = false;
     if(args[0]&&args[0].toLowerCase()==='join') return !0;
 
     if(prompting.has(author.id)) return;
@@ -66,7 +67,7 @@ const ex = {
     games.set(channel.id, channel);
     try{
       othermember = await promptInvitee(ctx);
-      if(othermember.user.bot){
+      if(othermember&&othermember.user.bot){
         send('You cannot invite a bot!');
         throw new Error('Bot invitee');
       }
@@ -75,16 +76,23 @@ const ex = {
       games.delete(channel.id);
       prompting.delete(othermember?othermember.id:0);
       promptingAll.delete(channel.id);
+      prompting.delete(author.id);
+      silentQuit = true;
+      mCol.stop();
       return console.error(err);
     }
     if(othermember=='decline') {
       games.delete(channel.id);
       prompting.delete(othermember.id);
       promptingAll.delete(channel.id);
+      prompting.delete(author.id);
+      silentQuit = true;
+      mCol.stop();
       return reply('Game was declined!');
     }
     if(othermember&&othermember.id) setTimeout(()=>{
       prompting.delete(othermember.id);
+      prompting.delete(author.id);
       promptingAll.delete(channel.id);
     },1000);
 
@@ -95,7 +103,7 @@ const ex = {
     const currentGame = new C4Game(channel, ..._.shuffle([member.user, othermember.user]), row, col);
     games.set(channel.id, currentGame);
     console.log('Creating collector...');
-    const mCol = channel.createMessageCollector(
+    mCol = channel.createMessageCollector(
       query => (!!query.content.match(/(quit|stop|forfeit)/i))||((!!query.content.match(/\d+/g))&&query.content.match(/\d+/g)[0]&&query.content.match(/\d+/g)[0].length===query.content.length),
       { time: TIME, errors: ['time'] }
     );
@@ -131,11 +139,11 @@ const ex = {
 
     mCol.on('end', collected => {
       if(collected.size===0){
-        this._msg.reply('Timed out, game was not saved to memory');
+        !silentQuit&&his._msg.reply('Timed out, game was not saved to memory');
         prompting.delete(othermember.id);
         games.delete(channel.id);
         promptingAll.delete(channel.id);
-        prompting.delete(this._msg.author.id);
+        prompting.delete(author.id);
       }
       console.log('MCol ended');
     });
