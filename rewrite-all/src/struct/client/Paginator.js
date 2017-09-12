@@ -110,6 +110,7 @@ const Paginator = class Paginator {
         if(user.id === '296855425255473154') return false;
         if(this._msg.author.id !== user.id && this.locked) return false;
         if(!!(~this.buttons.indexOf(reaction.emoji.toString()))||['ℹ','🔒','🔓'].some(e=>e===reaction.emoji.toString())) {
+          if(reaction.emoji.toString()==='🔢' && this._msg.author.id!==user.id) return false;
           reaction.remove(user).catch(()=>console.log(`g${this._msg.guild?this._msg.guild.id:':dm'} [Paginator] could not remove reactions`));
           nextUser = user;
           return true;
