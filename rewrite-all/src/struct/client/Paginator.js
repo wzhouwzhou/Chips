@@ -2,7 +2,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const DEFAULTCOLOR = 143526;
-const PAGEBTNS = '⏮ ⬅ ➡ ⏭ 🔢 ⏏'.split(' ');
+const PAGEBTNS = '⏮ ⬅ ➡ ⏭ 🔢'.split(' ');
 const TIME = 864e5;
 const TIME2 = 60e3;
 const Paginator = class Paginator {
@@ -37,6 +37,8 @@ const Paginator = class Paginator {
     this.thumbnail = data.thumbnail;
     this.buttons = data.buttons || PAGEBTNS;
     this.help = data.help;
+    this.locked = data.locked!=null?data.locked:!0;
+    this.lockToggle = !!data.lockToggle;
     return this;
   }
 
@@ -104,7 +106,7 @@ const Paginator = class Paginator {
     return new Promise( async (res, rej) => {
       if(this.stopped) return res(null);
       this.collector = sentMsg.createReactionCollector( (reaction, user) => {
-        if(this._msg.author.id !== user.id) return false;
+        if(this._msg.author.id !== user.id && this.locked) return false;
         if(!!(~this.buttons.indexOf(reaction.emoji.toString()))||reaction.emoji.toString()==='ℹ') {
           reaction.remove(user).catch(()=>console.log(`g${this._msg.guild?this._msg.guild.id:':dm'} [Paginator] could not remove reactions`));
           return true;
@@ -129,6 +131,12 @@ const Paginator = class Paginator {
           }
           case '⏏':{
             return this.collector.stop();
+          }
+          case '🔒':{
+            return this.toggleLock(!0);
+          }
+          case '🔓':{
+            return this.toggleLock(!1);
           }
           case '🔢':{
             let tempmsg;
@@ -175,16 +183,45 @@ const Paginator = class Paginator {
       let btns = 0;
       try{
         if(this.help) await sentMsg.react('ℹ');
-        for(const e of this.buttons){
+        for(;btns<this.buttons.length;++btns)
           await sentMsg.react(e);
-          btns++;
-        }
+
+        if(btns !== this.buttons.length) throw new Error('Not all default buttons reacted!');
       }catch(err){
         rej(err);
       }
-      if(btns != this.buttons.length) rej('Not all buttons reacted!');
+      if(this.lockToggle)
+        if(!this.locked) await sentMsg.react('🔒');
+        else await sentMsg.react('🔓');
+      await sentMsg.react('⏏');
+
       res(true);
     });
+  }
+
+  toggleLock(setting, requester) {
+    if(!this.lockToggle)
+      return this._msg.channel.send('The paginator controls may not be locked or unlocked!').then(mm=>mm.delete(3000));
+
+    if(setting) {
+      if(this.locked)
+        return this._msg.channel.send('The paginator controls are already locked!').then(mm=>mm.delete(3000));
+      else if(this._msg.author.id === requester.id) {
+        this.locked = true;
+        this.sentMsg.react('🔓');
+        return this._msg.reply('Only you can operate paginator controls now!').then(mm=>mm.delete(3000));
+      } else
+        return this._msg.channel.send('You cannot lock the paginator controls!').then(mm=>mm.delete(3000));
+    }
+
+    if(!this.locked)
+      return this._msg.channel.send('The paginator controls are already unlocked!').then(mm=>mm.delete(3000));
+    else if(this._msg.author.id === requester.id) {
+      this.locked = true;
+      this.sentMsg.react('🔒');
+      return this._msg.reply('Everyone can operate the paginator controls now!').then(mm=>mm.delete(3000));
+    } else
+      return this._msg.channel.send('You cannot unlock the paginator controls!').then(mm=>mm.delete(3000));
   }
 
   nextPage () {
