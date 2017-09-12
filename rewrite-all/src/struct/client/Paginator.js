@@ -144,12 +144,11 @@ const Paginator = class Paginator {
           case '🔢':{
             let tempmsg;
             const mCol = sentMsg.channel.createMessageCollector(
-              query => (!!query.content.match(/(\d+|cancel)/i))&&query.author.id===nextUser||this._msg.author.id,
+              query => (query.author.id!=='296855425255473154')&&(!!query.content.match(/(\d+|cancel)/i))&&query.author.id===nextUser||this._msg.author.id,
               { max: 1, time: TIME2, errors: ['time'] }
             );
 
             mCol.on('collect', async m => {
-              if(m.id==='296855425255473154') return;
               if(!m.content) return;
               if(/^cancel$/i.test(m.content)) mCol.stop();
 
