@@ -14,8 +14,8 @@ const rrequire = (m) => {
 exports.rrequire = rrequire;
 
 const Exporter = class Exporter {
-  define (temp, key, modu, options) {
-    Object.defineProperty(temp, key, {
+  define (temp, sub, key, modu, options) {
+    Object.defineProperty(temp[sub], key, {
       get: (() => {
         const m = rrequire(modu);
         const de = m.default;
@@ -23,6 +23,17 @@ const Exporter = class Exporter {
         return m;
       }),
       configurable: false,
+      enumerable: true
+    });
+    Object.defineProperty(temp['all'], key, {
+      get: (() => {
+        const m = rrequire(modu);
+        const de = m.default;
+        if(de && (~(typeof de).indexOf('function'))) return de(options);
+        return m;
+      }),
+      configurable: false,
+      enumerable: true
     });
     return temp;
   }
@@ -80,12 +91,12 @@ const Exporter = class Exporter {
       ['cheerio', ['cheerio','$']],
     ].forEach(m => {
       if(typeof m === 'string')
-        return this.define(data['packages'], m, m);
+        return this.define(data, 'packages', m, m);
       if(m[1] === undefined)
-        return this.define(data['packages'], m[0], m[0]);
+        return this.define(data, 'packages', m[0], m[0]);
       if(typeof m[1] === 'string')
-        return this.define(data['packages'], m[1], m[0]);
-      m[1].forEach(k => this.define(data['packages'], k, m[0]));
+        return this.define(data, 'packages', m[1], m[0]);
+      m[1].forEach(k => this.define(data, 'packages', k, m[0]));
     });
 
     [
@@ -96,8 +107,8 @@ const Exporter = class Exporter {
       'checkNumberF',
       'collectAllF',
       'delayF',
-      ['reverseF',['rs','reverse']],
-      ['reverseWF',['rws','reverseW']],
+      ['reverseF',['rs','reverse','reverseF']],
+      ['reverseWF',['rws','reverseW','reverseWF']],
       'timeAgoF',
       'grammarJoinF',
       'fetchMessagesRF',
@@ -105,12 +116,12 @@ const Exporter = class Exporter {
       'randomCapsF',
     ].forEach(f => {
       if(typeof f === 'string')
-        return this.define(data['functions'], f, f);
+        return this.define(data, 'functions', f, f);
       if(f[1] === undefined)
-        return this.define(data['functions'], f[0], f[0]);
+        return this.define(data, 'functions', f[0], f[0]);
       if(typeof f[1] === 'string')
-        return this.define(data['functions'], f[1], f[0]);
-      f[1].forEach(k => this.define(data['functions'], k, f[0], data.packages));
+        return this.define(data, 'functions', f[1], f[0]);
+      f[1].forEach(k => this.define(data, 'functions', k, f[0], data.packages));
     });
 
     return data;
