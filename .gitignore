@@ -24,3 +24,5 @@ npm-debug.log
 public/commands.html
 
 servers.json
+setup/cert.pem
+setup/key.pem
