@@ -20,7 +20,7 @@ const GameClass = class Game {
 
   join ( msg ) {
     return new Promise ( (res, rej) => {
-      if( this.channelID == msg.channel.id )
+      if( this.channelID === msg.channel.id && this.playerCount > this.maxPlayers )
         if( !this.started || ( this.started && this.joinAfterStart )) {
           res( this.players.set( msg.author.id, msg.author ));
         }
@@ -38,7 +38,7 @@ const GameClass = class Game {
     });
   }
 
-  getPlayerCount () {
+  get playerCount () {
     return this.playerCount || 0;
   }
 
