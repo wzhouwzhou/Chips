@@ -1,17 +1,17 @@
 module.exports = {
   name: "pokemon",
-  async func(msg, { send, args, prefix, Discord,  }) {
+  async func(msg, { send, args, prefix  }) {
 
 	//Incase nothing is said
 	if (!args[0]) {
 		return send(`Please type " {}pokemon help " to continue.`.replace(/{}/g, prefix));
 	}
-	
+
 	//For the help command
 	if(args[0]=='help') {
 		return send(`Please type in the following secondary commands to use {}pokemon\n{}pokemon all\n{}pokemon gen1\n{}pokemon gen2\n{}pokemon gen3\n{}pokemon gen4\n{}pokemon gen5\n{}pokemon gen6\n{}pokemon gen7\n{}pokemon 3all\n{}pokemon 3gen1\n{}pokemon 3gen2\n{}pokemon 3gen3\n{}pokemon 3gen4\n{}pokemon 3gen5\n{}pokemon 3gen6\n{}pokemon 3gen7\n{}pokemon 6all\n{}pokemon 6gen1\n{}pokemon 6gen2\n{}pokemon 6gen3\n{}pokemon 6gen4\n{}pokemon 6gen5\n{}pokemon 6gen6\n{}pokemon 6gen7\n{}pokemon egg`.replace(/{}/g, prefix));
 	}
-	
+
 	//Start of the Generation Commands
 	//All Generations (1)
 	if(args[0]=="all"){
@@ -181,7 +181,7 @@ module.exports = {
 		choices.add(AllPokemon[~~(AllPokemon.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-	
+
 	//All Generations (3)
 	if(args[0]=="3all"){
 		const AllPokemon = ["Bulbasaur","Ivysaur","Venusaur","Charmander","Charmeleon",
@@ -350,7 +350,7 @@ module.exports = {
 		choices.add(AllPokemon[~~(AllPokemon.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-	
+
 	//All Generations (6)
 	if(args[0]=="6all"){
 		const AllPokemon = ["Bulbasaur","Ivysaur","Venusaur","Charmander","Charmeleon",
@@ -519,7 +519,7 @@ module.exports = {
 		choices.add(AllPokemon[~~(AllPokemon.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-		
+
 	//Generation One (1)
 	if(args[0]=="gen1"){
 		const GenerationOne = ["Bulbasaur","Ivysaur","Venusaur","Charmander","Charmeleon",
@@ -558,7 +558,7 @@ module.exports = {
 		choices.add(GenerationOne[~~(GenerationOne.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-		
+
 	//Generation One (3)
 	if(args[0]=="3gen1"){
 		const GenerationOne = ["Bulbasaur","Ivysaur","Venusaur","Charmander","Charmeleon",
@@ -597,7 +597,7 @@ module.exports = {
 		choices.add(GenerationOne[~~(GenerationOne.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-	
+
 	//Generation One (6)
 	if(args[0]=="6gen1"){
 		const GenerationOne = ["Bulbasaur","Ivysaur","Venusaur","Charmander","Charmeleon",
@@ -636,7 +636,7 @@ module.exports = {
 		choices.add(GenerationOne[~~(GenerationOne.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-	
+
 	//Generation Two (1)
 	if(args[0]=="gen2"){
 		const GenerationTwo = ["Chikorita","Bayleef","Meganium",
@@ -665,7 +665,7 @@ module.exports = {
 		choices.add(GenerationTwo[~~(GenerationTwo.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-		
+
 	//Generation Two (3)
 	if(args[0]=="3gen2"){
 		const GenerationTwo = ["Chikorita","Bayleef","Meganium",
@@ -694,7 +694,7 @@ module.exports = {
 		choices.add(GenerationTwo[~~(GenerationTwo.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-	
+
 	//Generation Two (6)
 	if(args[0]=="6gen2"){
 		const GenerationTwo = ["Chikorita","Bayleef","Meganium",
@@ -723,7 +723,7 @@ module.exports = {
 		choices.add(GenerationTwo[~~(GenerationTwo.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-	
+
 	//Generation Three (1)
 	if(args[0]=="gen3"){
 		const GenerationThree = ["Treecko","Grovyle",
@@ -758,8 +758,8 @@ module.exports = {
 		while(choices.size < COUNT )
 		choices.add(GenerationThree[~~(GenerationThree.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
-		}	
-		
+		}
+
 	//Generation Three (3)
 	if(args[0]=="3gen3"){
 		const GenerationThree = ["Treecko","Grovyle",
@@ -795,7 +795,7 @@ module.exports = {
 		choices.add(GenerationThree[~~(GenerationThree.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-	
+
 	//Generation Three (6)
 	if(args[0]=="6gen3"){
 		const GenerationThree = ["Treecko","Grovyle",
@@ -831,7 +831,7 @@ module.exports = {
 		choices.add(GenerationThree[~~(GenerationThree.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-	
+
 	//Generation Four (1)
 	if(args[0]=="gen4"){
 		const GenerationFour = ["Turtwig","Grotle",
@@ -862,7 +862,7 @@ module.exports = {
 		choices.add(GenerationFour[~~(GenerationFour.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-		
+
 	//Generation Four (3)
 	if(args[0]=="3gen4"){
 		const GenerationFour = ["Turtwig","Grotle",
@@ -893,7 +893,7 @@ module.exports = {
 		choices.add(GenerationFour[~~(GenerationFour.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-	
+
 	//Generation Four (6)
 	if(args[0]=="6gen4"){
 		const GenerationFour = ["Turtwig","Grotle",
@@ -924,7 +924,7 @@ module.exports = {
 		choices.add(GenerationFour[~~(GenerationFour.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-	
+
 	//Generation Five (1)
 	if(args[0]=="gen5"){
 		const GenerationFive = ["Snivy","Servine","Serperior","Tepig",
@@ -1004,7 +1004,7 @@ module.exports = {
 		choices.add(GenerationFive[~~(GenerationFive.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-	
+
 	//Generation Five (6)
 	if(args[0]=="6gen5"){
 		const GenerationFive = ["Snivy","Servine","Serperior","Tepig",
@@ -1044,7 +1044,7 @@ module.exports = {
 		choices.add(GenerationFive[~~(GenerationFive.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-		
+
 	//Generation Six (1)
 	if(args[0]=="gen6"){
 		const GenerationSix = ["Chespin","Quilladin","Chesnaught","Fennekin",
@@ -1067,7 +1067,7 @@ module.exports = {
 		choices.add(GenerationSix[~~(GenerationSix.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-	
+
 	//Generation Six (3)
 	if(args[0]=="3gen6"){
 		const GenerationSix = ["Chespin","Quilladin","Chesnaught","Fennekin",
@@ -1090,7 +1090,7 @@ module.exports = {
 		choices.add(GenerationSix[~~(GenerationSix.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-	
+
 	//Generation Six (6)
 	if(args[0]=="6gen6"){
 		const GenerationSix = ["Chespin","Quilladin","Chesnaught","Fennekin",
@@ -1113,7 +1113,7 @@ module.exports = {
 		choices.add(GenerationSix[~~(GenerationSix.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-	
+
 	//Generation Seven (1)
 	if(args[0]=="gen7"){
 		const GenerationSeven = ["Rowlet","Dartrix",
@@ -1137,8 +1137,8 @@ module.exports = {
 		while(choices.size < COUNT )
 		choices.add(GenerationSeven[~~(GenerationSeven.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
-		}	
-		
+		}
+
 	//Generation Seven (3)
 	if(args[0]=="3gen7"){
 		const GenerationSeven = ["Rowlet","Dartrix",
@@ -1163,7 +1163,7 @@ module.exports = {
 		choices.add(GenerationSeven[~~(GenerationSeven.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-	
+
 	//Generation Seven (6)
 	if(args[0]=="6gen7"){
 		const GenerationSeven = ["Rowlet","Dartrix",
@@ -1188,15 +1188,15 @@ module.exports = {
 		choices.add(GenerationSeven[~~(GenerationSeven.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-		
+
 	//Eggs!
 	if(args[0]=="egg"){
-		
+
 		//Egg Check
 		if(!args[1]){
 			return send(`Please enter one of the following commands for an egg group filter\n{}pokemon egg amorph\n{}pokemon egg 3amorph\n{}pokemon egg 6amorph\n{}pokemon egg bug\n{}pokemon egg 3bug\n{}pokemon egg 6bug\n{}pokemon egg dragon\n{}pokemon egg 3dragon\n{}pokemon egg 6dragon\n{}pokemon egg fairy\n{}pokemon egg 3fairy\n{}pokemon egg 6fairy!\n{}pokemon egg field\n{}pokemon egg 3field\n{}pokemon egg 6field\n{}pokemon egg flying\n{}pokemon egg 3flying\n{}pokemon egg 6flying\n{}pokemon egg grass\n{}pokemon egg 3grass\n{}pokemon egg 6grass\n{}pokemon egg human\n{}pokemon egg 3human\n{}pokemon egg 6human\n{}pokemon egg mineral\n{}pokemon egg 3mineral\n{}pokemon egg 6mineral\n{}pokemon egg monster\n{}pokemon egg 3monster\n{}pokemon egg 6monster\n{}pokemon egg water1\n{}pokemon egg 3water1\n{}pokemon egg 6water1\n{}pokemon egg water2\n{}pokemon egg 3water2\n{}pokemon egg 6water2\n{}pokemon egg water3\n{}pokemon egg 3water3\n{}pokemon egg 6water3\n{}pokemon egg ditto\n{}pokemon egg 3ditto\n{}pokemon egg 6ditto\n{}pokemon egg undisc\n{}pokemon egg 3undisc\n{}pokemon egg 6undisc`.replace(/{}/g, prefix));
 			}
-		
+
 		//Amorphous Eggs (1)
 		if(args[1]=="amorph"){
 			const AmorphousEgg = ["Koffing","Weezing","Misdreavus","Wobbuffet","Slugma",
@@ -1215,7 +1215,7 @@ module.exports = {
 		choices.add(AmorphousEgg[~~(AmorphousEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 			}
-		
+
 		//Amorphous Eggs (3)
 		if(args[1]=="3amorph"){
 			const AmorphousEgg = ["Koffing","Weezing","Misdreavus","Wobbuffet","Slugma",
@@ -1253,7 +1253,7 @@ module.exports = {
 		choices.add(AmorphousEgg[~~(AmorphousEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 			}
-			
+
 		//Bug Eggs (1)
 		if(args[1]=="bug"){
 			const BugEgg = ["Scyther","Pinsir","Ledyba","Ledian","Spinarak",
@@ -1277,7 +1277,7 @@ module.exports = {
 		choices.add(BugEgg[~~(BugEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 			}
-		
+
 		//Bug Eggs (3)
 		if(args[1]=="3bug"){
 			const BugEgg = ["Scyther","Pinsir","Ledyba","Ledian","Spinarak",
@@ -1325,7 +1325,7 @@ module.exports = {
 		choices.add(BugEgg[~~(BugEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 			}
-			
+
 		//Dragon Eggs (1)
 		if(args[1]=="dragon"){
 			const DragonEgg = ["Horsea","Seadra","Magikarp","Gyarados","Dratini",
@@ -1343,8 +1343,8 @@ module.exports = {
 		while(choices.size < COUNT )
 		choices.add(DragonEgg[~~(DragonEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
-			}	
-		
+			}
+
 		//Dragon Eggs (3)
 		if(args[1]=="3dragon"){
 			const DragonEgg = ["Horsea","Seadra","Magikarp","Gyarados","Dratini",
@@ -1362,8 +1362,8 @@ module.exports = {
 		while(choices.size < COUNT )
 		choices.add(DragonEgg[~~(DragonEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
-			}	
-			
+			}
+
 		//Dragon Eggs (6)
 		if(args[1]=="6dragon"){
 			const DragonEgg = ["Horsea","Seadra","Magikarp","Gyarados","Dratini",
@@ -1381,8 +1381,8 @@ module.exports = {
 		while(choices.size < COUNT )
 		choices.add(DragonEgg[~~(DragonEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
-			}	
-			
+			}
+
 		//Fairy Eggs (1)
 		if(args[1]=="fairy"){
 			const FairyEgg = ["Chansey","Togetic","Marill","Azumarill","Hoppip",
@@ -1400,8 +1400,8 @@ module.exports = {
 		while(choices.size < COUNT )
 		choices.add(FieldEgg[~~(FieldEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
-			}		
-		
+			}
+
 		//Fairy Eggs (3)
 		if(args[1]=="3fairy"){
 			const FairyEgg = ["Chansey","Togetic","Marill","Azumarill","Hoppip",
@@ -1419,8 +1419,8 @@ module.exports = {
 		while(choices.size < COUNT )
 		choices.add(FieldEgg[~~(FieldEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
-			}	
-			
+			}
+
 		//Fairy Eggs (6)
 		if(args[1]=="6fairy"){
 			const FairyEgg = ["Chansey","Togetic","Marill","Azumarill","Hoppip",
@@ -1438,8 +1438,8 @@ module.exports = {
 		while(choices.size < COUNT )
 		choices.add(FieldEgg[~~(FieldEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
-			}		
-			
+			}
+
 		//Field Eggs (1)
 		if(args[1]=="field"){
 			const FieldEgg = ["Rhyhorn","Rhydon","Tauros","Eevee","Vaporeon",
@@ -1491,7 +1491,7 @@ module.exports = {
 		choices.add(FieldEgg[~~(FieldEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 			}
-			
+
 		//Field Eggs (3)
 		if(args[1]=="3field"){
 			const FieldEgg = ["Rhyhorn","Rhydon","Tauros","Eevee","Vaporeon",
@@ -1543,7 +1543,7 @@ module.exports = {
 		choices.add(FieldEgg[~~(FieldEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-		
+
 		//Field Eggs (6)
 		if(args[1]=="6field"){
 			const FieldEgg = ["Rhyhorn","Rhydon","Tauros","Eevee","Vaporeon",
@@ -1595,7 +1595,7 @@ module.exports = {
 		choices.add(FieldEgg[~~(FieldEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 		}
-		
+
 		//Flying Eggs (1)
 		if(args[1]=="flying"){
 			const FlyingEgg = ["Aerodactyl","Hoothoot","Noctowl","Crobat","Togetic",
@@ -1615,7 +1615,7 @@ module.exports = {
 		choices.add(FlyingEgg[~~(FlyingEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 			}
-		
+
 		//Flying Eggs (3)
 		if(args[1]=="3flying"){
 			const FlyingEgg = ["Aerodactyl","Hoothoot","Noctowl","Crobat","Togetic",
@@ -1635,7 +1635,7 @@ module.exports = {
 		choices.add(FlyingEgg[~~(FlyingEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 			}
-			
+
 		//Flying Eggs (6)
 		if(args[1]=="6flying"){
 			const FlyingEgg = ["Aerodactyl","Hoothoot","Noctowl","Crobat","Togetic",
@@ -1655,7 +1655,7 @@ module.exports = {
 		choices.add(FlyingEgg[~~(FlyingEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 			}
-		
+
 		//Grass Eggs (1)
 		if(args[1]=="grass"){
 			const GrassEgg = ["Exeggcute","Exeggutor","Tangela","Chikorita","Bayleef",
@@ -1677,7 +1677,7 @@ module.exports = {
 		choices.add(GrassEgg[~~(GrassEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 			}
-		
+
 		//Grass Eggs (3)
 		if(args[1]=="3grass"){
 			const GrassEgg = ["Exeggcute","Exeggutor","Tangela","Chikorita","Bayleef",
@@ -1699,7 +1699,7 @@ module.exports = {
 		choices.add(GrassEgg[~~(GrassEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 			}
-		
+
 		//Grass Eggs (6)
 		if(args[1]=="6grass"){
 			const GrassEgg = ["Exeggcute","Exeggutor","Tangela","Chikorita","Bayleef",
@@ -1721,7 +1721,7 @@ module.exports = {
 		choices.add(GrassEgg[~~(GrassEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 			}
-			
+
 		//Human-Like Eggs (1)
 		if(args[1]=="human"){
 			const HumanLikeEgg = ["Hitmonlee","Hitmonchan","Mr. Mime","Jynx",
@@ -1739,8 +1739,8 @@ module.exports = {
 		while(choices.size < COUNT )
 		choices.add(HumanLikeEgg[~~(HumanLikeEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
-			}	
-			
+			}
+
 		//Human-Like Eggs (3)
 		if(args[1]=="3human"){
 			const HumanLikeEgg = ["Hitmonlee","Hitmonchan","Mr. Mime","Jynx",
@@ -1758,8 +1758,8 @@ module.exports = {
 		while(choices.size < COUNT )
 		choices.add(HumanLikeEgg[~~(HumanLikeEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
-			}	
-			
+			}
+
 		//Human-Like Eggs (6)
 		if(args[1]=="6human"){
 			const HumanLikeEgg = ["Hitmonlee","Hitmonchan","Mr. Mime","Jynx",
@@ -1777,8 +1777,8 @@ module.exports = {
 		while(choices.size < COUNT )
 		choices.add(HumanLikeEgg[~~(HumanLikeEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
-			}	
-		
+			}
+
 		//Mineral Eggs (1)
 		if(args[1]=="mineral"){
 			const MineralEgg = ["Voltorb","Electrode","Porygon","Sudowoodo","Steelix",
@@ -1797,8 +1797,8 @@ module.exports = {
 		while(choices.size < COUNT )
 		choices.add(MineralEgg[~~(MineralEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
-			}	
-		
+			}
+
 		//Mineral Eggs (3)
 		if(args[1]=="3mineral"){
 			const MineralEgg = ["Voltorb","Electrode","Porygon","Sudowoodo","Steelix",
@@ -1817,8 +1817,8 @@ module.exports = {
 		while(choices.size < COUNT )
 		choices.add(MineralEgg[~~(MineralEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
-			}	
-		
+			}
+
 		//Mineral Eggs (3)
 		if(args[1]=="6mineral"){
 			const MineralEgg = ["Voltorb","Electrode","Porygon","Sudowoodo","Steelix",
@@ -1837,8 +1837,8 @@ module.exports = {
 		while(choices.size < COUNT )
 		choices.add(MineralEgg[~~(MineralEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
-			}	
-		
+			}
+
 		//Monster Eggs (1)
 		if(args[1]=="monster"){
 			const MonsterEgg = ["Cubone","Marowak","Lickitung","Rhyhorn","Rhydon",
@@ -1861,8 +1861,8 @@ module.exports = {
 		while(choices.size < COUNT )
 		choices.add(MonsterEgg[~~(MonsterEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
-			}	
-		
+			}
+
 		//Monster Eggs (3)
 		if(args[1]=="3monster"){
 			const MonsterEgg = ["Cubone","Marowak","Lickitung","Rhyhorn","Rhydon",
@@ -1885,8 +1885,8 @@ module.exports = {
 		while(choices.size < COUNT )
 		choices.add(MonsterEgg[~~(MonsterEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
-			}	
-		
+			}
+
 		//Monster Eggs (6)
 		if(args[1]=="6monster"){
 			const MonsterEgg = ["Cubone","Marowak","Lickitung","Rhyhorn","Rhydon",
@@ -1909,8 +1909,8 @@ module.exports = {
 		while(choices.size < COUNT )
 		choices.add(MonsterEgg[~~(MonsterEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
-			}	
-		
+			}
+
 		//Water 1 Eggs (1)
 		if(args[1]=="water1"){
 			const Water1Egg = ["Horsea","Seadra","Lapras","Omanyte","Omastar",
@@ -1937,7 +1937,7 @@ module.exports = {
 		choices.add(Water1Egg[~~(Water1Egg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 			}
-			
+
 		//Water 1 Eggs (3)
 		if(args[1]=="3water1"){
 			const Water1Egg = ["Horsea","Seadra","Lapras","Omanyte","Omastar",
@@ -1964,7 +1964,7 @@ module.exports = {
 		choices.add(Water1Egg[~~(Water1Egg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 			}
-		
+
 		//Water 1 Eggs (6)
 		if(args[1]=="6water1"){
 			const Water1Egg = ["Horsea","Seadra","Lapras","Omanyte","Omastar",
@@ -1990,8 +1990,8 @@ module.exports = {
 		while(choices.size < COUNT )
 		choices.add(Water1Egg[~~(Water1Egg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
-			}	
-		
+			}
+
 		//Water 2 Eggs (1)
 		if(args[1]=="water2"){
 			const Water2Egg = ["Goldeen","Seaking","Magikarp","Gyarados","Chinchou",
@@ -2003,8 +2003,8 @@ module.exports = {
 		while(choices.size < COUNT )
 		choices.add(Water2Egg[~~(Water2Egg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
-			}	
-			
+			}
+
         //Water 2 Eggs (3)
 		if(args[1]=="3water2"){
 			const Water2Egg = ["Goldeen","Seaking","Magikarp","Gyarados","Chinchou",
@@ -2016,8 +2016,8 @@ module.exports = {
 		while(choices.size < COUNT )
 		choices.add(Water2Egg[~~(Water2Egg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
-			}	
-		
+			}
+
 		//Water 2 Eggs (6)
 		if(args[1]=="6water2"){
 			const Water2Egg = ["Goldeen","Seaking","Magikarp","Gyarados","Chinchou",
@@ -2029,7 +2029,7 @@ module.exports = {
 		while(choices.size < COUNT )
 		choices.add(Water2Egg[~~(Water2Egg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
-			}	
+			}
 
 		//Ditto Eggs (1)
 		if(args[1]=="ditto"){
@@ -2039,20 +2039,20 @@ module.exports = {
 		choices.add(DittoEgg[~~(DittoEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 			}
-			
+
 		//Ditto Eggs (3)
 		if(args[1]=="3ditto"){
 			const DittoEgg = [ "Ditto" ];
 			return send(`${DittoEgg[Math.floor(DittoEgg.length*Math.random())]}` + "," + `${DittoEgg[Math.floor(DittoEgg.length*Math.random())]}` + "," + `${DittoEgg[Math.floor(DittoEgg.length*Math.random())]}`);
 			}
-			
+
 		//Ditto Eggs (6)
 		if(args[1]=="6ditto"){
 			const DittoEgg = [ "Ditto","Ditto","Ditto","Ditto","Ditto",
 	"Ditto"];
 			return send(`${DittoEgg[Math.floor(DittoEgg.length*Math.random())]}` + "," + `${DittoEgg[Math.floor(DittoEgg.length*Math.random())]}` + "," + `${DittoEgg[Math.floor(DittoEgg.length*Math.random())]}` + `${DittoEgg[Math.floor(DittoEgg.length*Math.random())]}` + "," + `${DittoEgg[Math.floor(DittoEgg.length*Math.random())]}` + "," + `${DittoEgg[Math.floor(DittoEgg.length*Math.random())]}`);
 			}
-			
+
 		//Undiscovered Eggs (1)
 		if(args[1]=="undisc"){
 			const UndisoveredEgg = ["Articuno","Zapdos","Moltres","Mewtwo","Mew",
@@ -2078,8 +2078,8 @@ module.exports = {
 		while(choices.size < COUNT )
 		choices.add(UndisoveredEgg[~~(UndisoveredEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
-			}	
-			
+			}
+
 		//Undiscovered Eggs (3)
 		if(args[1]=="3undisc"){
 			const UndisoveredEgg = ["Articuno","Zapdos","Moltres","Mewtwo","Mew",
@@ -2133,7 +2133,8 @@ module.exports = {
 		choices.add(UndisoveredEgg[~~(UndisoveredEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 			}
-			
-	} //End of eggs brackets
-	
-} //End of the command!
+
+	 } //End of eggs brackets
+
+  } //End of the command!
+};
