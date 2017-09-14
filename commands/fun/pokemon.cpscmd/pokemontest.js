@@ -32,7 +32,7 @@ const ACTIONCHOICESTEXT = [
 const ACTIONSEMBTEXT = new Discord.RichEmbed().setTitle('Choose an action!').setDescription(ACTIONCHOICESTEXT);
 
 module.exports = {
-  name: "pokemon",
+  name: "pokemontest",
   async func(msg, ctx) {
     let { reply } = ctx;
 
