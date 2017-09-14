@@ -2,6 +2,7 @@
 let aboose = require('./aboose');
 let confoosed = require('./confoosed');
 let exposed = require('./exposed');
+let kawaii = require('./kawaii');
 let lenny = require('./lenny');
 let rekt = require('./rekt');
 let triggered = require('./triggered');
@@ -27,6 +28,13 @@ exposed.metadata = {
   usage: 'exposed',
   example: 'exposed',
   perm: [['global.fun.triggers.exposed']],
+};
+kawaii.metadata = {
+  category: require('../').category,
+  description: 'Kawaii faces!',
+  usage: 'kawaii',
+  example: 'kawaii',
+  perm: [['global.fun.triggers.lenny']]
 };
 lenny.metadata = {
   category: require('../').category,
@@ -55,6 +63,7 @@ module.exports = [
   [aboose.name,aboose],
   [confoosed.name,confoosed],
   [exposed.name,exposed],
+  [kawaii.name,kawaii],
   [lenny.name,lenny],
   [rekt.name,rekt],
   [triggered.name,triggered],
