@@ -1398,7 +1398,7 @@ module.exports = {
 	"Wigglytuff"], COUNT=1;
 		const choices = new Set;
 		while(choices.size < COUNT )
-		choices.add(FieldEgg[~~(FieldEgg.length*Math.random())]);
+		choices.add(FairyEgg[~~(FairyEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 			}
 
@@ -1417,7 +1417,7 @@ module.exports = {
 	"Wigglytuff"], COUNT=3;
 		const choices = new Set;
 		while(choices.size < COUNT )
-		choices.add(FieldEgg[~~(FieldEgg.length*Math.random())]);
+		choices.add(FairyEgg[~~(FairyEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 			}
 
@@ -1436,7 +1436,7 @@ module.exports = {
 	"Wigglytuff"], COUNT=6;
 		const choices = new Set;
 		while(choices.size < COUNT )
-		choices.add(FieldEgg[~~(FieldEgg.length*Math.random())]);
+		choices.add(FairyEgg[~~(FairyEgg.length*Math.random())]);
 			return send(`${Array.from(choices)}`);
 			}
 
