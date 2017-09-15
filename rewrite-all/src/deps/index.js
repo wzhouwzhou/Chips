@@ -89,6 +89,7 @@ const Exporter = class Exporter {
       'assert',
       'pmx',
       ['cheerio', ['cheerio','$']],
+      'querystring',
     ].forEach(m => {
       if(typeof m === 'string')
         return this.define(data, 'packages', m, m);
