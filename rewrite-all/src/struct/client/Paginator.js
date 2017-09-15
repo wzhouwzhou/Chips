@@ -215,7 +215,7 @@ const Paginator = class Paginator {
         this.sentMsg.react('🔓');
         return this._msg.reply('Only you can operate paginator controls now!').then(mm=>mm.delete(3000));
       } else
-        return this._msg.channel.send('You cannot lock the paginator controls!').then(mm=>mm.delete(3000));
+        return this._msg.channel.send(requester+', you cannot lock the paginator controls!').then(mm=>mm.delete(3000));
     }
 
     if(!this.locked)
@@ -226,7 +226,7 @@ const Paginator = class Paginator {
       r.remove('296855425255473154');
       return this._msg.reply('Everyone can operate the paginator controls now!').then(mm=>mm.delete(3000));
     } else
-      return this._msg.channel.send('You cannot unlock the paginator controls!').then(mm=>mm.delete(3000));
+      return this._msg.channel.send(requester+ ', you cannot unlock the paginator controls!').then(mm=>mm.delete(3000));
   }
 
   nextPage () {
