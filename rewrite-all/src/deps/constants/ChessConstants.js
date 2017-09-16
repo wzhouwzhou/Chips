@@ -1,8 +1,8 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 
-exports.W = '<:ab:358643642954416156>';  //'⬜';
-exports.B = '<:aw:358643894654730251>';  //'⬛';
+exports.B = '<:ab:358643642954416156>';  //'⬛';
+exports.W = '<:aw:358643894654730251>';  //'⬜';
 
 exports.startFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 exports.randFen = 'r1k4r/p2nb1p1/2b4p/1p1n1p2/2PP4/3Q1NB1/1P3PPP/R5K1  b - c3 0 19';
