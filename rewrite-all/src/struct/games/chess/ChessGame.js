@@ -1,6 +1,9 @@
 const { Chess } = require('chess.js');
-const ChessConstants = require('../../../deps/Constants').chess;
-const {W, B, chessPieces: pieces, startFen} = ChessConstants;
+const Discord = require('discord.js');
+
+const Constants = require('../../../deps/Constants');
+const ChessConstants = Constants.chess;
+const {W, B, chessPieces: pieces, startFen, label2} = ChessConstants;
 const files = new Array(8).fill(0).map((e,i)=>String.fromCharCode('A'.charCodeAt(0) + i));
 
 const ChessGame = class ChessGame extends require('../BoardGame') {
@@ -15,6 +18,10 @@ const ChessGame = class ChessGame extends require('../BoardGame') {
 
     this.game = new Chess(options.newFen||startFen);
     this.board = new Array(8).fill(0);
+    this.embed = new Discord.MessageEmbed;
+  }
+
+  embedify () {
 
   }
 
@@ -23,19 +30,21 @@ const ChessGame = class ChessGame extends require('../BoardGame') {
 
     const all = fen.replace(/\d+/g, e => 'A'.repeat(+e)).split(/\s+/)[0].split('/').map(e=>e.split(''));
 
-    for(const c in all){
+    for(const c in all)
       for(let i = 0; i < all[c].length; i++)
-        if(all[c][i]==='A')
-          this.board[c][files[i]] = c%2===i%2 ? W : B;
-        else
-          this.board[c][files[i]] = pieces.get(`${all[c][i].toLowerCase()}${all[c][i].toLowerCase()===all[c][i]?'b':'w'}${c%2===i%2?'w':'b'}`);
-    }
+        this.board[c][files[i]] = all[c][i]==='A'
+        ?   c%2===i%2 ? W : B
+        :   pieces.get(`${all[c][i].toLowerCase()}${all[c][i].toLowerCase()===all[c][i]?'b':'w'}${c%2===i%2?'w':'b'}`);
+
     return this.board;
   }
 
   toString(colorBottom) {
-    const joined = this.board.map(e=>Object.keys(e).map(k=>e[k]).join(''));
-    return colorBottom === 'white' ? joined.join('\n'): joined.reverse().join('\n');
+    let str;
+    if(colorBottom === 'white') this.board.reverse();
+    str = this.board.map((e,i)=>[Constants.numbersA[i+1]].concat(Object.keys(e).map(k=>e[k])).join('')).reverse().concat(label2.join('')).join('\n');
+    if(colorBottom === 'black') this.board.reverse();
+    return str;
   }
 
   move (place) {

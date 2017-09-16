@@ -3,6 +3,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 exports.B = '<:ab:358643642954416156>';  //'⬛';
 exports.W = '<:aw:358643894654730251>';  //'⬜';
+exports.label2 = [':white_small_square:'].concat(new Array(8).fill(0).map((x,i) => `:regional_indicator_${String.fromCharCode(97 + i)}:`));
 
 exports.startFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 exports.randFen = 'r1k4r/p2nb1p1/2b4p/1p1n1p2/2PP4/3Q1NB1/1P3PPP/R5K1  b - c3 0 19';
