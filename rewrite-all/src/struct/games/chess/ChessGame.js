@@ -68,7 +68,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     const all = fen.replace(/\d+/g, e => 'A'.repeat(+e)).split(/\s+/)[0].split('/').map(e=>e.split(''));
 
     for(const c in all) {
-      if(!board[c]) board[c] = {};
+      if(!this.board[c]) this.board[c] = {};
 
       for(let i = 0; i < all[c].length; i++)
         this.board[c][files[i]] = all[c][i]==='A'
