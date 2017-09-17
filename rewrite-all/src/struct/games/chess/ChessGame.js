@@ -4,7 +4,9 @@ Object.defineProperty(exports, '__esModule', { value: true });
 const { Chess } = require('chess.js');
 const Discord = require('discord.js');
 
+const lastF = require('../../../deps/functions/lastF').default();
 const Constants = require('../../../deps/Constants');
+
 const ChessConstants = Constants.chess;
 const {W, B, chessPieces: pieces, startFen, label2} = ChessConstants;
 const files = new Array(8).fill(0).map((e,i)=>String.fromCharCode('A'.charCodeAt(0) + i));
@@ -29,7 +31,8 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   embedify () {
     if(!this.embed) throw new Error('Embed is missing !!11!1!!!!');
     this.embed = new (this.embed.constructor);
-    this.embed.setDescription(this.toString());
+    this.embed.addField(`${this.turn} to move`, this.toString(), true);
+    //this.embed.addField('Move history', true);
     this.embed.setTitle('Chess');
     return this.embed;
   }
@@ -41,6 +44,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       this.lastM.delete();
       this.lastM = null;
     }
+
     this.channel.send(embed).then(m=>this.lastM = m);
   }
 
@@ -50,7 +54,8 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     if (this.game.game_over() || this.game.in_draw() || possibleMoves.length === 0) return null;
 
     const randomIndex = ~~(possibleMoves.length*Math.random());
-    this.lastMove = this.game.move(possibleMoves[randomIndex]);
+
+    this.lastMove = this.move(possibleMoves[randomIndex]);
     this.updateViewFen(this.game.fen().split(/\s+/)[0]);
     this.updateFrontEnd();
     return this;
@@ -94,7 +99,9 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     const tempMove =  this.game.move(place, {sloppy: !0});
     if(tempMove) this.lastMove = tempMove;
     else throw new Error('Move not completed !!!11!1!111!');
-    this.handleNextCapture(this.lastMove.captured);
+    //this.handleNextCapture(this.lastMove.captured);
+    this.turn = this.game.turn().replace(/w/,'White').replace(/b/,'Black');
+    return this.lastMove;
   }
 
 };
