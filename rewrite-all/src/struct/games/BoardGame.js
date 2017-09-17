@@ -1,4 +1,4 @@
-const Game = require('../Game');
+const Game = require('./Game');
 const ensureAbstract = require('../../deps/functions/ensureAbstractF').default();
 
 const BoardGame = class BoardGame extends Game {
