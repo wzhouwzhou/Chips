@@ -1,3 +1,6 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+
 const { Chess } = require('chess.js');
 const Discord = require('discord.js');
 
@@ -19,6 +22,8 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.game = new Chess(options.newFen||startFen);
     this.board = new Array(8).fill(0);
     this.embed = new Discord[/^[^]*12\.\d+[^]*$/.test(Discord.version)?'MessageEmbed':'RichEmbed'];
+    this.fen = options.newFen||startFen;
+    this.boardFen = this.fen.split(/\s+/)[0];
   }
 
   embedify () {
@@ -36,13 +41,13 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   }
 
   randomMove () {
-    const possibleMoves = game.moves();
+    const possibleMoves = this.game.moves();
 
-    if (game.game_over() || game.in_draw() || possibleMoves.length === 0) return null;
+    if (this.game.game_over() || this.game.in_draw() || possibleMoves.length === 0) return null;
 
     const randomIndex = ~~(possibleMoves.length*Math.random());
-    game.move(possibleMoves[randomIndex]);
-    this.updateViewFen(game.fen());
+    this.game.move(possibleMoves[randomIndex]);
+    this.updateViewFen(this.game.fen().split(/\s+/)[0]);
     this.updateFrontEnd();
     return this;
   }
@@ -57,7 +62,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   }
 
 
-  updateViewFen(fen) {
+  updateViewFen(fen = this.game.fen().split(/\s+/)[0]) {
     if(!this.board) throw new Error('Board not initiated ?!?!?!1!!1!');
 
     const all = fen.replace(/\d+/g, e => 'A'.repeat(+e)).split(/\s+/)[0].split('/').map(e=>e.split(''));

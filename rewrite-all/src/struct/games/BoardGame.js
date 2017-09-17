@@ -1,3 +1,6 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+
 const Game = require('./Game').GameClass;
 const ensureAbstract = require('../../deps/functions/ensureAbstractF').default();
 
