@@ -6,7 +6,7 @@ const ChessConstants = Constants.chess;
 const {W, B, chessPieces: pieces, startFen, label2} = ChessConstants;
 const files = new Array(8).fill(0).map((e,i)=>String.fromCharCode('A'.charCodeAt(0) + i));
 
-const ChessGame = class ChessGame extends require('../BoardGame') {
+const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   constructor(options) {
     super({
       gameName: 'Chess',

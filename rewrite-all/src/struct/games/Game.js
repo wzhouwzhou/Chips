@@ -48,4 +48,4 @@ const GameClass = class Game {
   getPlayerData () { }
 };
 
-exports = GameClass;
+exports.GameClass = GameClass;

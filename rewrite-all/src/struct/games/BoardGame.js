@@ -1,4 +1,4 @@
-const Game = require('./Game');
+const Game = require('./Game').GameClass;
 const ensureAbstract = require('../../deps/functions/ensureAbstractF').default();
 
 const BoardGame = class BoardGame extends Game {
@@ -35,7 +35,9 @@ const BoardGame = class BoardGame extends Game {
     this._lengths[0] = r+1;
     return board;
   }
-}
+};
+
+exports.BoardGame = BoardGame;
 /*
 const ensureAbstract = (qInstance, qClass) => {
   if(qInstance.constructor === qClass)
