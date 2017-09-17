@@ -37,7 +37,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   updateFrontEnd () {
     if(!this.channel) throw new Error('Channel is missing !!!11!');
     const embed = this.embedify();
-    this.channel.send(embed);
+    this.channel.send(embed).then(m=>m.delete(4000));
   }
 
   randomMove () {
@@ -78,11 +78,11 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     return this.board;
   }
 
-  toString(colorBottom) {
+  toString(colorBottom=this.game.turn()) {
     let str;
-    if(colorBottom === 'white') this.board.reverse();
+    if((/w(?:hite)?/).test(colorBottom)) this.board.reverse();
     str = this.board.map((e,i)=>[Constants.numbersA[i+1]].concat(Object.keys(e).map(k=>e[k])).join('')).reverse().concat(label2.join('')).join('\n');
-    if(colorBottom === 'black') this.board.reverse();
+    if((/b(?:lack)?/).test(colorBottom)) this.board.reverse();
     return str;
   }
 
