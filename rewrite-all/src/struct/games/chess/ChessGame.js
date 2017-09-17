@@ -12,18 +12,50 @@ const ChessGame = class ChessGame extends require('../BoardGame') {
       gameName: 'Chess',
       maxPlayers: 2,
       guildOnly: true,
-      channelID: options.channelID,
+      channelID: options.channel?options.channel.id:0,
       empty: null,
     });
-
+    this.channel = options.channel;
     this.game = new Chess(options.newFen||startFen);
     this.board = new Array(8).fill(0);
-    this.embed = new Discord.MessageEmbed;
+    this.embed = new Discord[/^[^]*12\.\d+[^]*$/.test(Discord.version)?'MessageEmbed':'RichEmbed'];
   }
 
   embedify () {
-
+    if(!this.embed) throw new Error('Embed is missing !!11!1!!!!');
+    this.embed = new (this.embed.constructor);
+    this.embed.setDescription(this.toString());
+    this.embed.setTitle('Chess');
+    return this.embed;
   }
+
+  updateFrontEnd () {
+    if(!this.channel) throw new Error('Channel is missing !!!11!');
+    const embed = this.embedify();
+    this.channel.send(embed);
+  }
+
+  randomMove () {
+    const possibleMoves = game.moves();
+
+    if (game.game_over() || game.in_draw() || possibleMoves.length === 0) return null;
+
+    const randomIndex = ~~(possibleMoves.length*Math.random());
+    game.move(possibleMoves[randomIndex]);
+    this.updateViewFen(game.fen());
+    this.updateFrontEnd();
+    return this;
+  }
+
+  demoInterval () {
+    this.demoInterval = setInterval(() => {
+      if(this.randomMove() === null) {
+        clearInterval(this.demoInterval);
+        this.demoInterval = null;
+      }
+    }, 4000);
+  }
+
 
   updateViewFen(fen) {
     if(!this.board) throw new Error('Board not initiated ?!?!?!1!!1!');
