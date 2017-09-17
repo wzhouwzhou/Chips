@@ -37,7 +37,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   updateFrontEnd () {
     if(!this.channel) throw new Error('Channel is missing !!!11!');
     const embed = this.embedify();
-    this.channel.send(embed).then(m=>m.delete(4000));
+    this.channel.send(embed).then(m=>m.delete(3900));
   }
 
   randomMove () {
@@ -46,7 +46,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     if (this.game.game_over() || this.game.in_draw() || possibleMoves.length === 0) return null;
 
     const randomIndex = ~~(possibleMoves.length*Math.random());
-    this.game.move(possibleMoves[randomIndex]);
+    this.lastMove = this.game.move(possibleMoves[randomIndex]);
     this.updateViewFen(this.game.fen().split(/\s+/)[0]);
     this.updateFrontEnd();
     return this;
@@ -78,7 +78,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     return this.board;
   }
 
-  toString(colorBottom=this.game.turn()) {
+  toString(colorBottom='white'/*this.game.turn()*/) {
     let str;
     if((/w(?:hite)?/).test(colorBottom)) this.board.reverse();
     str = this.board.map((e,i)=>[Constants.numbersA[i+1]].concat(Object.keys(e).map(k=>e[k])).join('')).reverse().concat(label2.join('')).join('\n');
