@@ -36,8 +36,9 @@ const BoardGame = class BoardGame extends Game {
     return board;
   }
 }
-
+/*
 const ensureAbstract = (qInstance, qClass) => {
   if(qInstance.constructor === qClass)
     throw new Error('Abstract class BoardGame may not be instantiated');
 }
+*/
