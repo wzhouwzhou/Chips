@@ -52,7 +52,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     return this;
   }
 
-  demoInterval () {
+  demoIntervalStart () {
     this.demoInterval = setInterval(() => {
       if(this.randomMove() === null) {
         clearInterval(this.demoInterval);
