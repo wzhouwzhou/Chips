@@ -15,7 +15,7 @@ const GameClass = class Game {
     this.guildOnly = guildOnly;
     this.channelID = channelID;
     this.players = new Discord.Collection();
-    this.joinAfterStart = joinAfterStart;
+    //this.joinAfterStart = joinAfterStart;
   }
 
   join ( msg ) {
