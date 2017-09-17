@@ -37,7 +37,11 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   updateFrontEnd () {
     if(!this.channel) throw new Error('Channel is missing !!!11!');
     const embed = this.embedify();
-    this.channel.send(embed).then(m=>m.delete(3900));
+    if(this.lastM) {
+      this.lastM.delete();
+      this.lastM = null;
+    }
+    this.channel.send(embed).then(m=>this.lastM = m);
   }
 
   randomMove () {
