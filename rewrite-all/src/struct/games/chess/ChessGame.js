@@ -91,7 +91,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     let str;
     if((/w(?:hite)?/).test(colorBottom)) this.board.reverse();
     str = this.board.map((e,i)=>[Constants.numbersA[i+1]].concat(Object.keys(e).map(k=>e[k])).join('')).reverse().concat(label2.join('')).join('\n');
-    if((/b(?:lack)?/).test(colorBottom)) this.board.reverse();
+    if((/w(?:hite)?/).test(colorBottom)) this.board.reverse();
     return str;
   }
 
