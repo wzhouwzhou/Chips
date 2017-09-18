@@ -61,6 +61,12 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     return this;
   }
 
+  updateAll () {
+    this.updateViewFen(this.game.fen().split(/\s+/)[0]);
+    this.updateFrontEnd();
+    return this;
+  }
+
   demoIntervalStart () {
     this.demoInterval = setInterval(() => {
       if(this.randomMove() === null) {
