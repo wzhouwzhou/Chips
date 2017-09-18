@@ -38,7 +38,7 @@ module.exports = {
 
     let metrics=`\n\n--Evaluation took ${(end)}.--`;
     if (r.length + metrics.length > 1900) r = 'Output too long.';
-    return await result.edit('Error', {embed: (new Discord.RichEmbed).setTitle('Output').setDescription(`📤\u0010${cb}js\n${r}${cb}`).setFooter(metrics)});
+    return await result.edit('Results', {embed: (new Discord.RichEmbed).setTitle('Output').setDescription(`📤\u0010${cb}js\n${r}${cb}`).setFooter(metrics)});
     //await result.edit(`${r}${metrics}`);
 
   }
