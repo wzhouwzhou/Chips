@@ -21,7 +21,7 @@ module.exports = {
     try {
       evaled = await doEval(args.join(' ').replace('client.token','`HNNNNNNGGHHHH`'));
     }catch(err){
-      return await result.edit(err);
+      return await result.edit('Error'+err+[]);
     }
     let r = (typeof evaled !== "string") ? require("util").inspect(evaled): evaled;
     let hrTime = process.hrtime(start);
