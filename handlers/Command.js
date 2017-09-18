@@ -13,12 +13,15 @@ module.exports = class Command extends EventEmitter {
 
     let result;
     try {
-      result = this.func.apply(this, args);
+      result = Promise.resolve(this.func.apply(this, args).catch(e=>{
+        console.error(e);
+        return e;
+      }));
       this.emit("run", true);
     } catch (err) {
       console.error(err);
       this.emit("run", false);
-      message.reply("Sorry but there was an error doing this command!");
+      //message.reply("Sorry but there was an error doing this command!");
     }
     if (result instanceof Promise) return Promise.resolve(result);
     return result;
