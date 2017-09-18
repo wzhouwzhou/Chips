@@ -20,7 +20,7 @@ module.exports = class Command extends EventEmitter {
       this.emit("run", false);
       message.reply("Sorry but there was an error doing this command!");
     }
-    if (result instanceof Promise) result.catch(console.error);
+    if (result instanceof Promise) return Promise.resolve(result);
     return result;
   }
 };

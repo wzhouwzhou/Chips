@@ -98,7 +98,13 @@ module.exports = function(Discord, client) {
                 return msg.reply(`${reason}\nYou could also use this if you have \`\`${meta.customperm[0]}\`\` permissions`);
               }else{
                 console.log('[Command] Accepted due to customperm bypass:\n',chalk.bold.bgBlue(`\t[${msg.author.tag}]`),chalk.bgBlack(`:${msg.content}`));
-                return cmd.run(msg, context);
+                try{
+                  cmd.run(msg, context).catch(err => { throw err; });
+                }catch(err){
+                  msg.send(`An error occurred, please contact someone who knows what this means.\n${err}`);
+                  return false;
+                }
+                return true;
               }
             }else{
               console.log('[Command] Rejected '+ reason);
@@ -107,7 +113,13 @@ module.exports = function(Discord, client) {
           });
         }else{
           console.log(`meta perm not found! ${meta?JSON.stringify(meta):''}`);
-          return cmd.run(msg, context);
+          try{
+            cmd.run(msg, context).catch(err => { throw err; });
+          }catch(err){
+            msg.send(`An error occurred, please contact someone who knows what this means.\n${err}`);
+            return false;
+          }
+          return true;
         }
       }
     }
