@@ -24,7 +24,7 @@ module.exports = function(Discord, client) {
           console.log("doEval part: dideval" + timestamp);
           Messager.once("dideval" + timestamp, ({ err, result }) => {
             console.log("Received doEval");
-            if (err) rej(result);
+            if (err) rej(new Error(result));
             else res(result);
           });
           Messager.emit("eval", { evalContent: stuff, vars: context, timestamp });
