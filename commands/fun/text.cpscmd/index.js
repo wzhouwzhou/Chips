@@ -8,6 +8,7 @@ let threed = require('./3d');
 let threed2 = require('./3d2');
 let ascii = require('./ascii');
 let derp = require('./derp');
+let haiku = require('./haiku');
 
 console.log('[CPSCMD][INFO][text] Building objects...');
 
@@ -74,6 +75,13 @@ derp.metadata = {
   example: 'big :heart:',
   perm: [['global.fun.text.rotate']]
 };
+haiku.metadata = {
+  category: require('../').category,
+  description: 'Enlarges a given emoji!',
+  usage: 'big <emoji>',
+  example: 'big :heart:',
+  perm: [['global.fun.text.rotate']]
+};
 
 console.log('[CPSCMD][INFO][text] Build objects complete!');
 module.exports = [
@@ -86,4 +94,5 @@ module.exports = [
   [threed2.name, threed2],
   [ascii.name, ascii],
   [derp.name, derp],
+  [haiku.name, haiku],
 ];

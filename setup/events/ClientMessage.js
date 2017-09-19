@@ -31,89 +31,91 @@ client.antiDiepLinkExemptedC = [
 ];
 
 global.muteTrigger=false;
+const msghandle = async message => {
+  /*try{
+    r.table('lastMessage').insert( {
+      id: message.author.id,
+      createdAt: message.createdAt,
+      content: message.content,
+    }, {
+      conflict: 'replace'
+    }).run(_=>_).then(thing=>{
+      if(thing.inserted==1||thing.replaced==1)
+        console.log('New msg saved for user '+message.author.id);
+    });
+
+    r.table('lastMessage').changes().run( _, (err, c) => {
+      if(!err)
+        c.each( (err, row) => {
+          if(!err){
+            if (!row.new_val) return;
+            console.log('New msg updated for user '+row.new_val.id);
+          }
+        });
+    });
+  }catch(err){
+    //Idk
+  }*/
+  //prefix!
+  if(message.content.toLowerCase() == '<@296855425255473154> prefix'|| message.content.toLowerCase() == '<@!296855425255473154> prefix')
+    if(message.guild) message.reply(`My prefix in this server is \`\`${customprefix[message.guild.id]?customprefix[message.guild.id]:prefix}\`\`. ${(!customprefix[message.guild.id])||customprefix[message.guild.id]=='-'?'You can set a custom prefix for me with \`\`-chipsprefix on\`\`':''}`);
+    else message.reply('My default prefix is ``-``');
+  //rekt
+  if(muteTrigger&& (message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1)))
+    return message.channel.send("Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE");
+  if ((message.guild)&&(message.guild.id=='257889450850254848')&&(message.author.id=='304322292769488906')&&((/^[^]*(commandnotfound)[^]*$/).test(message.content.toLowerCase().replace(/\s+/g,'')))) return await message.delete();
+  if (message.author.bot) return;
+  if(await handleAntiLink(message)) return;
+  if(await handleAntiDiepLink(message)) return;
+  //wowbleach trigger
+  if(message.content.toLowerCase().indexOf("wowbleach")>-1) message.channel.send(" \ _ \ _ \ <:Bleach:274628490844962826>\n\ <:WOW:290865903384657920>");
+
+  //if (!message.guild)
+    //dmHandle(message);
+
+  //console.log(monitorMode);
+  if (monitorMode && message.channel == testC)
+    console.log("\n", chalk.bold.bgBlue("Social spy: "), chalk.bgBlack("\n\t[" + message.author.username + "] message content: " + message.content));
+
+  if (message.content.toLowerCase().startsWith(message.guild&&customprefix[message.guild.id]?customprefix[message.guild.id].toLowerCase():prefix.toLowerCase())){
+    console.log("[CLIENTMESSAGE] Command attempt detected");
+    if(message.guild&&message.member.displayName.replace(/\s+/,'').toLowerCase().indexOf('dwagon')>-1)
+      if(message.guild.id==Constants.servers.SINX)
+        return message.reply('You are a dwagon, therefore you may not use my commands!');
+    CommandHandler(message, message.guild&&customprefix[message.guild.id]?customprefix[message.guild.id]:prefix);
+  }
+
+  //======================================KEYWORD TRIGGER=========================================
+  const keywords = {
+    '306244855493951489': 'ban',
+  };
+  const notify = {
+    '306244855493951489': false,
+  };
+  if(message.guild&&message.guild.id==Constants.servers.SURSKIT)
+    if(message.content.includes(keywords[Constants.users.DU])&&notify[Constants.users.DU])
+      client.fetchUser(Constants.users.DU).then(user=>{
+        user.send(`Someone said the keyword \`\`${keywords[Constants.users.DU]}\`\` in server \`\`Sinbad Knights\`\`!`);
+      }).catch(err=>{
+        console.log('[KEYWORD NOTIFY]'+err);
+      });
+
+  //======================================KEYWORD TRIGGER=========================================
+  /*try{
+    if(message.guild&&message.guild.id==Constants.servers.DWAGON){
+      send2(message, DwagonLogs);
+      snMsgs++;
+    }
+  }catch(err){console.log(`Log errored! ${err}`);}*/
+  //if(message.guild)
+    //filter(message);
+  //detectPartyLink(message);
+};
 
 module.exports = function() {
   console.log("Client message event..");
-  client.on("message", async message => {
-    /*try{
-      r.table('lastMessage').insert( {
-        id: message.author.id,
-        createdAt: message.createdAt,
-        content: message.content,
-      }, {
-        conflict: 'replace'
-      }).run(_=>_).then(thing=>{
-        if(thing.inserted==1||thing.replaced==1)
-          console.log('New msg saved for user '+message.author.id);
-      });
-
-      r.table('lastMessage').changes().run( _, (err, c) => {
-        if(!err)
-          c.each( (err, row) => {
-            if(!err){
-              if (!row.new_val) return;
-              console.log('New msg updated for user '+row.new_val.id);
-            }
-          });
-      });
-    }catch(err){
-      //Idk
-    }*/
-    //prefix!
-    if(message.content.toLowerCase() == '<@296855425255473154> prefix'|| message.content.toLowerCase() == '<@!296855425255473154> prefix')
-      if(message.guild) message.reply(`My prefix in this server is \`\`${customprefix[message.guild.id]?customprefix[message.guild.id]:prefix}\`\`. ${(!customprefix[message.guild.id])||customprefix[message.guild.id]=='-'?'You can set a custom prefix for me with \`\`-chipsprefix on\`\`':''}`);
-      else message.reply('My default prefix is ``-``');
-    //rekt
-    if(muteTrigger&& (message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1)))
-      return message.channel.send("Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE");
-    if ((message.guild)&&(message.guild.id=='257889450850254848')&&(message.author.id=='304322292769488906')&&((/^[^]*(commandnotfound)[^]*$/).test(message.content.toLowerCase().replace(/\s+/g,'')))) return await message.delete(); 
-    if (message.author.bot) return;
-    if(await handleAntiLink(message)) return;
-    if(await handleAntiDiepLink(message)) return;
-    //wowbleach trigger
-    if(message.content.toLowerCase().indexOf("wowbleach")>-1) message.channel.send(" \ _ \ _ \ <:Bleach:274628490844962826>\n\ <:WOW:290865903384657920>");
-
-    //if (!message.guild)
-      //dmHandle(message);
-
-    //console.log(monitorMode);
-    if (monitorMode && message.channel == testC)
-      console.log("\n", chalk.bold.bgBlue("Social spy: "), chalk.bgBlack("\n\t[" + message.author.username + "] message content: " + message.content));
-
-    if (message.content.toLowerCase().startsWith(message.guild&&customprefix[message.guild.id]?customprefix[message.guild.id].toLowerCase():prefix.toLowerCase())){
-      console.log("[CLIENTMESSAGE] Command attempt detected");
-      if(message.guild&&message.member.displayName.replace(/\s+/,'').toLowerCase().indexOf('dwagon')>-1)
-        if(message.guild.id==Constants.servers.SINX)
-          return message.reply('You are a dwagon, therefore you may not use my commands!');
-      CommandHandler(message, message.guild&&customprefix[message.guild.id]?customprefix[message.guild.id]:prefix);
-    }
-
-    //======================================KEYWORD TRIGGER=========================================
-    const keywords = {
-      '306244855493951489': 'ban',
-    };
-    const notify = {
-      '306244855493951489': false,
-    };
-    if(message.guild&&message.guild.id==Constants.servers.SURSKIT)
-      if(message.content.includes(keywords[Constants.users.DU])&&notify[Constants.users.DU])
-        client.fetchUser(Constants.users.DU).then(user=>{
-          user.send(`Someone said the keyword \`\`${keywords[Constants.users.DU]}\`\` in server \`\`Sinbad Knights\`\`!`);
-        }).catch(err=>{
-          console.log('[KEYWORD NOTIFY]'+err);
-        });
-
-    //======================================KEYWORD TRIGGER=========================================
-    /*try{
-      if(message.guild&&message.guild.id==Constants.servers.DWAGON){
-        send2(message, DwagonLogs);
-        snMsgs++;
-      }
-    }catch(err){console.log(`Log errored! ${err}`);}*/
-    //if(message.guild)
-      //filter(message);
-    //detectPartyLink(message);
-  });
+  client.on("message", msghandle);
+  client.on('messageUpdate', (oM, nM) => msghandle(nM));
   /*c2.on('message', m => {
     try{
       if(m.guild.id==Constants.servers.SUCKX){
