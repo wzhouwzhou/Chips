@@ -14,7 +14,7 @@ module.exports = {
       if(memberToUse)
         temp = guild.members.get(memberToUse);
       if(temp != null) return reply("Target user is in this server! Use -ban instead.");
-      if(memberToUse=='') return reply("Invalid user!");
+      if(!memberToUse||memberToUse[0]==='') return reply("Invalid user!");
       if(memberToUse == memberToUse.id)
         return reply("I can't let you ban yourself >.>");
     }catch(err){ //Something extremely weird has happened:
