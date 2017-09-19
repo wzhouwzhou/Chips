@@ -1,6 +1,6 @@
 module.exports = {
   name: "lmgtfy",
-  async func(msg, { send, prefix, args }) -async {
+  async func(msg, { send, prefix, args }) {
     if (!args[0]) {
         return reply('Heres how you can use this command:\n**${_.escapeRegExp(prefix)}** google [message content]\n**${_.escapeRegExp(prefix)}** bing [message content]\n**${_.escapeRegExp(prefix)}** yahoo [message content]\n**${_.escapeRegExp(prefix)}** aol [message content]\n**${_.escapeRegExp(prefix)}** ask [message content]\n**${_.escapeRegExp(prefix)}** duck [message content]');
     }
