@@ -6,7 +6,7 @@ lmgtfy.metadata = {
   description: 'A searching tool!',
   usage: 'lmgtfy [searchengine] [message content]',
   example: 'lmgtfy google hi',
-  perm: [['global.fun.serch.lmgtfy']],
+  perm: [['global.fun.search.lmgtfy']],
   customperm: ['SEND_MESSAGES'],
 };
 
