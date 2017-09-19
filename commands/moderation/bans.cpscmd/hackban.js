@@ -10,7 +10,9 @@ module.exports = {
       let target = args[0];
       if(isNaN(target.match(/\d+/))) return reply("Please specify a valid user to ban!");
       memberToUse = target.match(/\d+/);
-      let temp = guild.members.get(target.match(/\d+/));
+      let temp;
+      if(memberToUse)
+        temp = guild.members.get(memberToUse);
       if(temp != null) return reply("Target user is in this server! Use -ban instead.");
       if(memberToUse=='') return reply("Invalid user!");
       if(memberToUse == memberToUse.id)
