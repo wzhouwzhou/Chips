@@ -21,7 +21,5 @@ module.exports = {
 	}
 	if (args[0]=="duck") {
     return reply(`Heres how you search this! http://www.lmgtfy.com/?s=d&iie=1&q=${message.content.split(/\s+/).slice(2).join('+')}`);
-	} else {
-	return reply(`Heres how you google this! http://www.lmgtfy.com/?q=${args.join('+')}`);	
-	}
+	} 
   }};
