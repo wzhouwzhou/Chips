@@ -7,7 +7,7 @@ module.exports = {
     let memberToUse;
     try{
       if(!args[0]) return reply("Please specify a user to ban!");
-      let memberToUse = (args[0].match(/^[^]*(\d+)[^]*$/)||[null, null])[1];
+      let memberToUse = (args[0].match(/^(\d+)$/)||[null, null])[1];
       if(!memberToUse||isNaN(memberToUse)) return reply("Please specify a valid user to ban!");
       send('ID received as: '+_.escapeRegExp(memberToUse)).then(m=>m.delete(3000));
       let temp = guild.members.get(memberToUse);
