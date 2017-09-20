@@ -100,7 +100,7 @@ const msghandle = async message => {
         console.log('[KEYWORD NOTIFY]'+err);
       });
 
-  //======================================KEYWORD TRIGGER=========================================
+  //====================================END KEYWORD TRIGGER=======================================
   /*try{
     if(message.guild&&message.guild.id==Constants.servers.DWAGON){
       send2(message, DwagonLogs);

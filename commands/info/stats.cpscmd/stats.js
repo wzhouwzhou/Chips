@@ -33,28 +33,26 @@ module.exports = {
     let ping = bot.ping;
     let textChannels = bot.channels.filter(c => c.type === "text").size;
     let voiceChannels = bot.channels.filter(c => c.type === "voice").size;
-    let cpuAverage = Math.ceil(require('os').loadavg()[1] * 100) / 10;
-    let memAverage = Math.round(process.memoryUsage().heapUsed / 1024 / 1024);
+    let cpuAverage = Math.ceil(require('os').loadavg()[1] * 1000) / 10;
+    let memAverage = ~~(2e-1 + process.memoryUsage().heapUsed /1024 / 1024);
     //let memTotal = Math.round(process.memoryUsage().heapTotal / 1024 / 1024);
     //Create the embed
     let embed = new Discord.RichEmbed();
     embed.setTitle(`Chip's Stats Report! Current Time: ${currentTime}`);
     embed.setColor(guild?member.displayColor:1503);
-    //embed.setThumbnail(avatar);
-    embed.setImage("https://cdn.discordapp.com/attachments/307625096078426123/314201502669471744/Chips.jpg");
-    embed.addField(`Chips stats for shard ${bot.shard.id+1}/${clientutil.count}:`, "\u200B");
-    [
+
+    //embed.setImage("https://cdn.discordapp.com/attachments/307625096078426123/314201502669471744/Chips.jpg");
+    embed.addField(`Chips stats for shard ${bot.shard.id+1}/${clientutil.count}:`, [
       ['Shard uptime: ', uptime],
       ['Shard ping (ms): ',ping],
       ['Shard User count:', users],
       ['Server count:', guilds],
       ['Memory:', `${memAverage} MB`],
       ['CPU usage (%):', cpuAverage],
-      [`Channel count: ${channels}`,`Text Channel Count: ${textChannels}, Voice Channel Count: ${voiceChannels}`],
-    ].forEach(f=>embed.addField(...f,true));
+      [`Shard channel count: ${channels}`,`Text Channel Count: ${textChannels}, Voice Channel Count: ${voiceChannels}`],
+    ].map(e=>`${e[0]}**${e[1]}**`).join('\n'));
 
-    embed.addField("Chips 0.3.4 stats across all shards:",`Node ${process.version}, lib v${Discord.version}`);
-    [
+    embed.addField("Chips 0.3.4 stats across all shards:", [
       ['Total User Count:', userCountG],
       ['Total Server Count:', guildCountG],
       ['Total Channel Count:', channelCountG],
@@ -63,17 +61,12 @@ module.exports = {
       ['Average Client Ping:', `${averagePingG} ms`],
       ['Total CPU Usage:', `${cpuAveG}%`],
       ['Total Memory Usage', `${memAveG} of ${totalMemG} MB`],
-      ['Invite Link:',`[Click Here!](${Constants.BOTINVITE})`],
-      ['Support Server:', `[Click Here](${Constants.SUPPORTINVITE})`],
-      ['Official Website: ',`[${Constants.WEBSITE}](${Constants.WEBSITE})`],
-      ["Feeling generous? Donate here to help us pay for hosting and keep our bot updated constantly!", "[https://www.paypal.me/wzhouwzhou](https://www.paypal.me/wzhouwzhou)"]
-    ].forEach(f=>embed.addField(...f,true));
-    console.log('[DEBUG] results from broadcastEval: ' + JSON.stringify(globalValues[9]).replace(/@/,''));
-    embed.setFooter(`Image made by @xdlf#6477.--Chips stats lookup and calculations took ${(new Date).getTime() - start}MS.--`);
+      [`Node **${process.version}**, lib **v${Discord.version}**`,''],
+    ].map(e=>`${e[0]}**${e[1]}**`).join('\n'));
+    //console.log('[DEBUG] results from broadcastEval: ' + JSON.stringify(globalValues[9]).replace(/@/,''));
+    embed.setFooter(`--Chips stats lookup and calculations took ${(new Date).getTime() - start}MS.--`);
     channel.stopTyping();
-    return await reply("", {
-      embed
-    });
+    return await reply(embed);
   }
 };
 
