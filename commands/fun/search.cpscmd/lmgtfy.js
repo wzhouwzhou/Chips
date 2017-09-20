@@ -24,6 +24,7 @@ module.exports = {
         'Where [search engine] can be:',
         grammarJoin('google, bing, yahoo, aol, ask, duck (duckduckgo)'.split(/,\s*/g))
       ].join('\n').replace(/{}/g, `${_.escapeRegExp(prefix)}${this.name}`));
-    return reply(`Here's how you search this: ${lmgtfy(args[0])}`);
+    const query = content.substring(content.indexOf(args[1])>-1?content.indexOf(args[1]):`${prefix}${this.name} `.length);
+    return reply(`Here's how you search this: ${lmgtfy(query, args[0])}`);
   }
 };
