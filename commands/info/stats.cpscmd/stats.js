@@ -2,7 +2,7 @@
 module.exports = {
   name: "stats",
   async func(msg, {
-    reply,
+    send,
     guild,
     member,
     channel,
@@ -50,7 +50,7 @@ module.exports = {
       ['Memory:', `${memAverage} MB`],
       ['CPU usage (%):', cpuAverage],
       [`Shard channel count: ${channels}`,`Text Channel Count: ${textChannels}, Voice Channel Count: ${voiceChannels}`],
-    ].map(e=>`${e[0]}**${e[1]}**`).join('\n'));
+    ].map(e=>`${e[0]}**${e[1]}**`).join('\n').substring(0,1000));
 
     embed.addField("Chips 0.3.4 stats across all shards:", [
       ['Total User Count:', userCountG],
@@ -66,7 +66,7 @@ module.exports = {
     //console.log('[DEBUG] results from broadcastEval: ' + JSON.stringify(globalValues[9]).replace(/@/,''));
     embed.setFooter(`--Chips stats lookup and calculations took ${(new Date).getTime() - start}MS.--`);
     channel.stopTyping();
-    return await reply(embed);
+    return await send(embed);
   }
 };
 

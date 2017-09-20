@@ -15,7 +15,7 @@ const request = require('request');
 global.Discord = require("discord.js");
 global.client = new Discord.Client({
   fetchAllMembers:true,
-  messageCacheMaxSize: 25,
+  messageCacheMaxSize: 20,
   //messageCacheLifetime:(30*60),
   //messageSweepInterval:(60*60*1)
 });
