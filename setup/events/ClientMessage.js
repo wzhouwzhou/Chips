@@ -58,8 +58,8 @@ const msghandle = async message => {
   }*/
   //prefix!
   if(message.content.toLowerCase() == '<@296855425255473154> prefix'|| message.content.toLowerCase() == '<@!296855425255473154> prefix')
-    if(message.guild) message.reply(`My prefix in this server is \`\`${customprefix[message.guild.id]?customprefix[message.guild.id]:prefix}\`\`. ${(!customprefix[message.guild.id])||customprefix[message.guild.id]=='-'?'You can set a custom prefix for me with \`\`-chipsprefix on\`\`':''}`);
-    else message.reply('My default prefix is ``-``');
+    if(message.guild) message.reply(`My prefix in this server is ${customprefix[message.guild.id]?_.escapeRegExp(customprefix[message.guild.id]):_.escapeRegExp(prefix)}. ${(!customprefix[message.guild.id])||customprefix[message.guild.id]==prefix?'You can set a custom prefix for me with ``'+_.escapeRegExp(prefix)+'chipsprefix on``':''}`);
+    else message.reply('My default prefix is ``'+_.escapeRegExp(prefix)+'``');
   //rekt
   if(muteTrigger&& (message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1)))
     return message.channel.send("Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE");
