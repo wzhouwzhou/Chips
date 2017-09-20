@@ -54,7 +54,7 @@ module.exports = {
       ['Shard Server count: ', guilds],
       ['Shard Memory usage: ', `${memAverage} MB`],
       ['CPU usage (%): ', cpuAverage],
-      [`Shard channel count: ${channels}\nText Channel Count:\n\t\t**${textChannels}**\nVoice Channel Count:\n\t\t**${voiceChannels}**`,' '],
+      [`Shard channel count: \n\t\t**${channels}**\nText Channel Count:\n\t\t**${textChannels}**\nVoice Channel Count:\n\t\t**${voiceChannels}**`,' '],
     ].map(e=>`${e[0]}\n\t\t**${e[1]}**`).join('\n'), true);
 
     embed.addField("Chips 0.3.4 stats across all shards:", [
