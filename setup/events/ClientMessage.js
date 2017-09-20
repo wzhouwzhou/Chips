@@ -68,7 +68,7 @@ const msghandle = async message => {
   if(await handleAntiLink(message)) return;
   if(await handleAntiDiepLink(message)) return;
   //wowbleach trigger
-  if(message.content.toLowerCase().indexOf("wowbleach")>-1) message.channel.send(" \ _ \ _ \ <:Bleach:274628490844962826>\n\ <:WOW:290865903384657920>");
+  if(message.content.toLowerCase().indexOf("wowbleach")>-1) message.channel.send("  _  _  <:Bleach:274628490844962826>\n <:WOW:290865903384657920>");
 
   //if (!message.guild)
     //dmHandle(message);
