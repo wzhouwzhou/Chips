@@ -43,28 +43,28 @@ module.exports = {
 
     //embed.setImage("https://cdn.discordapp.com/attachments/307625096078426123/314201502669471744/Chips.jpg");
     embed.addField(`Chips stats for shard ${bot.shard.id+1}/${clientutil.count}:`, [
-      ['Shard uptime: ', uptime],
-      ['Shard ping (ms): ',ping],
-      ['Shard User count:', users],
-      ['Server count:', guilds],
-      ['Memory:', `${memAverage} MB`],
-      ['CPU usage (%):', cpuAverage],
-      [`Shard channel count: ${channels}`,`Text Channel Count: ${textChannels}, Voice Channel Count: ${voiceChannels}`],
-    ].map(e=>`${e[0]}**${e[1]}**`).join('\n').substring(0,1000));
+      ['Shard Uptime: ', uptime],
+      ['Shard Ping (ms): ',ping],
+      ['Shard User count: ', users],
+      ['Shard Server count: ', guilds],
+      ['Shard Memory usage: ', `${memAverage} MB`],
+      ['CPU usage (%): ', cpuAverage],
+      [`Shard channel count: ${channels}`,`\nText Channel Count: ${textChannels}, Voice Channel Count: ${voiceChannels}`],
+    ].map(e=>`${e[0]}\n\t\t**${e[1]}**`).join('\n').substring(0,1000));
 
     embed.addField("Chips 0.3.4 stats across all shards:", [
-      ['Total User Count:', userCountG],
-      ['Total Server Count:', guildCountG],
-      ['Total Channel Count:', channelCountG],
-      ['Total Text Channel Count:', textCountG],
-      ['Total Voice Channel Count:', voiceCountG],
-      ['Average Client Ping:', `${averagePingG} ms`],
-      ['Total CPU Usage:', `${cpuAveG}%`],
-      ['Total Memory Usage', `${memAveG} of ${totalMemG} MB`],
-      [`Node **${process.version}**, lib **v${Discord.version}**`,''],
-    ].map(e=>`${e[0]}**${e[1]}**`).join('\n'));
+      ['Total User Count: ', userCountG],
+      ['Total Server Count: ', guildCountG],
+      ['Total Channel Count: ', channelCountG],
+      ['Total Text Channel Count: ', textCountG],
+      ['Total Voice Channel Count: ', voiceCountG],
+      ['Average Client Ping: ', `${averagePingG} ms`],
+      ['Total CPU Usage: ', `${cpuAveG}%`],
+      ['Memory Usage: ', `Used ${memAveG} of ${totalMemG} mb allocated`],
+      [`Node **${process.version}**, lib`, `v${Discord.version}`],
+    ].map(e=>`${e[0]}\n\t\t**${e[1]}**`).join('\n'));
     //console.log('[DEBUG] results from broadcastEval: ' + JSON.stringify(globalValues[9]).replace(/@/,''));
-    embed.setFooter(`--Chips stats lookup and calculations took ${(new Date).getTime() - start}MS.--`);
+    embed.setFooter(`Chips stats lookup and calculations took ${(new Date).getTime() - start}ms.`);
     channel.stopTyping();
     return await send(embed);
   }
