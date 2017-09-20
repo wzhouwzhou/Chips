@@ -41,6 +41,8 @@ ex.permsList = [
       ['global.fun.random.roll', true],
     ['global.fun.say.*', false],
       ['global.fun.say.say', false],
+    ['global.fun.search.*', true],
+      ['global.fun.search.lmgtfy', true],
     ['global.fun.text.*', true],
       ['global.fun.text.reverse', true],
       ['global.fun.text.spooky', true],
