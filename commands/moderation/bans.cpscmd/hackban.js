@@ -7,15 +7,15 @@ module.exports = {
     let memberToUse;
     try{
       if(!args[0]) return reply("Please specify a user to ban!");
-      let target = args[0];
-      if(isNaN(target.match(/\d+/))) return reply("Please specify a valid user to ban!");
-      memberToUse = (target.match(/^[^]*(\d+)[^]*$/)||[null, null])[1];
-      let temp;
-      if(memberToUse)
-        temp = guild.members.get(memberToUse);
-      if(temp != null) return reply("Target user is in this server! Use -ban instead.");
-      if(!memberToUse||memberToUse[0]==='') return reply("Invalid user!");
-      if(memberToUse == memberToUse.id)
+      let memberToUse = (args[0].match(/^[^]*(\d+)[^]*$/)||[null, null])[1];
+      if(!memberToUse||isNaN(memberToUse)) return reply("Please specify a valid user to ban!");
+
+      let temp = guild.members.get(memberToUse);
+      if(temp) return reply("Target user is in this server! Use -ban instead.");
+
+      if(memberToUse[0]==='') return reply("Invalid user!");
+
+      if(memberToUse === author.id)
         return reply("I can't let you ban yourself >.>");
     }catch(err){ //Something extremely weird has happened:
       console.log(err);
