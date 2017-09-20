@@ -49,7 +49,7 @@ module.exports = {
       ['Shard Server count: ', guilds],
       ['Shard Memory usage: ', `${memAverage} MB`],
       ['CPU usage (%): ', cpuAverage],
-      [`Shard channel count: ${channels}`,`\nText Channel Count: ${textChannels}, Voice Channel Count: ${voiceChannels}`],
+      [`Shard channel count: ${channels}`,`\nText Channel Count: ${textChannels}\n Voice Channel Count: ${voiceChannels}`],
     ].map(e=>`${e[0]}\n\t\t**${e[1]}**`).join('\n'), true);
 
     embed.addField("Chips 0.3.4 stats across all shards:", [
@@ -92,7 +92,7 @@ const getGlobalStats = async () => {
   results.forEach(s=>mem+=s);
   results = await clientutil.broadcastEval(`process.memoryUsage().heapTotal / 1024 / 1024`);
   results.forEach(s=>memtotal+=s);
-  return [guilds, channels, members, ping, text, voice, Math.round(cpu), Math.round(mem), users, results, memtotal];
+  return [guilds, channels, members, ping, text, voice, Math.round(cpu*100)/100, Math.round(mem*100)/100, users, results, Math.round(memtotal*100)/100];
   //        0        1        2        3    4       5        6                 7             8      9        10
 };
 
