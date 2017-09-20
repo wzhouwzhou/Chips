@@ -9,7 +9,7 @@ module.exports = {
       if(!args[0]) return reply("Please specify a user to ban!");
       let target = args[0];
       if(isNaN(target.match(/\d+/))) return reply("Please specify a valid user to ban!");
-      memberToUse = target.match(/\d+/);
+      memberToUse = (target.match(/^[^]*(\d+)[^]*$/)||[null, null])[1];
       let temp;
       if(memberToUse)
         temp = guild.members.get(memberToUse);
@@ -24,11 +24,11 @@ module.exports = {
     let dm = false;
     let reason;
     if(args[1])
-      if(args[2]&&args[2].toLowerCase() != 'dm'){
-        reason = _.drop(args).join(' ');
+      if(args[1].toLowerCase() === 'dm'){
+        reason = _.drop(_.drop(args)).join(' ');
         dm = true;
       }else
-        reason = _.drop(_.drop(args)).join(' ');
+        reason = _.drop(args).join(' ');
 
     if(reason == null)
       reason = "No reason provided.";
@@ -57,8 +57,8 @@ module.exports = {
 
     let collector = channel.createMessageCollector(m => {
         if(/^(?:y(?:es)?)|(?:no?)$/i.test(m.content)){
-          if(m.author.id==author.id){
-            m.reply("Choice accepted. Now processing...").then(m => setTimeout(()=>m.delete()),1000);
+          if(m.author.id===author.id){
+            m.channel.send("Choice accepted. Now processing...").then(m => m.delete(3000));
             confirmed = true;
             agreed = /^(?:y(?:es)?)$/i.test(m.content);
             setTimeout(()=>collector.stop(), 1000);
