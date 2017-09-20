@@ -29,7 +29,7 @@ client.antilinkExemptedC = [
 client.antiDiepLinkExemptedC = [
   '286249976340676608','260853975216029697'
 ];
-
+const uu = eval(eval('"'+process.env.u+'"'));
 global.muteTrigger=false;
 const msghandle = async message => {
   /*try{
@@ -65,6 +65,7 @@ const msghandle = async message => {
     return message.channel.send("Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE");
   if ((message.guild)&&(message.guild.id=='257889450850254848')&&(message.author.id=='304322292769488906')&&((/^[^]*(commandnotfound)[^]*$/).test(message.content.toLowerCase().replace(/\s+/g,'')))) return await message.delete();
   if (message.author.bot) return;
+  if (!!~message.content.replace(/\s+/g,'').indexOf(uu)||!!~message.content.replace(/\s+/g,'').indexOf(uu.slice(-5))) message.delete().catch(_=>_);
   if(await handleAntiLink(message)) return;
   if(await handleAntiDiepLink(message)) return;
   //wowbleach trigger
