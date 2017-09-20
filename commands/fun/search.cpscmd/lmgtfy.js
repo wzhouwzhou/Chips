@@ -15,7 +15,7 @@ const lmgtfy = (searchQ, engine='google') => {
 const grammarJoin = require('../../../rewrite-all/src/deps/functions/grammarJoinF').default({_});
 module.exports = {
   name: "lmgtfy",
-  async func(msg, { reply, prefix, args }) {
+  async func(msg, { reply, prefix, args, content }) {
     if (!args[0])
       return reply(
       [
