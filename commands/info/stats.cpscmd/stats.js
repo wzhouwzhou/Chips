@@ -50,7 +50,7 @@ module.exports = {
       ['Shard Memory usage: ', `${memAverage} MB`],
       ['CPU usage (%): ', cpuAverage],
       [`Shard channel count: ${channels}`,`\nText Channel Count: ${textChannels}, Voice Channel Count: ${voiceChannels}`],
-    ].map(e=>`${e[0]}\n\t\t**${e[1]}**`).join('\n').substring(0,1000));
+    ].map(e=>`${e[0]}\n\t\t**${e[1]}**`).join('\n'), true);
 
     embed.addField("Chips 0.3.4 stats across all shards:", [
       ['Total User Count: ', userCountG],
@@ -61,8 +61,8 @@ module.exports = {
       ['Average Client Ping: ', `${averagePingG} ms`],
       ['Total CPU Usage: ', `${cpuAveG}%`],
       ['Memory Usage: ', `Used ${memAveG} of ${totalMemG} mb allocated`],
-      [`Node **${process.version}**, lib`, `v${Discord.version}`],
-    ].map(e=>`${e[0]}\n\t\t**${e[1]}**`).join('\n'));
+      [`Node **${process.version}**\nLib  v${Discord.version}`],
+    ].map(e=>`${e[0]}\n\t\t`+e[1]?`**${e[1]}**`:'').join('\n'), true);
     //console.log('[DEBUG] results from broadcastEval: ' + JSON.stringify(globalValues[9]).replace(/@/,''));
     embed.setFooter(`Chips stats lookup and calculations took ${(new Date).getTime() - start}ms.`);
     channel.stopTyping();
