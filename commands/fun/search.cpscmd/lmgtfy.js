@@ -12,7 +12,7 @@ const lmgtfy = (searchQ, engine='google') => {
   const prms = {'iie':1};  if(engines.get(engine)) prms.s=engines.get(engine);
   return 'http://lmgtfy.com/?'+qs.stringify(prms)+`&q=${qP}`;
 };
-const grammarJoin = require('../../../rewrite-all/src/deps/functions/grammarJoinF').default();
+const grammarJoin = require('../../../rewrite-all/src/deps/functions/grammarJoinF').default({_});
 module.exports = {
   name: "lmgtfy",
   async func(msg, { reply, prefix, args }) {
