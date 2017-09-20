@@ -1,27 +1,32 @@
+const engines = new Map([
+  ['google',null],
+  ['bing','b'],
+  ['yahoo','y'],
+  ['aol','a'],
+  ['ask','k'],
+  ['duck','d'],
+]);
+const qs = require('querystring');
+const lmgtfy = (searchQ, engine='google') => {
+  const qP = searchQ.split(/\s+/).map(e=>qs.escape(e)).join('+');
+  const prms = {'iie':1};  if(engines.get(engine)) prms.s=engines.get(engine);
+  return 'http://lmgtfy.com/?'+qs.stringify(prms)+`&q=${qP}`;
+};
+
 module.exports = {
   name: "lmgtfy",
-  async func(msg, { send, prefix, args }) {
-    if (!args[0]) {
-        return reply('Heres how you can use this command:\n**${_.escapeRegExp(prefix)}** google [message content]\n**${_.escapeRegExp(prefix)}** bing [message content]\n**${_.escapeRegExp(prefix)}** yahoo [message content]\n**${_.escapeRegExp(prefix)}** aol [message content]\n**${_.escapeRegExp(prefix)}** ask [message content]\n**${_.escapeRegExp(prefix)}** duck [message content]');
-    }
-	if (args[0]=="google") {
-    return reply(`Heres how you google this! http://www.lmgtfy.com/?q=${message.content.split(/\s+/).slice(2).join('+')}`);
-	}
-	if (args[0]=="bing") {
-    return reply(`Heres how you search this! http://www.lmgtfy.com/?s=b&iie=1&q=${message.content.split(/\s+/).slice(2).join('+')}`);
-	}
-	if (args[0]=="yahoo") {
-    return reply(`Heres how you search this! http://www.lmgtfy.com/?s=y&iie=1&q=${message.content.split(/\s+/).slice(2).join('+')}`);
-	}
-	if (args[0]=="aol") {
-    return reply(`Heres how you search this! http://www.lmgtfy.com/?s=a&iie=1&q=${message.content.split(/\s+/).slice(2).join('+')}`);
-	}
-	if (args[0]=="ask") {
-    return reply(`Heres how you search this! http://www.lmgtfy.com/?s=k&iie=1&q=${message.content.split(/\s+/).slice(2).join('+')}`);
-	}
-	if (args[0]=="duck") {
-    return reply(`Heres how you search this! http://www.lmgtfy.com/?s=d&iie=1&q=${message.content.split(/\s+/).slice(2).join('+')}`);
-	} else { 
-    return reply(`Heres how you google this! http://www.lmgtfy.com/?q=${args.join('+')}`); 
-	}
-  }};
+  async func(msg, { reply, prefix, args }) {
+    if (!args[0])
+      return reply(
+      [
+        'Heres how you can use this command:',
+        `**${_.escapeRegExp(prefix)}** google [message content]`,
+        `**${_.escapeRegExp(prefix)}** bing [message content]`,
+        `**${_.escapeRegExp(prefix)}** yahoo [message content]`,
+        `**${_.escapeRegExp(prefix)}** aol [message content]`,
+        `**${_.escapeRegExp(prefix)}** ask [message content]`,
+        `**${_.escapeRegExp(prefix)}** duck [message content]`,
+      ].join('\n'));
+    return reply(`Here's how you search this: ${lmgtfy(args[0])}`);
+  }
+};
