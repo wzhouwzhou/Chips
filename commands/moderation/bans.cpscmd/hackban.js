@@ -8,7 +8,7 @@ module.exports = {
     try{
       if(!args[0]) return reply("Please specify a user to ban!");
 
-      memberToUse = (args[0].match(/^(\d+)$/)||[null, null])[1];
+      memberToUse = (args[0].match(/^<?@?!?(\d+)>?$/)||[null, null])[1];
 
       if(memberToUse==null||isNaN(memberToUse)) return reply("Please specify a valid user to ban!");
 
@@ -48,7 +48,7 @@ module.exports = {
 
     }catch(err){
       console.error(err);
-      await send('Error...');
+      await send('I was unable to get a user with the id '+memberToUse);
       throw err;
     }
 
