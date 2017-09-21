@@ -7,22 +7,27 @@ module.exports = {
     let memberToUse;
     try{
       if(!args[0]) return reply("Please specify a user to ban!");
+
       let memberToUse = (args[0].match(/^(\d+)$/)||[null, null])[1];
-      if(!memberToUse||isNaN(memberToUse)) return reply("Please specify a valid user to ban!");
+
+      if(memberToUse==null||isNaN(memberToUse)) return reply("Please specify a valid user to ban!");
+
       send('ID received as: '+_.escapeRegExp(memberToUse)).then(m=>m.delete(3000));
+
+      if(memberToUse === author.id) return reply("I can't let you ban yourself >.>");
+
       let temp = guild.members.get(memberToUse);
       if(temp) return reply(`Target user is in this server! Use ${_.escapeRegExp(prefix)}ban instead.`);
 
       if(!memberToUse[0]||memberToUse[0]==='') return reply("Invalid user!");
 
-      if(memberToUse === author.id)
-        return reply("I can't let you ban yourself >.>");
     }catch(err){ //Something extremely weird has happened:
       console.log(err);
-      return reply("I like chips.");
+      await reply("I like chips. (something errored)");
+      throw err;
     }
     let dm = false;
-    let reason;
+    let reason = null;
     if(args[1])
       if(args[1].toLowerCase() === 'dm'){
         reason = _.drop(_.drop(args)).join(' ');
@@ -34,8 +39,8 @@ module.exports = {
       reason = "No reason provided.";
     let user=null, found=false;
     try{
-      user = await client.fetchUser(memberToUse+[]);
-
+      user = await client.fetchUser(typeof memberToUse === 'string'?memberToUse:memberToUse+[]);
+      send('[Debug] user = '+user.toString());
       if(user!=null){
         console.log("Hackban target user found: "+ user.id);
         found = true;
