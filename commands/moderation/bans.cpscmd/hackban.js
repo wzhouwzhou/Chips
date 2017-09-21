@@ -12,7 +12,7 @@ module.exports = {
 
       if(memberToUse==null||isNaN(memberToUse)) return reply("Please specify a valid user to ban!");
 
-      //send('ID received as: '+_.escapeRegExp(memberToUse)).then(m=>m.delete(3000));
+      console.log('Hackban ID received as: '+_.escapeRegExp(memberToUse));
 
       if(memberToUse === author.id) return reply("I can't let you ban yourself >.>");
 
@@ -20,7 +20,7 @@ module.exports = {
       if(temp) return reply(`Target user is in this server! Use ${_.escapeRegExp(prefix)}ban instead.`);
 
       if(!memberToUse[0]||memberToUse[0]==='') return reply("Invalid user!");
-
+      if((await guild.fetchBans()).has(memberToUse)) return reply('User is already banned!');
     }catch(err){ //Something extremely weird has happened:
       console.log(err);
       await reply("I like chips. (something errored)");
