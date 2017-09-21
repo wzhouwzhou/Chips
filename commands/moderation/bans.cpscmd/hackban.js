@@ -9,7 +9,7 @@ module.exports = {
       if(!args[0]) return reply("Please specify a user to ban!");
       let memberToUse = (args[0].match(/^(\d+)$/)||[null, null])[1];
       if(!memberToUse||isNaN(memberToUse)) return reply("Please specify a valid user to ban!");
-      //send('ID received as: '+_.escapeRegExp(memberToUse)).then(m=>m.delete(3000));
+      send('ID received as: '+_.escapeRegExp(memberToUse)).then(m=>m.delete(3000));
       let temp = guild.members.get(memberToUse);
       if(temp) return reply(`Target user is in this server! Use ${_.escapeRegExp(prefix)}ban instead.`);
 
@@ -34,7 +34,7 @@ module.exports = {
       reason = "No reason provided.";
     let user=null, found=false;
     try{
-      user = await client.fetchUser(memberToUse);
+      user = await client.fetchUser(memberToUse+[]);
 
       if(user){
         console.log("Hackban target user found: "+ user.id);
