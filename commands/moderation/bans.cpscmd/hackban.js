@@ -39,12 +39,15 @@ module.exports = {
       if(user){
         console.log("Hackban target user found: "+ user.id);
         found = true;
-      }
+      }else return send(`I was not able to get a user with the id ${memberToUse}`);
+
     }catch(err){
       console.error(err);
+      await send('Error...');
+      throw err;
     }
 
-    const embed = new Discord.RichEmbed();
+    const embed = new Discord.RichEmbed;
     embed
       .setAuthor(`Ban confirmation - Banning: ${found?user.tag:memberToUse}`, found?user.displayAvatarURL:client.user.displayAvatarURL)
       .setColor("RED")
