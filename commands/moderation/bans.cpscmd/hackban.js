@@ -36,7 +36,7 @@ module.exports = {
     try{
       user = await client.fetchUser(memberToUse+[]);
 
-      if(user){
+      if(user!=null){
         console.log("Hackban target user found: "+ user.id);
         found = true;
       }else return send(`I was not able to get a user with the id ${memberToUse}`);
