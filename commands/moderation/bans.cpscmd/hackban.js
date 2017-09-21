@@ -8,11 +8,11 @@ module.exports = {
     try{
       if(!args[0]) return reply("Please specify a user to ban!");
 
-      let memberToUse = (args[0].match(/^(\d+)$/)||[null, null])[1];
+      memberToUse = (args[0].match(/^(\d+)$/)||[null, null])[1];
 
       if(memberToUse==null||isNaN(memberToUse)) return reply("Please specify a valid user to ban!");
 
-      send('ID received as: '+_.escapeRegExp(memberToUse)).then(m=>m.delete(3000));
+      //send('ID received as: '+_.escapeRegExp(memberToUse)).then(m=>m.delete(3000));
 
       if(memberToUse === author.id) return reply("I can't let you ban yourself >.>");
 
@@ -40,7 +40,7 @@ module.exports = {
     let user=null, found=false;
     try{
       user = await client.fetchUser(typeof memberToUse === 'string'?memberToUse:memberToUse+[]);
-      send('[Debug] user = '+user.toString());
+      //send('[Debug] user = '+user.toString());
       if(user!=null){
         console.log("Hackban target user found: "+ user.id);
         found = true;
