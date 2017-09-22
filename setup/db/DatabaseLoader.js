@@ -85,7 +85,7 @@ const loadsheet = function(sheet, sbk) {
       else if (sheet.title == "permissions"){
         rows.forEach(row => {
           if((row.guildid!=null&&row.guildid!='')&&(client.guilds.get(row.guildid)==null)){
-            return console.log("[DBLOADER][PERMISSIONS] Skipped permissions entry for guild "+ row.guildid);
+            return; //console.log("[DBLOADER][PERMISSIONS] Skipped permissions entry for guild "+ row.guildid);
           }else{
             let type = row.type;
             let userid = row.userid.toString();
@@ -93,13 +93,18 @@ const loadsheet = function(sheet, sbk) {
             let roleid = row.roleid.toString();
             let perm = row.perm.toString();
             let action = parseInt(row.action);
-            perms.updatePermission( {type: type, userid: userid, guildid: guildid, roleid: roleid, perm: perm, action: action} )
-            //.then(info=>console.log(`[DBLOADER][PERMISSIONS]: ${info}`))
+            perms.updatePermission( {type: type, userid: userid, guildid: guildid, roleid: roleid, perm: perm, action: action} ).catch(_=>_);
+            /*.then(info=>console.log(`[DBLOADER][PERMISSIONS]: ${info}`))
             .catch(err=>{
               console.log(`[DBLOADER][PERMISSIONS][ERR] Caught: ${err}`);
-            });
+            });*/
           }
         });
+        console.log(`[DBLOADER][PERMISSIONS] Permissions totals after load:
+mP: ${Object.keys(perms.memberpermissions).size}
+uP: ${Object.keys(perms.userpermissions).size}
+rP: ${Object.keys(perms.rolepermissions).size}
+g/sP: ${Object.keys(perms.serverpermissions).size}`);
       }else if (sheet.title == "prefixes"){
         rows.forEach(row => {
           //let oldprefix = (!customprefix[row.guildid])?'none':customprefix[row.guildid];
