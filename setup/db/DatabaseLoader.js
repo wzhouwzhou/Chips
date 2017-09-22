@@ -68,7 +68,7 @@ const loadsheet = function(sheet, sbk) {
         r.table('botStartLog').insert( {id: Date.now(), status }, {conflict: 'replace'}).run(_=>_).then(console.log);
         //sheets[`botlog`].addRow({time: `${time}`, action: "restart+load"},(err) => {if(err)console.log(err);});
       }
-      else if (sheet.title == 'filter') {
+      /*else if (sheet.title == 'filter') {
         rows.forEach(row =>{
           if(client.guilds.get(row.guildid)==null){
             return console.log("[DBLOADER][FILTER] Skipped blacklist for guild "+ row.guildid);
@@ -81,7 +81,7 @@ const loadsheet = function(sheet, sbk) {
             console.log("[DBLOADER][FILTER] Added keyword to guild " + row.guildid + ": " + row.keyword);
           }
         });
-      }
+      }*/
       else if (sheet.title == "permissions"){
         rows.forEach(row => {
           if((row.guildid!=null&&row.guildid!='')&&(client.guilds.get(row.guildid)==null)){
@@ -94,7 +94,7 @@ const loadsheet = function(sheet, sbk) {
             let perm = row.perm.toString();
             let action = parseInt(row.action);
             perms.updatePermission( {type: type, userid: userid, guildid: guildid, roleid: roleid, perm: perm, action: action} )
-            .then(info=>console.log(`[DBLOADER][PERMISSIONS]: ${info}`))
+            //.then(info=>console.log(`[DBLOADER][PERMISSIONS]: ${info}`))
             .catch(err=>{
               console.log(`[DBLOADER][PERMISSIONS][ERR] Caught: ${err}`);
             });
@@ -102,10 +102,11 @@ const loadsheet = function(sheet, sbk) {
         });
       }else if (sheet.title == "prefixes"){
         rows.forEach(row => {
-          let oldprefix = (!customprefix[row.guildid])?'none':customprefix[row.guildid];
+          //let oldprefix = (!customprefix[row.guildid])?'none':customprefix[row.guildid];
           customprefix[row.guildid] = row.prefix;
-          console.log(`[DBLOADER][PREFIXES] Custom prefix for guild ${[row.guildid]} updated! [Old]: ${oldprefix} [New]: ${customprefix[row.guildid]}`);
+          //console.log(`[DBLOADER][PREFIXES] Custom prefix for guild ${[row.guildid]} updated! [Old]: ${oldprefix} [New]: ${customprefix[row.guildid]}`);
         });
+        console.log(`[DBLOADER][PREFIXES] Loaded ${Object.keys(customprefix).length} custom prefix updates`);
       }else {
         console.log('[DBLOADER] Extra sheet found: '+sheet.title);
       }
@@ -120,11 +121,11 @@ const loadsheet = function(sheet, sbk) {
     sheet.getRows({offset: 1,limit: 999999}, (err, rows) => {
       if (sheet.title == 'rawpts') {
         rows.forEach(row => {
-          console.log('[DBLOADER][SBKLOADER][Points Loader] Found: ' + row['uid']+' has: '+row['pts']+'pts');
+          //console.log('[DBLOADER][SBKLOADER][Points Loader] Found: ' + row['uid']+' has: '+row['pts']+'pts');
           ex.sinxUsers.set(row['uid'],row);
         });
+        console.log(`[DBLOADER][SBKLOADER][Points Loader] Loaded ${ex.sinxUsers.size} users.`);
       }
-
       numsbkloads--;
       if (numsbkloads == 0) {
         console.log('SBK database loaded!');
