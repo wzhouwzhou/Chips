@@ -7,13 +7,13 @@ function editConsole(isMng, shardIDObj) {
     console.log = function () {
         const args = Array.from(arguments);
         args.unshift(colors.bgYellow.bold(isMng ? `[MNG]` : `[S${shardIDObj.id == null ? '?' : shardIDObj.id}]`) + ' ');
-        return console.oldLog.apply({}, time, args);
+        return console.oldLog.apply({}, [time, ...args]);
     };
     console.oldError = console.error;
     console.error = function () {
         const args = Array.from(arguments);
         args.unshift(colors.bgYellow.bold(isMng ? `[MNG]` : `[S${shardIDObj.id == null ? '?' : shardIDObj.id}]`) + ' ');
-        return console.oldError.apply({}, time, args);
+        return console.oldError.apply({},[time, ...args]);
     };
     colors.enabled = true;
 }
