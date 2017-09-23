@@ -14,7 +14,7 @@ ct.metadata = {
 
 console.log('[CPSCMD][INFO][avatar] Build objects complete!');
 module.exports = [
-  [ct.name,ct]
+  [ct.name,ct],
   ['channeltopic', ct],
   ['ct', ct],
 ];
