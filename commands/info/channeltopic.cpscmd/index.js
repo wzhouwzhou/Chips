@@ -10,6 +10,8 @@ ct.metadata = {
   perm: [['global.info.info']],
   customperm: ['SEND_MESSAGES'],
 };
+
+
 console.log('[CPSCMD][INFO][avatar] Build objects complete!');
 module.exports = [
   [ct.name,ct]
