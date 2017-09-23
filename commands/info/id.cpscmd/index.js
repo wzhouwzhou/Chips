@@ -1,6 +1,6 @@
 
 const sid = require('./serverid');
-const cid = require('./channelid');
+//const cid = require('./channelid');
 
 console.log('[CPSCMD][INFO][id] Building objects...');
 sid.metadata = {
