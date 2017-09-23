@@ -29,9 +29,9 @@ module.exports = function( send ) {
     //Console events
     if(client.shard.id===0)
       stdin.addListener('data', d => {
-          if (testC == null) {
+          /*if (testC == null) {
             return;//console.log("YOU HAVEN'T DEFINED AN OUTPUT CHANNEL");
-          }
+          }*/
           if (consoleTyping == false) {
             consoleTyping = true;
             rl.question("\x1b[1mInput? \x1b[0m", txt => {
@@ -155,7 +155,14 @@ const evalConsoleCommand = txt => {
     monitorMode = false;
     console.log("\tDeactivating Monitor Mode");
   } else {
-    send(txt, testC);
+    try{
+      let r = eval(txt);
+      if(r&&r.constructor&&r.constructor.name==='Promise')
+        r.catch(e=>{ throw e; });
+      console.log(r);
+    }catch(err){
+      console.error(err);
+    }
   }
 };
 
