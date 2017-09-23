@@ -15,6 +15,6 @@ mc.metadata = {
 console.log('[CPSCMD][INFO][avatar] Build objects complete!');
 module.exports = [
   [mc.name,mc],
-  ['membercount' ,mc],
+  ['membercount', mc],
   ['mc', mc],
 ];
