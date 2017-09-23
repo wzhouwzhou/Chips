@@ -1,6 +1,7 @@
 
 const sid = require('./serverid');
 const cid = require('./channelid');
+const lastmsgid = require('./lastmessageid')
 
 console.log('[CPSCMD][INFO][id] Building objects...');
 sid.metadata = {
@@ -22,6 +23,16 @@ cid.metadata = {
   customperm: ['SEND_MESSAGES'],
 };
 
+console.log('[CPSCMD][INFO][id] Building objects...');
+lastmsgid.metadata = {
+  category: require('../').category,
+  description: 'Fetches last sended message id',
+  usage: 'lastmessageid',
+  example: ['lastmessageid'],
+  perm: [["global.info.info"]],
+  customperm: ['SEND_MESSAGES'],
+};
+
 console.log('[CPSCMD][INFO][id] Build objects complete!');
 module.exports = [
   [sid.name,sid],
@@ -30,4 +41,7 @@ module.exports = [
   [cid.name,cid],
   ['channelid', cid],
   ['cid', cid],
+  [lastmsgid.name,lastmsgid],
+  ['lmid', lastmsgid],
+  ['lastmsgid', lastmsgid],
 ];
