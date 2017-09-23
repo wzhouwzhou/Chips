@@ -1,5 +1,7 @@
 let d = "", consoleTyping = false;
 global.statusC;
+const readline = require('readline');
+
 module.exports = function( send ) {
   if(process.env.BETA!=null&&process.env.BETA=="true")
     client.login(process.env.BETATOKEN);
@@ -28,10 +30,14 @@ module.exports = function( send ) {
 
     //Console events
     if(client.shard.id===0)
-      stdin.addListener('data', d => {
-          /*if (testC == null) {
+      rl.on('line', (line) => {
+        console.log(`Received: ${line}`);
+        evalConsoleCommand(line.trim());
+      });
+      /*stdin.addListener('data', d => {
+          if (testC == null) {
             return;//console.log("YOU HAVEN'T DEFINED AN OUTPUT CHANNEL");
-          }*/
+          }
           if (consoleTyping == false) {
             consoleTyping = true;
             rl.question("\x1b[1mInput? \x1b[0m", txt => {
@@ -44,9 +50,9 @@ module.exports = function( send ) {
               }
             });
           }
-      });
+      });*/
 
-    console.log('Chips is ready!');
+    console.log('Chips is booting up!');
     client.user.setStatus("online");
     if(process.env.BETA=="true")
       client.user.setGame("Chips PTB","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
