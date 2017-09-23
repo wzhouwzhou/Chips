@@ -302,12 +302,12 @@ ex.updatePermission = function({type, userid=null, guildid=null, roleid=null, pe
         ex.userpermissions[userid].push(
           {name: perm, action: action}
         );
-        console.log("Created new user permission");
+        //console.log("Created new user permission");
         checked = true;
         resolve("Created new user permission");
 
         if(!checked){
-          console.log("Could not update user perm! " );
+          //console.log("Could not update user perm! " );
           reject(JSON.stringify(ex.userpermissions[userid]));
         }
       break;
@@ -330,12 +330,12 @@ ex.updatePermission = function({type, userid=null, guildid=null, roleid=null, pe
         ex.memberpermissions[guildid][userid].push(
           {name: perm, action: action}
         );
-        console.log("Created new member permission");
+        //console.log("Created new member permission");
         checked = true;
         resolve("Created new member permission");
 
         if(!checked){
-          console.log("Could not update member perm! " );
+          //console.log("Could not update member perm! " );
           reject(JSON.stringify(ex.memberpermissions[guildid]));
         }
       break;
@@ -356,12 +356,12 @@ ex.updatePermission = function({type, userid=null, guildid=null, roleid=null, pe
         ex.rolepermissions[roleid].push(
           {name: perm, action: action}
         );
-        console.log("Created new role permission for role " + roleid);
+        //console.log("Created new role permission for role " + roleid);
         checked = true;
         resolve("Created role perm");
 
         if(!checked){
-          console.log("Could not update role perm for role " + roleid);
+          //console.log("Could not update role perm for role " + roleid);
           reject(JSON.stringify(ex.rolepermissions[roleid]));
         }
       break;
@@ -382,18 +382,18 @@ ex.updatePermission = function({type, userid=null, guildid=null, roleid=null, pe
         ex.serverpermissions[guildid].push(
           {name: perm, action: action}
         );
-        console.log("Created new server permission");
+        //console.log("Created new server permission");
         checked = true;
         resolve("Created server permission");
 
         if(!checked){
-          console.log("Could not update server perm! " );
+          //console.log("Could not update server perm! " );
           reject(JSON.stringify(ex.serverpermissions[guildid]));
         }
       break;
 
       default:
-        console.log("Unknown permission received!");
+        //console.log("Unknown permission received!");
         reject("Invalid Permissions Type");
       break;
     }
@@ -449,23 +449,23 @@ ex.checkPermission = function(msg, perm){
         }
       }
       msg.member.roles.forEach(r=>{
-        console.log("New role found: " + r.id + "for user "+ id);
+        //console.log("New role found: " + r.id + "for user "+ id);
         let rid=r.id;
         if(ex.rolepermissions[rid]!=null){
           let found = false;
           ex.rolepermissions[rid].forEach(pEntry=>{
-            console.log("new entry found: " + pEntry.name);
+            //console.log("new entry found: " + pEntry.name);
             if(!found)
               if(pEntry.name==perm){
                 found=true;
-                console.log("We found an entry!");
+                //console.log("We found an entry!");
                 switch(pEntry.action){
                   case 1:
-                  console.log("Success: role");
+                  //console.log("Success: role");
                   resolve("This action is approved (by member role)");
                   break;
                   case -1:
-                  console.log("Denial: role");
+                  //console.log("Denial: role");
                   rej(`I'm sorry but you do not have access to ${perm} (Denied by member role :${r.name})`);
                   break;
                   default:
@@ -474,33 +474,33 @@ ex.checkPermission = function(msg, perm){
               }
           });
         }
-        console.log("Role: " + rid + "for user "+ id + "did not have any perm overwrites for " + perm);
+        //console.log("Role: " + rid + "for user "+ id + "did not have any perm overwrites for " + perm);
       });
     }
     let registered = ex.defaultperms.has(perm);
     if(!registered){
-      console.log('Someone just tried to use a cmd with an unregistered perm '+ perm);
+      //console.log('Someone just tried to use a cmd with an unregistered perm '+ perm);
       reject('Sorry, you just tried to use an unregistered command. Please report this to my developers.');
     }
 
-    console.log(`Now checking the default perms.: ${perm}\nIs the perm registered list? : ${registered}`);
+    //console.log(`Now checking the default perms.: ${perm}\nIs the perm registered list? : ${registered}`);
     let value = registered?ex.defaultperms.get(perm):true;
-    console.log("The default for that perm is: " + value);
+    //console.log("The default for that perm is: " + value);
     (!value)?resolve('This perm is denied by default.'):resolve("This perm is accepted by default");//resolve("This command is enabled by default"):reject(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`);
   });
 };
 
 ex.checkMulti = async (msg, permArr) => {
-  console.log('[PERMISSIONS][checkMulti] Received perm check request');
+  //console.log('[PERMISSIONS][checkMulti] Received perm check request');
   let checkDefault = false;
   for (let permEl of permArr){
-    console.log(`[PERMISSIONS][checkMulti] Perm element: ${permEl}`);
+    //console.log(`[PERMISSIONS][checkMulti] Perm element: ${permEl}`);
     let permSpecifics = permEl.split('.');
-    console.log(`[PERMISSIONS][checkMulti] Perm breakdown: ${permSpecifics}`);
+    //console.log(`[PERMISSIONS][checkMulti] Perm breakdown: ${permSpecifics}`);
     let currentPerm = permSpecifics[0];
     if(permSpecifics.length>1)
       for(let i = 1; i<permSpecifics.length; i++){
-        console.log(`[PERMISSIONS][checkMulti] Looping through perms [${i}]:${currentPerm}`);
+        //console.log(`[PERMISSIONS][checkMulti] Looping through perms [${i}]:${currentPerm}`);
         let status = await ex.checkPermission(msg,currentPerm+'.*');
         if(status=='This perm is accepted by default.'){
           checkDefault = true;
@@ -514,13 +514,13 @@ ex.checkMulti = async (msg, permArr) => {
 
         return ('Positive perm override for '+currentPerm);
       }
-    console.log(`[PERMISSIONS][checkMulti] Now checking original perm ${permEl}`);
+    //console.log(`[PERMISSIONS][checkMulti] Now checking original perm ${permEl}`);
     let status = await ex.checkPermission(msg,permEl);
     if(status=='This perm is accepted by default.') checkDefault = true;
     else if(status=='This perm is denied by default.') checkDefault = false;
     else return ('Positive perm override for '+permEl);
   }
-  console.log(`[PERMISSIONS][checkMulti] Checking default...  ${checkDefault}`);
+  //console.log(`[PERMISSIONS][checkMulti] Checking default...  ${checkDefault}`);
   if(checkDefault) return(`${permArr[0]} is enabled by default`);
   else throw(`I'm sorry but you do not have permission \`\`${permArr[0]}\`\` to access this.`);
 };
