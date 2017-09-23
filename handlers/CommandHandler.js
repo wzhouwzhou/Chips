@@ -87,8 +87,9 @@ module.exports = function(Discord, client) {
         if(meta==null) return msg.reply('This command has an error with its metadata! Please report this to my developers!');
         if(meta.perm!=null&&meta.perm[0]!=null){
           console.log(meta.perm[0]);
-          permissions.checkMulti(msg, meta.perm[0]).then((info) =>{
-            console.log(`[Command] ${info}\n`,chalk.bold.bgBlue(`\t[${msg.author.tag}]`),chalk.bgBlack(`:${msg.content}`));
+          permissions.checkMulti(msg, meta.perm[0]).then((/*info*/) =>{
+            //console.log(`[Command] ${info}`);
+            console.log(chalk.bold.bgBlue(`[${msg.author.tag}]`),chalk.bgBlack(`:${msg.content}`));
             return cmd.run(msg, context);
           }).catch((reason)=>{
             if(msg.member&&(meta.customperm&&meta.customperm[0])){
@@ -97,26 +98,29 @@ module.exports = function(Discord, client) {
                 issue=true;
                 return msg.reply(`${reason}\nYou could also use this if you have \`\`${meta.customperm[0]}\`\` permissions`);
               }else{
-                console.log('[Command] Accepted due to customperm bypass:\n',chalk.bold.bgBlue(`\t[${msg.author.tag}]`),chalk.bgBlack(`:${msg.content}`));
+                //console.log('[Command] Accepted due to customperm bypass:');
+                console.log(chalk.bold.bgBlue(`[${msg.author.tag}]`),chalk.bgBlack(`:${msg.content}`));
                 try{
                   cmd.run(msg, context).catch(err => { throw err; });
                 }catch(err){
-                  msg.send(`An error occurred, please contact someone who knows what this means.\n${err}`);
+                  msg.channel.send(`An error occurred, please contact someone who knows what this means.\n${err}`);
+                  console.error(err);
                   return false;
                 }
                 return true;
               }
             }else{
-              console.log('[Command] Rejected '+ reason);
+              //console.log('[Command] Rejected '+ reason);
               return msg.reply(reason);
             }
           });
         }else{
-          console.log(`meta perm not found! ${meta?JSON.stringify(meta):''}`);
+          //console.log(`meta perm not found! ${meta?JSON.stringify(meta):''}`);
           try{
             cmd.run(msg, context).catch(err => { throw err; });
           }catch(err){
-            msg.send(`An error occurred, please contact someone who knows what this means.\n${err}`);
+            console.error(err);
+            msg.channel.send(`An error occurred, please contact someone who knows what this means.\n${err}`);
             return false;
           }
           return true;
