@@ -40,7 +40,7 @@ module.exports = [
   ['mc', mc],
   [rc.name,rc],
   ['rolecount', rc],
-  ['rc', mc],
+  ['rc', rc],
   [cc.name,cc],
   ['channelcount', mc],
   ['cc', cc],
