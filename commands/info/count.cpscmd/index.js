@@ -42,6 +42,6 @@ module.exports = [
   ['rolecount', rc],
   ['rc', rc],
   [cc.name,cc],
-  ['channelcount', mc],
+  ['channelcount', cc],
   ['cc', cc],
 ];
