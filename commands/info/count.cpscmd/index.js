@@ -26,8 +26,8 @@ rc.metadata = {
 cc.metadata = {
   category: require('../').category,
   description: 'Fetches the amount of channels',
-  usage: 'channelcount',
-  example: 'channelcount',
+  usage: 'channelcount, channelcount voice or channelcount text',
+  example: 'channelcount text',
   perm: [['global.info.info']],
   customperm: ['SEND_MESSAGES'],
 };
