@@ -11,6 +11,9 @@ module.exports = {
     if (!args[0])
       return send(`There are ${online} people online, ${idle} people idle, ${dnd} people dnd, and ${invis} people invisible.`);
 
+    if (args[0]==='help')
+      return send('memberstatus\n memberstatus dnd\n memberstatus idle\n memberstatus online\n memberstatus offline')
+    
     if (args[0]==='dnd')
       return send(dnd + " members are dnd!");
 
