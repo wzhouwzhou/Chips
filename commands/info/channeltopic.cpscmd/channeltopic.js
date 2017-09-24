@@ -8,6 +8,7 @@ module.exports = {
       return send('Rip. No channel topic for you!');
 
     const embed = (new Discord.RichEmbed)
+      .setTitle('Channel Topic')
       .setDescription(channel.topic)
       .setColor(member.displayColor);
 
