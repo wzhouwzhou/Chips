@@ -39,6 +39,9 @@ module.exports = {
       '\t**server** to get information on the server!',
       '\t**user [user mention, name or id]** to get information on the user that you request!',
       '**{}quote [msgid]** to quote what someone said in the channel you use the command in.',
+      ].join('\n').replace(/{}/g, prefix));
+
+    const InfoMenu2 = ([
       '**{}discordstatus** to get the current status of discord.',
       '**{}memberstatus help** to see how you can use it.',
       '**{}lastmessageid** to get last sended message ID.',
@@ -131,13 +134,15 @@ module.exports = {
       ],[
         ['Table of Contents', Table],
       ],[
-        ['Informative commands',InfoMenu],
+        ['Informative commands (1)',InfoMenu],
+      ],[
+        ['Informative commands (2)',InfoMenu2],
       ],[
         ['Moderation commands',ModMenu],
       ],[
-        ['Fun commands (page 1)',FunMenu],
+        ['Fun commands (1)',FunMenu],
       ],[
-        ['Fun commands (page 2)', FunMenu2],
+        ['Fun commands (2)', FunMenu2],
       ],[
         ['Utility commands',UtilityMenu],
       ],[
