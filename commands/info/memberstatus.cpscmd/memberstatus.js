@@ -20,7 +20,7 @@ module.exports = {
     if (args[0]==='online') 
       return send (online + " members are online!");
 
-    if (args[0]==='invisible')   
+    if (args[0]==='invisible' || 'offline')   
       return send (invis + " members are invisible or offline!");
 
   }
