@@ -17,12 +17,12 @@ module.exports = {
     if (args[0]==='idle')
       return send(idle+ " members are idle!");
 
-    if (args[0]==='online')
+    if (args[0]==='online') 
       return send (online + " members are online!");
 
-    if (~'invisible offline invis'.split(/\s+/).indexOf(args[0]))   
+    if (args[0]==='invisible' || 'offline')   
       return send (invis + " members are invisible or offline!");
 
   }
 
-};
+};  
