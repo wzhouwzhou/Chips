@@ -9,7 +9,7 @@ module.exports = {
     const invis = guild.members.filter(m=>m.presence.status==='offline').size;
 
     if (!args[0])
-      return send(`There are ${online} people online, ${idle} people idle, ${dnd} people dnd, and ${invis} people invis`);
+      return send(`There are ${online} people online, ${idle} people idle, ${dnd} people dnd, and ${invis} people invisible.`);
 
     if (args[0]==='dnd')
       return send(dnd + " members are dnd!");
