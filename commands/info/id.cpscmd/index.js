@@ -37,6 +37,7 @@ console.log('[CPSCMD][INFO][id] Build objects complete!');
 module.exports = [
   [sid.name,sid],
   ['guildid', sid],
+  ['serverid', sid],
   ['sid', sid],
   [cid.name,cid],
   ['channelid', cid],
