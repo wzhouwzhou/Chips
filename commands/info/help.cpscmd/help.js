@@ -40,6 +40,14 @@ module.exports = {
       '\t**user [user mention, name or id]** to get information on the user that you request!',
       '**{}quote [msgid]** to quote what someone said in the channel you use the command in.',
       '**{}discordstatus** to get the current status of discord.',
+      '**{}memberstatus help** to see how you can use it.',
+      '**{}lastmessageid** to get last sended message ID.',
+      '**{}channelid** to get the channel\'s ID',
+      '**{}serverid** to get the server\'s ID.',
+      '**{}channeltopic** to get the channel topic.',
+      '**{}membercount** to get amount of people in the server.',
+      '**{}rolecount** to get the amount of roles in the server.',
+      '**{}channelcount** to get the amount of channels in the server.',
       ].join('\n').replace(/{}/g, prefix));
 
     const ModMenu = ([
