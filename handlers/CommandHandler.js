@@ -91,7 +91,11 @@ module.exports = function(Discord, client) {
             //console.log(`[Command] ${info}`);
             console.log(chalk.bold.bgBlue(`[${msg.author.tag}]`),chalk.bgBlack(`:${msg.content}`));
             try{
-              cmd.run(msg, context).catch(err => { throw err; });
+              return Promise.resolve(cmd.run(msg, context).then(()=>true).catch(err => {
+                msg.channel.send(`An error occurred, please contact someone who knows what this means.\n${err}`);
+                console.error(err);
+                return false;
+              }));
             }catch(err){
               msg.channel.send(`An error occurred, please contact someone who knows what this means.\n${err}`);
               console.error(err);
@@ -109,13 +113,16 @@ module.exports = function(Discord, client) {
                 //console.log('[Command] Accepted due to customperm bypass:');
                 console.log(chalk.bold.bgBlue(`[${msg.author.tag}]`),chalk.bgBlack(`:${msg.content}`));
                 try{
-                  cmd.run(msg, context).catch(err => { throw err; });
+                  return Promise.resolve(cmd.run(msg, context).then(()=>true).catch(err => {
+                    msg.channel.send(`An error occurred, please contact someone who knows what this means.\n${err}`);
+                    console.error(err);
+                    return false;
+                  }));
                 }catch(err){
                   msg.channel.send(`An error occurred, please contact someone who knows what this means.\n${err}`);
                   console.error(err);
                   return false;
                 }
-                return true;
               }
             }else{
               //console.log('[Command] Rejected '+ reason);
@@ -125,13 +132,16 @@ module.exports = function(Discord, client) {
         }else{
           //console.log(`meta perm not found! ${meta?JSON.stringify(meta):''}`);
           try{
-            cmd.run(msg, context).catch(err => { throw err; });
+            return Promise.resolve(cmd.run(msg, context).then(()=>true).catch(err => {
+              msg.channel.send(`An error occurred, please contact someone who knows what this means.\n${err}`);
+              console.error(err);
+              return false;
+            }));
           }catch(err){
             console.error(err);
             msg.channel.send(`An error occurred, please contact someone who knows what this means.\n${err}`);
             return false;
           }
-          return true;
         }
       }
     }
