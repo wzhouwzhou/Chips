@@ -1,17 +1,18 @@
 module.exports = {
   name: "channelcount",
-  async func(msg, { send, guild, channel, args }) {
+  async func(msg, { send, guild, args }) {
     if(!guild)
-      return send('You must be in a server to use this!');    
-    
-    if (!args[0]==='text') 
-      return send(guild.channel.size + " text channels.");
-    
-    if (!args[0]==='voice') 
-      return send(guild.voiceChannel.size + " voice channels."); 
+      return send('You must be in a server to use this!');
 
-    if (!args[0]) 
-      return send(guild.channel.size + " text channels.");     
+    if (!args[0])
+      return send(guild.channels.size + " text channels.");
+
+    if (args[0]==='text') 
+      return send(guild.channels.filter(c=>c.type==='text').size + " text channels.");
+
+    if (args[0]==='voice')
+      return send(guild.channels.filter(c=>c.type==='voice').size + " voice channels.");
+
 
   }
 };
