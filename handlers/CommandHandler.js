@@ -90,13 +90,21 @@ module.exports = function(Discord, client) {
           permissions.checkMulti(msg, meta.perm[0]).then((/*info*/) =>{
             //console.log(`[Command] ${info}`);
             console.log(chalk.bold.bgBlue(`[${msg.author.tag}]`),chalk.bgBlack(`:${msg.content}`));
-            return cmd.run(msg, context);
+            try{
+              cmd.run(msg, context).catch(err => { throw err; });
+            }catch(err){
+              msg.channel.send(`An error occurred, please contact someone who knows what this means.\n${err}`);
+              console.error(err);
+              return false;
+            }
           }).catch((reason)=>{
             if(msg.member&&(meta.customperm&&meta.customperm[0])){
               if(!msg.member.hasPermission(meta.customperm[0])){
                 console.log("[Command] Rejected " + reason);
                 issue=true;
-                return msg.reply(`${reason}\nYou could also use this if you have \`\`${meta.customperm[0]}\`\` permissions`);
+                if(~reason.indexOf('permission'))
+                  return msg.reply(`${reason}\nYou could also use this if you have \`\`${meta.customperm[0]}\`\` permissions`);
+                else return msg.reply(reason);
               }else{
                 //console.log('[Command] Accepted due to customperm bypass:');
                 console.log(chalk.bold.bgBlue(`[${msg.author.tag}]`),chalk.bgBlack(`:${msg.content}`));
