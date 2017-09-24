@@ -19,12 +19,12 @@ module.exports = {
     const Table = ([
       ['1_     _','Introductions'],
       ['2_     _','Table of Contents'],
-      ['3_     _','Informative commands'],
-      ['4_     _','Moderation commands'],
-      ['5/6' ,'Fun/Games'],
-      ['7_     _','Utility commands'],
-      ['8_     _','(Experimental) Music information'],
-      ['9_     _','Additional bot information'],
+      ['3/4' ,'Informative commands'],
+      ['5_     _','Moderation commands'],
+      ['6/7' ,'Fun/Games'],
+      ['8_     _','Utility commands'],
+      ['9_     _','(Experimental) Music information'],
+      ['10_    _','Additional bot information'],
     ].map(e=>`**P. ${e[0]}**¬\n\t${e[1]}`).join('\n'));
 
     const InfoMenu = ([
@@ -151,11 +151,11 @@ module.exports = {
         ...AdditionalSht,
       ]],
       image: [
-        ...new Array(8).fill(null),
+        ...new Array(9).fill(null),
         'https://cdn.discordapp.com/attachments/307625096078426123/314201502669471744/Chips.jpg',
       ],
       footer: [
-        ...new Array(8).fill(null),
+        ...new Array(9).fill(null),
         'Image made by @xdlf#6477.'
       ]}, Discord
     );
