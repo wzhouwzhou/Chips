@@ -7,12 +7,16 @@ module.exports = {
     const online = guild.members.filter(m=>m.presence.status==='online').size;
     const dnd = guild.members.filter(m=>m.presence.status==='dnd').size;
     const invis = guild.members.filter(m=>m.presence.status==='offline').size;
+    const embed = (new Discord.RichEmbed)
+      .setTitle('Help')
+      .setDescription('All commands for \"memberstatus\" are:\n - memberstatus\n - memberstatus dnd\n - memberstatus idle\n - memberstatus online\n - memberstatus offline')
+      .setColor(member.displayColor);
 
     if (!args[0])
       return send(`There are ${online} people online, ${idle} people idle, ${dnd} people dnd, and ${invis} people invisible.`);
 
     if (args[0]==='help')
-      return send('All commands for \"memberstatus\" are:\n - memberstatus\n - memberstatus dnd\n - memberstatus idle\n - memberstatus online\n - memberstatus offline')
+      return send(embed)
     
     if (args[0]==='dnd')
       return send(dnd + " members are dnd!");
