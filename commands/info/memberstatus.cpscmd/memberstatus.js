@@ -27,7 +27,7 @@ module.exports = {
     if (args[0]==='online')
       return send (online + " members are online!");
 
-    if (~'invisible offline invis'.split(/\s+/).indexOf(args[0]))   
+    if (~'invisible offline invis off'.split(/\s+/).indexOf(args[0]))   
       return send (invis + " members are invisible or offline!");
 
   }
