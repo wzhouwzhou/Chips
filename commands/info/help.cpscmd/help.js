@@ -24,7 +24,7 @@ module.exports = {
       ['6/7' ,'Fun/Games'],
       ['8_     _','Utility commands'],
       ['9_     _','(Experimental) Music information'],
-      ['10_    _','Additional bot information'],
+      ['10 _   _','Additional bot information'],
     ].map(e=>`**P. ${e[0]}**¬\n\t${e[1]}`).join('\n'));
 
     const InfoMenu = ([
