@@ -26,4 +26,5 @@ console.log('[CPSCMD][MODERATION][clear] Build objects complete!');
 module.exports = [
   [clear.name,clear],
   [bc.name, bc],
+  ['bc', bc]
 ];
