@@ -2,7 +2,6 @@ const exec = require ('../../../rewrite-all/src/deps/functions/execF').default({
 
 const whitelist = [
   Constants.users.WILLYZ,
-  Constants.users.XZLQ,
   Constants.users.PGSUPER,
   Constants.users.EVILDEATHPRO,
   '302252773427249163',
