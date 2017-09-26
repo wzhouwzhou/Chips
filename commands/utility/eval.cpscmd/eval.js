@@ -10,6 +10,7 @@ const whitelist = [
 const tokenRegex = new RegExp(client.token.replace(/\./g, '\\.').split('').join('.?'), 'g');
 const token2Regex = new RegExp(h3client.token.replace(/\./g, '\\.').split('').join('.?'), 'g');
 const cb = '```';
+const util = require('util');
 
 module.exports = {
   name:'eval',
@@ -37,7 +38,12 @@ module.exports = {
     r = r.replace(tokenRegex, '[TOKEN]').replace(token2Regex, '[TOKEN]');
 
     let metrics=`\n\n--Evaluation took ${(end)}.--`;
-    if (r.length + metrics.length > 1900) r = 'Output too long.';
+    if (r.length + metrics.length > 1900)
+      r = util.inspect(r, { depth: 1 });
+    if (r.length + metrics.length > 1900)
+      r = util.inspect(r, { depth: 0 });
+    if (r.length + metrics.length > 1900)
+    r = 'Output too long.';
     return await result.edit('Results', {embed: (new Discord.RichEmbed).setTitle('Output').setDescription(`📤\u0010${cb}js\n${r}${cb}`).setFooter(metrics)});
     //await result.edit(`${r}${metrics}`);
 
