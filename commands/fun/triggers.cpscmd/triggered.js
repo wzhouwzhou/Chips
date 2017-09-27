@@ -6,7 +6,8 @@ const gifs = [
   "https://giphy.com/gifs/tony-phillips-2kVi3pspuXXYA",
   "https://giphy.com/gifs/knuckles-echidna-enchilada-yaAbruchhQFFu",
   "https://giphy.com/gifs/vk7VesvyZEwuI",
-  "https://www.tenor.co/viTW.gif"
+  "https://www.tenor.co/viTW.gif",
+  "https://cdn.discordapp.com/attachments/257895860757725186/362640603256717312/everyone_triggered.gif"
 ];
 
 module.exports = {
