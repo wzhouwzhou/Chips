@@ -19,6 +19,7 @@ const neko = [
 	'279959411693322241', //TheGamingBolt, not a neko but also wanted immunity for whatever reason xd
 	'324364368752148481', //Vy, that one person who is like <3 willy
 	'260024920757633025', //Xena, a nEkO SLaVE
+	'205608598233939970',  //lucas, a guy that wants perms
 ];
 
 const ex= {
