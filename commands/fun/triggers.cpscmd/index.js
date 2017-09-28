@@ -1,5 +1,5 @@
 
-let aboose = require('./aboose');
+let aboosed = require('./aboosed');
 let confoosed = require('./confoosed');
 let exposed = require('./exposed');
 let kawaii = require('./kawaii');
@@ -8,11 +8,11 @@ let rekt = require('./rekt');
 let triggered = require('./triggered');
 
 console.log('[CPSCMD][FUN][triggers] Building objects...');
-aboose.metadata = {
+aboosed.metadata = {
   category: require('../').category,
-  description: 'Aboose!',
-  usage: 'aboose',
-  example: 'aboose',
+  description: 'Aboosed!',
+  usage: 'aboosed',
+  example: 'aboosed',
   perm: [['global.fun.triggers.aboose']],
 };
 confoosed.metadata = {
@@ -60,7 +60,7 @@ triggered.metadata = {
 
 console.log('[CPSCMD][FUN][triggers] Build objects complete!');
 module.exports = [
-  [aboose.name,aboose],
+  [aboosed.name,aboosed],
   [confoosed.name,confoosed],
   [exposed.name,exposed],
   [kawaii.name,kawaii],
