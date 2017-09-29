@@ -1,5 +1,5 @@
 
-let aboosed = require('./aboosed');
+let aboosed = require('./aboose');
 let confoosed = require('./confoosed');
 let exposed = require('./exposed');
 let kawaii = require('./kawaii');
