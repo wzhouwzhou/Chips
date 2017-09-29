@@ -11,7 +11,7 @@
     "url": "https://github.com/wzhouwzhou/Chips/issues"
   },
   "main": "start.js",
-  "homepage": "http://chipsbot.tk:8080/",
+  "homepage": "http://chipsbot.tk/",
   "keywords": [
     "discord",
     "bot",
