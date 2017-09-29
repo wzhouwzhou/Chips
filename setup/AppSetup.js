@@ -155,7 +155,7 @@ module.exports = function() {
   });
 
   // error handler
-  app.use(function(err, req, res, next) {
+  app.use(function(err, req, res) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -168,7 +168,7 @@ module.exports = function() {
 
   app.set('port', (process.env.PORT || 5000));
 
-  app.listen(app.get('port'), function() {
+  app.listen(app.get('port'), '127.0.0.1', function() {
     console.log('Node app is running on port', app.get('port'));
   });
 
