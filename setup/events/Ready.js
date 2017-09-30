@@ -62,7 +62,7 @@ module.exports = function( send ) {
     else
       client.user.setGame("Do -help | PFP credits to Devonx#3388","https://twitch.tv/twitch");//client.user.setGame("Do -help!");
 
-    setTimeout(()=>{DMLogger = require(path.join(__dirname, '../../handlers/DMLogger'))(Discord, client, dmC, moment);},3000);
+    //setTimeout(()=>{DMLogger = require(path.join(__dirname, '../../handlers/DMLogger'))(Discord, client, dmC, moment);},3000);
   });
   hclient.on("ready", () => {
     testC  = hclient.channels.get(Constants.channels.TEST);
