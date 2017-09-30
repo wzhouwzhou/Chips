@@ -56,6 +56,16 @@ const msghandle = async message => {
   }catch(err){
     //Idk
   }*/
+  if(client.swearlist&&!client.swearReg)
+    client.swearReg = new RegExp(`${client.swearlist.map(e=>e.split('').map(ee=>ee+'+').join('')).join('|')}`,'i');
+
+  if(message.guild&&message.guild.id==='257889450850254848')
+    if(message.content.replace(/(\.|,|\/|\s)+/g,'').match(client.swearReg)){
+      message.reply('**LANGUAGE!!**').then(mm=>mm.delete(2000));
+      message.delete();
+    }
+
+
   //prefix!
   if(message.content.toLowerCase() == '<@296855425255473154> prefix'|| message.content.toLowerCase() == '<@!296855425255473154> prefix')
     if(message.guild) message.reply(`My prefix in this server is ${customprefix[message.guild.id]?_.escapeRegExp(customprefix[message.guild.id]):_.escapeRegExp(prefix)}. ${(!customprefix[message.guild.id])||customprefix[message.guild.id]==prefix?'You can set a custom prefix for me with ``'+_.escapeRegExp(prefix)+'chipsprefix on``':''}`);

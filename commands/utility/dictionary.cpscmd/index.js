@@ -13,8 +13,9 @@ const swears = 'https://raw.githubusercontent.com/ChaseFlorell/jQuery.ProfanityF
 client.swearlist = [];
 
 needle.get(swears, function(error, response) {
+  if(error) throw error;
   if (!error && response.statusCode == 200)
-    client.swearlist = response.body;
+    client.swearlist = JSON.parse(response.body);
 });
 
 module.exports = [
