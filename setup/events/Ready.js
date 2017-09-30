@@ -5,8 +5,11 @@ const readline = require('readline');
 module.exports = function( send ) {
   if(process.env.BETA!=null&&process.env.BETA=="true")
     client.login(process.env.BETATOKEN);
-  else
+  else{
+    console.log('Logging in…');
     client.login(process.env.TOKEN);
+    console.log('Chips login called');
+  }
   if(client.id!="309504998864060416"){
     hclient.login(process.env.HTOKEN);
     h2client.login(process.env.H2TOKEN);
