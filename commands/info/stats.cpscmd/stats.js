@@ -49,7 +49,7 @@ module.exports = {
 
     embed.addField(`Chips stats for shard ${bot.shard.id+1}/${clientutil.count}:`, [
       ['Shard Uptime: ', uptime],
-      ['Shard Ping (ms): ',ping],
+      ['Shard Ping (ms): ',~~(2e-1+100*ping)/100],
       ['Shard User count: ', users],
       ['Shard Server count: ', guilds],
       ['Shard Memory usage: ', `${memAverage} MB`],
@@ -63,7 +63,7 @@ module.exports = {
       ['Total Channel Count: ', channelCountG],
       ['Total Text Channel Count: ', textCountG],
       ['Total Voice Channel Count: ', voiceCountG],
-      ['Average Client Ping: ', `${averagePingG} ms`],
+      ['Average Client Ping: ', `${~~(2e-1+100*averagePingG)/100} ms`],
       ['Total CPU Usage: ', `${cpuAveG}%`],
       ['Memory Usage: ', `Used ${memAveG} of ${totalMemG} mb allocated`],
       [`Node **${process.version}**\nLib  **v${Discord.version}**`,' '],
