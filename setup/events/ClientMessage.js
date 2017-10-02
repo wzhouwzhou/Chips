@@ -56,14 +56,14 @@ const msghandle = async message => {
   }catch(err){
     //Idk
   }*/
-  if(client.swearlist&&!client.swearReg)
+  /*if(client.swearlist&&!client.swearReg)
     client.swearReg = new RegExp(`${client.swearlist.map(e=>e.split('').map(ee=>ee+'+').join('')).join('|')}`,'i');
 
   if(message.guild&&message.guild.id==='257889450850254848')
     if(message.content.replace(/(\.|,|\/|\s)+/g,'').match(client.swearReg)){
       message.reply('**LANGUAGE!!**').then(mm=>mm.delete(2000));
       message.delete();
-    }
+    }*/
 
 
   //prefix!
