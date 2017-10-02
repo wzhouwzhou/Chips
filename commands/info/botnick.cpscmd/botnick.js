@@ -1,7 +1,7 @@
 module.exports = {
     name: "botnick",
     customperm:["MANAGE_NICKNAMES"],
-    async func(msg, { send, member, guild, args }) {
+    async func(msg, { send, member, guild }) {
 
     let nick;
     if(args[0])
