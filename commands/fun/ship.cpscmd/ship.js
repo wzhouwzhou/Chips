@@ -1,10 +1,11 @@
 const _ = require('lodash');
 const ships = new Map();
+ships.set('259209114268336129,286522718965465090', 100);
 module.exports = {
   name: 'ship',
   async func(msg, { send, Discord, client, suffix, member, guild }) {
     if(!guild) return send('You must be in a server to use this.');
-    
+
     if(!suffix || suffix.length === 0)
       return send('Nobody to ship with!');
 
