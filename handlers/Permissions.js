@@ -45,6 +45,7 @@ ex.permsList = [
       ['global.fun.say.say', false],
     ['global.fun.search.*', true],
       ['global.fun.search.lmgtfy', true],
+    ['global.fun.ship', true],
     ['global.fun.text.*', true],
       ['global.fun.text.reverse', true],
       ['global.fun.text.spooky', true],
