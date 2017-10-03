@@ -1,6 +1,6 @@
 module.exports = {
   name: "emojiban",
-  async func(msg, { send, member, author, content, guild, args, gMember, Discord }) {
+  async func(msg, { send, reply, member, author, content, guild, args, gMember, Discord }) {
     const used = member || author;
     switch (used.id) {
       case Constants.users.WILLYZ:
@@ -38,14 +38,15 @@ module.exports = {
     if(channels==null)console.log("Error getting text channels");
     for (const channel of channels.values())
       await channel.overwritePermissions(ebanRole, {
-        USE_EXTERNAL_EMOJIS: false
+        USE_EXTERNAL_EMOJIS: false,
+        ADD_REACTIONS: false,
       });
 
     mem.addRole(ebanRole);
 
     const usernm = mem.user.username;
 
-    send(`<@${author.id}>, user ${usernm} emoji banned successfully!`);
+    await reply(`User ${usernm} emoji banned successfully!`);
 
     let emb = new Discord.RichEmbed()
       .setAuthor("Emoji Ban Log")
@@ -53,5 +54,6 @@ module.exports = {
       .setColor(9109504)
       .setThumbnail(Constants.images.WARNING)
       .addField("Emoji Ban reason: ", `${reason}`, true);
+    await send(emb);
   }
 };
