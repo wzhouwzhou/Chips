@@ -2,7 +2,7 @@ const _ = require('lodash');
 const ships = new Map();
 module.exports = {
   name: 'ship',
-  async func(msg, { send, Discord, client }) {
+  async func(msg, { send, Discord, client, suffix }) {
     if(!suffix || suffix.length === 0)
       return send('Nobody to ship with!');
 
