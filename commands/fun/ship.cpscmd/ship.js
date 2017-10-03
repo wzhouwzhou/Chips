@@ -1,7 +1,8 @@
 const _ = require('lodash');
-const ships = new Map, shipComments = new Map;
+const ships = new Map, shipComments = new Map, shipJoin = new Map;
 ships.set('259209114268336129,286522718965465090', 100);
 shipComments.set('259209114268336129,286522718965465090', 'Ily bb :3');
+shipJoin.set('259209114268336129,286522718965465090','<:blobkiss:364806533034278914>');
 
 module.exports = {
   name: 'ship',
@@ -72,7 +73,13 @@ module.exports = {
         }
       })(),
     ]);
-    const embed = new Discord.RichEmbed().setTitle('Ship').setDescription(`${userOne+[]} x ${userTwo+[]}`);
+    const joiner = (()=>{
+      switch(true) {
+        case outlookN < 2: return '<:blobnausea:364807145910435840>';
+        case outlookN > 8: return '😍';
+      }
+    })();
+    const embed = new Discord.RichEmbed().setTitle('Ship').setDescription(`${userOne+[]} ${shipJoin.get(assembled)||joiner||'x'} ${userTwo+[]}`);
     embed.addField(comment, `${progressbar} ${shipValue}%`);
     send(embed);
   }
