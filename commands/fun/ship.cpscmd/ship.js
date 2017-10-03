@@ -1,6 +1,8 @@
 const _ = require('lodash');
 const ships = new Map();
 ships.set('259209114268336129,286522718965465090', 100);
+shipComments.set('259209114268336129,286522718965465090', 'Ily bb :3');
+
 module.exports = {
   name: 'ship',
   async func(msg, { send, Discord, client, suffix, member, guild }) {
@@ -33,7 +35,7 @@ module.exports = {
     const outlookN = ~~(shipValue/10);
     const progressbar = '█'.repeat(outlookN);
 
-    const comment = _.sample([
+    const comment = shipComments.get(assembled)||_.sample([
       (()=>{
         switch(outlookN) {
           case 0:
@@ -65,6 +67,8 @@ module.exports = {
             return 'Noice.';
           case 7 < outlookN && outlookN < 10:
             return 'owo';
+          case outlookN > 9:
+            return 'What are you waiting for?';
         }
       })(),
     ]);
