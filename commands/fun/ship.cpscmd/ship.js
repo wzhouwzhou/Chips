@@ -17,7 +17,7 @@ module.exports = {
 
     let matches = suffix.match(/(?:"?(?:([^"#<]{1,32}#(?:\d){4,4}))|(?:<@!?(\d+)>)"?)(?:\s|,)*(?:"?(?:(?:([^"#<]{1,32}#(?:\d){4,4}))|(?:<@!?(\d+)>))"?)?/);
     if(!matches&&!matches[1]&&!matches[2]&&!matches[3]) return send('You must mention a user or give their discord tag!');
-    let targetOne = matches[1]||m[2];
+    let targetOne = matches[1]||matches[2];
     let targetTwo = matches[3]||matches[4];
 
     if(!targetTwo) {
@@ -27,10 +27,11 @@ module.exports = {
 
     let userOne, userTwo;
     try {
-      userOne = !~userOne.indexOf('#')?await client.fetchUser(targetOne):client.users.find('tag',targetargetOne);
-      userTwo = !~userTwo.indexOf('#')?await client.fetchUser(targetTwo):client.users.find('tag','targtargetTwo');
+      userOne = !~targetOne.indexOf('#')?await client.fetchUser(targetOne):client.users.find('tag',targetargetOne);
+      userTwo = !~targetTwo.indexOf('#')?await client.fetchUser(targetTwo):client.users.find('tag','targtargetTwo');
       if(!userOne||!userTwo) throw new Error('Invalid user');
     } catch(err) {
+      send(`[Error][Debug] ${err.message}`);
       return send('An error occured, are you sure you mentioned valid members?');
     }
     if(userOne.id === userTwo.id)
