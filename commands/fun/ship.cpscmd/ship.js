@@ -27,9 +27,12 @@ module.exports = {
     try {
       userOne = await client.fetchUser(targetOne);
       userTwo = await client.fetchUser(targetTwo);
+      if(!userOne||!userTwo) throw new Error('Invalid user');
     } catch(err) {
       return send('An error occured, are you sure you mentioned valid members?');
     }
+    if(userOne.id === userTwo.id)
+      return send('Are you really that alone?');
     const assembled = `${[userOne.id,userTwo.id].sort((a,b)=>a-b).join(',')}`;
     const shipValue = ships.get(assembled)||~~(100*Math.random());
     ships.set(assembled, shipValue);
