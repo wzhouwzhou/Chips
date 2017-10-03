@@ -1,18 +1,18 @@
 
 let bn = require('./botnick');
 
-console.log('[CPSCMD][INFO][avatar] Building objects...');
+console.log('[CPSCMD][MODERATION][botnic] Building objects...');
 bn.metadata = {
   category: require('../').category,
   description: 'This changes the bot nickname.',
   usage: 'botnick',
   example: 'botnick',
-  perm: [['global.info.info']],
+  perm: [['global.moderation.botnick.change']],
   customperm: ['MANAGE_NICKNAMES'],
 };
 
 
-console.log('[CPSCMD][INFO][avatar] Build objects complete!');
+console.log('[CPSCMD][MODERATION][botnick] Build objects complete!');
 module.exports = [
   [bn.name,bn],
   ['botnick', bn],
