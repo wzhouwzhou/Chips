@@ -2,7 +2,7 @@ const _ = require('lodash');
 const ships = new Map, shipComments = new Map, shipJoin = new Map;
 ships.set('259209114268336129,286522718965465090', 100);
 shipComments.set('259209114268336129,286522718965465090', 'Ily bb :3');
-shipJoin.set('259209114268336129,286522718965465090','<:blobkiss:364806533034278914>');
+shipJoin.set('259209114268336129,286522718965465090','<:blobkissheart:364815765045510145>');
 
 module.exports = {
   name: 'ship',
