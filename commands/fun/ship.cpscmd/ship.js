@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const ships = new Map();
+const ships = new Map, shipComments = new Map;
 ships.set('259209114268336129,286522718965465090', 100);
 shipComments.set('259209114268336129,286522718965465090', 'Ily bb :3');
 
