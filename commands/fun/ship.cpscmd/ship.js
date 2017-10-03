@@ -15,12 +15,11 @@ module.exports = {
     if(!suffix || suffix.length === 0)
       return send('Nobody to ship with!');
 
-    const matches = suffix.match(/^[^<]*<@!?(\d+)>[^<>]*(?:<@!?(\d+)>)?[^]*$/);
-    if(!matches||!matches[1]) return send('You must mention a user!');
+    let matches = suffix.match(/(?:"?(?:([^"#<]{1,32}#(?:\d){4,4}))|(?:<@!?(\d+)>)"?)(?:\s|,)*(?:"?(?:(?:([^"#<]{1,32}#(?:\d){4,4}))|(?:<@!?(\d+)>))"?)?/);
+    if(!matches&&!matches[1]&&!matches[2]&&!matches[3]) return send('You must mention a user or give their discord tag!');
+    let targetOne = matches[1]||m[2];
+    let targetTwo = matches[3]||matches[4];
 
-    let targetOne = matches[1];
-
-    let targetTwo = matches[2];
     if(!targetTwo) {
       targetTwo = targetOne;
       targetOne = member;
@@ -28,8 +27,8 @@ module.exports = {
 
     let userOne, userTwo;
     try {
-      userOne = await client.fetchUser(targetOne);
-      userTwo = await client.fetchUser(targetTwo);
+      userOne = !~userOne.indexOf('#')?await client.fetchUser(targetOne):client.users.find('tag',targetargetOne);
+      userTwo = !~userTwo.indexOf('#')?await client.fetchUser(targetTwo):client.users.find('tag','targtargetTwo');
       if(!userOne||!userTwo) throw new Error('Invalid user');
     } catch(err) {
       return send('An error occured, are you sure you mentioned valid members?');
