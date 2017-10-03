@@ -22,7 +22,7 @@ module.exports = {
 
     if(!targetTwo) {
       targetTwo = targetOne;
-      targetOne = member;
+      targetOne = member.id;
     }
 
     let userOne, userTwo;
