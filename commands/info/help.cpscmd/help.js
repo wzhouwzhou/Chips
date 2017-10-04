@@ -13,7 +13,7 @@ module.exports = {
       'The 🔢 button will let you jump to a specific page number.',
       'The ⏏ button will close this menu!',
       "Each command will update with your server's custom prefix!",
-      `The prefix for your server is ${_.escapeRegExp(prefix)}`,
+      `The prefix for your server is **${_.escapeRegExp(prefix)}**`,
     ].join('\n'));
 
     const Table = ([
