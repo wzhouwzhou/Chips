@@ -5,6 +5,7 @@ const HGTributeTool = require('./HGTributeTool');
 
 const Spear = class Spear extends HGTributeTool {
   constructor (options) {
+    super();
     this.options = options;
   }
 };
