@@ -59,6 +59,7 @@ module.exports = {
       '**{}botclear [amount]** to delete bot-related messages. (up to the last 100 messages are checked)',
       '**{}hackban [user id]** to ban someone by their ID',
       '**{}kick [mention user]** to kick someone.',
+      '**{}botnick [text]** to change Chips\' nick.',
       '**{}silence [mention user]** to server-mute someone.',
       '**{}deafen [mention user]** to deafen someone.',
       '**{}unsilence [mention user]** to unserver-mute someone.',
@@ -81,6 +82,7 @@ module.exports = {
       '**{}eat** for your own bag of chips.',
       '**{}happy** (credits to Tani)',
       '**{}lenny** to make a lenny face.',
+      '**{}ship [mention user]** to ship some people.',
     ].join('\n').replace(/{}/g, prefix));
 
     const FunMenu2 = ([
