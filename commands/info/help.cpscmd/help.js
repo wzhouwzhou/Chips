@@ -59,7 +59,7 @@ module.exports = {
       '**{}botclear [amount]** to delete bot-related messages. (up to the last 100 messages are checked)',
       '**{}hackban [user id]** to ban someone by their ID',
       '**{}kick [mention user]** to kick someone.',
-      '**{}botnick [text]** to change Chip\'s nick.',
+      '**{}botnick [text]** to change Chips\' nick.',
       '**{}silence [mention user]** to server-mute someone.',
       '**{}deafen [mention user]** to deafen someone.',
       '**{}unsilence [mention user]** to unserver-mute someone.',
