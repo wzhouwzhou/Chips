@@ -2,8 +2,8 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const HGTributeTool = class HGTributeTool {
-  constructor(options){
-
+  constructor(props){
+    Object.entries(props).map(([k, v]) => this[k] = v);
   }
 };
 
