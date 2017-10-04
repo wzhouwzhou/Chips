@@ -27,11 +27,11 @@ module.exports = {
 
     let userOne, userTwo;
     try {
-      userOne = !~targetOne.indexOf('#')?await client.fetchUser(targetOne):client.users.find('tag',targetargetOne);
-      userTwo = !~targetTwo.indexOf('#')?await client.fetchUser(targetTwo):client.users.find('tag','targtargetTwo');
+      userOne = !~targetOne.indexOf('#')?await client.fetchUser(targetOne):client.users.find('tag',targetOne);
+      userTwo = !~targetTwo.indexOf('#')?await client.fetchUser(targetTwo):client.users.find('tag',targetTwo);
       if(!userOne||!userTwo) throw new Error('Invalid user');
     } catch(err) {
-      send(`[Error][Debug] ${err.message}`);
+      send(`[Error][Debug] m,t1,t2:${err.message}, ${targetOne},${targetTwo}`);
       return send('An error occured, are you sure you mentioned valid members?');
     }
     if(userOne.id === userTwo.id)
