@@ -2,10 +2,10 @@ const _ = require('lodash');
 const ships = new Map, shipComments = new Map, shipJoin = new Map;
 ships.set('259209114268336129,286522718965465090', 100);
 shipComments.set('259209114268336129,286522718965465090', 'Ily bb :3');
-shipJoin.set('259209114268336129,286522718965465090','<:blobkissheart:364815765045510145>');
+shipJoin.set('259209114268336129,286522718965465090','<:blobkissheart:364815765045510145>'); //vy and willy
 ships.set('205608598233939970,296855425255473154', 101);
 shipComments.set('205608598233939970,296855425255473154', 'Easter egg confirmed!');
-shipJoin.set('205608598233939970,296855425255473154','<:blobkiss:364806533034278914>');
+shipJoin.set('205608598233939970,296855425255473154','<:blobkiss:364806533034278914>'); //lucas and chips
 
 module.exports = {
   name: 'ship',
@@ -49,23 +49,23 @@ module.exports = {
         switch(outlookN) {
           case 0:
           case 1:
-            return 'No way.';
+            return 'Not even think about it.';
           case 2:
           case 3:
-            return 'Nope.';
+            return 'No way.';
           case 4:
           case 5:
           case 6:
             return 'Maybe.';
           case 7:
-            return 'Yup';
+            return 'Yup.';
           case 8:
-            return 'Sure.';
+            return 'Sure!';
           case 9:
-            return 'Definitely';
+            return 'Definitely!';
           case 10:
           case 11:
-            return 'What are you waiting for?';
+            return 'What are you waiting for?!';
         }
       })(),
       (()=>{
@@ -77,7 +77,7 @@ module.exports = {
           case 7 < outlookN && outlookN < 10:
             return 'owo';
           case outlookN > 9:
-            return 'What are you waiting for?';
+            return 'What are you waiting for?!';
         }
       })(),
     ]);
