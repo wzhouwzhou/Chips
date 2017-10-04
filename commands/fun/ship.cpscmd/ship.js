@@ -35,7 +35,9 @@ module.exports = {
       return send('An error occured, are you sure you mentioned valid members?');
     }
     if(userOne.id === userTwo.id)
-      return send('Are you really that alone?');
+      if(userOne.id === member.id)
+        return send('Are you really that alone?');
+      else return send(`Is ${userTwo.tag.replace(/@/g,'(at)')} really that alone?`);
     const assembled = `${[userOne.id,userTwo.id].sort((a,b)=>a-b).join(',')}`;
     const shipValue = ships.get(assembled)||~~(100*Math.random());
     ships.set(assembled, shipValue);
