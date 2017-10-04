@@ -2,10 +2,15 @@ const _ = require('lodash');
 const ships = new Map, shipComments = new Map, shipJoin = new Map;
 ships.set('259209114268336129,286522718965465090', 100);
 shipComments.set('259209114268336129,286522718965465090', 'Ily bb :3');
-shipJoin.set('259209114268336129,286522718965465090','<:blobkissheart:364815765045510145>'); //vy and willy
+shipJoin.set('259209114268336129,286522718965465090','<:blobkissheart:364815765045510145>'); //wolf and willy
+
 ships.set('205608598233939970,296855425255473154', 101);
 shipComments.set('205608598233939970,296855425255473154', 'Easter egg confirmed!');
 shipJoin.set('205608598233939970,296855425255473154','<:blobkiss:364806533034278914>'); //lucas and chips
+
+ships.set('285348528920723456,324364368752148481', 0);
+shipComments.set('285348528920723456,324364368752148481', 'Error 404: Joke not found.');
+shipJoin.set('285348528920723456,324364368752148481','lol dont even think about it'); //kng and vy
 
 module.exports = {
   name: 'ship',
