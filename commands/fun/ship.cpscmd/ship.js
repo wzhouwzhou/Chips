@@ -15,7 +15,7 @@ module.exports = {
     if(!suffix || suffix.length === 0)
       return send('Nobody to ship with!');
 
-    let matches = suffix.match(/(?:"?(?:([^"#<]{1,32}#(?:\d){4,4}))|(?:<@!?(\d+)>)"?)(?:\s|,)*(?:"?(?:(?:([^"#<]{1,32}#(?:\d){4,4}))|(?:<@!?(\d+)>))"?)?/);
+    let matches = suffix.match(/(?:"?(?:([^"#<]{1,32}#(?:\d){4,4}))|(?:<@!?(\d+)>)"?)(?:\s|,|x)*(?:"?(?:(?:([^"#<]{1,32}#(?:\d){4,4}))|(?:<@!?(\d+)>))"?)?/);
     if(!matches&&!matches[1]&&!matches[2]&&!matches[3]) return send('You must mention a user or give their discord tag!');
     let targetOne = matches[1]||matches[2];
     let targetTwo = matches[3]||matches[4];
