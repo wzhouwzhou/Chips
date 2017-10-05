@@ -264,7 +264,7 @@ const ex = {
         infobad.addField(`${role.members.size} members: ${trueMemC.size} people, ${role.members.size-trueMemC.size} bots`,([
           `Reachable members (online, idle or dnd): **${available}**`,
           ...[
-            ['<:online:313956277808005120>:',online],
+            ['<:online:313956277808005120>',online],
             ['<:away:313956277220802560>', idle],
             ['<:dnd:313956276893646850>', dnd],
             ['<:offline:313956277237710868>', role.members.size-available],
