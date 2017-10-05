@@ -74,12 +74,13 @@ module.exports = {
 	client.fetchUser(memberToUse.id)
 	.then(u=>{u.ssend('Uh oh!', {embed: emb});})
 	.then(mes=>{
-		m.reply("Banning!");
+		m.reply("Softbanning!");
 		memberToUse.ban({reason: `[SOFTBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}).then(guild.unban(memberToUse.toString(), {reason: `[UNBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}));
 			}).catch(err=>{
 			  m.reply("Could not dm the user, but softbanning anyway!");
 			memberToUse.ban({reason: `[SOFTBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}, {days: 7}).then(guild.unban(memberToUse.toString(), {reason: `[UNBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}));
-		});
+      memberToUse.unban(memberToUse.toString(), {reason: `[UNBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`})   
+    });
         }else{
           console.log("[Softban] cancelled");
           m.reply("Ok, ban cancelled!");
