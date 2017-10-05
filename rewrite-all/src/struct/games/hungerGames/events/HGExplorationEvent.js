@@ -1,9 +1,11 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
-const { HGActionEvent } = require('./HGActionEvent');
+const { HGSearchForEvent } = require('./HGSearchForEvent');
 
-const HGExplorationEvent = class HGExplorationEvent extends HGActionEvent {
-
+const HGExplorationEvent = class HGExplorationEvent extends HGSearchForEvent {
+  constructor () {
+    super();
+  }
 };
 
 exports.HGExplorationEvent = HGExplorationEvent;

@@ -18,8 +18,8 @@ const HungerGames = class HungerGames extends Game {
   }
 
   addTribute (newTribute) {
-    this.districts.forEach(e=>e.addTribute(newTribute))
+    this.districts.forEach(e=>e.addTribute(newTribute));
   }
 };
 
-exports.BoardGame = BoardGame;
+exports.HungerGames = HungerGames;

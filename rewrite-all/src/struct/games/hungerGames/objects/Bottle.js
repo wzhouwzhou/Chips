@@ -1,13 +1,13 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const { HGTributeWeapon } = require('./HGTributeWeapon');
+const { HGTributeTool } = require('./HGTributeTool');
 
-const Spear = class Spear extends HGTributeWeapon {
+const Bottle = class Bottle extends HGTributeTool {
   constructor (options) {
     super();
     this.options = options;
   }
 };
 
-exports.Spear = Spear;
+exports.Bottle = Bottle;

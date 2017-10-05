@@ -9,8 +9,11 @@ const District = class District {
   }
 
   addTribute (newTribute) {
-    if(newTribute.district&&newTribute)
-    this.tributes.set(newTribute.id, newTribute);
+    if(newTribute.district===this||newTribute.districtNumber===this.number) {
+      this.tributes.set(newTribute.id, newTribute);
+      newTribute.district = this;
+      newTribute.districtNumber = this.number;
+    }
     return this;
   }
 };

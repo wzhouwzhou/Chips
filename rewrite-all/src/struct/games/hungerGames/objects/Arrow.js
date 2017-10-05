@@ -3,11 +3,11 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 const { HGTributeWeapon } = require('./HGTributeWeapon');
 
-const Spear = class Spear extends HGTributeWeapon {
+const Arrow = class Arrow extends HGTributeWeapon {
   constructor (options) {
     super();
     this.options = options;
   }
 };
 
-exports.Spear = Spear;
+exports.Arrow = Arrow;
