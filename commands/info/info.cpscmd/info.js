@@ -238,7 +238,7 @@ const ex = {
 
         let trueMemC = role.members.filter((member) => { return !member.user.bot; });
         let online = 0, idle = 0, dnd = 0, available = 0;
-        trueMemC.filter((member) => {
+        role.members.filter((member) => {
           switch(member.presence.status){
             case "online":
               online++;
