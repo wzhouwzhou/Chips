@@ -261,8 +261,8 @@ const ex = {
         infobad.setTitle(`Role Lookup for role [${rolename}]`); //<@&${role.id}>`);
         infobad.addField(`Role id: `, `${role.id}`);
         infobad.addField(`Creation date: ${role.createdAt.toUTCString()}`,`That's about ${diff} ago!`);
-        infobad.addField(`${role.members.size} members: ${trueMemC.size} people, ${role.members.size-trueMemC.size} bots`,([
-          `Reachable members (online, idle or dnd): **${available}**`,
+        infobad.addField(`${role.members.size} member(s): ${trueMemC.size} ${trueMemC.size===1?'person':'people'}, ${role.members.size-trueMemC.size} ${role.members.size-trueMemC.size===1?'bot':'bots'}`,([
+          `Reachable member(s) (online, idle or dnd): **${available}**`,
           ...[
             ['<:online:313956277808005120>',online],
             ['<:away:313956277220802560>', idle],
