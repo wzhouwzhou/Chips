@@ -56,7 +56,7 @@ module.exports = {
     );
     collector.on('collect', _ => _);
     collector.on('end', collected => {
-      if(!confirmed) return reply('Ban timed out');
+      if(!confirmed) return reply('Softban timed out');
       else{
         let m = collected.first();
         console.log(`[Ban]: Collected ${m.content}`);
