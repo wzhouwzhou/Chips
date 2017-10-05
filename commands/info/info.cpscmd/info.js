@@ -262,7 +262,13 @@ const ex = {
         infobad.addField(`Role id: `, `${role.id}`);
         infobad.addField(`Creation date: ${role.createdAt.toUTCString()}`,`That's about ${diff} ago!`);
         infobad.addField(`Total number of members with this role: ${trueMemC.size} (Not including bots)`,`There ${role.members.size-trueMemC.size==1?'is':'are'} ${role.members.size-trueMemC.size} bot${role.members.size-trueMemC.size==1?'':'s'} with this role!`);
-        infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There ${role.members.size-available==1?'is':'are'} <:offline:313956277237710868> ${role.members.size-available} ${role.members.size-available==1?'person':'people'} with this role offline or invisible`);
+        infobad.addField(`Reachable members (online, idle or dnd): ${available}`,
+        ([
+          `<:online:313956277808005120>: **${online}**`,
+          `<:away:313956277220802560>: **${idle}**`,
+          `<:dnd:313956276893646850>: **${dnd}**`,
+          `<:offline:313956277237710868>: **${role.members.size-available}`
+        ].join('\n')));
         infobad.addField(`Online: <:online:313956277808005120>`, online, true)
                .addField(`Idle: <:away:313956277220802560>    `, idle  , true)
                .addField(`Dnd: <:dnd:313956276893646850>      `, dnd   , true);
