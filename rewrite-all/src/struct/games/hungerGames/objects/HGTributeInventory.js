@@ -1,12 +1,11 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const Discord = require('discord.js');
+const HGItemStorage = require('./HGItemStorage');
 
-const HGTributeInventory = class HGTributeInventory extends Discord.Collection {
+const HGTributeInventory = class HGTributeInventory extends HGItemStorage {
   constructor(items) {
     super(items);
-    
   }
 };
 
