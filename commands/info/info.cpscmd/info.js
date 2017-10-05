@@ -267,13 +267,10 @@ const ex = {
           `<:online:313956277808005120>: **${online}**`,
           `<:away:313956277220802560>: **${idle}**`,
           `<:dnd:313956276893646850>: **${dnd}**`,
-          `<:offline:313956277237710868>: **${role.members.size-available}`
+          `<:offline:313956277237710868>: **${role.members.size-available}**`
         ].join('\n')));
-        infobad.addField(`Online: <:online:313956277808005120>`, online, true)
-               .addField(`Idle: <:away:313956277220802560>    `, idle  , true)
-               .addField(`Dnd: <:dnd:313956276893646850>      `, dnd   , true);
-        infobad.addField(`Mentionable: `,`${role.mentionable}`);
-        infobad.addField(`Role Colour: `,`${role.hexColor}`);
+        infobad.addField(`Mentionable: `,`${role.mentionable}`, true);
+        infobad.addField(`Role Colour: `,`${role.hexColor}`, true);
         infobad.addField(`Hoist: ${role.hoist}`,`This means that the role is ${role.hoist?'':'not '}displayed separately in the member list.`);
         infobad.addField(`Position: ${role.calculatedPosition}`,`This means that the role is ${role.calculatedPosition+1==guild.roles.size?'1st':(role.calculatedPosition+2==guild.roles.size?'2nd':(role.calculatedPosition+3==guild.roles.size?'3rd':((guild.roles.size-role.calculatedPosition)+'th')))} highest in this server!`);
         infobad.addField(`Members with this role: `,`${memList?memList:'Nobody has this role!'}`);
