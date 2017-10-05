@@ -2,7 +2,7 @@
 const EXPIRE = 10000;
 
 module.exports = {
-    name:'ban',
+    name:'softban',
   perm:['global.server.ban'],
     customperm:['BAN_MEMBERS'],
     async func(msg, { send, reply, member, author, content, args, channel, guild, gMember }) {
@@ -56,7 +56,7 @@ module.exports = {
     );
     collector.on('collect', _ => _);
     collector.on('end', collected => {
-      if(!confirmed) return reply('Ban timed out');
+      if(!confirmed) return reply('Softban timed out');
       else{
         let m = collected.first();
         console.log(`[Ban]: Collected ${m.content}`);
@@ -74,12 +74,13 @@ module.exports = {
 	client.fetchUser(memberToUse.id)
 	.then(u=>{u.ssend('Uh oh!', {embed: emb});})
 	.then(mes=>{
-		m.reply("Banning!");
+		m.reply("Softbanning!");
 		memberToUse.ban({reason: `[SOFTBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}).then(guild.unban(memberToUse.toString(), {reason: `[UNBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}));
 			}).catch(err=>{
 			  m.reply("Could not dm the user, but softbanning anyway!");
 			memberToUse.ban({reason: `[SOFTBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}, {days: 7}).then(guild.unban(memberToUse.toString(), {reason: `[UNBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}));
-		});
+      await (memberToUse.unban(memberToUse.toString(), {reason: `[UNBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}))
+    });
         }else{
           console.log("[Softban] cancelled");
           m.reply("Ok, ban cancelled!");

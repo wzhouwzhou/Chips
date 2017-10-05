@@ -60,5 +60,5 @@ module.exports = [
   [ban.name,ban],
   [hackban.name,hackban],
   [unban.name,unban],
-  [softban.name,softban]
+  [softban.name,softban],
 ];
