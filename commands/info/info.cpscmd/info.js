@@ -261,13 +261,14 @@ const ex = {
         infobad.setTitle(`Role Lookup for role [${rolename}]`); //<@&${role.id}>`);
         infobad.addField(`Role id: `, `${role.id}`);
         infobad.addField(`Creation date: ${role.createdAt.toUTCString()}`,`That's about ${diff} ago!`);
-        infobad.addField(`Total number of members with this role: ${trueMemC.size} (Not including bots)`,`There ${role.members.size-trueMemC.size==1?'is':'are'} ${role.members.size-trueMemC.size} bot${role.members.size-trueMemC.size==1?'':'s'} with this role!`);
-        infobad.addField(`Reachable members (online, idle or dnd): ${available}`,
-        ([
-          `<:online:313956277808005120>: **${online}**`,
-          `<:away:313956277220802560>: **${idle}**`,
-          `<:dnd:313956276893646850>: **${dnd}**`,
-          `<:offline:313956277237710868>: **${role.members.size-available}**`
+        infobad.addField(`${role.members.size} members: ${trueMemC.size} people, ${role.members.size-trueMemC.size} bots`,([
+          `Reachable members (online, idle or dnd): **${available}**`,
+          ...[
+            ['<:online:313956277808005120>:',online],
+            ['<:away:313956277220802560>', idle],
+            ['<:dnd:313956276893646850>', dnd],
+            ['<:offline:313956277237710868>', role.members.size-available],
+          ].map(e=>`${e[0]}: **${e[1]}**`),
         ].join('\n')));
         infobad.addField(`Mentionable: `,`${role.mentionable}`, true);
         infobad.addField(`Role Colour: `,`${role.hexColor}`, true);
