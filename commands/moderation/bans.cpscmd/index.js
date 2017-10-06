@@ -3,7 +3,7 @@ let ban = require('./ban');
 let hackban = require('./hackban');
 let reactban = require('./reactban');
 let unban = require('./unban');
-let softban = require('./softban')
+let softban = require('./softban');
 let roleban = {};
 console.log('[CPSCMD][MODERATION][ban] Building objects...');
 
