@@ -51,6 +51,7 @@ module.exports = {
       '**{}membercount** to get amount of people in the server.',
       '**{}rolecount** to get the amount of roles in the server.',
       '**{}channelcount** to get the amount of channels in the server.',
+      '**{}emojicount** to get the amount of emojis in the server.',
       ].join('\n').replace(/{}/g, prefix));
 
     const ModMenu = ([
