@@ -1,6 +1,6 @@
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
 module.exports = {
-  name: "pmute",
+  name: "rmute",
   async func(msg, { send, member, author, content, channel, guild, args, gMember, Discord, reply }) {
     const used = member || author;
 
