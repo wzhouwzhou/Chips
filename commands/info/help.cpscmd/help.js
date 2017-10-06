@@ -19,9 +19,9 @@ module.exports = {
     const Table = ([
       ['1_     _','Introductions'],
       ['2_     _','Table of Contents'],
-      ['3/4/5' ,'Informative commands'],
+      ['3/4/5_    _','Informative commands'],
       ['6_     _','Moderation commands'],
-      ['7/8' ,'Fun/Games'],
+      ['7/8_   _','Fun/Games'],
       ['9_     _','Utility commands'],
       ['10_     _','(Experimental) Music information'],
       ['11 _   _','Additional bot information'],
