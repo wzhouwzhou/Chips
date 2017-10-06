@@ -19,12 +19,12 @@ module.exports = {
     const Table = ([
       ['1_     _','Introductions'],
       ['2_     _','Table of Contents'],
-      ['3/4' ,'Informative commands'],
-      ['5_     _','Moderation commands'],
-      ['6/7' ,'Fun/Games'],
-      ['8_     _','Utility commands'],
-      ['9_     _','(Experimental) Music information'],
-      ['10 _   _','Additional bot information'],
+      ['3/4/5' ,'Informative commands'],
+      ['6_     _','Moderation commands'],
+      ['7/8' ,'Fun/Games'],
+      ['9_     _','Utility commands'],
+      ['10_     _','(Experimental) Music information'],
+      ['11 _   _','Additional bot information'],
     ].map(e=>`**P. ${e[0]}**¬\n\t${e[1]}`).join('\n'));
 
     const InfoMenu = ([
@@ -50,9 +50,12 @@ module.exports = {
       '**{}channeltopic** to get the channel topic.',
       '**{}membercount** to get amount of people in the server.',
       '**{}rolecount** to get the amount of roles in the server.',
-      '**{}channelcount** to get the amount of channels in the server.',
-      '**{}emojicount** to get the amount of emojis in the server.',
       ].join('\n').replace(/{}/g, prefix));
+      
+    const InfoMenu3 = ([
+      '**{}emojicount** to get the amount of emojis in the server.',
+      '**{}channelcount** to get the amount of channels in the server.',
+        ].join('\n').replace(/{}/g, prefix));
 
     const ModMenu = ([
       '**{}ban [mention user]** to ban someone.',
@@ -141,6 +144,8 @@ module.exports = {
       ],[
         ['Informative commands (2)',InfoMenu2],
       ],[
+        ['Informative commands (3)',InfoMenu3],
+      ],[  
         ['Moderation commands',ModMenu],
       ],[
         ['Fun commands (1)',FunMenu],
