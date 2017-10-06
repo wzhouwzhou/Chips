@@ -19,12 +19,12 @@ module.exports = {
     const Table = ([
       ['1_     _','Introductions'],
       ['2_     _','Table of Contents'],
-      ['3/4/5_    _','Informative commands'],
-      ['6_     _','Moderation commands'],
-      ['7/8_   _','Fun/Games'],
-      ['9_     _','Utility commands'],
-      ['10_     _','(Experimental) Music information'],
-      ['11 _   _','Additional bot information'],
+      ['3/4' ,'Informative commands'],
+      ['5_     _','Moderation commands'],
+      ['6/7' ,'Fun/Games'],
+      ['8_     _','Utility commands'],
+      ['9_     _','(Experimental) Music information'],
+      ['10 _   _','Additional bot information'],
     ].map(e=>`**P. ${e[0]}**¬\n\t${e[1]}`).join('\n'));
 
     const InfoMenu = ([
@@ -33,6 +33,12 @@ module.exports = {
       '**{}stats** to show my stats.',
       '**{}support** for chips\' support server.',
       '**{}invite** for my invite link',
+      '**{}info** for some information!',
+      '\t**channel [channel link, name or id]** to get information on the channel that you request!',
+      '\t**role [role mention, name or id]** to get information on the role that you request!',
+      '\t**server** to get information on the server!',
+      '\t**user [user mention, name or id]** to get information on the user that you request!',
+      '**{}quote [msgid]** to quote what someone said in the channel you use the command in.',
       ].join('\n').replace(/{}/g, prefix));
 
     const InfoMenu2 = ([
@@ -44,18 +50,8 @@ module.exports = {
       '**{}channeltopic** to get the channel topic.',
       '**{}membercount** to get amount of people in the server.',
       '**{}rolecount** to get the amount of roles in the server.',
-      ].join('\n').replace(/{}/g, prefix));
-      
-    const InfoMenu3 = ([
-      '**{}emojicount** to get the amount of emojis in the server.',
       '**{}channelcount** to get the amount of channels in the server.',
-      '**{}info** for some information!',
-      '\t**channel [channel link, name or id]** to get information on the channel that you request!',
-      '\t**role [role mention, name or id]** to get information on the role that you request!',
-      '\t**server** to get information on the server!',
-      '\t**user [user mention, name or id]** to get information on the user that you request!',
-      '**{}quote [msgid]** to quote what someone said in the channel you use the command in.',
-        ].join('\n').replace(/{}/g, prefix));
+      ].join('\n').replace(/{}/g, prefix));
 
     const ModMenu = ([
       '**{}ban [mention user]** to ban someone.',
@@ -136,7 +132,6 @@ module.exports = {
       pages:
       [[
         ['Introductions', IntroMenu1],
-      ],[
         ['How to', IntroMenu2],
       ],[
         ['Table of Contents', Table],
@@ -145,8 +140,6 @@ module.exports = {
       ],[
         ['Informative commands (2)',InfoMenu2],
       ],[
-        ['Informative commands (3)',InfoMenu3],
-      ],[  
         ['Moderation commands',ModMenu],
       ],[
         ['Fun commands (1)',FunMenu],
