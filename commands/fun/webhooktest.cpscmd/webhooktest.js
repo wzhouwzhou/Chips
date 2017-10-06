@@ -1,6 +1,6 @@
 module.exports = {
     name: "webhooktest",
-    async func(msg, { send, guild, channel }) {
+    async func(msg, { send, guild, channel, author }) {
 
     if (!author.id == Constants.users.LUCAS)
       return;
