@@ -58,13 +58,14 @@ module.exports = {
       '**{}clear [amount]** to clear some messages. (up to 99)',
       '**{}botclear [amount]** to delete bot-related messages. (up to the last 100 messages are checked)',
       '**{}hackban [user id]** to ban someone by their ID',
+      '**{}softban [mention user]** to soft-ban someone and clear their messages.',
       '**{}kick [mention user]** to kick someone.',
       '**{}botnick [text]** to change Chips\' nick.',
       '**{}silence [mention user]** to server-mute someone.',
       '**{}deafen [mention user]** to deafen someone.',
       '**{}unsilence [mention user]** to unserver-mute someone.',
       '**{}undeafen [mention user]** to undeafen someone.',
-      '**{}pmute [mention user]** to give someone a muted role! (Disclaimer: this does not create a Muted role, manually remove the mute role to unmute)',
+      '**{}rmute [mention user]** to give someone a muted role! (Disclaimer: this does not create a Muted role, manually remove the mute role to unmute)',
       '**{}chipsprefix on** to begin custom prefix setup, use **{}chipsprefix off** to turn off custom prefix',
     ].join('\n').replace(/{}/g, prefix));
 
