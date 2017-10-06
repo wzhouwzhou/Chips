@@ -136,6 +136,7 @@ module.exports = {
       pages:
       [[
         ['Introductions', IntroMenu1],
+      ],[
         ['How to', IntroMenu2],
       ],[
         ['Table of Contents', Table],
