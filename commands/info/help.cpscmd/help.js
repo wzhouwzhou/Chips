@@ -97,7 +97,7 @@ module.exports = {
       '**{}randomcaps [text]** to make your text look weird',
       '**{}spooky [text]** to spread your letters out',
       '**{}big [emoji1, emoji2]** to enlarge one or more emojis',
-      '**{}rotate [/ text]** *and* **{}rotate [\\ text]** to push your text around',
+      '**{}rotate [/ text]** *and* **{}rotate [\\ text]** to push your text around (the slashes dictate the direction)',
       '**{}derp [text]** to make your text derpy (capitalises every other letter)',
     ].join('\n').replace(/{}/g, prefix));
 
@@ -114,12 +114,12 @@ module.exports = {
       '__This **Open Beta** feature is still being heavily developed and is not necessarily stable at all times__. We apologize in advance.',
       'Mention me once demo is activated for music commands: __@Chips music help__',
       'Server specific prefixes do not work. The only prefix usable with Chips music is mentioning chips',
-    ]).join('\n').replace(/{}/g,prefix);
+    ].join('\n').replace(/{}/g,prefix));
 
     const AdditionalSht = ([
       ['Invite Link:',`[Click Here!](${Constants.BOTINVITE})`],
       ['Support Server:', `[Click Here](${Constants.SUPPORTINVITE})`],
-      ['Official Website: (currently down right now...sorry!)',`[${Constants.WEBSITE}](${Constants.WEBSITE})`],
+      ['Official Website:',`[${Constants.WEBSITE}](${Constants.WEBSITE})`],
       ["Feeling generous? Donate here to help us pay for hosting and keep our bot updated constantly!", "[https://www.paypal.me/wzhouwzhou](https://www.paypal.me/wzhouwzhou)"]
     ]);
 

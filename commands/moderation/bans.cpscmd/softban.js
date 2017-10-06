@@ -28,7 +28,7 @@ module.exports = {
         if(reason == null)
             reason = "No reason provided.";
     let question = `Do you want to softban ${memberToUse.displayName}?\nThis expires in 10 seconds. Type __y__es or __n__o.`;
-        
+
     const embed = new Discord.RichEmbed();
     embed
       .setAuthor(`Softban confirmation - Softbanning ${memberToUse.user.tag}`, memberToUse.user.displayAvatarURL)
@@ -36,7 +36,7 @@ module.exports = {
       .setTitle(question)
       .setDescription(reason || "No reason")
       .setTimestamp(new Date())
-      .setThumbnail(Constants.images.WARNING)
+      .setThumbnail(Constants.images.WARNING);
     await reply('', { embed } );
     let confirmed = false, agreed=false;
 
@@ -79,7 +79,7 @@ module.exports = {
 			}).catch(err=>{
 			  m.reply("Could not dm the user, but softbanning anyway!");
 			memberToUse.ban({reason: `[SOFTBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}, {days: 7}).then(guild.unban(memberToUse.toString(), {reason: `[UNBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}));
-      
+
     });
         }else{
           console.log("[Softban] cancelled");
