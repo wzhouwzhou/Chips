@@ -43,4 +43,4 @@ exports.chessPieces = new Map(
   )
 );
 const emojiURLBase = 'https://cdn.discordapp.com/emojis/', ext='.png';
-exports.piecesURLs = new Map(pieceIds.map(e=>[e[0],`${emojiURLBase}${e[1]}${ext}`]));
+exports.piecesURLs = new Map(exports.pieceIds.map(e=>[e[0],`${emojiURLBase}${e[1]}${ext}`]));

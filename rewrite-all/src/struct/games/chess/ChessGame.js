@@ -74,6 +74,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
         this.demoInterval = null;
       }
     }, 4000);
+    return this.demoInterval;
   }
 
 

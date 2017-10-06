@@ -13,7 +13,7 @@ module.exports = {
       'The 🔢 button will let you jump to a specific page number.',
       'The ⏏ button will close this menu!',
       "Each command will update with your server's custom prefix!",
-      `The prefix for your server is ${_.escapeRegExp(prefix)}`,
+      `The prefix for your server is **${_.escapeRegExp(prefix)}**`,
     ].join('\n'));
 
     const Table = ([
@@ -59,6 +59,7 @@ module.exports = {
       '**{}botclear [amount]** to delete bot-related messages. (up to the last 100 messages are checked)',
       '**{}hackban [user id]** to ban someone by their ID',
       '**{}kick [mention user]** to kick someone.',
+      '**{}botnick [text]** to change Chips\' nick.',
       '**{}silence [mention user]** to server-mute someone.',
       '**{}deafen [mention user]** to deafen someone.',
       '**{}unsilence [mention user]** to unserver-mute someone.',
@@ -81,6 +82,7 @@ module.exports = {
       '**{}eat** for your own bag of chips.',
       '**{}happy** (credits to Tani)',
       '**{}lenny** to make a lenny face.',
+      '**{}ship [mention user]** to ship some people.',
     ].join('\n').replace(/{}/g, prefix));
 
     const FunMenu2 = ([
@@ -95,7 +97,7 @@ module.exports = {
       '**{}randomcaps [text]** to make your text look weird',
       '**{}spooky [text]** to spread your letters out',
       '**{}big [emoji1, emoji2]** to enlarge one or more emojis',
-      '**{}rotate [/ text]** *and* **{}rotate [\\ text]** to push your text around',
+      '**{}rotate [/ text]** *and* **{}rotate [\\ text]** to push your text around (the slashes dictate the direction)',
       '**{}derp [text]** to make your text derpy (capitalises every other letter)',
     ].join('\n').replace(/{}/g, prefix));
 
@@ -112,12 +114,12 @@ module.exports = {
       '__This **Open Beta** feature is still being heavily developed and is not necessarily stable at all times__. We apologize in advance.',
       'Mention me once demo is activated for music commands: __@Chips music help__',
       'Server specific prefixes do not work. The only prefix usable with Chips music is mentioning chips',
-    ]).join('\n').replace(/{}/g,prefix);
+    ].join('\n').replace(/{}/g,prefix));
 
     const AdditionalSht = ([
       ['Invite Link:',`[Click Here!](${Constants.BOTINVITE})`],
       ['Support Server:', `[Click Here](${Constants.SUPPORTINVITE})`],
-      ['Official Website: (currently down right now...sorry!)',`[${Constants.WEBSITE}](${Constants.WEBSITE})`],
+      ['Official Website:',`[${Constants.WEBSITE}](${Constants.WEBSITE})`],
       ["Feeling generous? Donate here to help us pay for hosting and keep our bot updated constantly!", "[https://www.paypal.me/wzhouwzhou](https://www.paypal.me/wzhouwzhou)"]
     ]);
 
