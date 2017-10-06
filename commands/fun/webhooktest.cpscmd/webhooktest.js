@@ -1,6 +1,6 @@
 module.exports = {
     name: "webhooktest",
-    async func(msg, { send, guild, channel, author, args }) {
+    async func(msg, { send, guild, channel, author, args, content }) {
 
     const content = content.substr(content.indexOf(args[0]));    
     
