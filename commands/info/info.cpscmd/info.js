@@ -76,9 +76,10 @@ const ex = {
         [`Name of this server: ${gname}`, `Guild id: ${guild.id}`],
         ['Server owner:', `${getUser(guild.ownerID).tag} <@${guild.ownerID}>`],
         [`Number of roles: ${guild.roles.size}`,`Highest role: ${highestRole.name} (${highestRole.id})`],
-        [`Total number of channels: ${tC}`, `Total number of nsfw channels: ${nsfw}`],
-        [`Text channel count:`, textC, true],
-        [`Voice channel count:`, voiceC, true],
+        [
+          `Total number of channels: ${tC}`,
+          `Text: **${textC}**\nNsfw: **${nsfw}**\nVoice: **${voiceC}**`
+        ],
         [`Server region (voice): `, guild.region, true],
         [`AFK voice channel: ${guild.afkChannelID?'#'+guild.channels.get(guild.afkChannelID).name:''}`,`${guild.afkChannelID?'AFK Timeout: '+ guild.afkTimeout/60 +' minute(s)':'None'}` ],
         [`Date created: ${guild.createdAt.toUTCString()}`, `That's about ${diff} days ago!`],
