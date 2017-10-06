@@ -82,14 +82,24 @@ const ex = {
         [`Server region (voice): `, guild.region, true],
         [`AFK voice channel: ${guild.afkChannelID?'#'+guild.channels.get(guild.afkChannelID).name:''}`,`${guild.afkChannelID?'AFK Timeout: '+ guild.afkTimeout/60 +' minute(s)':'None'}` ],
         [`Date created: ${guild.createdAt.toUTCString()}`, `That's about ${diff} days ago!`],
-        ['Member count:', `${guild.memberCount>1?guild.memberCount+'members':'1 member'}`, true],
+        /*['Member count:', `${guild.memberCount>1?guild.memberCount+'members':'1 member'}`, true],
         [`Total number of members: ${trueMemC.size} (Not including bots)`,`There ${guild.members.size-trueMemC.size==1?'is':'are'} ${guild.members.size-trueMemC.size} bot${guild.members.size-trueMemC.size==1?'':'s'}!`, true],
         [`Reachable members (online, idle or dnd): ${available}`, `There  ${guild.members.size-available==1?'is':'are'} <:offline:313956277237710868> ${guild.members.size-available} ${guild.members.size-available==1?'person':'people'} offline or invisible`],
         ['Online: <:online:313956277808005120>', online, true],
         ['Idle: <:away:313956277220802560>', idle, true],
-        ['Dnd: <:dnd:313956276893646850>', dnd, true],
+        ['Dnd: <:dnd:313956276893646850>', dnd, true],*/
         [`Verification level: ${vLvl}`,`That means ${vInfo}`]
       ].forEach(f=>infobad.addField(...f));
+
+      infobad.addField(`${guild.members.size} member(s): ${trueMemC.size} ${trueMemC.size===1?'person':'people'}, ${guild.members.size-trueMemC.size} ${guild.members.size-trueMemC.size===1?'bot':'bots'}`,([
+        `Reachable member(s) (online, idle or dnd): **${available}**`,
+        ...[
+          ['<:online:313956277808005120>',online],
+          ['<:away:313956277220802560>', idle],
+          ['<:dnd:313956276893646850>', dnd],
+          ['<:offline:313956277237710868>', guild.members.size-available],
+        ].map(e=>`${e[0]}: **${e[1]}**`),
+      ].join('\n')));
 
       await reply(`Server info`, {embed: infobad});
       infobad = new Discord.RichEmbed();
@@ -351,7 +361,7 @@ const ex = {
         infobad.addField(`Channel ID: `, `${channel.id}`);
         infobad.addField(`Creation date: ${channel.createdAt.toUTCString()}`,`That's about ${diff} ago!`);
 
-       infobad.addField(`${channels.members.size} member(s): ${trueMemC.size} ${trueMemC.size===1?'person':'people'}, ${channel.members.size-trueMemC.size} ${channel.members.size-trueMemC.size===1?'bot':'bots'}`,([
+       infobad.addField(`${channel.members.size} member(s): ${trueMemC.size} ${trueMemC.size===1?'person':'people'}, ${channel.members.size-trueMemC.size} ${channel.members.size-trueMemC.size===1?'bot':'bots'}`,([
          `Reachable member(s) (online, idle or dnd): **${available}**`,
          ...[
            ['<:online:313956277808005120>',online],
