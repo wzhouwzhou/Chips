@@ -33,12 +33,6 @@ module.exports = {
       '**{}stats** to show my stats.',
       '**{}support** for chips\' support server.',
       '**{}invite** for my invite link',
-      '**{}info** for some information!',
-      '\t**channel [channel link, name or id]** to get information on the channel that you request!',
-      '\t**role [role mention, name or id]** to get information on the role that you request!',
-      '\t**server** to get information on the server!',
-      '\t**user [user mention, name or id]** to get information on the user that you request!',
-      '**{}quote [msgid]** to quote what someone said in the channel you use the command in.',
       ].join('\n').replace(/{}/g, prefix));
 
     const InfoMenu2 = ([
@@ -55,6 +49,12 @@ module.exports = {
     const InfoMenu3 = ([
       '**{}emojicount** to get the amount of emojis in the server.',
       '**{}channelcount** to get the amount of channels in the server.',
+      '**{}info** for some information!',
+      '\t**channel [channel link, name or id]** to get information on the channel that you request!',
+      '\t**role [role mention, name or id]** to get information on the role that you request!',
+      '\t**server** to get information on the server!',
+      '\t**user [user mention, name or id]** to get information on the user that you request!',
+      '**{}quote [msgid]** to quote what someone said in the channel you use the command in.',
         ].join('\n').replace(/{}/g, prefix));
 
     const ModMenu = ([
