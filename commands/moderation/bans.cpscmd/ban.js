@@ -20,9 +20,9 @@ module.exports = {
         return reply("Invalid member!");
       if(member.id == memberToUse.id)
         return reply("I can't let you ban yourself >.>");
-    }catch(err){  //gMember failed:
-      console.log(err);
-      return reply("I like chips.");
+    }catch(err){  //gMember failed perhaps:
+      send('Could not ban...');
+      throw err;
     }
 
     let reason;
