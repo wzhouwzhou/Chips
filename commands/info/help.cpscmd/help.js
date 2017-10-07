@@ -119,7 +119,7 @@ module.exports = {
     ].join('\n').replace(/{}/g,prefix));
 
     const AdditionalSht = ([
-      ['Custom commands for our patrons:',`Type **${_escapeRegExp(prefix)}patrons**`],
+      ['Custom commands for our patrons:',`Type **${_.escapeRegExp(prefix)}patrons**`],
       ['Invite Link:',`[Click Here!](${Constants.BOTINVITE})`],
       ['Support Server:', `[Click Here](${Constants.SUPPORTINVITE})`],
       ['Official Website:',`[${Constants.WEBSITE}](${Constants.WEBSITE})`],
