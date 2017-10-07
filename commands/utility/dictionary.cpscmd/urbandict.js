@@ -42,7 +42,7 @@ module.exports = {
         console.log('[Urban] Now adding to embed. ');
         embed.addField(`Entry #${i+1}: ${word.length>40?word.substring(0,40)+' ...':word}`, `Definition: ${entry.definition}
 link: [click](${link})`);
-      }else embed.addField('No results found',' ');
+      }else embed.addField('No results found','.');
       console.log('[Urban] Sending results...');
       return reply(`Urban dictionary results. ${somensfwdetected?'Some Nsfw content was censored out, add ``--allownsfw`` somewhere in your command to uncensor them.':''}`, { embed });
 

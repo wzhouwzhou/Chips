@@ -20,6 +20,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       channelID: options.channel?options.channel.id:0,
       empty: null,
     });
+    this.players = options.players;
     this.channel = options.channel;
     this.game = new Chess(options.newFen||startFen);
     this.board = new Array(8).fill(0);
@@ -31,7 +32,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   embedify () {
     if(!this.embed) throw new Error('Embed is missing !!11!1!!!!');
     this.embed = new (this.embed.constructor);
-    this.embed.addField(`${this.turn} to move`, this.toString(), true);
+    this.embed.addField(`${this.turn} to move`,/*this.toString()*/'.', true);
     //this.embed.addField('Move history', true);
     this.embed.setTitle('Chess');
     return this.embed;
@@ -45,24 +46,30 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       this.lastM = null;
     }
 
-    this.channel.send(embed).then(m=>this.lastM = m);
+    this.channel.send(this.toString(), {embed}).then(m=>this.lastM = m);
   }
 
   randomMove () {
     const possibleMoves = this.game.moves();
 
-    if (this.game.game_over() || this.game.in_draw() || possibleMoves.length === 0) return null;
+    if (this.isOver()) {
+      this.emit('end', this);
+      return null;
+    }
 
     const randomIndex = ~~(possibleMoves.length*Math.random());
 
     this.lastMove = this.move(possibleMoves[randomIndex]);
-    this.updateViewFen(this.game.fen().split(/\s+/)[0]);
-    this.updateFrontEnd();
+    this.updateAll(this.game.fen().split(/\s+/)[0]);
     return this;
   }
 
-  updateAll () {
-    this.updateViewFen(this.game.fen().split(/\s+/)[0]);
+  isOver () {
+    return (this.game.game_over() || this.game.in_draw() || possibleMoves.length === 0);
+  }
+
+  updateAll (override = this.game.fen().split(/\s+/)[0]) {
+    this.updateViewFen(override);
     this.updateFrontEnd();
     return this;
   }

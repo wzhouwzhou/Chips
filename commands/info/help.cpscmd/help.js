@@ -31,7 +31,7 @@ module.exports = {
       '**{}help** for this help message.',
       '**{}ping** for more info about ping than you could ever want.',
       '**{}stats** to show my stats.',
-      '**{}support** for chips\' support server.',
+      "**{}support** for chips' support server.",
       '**{}invite** for my invite link',
       '**{}info** for some information!',
       '\t**channel [channel link, name or id]** to get information on the channel that you request!',
@@ -39,6 +39,7 @@ module.exports = {
       '\t**server** to get information on the server!',
       '\t**user [user mention, name or id]** to get information on the user that you request!',
       '**{}quote [msgid]** to quote what someone said in the channel you use the command in.',
+      "**{}avatar [user mention]** to get someone's avatar",
       ].join('\n').replace(/{}/g, prefix));
 
     const InfoMenu2 = ([
@@ -58,13 +59,14 @@ module.exports = {
       '**{}clear [amount]** to clear some messages. (up to 99)',
       '**{}botclear [amount]** to delete bot-related messages. (up to the last 100 messages are checked)',
       '**{}hackban [user id]** to ban someone by their ID',
+      '**{}softban [mention user]** to soft-ban someone and clear their messages.',
       '**{}kick [mention user]** to kick someone.',
       '**{}botnick [text]** to change Chips\' nick.',
       '**{}silence [mention user]** to server-mute someone.',
       '**{}deafen [mention user]** to deafen someone.',
       '**{}unsilence [mention user]** to unserver-mute someone.',
       '**{}undeafen [mention user]** to undeafen someone.',
-      '**{}pmute [mention user]** to give someone a muted role! (Disclaimer: this does not create a Muted role, manually remove the mute role to unmute)',
+      '**{}rmute [mention user]** to give someone a muted role! (Disclaimer: this does not create a Muted role, manually remove the mute role to unmute)',
       '**{}chipsprefix on** to begin custom prefix setup, use **{}chipsprefix off** to turn off custom prefix',
     ].join('\n').replace(/{}/g, prefix));
 
@@ -97,7 +99,7 @@ module.exports = {
       '**{}randomcaps [text]** to make your text look weird',
       '**{}spooky [text]** to spread your letters out',
       '**{}big [emoji1, emoji2]** to enlarge one or more emojis',
-      '**{}rotate [/ text]** *and* **{}rotate [\\ text]** to push your text around',
+      '**{}rotate [/ text]** *and* **{}rotate [\\ text]** to push your text around (the slashes dictate the direction)',
       '**{}derp [text]** to make your text derpy (capitalises every other letter)',
     ].join('\n').replace(/{}/g, prefix));
 
@@ -114,12 +116,12 @@ module.exports = {
       '__This **Open Beta** feature is still being heavily developed and is not necessarily stable at all times__. We apologize in advance.',
       'Mention me once demo is activated for music commands: __@Chips music help__',
       'Server specific prefixes do not work. The only prefix usable with Chips music is mentioning chips',
-    ]).join('\n').replace(/{}/g,prefix);
+    ].join('\n').replace(/{}/g,prefix));
 
     const AdditionalSht = ([
       ['Invite Link:',`[Click Here!](${Constants.BOTINVITE})`],
       ['Support Server:', `[Click Here](${Constants.SUPPORTINVITE})`],
-      ['Official Website: (currently down right now...sorry!)',`[${Constants.WEBSITE}](${Constants.WEBSITE})`],
+      ['Official Website:',`[${Constants.WEBSITE}](${Constants.WEBSITE})`],
       ["Feeling generous? Donate here to help us pay for hosting and keep our bot updated constantly!", "[https://www.paypal.me/wzhouwzhou](https://www.paypal.me/wzhouwzhou)"]
     ]);
 

@@ -1,7 +1,8 @@
 
 let mc = require('./membercount');
-let rc = require('./rolecount')
-let cc = require('./channelcount')
+let rc = require('./rolecount');
+let cc = require('./channelcount');
+let ec = require('./emojicount');
 
 console.log('[CPSCMD][INFO][avatar] Building objects...');
 mc.metadata = {
@@ -32,6 +33,15 @@ cc.metadata = {
   customperm: ['SEND_MESSAGES'],
 };
 
+ec.metadata = {
+  category: require('../').category,
+  description: 'Fetches the amount of emojis',
+  usage: 'emojicount',
+  example: 'emojicount',
+  perm: [['global.info.info']],
+  customperm: ['SEND_MESSAGES'],
+};
+
 
 console.log('[CPSCMD][INFO][avatar] Build objects complete!');
 module.exports = [
@@ -44,4 +54,7 @@ module.exports = [
   [cc.name,cc],
   ['channelcount', cc],
   ['cc', cc],
+  [ec.name,cc],
+  ['emojicount', cc],
+  ['ec', ec],
 ];
