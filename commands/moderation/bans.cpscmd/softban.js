@@ -56,35 +56,34 @@ module.exports = {
     );
     collector.on('collect', _ => _);
     collector.on('end', collected => {
-      if(!confirmed) return reply('Softban timed out');
+      if(!confirmed)
+        return reply('Softban timed out');
       else{
         let m = collected.first();
         console.log(`[Ban]: Collected ${m.content}`);
         if(m.author.id!=author.id) return;
         if(agreed){
-		if(!memberToUse.bannable) return reply("Uh oh! I can't ban this user! Perhaps I am missing perms..");
+          if(!memberToUse.bannable) return reply("Uh oh! I can't ban this user! Perhaps I am missing perms..");
 
           console.log("[Softban] Softbanning...");
-	let emb = new Discord.RichEmbed()
-            .setAuthor("Softban Notice!")
-            .setTitle(`You were softbanned from the server: ${guild.name}!`)
-	    .setColor(9109504)
-	    .setThumbnail(Constants.images.WARNING)
-	    .addField("Softban reason: ", `${reason}`, true);
-	client.fetchUser(memberToUse.id)
-	.then(u=>{u.ssend('Uh oh!', {embed: emb});})
-	.then(mes=>{
-		m.reply("Softbanning!");
-		memberToUse.ban({reason: `[SOFTBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}, {days: 7})
-			}).catch(err=>{
-			  m.reply("Could not dm the user, but softbanning anyway!");
-<<<<<<< HEAD
-			memberToUse.ban({reason: `[SOFTBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}, {days: 7})
-=======
-			memberToUse.ban({reason: `[SOFTBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}, {days: 7}).then(guild.unban(memberToUse.toString(), {reason: `[UNBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}));
-
->>>>>>> a6d71082f9f85c07a07abdce224c817ebc1515c7
-    });
+          let emb = new Discord.RichEmbed()
+              .setAuthor("Softban Notice!")
+              .setTitle(`You were softbanned from the server: ${guild.name}!`)
+              .setColor(9109504)
+              .setThumbnail(Constants.images.WARNING)
+              .addField("Softban reason: ", `${reason}`, true);
+          client.fetchUser(memberToUse.id)
+          .then(u=>{u.ssend('Uh oh!', {embed: emb});})
+          .then(()=>{
+            m.reply("Softbanning!");
+            memberToUse.ban({reason: `[SOFTBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}, {days: 7});
+          }).catch(()=>{
+            m.reply("Could not dm the user, but softbanning anyway!");
+            memberToUse
+              .ban({reason: `[SOFTBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}, {days: 7})
+              .then(guild.unban(memberToUse.toString(), {reason: `[UNBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}))
+              .catch(err=>m.channel.send('Something went wrong…\n'+err));
+          });
         }else{
           console.log("[Softban] cancelled");
           m.reply("Ok, ban cancelled!");
@@ -93,4 +92,3 @@ module.exports = {
     });
   }
 };
-
