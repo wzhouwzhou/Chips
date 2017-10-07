@@ -31,7 +31,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   embedify () {
     if(!this.embed) throw new Error('Embed is missing !!11!1!!!!');
     this.embed = new (this.embed.constructor);
-    this.embed.addField(`${this.turn} to move`, this.toString(), true);
+    this.embed.addField(`${this.turn} to move`,/*this.toString()*/'.', true);
     //this.embed.addField('Move history', true);
     this.embed.setTitle('Chess');
     return this.embed;
@@ -45,7 +45,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       this.lastM = null;
     }
 
-    this.channel.send(embed).then(m=>this.lastM = m);
+    this.channel.send(this.toString(), {embed}).then(m=>this.lastM = m);
   }
 
   randomMove () {
