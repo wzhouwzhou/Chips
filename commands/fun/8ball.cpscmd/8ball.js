@@ -1,5 +1,5 @@
 const args1 = [
-  "Stop life.",
+  "-_-",
   "Go away.",
   "Give up.",
   "Stop hoping."
