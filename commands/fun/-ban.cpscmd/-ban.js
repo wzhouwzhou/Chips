@@ -70,6 +70,10 @@ const ex= {
       await user.send(' ', {embed: emb});
     } catch (err) { console.error(`Error of dming User: ${err}`); }
 
+		const stafflogs = guild.channels.get('staff-logs')
+		if(stafflogs)
+		  return send(' ', {embed: emb});
+
     const usernm = user.username;
 
     reply(`User banned successfully!`);
