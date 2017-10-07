@@ -31,7 +31,7 @@ module.exports = {
       '**{}help** for this help message.',
       '**{}ping** for more info about ping than you could ever want.',
       '**{}stats** to show my stats.',
-      '**{}support** for chips\' support server.',
+      "**{}support** for chips' support server.",
       '**{}invite** for my invite link',
       '**{}info** for some information!',
       '\t**channel [channel link, name or id]** to get information on the channel that you request!',
@@ -39,6 +39,7 @@ module.exports = {
       '\t**server** to get information on the server!',
       '\t**user [user mention, name or id]** to get information on the user that you request!',
       '**{}quote [msgid]** to quote what someone said in the channel you use the command in.',
+      "**{}avatar [user mention]** to get someone's avatar",
       ].join('\n').replace(/{}/g, prefix));
 
     const InfoMenu2 = ([
