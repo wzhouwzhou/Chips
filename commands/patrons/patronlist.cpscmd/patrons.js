@@ -10,7 +10,7 @@ module.exports = {
     ].map(e=>`**${_.escapeRegExp(prefix)}${e}**`).join('\n'))
     .setTimestamp(new Date)
     .setColor(guild?member.displayColor:1)
-    .setFooter(`If you're interested in supporting the bot, check out the last page in the ${_escapeRegExp(prefix)}help menu!`);
+    .setFooter(`If you're interested in supporting the bot, check out the last page in the ${_.escapeRegExp(prefix)}help menu!`);
       await send("Loading......").then(m => m.delete(200));
       return send('', { embed });
   }
