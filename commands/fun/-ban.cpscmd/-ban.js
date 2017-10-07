@@ -70,11 +70,12 @@ const ex= {
       await user.send(' ', {embed: emb});
     } catch (err) { console.error(`Error of dming User: ${err}`); }
 
-		const stafflogs = guild.channels.find('name', 'staff-logs');
+		const stafflogs = guild.channels.find('name', 'staff-logs')
 		
 		if(stafflogs)
-		  return send(, {embed: emb});
-	  if(!stafflogs)
+		  return send({channel: stafflogs}, {embed: emb});
+	  
+		if(!stafflogs)
 		 return send('Creating a staff-logs channel.')
 		  .then (channel => channel.create('staff-logs'))
 			.then (embed => embed.send(' ', {embed: emb}));
