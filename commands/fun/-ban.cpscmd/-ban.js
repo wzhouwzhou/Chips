@@ -22,6 +22,9 @@ const neko = [
 	'205608598233939970',  //lucas, a guy that wants perms
 ];
 
+const options = { guild: guild };
+searchers[guild.id] = new Searcher( options.guild );
+
 const ex= {
   name: "-ban",
   async func(msg, {send, member, author, content, channel, guild, args, gMember, Discord, reply, bot, Searcher }) {
@@ -34,8 +37,7 @@ const ex= {
     if (reason == "") reason = "None";
     const user = gMember(target).user;
     if(user.id==bot.user.id) return send(`NO!!`);
-		let options = { guild: guild };
-    searchers[guild.id] = new Searcher( options.guild );
+		
 		/*if(!used.hasPermission("BAN_MEMBERS")){
 	    switch (used.id) {
 	      case Constants.users.WILLYZ:
