@@ -74,7 +74,7 @@ const ex= {
     const stafflogs = guild.channels.find('name', 'staff-logs');
 
     if(stafflogs)
-      stafflogs.send({embed: emb.setTitle(`${user+[]} was ~~fake~~ banned!`)});
+      stafflogs.send({embed: emb.setTitle('Ban 😮').setDescription(`${user+[]} was ~~fake~~ banned by ${author+[]}!`)});
 
     /*if(!stafflogs)
      return send('Creating a staff-logs channel.')
