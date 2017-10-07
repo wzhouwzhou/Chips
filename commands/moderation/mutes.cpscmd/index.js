@@ -1,15 +1,15 @@
 
-let pmute = require('./pmute');
+let rmute = require('./rmute');
 let extEmojiBan = require('./emojiban');
 let chipsmutebuild = require('./chipsmutebuild');
 
 console.log('[CPSCMD][MODERATION][mutes] Building objects...');
 
-pmute.metadata = {
+rmute.metadata = {
   category: require('../').category,
-  description: 'This command lets you mute server members permanently, however, a mute role must exist!',
+  description: 'This command lets you mute server members by role',
   usage: 'pmute <User> <Optional Reason>',
-  example: 'pmute @Evildeathpro✔#3981 stop',
+  example: 'rmute @Evildeathpro✔#3981 stop',
   perm: [['global.moderation.mutes.pmute']],
   customperm: [['BAN_MEMBERS']],
 };
@@ -34,7 +34,7 @@ chipsmutebuild.metadata = {
 
 console.log('[CPSCMD][MODERATION][mutes] Build objects complete!');
 module.exports = [
-  [pmute.name,pmute],
+  [rmute.name,rmute],
   [extEmojiBan.name,extEmojiBan],
   [chipsmutebuild.name,chipsmutebuild]
 ];

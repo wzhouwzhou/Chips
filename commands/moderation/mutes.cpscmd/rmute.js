@@ -1,6 +1,6 @@
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
 module.exports = {
-  name: "pmute",
+  name: "rmute",
   async func(msg, { send, member, author, content, channel, guild, args, gMember, Discord, reply }) {
     const used = member || author;
 
@@ -28,7 +28,7 @@ module.exports = {
 
     let emb = new Discord.RichEmbed()
       .setAuthor("Mute Log")
-      .setTitle(`${mem.displayName} was perma-muted by ${used.displayName}`)
+      .setTitle(`${mem.displayName} was role-muted by ${used.displayName}`)
       .setColor(9109504)
       .setThumbnail(Constants.images.WARNING)
       .addField("Mute reason: ", `${reason}`, true);
