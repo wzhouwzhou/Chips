@@ -73,8 +73,8 @@ const ex= {
 		const stafflogs = guild.channels.find('name', 'staff-logs');
 		
 		if(stafflogs)
-		  return send('stafflogs', {embed: emb});
-	  if(!stafflog)
+		  return send(, {embed: emb});
+	  if(!stafflogs)
 		 return send('Creating a staff-logs channel.')
 		  .then (channel => channel.create('staff-logs'))
 			.then (embed => embed.send(' ', {embed: emb}));
