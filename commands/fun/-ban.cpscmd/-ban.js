@@ -24,7 +24,7 @@ const neko = [
 
 const ex= {
   name: "-ban",
-  async func(msg, {send, member, author, content, channel, guild, args, gMember, Discord, reply, bot, searchChannel }) {
+  async func(msg, {send, member, author, content, channel, guild, args, gMember, Discord, reply, bot }) {
     const used = member || author;
 
     if (!args[0]) return send("No user given :(");
@@ -34,6 +34,8 @@ const ex= {
     if (reason == "") reason = "None";
     const user = gMember(target).user;
     if(user.id==bot.user.id) return send(`NO!!`);
+		let options = { guild: guild };
+    searchers[guild.id] = new Searcher( options.guild );
 		/*if(!used.hasPermission("BAN_MEMBERS")){
 	    switch (used.id) {
 	      case Constants.users.WILLYZ:
