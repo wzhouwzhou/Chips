@@ -24,7 +24,7 @@ const neko = [
 
 const ex= {
   name: "-ban",
-  async func(msg, {send, member, author, content, channel, guild, args, gMember, Discord, reply, bot}) {
+  async func(msg, {send, member, author, content, channel, guild, args, gMember, Discord, reply, bot }) {
     const used = member || author;
 
     if (!args[0]) return send("No user given :(");
@@ -69,8 +69,16 @@ const ex= {
     try{
       await user.send(' ', {embed: emb});
     } catch (err) { console.error(`Error of dming User: ${err}`); }
-
-    const usernm = user.username;
+		
+		let list = searchers[guild.id].searchChannel("staff-logs");
+    if(list.length>1) console.log("Multiple channels found, using first one..");
+    else if(list.length<1) return await reply(`A staff-logs channel is not found, creating one!`);
+	    channel.create('chips-logs')
+			.then (channel => channel.edit('staff-logs'))
+			.then (channelsend => message.send('', {embed: emb}))
+			.catch(console.error)
+    
+		const usernm = user.username;
 
     reply(`User banned successfully!`);
 		const mee6name = guild.members.get('159985870458322944')?guild.members.get('159985870458322944').displayName:null;
