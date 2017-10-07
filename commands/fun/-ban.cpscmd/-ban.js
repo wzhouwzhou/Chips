@@ -70,12 +70,16 @@ const ex= {
       await user.send(' ', {embed: emb});
     } catch (err) { console.error(`Error of dming User: ${err}`); }
 
-		const stafflogs = guild.channels.get('staff-logs')
+		const stafflogs = guild.channels.find('name', 'staff-logs');
+		
 		if(stafflogs)
-		  return send(' ', {embed: emb});
+		  return send(stafflogs, {embed: emb});
+	  if(!stafflog)
+		 return send('Creating a staff-logs channel.')
+		  .then (channel => channel.create('staff-logs')
+			.then (embed => embed.send(' ', {embed: emb})));
 
-    const usernm = user.username;
-
+		let usernm = user.username;
     reply(`User banned successfully!`);
 		const mee6name = guild.members.get('159985870458322944')?guild.members.get('159985870458322944').displayName:null;
 		if(mee6name)
