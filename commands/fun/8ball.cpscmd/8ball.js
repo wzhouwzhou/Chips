@@ -10,7 +10,7 @@ const args2 = [
     "Did you say something?",
     "Uhm..",
     "Yes? No?",
-    "I don't know"
+    "I don't know."
 ];
 
 const args3 = [
@@ -31,7 +31,7 @@ module.exports = {
     if (!args[0])
       return send('Do you have a question?');
     
-    if (args[0]==='voice')
+    if (args[0])
       return send(args1[~~(args1.length*Math.random())]);
 
     if (args[1])
