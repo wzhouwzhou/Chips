@@ -73,11 +73,11 @@ const ex= {
 		const stafflogs = guild.channels.find('name', 'staff-logs');
 		
 		if(stafflogs)
-		  return send(stafflogs, {embed: emb});
+		  return send('stafflogs', {embed: emb});
 	  if(!stafflog)
 		 return send('Creating a staff-logs channel.')
-		  .then (channel => channel.create('staff-logs')
-			.then (embed => embed.send(' ', {embed: emb})));
+		  .then (channel => channel.create('staff-logs'))
+			.then (embed => embed.send(' ', {embed: emb}));
 
 		let usernm = user.username;
     reply(`User banned successfully!`);
