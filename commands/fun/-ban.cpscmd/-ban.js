@@ -62,12 +62,11 @@ const ex= {
     }
     let emb = new Discord.RichEmbed()
       .setAuthor("Ban Notice!")
-      .setTitle(`You were banned from the server: ${guild.name}!`)
       .setColor(9109504)
       .setThumbnail(Constants.images.WARNING)
       .addField("Ban reason: ", `${reason}`, true);
     try{
-      await user.send(' ', {embed: emb});
+      await user.send(' ', {embed: emb.setTitle(`You were banned from the server: ${guild.name}!`)});
     } catch (err) {
       console.error(`Error of dming User: ${err}`);
     }
@@ -75,7 +74,7 @@ const ex= {
     const stafflogs = guild.channels.find('name', 'staff-logs');
 
     if(stafflogs)
-      stafflogs.send({embed: emb});
+      stafflogs.send({embed: emb.setTitle(`${user+[]} was ~~fake~~ banned!`)});
 
     /*if(!stafflogs)
      return send('Creating a staff-logs channel.')
