@@ -32,9 +32,9 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   embedify (end = false) {
     if(!this.embed) throw new Error('Embed is missing !!11!1!!!!');
     this.embed = new (this.embed.constructor);
-    this.embed.addField(end?this.turn&&this.turn.toLowerCase()==='black'?'White won!':'Black won!':`${this.turn} to move`,/*this.toString()*/'.', true);
+    this.embed.addField(end?this.turn&&this.turn.toLowerCase()==='black'?'White won!':'Black won!':`${this.turn||'White'} to move`,/*this.toString()*/'.', true);
 
-    this.embed.addField('Last move', this.game.history().reverse()?this.game.history().reverse()[0]:'None', true);
+    this.embed.addField('Last move', this.game.history()&&this.game.history()[0]?this.game.history().reverse()[0]:'None', true);
     this.embed.setTitle('Chess');
     return this.embed;
   }
@@ -79,7 +79,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   }
 
   isOver () {
-    return (this.game.game_over() || this.game.in_draw() || possibleMoves.length === 0 || this.game.insufficient_material());
+    return (this.game.game_over() || this.game.in_draw() || this.game.moves().length === 0 || this.game.insufficient_material());
   }
 
   updateAll (override = this.game.fen().split(/\s+/)[0], end) {
