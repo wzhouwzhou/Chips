@@ -22,7 +22,6 @@ const args3 = [
     "Not even think about it..",
     "Rethink.",
     "Error 404: Ask again."
-
 ];    
 
 module.exports = {
