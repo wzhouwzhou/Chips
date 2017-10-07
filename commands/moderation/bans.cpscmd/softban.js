@@ -75,11 +75,10 @@ module.exports = {
 	.then(u=>{u.ssend('Uh oh!', {embed: emb});})
 	.then(mes=>{
 		m.reply("Softbanning!");
-		memberToUse.ban({reason: `[SOFTBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}).then(guild.unban(memberToUse.toString(), {reason: `[UNBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}));
+		memberToUse.ban({reason: `[SOFTBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}, {days: 7})
 			}).catch(err=>{
 			  m.reply("Could not dm the user, but softbanning anyway!");
-			memberToUse.ban({reason: `[SOFTBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}, {days: 7}).then(guild.unban(memberToUse.toString(), {reason: `[UNBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}));
-      await (memberToUse.unban(memberToUse.toString(), {reason: `[UNBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}))
+			memberToUse.ban({reason: `[SOFTBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}, {days: 7})
     });
         }else{
           console.log("[Softban] cancelled");
@@ -89,3 +88,4 @@ module.exports = {
     });
   }
 };
+
