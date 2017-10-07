@@ -24,7 +24,7 @@ const neko = [
 
 const ex= {
   name: "-ban",
-  async func(msg, {send, member, author, content, channel, guild, args, gMember, Discord, reply, bot }) {
+  async func(msg, {send, member, author, content, channel, guild, args, gMember, Discord, reply, bot, searchChannel }) {
     const used = member || author;
 
     if (!args[0]) return send("No user given :(");
