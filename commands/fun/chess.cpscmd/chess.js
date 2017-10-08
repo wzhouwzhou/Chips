@@ -75,7 +75,7 @@ const ex = {
         mCol.stop();
       }
 
-      const move = m.content.replace(/[rnkqb]/g,e=>e.toUpperCase());
+      const move = m.content.replace(/[rnkqb]/g,e=>e.toUpperCase()).trim();
 
       try {
         result = currentGame.go(move);
@@ -85,8 +85,8 @@ const ex = {
         }
         m.delete().catch(_=>_);
       }catch(err){ //'Invalid move!'
-        if(move.match(/^[rnkqb]\w{3,3}$/)) send('Ensure you have given a valid move');
-        console.error(err);
+        if(move.match(/^[RNKQB]\w{3,4}$/)) send('Ensure you have given a valid move');
+        if(!~err.message.indexOf('Move not completed')) console.error(err);
       }
     });
 
