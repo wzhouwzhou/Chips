@@ -73,9 +73,8 @@ const ex= {
 
     const stafflogs = guild.channels.find('name', 'staff-logs');
 
-    if(stafflogs)
-      if (!guild.id=='257889450850254848') {
-        return stafflogs.send({embed: emb.setTitle('😮').setAuthor('Action Log').setDescription(`**${user+[]} was ~~fake~~ banned by ${author+[]}!**~~temp action logz by lucaslsg~~`)});
+    if(stafflogs) {
+      return stafflogs.send({embed: emb.setTitle('😮').setAuthor('Action Log').setDescription(`**${user+[]} was ~~fake~~ banned by ${author+[]}!**~~temp action logz by lucaslsg~~`)});
       }
     /*if(!stafflogs)
      return send('Creating a staff-logs channel.')
