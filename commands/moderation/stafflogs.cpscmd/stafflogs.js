@@ -10,17 +10,50 @@ module.exports = {
     if(!args[0])
       return send('Use \"stafflogs set\"!')
     
+
     if(args[0]==='set')
     
-    if(!stafflogs)
-     return send('Creating a staff-logs channel!');
-    
-    await guild.createChannel('staff-logs', 'text')
-       .then(channel => console.log(`Created new channel ${channel}`))
-       .catch(console.error);
-    send('Staff-logs created!');
-    
+    if(stafflogs==null)
+    stafflogs = await guild.createChannel(
+      { name: 'staff-logs'}
+    );
 
-    }
-
+   await reply(stafflogs + ' channel succesfully created!')
 } 
+
+/*    
+Inspired by uhm emojiben
+
+const mem = gMember(target);
+
+    let ebanRole=guild.roles.find("name","Emoji Banned");
+    if (ebanRole==null)
+      ebanRole= await guild.createRole(
+        { name: 'Emoji Banned'}
+      );
+
+    if(ebanRole==null)console.log("Error getting emoji banned role");
+
+    const channels = guild.channels.filter(c => c.type === 'text');
+    if(channels==null)console.log("Error getting text channels");
+    for (const channel of channels.values())
+      await channel.overwritePermissions(ebanRole, {
+        USE_EXTERNAL_EMOJIS: false,
+        ADD_REACTIONS: false,
+      });
+
+    mem.addRole(ebanRole);
+
+    const usernm = mem.user.username;
+
+    await reply(`User ${usernm} emoji banned successfully!`);
+
+    let emb = new Discord.RichEmbed()
+      .setAuthor("Emoji Ban Log")
+      .setTitle(`<@${mem.user.id}> was emoji banned by <@${author.id}>`)
+      .setColor(9109504)
+      .setThumbnail(Constants.images.WARNING)
+      .addField("Emoji Ban reason: ", `${reason}`, true);
+    await send(emb);
+  }
+};*/
