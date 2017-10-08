@@ -4,6 +4,9 @@ module.exports = {
     
     let stafflogs = guild.channels.find('name', 'staff-logs');
     
+    if(!member.hasPermission("MANAGE_CHANNELS"))
+      return send('You need `MANAGE_CHANNELS` permissions to use this command!')
+    
     if(stafflogs) 
       return send('You already have a staff-logs channel: ' + stafflogs);  
 
