@@ -82,8 +82,8 @@ module.exports = {
             m.reply("Banning!");
             stafflogs.send({embed: emb.setTitle('😮').setAuthor('Action Log').setDescription(`**${user+[]} was banned by ${author+[]}!**~~temp action logz by lucaslsg~~`)});
             memberToUse.ban({reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}); 
-                 
           }).catch(()=>{
+            stafflogs.send({embed: emb.setTitle('😮').setAuthor('Action Log').setDescription(`**${user+[]} was banned by ${author+[]}!**~~temp action logz by lucaslsg~~`)});
             m.reply("Could not dm the user, but banning anyway!");
             memberToUse.ban({reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
           });
