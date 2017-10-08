@@ -123,7 +123,7 @@ const promptPlayer = (author, send, prefix, channel, targetMember) => {
   return new Promise( async (res,rej) => {
     const startFilter = (m) => {
       if(m.author.bot) return false;
-      if((new RegExp(`${_.escapeRegExp(prefix)}${this.name}(join|decline)`,'gi')).test(m.content.toLowerCase().replace(/\s+/g,'')))
+      if((new RegExp(`${_.escapeRegExp(prefix)}chess (join|decline)`,'gi')).test(m.content.toLowerCase().replace(/\s+/g,'')))
         if(m.author.id !== author.id) {
             if((!targetMember)||targetMember.id===m.author.id)
               if(~m.content.toLowerCase().indexOf('join'))
@@ -138,8 +138,8 @@ const promptPlayer = (author, send, prefix, channel, targetMember) => {
 
     let startCol;
     try{
-      let str = `${targetMember||''} Please type __${_.escapeRegExp(prefix)}${this.name} join__ to join the game`;
-      if(targetMember) str+=` or __${_.escapeRegExp(prefix)}${this.name} decline__`;
+      let str = `${targetMember||''} Please type __${_.escapeRegExp(prefix)}chess join__ to join the game`;
+      if(targetMember) str+=` or __${_.escapeRegExp(prefix)}chess decline__`;
       await send(str);
       startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
     }catch(err){
