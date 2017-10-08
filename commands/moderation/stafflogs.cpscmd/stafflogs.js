@@ -11,7 +11,7 @@ module.exports = {
       return send('Use \"stafflogs set\"!');
     
     if(args[0]==='set')
-      if(stafflogs==null)
+      if(!stafflogs)
       stafflogs = await guild.createChannel('staff-logs', 'text')
        .then(reply => send(stafflogs + ' channel succesfully created!'));
 
