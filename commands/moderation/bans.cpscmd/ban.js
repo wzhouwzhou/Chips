@@ -1,5 +1,6 @@
 //const Searcher = require(path.join(__dirname, '../handlers/Searcher'));
 const EXPIRE = 10000;
+const stafflogs = guild.channels.find('name', 'staff-logs');
 
 module.exports = {
     name:'ban',
@@ -79,14 +80,9 @@ module.exports = {
           .then(u=>u.send('Uh oh!', {embed: emb}))
           .then(()=>{
             m.reply("Banning!");
-            memberToUse.ban({reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
-            
-            let stafflogs = guild.channels.find('name', 'staff-logs');
-            if(stafflogs)
-              if (!guild.id=='257889450850254848') {
-                return stafflogs.send({embed: emb.setTitle('😮').setAuthor('Action Log').setDescription(`**${user+[]} was ~~fake~~ banned by ${author+[]}!**~~temp action logz by lucaslsg~~`)});
-              }       
-          
+            stafflogs.send({embed: emb.setTitle('😮').setAuthor('Action Log').setDescription(`**${user+[]} was banned by ${author+[]}!**~~temp action logz by lucaslsg~~`)});
+            memberToUse.ban({reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`}); 
+                 
           }).catch(()=>{
             m.reply("Could not dm the user, but banning anyway!");
             memberToUse.ban({reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
