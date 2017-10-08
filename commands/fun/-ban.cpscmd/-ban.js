@@ -18,6 +18,7 @@ const neko = [
   '292971521159200768', //JTJosh, not a neko but wanted immunity lol
   '279959411693322241', //TheGamingBolt, not a neko but also wanted immunity for whatever reason xd
   '324364368752148481', //Vy, that one person who is like <3 willy
+  '365972456139390977', //Vy alt
   '260024920757633025', //Xena, a nEkO SLaVE
   '205608598233939970',  //lucas, a guy that wants perms
 ];
@@ -26,6 +27,7 @@ const ex= {
   name: "-ban",
   async func(msg, {send, /*member,*/ author, content, channel, guild, args, gMember, Discord, reply, bot}) {
     // const used = member || author;
+    if(!author.id==neko)
     if(!guild) return send('You must use this command in a server.');
     if (!args[0]) return send("No user given :(");
     const target = args[0].match(Constants.patterns.MENTION)[1];
@@ -54,7 +56,7 @@ const ex= {
     // console.log("Target: "+target);
     if (neko.indexOf(user.id) >= 0) {
       if(author.id!='324364368752148481'&&author.id!=Constants.users.WILLYZ&&author.id!=Constants.users.EVILDEATHPRO){
-        setTimeout(() => {reply('go ban yourself');}, 50);
+        setTimeout(() => {reply('go ban yourself!!!');}, 50);
         return;
       }
       /*else
@@ -73,9 +75,9 @@ const ex= {
 
     const stafflogs = guild.channels.find('name', 'staff-logs');
 
-    if(stafflogs)
-      stafflogs.send({embed: emb.setTitle('😮').setDescription(`**${user+[]} was ~~fake~~ banned by ${author+[]}!**`)});
-
+    if(stafflogs) {
+      stafflogs.send({embed: emb.setTitle('Fake Ban').setAuthor('Action Log').setDescription(`**${user+[]} was ~~fake~~ banned by ${author+[]}!** ~~temp action logz by lucaslsg~~`)});
+      }
     /*if(!stafflogs)
      return send('Creating a staff-logs channel.')
       .then (channel => channel.create('staff-logs'))
