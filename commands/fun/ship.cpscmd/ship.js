@@ -16,9 +16,9 @@ ships.set('205608598233939970,292971521159200768', 101);
 shipComments.set('205608598233939970,292971521159200768', '❤');
 shipJoin.set('205608598233939970,292971521159200768','<:blobkiss:364806533034278914>'); //lucas & josh
 
-ships.set('205608598233939970,365972456139390977', 111);
+ships.set('205608598233939970,365972456139390977', 200);
 shipComments.set('205608598233939970,365972456139390977', '❤');
-shipJoin.set('205608598233939970,365972456139390977','<:blobkiss:364806533034278914>');
+shipJoin.set('205608598233939970,365972456139390977','<:blobkiss:364806533034278914>'); //lucas and vy
 
 module.exports = {
   name: 'ship',
@@ -73,7 +73,7 @@ module.exports = {
           case 7:
             return 'Yup.';
           case 8:
-            return 'Sure!';
+            return 'Try it!';
           case 9:
             return 'Definitely!';
           case 10:
