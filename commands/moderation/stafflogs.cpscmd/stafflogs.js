@@ -5,12 +5,11 @@ module.exports = {
     let stafflogs = guild.channels.find('name', 'staff-logs');
     
     if(stafflogs) 
-      return send('You already have a staff-logs channel: ' + stafflogs)   
+      return send('You already have a staff-logs channel: ' + stafflogs);  
 
     if(!args[0])
-      return send('Use \"stafflogs set\"!')
+      return send('Use \"stafflogs set\"!');
     
-
     if(args[0]==='set')
       if(stafflogs==null)
       stafflogs = await guild.createChannel(
