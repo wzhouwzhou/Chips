@@ -16,7 +16,11 @@ module.exports = {
         { name: 'staff-logs'}
       ).then(reply => send(stafflogs + ' channel succesfully created!'));
 
-} 
+    if (args[0]==='add')
+     return send('Creating a staff-logs channel.')
+      .then (channel => channel.create('staff-logs'))
+      await send(stafflogs + ' channel succesfully created!');
+}
 
 /*    
 Inspired by uhm emojiben
