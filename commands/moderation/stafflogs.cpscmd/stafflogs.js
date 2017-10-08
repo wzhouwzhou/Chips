@@ -12,13 +12,11 @@ module.exports = {
     
 
     if(args[0]==='set')
-    
-    if(stafflogs==null)
-    stafflogs = await guild.createChannel(
-      { name: 'staff-logs'}
-    );
+      if(stafflogs==null)
+      stafflogs = await guild.createChannel(
+        { name: 'staff-logs'}
+      ).then(reply => send(stafflogs + ' channel succesfully created!'));
 
-   await reply(stafflogs + ' channel succesfully created!')
 } 
 
 /*    
