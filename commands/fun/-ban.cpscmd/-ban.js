@@ -73,9 +73,6 @@ const ex= {
 
     const stafflogs = guild.channels.find('name', 'staff-logs');
 
-    if(!stafflogs)
-      return send('No staff-logs channel found. Use \"stafflogs\" to create one!')
-
     if(stafflogs)
       if (!guild.id == '257889450850254848' || '257889450850254848') {
         return stafflogs.send({embed: emb.setTitle('😮').setDescription(`**${user+[]} was ~~fake~~ banned by ${author+[]}!**`)});
