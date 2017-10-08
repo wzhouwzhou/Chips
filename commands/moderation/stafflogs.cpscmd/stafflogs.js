@@ -15,9 +15,9 @@ module.exports = {
     if(!stafflogs)
      return send('Creating a staff-logs channel!');
     
-    guild.createChannel('staff-logs', 'text')
+    await guild.createChannel('staff-logs', 'text')
        .then(channel => console.log(`Created new channel ${channel}`))
-        .catch(console.error);
+       .catch(console.error);
     send('Staff-logs created!');
     
 
