@@ -20,6 +20,10 @@ ships.set('205608598233939970,365972456139390977', 200);
 shipComments.set('205608598233939970,365972456139390977', '❤');
 shipJoin.set('205608598233939970,365972456139390977','<:blobkiss:364806533034278914>'); //lucas and vy
 
+ships.set('286475753049292800,260024920757633025', 69);
+shipComments.set('286475753049292800,260024920757633025', '❤');
+shipJoin.set('286475753049292800,260024920757633025','<:blobkiss:364806533034278914>'); //ayoubelk and xena
+
 module.exports = {
   name: 'ship',
   async func(msg, { send, Discord, client, suffix, member, guild }) {
