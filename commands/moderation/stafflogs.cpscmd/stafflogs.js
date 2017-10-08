@@ -1,8 +1,9 @@
 module.exports = {
   name: "stafflogs",
-  async func(msg, { reply, channel, args, guild }) {
+  async func(msg, { channel, args, guild }) {
     
     let stafflogs = guild.channels.find('name', 'staff-logs');
+    
     if(stafflogs) 
       return send('You already have a staff-logs channel: ' + stafflogs)   
 
