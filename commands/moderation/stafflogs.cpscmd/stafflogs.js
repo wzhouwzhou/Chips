@@ -15,9 +15,5 @@ module.exports = {
       stafflogs = await guild.createChannel('staff-logs', 'text')
        .then(reply => send(stafflogs + ' channel succesfully created!'));
 
-    if (args[0]==='add')
-     return send('Creating a staff-logs channel.')
-     channel.create('staff-logs')
-     await send(stafflogs + ' channel succesfully created!');
   }
 }
