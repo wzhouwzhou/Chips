@@ -55,7 +55,7 @@ const ex= {
     // console.log("Target: "+target);
     if (neko.indexOf(user.id) >= 0) {
       if(author.id!='324364368752148481'&&author.id!=Constants.users.WILLYZ&&author.id!=Constants.users.EVILDEATHPRO){
-        setTimeout(() => {reply('go ban yourself');}, 50);
+        setTimeout(() => {reply('go ban yourself!!!');}, 50);
         return;
       }
       /*else
@@ -75,7 +75,7 @@ const ex= {
     const stafflogs = guild.channels.find('name', 'staff-logs');
 
     if(stafflogs) {
-      stafflogs.send({embed: emb.setTitle('😮').setAuthor('Action Log').setDescription(`**${user+[]} was ~~fake~~ banned by ${author+[]}!** ~~temp action logz by lucaslsg~~`)});
+      stafflogs.send({embed: emb.setTitle('Fake Ban').setAuthor('Action Log').setDescription(`**${user+[]} was ~~fake~~ banned by ${author+[]}!** ~~temp action logz by lucaslsg~~`)});
       }
     /*if(!stafflogs)
      return send('Creating a staff-logs channel.')
