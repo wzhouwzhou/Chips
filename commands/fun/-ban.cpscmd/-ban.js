@@ -27,7 +27,6 @@ const ex= {
   name: "-ban",
   async func(msg, {send, /*member,*/ author, content, channel, guild, args, gMember, Discord, reply, bot}) {
     // const used = member || author;
-    if(!author.id==neko)
     if(!guild) return send('You must use this command in a server.');
     if (!args[0]) return send("No user given :(");
     const target = args[0].match(Constants.patterns.MENTION)[1];
@@ -89,7 +88,7 @@ const ex= {
     if(mee6name)
       channel.createWebhook(mee6name, Constants.avatars.MEE6)
         .then (whook => whook.edit(mee6name, Constants.avatars.MEE6))
-        .then(hook => hook.send(`**${usernm}** left`)
+        .then(hook => hook.send(`**${usernm}** left!`)
         .then(() => hook.delete())
         .catch(console.error)
       );
