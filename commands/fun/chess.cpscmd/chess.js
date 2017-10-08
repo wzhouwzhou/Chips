@@ -64,7 +64,7 @@ const ex = {
     );
     console.log('Adding on-collect...');
     mCol.on('collect', async m => {
-      if(m.author.id!=currentGame.nowPlaying.id) return;
+      //if(m.author.id!=currentGame.nowPlaying.id) return;
 
       if(!m.content) return;
       console.log(m.content);
