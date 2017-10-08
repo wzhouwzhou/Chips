@@ -8,7 +8,7 @@ sl.metadata = {
   usage: 'stafflogs set',
   example: 'stafflogs-set',
   perm: [['global.info.info']],
-  customperm: ['SEND_MESSAGES'],
+  customperm: ['MANAGE_CHANNELS'],
 };
 
 
