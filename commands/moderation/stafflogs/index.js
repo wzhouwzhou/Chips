@@ -1,5 +1,5 @@
 
-let sl = require('./botnick');
+let sl = require('./stafflogs');
 
 console.log('[CPSCMD][MODERATION][botnic] Building objects...');
 sl.metadata = {
