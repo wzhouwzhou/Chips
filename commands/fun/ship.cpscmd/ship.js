@@ -12,6 +12,10 @@ ships.set('285348528920723456,324364368752148481', 1);
 shipComments.set('285348528920723456,324364368752148481', 'Error 404: Joke not found.');
 shipJoin.set('285348528920723456,324364368752148481','x'); //kng and vy
 
+ships.set('205608598233939970,292971521159200768', 101);
+shipComments.set('205608598233939970,292971521159200768', '❤');
+shipJoin.set('205608598233939970,292971521159200768','<:blobkiss:364806533034278914>'); //lucas & josh
+
 module.exports = {
   name: 'ship',
   async func(msg, { send, Discord, client, suffix, member, guild }) {
