@@ -8,13 +8,13 @@ const promptingAll = new Map();
 const ex = {
   name: "chess",
   async func(msg, ctx) {
-    let {Discord, author, reply, member, send, channel, args, prefix } = ctx;
+    let { author, reply, member, send, channel, args, prefix } = ctx;
     let mCol, silentQuit = false;
     if(args[0]&&args[0].toLowerCase()==='join') return !0;
 
-    if(prompting.has(author.id)) return;
-    if(promptingAll.has(channel.id)) return;
-    if(games.has(channel.id)) return send('There is already a game going on.');
+    if(prompting.get(author.id)) return;
+    if(promptingAll.get(channel.id)) return;
+    if(games.get(channel.id)) return send('There is already a game going on.');
 
     let othermember;
 
@@ -123,7 +123,7 @@ const promptPlayer = (author, send, prefix, channel, targetMember) => {
   return new Promise( async (res,rej) => {
     const startFilter = (m) => {
       if(m.author.bot) return false;
-      if((new RegExp(`${_.escapeRegExp(prefix)}chess (join|decline)`,'gi')).test(m.content.toLowerCase().replace(/\s+/g,'')))
+      if((new RegExp(`${_.escapeRegExp(prefix)}chess(join|decline)`,'gi')).test(m.content.toLowerCase().replace(/\s+/g,'')))
         if(m.author.id !== author.id) {
             if((!targetMember)||targetMember.id===m.author.id)
               if(~m.content.toLowerCase().indexOf('join'))
@@ -191,5 +191,6 @@ const promptInvitee = ({send, channel, author}) => {
 
 ex._games = games;
 ex._prompting = prompting;
+ex._promptingAll = promptingAll;
 
 module.exports = ex;
