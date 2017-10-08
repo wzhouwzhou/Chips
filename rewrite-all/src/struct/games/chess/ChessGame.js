@@ -74,7 +74,13 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     }
 
     this.lastMove = this.move(move);
-    this.updateAll(this.game.fen().split(/\s+/)[0]);
+    if (this.isOver()) {
+      this.emit('end', this);
+      this.updateAll(this.game.fen().split(/\s+/)[0], true);
+      return this;
+    }else
+      this.updateAll(this.game.fen().split(/\s+/)[0]);
+
     return this;
   }
 
