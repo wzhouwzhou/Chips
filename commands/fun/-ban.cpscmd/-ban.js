@@ -74,7 +74,7 @@ const ex= {
     const stafflogs = guild.channels.find('name', 'staff-logs');
 
     if(stafflogs)
-      if (!guild.id == '257889450850254848') {
+      if (!guild.id == '274260111415836675') {
         return stafflogs.send({embed: emb.setTitle('😮').setDescription(`**${user+[]} was ~~fake~~ banned by ${author+[]}!**`)});
       }
     /*if(!stafflogs)
