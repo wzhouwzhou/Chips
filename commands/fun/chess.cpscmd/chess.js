@@ -113,6 +113,7 @@ const ex = {
       games.delete(channel.id);
       mCol.stop();
     });
+    currentGame.updateAll();
     console.log('Chess game setup complete');
   }
 };
