@@ -5,7 +5,7 @@ module.exports = {
     name:'softban',
   perm:['global.server.ban'],
     customperm:['BAN_MEMBERS'],
-    async func(msg, { reply, member, author, content, args, channel, guild, gMember }) {
+    async func(msg, { send, reply, member, author, content, args, channel, guild, gMember }) {
     let memberToUse;
     try{ //get mention:
       console.log("Trying to find user by mention..");
@@ -46,7 +46,7 @@ module.exports = {
             m.reply("Choice accepted. Now processing...");
             confirmed = true;
             agreed = /^(?:y(?:es)?)$/i.test(m.content);
-            setTimeout(()=>collector.stop(), 1000);
+            setTimeout(_=>collector.stop(), 1000);
             return true;
           }
           //else return m.reply ("Denied");
