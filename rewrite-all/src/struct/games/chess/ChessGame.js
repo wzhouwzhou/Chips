@@ -20,6 +20,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       channelID: options.channel?options.channel.id:0,
       empty: null,
     });
+    this.players = options.players;
     this.channel = options.channel;
     this.game = new Chess(options.newFen||startFen);
     this.board = new Array(8).fill(0);
@@ -28,42 +29,68 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.boardFen = this.fen.split(/\s+/)[0];
   }
 
-  embedify () {
+  embedify (end = false) {
     if(!this.embed) throw new Error('Embed is missing !!11!1!!!!');
     this.embed = new (this.embed.constructor);
-    this.embed.addField(`${this.turn} to move`, this.toString(), true);
-    //this.embed.addField('Move history', true);
+    this.embed.addField(end?this.turn&&this.turn.toLowerCase()==='black'?'White won!':'Black won!':`${this.turn||'White'} to move`,/*this.toString()*/'.', true);
+
+    this.embed.addField('Last move', this.game.history()&&this.game.history()[0]?this.game.history().reverse()[0]:'None', true);
     this.embed.setTitle('Chess');
     return this.embed;
   }
 
-  updateFrontEnd () {
+  updateFrontEnd (end) {
     if(!this.channel) throw new Error('Channel is missing !!!11!');
-    const embed = this.embedify();
+    const embed = this.embedify(end);
     if(this.lastM) {
       this.lastM.delete();
       this.lastM = null;
     }
 
-    this.channel.send(embed).then(m=>this.lastM = m);
+    this.channel.send(this.toString(), {embed}).then(m=>this.lastM = m);
   }
 
   randomMove () {
     const possibleMoves = this.game.moves();
 
-    if (this.game.game_over() || this.game.in_draw() || possibleMoves.length === 0) return null;
+    if (this.isOver()) {
+      this.emit('end', this);
+      this.updateAll(this.game.fen().split(/\s+/)[0], true);
+      return null;
+    }
 
     const randomIndex = ~~(possibleMoves.length*Math.random());
 
     this.lastMove = this.move(possibleMoves[randomIndex]);
-    this.updateViewFen(this.game.fen().split(/\s+/)[0]);
-    this.updateFrontEnd();
+    this.updateAll(this.game.fen().split(/\s+/)[0]);
     return this;
   }
 
-  updateAll () {
-    this.updateViewFen(this.game.fen().split(/\s+/)[0]);
-    this.updateFrontEnd();
+  go (move) {
+    if (this.isOver()) {
+      this.emit('end', this);
+      this.updateAll(this.game.fen().split(/\s+/)[0], true);
+      return null;
+    }
+
+    this.lastMove = this.move(move);
+    if (this.isOver()) {
+      this.emit('end', this);
+      this.updateAll(this.game.fen().split(/\s+/)[0], true);
+      return this;
+    }else
+      this.updateAll(this.game.fen().split(/\s+/)[0]);
+
+    return this;
+  }
+
+  isOver () {
+    return (this.game.game_over() || this.game.in_draw() || this.game.moves().length === 0 || this.game.insufficient_material());
+  }
+
+  updateAll (override = this.game.fen().split(/\s+/)[0], end) {
+    this.updateViewFen(override);
+    this.updateFrontEnd(end);
     return this;
   }
 

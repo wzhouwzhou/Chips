@@ -76,18 +76,22 @@ const ex = {
         [`Name of this server: ${gname}`, `Guild id: ${guild.id}`],
         ['Server owner:', `${getUser(guild.ownerID).tag} <@${guild.ownerID}>`],
         [`Number of roles: ${guild.roles.size}`,`Highest role: ${highestRole.name} (${highestRole.id})`],
-        [`Total number of channels: ${tC}`, `Total number of nsfw channels: ${nsfw}`],
-        [`Text channel count:`, textC, true],
-        [`Voice channel count:`, voiceC, true],
+        [
+          `Total number of channels: ${tC}`,
+          `Text: **${textC}**\nNsfw: **${nsfw}**\nVoice: **${voiceC}**`
+        ],
         [`Server region (voice): `, guild.region, true],
         [`AFK voice channel: ${guild.afkChannelID?'#'+guild.channels.get(guild.afkChannelID).name:''}`,`${guild.afkChannelID?'AFK Timeout: '+ guild.afkTimeout/60 +' minute(s)':'None'}` ],
         [`Date created: ${guild.createdAt.toUTCString()}`, `That's about ${diff} days ago!`],
-        ['Member count:', `${guild.memberCount>1?guild.memberCount+'members':'1 member'}`, true],
-        [`Total number of members: ${trueMemC.size} (Not including bots)`,`There ${guild.members.size-trueMemC.size==1?'is':'are'} ${guild.members.size-trueMemC.size} bot${guild.members.size-trueMemC.size==1?'':'s'}!`, true],
-        [`Reachable members (online, idle or dnd): ${available}`, `There  ${guild.members.size-available==1?'is':'are'} <:offline:313956277237710868> ${guild.members.size-available} ${guild.members.size-available==1?'person':'people'} offline or invisible`],
-        ['Online: <:online:313956277808005120>', online, true],
-        ['Idle: <:away:313956277220802560>', idle, true],
-        ['Dnd: <:dnd:313956276893646850>', dnd, true],
+        [`${guild.members.size} member(s): ${trueMemC.size} ${trueMemC.size===1?'person':'people'}, ${guild.members.size-trueMemC.size} ${guild.members.size-trueMemC.size===1?'bot':'bots'}`,([
+          `Reachable member(s) (online, idle or dnd): **${available}**`,
+          ...[
+            ['<:online:313956277808005120>',online],
+            ['<:away:313956277220802560>', idle],
+            ['<:dnd:313956276893646850>', dnd],
+            ['<:offline:313956277237710868>', guild.members.size-available],
+          ].map(e=>`${e[0]}: **${e[1]}**`),
+        ].join('\n'))],
         [`Verification level: ${vLvl}`,`That means ${vInfo}`]
       ].forEach(f=>infobad.addField(...f));
 
@@ -350,11 +354,17 @@ const ex = {
         infobad.addField(`Channel Topic:`,`${channel.topic?channel.topic:'None'}`);
         infobad.addField(`Channel ID: `, `${channel.id}`);
         infobad.addField(`Creation date: ${channel.createdAt.toUTCString()}`,`That's about ${diff} ago!`);
-        infobad.addField(`Total number of members who can see this channel: ${trueMemC.size} (Not including bots)`,`There ${channel.members.size-trueMemC.size==1?'is':'are'} ${channel.members.size-trueMemC.size} bot${channel.members.size-trueMemC.size==1?'':'s'} with access to this channel!`);
-        infobad.addField(`Reachable members (online, idle or dnd): ${available}`, `There ${trueMemC.size-available==1?'is':'are'} <:offline:313956277237710868> ${trueMemC.size-available} ${trueMemC.size-available==1?'person':'people'} with access to this channel offline or invisible`);
-        infobad.addField(`Online: <:online:313956277808005120>`, online, true)
-               .addField(`Idle: <:away:313956277220802560>    `, idle  , true)
-               .addField(`Dnd: <:dnd:313956276893646850>      `, dnd   , true);
+
+       infobad.addField(`${channel.members.size} member(s): ${trueMemC.size} ${trueMemC.size===1?'person':'people'}, ${channel.members.size-trueMemC.size} ${channel.members.size-trueMemC.size===1?'bot':'bots'}`,([
+         `Reachable member(s) (online, idle or dnd): **${available}**`,
+         ...[
+           ['<:online:313956277808005120>',online],
+           ['<:away:313956277220802560>', idle],
+           ['<:dnd:313956276893646850>', dnd],
+           ['<:offline:313956277237710868>', channel.members.size-available],
+         ].map(e=>`${e[0]}: **${e[1]}**`),
+       ].join('\n')));
+
         infobad.addField(`Position: ${channel.calculatedPosition}`,`This means that the channel is ${channel.calculatedPosition==0?'1st':(channel.calculatedPosition==1?'2nd':(channel.calculatedPosition==2?'3rd':((channel.calculatedPosition+1)+'th')))} on the channel list in the sidebar!`);
         infobad.addField(`Permission Overwrite Count: `,`${channel.permissionOverwrites.size}`);
         infobad.addField(`Nsfw channel: `,`${channel.nsfw?'yes':'no'}`);
