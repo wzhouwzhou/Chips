@@ -3,8 +3,6 @@ const EXPIRE = 10000;
 
 module.exports = {
     name:'softban',
-  perm:['global.server.ban'],
-    customperm:['BAN_MEMBERS'],
     async func(msg, { send, reply, member, author, content, args, channel, guild, gMember }) {
     let memberToUse;
     try{ //get mention:
