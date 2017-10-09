@@ -44,7 +44,7 @@ module.exports = {
     const InfoMenu2 = ([
       '**{}discordstatus** to get the current status of discord.',
       '**{}memberstatus help** to see how you can use it.',
-      '**{}lastmessageid** to get last sended message ID.',
+      '**{}lastmessageid** to get last sent message ID.',
       '**{}channelid** to get the channel\'s ID',
       '**{}serverid** to get the server\'s ID.',
       '**{}channeltopic** to get the channel topic.',

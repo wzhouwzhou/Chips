@@ -11,7 +11,6 @@ module.exports = {
       console.log("Trying to find user by mention..");
       if(!args[0]) return reply("Please specify a user to ban!");
       let target = args[0].match(Constants.patterns.MENTION)[1];
-      let chipstarget = args[0].match(Constants.users.CHIPS)[1];
       if(!target) return reply("Please specify a valid user to ban!");
       memberToUse = gMember(target);
       if(chipstarget)
