@@ -1,5 +1,6 @@
 module.exports = {
   name: "stafflogs",
+  customperm: ["MANAGE-CHANNELS"],
   async func(msg, { channel, args, guild, send, member }) {
     
     let stafflogs = guild.channels.find('name', 'staff-logs');
