@@ -71,7 +71,9 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       const randomIndex = ~~(possibleMoves.length*Math.random());
 
       return this.go(possibleMoves[randomIndex]);
-    } else setTimeout(() => this.randomMove(), delay);
+    } else setTimeout(() => {
+      this.randomMove();
+    }, delay);
   }
 
   go (move) {
