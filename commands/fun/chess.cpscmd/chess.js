@@ -120,13 +120,13 @@ const ex = {
     });
 
     mCol.on('end', collected => {
-      if(collected.size===0){
-        !silentQuit&&his._msg.reply('Timed out, game was not saved to memory');
-        prompting.delete(othermember.id);
-        games.delete(channel.id);
-        promptingAll.delete(channel.id);
-        prompting.delete(author.id);
-      }
+      if(collected.size===0)
+        !silentQuit&&reply('Timed out, game was not saved to memory');
+
+      prompting.delete(othermember.id);
+      games.delete(channel.id);
+      promptingAll.delete(channel.id);
+      prompting.delete(author.id);
       console.log('MCol ended');
     });
 
