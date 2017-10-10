@@ -81,7 +81,7 @@ const ex = {
           .trim();
       try {
         result = currentGame.go(move);
-        m.channel.send(`Autocomplete: ${move}`);
+        console.log(`Autocomplete: ${move}`);
         console.log('Game: '+result);
         if(result == 'Woah too fast!'){
           return send('Too fast...');
@@ -89,7 +89,7 @@ const ex = {
         m.delete().catch(_=>_);
       }catch(err){ //'Invalid move!'
         if(move.length < 6) 
-          m.channel.send(`Autocomplete: ${move}`);
+          console.log(`Autocomplete: ${move}`);
         if(move.match(/^[RNKQB][a-h0-9]{3,4}$/)) send('Ensure you have given a valid move');
         if(!~err.message.indexOf('Move not completed')) console.error(err);
       }
