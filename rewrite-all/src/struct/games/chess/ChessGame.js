@@ -11,8 +11,6 @@ const ChessConstants = Constants.chess;
 const {W, B, chessPieces: pieces, startFen, label2} = ChessConstants;
 const files = new Array(8).fill(0).map((e,i)=>String.fromCharCode('A'.charCodeAt(0) + i));
 
-const B = '⚫', W = '
-
 const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   constructor(options) {
     super({
@@ -40,7 +38,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   embedify (end = false) {
     if(!this.embed) throw new Error('Embed is missing !!11!1!!!!');
     this.embed = new (this.embed.constructor);
-    this.embed.addField(`${this.movers.get('white').tag} (white) vs ${this.movers.get('black').tag}`, end?this.game.in_draw()?'The game was a draw!':this.turn&&this.turn.toLowerCase()==='black'?'White won!':'Black won!':`${this.turn||'White'} to move`, true);
+    this.embed.addField(`${this.movers.get('white').tag}${W} vs ${B}${this.movers.get('black').tag}`, end?this.game.in_draw()?'The game was a draw!':this.turn&&this.turn.toLowerCase()==='black'?'White won!':'Black won!':`${this.turn||'White'} to move`, true);
 
     this.embed.addField('Last move', this.game.history()&&this.game.history()[0]?this.game.history().reverse()[0]:'None', true);
     this.embed.setTitle('Chess');
