@@ -80,7 +80,9 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   go (move, stopBot) {
     if (this.isOver()) {
       this.emit('end', this);
-      this.updateAll(this.game.fen().split(/\s+/)[0], true);
+      if(!this.ended)
+        this.updateAll(this.game.fen().split(/\s+/)[0], true);
+      this.ended = true;
       return null;
     }
 
@@ -90,7 +92,9 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
 
     if (this.isOver()) {
       this.emit('end', this);
-      this.updateAll(this.game.fen().split(/\s+/)[0], true);
+      if(!this.ended)
+        this.updateAll(this.game.fen().split(/\s+/)[0], true);
+      this.ended = true;
       return this;
     }else
       this.updateAll(this.game.fen().split(/\s+/)[0]);
