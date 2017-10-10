@@ -65,6 +65,8 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   }
 
   randomMove (delay) {
+    if (this.isOver()) return this;
+
     if(!delay) {
       const possibleMoves = this.game.moves();
       const randomIndex = ~~(possibleMoves.length*Math.random());
