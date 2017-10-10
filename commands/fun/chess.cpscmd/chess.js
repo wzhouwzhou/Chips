@@ -79,9 +79,9 @@ const ex = {
           .replace(/^([RNKQB])([a-hx])(\w)/i, (match, a, b, c)=>a.toUpperCase()+b.toLowerCase()+c)
           .replace(/^([a-h])(\d)/i, (match, a, b) => a.toUpperCase()+b)
           .trim();
-      m.channel.send(`Autocomplete: ${move}`);
       try {
         result = currentGame.go(move);
+        m.channel.send(`Autocomplete: ${move}`);
         console.log('Game: '+result);
         if(result == 'Woah too fast!'){
           return send('Too fast...');
