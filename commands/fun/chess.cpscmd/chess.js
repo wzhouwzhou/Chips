@@ -75,17 +75,22 @@ const ex = {
         mCol.stop();
       }
 
-      const move = m.content.replace(/[rnkqb]/g,e=>e.toUpperCase()).trim();
-
+      const move = m.content
+          .replace(/^([RNKQB])([a-hx])(\w)/i, (match, a, b, c)=>a.toUpperCase()+b.toLowerCase()+c)
+          .replace(/^([a-h])(\d)/i, (match, a, b) => a.toLowerCase()+b)
+          .trim();
       try {
         result = currentGame.go(move);
+        console.log(`Autocomplete: ${move}`);
         console.log('Game: '+result);
         if(result == 'Woah too fast!'){
           return send('Too fast...');
         }
         m.delete().catch(_=>_);
       }catch(err){ //'Invalid move!'
-        if(move.match(/^[RNKQB]\w{3,4}$/)) send('Ensure you have given a valid move');
+        if(move.length < 6) 
+          console.log(`Autocomplete: ${move}`);
+        if(move.match(/^[RNKQB][a-h0-9]{3,4}$/)) send('Ensure you have given a valid move');
         if(!~err.message.indexOf('Move not completed')) console.error(err);
       }
     });

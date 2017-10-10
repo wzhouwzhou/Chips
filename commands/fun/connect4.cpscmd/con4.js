@@ -37,7 +37,7 @@ const ex = {
   name: "con4",
   async func(msg, ctx) {
     let {Discord, author, reply, member, send, channel, args, prefix } = ctx;
-    let mCol, silentQuit = false;
+    let mcol, silentQuit = false;
     if(args[0]&&args[0].toLowerCase()==='join') return !0;
 
     if(prompting.has(author.id)) return;

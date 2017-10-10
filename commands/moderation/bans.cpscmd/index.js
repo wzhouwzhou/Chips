@@ -36,7 +36,7 @@ unban.metadata = {
   description: 'This command lets you unban server members!',
   usage: 'unban <User> <Optional Reason>',
   example: 'unban @周珺 • WillyZ#6686 Being dumb.',
-  perm: [['global.moderation.bans.ban']],
+  perm: [['global.moderation.bans.unban']],
   customperm: ['BAN_MEMBERS'],
 };
 roleban.metadata = {

@@ -2,7 +2,6 @@ const timers = [];
 
 module.exports = {
   name:'reactban',
-  customperm:['MANAGE_MESSAGES'],
   async func(msg, { reply, member, args, channel, guild, gMember, prefix }) {
     if(!guild) return reply('I can\'t ban you from reacting in this channel!');
     let intervalID;
