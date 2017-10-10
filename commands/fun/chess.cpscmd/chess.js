@@ -77,7 +77,7 @@ const ex = {
 
       const move = m.content
           .replace(/^([RNKQB])([a-hx])(\w)/i, (match, a, b, c)=>a.toUpperCase()+b.toLowerCase()+c)
-          .replace(/^([a-h])(\d)/i, (match, a, b) => a.toUpperCase()+b)
+          .replace(/^([a-h])(\d)/i, (match, a, b) => a.toLowerCase()+b)
           .trim();
       try {
         result = currentGame.go(move);
