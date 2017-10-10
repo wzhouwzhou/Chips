@@ -29,7 +29,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.movers = new Map;
     this.movers.set('white',this.players[0]);
     this.movers.set('black',this.players[1]);
-    this.turn = 'white';
+    this.turn = 'White';
 
     this.channel = options.channel;
     this.game = new Chess(options.newFen||startFen);
@@ -38,7 +38,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.fen = options.newFen||startFen;
     this.boardFen = this.fen.split(/\s+/)[0];
 
-    if(this.movers.get(this.turn).id === client.user.id)
+    if(this.movers.get(this.turn.toLowerCase()).id === client.user.id)
       this.randomMove(2000);
 
   }

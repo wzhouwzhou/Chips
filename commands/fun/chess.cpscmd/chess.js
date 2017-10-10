@@ -65,7 +65,7 @@ const ex = {
     );
     console.log('Adding on-collect...');
     mCol.on('collect', async m => {
-      if(m.author.id !== currentGame.movers.get(currentGame.turn).id) return;
+      if(m.author.id !== currentGame.movers.get(currentGame.turn.toLowerCase()).id) return;
 
       if(!m.content) return;
       //console.log(m.content);
