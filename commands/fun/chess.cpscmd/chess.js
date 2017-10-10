@@ -25,7 +25,8 @@ const ex = {
         send('You cannot invite that bot!');
         throw new Error('Bot invitee');
       }
-      othermember = await promptPlayer (author, send, prefix, channel, othermember, client);
+      if(othermember.user.id!==client.user.id)
+        othermember = await promptPlayer (author, send, prefix, channel, othermember, client);
     }catch(err){
       games.delete(channel.id);
       prompting.delete(othermember?othermember.id:0);
@@ -87,7 +88,7 @@ const ex = {
 
         m.delete().catch(_=>_);
       }catch(errA){ //'Invalid move!'
-			try{
+        try{
           move = move.replace(/^([RNKQB])([a-h])(\w)/i, (match, a, b, c)=>a.toUpperCase()+b.toLowerCase()+c)
           .replace(/^([a-h])(\d)/i, (match, a, b) => a.toLowerCase()+b)
           .trim();
