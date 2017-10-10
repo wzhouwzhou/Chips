@@ -56,7 +56,7 @@ const ex = {
     console.log(`Creating a chess game for channel ${channel.id}...`);
 
     const currentGame = new CG({channel, players: _.shuffle([member.user, othermember.user])});
-
+    currentGame.on('end', game => game.ended = true);
     games.set(channel.id, currentGame);
     console.log('Creating collector...');
     mCol = channel.createMessageCollector(
@@ -68,8 +68,8 @@ const ex = {
       //if(m.author.id!=currentGame.nowPlaying.id) return;
 
       if(!m.content) return;
-      console.log(m.content);
-      if(/quit/i.test(m.content)) {
+      //console.log(m.content);
+      if(/quit/i.test(m.content)||(currentGame.isOver()&&!currentGame.ended)) {
         //currentGame.game.end();
         send('Ending…');
         currentGame.emit('ended', currentGame);
