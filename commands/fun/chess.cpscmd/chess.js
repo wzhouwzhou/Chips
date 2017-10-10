@@ -75,8 +75,11 @@ const ex = {
         mCol.stop();
       }
 
-      const move = m.content.replace(/^([rnkqb])([A-Ha-hXx])(\w)/, (match, a, b, c)=>a.toUpperCase()+b.toLowerCase()+c).replace(/^([A-H])(\d)/, (match, a, b) => a.toUpperCase()+b).trim();
-
+      const move = m.content
+          .replace(/^([RNKQB])([a-hx])(\w)/i, (match, a, b, c)=>a.toUpperCase()+b.toLowerCase()+c)
+          .replace(/^([a-h])(\d)/i, (match, a, b) => a.toUpperCase()+b)
+          .trim();
+      m.channel.send(`Autocomplete: ${move}`);
       try {
         result = currentGame.go(move);
         console.log('Game: '+result);
