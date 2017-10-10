@@ -8,7 +8,7 @@ const promptingAll = new Map();
 const ex = {
   name: "chess",
   async func(msg, ctx) {
-    let { author, reply, member, send, channel, args, prefix } = ctx;
+    let { author, reply, member, send, channel, args, prefix, client } = ctx;
     let mCol, silentQuit = false;
     if(args[0]&&args[0].toLowerCase()==='join') return !0;
 
@@ -21,11 +21,11 @@ const ex = {
     games.set(channel.id, channel);
     try{
       othermember = await promptInvitee(ctx);
-      if(othermember&&othermember.user.bot){
-        send('You cannot invite a bot!');
+      if(othermember&&othermember.user.bot&&othermember.user.id!==client.user.id){
+        send('You cannot invite that bot!');
         throw new Error('Bot invitee');
       }
-      othermember = await promptPlayer (author, send, prefix, channel, othermember);
+      othermember = await promptPlayer (author, send, prefix, channel, othermember, client);
     }catch(err){
       games.delete(channel.id);
       prompting.delete(othermember?othermember.id:0);
@@ -107,11 +107,11 @@ const ex = {
               return send('Too fast...');
             m.delete().catch(_=>_);
           }catch(errC){
-            if(move.length < 6) 
+            if(move.length < 6)
               console.log(`Autocomplete: ${move}`);
-            if(move.match(/^[RNKQB][a-h0-9]{3,4}$/)) 
+            if(move.match(/^[RNKQB][a-h0-9]{3,4}$/))
               send('Ensure you have given a valid move');
-            if(!~errB.message.indexOf('Move not completed')) 
+            if(!~errB.message.indexOf('Move not completed'))
               console.error(err);
           }
         }
@@ -146,11 +146,13 @@ const ex = {
   }
 };
 
-const promptPlayer = (author, send, prefix, channel, targetMember) => {
+const promptPlayer = (author, send, prefix, channel, targetMember, client) => {
   targetMember!=null&&targetMember.id!=null&&prompting.set(targetMember.id, true);
   targetMember==null&&promptingAll.set(channel.id, true);
   return new Promise( async (res,rej) => {
     const startFilter = (m) => {
+      if(m.author.id === client.user.id) return res(targetMember||m.member);
+
       if(m.author.bot) return false;
       if((new RegExp(`${_.escapeRegExp(prefix)}chess(join|decline)`,'gi')).test(m.content.toLowerCase().replace(/\s+/g,'')))
         if(m.author.id !== author.id) {

@@ -11,6 +11,8 @@ const ChessConstants = Constants.chess;
 const {W, B, chessPieces: pieces, startFen, label2} = ChessConstants;
 const files = new Array(8).fill(0).map((e,i)=>String.fromCharCode('A'.charCodeAt(0) + i));
 
+const AIRAND = 1;
+
 const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   constructor(options) {
     super({
@@ -22,6 +24,8 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     });
     this.players = options.players || [];
     this.players = [...this.players, ...[null,null]];
+    if(this.players.find(e=> e && e.id===client.user.id ))
+      this.aiOptions = options.aiOptions || AIRAND;
     this.movers = new Map;
     this.movers.set('white',this.players[0]);
     this.movers.set('black',this.players[1]);
@@ -33,6 +37,11 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.embed = new Discord[/^[^]*12\.\d+[^]*$/.test(Discord.version)?'MessageEmbed':'RichEmbed'];
     this.fen = options.newFen||startFen;
     this.boardFen = this.fen.split(/\s+/)[0];
+
+    if(this.movers.get(this.turn).id === client.user.id) {
+      this.randomMove(2000);
+      this.hasMoved = true;
+    }
   }
 
   embedify (end = false) {
@@ -56,20 +65,13 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.channel.send(this.toString(), {embed}).then(m=>this.lastM = m);
   }
 
-  randomMove () {
-    const possibleMoves = this.game.moves();
+  randomMove (delay) {
+    if(!delay) {
+      const possibleMoves = this.game.moves();
+      const randomIndex = ~~(possibleMoves.length*Math.random());
 
-    if (this.isOver()) {
-      this.emit('end', this);
-      this.updateAll(this.game.fen().split(/\s+/)[0], true);
-      return null;
-    }
-
-    const randomIndex = ~~(possibleMoves.length*Math.random());
-
-    this.lastMove = this.move(possibleMoves[randomIndex]);
-    this.updateAll(this.game.fen().split(/\s+/)[0]);
-    return this;
+      return this.go(possibleMoves[randomIndex]);
+    } else setTimeout(() => randomMove(), delay);
   }
 
   go (move) {
@@ -80,6 +82,9 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     }
 
     this.lastMove = this.move(move);
+    if(!this.hasMoved&&this.aiOptions)
+      this.randomMove(2000);
+
     if (this.isOver()) {
       this.emit('end', this);
       this.updateAll(this.game.fen().split(/\s+/)[0], true);
@@ -128,19 +133,19 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   }
 
   toString(colorBottom='white'/*this.game.turn()*/) {
-    let str;
     if((/w(?:hite)?/).test(colorBottom)) this.board.reverse();
-    str = this.board.map((e,i)=>[Constants.numbersA[i+1]].concat(Object.keys(e).map(k=>e[k])).join('')).reverse().concat(label2.join('')).join('\n');
+    let str = this.board.map((e,i)=>[Constants.numbersA[i+1]].concat(Object.keys(e).map(k=>e[k])).join('')).reverse().concat(label2.join('')).join('\n');
     if((/w(?:hite)?/).test(colorBottom)) this.board.reverse();
     return str;
   }
 
   move (place) {
+    const newT = this.game.turn().replace(/w/,'White').replace(/b/,'Black');
     const tempMove =  this.game.move(place, {sloppy: !0});
     if(tempMove) this.lastMove = tempMove;
     else throw new Error('Move not completed !!!11!1!111!');
     //this.handleNextCapture(this.lastMove.captured);
-    this.turn = this.game.turn().replace(/w/,'White').replace(/b/,'Black');
+    this.turn = newT;
     return this.lastMove;
   }
 
