@@ -60,12 +60,12 @@ const ex = {
     games.set(channel.id, currentGame);
     console.log('Creating collector...');
     mCol = channel.createMessageCollector(
-      () => true/*query => (!!query.content.match(/(quit|stop|forfeit)/i))||((!!query.content.match(/\d+/g))&&query.content.match(/\d+/g)[0]&&query.content.match(/\d+/g)[0].length===query.content.length)*/,
+      q => [member.user, othermember.user].some(e => q.author.id === e.id),
       { time: TIME, errors: ['time'] }
     );
     console.log('Adding on-collect...');
     mCol.on('collect', async m => {
-      //if(m.author.id!=currentGame.nowPlaying.id) return;
+      if(m.author.id !== currentGame.movers.get(currentGame.turn).id) return;
 
       if(!m.content) return;
       //console.log(m.content);
