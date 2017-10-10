@@ -46,7 +46,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   embedify (end = false) {
     if(!this.embed) throw new Error('Embed is missing !!11!1!!!!');
     this.embed = new (this.embed.constructor);
-    this.embed.addField(`${this.movers.get('white').tag}${W} vs ${B}${this.movers.get('black').tag}`, end?this.game.in_draw()?'The game was a draw!':this.turn&&this.turn.toLowerCase()==='black'?'Black won!':'White won!':`${this.turn||'White'} to move`, true);
+    this.embed.addField(`${this.movers.get('white').tag}${W} vs ${B}${this.movers.get('black').tag}`, end?this.game.in_draw()?'The game was a draw!':this.turn&&this.turn.toLowerCase()==='black'?'Black won!':'White won!':`${this.turn} to move`, true);
 
     this.embed.addField('Last move', this.game.history()&&this.game.history()[0]?this.game.history().reverse()[0]:'None', true);
     this.embed.setTitle('Chess');
@@ -147,8 +147,9 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   }
 
   move (place) {
-    const newT = this.game.turn().replace(/w/,'White').replace(/b/,'Black');
     const tempMove =  this.game.move(place, {sloppy: !0});
+    const newT = this.game.turn().replace(/w/,'White').replace(/b/,'Black');
+
     if(tempMove) this.lastMove = tempMove;
     else throw new Error('Move not completed !!!11!1!111!');
     //this.handleNextCapture(this.lastMove.captured);
