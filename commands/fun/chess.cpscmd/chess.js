@@ -75,7 +75,7 @@ const ex = {
         mCol.stop();
       }
 
-      const move = m.content.replace(/^([rnkqb])([A-Ha-hXx])(\w)/, (match, a, b, c)=>a.toUpperCase()+b.toLowerCase()+c).trim();
+      const move = m.content.replace(/^([rnkqb])([A-Ha-hXx])(\w)/, (match, a, b, c)=>a.toUpperCase()+b.toLowerCase()+c).replace(/^([A-H])(\d)/, (match, a, b) => a.toUpperCase()+b).trim();
 
       try {
         result = currentGame.go(move);
