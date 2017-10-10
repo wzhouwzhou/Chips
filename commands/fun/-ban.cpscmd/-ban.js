@@ -22,7 +22,7 @@ const neko = [
   '260024920757633025', //Xena, a nEkO SLaVE
   '205608598233939970',  //lucas, a guy that wants perms
 ];
- 
+
 const ex= {
   name: "-ban",
   async func(msg, {send, /*member,*/ author, content, channel, guild, args, gMember, Discord, reply, bot}) {
@@ -73,11 +73,10 @@ const ex= {
       console.error(`Error of dming User: ${err}`);
     }
 
-    const stafflogs = guild.channels.find('name', 'staff-logs');
+    // const stafflogs = guild.channels.find('name', 'staff-logs');
+    // if(stafflogs)
+    //   stafflogs.send({embed: emb.setTitle('Fake Ban').setAuthor('Action Log').setDescription(`**${user+[]} was ~~fake~~ banned by ${author+[]}!**`)});
 
-    if(stafflogs) {
-      stafflogs.send({embed: emb.setTitle('Fake Ban').setAuthor('Action Log').setDescription(`**${user+[]} was ~~fake~~ banned by ${author+[]}!**`)});
-      }
     /*if(!stafflogs)
      return send('Creating a staff-logs channel.')
       .then (channel => channel.create('staff-logs'))
