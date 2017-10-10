@@ -23,8 +23,8 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.players = options.players || [];
     this.players = [...this.players, ...[null,null]];
     this.movers = new Map;
-    this.movers.set('white',players[0]);
-    this.movers.set('black',players[1]);
+    this.movers.set('white',this.players[0]);
+    this.movers.set('black',this.players[1]);
     this.turn = 'white';
 
     this.channel = options.channel;
