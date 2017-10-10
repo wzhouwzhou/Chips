@@ -22,7 +22,7 @@ const neko = [
   '260024920757633025', //Xena, a nEkO SLaVE
   '205608598233939970',  //lucas, a guy that wants perms
 ];
-
+ 
 const ex= {
   name: "-ban",
   async func(msg, {send, /*member,*/ author, content, channel, guild, args, gMember, Discord, reply, bot}) {

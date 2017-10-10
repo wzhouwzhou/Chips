@@ -75,23 +75,46 @@ const ex = {
         mCol.stop();
       }
 
-      const move = m.content
-          .replace(/^([RNKQB])([a-hx])(\w)/i, (match, a, b, c)=>a.toUpperCase()+b.toLowerCase()+c)
-          .replace(/^([a-h])(\d)/i, (match, a, b) => a.toLowerCase()+b)
+      let move = m.content
           .trim();
+      let result;
       try {
         result = currentGame.go(move);
-        console.log(`Autocomplete: ${move}`);
-        console.log('Game: '+result);
-        if(result == 'Woah too fast!'){
+        console.log(`Pre-auto: ${move}`);
+        //console.log('Game: '+result);
+        if(result == 'Woah too fast!')
           return send('Too fast...');
-        }
+
         m.delete().catch(_=>_);
-      }catch(err){ //'Invalid move!'
-        if(move.length < 6) 
-          console.log(`Autocomplete: ${move}`);
-        if(move.match(/^[RNKQB][a-h0-9]{3,4}$/)) send('Ensure you have given a valid move');
-        if(!~err.message.indexOf('Move not completed')) console.error(err);
+      }catch(errA){ //'Invalid move!'
+			try{
+          move = move.replace(/^([RNKQB])([a-h])(\w)/i, (match, a, b, c)=>a.toUpperCase()+b.toLowerCase()+c)
+          .replace(/^([a-h])(\d)/i, (match, a, b) => a.toLowerCase()+b)
+          .trim();
+
+          result = currentGame.go(move);
+          console.log(`Pre-auto: ${move}`);
+          if(result == 'Woah too fast!')
+            return send('Too fast...');
+          m.delete().catch(_=>_);
+        }catch(errB){
+          try{
+            move = move.replace(/^([RNKQB])([a-hx])(\w)/i, (match, a, b, c)=>a.toUpperCase()+b.toLowerCase()+c)
+              .replace(/^([a-h])(\d)/i, (match, a, b) => a.toLowerCase()+b)
+              .trim();
+            result = currentGame.go(move);
+            if(result == 'Woah too fast!')
+              return send('Too fast...');
+            m.delete().catch(_=>_);
+          }catch(errC){
+            if(move.length < 6) 
+              console.log(`Autocomplete: ${move}`);
+            if(move.match(/^[RNKQB][a-h0-9]{3,4}$/)) 
+              send('Ensure you have given a valid move');
+            if(!~errB.message.indexOf('Move not completed')) 
+              console.error(err);
+          }
+        }
       }
     });
 
