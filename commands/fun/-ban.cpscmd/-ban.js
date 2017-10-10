@@ -73,14 +73,11 @@ const ex= {
       console.error(`Error of dming User: ${err}`);
     }
 
-<<<<<<< HEAD
-=======
     const stafflogs = guild.channels.find('name', 'staff-logs');
 
     if(stafflogs) {
       stafflogs.send({embed: emb.setTitle('Fake Ban').setAuthor('Action Log').setDescription(`**${user+[]} was ~~fake~~ banned by ${author+[]}!**`)});
       }
->>>>>>> e847112a940750bcdc3c1d040fe165392f2801bb
     /*if(!stafflogs)
      return send('Creating a staff-logs channel.')
       .then (channel => channel.create('staff-logs'))
