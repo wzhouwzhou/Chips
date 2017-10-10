@@ -38,10 +38,9 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.fen = options.newFen||startFen;
     this.boardFen = this.fen.split(/\s+/)[0];
 
-    if(this.movers.get(this.turn).id === client.user.id) {
+    if(this.movers.get(this.turn).id === client.user.id)
       this.randomMove(2000);
-      this.hasMoved = true;
-    }
+
   }
 
   embedify (end = false) {
@@ -69,15 +68,14 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     if(!delay) {
       const possibleMoves = this.game.moves();
       const randomIndex = ~~(possibleMoves.length*Math.random());
-      this.go(possibleMoves[randomIndex]);
-      this.hasMoved = false;
+      this.go(possibleMoves[randomIndex], true);
       return this;
     } else setTimeout(() => {
       this.randomMove();
     }, delay);
   }
 
-  go (move) {
+  go (move, stopBot) {
     if (this.isOver()) {
       this.emit('end', this);
       this.updateAll(this.game.fen().split(/\s+/)[0], true);
@@ -85,7 +83,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     }
 
     this.lastMove = this.move(move);
-    if(!this.hasMoved&&this.aiOptions)
+    if(!stopBot&&this.aiOptions)
       this.randomMove(2000);
 
     if (this.isOver()) {
