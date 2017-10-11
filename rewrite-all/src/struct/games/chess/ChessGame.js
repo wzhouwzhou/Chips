@@ -75,7 +75,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   aiMove (delay) {
     if (this.isOver()) return this;
     if(!delay) {
-        const move = AI.play(cg.game.history());
+        const move = AI.play(this.game.history());
       try {
         return this.go(move, true);
       } catch(err) { //AI Failed
