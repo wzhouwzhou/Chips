@@ -70,11 +70,11 @@ const ex = {
       promptingAll.delete(channel.id);
     },1000);
 
-    send('Creating a chess game... Type __`quit`__ at any time to forfeit.');
+    send('Creating a chess game... Type __`quit`__ when it is your move to forfeit.');
 
     console.log(`Creating a chess game for channel ${channel.id}...`);
 
-    const currentGame = new CG({channel, players: _.reverse([member.user, othermember.user])});
+    const currentGame = new CG({channel, players: _.shuffle([member.user, othermember.user])});
     currentGame.game.header(
       'white', currentGame.movers.get('white')?currentGame.movers.get('white').tag:'Player1',
       'black',
