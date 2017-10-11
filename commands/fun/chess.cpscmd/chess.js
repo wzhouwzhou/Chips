@@ -80,7 +80,10 @@ const ex = {
       'black',
       currentGame.movers.get('black')?currentGame.movers.get('black').tag:'Player2',
     );
-    currentGame.on('end', game => game.ended = true);
+    currentGame.on('end', game => {
+      game.ended = true;
+      game.updateAll();
+    });
     games.set(channel.id, currentGame);
     console.log('Creating collector...');
     mCol = channel.createMessageCollector(
