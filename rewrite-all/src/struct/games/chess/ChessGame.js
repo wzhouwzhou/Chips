@@ -2,6 +2,13 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const { Chess } = require('chess.js');
+const AI =require('chess-ai-kong');
+AI.setOptions({
+  depth: 500,
+  strategy: 'basic',
+  timeout: 0
+});
+
 const Discord = require('discord.js');
 
 const lastF = require('../../../deps/functions/lastF').default();
@@ -65,17 +72,30 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.channel.send(this.toString(), {embed}).then(m=>this.lastM = m);
   }
 
+  aiMove (delay) {
+    if (this.isOver()) return this;
+    if(!delay) {
+        const move = AI.play(cg.game.history());
+      try {
+        return this.go(move, true);
+      } catch(err) { //AI Failed
+        return this.randomMove();
+      }
+    } else setTimeout(() =>
+      this.aiMove()
+    , delay);
+  }
+
   randomMove (delay) {
     if (this.isOver()) return this;
 
     if(!delay) {
       const possibleMoves = this.game.moves();
       const randomIndex = ~~(possibleMoves.length*Math.random());
-      this.go(possibleMoves[randomIndex], true);
-      return this;
-    } else setTimeout(() => {
-      this.randomMove();
-    }, delay);
+      return this.go(possibleMoves[randomIndex], true);
+    } else setTimeout(() =>
+      this.randomMove()
+    , delay);
   }
 
   go (move, stopBot) {
