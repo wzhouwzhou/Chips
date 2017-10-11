@@ -75,7 +75,7 @@ const ex = {
     console.log(`Creating a chess game for channel ${channel.id}...`);
 
     const currentGame = new CG({channel, players: _.shuffle([member.user, othermember.user])});
-    currentGame.header(
+    currentGame.game.header(
       'white', currentGame.movers.get('white')?currentGame.movers.get('white').tag:'Player1',
       'black',
       currentGame.movers.get('black')?currentGame.movers.get('black').tag:'Player2',
