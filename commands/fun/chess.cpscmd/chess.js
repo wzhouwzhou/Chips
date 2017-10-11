@@ -9,6 +9,22 @@ const ex = {
   name: "chess",
   async func(msg, ctx) {
     let { author, reply, member, send, channel, args, prefix, client } = ctx;
+
+    if(args[0]&&args[0]==='help'){
+      const embed = new Discord.RichEmbed;
+      [
+        ['Capturing and non-pawn pieces: ', [
+          'To move another piece like bishop from f1 to e2 then Bf1e2 or simply Be2',
+          "If there is another piece at e1 that you want to take then you would move Bxe2",
+        ].join('\n')],
+        ['Castling: ', [
+          'Ke1g1 and O-O do the same thing',
+        ].join('\n')],
+      ];
+      send('Chips chess, an introduction', {embed});
+      return;
+    }
+
     let mCol, silentQuit = false;
     if(args[0]&&args[0].toLowerCase()==='join') return !0;
 

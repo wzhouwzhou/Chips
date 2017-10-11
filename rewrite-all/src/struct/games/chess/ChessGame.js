@@ -12,6 +12,7 @@ const {W, B, chessPieces: pieces, startFen, label2} = ChessConstants;
 const files = new Array(8).fill(0).map((e,i)=>String.fromCharCode('A'.charCodeAt(0) + i));
 
 const AIRAND = 1;
+const games = new Map;
 
 const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   constructor(options) {
@@ -22,6 +23,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       channelID: options.channel?options.channel.id:0,
       empty: null,
     });
+    games.set(this.channelID, this);
     this.players = options.players || [];
     this.players = [...this.players, ...[null,null]];
     if(this.players.find(e=> e && e.id===client.user.id ))
@@ -46,9 +48,9 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   embedify (end = false) {
     if(!this.embed) throw new Error('Embed is missing !!11!1!!!!');
     this.embed = new (this.embed.constructor);
-    this.embed.addField(`${this.movers.get('white').tag}${W} vs ${B}${this.movers.get('black').tag}`, end?this.game.in_draw()?'The game was a draw!':this.turn&&this.turn.toLowerCase()==='black'?'Black won!':'White won!':`${this.turn} to move`, true);
+    this.embed.addField(`${this.movers.get('white').tag}${W} vs ${B}${this.movers.get('black').tag}`, end?this.game.in_draw()?'The game was a draw!':this.turn&&this.turn.toLowerCase()==='black'?'Black won!':'White won!':`${this.turn} to move`);
 
-    this.embed.addField('Last move', this.game.history()&&this.game.history()[0]?this.game.history().reverse()[0]:'None', true);
+    this.embed.addField('Last move', this.game.history()&&this.game.history()[0]?this.game.history().reverse()[0]:'None');
     this.embed.setTitle('Chess');
     return this.embed;
   }
@@ -160,3 +162,4 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
 };
 
 exports.ChessGame = ChessGame;
+exports.games = games;
