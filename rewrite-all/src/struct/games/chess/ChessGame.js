@@ -72,13 +72,14 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.channel.send(this.toString(), {embed}).then(m=>this.lastM = m);
   }
 
-  aiMove (delay, options) {
+  aiMove (delay, options = {}) {
     if (this.isOver()) return this;
     if(!delay) {
         const move = AI.play(this.game.history());
       try {
         return this.go(move, true, options.noUpdate);
       } catch(err) { //AI Failed
+        console.log(err);
         return this.channel.send('Something went wrong…');
         //return this.randomMove();
       }
