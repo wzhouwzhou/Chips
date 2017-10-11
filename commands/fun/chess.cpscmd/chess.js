@@ -16,8 +16,9 @@ const ex = {
 
       [
         ['Capturing and non-pawn pieces: ', [
-          'To move another piece like bishop from f1 to e2 then Bf1e2 or simply Be2',
-          "If there is another piece at e1 that you want to take then you would move Bxe2",
+          'To move another piece like the knight from f6 to g2 then Nf6g4 or simply Ng4',
+          'If there is another piece at where you want to move that you want to take:',
+          '\tNxe4, Nf6e4 Nf6-e4 would work',
         ].join('\n')],
         ['Castling: ', [
           'Ke1g1 and O-O do the same thing',
@@ -69,7 +70,7 @@ const ex = {
       promptingAll.delete(channel.id);
     },1000);
 
-    send(`Creating a chess game...`);
+    send('Creating a chess game... Type __`quit`__ at any time to forfeit.');
 
     console.log(`Creating a chess game for channel ${channel.id}...`);
 
