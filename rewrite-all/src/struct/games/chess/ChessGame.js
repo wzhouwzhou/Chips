@@ -48,7 +48,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.boardFen = this.fen.split(/\s+/)[0];
 
     if(this.movers.get(this.turn.toLowerCase())&&this.movers.get(this.turn.toLowerCase()).id === client.user.id)
-      this.randomMove(2000);
+      this.aiMove(2000);
   }
 
   embedify (end = false) {
@@ -109,7 +109,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
 
     this.lastMove = this.move(move);
     if(!stopBot&&this.aiOptions&&!this.isOver())
-      this.randomMove(2000);
+      this.aiMove(2000);
 
     if (this.isOver()) {
       this.emit('end', this);
@@ -135,7 +135,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
 
   demoIntervalStart () {
     this.demoInterval = setInterval(() => {
-      if(this.randomMove() === null) {
+      if(this.isOver() || this.aiMove() === null) {
         clearInterval(this.demoInterval);
         this.demoInterval = null;
       }
