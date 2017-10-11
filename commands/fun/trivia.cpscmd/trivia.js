@@ -15,7 +15,7 @@ module.exports = {
       let beginm = await send(`The difficulty level is \`${difficulty}\`, so you will have **${time} seconds** to answer the question. React with ${check} to start`);
       beginm.react(check);
       try {
-        await beginm.awaitReactions ((r, u) => u.id === author.id&&r.emoji+[] === check, { errors: ['time'] });
+        await beginm.awaitReactions ((r, u) => u.id === author.id&&r.emoji+[] === check, { time: 10000, errors: ['time'] });
       } catch(err) {
         return reply('Timed out');
       }
