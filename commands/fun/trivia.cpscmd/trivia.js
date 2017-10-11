@@ -3,7 +3,7 @@ const times = [30,17,5], difficulties = ['easy','medium','hard'], check = '✅';
 
 module.exports = {
   name: "trivia",
-  async func(msg, { send, reply, author, args, channel }) {
+  async func(msg, { send, reply, author, args, channel, client }) {
     if(!args) return;
     if(args[0] === 'flags') {
       if(!flags)
@@ -21,11 +21,15 @@ module.exports = {
       }
       let answeredOnce = false, mCol, win;
       const filter = m => {
+        if(m.author.id === client.user.id) return false;
+
         if(new RegExp(`${_.escapeRegExp(random[0].replace(/\s+/,''))}`,'i').test(m.content.replace(/\s+/,''))) {
           answeredOnce = true;
           mCol&&mCol.stop();
           win = m.author;
+          return true;
         }
+        return false;
       };
       send(new Discord.RichEmbed().setTitle('Flag trivia').setDescription('Guess the country!').setImage(random[1]));
       mCol = channel.createMessageCollector(
