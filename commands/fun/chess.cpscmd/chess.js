@@ -49,7 +49,7 @@ const ex = {
       promptingAll.delete(channel.id);
       prompting.delete(author.id);
       silentQuit = true;
-      mCol.stop();
+      mCol&&mCol.stop();
       return console.error(err);
     }
     if(othermember=='decline') {
@@ -58,7 +58,7 @@ const ex = {
       promptingAll.delete(channel.id);
       prompting.delete(author.id);
       silentQuit = true;
-      mCol.stop();
+      mCol&&mCol.stop();
       return reply('Game was declined!');
     }
     if(othermember&&othermember.id) setTimeout(()=>{
