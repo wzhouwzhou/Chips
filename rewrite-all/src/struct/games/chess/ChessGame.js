@@ -48,7 +48,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.boardFen = this.fen.split(/\s+/)[0];
 
     if(this.movers.get(this.turn.toLowerCase())&&this.movers.get(this.turn.toLowerCase()).id === client.user.id)
-      this.aiMove(2000);
+      this.aiMove(0, {noUpdate: true});
   }
 
   embedify (end = false) {
@@ -72,18 +72,18 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.channel.send(this.toString(), {embed}).then(m=>this.lastM = m);
   }
 
-  aiMove (delay) {
+  aiMove (delay, options) {
     if (this.isOver()) return this;
     if(!delay) {
         const move = AI.play(this.game.history());
       try {
-        return this.go(move, true);
+        return this.go(move, true, options.noUpdate);
       } catch(err) { //AI Failed
         return this.channel.send('Something went wrong…');
         //return this.randomMove();
       }
     } else setTimeout(() =>
-      this.aiMove()
+      this.aiMove(delay, options)
     , delay);
   }
 
@@ -99,7 +99,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     , delay);
   }
 
-  go (move, stopBot) {
+  go (move, stopBot, noUpdate) {
     if (this.isOver()) {
       this.emit('end', this);
       if(!this.ended)
@@ -118,7 +118,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
         this.updateAll(this.game.fen().split(/\s+/)[0], true);
       this.ended = true;
       return this;
-    }else
+    }else if(!noUpdate)
       this.updateAll(this.game.fen().split(/\s+/)[0]);
 
     return this;
