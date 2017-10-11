@@ -2,7 +2,7 @@
 let trivia = require('./trivia');
 
 console.log('[CPSCMD][FUN][trivia] Building objects...');
-chess.metadata = {
+trivia.metadata = {
   category: require('../').category,
   description: 'Play some trivia!',
   usage: 'trivia [topic] (difficulty)',
