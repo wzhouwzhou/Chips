@@ -79,7 +79,8 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       try {
         return this.go(move, true);
       } catch(err) { //AI Failed
-        return this.randomMove();
+        return this.channel.send('Something went wrong…');
+        //return this.randomMove();
       }
     } else setTimeout(() =>
       this.aiMove()
@@ -124,7 +125,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   }
 
   isOver () {
-    return (this.game.game_over() || this.game.in_draw() || this.game.moves().length === 0 || this.game.insufficient_material());
+    return (this.ended || this.game.game_over() || this.game.in_draw() || this.game.moves().length === 0 || this.game.insufficient_material());
   }
 
   updateAll (override = this.game.fen().split(/\s+/)[0], end) {
