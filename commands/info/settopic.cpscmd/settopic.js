@@ -12,7 +12,7 @@ module.exports = {
     
     let embed = (new Discord.RichEmbed)
       .setTitle('Channel Topic')
-      .setDescription(channel.topic)
+      .setDescription(suffix)
       .setColor(member.displayColor);
       
       await channel.setTopic(suffix);
