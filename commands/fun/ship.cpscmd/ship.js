@@ -62,7 +62,7 @@ module.exports = {
         switch(outlookN) {
           case 0:
           case 1:
-            return 'Not even think about it.';
+            return 'Don\'t even think about it.';
           case 2:
           case 3:
             return 'No way.';
@@ -71,9 +71,9 @@ module.exports = {
           case 6:
             return 'Maybe.';
           case 7:
-            return 'Yup.';
-          case 8:
             return 'Try it!';
+          case 8:
+            return 'Yup!';
           case 9:
             return 'Definitely!';
           case 10:

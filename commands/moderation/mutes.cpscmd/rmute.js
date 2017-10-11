@@ -24,7 +24,7 @@ module.exports = {
 
     mem.addRole(muterole);
 
-    reply(`user <@${mem.id}> perma-muted successfully!`);
+    reply(`user <@${mem.id}> role-muted successfully!`);
 
     let emb = new Discord.RichEmbed()
       .setAuthor("Mute Log")

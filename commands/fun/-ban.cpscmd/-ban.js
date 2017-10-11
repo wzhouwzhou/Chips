@@ -27,6 +27,10 @@ const ex= {
   name: "-ban",
   async func(msg, {send, /*member,*/ author, content, channel, guild, args, gMember, Discord, reply, bot}) {
     // const used = member || author;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9dc754be07fdc45ba39c5cde58b4f072ed94c6cb
     if(!guild) return send('You must use this command in a server.');
     if (!args[0]) return send("No user given :(");
     const target = args[0].match(Constants.patterns.MENTION)[1];
@@ -72,11 +76,10 @@ const ex= {
       console.error(`Error of dming User: ${err}`);
     }
 
-    const stafflogs = guild.channels.find('name', 'staff-logs');
+    // const stafflogs = guild.channels.find('name', 'staff-logs');
+    // if(stafflogs)
+    //   stafflogs.send({embed: emb.setTitle('Fake Ban').setAuthor('Action Log').setDescription(`**${user+[]} was ~~fake~~ banned by ${author+[]}!**`)});
 
-    if(stafflogs) {
-      stafflogs.send({embed: emb.setTitle('Fake Ban').setAuthor('Action Log').setDescription(`**${user+[]} was ~~fake~~ banned by ${author+[]}!** ~~temp action logz by lucaslsg~~`)});
-      }
     /*if(!stafflogs)
      return send('Creating a staff-logs channel.')
       .then (channel => channel.create('staff-logs'))
