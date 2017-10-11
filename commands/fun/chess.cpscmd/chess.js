@@ -41,7 +41,7 @@ const ex = {
         send('You cannot invite that bot!');
         throw new Error('Bot invitee');
       }
-      if(othermember.user.id!==client.user.id)
+      if(!othermember||!othermember.user||othermember.user.id!==client.user.id)
         othermember = await promptPlayer (author, send, prefix, channel, othermember, client);
     }catch(err){
       games.delete(channel.id);
