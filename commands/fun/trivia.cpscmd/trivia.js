@@ -34,7 +34,7 @@ module.exports = {
       send(new Discord.RichEmbed().setTitle('Flag trivia').setDescription('Guess the country!').setImage(random[1]));
       mCol = channel.createMessageCollector(
         filter,
-        { time: time+1000 }
+        { time: 1000*(time+1), maxMatches: 1 }
       );
       mCol.on('end', collected => {
         if(!answeredOnce||!collected.first()||!win) return send(`The answer was ${random[0]}`);
