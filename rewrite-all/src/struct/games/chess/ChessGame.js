@@ -80,21 +80,30 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
         return this.go(move, true, options.noUpdate);
       } catch(err) { //AI Failed
         console.log(err);
-        return this.channel.send('Something went wrong…');
-        //return this.randomMove();
+        this.channel.send('Something went wrong with the AI…attempting to fix');
+        try {
+          return this.randomMove(0, options);
+        } catch(errB) {
+          this.channel.send('The AI was unable to continue the game… you win!');
+          this.emit('end', this);
+          if(!this.ended)
+            this.updateAll(this.game.fen().split(/\s+/)[0], true);
+          this.ended = true;
+          return null;
+        }
       }
     } else setTimeout(() =>
       this.aiMove(0, options)
     , delay);
   }
 
-  randomMove (delay) {
+  randomMove (delay, options) {
     if (this.isOver()) return this;
 
     if(!delay) {
       const possibleMoves = this.game.moves();
       const randomIndex = ~~(possibleMoves.length*Math.random());
-      return this.go(possibleMoves[randomIndex], true);
+      return this.go(possibleMoves[randomIndex], true, options.noUpdate);
     } else setTimeout(() =>
       this.randomMove()
     , delay);
