@@ -137,7 +137,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
         ?   c%2===i%2 ? W : B
         :   pieces.get(`${all[c][i].toLowerCase()}${all[c][i].toLowerCase()===all[c][i]?'b':'w'}${c%2===i%2?'w':'b'}`);
     }
-    return this.board;
+    return this;
   }
 
   toString(colorBottom='white'/*this.game.turn()*/) {
