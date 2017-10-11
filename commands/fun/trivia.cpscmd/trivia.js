@@ -12,8 +12,8 @@ module.exports = {
       const random = _.sample(flags);
       let difficulty = args[1]&&difficulties.indexOf(args[1])?args[1].toLowerCase():'medium';
       let time = times[difficulties.indexOf(difficulty.toLowerCase())];
-      let beginm = await send(`The difficulty level is \`${difficulty}\`You will have ${time} seconds to answer. React with ${check} to start`);
-
+      let beginm = await send(`The difficulty level is \`${difficulty}\`, so you will have **${time} seconds** to answer the question. React with ${check} to start`);
+      beginm.react(check);
       try {
         await beginm.awaitReactions ((r, u) => u.id === author.id&&reaction.emoji+[] === check, { errors: ['time'] });
       } catch(err) {
