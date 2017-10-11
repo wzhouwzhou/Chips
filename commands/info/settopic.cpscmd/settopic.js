@@ -9,7 +9,7 @@ module.exports = {
         return send('Nothing provided to set as channel topic');
       if(suffix.length>1024)   
         return send('The channel topic can only be a maximum of 1024 characters in length!'); 
-      await channel.topic(suffix);
+      await channel.setTopic(suffix);
       return send('Channel topic set successfully!');  
    }
 }
