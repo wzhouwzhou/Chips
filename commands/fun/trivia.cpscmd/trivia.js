@@ -10,7 +10,7 @@ module.exports = {
         flags = Object.entries(JSON.parse(await Promise.resolve(require('snekfetch').get('https://raw.githubusercontent.com/hjnilsson/country-flags/master/countries.json').then(r=>r.body)))).map(e=>[e[1], `https://raw.githubusercontent.com/hjnilsson/country-flags/master/png1000px/${e[0].toLowerCase()}.png`]);
 
       const random = _.sample(flags);
-      let difficulty = difficulties.indexOf(args[1])?args[1].toLowerCase():'medium';
+      let difficulty = args[1]&&difficulties.indexOf(args[1])?args[1].toLowerCase():'medium';
       let time = times[difficulties.indexOf(difficulty.toLowerCase())];
       let beginm = await send(`The difficulty level is \`${difficulty}\`You will have ${time} seconds to answer. React with ${check} to start`);
 
