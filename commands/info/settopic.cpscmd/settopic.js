@@ -9,7 +9,14 @@ module.exports = {
         return send('Nothing provided to set as channel topic');
       if(suffix.length>1024)   
         return send('The channel topic can only be a maximum of 1024 characters in length!'); 
+    
+    let embed = (new Discord.RichEmbed)
+      .setTitle('Channel Topic')
+      .setDescription(channel.topic)
+      .setColor(member.displayColor);
+      
       await channel.setTopic(suffix);
-      return send('Channel topic set successfully!');  
+      return send(embed); 
+
    }
 }
