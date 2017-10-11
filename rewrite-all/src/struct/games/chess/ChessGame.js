@@ -40,9 +40,8 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.fen = options.newFen||startFen;
     this.boardFen = this.fen.split(/\s+/)[0];
 
-    if(this.movers.get(this.turn.toLowerCase()).id === client.user.id)
+    if(this.movers.get(this.turn.toLowerCase())&&this.movers.get(this.turn.toLowerCase()).id === client.user.id)
       this.randomMove(2000);
-
   }
 
   embedify (end = false) {

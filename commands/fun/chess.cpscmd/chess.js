@@ -12,6 +12,8 @@ const ex = {
 
     if(args[0]&&args[0]==='help'){
       const embed = new Discord.RichEmbed;
+      new CG({newFen: 'rnbqkb1r/pppppppp/5n2/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1' , channel: msg.channel});
+
       [
         ['Capturing and non-pawn pieces: ', [
           'To move another piece like bishop from f1 to e2 then Bf1e2 or simply Be2',
@@ -21,7 +23,7 @@ const ex = {
           'Ke1g1 and O-O do the same thing',
         ].join('\n')],
       ];
-      send('Chips chess, an introduction', {embed});
+      send(embed);
       return;
     }
 
