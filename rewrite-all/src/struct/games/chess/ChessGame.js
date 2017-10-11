@@ -72,7 +72,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.channel.send(this.toString(), {embed}).then(m=>this.lastM = m);
   }
 
-  aiMove (delay, options = {}) {
+  aiMove (delay = 0, options = {}) {
     if (this.isOver()) return this;
     if(!delay) {
         const move = AI.play(this.game.history());
@@ -84,7 +84,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
         //return this.randomMove();
       }
     } else setTimeout(() =>
-      this.aiMove(delay, options)
+      this.aiMove(0, options)
     , delay);
   }
 
