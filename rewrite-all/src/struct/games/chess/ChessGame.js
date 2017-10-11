@@ -2,16 +2,17 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const { Chess } = require('chess.js');
-const AI =require('chess-ai-kong');
+const AI = require('chess-ai-kong');
+const _ = require('lodash');
 AI.setOptions({
-  depth: 500,
+  depth: _.random(500,600),
   strategy: 'basic',
   timeout: 0
 });
 
 const Discord = require('discord.js');
 
-const lastF = require('../../../deps/functions/lastF').default();
+// const lastF = require('../../../deps/functions/lastF').default({_});
 const Constants = require('../../../deps/Constants');
 
 const ChessConstants = Constants.chess;
