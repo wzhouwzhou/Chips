@@ -3,7 +3,7 @@ const choices = ['rock','paper','scissors'];
 const reg = new RegExp(`${choices.map(e=>_.escapeRegExp(e)).join('|')}`,'i');
 
 module.exports = {
-  name: "roles",
+  name: "rockpaperscissors",
   async func(msg, { send, channel, author }) {
     let user, computer = _.sample(choices);
     const filter = m => {

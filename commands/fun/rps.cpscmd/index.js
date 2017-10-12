@@ -13,5 +13,6 @@ rps.metadata = {
 
 console.log('[CPSCMD][FUN][rps] Build objects complete!');
 module.exports = [
-  [rps.name,rps]
+  [rps.name,rps],
+  ['rps',rps],
 ];
