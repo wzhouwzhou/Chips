@@ -4,6 +4,6 @@ module.exports = {
         if(!guild)
           return;
         if(guild)
-          return user.send(new Discord.RichEmbed().setColor(member.displayColor).setTitle('Role List').setDescription(guild._sortedRoles.map(e=>_.escapeRegExp(e.name)).reverse().join(', ')));
+          return user.send(new Discord.RichEmbed().setTitle('Role List').setColor(member.displayColor).setDescription(guild._sortedRoles.map(e=>_.escapeRegExp(e.name)).reverse().join(', ')));
         }
 }
