@@ -1,4 +1,4 @@
-const rps = a=>b=>a==b?0:!(a+b)[12]^a>b||-1
+const rps = a=>b=>a==b?0:!(a+b)[12]^a>b||-1;
 const choices = ['rock','paper','scissors'];
 const reg = new RegExp(`${choices.map(e=>_.escapeRegExp(e)).join('|')}`,'i');
 
