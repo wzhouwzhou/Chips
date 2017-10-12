@@ -44,48 +44,49 @@ module.exports = {
 
     const InfoMenu2 = ([
       '**{}discordstatus** to get the current status of discord.',
-      '**{}memberstatus help** to see how you can use it.',
-      '**{}lastmessageid** to get last sent message ID.',
-      '**{}channelid** to get the channel\'s ID',
-      '**{}serverid** to get the server\'s ID.',
-      '**{}channeltopic** to get the channel topic.',
-      '**{}membercount** to get amount of people in the server.',
-      '**{}rolecount** to get the amount of roles in the server.',
+      '**{}memberstatus/{}ms help** to see how you can use it.',
+      '**{}lastmessageid/{}lmid** to get last sent message ID.',
+      '**{}channelid/{}cid** to get the channel\'s ID',
+      '**{}serverid/{}sid/{}gid** to get the server\'s ID.',
+      '**{}channeltopic**/**{}ct** to get the channel topic.',
+      '**{}membercount**/**{}mc** to get amount of people in the server.',
+      '**{}rolecount**/**{}rc** to get the amount of roles in the server.',
       '**{}channelcount** to get the amount of channels in the server.',
-      ].join('\n').replace(/{}/g, prefix));
+    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix)));
 
     const ModMenu = ([
       '**{}ban [mention user]** to ban someone.',
       '**{}clear [amount]** to clear some messages. (up to 99)',
-      '**{}botclear [amount]** to delete bot-related messages. (up to the last 100 messages are checked)',
+      '**{}botclear/{}bc [amount]** to delete bot-related messages. (up to the last 100 messages are checked)',
       '**{}hackban [user id]** to ban someone by their ID',
-      '**{}softban [mention user]** to soft-ban someone and clear their messages.',
+      '**{}softban [mention user]** to kick someone and clear their messages. The user is immediately unbanned afterwards.',
       '**{}kick [mention user]** to kick someone.',
-      '**{}botnick [text]** to change Chips\' nick.',
+      '**{}botnick/{}bn [text]** to change Chips\' nick.',
       '**{}silence [mention user]** to server-mute someone.',
       '**{}deafen [mention user]** to deafen someone.',
       '**{}unsilence [mention user]** to unserver-mute someone.',
       '**{}undeafen [mention user]** to undeafen someone.',
       '**{}rmute [mention user]** to give someone a muted role! (Disclaimer: this does not create a Muted role, manually remove the mute role to unmute)',
       '**{}chipsprefix on** to begin custom prefix setup, use **{}chipsprefix off** to turn off custom prefix',
-    ].join('\n').replace(/{}/g, prefix));
+    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix)));
 
     const FunMenu = ([
-      '**{}con4 length width** to play connect four (beta).',
-      'For example, **{}con4 12 6** will create a 12x6 board with 6 columns and 12 rows',
-      '**{}aboose** for aboose.',
+      '**{}con4 length width** to play connect four.',
+      '\tFor example, **{}con4 12 6** will create a 12x6 board with 6 columns and 12 rows',
+      '**{}chess** *__New™ (beta)__* to play a chess game! Yes, you can invite Chips to play with you!',
+      '**{}aboose**/**{}aboosed** for aboose.',
       '**{}-ban [mention user]** to ban people (Disclaimer: This is a fake ban).',
       '**{}cat** to create a cat.',
       '**{}coinflip** to flip a coin.',
-      '**{}dog** to create a dog.',
+      '**{}dog** to see a dog.',
       '**{}exposed** for exposed.',
       '**{}confoosed** for confoosed',
       '**{}everyone** for when someone pings everyone',
       '**{}eat** for your own bag of chips.',
-      '**{}happy** (credits to Tani)',
+      '**{}happy** for some gifs(credits to Tani)',
       '**{}lenny** to make a lenny face.',
       '**{}ship [mention user]** to ship some people.',
-    ].join('\n').replace(/{}/g, prefix));
+    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix)));
 
     const FunMenu2 = ([
       '**{}nsfw** to get NSFW commands',
@@ -99,7 +100,7 @@ module.exports = {
       '**{}randomcaps [text]** to make your text look weird',
       '**{}spooky [text]** to spread your letters out',
       '**{}big [emoji1, emoji2]** to enlarge one or more emojis',
-      '**{}rotate [/ text]** *and* **{}rotate [\\ text]** to push your text around (the slashes dictate the direction)',
+      '**{}rotate [/ text]** *and* **{}rotate [\\ text]** to push your text around (the slashes dictate the direction and are required)',
       '**{}derp [text]** to make your text derpy (capitalises every other letter)',
     ].join('\n').replace(/{}/g, prefix));
 
@@ -109,7 +110,8 @@ module.exports = {
       '**{}translate [text]** or **{}translate text targetlang:spanish** to translate some text',
       '**{}stoptyping** for if a chips command errored and is stuck "typing" in the channel.',
       '**{}password (length) (numerical/alphanumeric/hex/unicode)** to generate a cryptographically strong password!',
-    ].join('\n').replace(/{}/g,prefix));
+      '**{}settopic**/**{}st [newtopic]** to set the channel topic',
+    ].join('\n').replace(/{}/g,_.escapeRegExp(prefix)));
 
     const MusicMenu = ([
       '**{}music demo** to begin the music demo.',

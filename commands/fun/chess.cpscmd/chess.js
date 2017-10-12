@@ -8,7 +8,26 @@ const promptingAll = new Map();
 const ex = {
   name: "chess",
   async func(msg, ctx) {
-    let { author, reply, member, send, channel, args, prefix } = ctx;
+    let { author, reply, member, send, channel, args, prefix, client } = ctx;
+
+    if(args[0]&&args[0]==='help'){
+      const embed = new Discord.RichEmbed;
+      new CG({newFen: 'rnbqkb1r/pppppppp/5n2/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1' , channel: msg.channel});
+
+      [
+        ['Capturing and non-pawn pieces: ', [
+          'To move another piece like the knight from f6 to g2 then Nf6g4 or simply Ng4',
+          'If there is another piece at where you want to move that you want to take:',
+          '\tNxe4, Nf6e4 Nf6-e4 would work',
+        ].join('\n')],
+        ['Castling: ', [
+          'Ke1g1 and O-O do the same thing',
+        ].join('\n')],
+      ];
+      send(embed);
+      return;
+    }
+
     let mCol, silentQuit = false;
     if(args[0]&&args[0].toLowerCase()==='join') return !0;
 
@@ -21,18 +40,19 @@ const ex = {
     games.set(channel.id, channel);
     try{
       othermember = await promptInvitee(ctx);
-      if(othermember&&othermember.user.bot){
-        send('You cannot invite a bot!');
+      if(othermember&&othermember.user.bot&&othermember.user.id!==client.user.id){
+        send('You cannot invite that bot!');
         throw new Error('Bot invitee');
       }
-      othermember = await promptPlayer (author, send, prefix, channel, othermember);
+      if(!othermember||!othermember.user||othermember.user.id!==client.user.id)
+        othermember = await promptPlayer (author, send, prefix, channel, othermember, client);
     }catch(err){
       games.delete(channel.id);
       prompting.delete(othermember?othermember.id:0);
       promptingAll.delete(channel.id);
       prompting.delete(author.id);
       silentQuit = true;
-      mCol.stop();
+      mCol&&mCol.stop();
       return console.error(err);
     }
     if(othermember=='decline') {
@@ -41,7 +61,7 @@ const ex = {
       promptingAll.delete(channel.id);
       prompting.delete(author.id);
       silentQuit = true;
-      mCol.stop();
+      mCol&&mCol.stop();
       return reply('Game was declined!');
     }
     if(othermember&&othermember.id) setTimeout(()=>{
@@ -50,25 +70,34 @@ const ex = {
       promptingAll.delete(channel.id);
     },1000);
 
-    send(`Creating a chess game...`);
+    send('Creating a chess game... Type __`quit`__ when it is your move to forfeit.');
 
     console.log(`Creating a chess game for channel ${channel.id}...`);
 
-    const currentGame = new CG({channel, players: _.shuffle([member.user, othermember.user])});
-
+    const currentGame = new CG({channel, players: _.shuffle([member.user, othermember.user]) });
+    currentGame.game.header(
+      'white',
+      currentGame.movers.get('white')?currentGame.movers.get('white').tag:'Player1',
+      'black',
+      currentGame.movers.get('black')?currentGame.movers.get('black').tag:'Player2',
+    );
+    currentGame.once('end', game => {
+      game.ended = true;
+      //game.updateAll();
+    });
     games.set(channel.id, currentGame);
     console.log('Creating collector...');
     mCol = channel.createMessageCollector(
-      () => true/*query => (!!query.content.match(/(quit|stop|forfeit)/i))||((!!query.content.match(/\d+/g))&&query.content.match(/\d+/g)[0]&&query.content.match(/\d+/g)[0].length===query.content.length)*/,
+      q => [member.user, othermember.user].some(e => q.author.id === e.id),
       { time: TIME, errors: ['time'] }
     );
     console.log('Adding on-collect...');
     mCol.on('collect', async m => {
-      //if(m.author.id!=currentGame.nowPlaying.id) return;
+      if(m.author.id !== currentGame.movers.get(currentGame.turn.toLowerCase()).id) return;
 
       if(!m.content) return;
-      console.log(m.content);
-      if(/quit/i.test(m.content)) {
+      //console.log(m.content);
+      if(/quit/i.test(m.content)||(currentGame.isOver()&&!currentGame.ended)) {
         //currentGame.game.end();
         send('Ending…');
         currentGame.emit('ended', currentGame);
@@ -87,7 +116,7 @@ const ex = {
 
         m.delete().catch(_=>_);
       }catch(errA){ //'Invalid move!'
-			try{
+        try{
           move = move.replace(/^([RNKQB])([a-h])(\w)/i, (match, a, b, c)=>a.toUpperCase()+b.toLowerCase()+c)
           .replace(/^([a-h])(\d)/i, (match, a, b) => a.toLowerCase()+b)
           .trim();
@@ -107,11 +136,11 @@ const ex = {
               return send('Too fast...');
             m.delete().catch(_=>_);
           }catch(errC){
-            if(move.length < 6) 
+            if(move.length < 6)
               console.log(`Autocomplete: ${move}`);
-            if(move.match(/^[RNKQB][a-h0-9]{3,4}$/)) 
+            if(move.match(/^[RNKQB][a-h0-9]{3,4}$/))
               send('Ensure you have given a valid move');
-            if(!~errB.message.indexOf('Move not completed')) 
+            if(!~errB.message.indexOf('Move not completed'))
               console.error(err);
           }
         }
@@ -119,13 +148,13 @@ const ex = {
     });
 
     mCol.on('end', collected => {
-      if(collected.size===0){
-        !silentQuit&&his._msg.reply('Timed out, game was not saved to memory');
-        prompting.delete(othermember.id);
-        games.delete(channel.id);
-        promptingAll.delete(channel.id);
-        prompting.delete(author.id);
-      }
+      if(collected.size===0)
+        !silentQuit&&reply('Timed out, game was not saved to memory');
+
+      prompting.delete(othermember.id);
+      games.delete(channel.id);
+      promptingAll.delete(channel.id);
+      prompting.delete(author.id);
       console.log('MCol ended');
     });
 
@@ -146,11 +175,13 @@ const ex = {
   }
 };
 
-const promptPlayer = (author, send, prefix, channel, targetMember) => {
+const promptPlayer = (author, send, prefix, channel, targetMember, client) => {
   targetMember!=null&&targetMember.id!=null&&prompting.set(targetMember.id, true);
   targetMember==null&&promptingAll.set(channel.id, true);
   return new Promise( async (res,rej) => {
     const startFilter = (m) => {
+      if(m.author.id === client.user.id) return res(targetMember||m.member);
+
       if(m.author.bot) return false;
       if((new RegExp(`${_.escapeRegExp(prefix)}chess(join|decline)`,'gi')).test(m.content.toLowerCase().replace(/\s+/g,'')))
         if(m.author.id !== author.id) {

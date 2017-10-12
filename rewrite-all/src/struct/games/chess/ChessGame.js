@@ -2,16 +2,25 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const { Chess } = require('chess.js');
+const AI = require('chess-ai-kong');
+const _ = require('lodash');
+AI.setOptions({
+  depth: _.random(500,600),
+  strategy: 'basic',
+  timeout: 0
+});
+
 const Discord = require('discord.js');
 
-const lastF = require('../../../deps/functions/lastF').default();
+// const lastF = require('../../../deps/functions/lastF').default({_});
 const Constants = require('../../../deps/Constants');
 
 const ChessConstants = Constants.chess;
 const {W, B, chessPieces: pieces, startFen, label2} = ChessConstants;
 const files = new Array(8).fill(0).map((e,i)=>String.fromCharCode('A'.charCodeAt(0) + i));
 
-const B = '⚫', W = '
+const AIRAND = 1;
+const games = new Map;
 
 const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   constructor(options) {
@@ -22,12 +31,15 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       channelID: options.channel?options.channel.id:0,
       empty: null,
     });
+    games.set(this.channelID, this);
     this.players = options.players || [];
     this.players = [...this.players, ...[null,null]];
+    if(this.players.find(e=> e && e.id===client.user.id ))
+      this.aiOptions = options.aiOptions || AIRAND;
     this.movers = new Map;
-    this.movers.set('white',players[0]);
-    this.movers.set('black',players[1]);
-    this.turn = 'white';
+    this.movers.set('white',this.players[0]);
+    this.movers.set('black',this.players[1]);
+    this.turn = 'White';
 
     this.channel = options.channel;
     this.game = new Chess(options.newFen||startFen);
@@ -35,14 +47,17 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.embed = new Discord[/^[^]*12\.\d+[^]*$/.test(Discord.version)?'MessageEmbed':'RichEmbed'];
     this.fen = options.newFen||startFen;
     this.boardFen = this.fen.split(/\s+/)[0];
+
+    if(this.movers.get(this.turn.toLowerCase())&&this.movers.get(this.turn.toLowerCase()).id === client.user.id)
+      this.aiMove(0, {noUpdate: true});
   }
 
   embedify (end = false) {
     if(!this.embed) throw new Error('Embed is missing !!11!1!!!!');
     this.embed = new (this.embed.constructor);
-    this.embed.addField(`${this.movers.get('white').tag} (white) vs ${this.movers.get('black').tag}`, end?this.game.in_draw()?'The game was a draw!':this.turn&&this.turn.toLowerCase()==='black'?'White won!':'Black won!':`${this.turn||'White'} to move`, true);
+    this.embed.addField(`${this.movers.get('white').tag}${W} vs ${B}${this.movers.get('black').tag}`, end?this.game.in_draw()?'The game was a draw!':this.turn&&this.turn.toLowerCase()==='black'?'Black won!':'White won!':`${this.turn} to move`);
 
-    this.embed.addField('Last move', this.game.history()&&this.game.history()[0]?this.game.history().reverse()[0]:'None', true);
+    this.embed.addField('Last move', this.game.history()&&this.game.history()[0]?this.game.history().reverse()[0]:'None');
     this.embed.setTitle('Chess');
     return this.embed;
   }
@@ -58,42 +73,70 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.channel.send(this.toString(), {embed}).then(m=>this.lastM = m);
   }
 
-  randomMove () {
-    const possibleMoves = this.game.moves();
-
-    if (this.isOver()) {
-      this.emit('end', this);
-      this.updateAll(this.game.fen().split(/\s+/)[0], true);
-      return null;
-    }
-
-    const randomIndex = ~~(possibleMoves.length*Math.random());
-
-    this.lastMove = this.move(possibleMoves[randomIndex]);
-    this.updateAll(this.game.fen().split(/\s+/)[0]);
-    return this;
+  aiMove (delay = 0, options = {}) {
+    if (this.ended||this.isOver()) return null;
+    if(!delay) {
+        const move = AI.play(this.game.history());
+      try {
+        return this.go(move, true, options.noUpdate);
+      } catch(err) { //AI Failed
+        console.log(err);
+        this.channel.send('Something went wrong with the AI…attempting to fix');
+        try {
+          return this.randomMove(0, options);
+        } catch(errB) {
+          this.channel.send('The AI was unable to continue the game… you win!');
+          this.emit('end', this);
+          if(!this.ended&&!options.noUpdate)
+            this.updateAll(this.game.fen().split(/\s+/)[0], true);
+          this.ended = true;
+          return null;
+        }
+      }
+    } else setTimeout(() =>
+      this.aiMove(0, options)
+    , delay);
   }
 
-  go (move) {
+  randomMove (delay, options) {
+    if (this.isOver()) return this;
+
+    if(!delay) {
+      const possibleMoves = this.game.moves();
+      const randomIndex = ~~(possibleMoves.length*Math.random());
+      return this.go(possibleMoves[randomIndex], true, options.noUpdate);
+    } else setTimeout(() =>
+      this.randomMove()
+    , delay);
+  }
+
+  go (move, stopBot, noUpdate) {
     if (this.isOver()) {
       this.emit('end', this);
-      this.updateAll(this.game.fen().split(/\s+/)[0], true);
+      if(!this.ended&&!noUpdate)
+        this.updateAll(this.game.fen().split(/\s+/)[0], true);
+      this.ended = true;
       return null;
     }
 
     this.lastMove = this.move(move);
+    if(!stopBot&&this.aiOptions&&!this.isOver())
+      this.aiMove(2000, {noUpdate: false});
+
     if (this.isOver()) {
       this.emit('end', this);
-      this.updateAll(this.game.fen().split(/\s+/)[0], true);
+      if(!this.ended&&!noUpdate)
+        this.updateAll(this.game.fen().split(/\s+/)[0], true);
+      this.ended = true;
       return this;
-    }else
+    }else if(!noUpdate)
       this.updateAll(this.game.fen().split(/\s+/)[0]);
 
     return this;
   }
 
   isOver () {
-    return (this.game.game_over() || this.game.in_draw() || this.game.moves().length === 0 || this.game.insufficient_material());
+    return this.game.history()&&this.game.history().length>0&&(this.ended || this.game.game_over() || this.game.in_draw() || this.game.moves().length === 0 || this.game.insufficient_material());
   }
 
   updateAll (override = this.game.fen().split(/\s+/)[0], end) {
@@ -104,7 +147,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
 
   demoIntervalStart () {
     this.demoInterval = setInterval(() => {
-      if(this.randomMove() === null) {
+      if(this.isOver() || this.aiMove() === null) {
         clearInterval(this.demoInterval);
         this.demoInterval = null;
       }
@@ -126,26 +169,28 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
         ?   c%2===i%2 ? W : B
         :   pieces.get(`${all[c][i].toLowerCase()}${all[c][i].toLowerCase()===all[c][i]?'b':'w'}${c%2===i%2?'w':'b'}`);
     }
-    return this.board;
+    return this;
   }
 
   toString(colorBottom='white'/*this.game.turn()*/) {
-    let str;
     if((/w(?:hite)?/).test(colorBottom)) this.board.reverse();
-    str = this.board.map((e,i)=>[Constants.numbersA[i+1]].concat(Object.keys(e).map(k=>e[k])).join('')).reverse().concat(label2.join('')).join('\n');
+    let str = this.board.map((e,i)=>[Constants.numbersA[i+1]].concat(Object.keys(e).map(k=>e[k])).join('')).reverse().concat(label2.join('')).join('\n');
     if((/w(?:hite)?/).test(colorBottom)) this.board.reverse();
     return str;
   }
 
   move (place) {
     const tempMove =  this.game.move(place, {sloppy: !0});
+    const newT = this.game.turn().replace(/w/,'White').replace(/b/,'Black');
+
     if(tempMove) this.lastMove = tempMove;
     else throw new Error('Move not completed !!!11!1!111!');
     //this.handleNextCapture(this.lastMove.captured);
-    this.turn = this.game.turn().replace(/w/,'White').replace(/b/,'Black');
+    this.turn = newT;
     return this.lastMove;
   }
 
 };
 
 exports.ChessGame = ChessGame;
+exports.games = games;

@@ -61,6 +61,7 @@ triggered.metadata = {
 console.log('[CPSCMD][FUN][triggers] Build objects complete!');
 module.exports = [
   [aboosed.name,aboosed],
+  ['aboose',aboosed],
   [confoosed.name,confoosed],
   [exposed.name,exposed],
   [kawaii.name,kawaii],
