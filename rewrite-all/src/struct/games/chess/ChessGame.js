@@ -58,7 +58,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.embed.addField(end?this.game.in_draw()?'The game was a draw!': this.turn? `${this.movers.get(this.turn.toLowerCase())? this.movers.get(this.turn.toLowerCase()).username: this.turn} won!` :`${this.movers.get(this.turn.toLowerCase())? this.movers.get(this.turn.toLowerCase()).username: this.turn} to move`:'White to move' ,`Last move: ${this.game.history()&&this.game.history()[0]?this.game.history().reverse()[0]:'None'}`);
     this.embed.setDescription(this.toString());
     this.embed.setAuthor('Chess');
-    this.embed.setTitle(`${this.movers.get('white').tag}⬜ vs ⬛${this.movers.get('black').tag}`);
+    this.embed.setTitle(`${this.movers.get('white').username}⬜ vs ⬛${this.movers.get('black').username}`);
     return this.embed;
   }
 
