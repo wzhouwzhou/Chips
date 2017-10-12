@@ -14,7 +14,7 @@ module.exports = {
       'The ⏏ button will close this menu!',
       "Each command will update with your server's custom prefix!",
       `The prefix for your server is **{}**`,
-    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix.replace(/`/g,'\\`'))));
+    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g,'\\`')));
 
     const Table = ([
       ['1_     _','Introductions'],
@@ -40,7 +40,7 @@ module.exports = {
       '\t**user [user mention, name or id]** to get information on the user that you request!',
       '**{}quote [msgid]** to quote what someone said in the channel you use the command in.',
       "**{}avatar [user mention]** to get someone's avatar",
-      ].join('\n').replace(/{}/g, prefix));
+      ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g,'\\`')));
 
     const InfoMenu2 = ([
       '**{}discordstatus** to get the current status of discord.',
@@ -52,7 +52,7 @@ module.exports = {
       '**{}membercount/{}mc** to get amount of people in the server.',
       '**{}rolecount/{}rc** to get the amount of roles in the server.',
       '**{}channelcount/{}cc** to get the amount of channels in the server.',
-    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix.replace(/`/g,'\\`'))));
+    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g,'\\`')));
 
     const ModMenu = ([
       '**{}ban [mention user]** to ban someone.',
@@ -68,7 +68,7 @@ module.exports = {
       '**{}undeafen [mention user]** to undeafen someone.',
       '**{}rmute [mention user]** to give someone a muted role! (Disclaimer: this does not create a Muted role, manually remove the mute role to unmute)',
       '**{}chipsprefix on** to begin custom prefix setup, use **{}chipsprefix off** to turn off custom prefix',
-    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix.replace(/`/g,'\\`'))));
+    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g,'\\`')));
 
     const FunMenu = ([
       '**{}con4 length width** to play connect four.',
@@ -86,7 +86,7 @@ module.exports = {
       '**{}happy** for some gifs(credits to Tani)',
       '**{}lenny** to make a lenny face.',
       '**{}ship [mention user]** to ship some people.',
-    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix.replace(/`/g,'\\`'))));
+    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g,'\\`')));
 
     const FunMenu2 = ([
       '**{}nsfw** to get NSFW commands',
@@ -111,14 +111,14 @@ module.exports = {
       '**{}stoptyping** for if a chips command errored and is stuck "typing" in the channel.',
       '**{}password (length) (numerical/alphanumeric/hex/unicode)** to generate a cryptographically strong password!',
       '**{}settopic**/**{}st [newtopic]** to set the channel topic',
-    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix.replace(/`/g,'\\`'))));
+    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g,'\\`')));
 
     const MusicMenu = ([
       '**{}music demo** to begin the music demo.',
       '__This **Open Beta** feature is still being heavily developed and is not necessarily stable at all times__. We apologize in advance.',
       'Mention me once demo is activated for music commands: __@Chips music help__',
       'Server specific prefixes do not work. The only prefix usable with Chips music is mentioning chips',
-    ].join('\n').replace(/{}/g,prefix));
+    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g,'\\`')));
 
     const AdditionalSht = ([
       ['Custom commands for our patrons:',`Type **${_.escapeRegExp(prefix)}patrons**`],
