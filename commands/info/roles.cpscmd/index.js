@@ -1,7 +1,7 @@
 
 let r = require('./roles');
 
-console.log('[CPSCMD][INFO][ping] Building objects...');
+console.log('[CPSCMD][INFO][roles] Building objects...');
 
 r.metadata = {
   category: require('../').category,
@@ -12,7 +12,7 @@ r.metadata = {
   cusomperm: ['SEND_MESSAGES'],
 };
 
-console.log('[CPSCMD][INFO][ping] Build objects complete!');
+console.log('[CPSCMD][INFO][roles] Build objects complete!');
 module.exports = [
   [r.name,r],
   ['rolelist', r],
