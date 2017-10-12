@@ -25,8 +25,8 @@ module.exports = {
 
         if(new RegExp(`${_.escapeRegExp(m.content.replace(/[\s.\-,]+/,''))}`,'i').test(_.escapeRegExp(random[0].replace(/[\s.\-,]+/,'')))) {
           answeredOnce = true;
-          mCol&&mCol.stop();
           win = m.author;
+          mCol&&mCol.stop();
           return true;
         }
         return false;
