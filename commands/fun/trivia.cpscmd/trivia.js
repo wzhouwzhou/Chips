@@ -23,7 +23,7 @@ module.exports = {
       const filter = m => {
         if(m.author.id === client.user.id) return false;
 
-        if(new RegExp(`${_.escapeRegExp(random[0].replace(/\s+/,''))}`,'i').test(m.content.replace(/\s+/,''))) {
+        if(new RegExp(`${_.escapeRegExp(m.content.replace(/[\s.\-,]+/,''))}`,'i').test(_.escapeRegExp(random[0].replace(/[\s.\-,]+/,'')))) {
           answeredOnce = true;
           mCol&&mCol.stop();
           win = m.author;
