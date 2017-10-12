@@ -91,7 +91,7 @@ const ex = {
             ['<:dnd:313956276893646850>', dnd],
             ['<:offline:313956277237710868>', guild.members.size-available],
           ].map(e=>`${e[0]}: **${e[1]}**`),
-        ].join('\n'))],
+        ].join(' '))],
         [`Verification level: ${vLvl}`,`That means ${vInfo}`]
       ].forEach(f=>infobad.addField(...f));
 
@@ -273,7 +273,7 @@ const ex = {
             ['<:dnd:313956276893646850>', dnd],
             ['<:offline:313956277237710868>', role.members.size-available],
           ].map(e=>`${e[0]}: **${e[1]}**`),
-        ].join('\n')));
+        ].join(' ')));
         infobad.addField(`Mentionable: `,`${role.mentionable}`, true);
         infobad.addField(`Role Colour: `,`${role.hexColor}`, true);
         infobad.addField(`Hoist: ${role.hoist}`,`This means that the role is ${role.hoist?'':'not '}displayed separately in the member list.`);
@@ -363,7 +363,7 @@ const ex = {
            ['<:dnd:313956276893646850>', dnd],
            ['<:offline:313956277237710868>', channel.members.size-available],
          ].map(e=>`${e[0]}: **${e[1]}**`),
-       ].join('\n')));
+       ].join(' ')));
 
         infobad.addField(`Position: ${channel.calculatedPosition}`,`This means that the channel is ${channel.calculatedPosition==0?'1st':(channel.calculatedPosition==1?'2nd':(channel.calculatedPosition==2?'3rd':((channel.calculatedPosition+1)+'th')))} on the channel list in the sidebar!`);
         //infobad.addField(`Permission Overwrite Count: `,`${channel.permissionOverwrites.size}`);
