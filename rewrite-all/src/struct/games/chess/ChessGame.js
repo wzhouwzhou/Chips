@@ -74,7 +74,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   }
 
   aiMove (delay = 0, options = {}) {
-    if (this.isOver()) return this;
+    if (this.ended||this.isOver()) return null;
     if(!delay) {
         const move = AI.play(this.game.history());
       try {
@@ -121,7 +121,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
 
     this.lastMove = this.move(move);
     if(!stopBot&&this.aiOptions&&!this.isOver())
-      this.aiMove(2000);
+      this.aiMove(2000, {noUpdate: true});
 
     if (this.isOver()) {
       this.emit('end', this);
