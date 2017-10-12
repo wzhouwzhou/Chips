@@ -1,10 +1,10 @@
 module.exports = {
     name: "roles",
-    async func(msg, { send, guild, member, args, channel }) {
+    async func(msg, { send, guild, member, args, channel, member }) {
         if(!guild)
           return;
         if(guild)
-          return member.send(new Discord.RichEmbed().setTitle('Role List').setDescription(guild._sortedRoles.map(e=>_.escapeRegExp(e.name)).reverse().join(', ')))
+          return member.send(new Discord.RichEmbed().setColor(member.displayColor).setTitle('Role List').setDescription(guild._sortedRoles.map(e=>_.escapeRegExp(e.name)).reverse().join(', ')))
         
   
      }
