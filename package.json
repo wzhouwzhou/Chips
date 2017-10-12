@@ -56,7 +56,6 @@
     "ffmpeg-binaries": "^3.2.2",
     "finalhandler": "^1.0.4",
     "font-awesome": "^4.7.0",
-    "fsevents": "^1.1.2",
     "google": "^2.1.0",
     "google-spreadsheet": "2.0.3",
     "google-translate-api": "github:arthurlacoste/google-translate-api",
@@ -118,6 +117,9 @@
     "ws": "^3.1.0",
     "ytdl-core": "^0.14.4",
     "ytsearcher": "^1.0.3"
+  },
+  "optionalDependencies": {
+    "fsevents": "^1.1.2"
   },
   "name": "chips",
   "title": "Chips",
