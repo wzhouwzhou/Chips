@@ -277,7 +277,7 @@ const ex = {
         infobad.addField(`Mentionable: `,`${role.mentionable}`, true);
         infobad.addField(`Role Colour: `,`${role.hexColor}`, true);
         infobad.addField(`Hoist: ${role.hoist}`,`This means that the role is ${role.hoist?'':'not '}displayed separately in the member list.`);
-        infobad.addField(`Position: ${role.position}`,`This means that the role is ${role.position+1==guild.roles.size?'1st':(role.position+2==guild.roles.size?'2nd':(role.position+3==guild.roles.size?'3rd':((guild.roles.size-role.position)+'th')))} highest in this server!`);
+        infobad.addField(`Position: ${role.rawPosition+1}`,`This means that the role is ${role.rawPosition+1+1==guild.roles.size?'1st':(role.rawPosition+1+2==guild.roles.size?'2nd':(role.rawPosition+1+3==guild.roles.size?'3rd':((guild.roles.size-role.rawPosition+1)+'th')))} highest in this server!`);
         infobad.addField(`Members with this role: `,`${memList?memList:'Nobody has this role!'}`);
         return await reply(`Role information: `,{embed: infobad});
         //return await send(`Role Id: ${role.id}\nRole Name: ${rolename}\nMember count: ${role.members.size}`);
@@ -365,9 +365,9 @@ const ex = {
          ].map(e=>`${e[0]}: **${e[1]}**`),
        ].join(' ')));
 
-        infobad.addField(`Position: ${channel.position}`,`This means that the channel is ${channel.position==0?'1st':(channel.position==1?'2nd':(channel.position==2?'3rd':((channel.position+1)+'th')))} on the channel list in the sidebar!`);
+        infobad.addField(`Position: ${channel.rawPosition+1}`,`The channel is ${channel.rawPosition+1==0?'1st':(channel.rawPosition+1==1?'2nd':(channel.rawPosition+1==2?'3rd':((channel.rawPosition+1+1)+'th')))} on the channel list in the sidebar ${channel.parent?'and '+(channel.position+1==0?'1st':(channel.position+1==1?'2nd':(channel.position+1==2?'3rd':((channel.position+1+1)+'th'))))+' under the '+channel.parent.name+' divider':''}!`);
         //infobad.addField(`Permission Overwrite Count: `,`${channel.permissionOverwrites.size}`);
-        channel.type==='text'&&infobad.addField(`Nsfw channel: `,`${channel.nsfw?'yes':'no'}`);
+        channel.type==='text'&&channel.nsfw&&infobad.setThumbnail('https://i.imgur.com/PU6uVhu.png');
         memList&&infobad.addField(`Members with access to this channel: `,memList);
         return await reply(`Channel information: `,{embed: infobad});
       }
