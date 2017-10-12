@@ -44,7 +44,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.channel = options.channel;
     this.game = new Chess(options.newFen||startFen);
     this.board = new Array(8).fill(0);
-    this.embed = new Discord[/^[^]*12\.\d+[^]*$/.test(Discord.version)?'MessageEmbed':'MessageEmbed'];
+    this.embed = new Discord[/^[^]*12\.\d+[^]*$/.test(Discord.version)?'MessageEmbed':'RichEmbed'];
     this.fen = options.newFen||startFen;
     this.boardFen = this.fen.split(/\s+/)[0];
 
