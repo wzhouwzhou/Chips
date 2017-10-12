@@ -23,7 +23,8 @@
     "devstart": "BETA=true PORT=8880 DEBUG=* DEBUG_SHOW_HIDDEN=true sh deploy2.bat",
     "pm2start": "pm2 start npm -- start",
     "pm2monit": "pm2 monit",
-    "pm2logs": "pm2 log"
+    "pm2logs": "pm2 log",
+    "test": "eslint . --ext .js"
   },
   "dependencies": {
     "@newrelic/native-metrics": "^2.1.1",
