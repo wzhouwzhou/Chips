@@ -19,7 +19,7 @@ module.exports = {
     let sentMsg = await send(new Discord.RichEmbed().setTitle('Rock Paper Scissors').setDescription('Choose Rock, Paper, or Scissors!'));
     mCol = channel.createMessageCollector(
       filter,
-      { time: 1000*(time+1), maxMatches: 1 }
+      { time: 5000, maxMatches: 1 }
     );
     mCol.on('end', collected => {
       if(!user&&!collected.first()) return send('Timed out');
