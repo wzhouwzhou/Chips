@@ -82,8 +82,8 @@ const ex = {
       currentGame.movers.get('black')?currentGame.movers.get('black').tag:'Player2',
     );
     currentGame.once('end', game => {
-      //game.ended = true;
-      game.updateAll();
+      game.ended = true;
+      //game.updateAll();
     });
     games.set(channel.id, currentGame);
     console.log('Creating collector...');
