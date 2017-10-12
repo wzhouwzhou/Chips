@@ -70,7 +70,7 @@ const ex = {
       if (vLvl >= 2) vInfo+= "They must also be registered on Discord for more than five minutes. ";
       if (vLvl >= 3) vInfo+= "In addition, upon joining, new members without a role must wait 10 minutes before they are able to speak. ";
       else if (vLvl >= 4) vInfo+= "In addition, upon joining, new users without a role must verify themselves with a mobile device before they are able to speak. ";
-      let highestRole = guild._sortedRoles.last();
+      let highestRole = guild._sortedRoles().last();
       let gname = guild.name.replace('@','(at)');
       [
         [`Name of this server: ${gname}`, `Guild id: ${guild.id}`],
