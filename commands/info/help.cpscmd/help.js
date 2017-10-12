@@ -48,10 +48,10 @@ module.exports = {
       '**{}lastmessageid/{}lmid** to get last sent message ID.',
       '**{}channelid/{}cid** to get the channel\'s ID',
       '**{}serverid/{}sid/{}gid** to get the server\'s ID.',
-      '**{}channeltopic**/**{}ct** to get the channel topic.',
-      '**{}membercount**/**{}mc** to get amount of people in the server.',
-      '**{}rolecount**/**{}rc** to get the amount of roles in the server.',
-      '**{}channelcount** to get the amount of channels in the server.',
+      '**{}channeltopic/{}ct** to get the channel topic.',
+      '**{}membercount/{}mc** to get amount of people in the server.',
+      '**{}rolecount/{}rc** to get the amount of roles in the server.',
+      '**{}channelcount/{}cc** to get the amount of channels in the server.',
     ].join('\n').replace(/{}/g, _.escapeRegExp(prefix)));
 
     const ModMenu = ([
