@@ -81,7 +81,7 @@ const ex = {
       'black',
       currentGame.movers.get('black')?currentGame.movers.get('black').tag:'Player2',
     );
-    currentGame.on('end', game => {
+    currentGame.once('end', game => {
       game.ended = true;
       game.updateAll();
     });
