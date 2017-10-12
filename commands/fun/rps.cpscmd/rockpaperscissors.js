@@ -11,6 +11,7 @@ module.exports = {
       const cont = _.escapeRegExp(m.content.replace(/[\s.\-,]+/,''));
       if(reg.test(cont)) {
         user = cont.match(reg)[0];
+        m.delete();
         mCol&&mCol.stop();
         return true;
       }
@@ -25,7 +26,7 @@ module.exports = {
       if(!user&&!collected.first()) return send('Timed out');
       else {
         const result = (() => {
-          switch(rps(user)(computer)){
+          switch(rps(user.toLowerCase())(computer)){
             case 0: return ('It was a tie!');
             case 1: return ('You won!');
             case -1:return ('The computer won!');
