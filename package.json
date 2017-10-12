@@ -47,7 +47,7 @@
     "discord.js": "github:hydrabolt/discord.js",
     "discordblacklist": "^1.0.7",
     "ejs": "^2.5.7",
-    "erlpack": "github:hammerandchisel/erlpack",
+    "erlpack": "github:discordapp/erlpack",
     "express": "^4.15.4",
     "express-brute": "^1.0.1",
     "express-ejs-extend": "0.0.1",
@@ -112,7 +112,7 @@
     "url": "^0.11.0",
     "url-download": "0.0.8",
     "uuid": "^3.1.0",
-    "uws": "^0.14.5",
+    "uws": "^8.14.1",
     "ws": "^3.1.0",
     "ytdl-core": "^0.14.4",
     "ytsearcher": "^1.0.3"
