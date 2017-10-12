@@ -37,7 +37,7 @@ module.exports = {
         { time: 1000*(time+1), maxMatches: 1 }
       );
       mCol.on('end', collected => {
-        if(!answeredOnce||!collected.first()||!win) return send(`The answer was ${random[0]}`);
+        if(!answeredOnce&&!collected.first()&&!win) return send(`The answer was ${random[0]}`);
         else return send(`${win+[]} got it! The answer was ${random[0]}`);
       });
     }
