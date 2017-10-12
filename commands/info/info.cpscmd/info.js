@@ -368,7 +368,7 @@ const ex = {
         infobad.addField(`Position: ${channel.calculatedPosition}`,`This means that the channel is ${channel.calculatedPosition==0?'1st':(channel.calculatedPosition==1?'2nd':(channel.calculatedPosition==2?'3rd':((channel.calculatedPosition+1)+'th')))} on the channel list in the sidebar!`);
         //infobad.addField(`Permission Overwrite Count: `,`${channel.permissionOverwrites.size}`);
         infobad.addField(`Nsfw channel: `,`${channel.nsfw?'yes':'no'}`);
-        infobad.addField(`Members with access to this channel: `,memList);
+        memList&&infobad.addField(`Members with access to this channel: `,memList);
         return await reply(`Channel information: `,{embed: infobad});
       }
     }
