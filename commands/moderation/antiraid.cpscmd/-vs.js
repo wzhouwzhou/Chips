@@ -37,7 +37,7 @@ ex.func = async (msg, {
         let therole = targetMember.roles.find('name','unverified')||targetMember.roles.find('name','Unverified');
         await targetMember.removeRole(guild.roles.get('305302877641900052')||therole);
         if(client.memberjoin.verifyLogC[guild.id]){
-          let embed = new Discord.RichEmbed();
+          let embed = new Discord.MessageEmbed();
           embed.setTitle('Member Verification').setColor(_.random(1,16777215));
           embed.setDescription(`<@${targetMember.id}> was just verified by <@${author.id}>!`);
           if(guild.channels.get(client.memberjoin.verifyLogC[guild.id]))

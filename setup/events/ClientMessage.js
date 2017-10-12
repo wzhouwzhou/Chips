@@ -199,7 +199,7 @@ async function isntMe(react){
 
 async function detectPartyLink(message){
   try{
-    let bad = new Discord.RichEmbed().setColor("13551").setTitle("Party Link Info:");
+    let bad = new Discord.MessageEmbed().setColor("13551").setTitle("Party Link Info:");
     let lInfo =require(path.join(__dirname, '../../handlers/DiepAddons')).getInfo(message.cleanContent);
     if(lInfo.code==null)return;
     bad.addField("Gamemode:", `**${lInfo.gamemode}**`, true);

@@ -52,7 +52,7 @@ module.exports = {
       throw err;
     }
 
-    const embed = new Discord.RichEmbed;
+    const embed = new Discord.MessageEmbed;
     embed
       .setAuthor(`Ban confirmation - Banning: ${found?user.tag:memberToUse}`, found?user.displayAvatarURL:client.user.displayAvatarURL)
       .setColor("RED")
@@ -85,7 +85,7 @@ module.exports = {
         if(m.author.id!=author.id) return;
         if(agreed){
           console.log("[Ban] Banning...");
-          let emb = new Discord.RichEmbed()
+          let emb = new Discord.MessageEmbed()
             .setAuthor("Ban Notice!")
             .setTitle(`You were banned from the server: ${guild.name}!`)
             .setColor(9109504)

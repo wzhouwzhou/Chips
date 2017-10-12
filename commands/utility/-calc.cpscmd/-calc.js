@@ -23,7 +23,7 @@ module.exports = {
 
     if((content.match(/=/g)||[]).length == 0) {
       if(query=="") return reply("Please enter a valid equation or expression!");
-      emb = new Discord.RichEmbed().setTimestamp(new Date());
+      emb = new Discord.MessageEmbed().setTimestamp(new Date());
       emb.setAuthor(`New Expression Calculation`).setColor(member.displayColor);
       emb.addField("Result: ", query?`${query.toString()+'\n'+'≈'+eval(query.toString())}`:`Calculation could not be completed`);
       emb.setTimestamp(new Date());
@@ -31,7 +31,7 @@ module.exports = {
       return reply("Results:", {embed: emb});
     }else if((content.match(/=/g)||[]).length == 1){ //we got an equation
       let ans;
-      let emb = new Discord.RichEmbed();
+      let emb = new Discord.MessageEmbed();
       emb.setAuthor(`New Equation Calculation`).setColor(member.displayColor);
       emb.setTimestamp(new Date());
 
@@ -104,7 +104,7 @@ module.exports = {
           µs ? end += 'µs' : end += 'ms';
           ans = (!ans)?"I am not able to do this calculation!":ans;
           console.log("Result: " + ans.toString());
-          emb = new Discord.RichEmbed();
+          emb = new Discord.MessageEmbed();
           emb.setAuthor(`New Equation Calculation`).setColor(member.displayColor);
           emb.addField(query.toString(), ans?`${variable.content} = ${ans.toString()}`:"/Calculation could not be completed");
           emb.setFooter(`--Equation Calculation Attempt took ${(end)}.--`);

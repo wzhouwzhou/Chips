@@ -1,7 +1,7 @@
 module.exports = {
   name: "patrons",
   async func(msg, { send, member, guild, Discord, prefix }) {
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
     .setAuthor('Here are all of the commands for Chips Patrons!')
     .setTitle('A huge thanks to the following people for supporting Chips in the best way possible!')
     .setDescription([

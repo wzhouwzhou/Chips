@@ -28,7 +28,7 @@ module.exports = {
 		if(reason == null)
 			reason = "No reason provided.";
 
-    const embed = new Discord.RichEmbed();
+    const embed = new Discord.MessageEmbed();
     embed
       .setAuthor(`Ban confirmation - Banning ${memberToUse.user.tag}`, memberToUse.user.displayAvatarURL)
       .setColor("RED")
@@ -64,7 +64,7 @@ module.exports = {
 					if(!memberToUse.bannable) return reply("Uh oh! I can't ban this user! Perhaps I am missing perms..");
 
           console.log("[Ban] Banning...");
-					let emb = new Discord.RichEmbed()
+					let emb = new Discord.MessageEmbed()
 			      .setAuthor("Ban Notice!")
 			      .setTitle(`You were banned from the server: ${guild.name}!`)
 			      .setColor(9109504)

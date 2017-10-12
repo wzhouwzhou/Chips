@@ -19,7 +19,7 @@ const ex= {
     return channel.fetchMessages({ around: args[0], limit: 3 }).then(messages => {
       const quotee = messages.get(args[0]);
 
-      const embed = new Discord.RichEmbed()
+      const embed = new Discord.MessageEmbed()
         .setDescription(quotee.content || '\u200B')
         .setAuthor(`${quotee.author.username}#${quotee.author.discriminator}`, quotee.author.displayAvatarURL)
         .setFooter(quotee.id)

@@ -40,7 +40,7 @@ const ex = {
     console.log("[Info] Creating new searcher for guild " + guild.id);
     let options = { guild: guild };
     searchers[guild.id] = new Searcher( options.guild );
-    let infobad = new Discord.RichEmbed().setColor(member.displayColor).setFooter(new Date());
+    let infobad = new Discord.MessageEmbed().setColor(member.displayColor).setFooter(new Date());
 
     if(action=="server"){
       try{
@@ -113,7 +113,7 @@ const ex = {
              .addField(`Dnd: <:dnd:313956276893646850>      `, dnd   , true);
       infobad.addField(`Verification level: ${vLvl}`,`That means ${vInfo}`);
       await reply(`Server info`, {embed: infobad});
-      infobad = new Discord.RichEmbed();
+      infobad = new Discord.MessageEmbed();
       infobad.setColor(member.displayColor).setAuthor('Server Emojis').setTitle(`Emoji count: ${guild.emojis.size}`).setDescription(guild.emojis.array().join(' '));
       let hrTime = process.hrtime(start);
       let µs = false;

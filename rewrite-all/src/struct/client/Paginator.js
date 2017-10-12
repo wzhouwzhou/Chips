@@ -8,7 +8,7 @@ const TIME2 = 60e3;
 const Paginator = class Paginator {
   constructor(msg, data, Discord = require('discord.js')) {
     this._msg = msg;
-    this.embed = new Discord.RichEmbed();
+    this.embed = new Discord.MessageEmbed();
     if(data) this.loadData (data);
     this.currentPage = 0;
   }
@@ -55,7 +55,7 @@ const Paginator = class Paginator {
   updateInternal (pageNum, Discord = require('discord.js')) {
     if(this.stopped) return null;
     if(this.embedding){
-      this.embed=new Discord.RichEmbed();
+      this.embed=new Discord.MessageEmbed();
       this.currentTitle = this.title?typeof this.title==='string'?this.title:this.title[pageNum]?this.title[pageNum]:' ':null;
 
       this.embed.setTitle(this.currentTitle)

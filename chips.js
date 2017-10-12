@@ -148,7 +148,7 @@ const send = (message, c) => { c.send(message, {disableEveryone:true}); };
 global.send2 = (message, c) => {
   if(c==null||message.author.id==client.user.id)return;
 
-  let mainContent = new Discord.RichEmbed()
+  let mainContent = new Discord.MessageEmbed()
     .setAuthor(`${message.author.username}#${message.author.discriminator}\nUser ID: ${message.author.id}`)
     .setColor(205)
     .addField("message id:", message.id,true)
@@ -183,7 +183,7 @@ function selfping() {
 }
 
 function msgStatus() {
-  let statsE = new Discord.RichEmbed()
+  let statsE = new Discord.MessageEmbed()
     .setColor(205)
     .addField("Spy update:", "Message counts: ",true)
     .setTitle(moment().format('ddd, Do of MMM @ HH:mm:ss.SSS'))

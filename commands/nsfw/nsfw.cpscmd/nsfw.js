@@ -8,7 +8,7 @@ module.exports = {
         '**{}hentai** for hentai',
       ].join('\n').replace(/{}/g, prefix);
 
-      send('', { embed: new Discord.RichEmbed().setTitle('Nsfw commands').setDescription(list).setColor(member?member.displayColor:12435) });
+      send('', { embed: new Discord.MessageEmbed().setTitle('Nsfw commands').setDescription(list).setColor(member?member.displayColor:12435) });
     }else
       return send(`You are not in a nsfw channel!`);
   }

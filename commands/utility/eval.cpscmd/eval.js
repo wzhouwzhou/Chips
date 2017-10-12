@@ -23,7 +23,7 @@ module.exports = {
     try {
       evaled = await doEval(args.join(' ').replace('client.token','`HNNNNNNGGHHHH`'));
     }catch(err){
-      return await result.edit('Error', {embed: (new Discord.RichEmbed).setTitle(err.name).setDescription(`☠\u0010${cb}js\n${err.message.replace(/@/g,'(at)')}${cb}`)});
+      return await result.edit('Error', {embed: (new Discord.MessageEmbed).setTitle(err.name).setDescription(`☠\u0010${cb}js\n${err.message.replace(/@/g,'(at)')}${cb}`)});
     }
     let r = (typeof evaled !== "string") ? require("util").inspect(evaled): evaled;
     let hrTime = process.hrtime(start);
@@ -44,7 +44,7 @@ module.exports = {
       r = util.inspect(r, { depth: 0 });
     if (r.length + metrics.length > 1900)
     r = 'Output too long.';
-    return await result.edit('Results', {embed: (new Discord.RichEmbed).setTitle('Output').setDescription(`📤\u0010${cb}js\n${r}${cb}`).setFooter(metrics)});
+    return await result.edit('Results', {embed: (new Discord.MessageEmbed).setTitle('Output').setDescription(`📤\u0010${cb}js\n${r}${cb}`).setFooter(metrics)});
     //await result.edit(`${r}${metrics}`);
 
   }

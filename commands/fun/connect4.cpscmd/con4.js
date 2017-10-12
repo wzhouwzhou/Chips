@@ -151,7 +151,7 @@ const ex = {
     currentGame.on('ended', async game=>{
       console.log('Con4 game ended');
       game.currentMsg.delete().catch(_=>_);
-      game.embed = new Discord.RichEmbed()
+      game.embed = new Discord.MessageEmbed()
         .setTitle('Connect Four')
         .setColor(game.player=='red'?16711680:255)
         .setAuthor(`${game.player1?game.player1.tag:''}${RED} vs ${BLUE}${game.player2?game.player2.tag:''}`)
@@ -236,7 +236,7 @@ const C4Game = class C4Game extends EventEmitter {
   }
 
   embedify () {
-    this.embed = new Discord.RichEmbed()
+    this.embed = new Discord.MessageEmbed()
       .setTitle('Connect Four')
       .setColor(this.player=='red'?16711680:255)
       .setAuthor(`${this.player1?this.player1.tag:''}${RED} vs ${BLUE}${this.player2?this.player2.tag:''}`)

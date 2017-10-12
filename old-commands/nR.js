@@ -34,7 +34,7 @@ module.exports = {
     let serv = Constants.servers.NEB;
     let num=0;
     let i=0;
-    let bad =(new Discord.RichEmbed());
+    let bad =(new Discord.MessageEmbed());
     if(c3.guilds.get(serv).members.get(us)==null)
       return reply(`No roles for: \`\`${args[0]}\`\`! (Probably not in target guild/server).`);
     c3.guilds.get(serv).members.get(us).roles.forEach(function(item){
@@ -42,7 +42,7 @@ module.exports = {
       bad.addField(`role match ${num}:`,item.name); i++;num++;
       if(i==24) {
         channel.send(' ', {embed: bad});
-        bad =(new Discord.RichEmbed());
+        bad =(new Discord.MessageEmbed());
         i=0;
       }
     });

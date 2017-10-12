@@ -61,7 +61,7 @@ const ex= {
       /*else
         console.log("-ban immunity override");*/
     }
-    let emb = new Discord.RichEmbed()
+    let emb = new Discord.MessageEmbed()
       .setAuthor("Ban Notice!")
       .setColor(9109504)
       .setThumbnail(Constants.images.WARNING)

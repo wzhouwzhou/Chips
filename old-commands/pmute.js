@@ -27,7 +27,7 @@ module.exports = {
 
     reply(`user <@${mem.id}> perma-muted successfully!`);
 
-    let emb = new Discord.RichEmbed()
+    let emb = new Discord.MessageEmbed()
       .setAuthor("Mute Log")
       .setTitle(`${mem.displayName} was perma-muted by ${used.displayName}`)
       .setColor(9109504)

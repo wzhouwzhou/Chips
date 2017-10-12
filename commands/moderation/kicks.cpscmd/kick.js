@@ -28,7 +28,7 @@ module.exports = {
 		if(reason == null)
 			reason = "No reason provided.";
 
-    const embed = new Discord.RichEmbed();
+    const embed = new Discord.MessageEmbed();
     embed
       .setAuthor(`Kick confirmation - Kicking ${memberToUse.user.tag}`, memberToUse.user.displayAvatarURL)
       .setColor("RED")
@@ -66,7 +66,7 @@ module.exports = {
 					if(!memberToUse.kickable) return reply("Uh oh! I can't kick this user! Perhaps I am missing perms..");
 
           console.log("[Kick] Kicking...");
-					let emb = new Discord.RichEmbed()
+					let emb = new Discord.MessageEmbed()
 					.setAuthor("Kick Notice!")
 					.setTitle('You were kicked from the server: '+guild.name+'!')
 					.setColor(9109504)

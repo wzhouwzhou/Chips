@@ -7,7 +7,7 @@ module.exports = {
     const used = member || author;
     let dbUser = database.sinxUsers.get(used.id);
 
-    let embed = new Discord.RichEmbed;
+    let embed = new Discord.MessageEmbed;
     if(args[0]==null){
       if(dbUser!=null&&dbUser.pts!=0){
         const theMember = guild.members.get(dbUser.uid);

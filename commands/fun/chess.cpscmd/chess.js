@@ -11,7 +11,7 @@ const ex = {
     let { author, reply, member, send, channel, args, prefix, client } = ctx;
 
     if(args[0]&&args[0]==='help'){
-      const embed = new Discord.RichEmbed;
+      const embed = new Discord.MessageEmbed;
       new CG({newFen: 'rnbqkb1r/pppppppp/5n2/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1' , channel: msg.channel});
 
       [
@@ -161,7 +161,7 @@ const ex = {
     currentGame.on('ended', async () => { //game=>{
       console.log('Chess game ended');
       // game.updateFrontEnd('end');
-      // game.embed = new Discord.RichEmbed()
+      // game.embed = new Discord.MessageEmbed()
       //   .setTitle('Connect Four')
       //   .setColor(game.player=='red'?16711680:255)
       //   .setDescription(game.toString())

@@ -17,7 +17,7 @@ module.exports = {
       }
       return false;
     };
-    let sentMsg = await send(new Discord.RichEmbed().setTitle('Rock Paper Scissors').setDescription('Choose Rock, Paper, or Scissors!'));
+    let sentMsg = await send(new Discord.MessageEmbed().setTitle('Rock Paper Scissors').setDescription('Choose Rock, Paper, or Scissors!'));
     mCol = channel.createMessageCollector(
       filter,
       { time: 5000, maxMatches: 1 }
@@ -32,7 +32,7 @@ module.exports = {
             case -1:return ('The computer won!');
           }
         })();
-        sentMsg.edit(result, new Discord.RichEmbed().setTitle('Rock Paper Scissors').setDescription(`The computer went ${computer}`));
+        sentMsg.edit(result, new Discord.MessageEmbed().setTitle('Rock Paper Scissors').setDescription(`The computer went ${computer}`));
       }
     });
   }

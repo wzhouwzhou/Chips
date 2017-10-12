@@ -25,7 +25,7 @@ ex = {
 		if(guild.id!=Constants.servers.SUPPORT) return;
 		if(channel.id!=Constants.channels.SUPPORT_STAFFAPPLICATION){
 			if(guild.roles.get(Constants.roles.SUPPORT_STAFFAPPLICATIONROLE).members.size==0){
-		    let embed = new Discord.RichEmbed();
+		    let embed = new Discord.MessageEmbed();
 		    embed
 		      .setTitle(`${author.tag}`, author.displayAvatarURL)
 		      .setColor(1)
@@ -112,7 +112,7 @@ ex = {
 					return reply(START);
 				});
 			}else{
-				let embed = new Discord.RichEmbed();
+				let embed = new Discord.MessageEmbed();
 		    embed
 		      .setTitle(`${author.tag}`, author.displayAvatarURL)
 		      .setColor(1)
@@ -122,7 +122,7 @@ ex = {
 		    return reply(details, {embed: embed});
 			}
 		}else{
-			let embed = new Discord.RichEmbed();
+			let embed = new Discord.MessageEmbed();
 	    embed
 	      .setTitle(`${author.tag}`, author.displayAvatarURL)
 	      .setColor(101010)
@@ -196,7 +196,7 @@ ex = {
 
 
 				//STEP 2:
-				let embed = new Discord.RichEmbed();
+				let embed = new Discord.MessageEmbed();
 		    embed
 		      .setTitle(`${author.tag}`, author.displayAvatarURL)
 		      .setColor(101010)
@@ -268,7 +268,7 @@ ex = {
 					}
 
 					//STEP 3:
-					let embed = new Discord.RichEmbed();
+					let embed = new Discord.MessageEmbed();
 			    embed
 			      .setTitle(`${author.tag}`, author.displayAvatarURL)
 			      .setColor(101010)
@@ -342,7 +342,7 @@ ex = {
 							msg.reply("Thank you for your interest! Your application has been logged. This chat will now be cleared for confidentiality.");
 						}
 
-						let log = new Discord.RichEmbed();
+						let log = new Discord.MessageEmbed();
 						log.setTitle(`Staff application from ${temp.submitter}`);
 						log.setDescription(`User id: ${temp.submitterid}, <@${temp.submitterid}>`);
 						log.setThumbnail(`${temp.submitterImg}`);

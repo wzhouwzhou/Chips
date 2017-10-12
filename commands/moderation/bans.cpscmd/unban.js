@@ -42,7 +42,7 @@ module.exports = {
       console.error(err);
     }
 
-    const embed = new Discord.RichEmbed();
+    const embed = new Discord.MessageEmbed();
     embed
       .setAuthor(`Unban confirmation - Unbanning: ${found?user.tag:memberToUse}`, found?user.displayAvatarURL:client.user.displayAvatarURL)
       .setColor("RED")
@@ -75,7 +75,7 @@ module.exports = {
         if(m.author.id!=author.id) return;
         if(agreed){
           console.log("[Unban] Unbanning...");
-          let emb = new Discord.RichEmbed()
+          let emb = new Discord.MessageEmbed()
             .setAuthor("Unban Notice!")
             .setTitle(`You were unbanned from the server: ${guild.name}!`)
             .setColor(9109504)

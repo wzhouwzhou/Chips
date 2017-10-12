@@ -100,7 +100,7 @@ module.exports = {
         case outlookN > 8: return '😍';
       }
     })();
-    const embed = new Discord.RichEmbed().setTitle('Ship').setDescription(`${userOne+[]} ${shipJoin.get(assembled)||joiner||'x'} ${userTwo+[]}`);
+    const embed = new Discord.MessageEmbed().setTitle('Ship').setDescription(`${userOne+[]} ${shipJoin.get(assembled)||joiner||'x'} ${userTwo+[]}`);
     embed.addField(comment, `${progressbar} ${shipValue}%`);
     send(embed);
   }

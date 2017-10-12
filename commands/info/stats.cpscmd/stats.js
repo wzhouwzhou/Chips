@@ -43,7 +43,7 @@ module.exports = {
     let memAverage = ~~(2e-1 + process.memoryUsage().heapUsed /1024 / 1024);
 
     //Create the embed
-    let embed = new Discord.RichEmbed();
+    let embed = new Discord.MessageEmbed();
     embed.setTitle(`Chip's Stats Report! Current Time: ${currentTime}`);
     embed.setColor(guild?member.displayColor:1503);
 
@@ -191,7 +191,7 @@ const formatUptime = (seconds) => {
         console.log("globaltotals guild count" + globalTotals[0]);
       });
 
-      let bad = new Discord.RichEmbed();
+      let bad = new Discord.MessageEmbed();
       bad.setColor("1503").setAuthor(`Chips (-help) stats report for shard #${clientutil.id+1} (of ${clientutil.count})!`);
 
       bad.setTitle(`Current time: ${moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')}!`);
@@ -239,7 +239,7 @@ const formatUptime = (seconds) => {
       });
       let avatar = bot.user.avatarURL(2048);
       console.log("avatarURL" + avatar);
-      bad = new Discord.RichEmbed();
+      bad = new Discord.MessageEmbed();
       bad.setColor("1503").setAuthor(`Chips global stats report across all shards!`);
       bad.setThumbnail(avatar);
       bad.setImage("https://cdn.discordapp.com/attachments/307625096078426123/314201502669471744/Chips.jpg");

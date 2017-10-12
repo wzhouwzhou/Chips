@@ -173,7 +173,7 @@ module.exports = {
       return reply ('Something went wrong...');
     }
     /*
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
       .setAuthor('This is the Chips Bot Help Menu!', "http://www.mkrfoodproducts.com/images/gallery/image_11.jpg")
       .setTitle('')
       .setDescription('')

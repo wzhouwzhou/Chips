@@ -7,7 +7,7 @@ module.exports = function(Discord, client, dmC, moment) {
 async function log(message, Discord, client, dmC, moment) {
   if(dmC==null||message.author.id==client.user.id)return;
 
-  let mainContent = new Discord.RichEmbed()
+  let mainContent = new Discord.MessageEmbed()
     .setAuthor(`DM Received!: ${message.author.username}#${message.author.discriminator}\nUser ID: ${message.author.id}`)
     .setColor(205)
     .addField("message id:", message.id,true)
@@ -31,7 +31,7 @@ async function log(message, Discord, client, dmC, moment) {
 }
 
 const duplicateEmbed = (me, Discord) => {
-    let bad = new Discord.RichEmbed();
+    let bad = new Discord.MessageEmbed();
     if (me.author) bad.setAuthor(me.author.name,me.author.iconURL);
     if (me.color) bad.setColor(me.color);
     if (me.createdTimestamp);

@@ -10,7 +10,7 @@ module.exports = {
     if(!targetmember||targetmember.size<1){
       let hrTime = process.hrtime(start);
 
-      const selftar = new Discord.RichEmbed()
+      const selftar = new Discord.MessageEmbed()
       .setTitle(`Avatar Image of ${author.tag} `, ``   , true)
       .setColor(guild?msg.member.displayColor:71340)
       .addField('Avatar Link: ', `[Click Here](${author.avatarURL||author.displayAvatarURL})`)
@@ -45,7 +45,7 @@ module.exports = {
       });
 
       if(pages.length===1){
-        const avator = new Discord.RichEmbed()
+        const avator = new Discord.MessageEmbed()
           .setTitle(title[0])
           .setColor(guild?msg.member.displayColor:71340)
           .addField(...pages[0][0])

@@ -15,7 +15,7 @@ module.exports = {
     let result = null;
     if(args[0] === 'pull') {
       result = await exec('git pull');
-      await send(new Discord.RichEmbed().setDescription(result.substring(0,1800)));
+      await send(new Discord.MessageEmbed().setDescription(result.substring(0,1800)));
     }
     if(result&&!~result.toLowerCase().replace(/(\s|-)+/g,'').indexOf('uptodate'))
       process.exit(42);

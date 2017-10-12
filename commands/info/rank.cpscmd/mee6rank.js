@@ -11,13 +11,13 @@ const ex = {
   name: "mee6rank",
   async func(msg, {send, author, guild, args, gMember, reply, content, prefix, Discord }) {
     let member = msg.member;
-    const waitingE = new Discord.RichEmbed().attachFile('loading.gif').setAuthor('Loading...','attachment://loading.gif','http://chipsbot.tk').setColor(msg.member.displayColor);
+    const waitingE = new Discord.MessageEmbed().attachFile('loading.gif').setAuthor('Loading...','attachment://loading.gif','http://chipsbot.tk').setColor(msg.member.displayColor);
     const waiting = await send(' ', {embed: waitingE});
 
     console.log("[Mee6Rank] Creating new searcher for guild " + guild.id);
     let options = { guild: guild };
     searchers[guild.id] = new Searcher( options.guild );
-    let infobad = new Discord.RichEmbed().setColor(member.displayColor).setFooter(new Date());
+    let infobad = new Discord.MessageEmbed().setColor(member.displayColor).setFooter(new Date());
 
     let multiple = false;
     if (args[0]){

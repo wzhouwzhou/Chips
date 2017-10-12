@@ -53,7 +53,7 @@ module.exports = {
 
     database.sheets[`botlog`].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "Crowd report: ping", mainvalue: wsPing, label: "ms"},(err) => {console.log(err);});
 
-    let bad = new Discord.RichEmbed().setColor(member?member.color:1).setTitle("**Ping Metrics**");
+    let bad = new Discord.MessageEmbed().setColor(member?member.color:1).setTitle("**Ping Metrics**");
     bad.setDescription("All metrics are measured in milliseconds it takes to perform an action.");
     bad.addField("Connecting to Discord: ", wsPing.toFixed(2));
     bad.addField("Sending a msg: ", sendMetrics.toFixed(2));

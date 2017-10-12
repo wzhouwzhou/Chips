@@ -18,7 +18,7 @@ const ex = {
     console.log("[Info] Creating new searcher for guild " + guild.id);
     let options = { guild: guild };
     searchers[guild.id] = new Searcher( options.guild );
-    let infobad = new Discord.RichEmbed().setColor(member.displayColor).setFooter(new Date());
+    let infobad = new Discord.MessageEmbed().setColor(member.displayColor).setFooter(new Date());
 
     if(action=="server"){
       try{
@@ -96,7 +96,7 @@ const ex = {
       ].forEach(f=>infobad.addField(...f));
 
       await reply(`Server info`, {embed: infobad});
-      infobad = new Discord.RichEmbed();
+      infobad = new Discord.MessageEmbed();
       infobad.setColor(member.displayColor).setAuthor('Server Emojis').setTitle(`Emoji List! # of emotes: ${guild.emojis.size}`);
       infobad.setDescription(`${guild.emojis.array().join(' ')}\n\n**Server icon:**`);
       if (guild.iconURL) infobad.setImage(guild.iconURL);
@@ -111,7 +111,7 @@ const ex = {
       infobad.setFooter(`--Server info lookup and calculations took ${(end)}.--`);
       return send('', {embed: infobad});
     }else if(action=="user"){
-      const waitingE = new Discord.RichEmbed().attachFile('loading.gif').setAuthor('Loading...','attachment://loading.gif','http://chipsbot.tk').setColor(msg.member.displayColor);
+      const waitingE = new Discord.MessageEmbed().attachFile('loading.gif').setAuthor('Loading...','attachment://loading.gif','http://chipsbot.tk').setColor(msg.member.displayColor);
       const waiting = await send(' ', {embed: waitingE});
 
       let member=used;

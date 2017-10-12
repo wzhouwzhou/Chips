@@ -12,7 +12,7 @@ module.exports = {
         if(suffix.length<2)
           return send('The channel name can only be a minumum of 2 characters in length!');
       
-      let embed = (new Discord.RichEmbed)
+      let embed = (new Discord.MessageEmbed)
         .setTitle('Channel Name')
         .setDescription(suffix)
         .setColor(member.displayColor);
