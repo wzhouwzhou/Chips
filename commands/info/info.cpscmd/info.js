@@ -84,7 +84,7 @@ const ex = {
         [`AFK voice channel: ${guild.afkChannelID?'#'+guild.channels.get(guild.afkChannelID).name:''}`,`${guild.afkChannelID?'AFK Timeout: '+ guild.afkTimeout/60 +' minute(s)':'None'}` ],
         [`Date created: ${guild.createdAt.toUTCString()}`, `That's about ${diff} days ago!`],
         [`${guild.members.size} member(s): ${trueMemC.size} ${trueMemC.size===1?'person':'people'}, ${guild.members.size-trueMemC.size} ${guild.members.size-trueMemC.size===1?'bot':'bots'}`,([
-          `Reachable member(s) (online, idle or dnd): **${available}**`,
+          `Reachable member(s) (online, idle or dnd): **${available}**\n`,
           ...[
             ['<:online:313956277808005120>',online],
             ['<:away:313956277220802560>', idle],
@@ -266,7 +266,7 @@ const ex = {
         infobad.addField(`Role id: `, `${role.id}`);
         infobad.addField(`Creation date: ${role.createdAt.toUTCString()}`,`That's about ${diff} ago!`);
         infobad.addField(`${role.members.size} member(s): ${trueMemC.size} ${trueMemC.size===1?'person':'people'}, ${role.members.size-trueMemC.size} ${role.members.size-trueMemC.size===1?'bot':'bots'}`,([
-          `Reachable member(s) (online, idle or dnd): **${available}**`,
+          `Reachable member(s) (online, idle or dnd): **${available}**\n`,
           ...[
             ['<:online:313956277808005120>',online],
             ['<:away:313956277220802560>', idle],
@@ -355,8 +355,8 @@ const ex = {
         infobad.addField(`Channel ID: `, `${channel.id}`);
         infobad.addField(`Creation date: ${channel.createdAt.toUTCString()}`,`That's about ${diff} ago!`);
 
-       infobad.addField(`${channel.members.size} member(s): ${trueMemC.size} ${trueMemC.size===1?'person':'people'}, ${channel.members.size-trueMemC.size} ${channel.members.size-trueMemC.size===1?'bot':'bots'}`,([
-         `Reachable member(s) (online, idle or dnd): **${available}**`,
+       memList&&infobad.addField(`${channel.members.size} member(s): ${trueMemC.size} ${trueMemC.size===1?'person':'people'}, ${channel.members.size-trueMemC.size} ${channel.members.size-trueMemC.size===1?'bot':'bots'}`,([
+         `Reachable member(s) (online, idle or dnd): **${available}**\n`,
          ...[
            ['<:online:313956277808005120>',online],
            ['<:away:313956277220802560>', idle],
