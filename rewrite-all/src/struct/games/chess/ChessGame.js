@@ -55,9 +55,8 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   embedify (end = false) {
     if(!this.embed) throw new Error('Embed is missing !!11!1!!!!');
     this.embed = new (this.embed.constructor);
-    this.embed.addField(end?this.game.in_draw()?'The game was a draw!':this.turn&&this.turn.toLowerCase()==='black'?'Black won!':'White won!':`${this.turn} to move`,'\u200B');
+    this.embed.addField(end?this.game.in_draw()?'The game was a draw!':this.turn&&this.turn.toLowerCase()==='black'?'Black won!':'White won!':`${this.movers.get(this.turn.toLowerCase())} to move`,`Last move: ${this.game.history()&&this.game.history()[0]?this.game.history().reverse()[0]:'None'}`);
     this.embed.setDescription(this.toString());
-    this.embed.addField('Last move', this.game.history()&&this.game.history()[0]?this.game.history().reverse()[0]:'None');
     this.embed.setAuthor('Chess');
     this.embed.setTitle(`${this.movers.get('white').tag}⚪ vs ⚫${this.movers.get('black').tag}`);
     return this.embed;
