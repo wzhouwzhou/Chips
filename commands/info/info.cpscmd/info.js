@@ -55,10 +55,11 @@ const ex = {
         return true;
       });
 
-      let textC = 0, voiceC = 0, tC = 0, nsfw = 0;
+      let textC = 0, voiceC = 0, categoryC = 0, tC = 0, nsfw = 0;
       guild.channels.filter((c) => {
         if(c.type=="text") textC++;
         else if(c.type=="voice") voiceC++;
+        else if(c.type==='category') categoryC++;
         tC++;
         if(c.nsfw) nsfw++;
         return true;
@@ -78,7 +79,7 @@ const ex = {
         [`Number of roles: ${guild.roles.size}`,`Highest role: ${highestRole.name} (${highestRole.id})`],
         [
           `Total number of channels: ${tC}`,
-          `Text: **${textC}**\nNsfw: **${nsfw}**\nVoice: **${voiceC}**`
+          `Text: **${textC}**\nNsfw: **${nsfw}**\nVoice: **${voiceC}**\n»Categories: ${categoryC}«`
         ],
         [`Server region (voice): `, guild.region, true],
         [`AFK voice channel: ${guild.afkChannelID?'#'+guild.channels.get(guild.afkChannelID).name:''}`,`${guild.afkChannelID?'AFK Timeout: '+ guild.afkTimeout/60 +' minute(s)':'None'}` ],
