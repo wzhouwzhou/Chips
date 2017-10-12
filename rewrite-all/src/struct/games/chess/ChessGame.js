@@ -71,6 +71,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     }
 
     this.channel.send(this.toString(), {embed}).then(m=>this.lastM = m);
+    return this;
   }
 
   aiMove (delay = 0, options = {}) {
