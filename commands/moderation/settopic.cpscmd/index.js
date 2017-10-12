@@ -9,7 +9,7 @@ st.metadata = {
   usage: 'settopic \"topic\"',
   example: 'settopic',
   perm: [['global.info.info']],
-  customperm: ['SEND_MESSAGES'],
+  customperm: ['MANAGE_CHANNELS'],
 };
 
 console.log('[CPSCMD][INFO][ping] Build objects complete!');
