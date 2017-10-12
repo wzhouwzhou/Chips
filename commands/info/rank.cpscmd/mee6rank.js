@@ -11,7 +11,7 @@ const ex = {
   name: "mee6rank",
   async func(msg, {send, author, guild, args, gMember, reply, content, prefix, Discord }) {
     let member = msg.member;
-    const waitingE = new Discord.MessageEmbed().attachFile('loading.gif').setAuthor('Loading...','attachment://loading.gif','http://chipsbot.tk').setColor(msg.member.displayColor);
+    const waitingE = new Discord.MessageEmbed().attachFiles(['loading.gif']).setAuthor('Loading...','attachment://loading.gif','http://chipsbot.tk').setColor(msg.member.displayColor);
     const waiting = await send(' ', {embed: waitingE});
 
     console.log("[Mee6Rank] Creating new searcher for guild " + guild.id);
@@ -166,7 +166,7 @@ const userData = (member, infobad, name) => {
     }
     infobad.setColor(member.displayColor);
     pfp.write(name, ()=>{
-      infobad.attachFile(name).setThumbnail('attachment://'+name);
+      infobad.attachFiles([name]).setThumbnail('attachment://'+name);
       return res(infobad);
     });
   });

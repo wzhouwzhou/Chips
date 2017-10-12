@@ -111,7 +111,7 @@ const ex = {
       infobad.setFooter(`--Server info lookup and calculations took ${(end)}.--`);
       return send('', {embed: infobad});
     }else if(action=="user"){
-      const waitingE = new Discord.MessageEmbed().attachFile('loading.gif').setAuthor('Loading...','attachment://loading.gif','http://chipsbot.tk').setColor(msg.member.displayColor);
+      const waitingE = new Discord.MessageEmbed().attachFiles(['loading.gif']).setAuthor('Loading...','attachment://loading.gif','http://chipsbot.tk').setColor(msg.member.displayColor);
       const waiting = await send(' ', {embed: waitingE});
 
       let member=used;
@@ -461,7 +461,7 @@ const userData = (member, infobad, convertTime, times, name) => {
     infobad.setColor(member.displayColor);
 
     pfp.write(name,async ()=>{
-      infobad.attachFile(name).setThumbnail('attachment://'+name);
+      infobad.attachFiles([name]).setThumbnail('attachment://'+name);
       return res(infobad);
     });
   });
