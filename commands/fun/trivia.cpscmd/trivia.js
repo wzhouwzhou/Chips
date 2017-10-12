@@ -31,7 +31,7 @@ module.exports = {
         }
         return false;
       };
-      send(new Discord.RichEmbed().setTitle('Flag trivia').setDescription('Guess the country!').setImage(random[1]));
+      await send(new Discord.RichEmbed().setTitle('Flag trivia').setDescription('Guess the country!').setImage(random[1]));
       mCol = channel.createMessageCollector(
         filter,
         { time: 1000*(time+1), maxMatches: 1 }
