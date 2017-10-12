@@ -24,7 +24,8 @@
     "pm2start": "pm2 start npm -- start",
     "pm2monit": "pm2 monit",
     "pm2logs": "pm2 log",
-    "test": "eslint . --ext .js"
+    "test": "npm --version",
+    "test2": "eslint . --ext .js"
   },
   "dependencies": {
     "@newrelic/native-metrics": "^2.1.1",
