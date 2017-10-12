@@ -87,7 +87,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
         } catch(errB) {
           this.channel.send('The AI was unable to continue the game… you win!');
           this.emit('end', this);
-          if(!this.ended)
+          if(!this.ended&&!options.noUpdate)
             this.updateAll(this.game.fen().split(/\s+/)[0], true);
           this.ended = true;
           return null;
@@ -113,7 +113,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   go (move, stopBot, noUpdate) {
     if (this.isOver()) {
       this.emit('end', this);
-      if(!this.ended)
+      if(!this.ended&&!noUpdate)
         this.updateAll(this.game.fen().split(/\s+/)[0], true);
       this.ended = true;
       return null;
@@ -125,7 +125,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
 
     if (this.isOver()) {
       this.emit('end', this);
-      if(!this.ended)
+      if(!this.ended&&!noUpdate)
         this.updateAll(this.game.fen().split(/\s+/)[0], true);
       this.ended = true;
       return this;
