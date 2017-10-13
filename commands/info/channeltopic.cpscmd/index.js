@@ -7,7 +7,7 @@ ct.metadata = {
   description: 'This shows you the channel topic!',
   usage: 'channeltopic',
   example: 'channeltopic',
-  perm: [['global.info.info']],
+  perm: [['global.info.channeltopic']],
   customperm: ['SEND_MESSAGES'],
 };
 

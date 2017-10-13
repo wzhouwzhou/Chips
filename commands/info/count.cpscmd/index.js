@@ -7,10 +7,10 @@ let ec = require('./emojicount');
 console.log('[CPSCMD][INFO][avatar] Building objects...');
 mc.metadata = {
   category: require('../').category,
-  description: 'This shows you the channel topic!',
+  description: 'This shows you the channel topic! btw it doesnt',
   usage: 'membercount',
   example: 'membercount',
-  perm: [['global.info.info']],
+  perm: [['global.info.count.membercount']],
   customperm: ['SEND_MESSAGES'],
 };
 
@@ -20,7 +20,7 @@ rc.metadata = {
   description: 'Fetches the amount of roles',
   usage: 'rolecount',
   example: 'rolecount',
-  perm: [['global.info.info']],
+  perm: [['global.info.count.rolecount']],
   customperm: ['SEND_MESSAGES'],
 };
 
@@ -29,7 +29,7 @@ cc.metadata = {
   description: 'Fetches the amount of channels',
   usage: 'channelcount, channelcount voice or channelcount text',
   example: 'channelcount text',
-  perm: [['global.info.info']],
+  perm: [['global.info.count.channelcount']],
   customperm: ['SEND_MESSAGES'],
 };
 
@@ -38,7 +38,7 @@ ec.metadata = {
   description: 'Fetches the amount of emojis',
   usage: 'emojicount',
   example: 'emojicount',
-  perm: [['global.info.info']],
+  perm: [['global.info.count.emojicount']],
   customperm: ['SEND_MESSAGES'],
 };
 

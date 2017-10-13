@@ -35,6 +35,8 @@ ex.permsList = [
       ['global.fun.animals.cat', true], //10
     ['global.fun.eat.*', true],
       ['global.fun.eat.eat', true], //14
+    ['global.8ball.*', true],
+      ['global.8ball.8ball', true],
     ['global.fun.happy.*', true],
       ['global.fun.happy.happy', true], //18
     ['global.fun.random.*', true],
@@ -59,6 +61,13 @@ ex.permsList = [
   ['global.info.*', true],
     ['global.info.discordstatus.*', true],
       ['global.info.discordstatus.discordstatus', true],
+    ['global.info.avatar', true],
+    ['global.info.channeltopic', true]
+    ['global.info.count.*', true],
+      ['global.info.count.channelcount', true],
+      ['global.info.count.emojicount', true],
+      ['global.info.count.membercount', true],
+      ['global.info.count.rolecount', true],              
     ['global.info.help.*', true],
       ['global.info.help.help', true],
     ['global.info.info.*', true],
