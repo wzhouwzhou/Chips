@@ -77,12 +77,17 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   aiMove (delay = 0, options = {}) {
     if (this.ended||this.isOver()) return null;
     if(!delay) {
-        const move = AI.play(this.game.history());
+      AI.setOptions({
+        depth: _.random(500,1000),
+        strategy: 'basic',
+        timeout: 0
+      });
+      const move = AI.play(this.game.history());
       try {
         return this.go(move, true, options.noUpdate);
       } catch(err) { //AI Failed
         console.log(err);
-        this.channel.send('Something went wrong with the AI…attempting to fix');
+        this.channel.send('Something went wrong with the AI…attempting to fix').then(m=>m.delete({timeout: 7500}));
         try {
           return this.randomMove(0, options);
         } catch(errB) {
