@@ -40,8 +40,8 @@ module.exports = {
 
     let userOne, userTwo;
     try {
-      userOne = !~targetOne.indexOf('#')?await client.fetchUser(targetOne):client.users.find('tag',targetOne);
-      userTwo = !~targetTwo.indexOf('#')?await client.fetchUser(targetTwo):client.users.find('tag',targetTwo);
+      userOne = !~targetOne.indexOf('#')?await client.users.fetch(targetOne):client.users.find('tag',targetOne);
+      userTwo = !~targetTwo.indexOf('#')?await client.users.fetch(targetTwo):client.users.find('tag',targetTwo);
       if(!userOne||!userTwo) throw new Error('Invalid user');
     } catch(err) {
       send(`[Error][Debug] m,t1,t2:${err.message}, ${targetOne},${targetTwo}`);

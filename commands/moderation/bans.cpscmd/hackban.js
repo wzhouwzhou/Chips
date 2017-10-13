@@ -39,7 +39,7 @@ module.exports = {
       reason = "No reason provided.";
     let user=null, found=false;
     try{
-      user = await client.fetchUser(typeof memberToUse === 'string'?memberToUse:memberToUse+[]);
+      user = await client.users.fetch(typeof memberToUse === 'string'?memberToUse:memberToUse+[]);
       //send('[Debug] user = '+user.toString());
       if(user!=null){
         console.log("Hackban target user found: "+ user.id);
@@ -91,7 +91,7 @@ module.exports = {
             .setColor(9109504)
             .setThumbnail(Constants.images.WARNING)
             .addField("Ban reason: ", `${reason?reason:"None provided"}`, true);
-          client.fetchUser(memberToUse).then(async u=>{
+          client.users.fetch(memberToUse).then(async u=>{
             try{
               if(dm)
                 await u.send('Uh oh!', {embed: emb});

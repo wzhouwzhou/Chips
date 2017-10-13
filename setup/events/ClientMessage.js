@@ -68,8 +68,8 @@ const msghandle = async message => {
 
   //prefix!
   if(message.content.toLowerCase() == '<@296855425255473154> prefix'|| message.content.toLowerCase() == '<@!296855425255473154> prefix')
-    if(message.guild) message.reply(`My prefix in this server is ${customprefix[message.guild.id]?_.escapeRegExp(customprefix[message.guild.id]):_.escapeRegExp(prefix)}. ${(!customprefix[message.guild.id])||customprefix[message.guild.id]==prefix?'You can set a custom prefix for me with ``'+_.escapeRegExp(prefix)+'chipsprefix on``':''}`);
-    else message.reply('My default prefix is ``'+_.escapeRegExp(prefix)+'``');
+    if(message.guild) message.reply(`My prefix in this server is ${customprefix[message.guild.id]?_.escapeRegExp(customprefix[message.guild.id]):_.escapeRegExp(prefix)}${(!customprefix[message.guild.id])||customprefix[message.guild.id]==prefix?'\nYou can set a custom prefix for me with `'+_.escapeRegExp(prefix)+'chipsprefix on`':''}`);
+    else message.reply('My default prefix is `'+_.escapeRegExp(prefix)+'`');
   //rekt
   if(muteTrigger&& (message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1)))
     return message.channel.send("Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE");
@@ -89,9 +89,9 @@ const msghandle = async message => {
     console.log("\n", chalk.bold.bgBlue("Social spy: "), chalk.bgBlack("\n\t[" + message.author.username + "] message content: " + message.content));
 
   if (message.content.toLowerCase().startsWith(message.guild&&customprefix[message.guild.id]?customprefix[message.guild.id].toLowerCase():prefix.toLowerCase())){
-    console.log("[CLIENTMESSAGE] Command attempt detected");
-    if(message.guild&&message.member.displayName.replace(/\s+/,'').toLowerCase().indexOf('dwagon')>-1)
-      if(message.guild.id==Constants.servers.SINX)
+    //console.log("[CLIENTMESSAGE] Command attempt detected");
+    if(message.guild&&~message.member.displayName.replace(/\s+/,'').toLowerCase().indexOf('dwagon'))
+      if(message.guild.id===Constants.servers.SURSKIT)
         return message.reply('You are a dwagon, therefore you may not use my commands!');
     CommandHandler(message, message.guild&&customprefix[message.guild.id]?customprefix[message.guild.id]:prefix);
   }
@@ -99,18 +99,20 @@ const msghandle = async message => {
   //======================================KEYWORD TRIGGER=========================================
   const keywords = {
     '306244855493951489': 'ban',
+    '259209114268336129': 'willy'
   };
   const notify = {
     '306244855493951489': false,
+    '259209114268336129': true,
   };
   if(message.guild&&message.guild.id==Constants.servers.SURSKIT)
-    if(message.content.includes(keywords[Constants.users.DU])&&notify[Constants.users.DU])
-      client.fetchUser(Constants.users.DU).then(user=>{
-        user.send(`Someone said the keyword \`\`${keywords[Constants.users.DU]}\`\` in server \`\`Sinbad Knights\`\`!`);
-      }).catch(err=>{
-        console.log('[KEYWORD NOTIFY]'+err);
-      });
-
+    for(const id in keywords)
+      if(message.content.toLowerCase().includes(keywords[id].toLowerCase())&&notify[id])
+        client.users.fetch(id).then(user=>
+          user.send(`Someone said the keyword \`${keywords[id]}\` in server \`Sinbad Knights\`!\n**${message.author.tag}:** ${message.content}`)
+        ).catch(err=>
+          console.error('[KEYWORD NOTIFY][err] '+err)
+        );
   //====================================END KEYWORD TRIGGER=======================================
   /*try{
     if(message.guild&&message.guild.id==Constants.servers.DWAGON){

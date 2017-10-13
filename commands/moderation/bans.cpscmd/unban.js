@@ -32,7 +32,7 @@ module.exports = {
       reason = "No reason provided.";
     let user=null, found=false;
     try{
-      user = await client.fetchUser(memberToUse);
+      user = await client.users.fetch(memberToUse);
 
       if(user){
         console.log("Unban target user found: "+ user.id);
@@ -81,7 +81,7 @@ module.exports = {
             .setColor(9109504)
             .setThumbnail(Constants.images.WARNING)
             .addField("Unban reason: ", `${reason?reason:"None provided"}`, true);
-          client.fetchUser(memberToUse).then(async u=>{
+          client.users.fetch(memberToUse).then(async u=>{
             try{
               if(dm)
                 await u.send('Uh oh!', {embed: emb});

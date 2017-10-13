@@ -5,17 +5,17 @@ const STEP2EXPIRE = (60*60*1000);
 const STEP3EXPIRE = (60*60*1000);
 
 const PREAPP = `Hi there! You are about to submit a staff application. You will only be able to submit a staff application once, so please put thought into it! Please type __y__es or react with ${Constants.emojis.CHECK} to continue. Type __n__o to cancel. You can also react with ${Constants.emojis.X} at any point during the application to cancel!`;
-const CONCURRCONFLICT = `Hi there! Greatest apologies, someone else is currently submitting an application. To prevent our system from being overloaded you cannot submit an application right now. If you believe this is in error, contact an online staff member!. Please wait a few minutes before trying again, and sorry for the inconvenience!`;
+const CONCURRCONFLICT = 'Hi there! Greatest apologies, someone else is currently submitting an application. To prevent our system from being overloaded you cannot submit an application right now. If you believe this is in error, contact an online staff member!. Please wait a few minutes before trying again, and sorry for the inconvenience!';
 const QUESTION1 = `Please enter some details about yourself, where you're from/timezone, how old you are, etc. Provide as much or as little information as you'd like, it just helps us get to know you better. To cancel the application at any time just react with ${Constants.emojis.X}`;
-const QUESTION2 = `Next, please tell us why you would like to be on the staff team. What assets would you bring that would benefit the staff team? How much time do you spend on Discord, and how much do you plan on devoting to our support server?`;
-const QUESTION3 = `Finally, if you would like to, please tell us how many servers you are in with Chips in it, and how many of those you own`;
+const QUESTION2 = 'Next, please tell us why you would like to be on the staff team. What assets would you bring that would benefit the staff team? How much time do you spend on Discord, and how much do you plan on devoting to our support server?';
+const QUESTION3 = 'Finally, if you would like to, please tell us how many servers you are in with Chips in it, and how many of those you own';
 temp = {};
 
 ex = {
   name:'applyforstaff',
   customperm:['ADMINISTRATOR'],
   async func(msg, { reply, author, guild, channel, member, prefix }) {
-    const START = `Excellent! The information you provide in your application will be confidential. Please head over to <#${Constants.channels.SUPPORT_STAFFAPPLICATION}> and type \`\`${prefix}applyforstaff\`\` to begin!`;
+    const START = `Excellent! The information you provide in your application will be confidential. Please head over to <#${Constants.channels.SUPPORT_STAFFAPPLICATION}> and type \`${_.escapeRegExp(prefix)}applyforstaff\` to begin!`;
 
     if(guild.id!=Constants.servers.SUPPORT) return;
     if(channel.id!=Constants.channels.SUPPORT_STAFFAPPLICATION){
@@ -36,7 +36,7 @@ ex = {
             if(user.id != author.id) return false;
             if(temp.confirmed||temp.agreed) return false;
             if(reaction.emoji.toString() == Constants.emojis.CHECK){
-              reply("Accepted choice " + reaction.emoji.name).then(m=>{
+              reply('Accepted choice ' + reaction.emoji.name).then(m=>{
                 setTimeout(()=>m.delete(),1000);
               });
               temp.confirmed = true;
@@ -44,7 +44,7 @@ ex = {
               temp.rxn = true;
               return true;
             }else if(reaction.emoji.toString() == Constants.emojis.X){
-              reply("Accepted choice " + reaction.emoji.name).then(m=>{
+              reply('Accepted choice ' + reaction.emoji.name).then(m=>{
                 setTimeout(()=>m.delete(),1000);
               });
               temp.confirmed=true;
@@ -88,17 +88,17 @@ ex = {
 
         msgCol.on('collect',_=>_);
         msgCol.on('end',async collected => {
-          if(collected.first!=null) console.log("Something errored with staff app...");
+          if(collected.first!=null) console.log('Something errored with staff app...');
           let sentmsg = temp.sentmsg;
           if(temp.usedmsg&&!temp.rxn){
             rxnCol.stop();
           }
           sentmsg.delete();
           if(!temp.confirmed){
-            return msg.reply("Application timed out!");
+            return msg.reply('Application timed out!');
           }
           if(!temp.agreed){
-            return msg.reply("Staff application cancelled!");
+            return msg.reply('Staff application cancelled!');
           }
           await member.addRole(guild.roles.get('318569495486791680'));
 
@@ -146,7 +146,7 @@ ex = {
           if(user.id != author.id) return false;
           if(temp.confirmed||!temp.next) return false;
           if(reaction.emoji.toString() == Constants.emojis.X){
-            reply("Accepted choice " + reaction.emoji.name);
+            reply('Accepted choice ' + reaction.emoji.name);
             temp.confirmed=true;
             temp.next=false;
             temp.rxn = true;
@@ -157,7 +157,7 @@ ex = {
       step1rxnCol.on('collect', _=>_);
       step1rxnCol.on('end', collected => {
         if(temp.confirmed&&temp.rxn){
-          console.log("Stopping step1 msg collector, " + collected.first());
+          console.log('Stopping step1 msg collector, ' + collected.first());
           step1Col.stop();
           return;
         }
@@ -166,7 +166,7 @@ ex = {
       step1Col.on('collect',_=>_);
       step1Col.on('end',async collected => {
         if(collected.first()!=null){
-          reply("Received: \n" + collected.first());
+          reply('Received: \n' + collected.first());
           temp.step1Data = collected.first().cleanContent;
           temp.next = true;
           temp.confirmed = true;
@@ -178,7 +178,7 @@ ex = {
         sentmsg.delete();
 
         if(!temp.confirmed){
-          msg.reply("Application timed out!");
+          msg.reply('Application timed out!');
           temp.next=false;
         }
         if(!temp.next){
@@ -191,7 +191,7 @@ ex = {
               return reply(`Uh oh, could not end your staff application, please let an online staff know about this!`);
             }
           },5000);
-          return msg.reply("Staff application cancelled! Please wait while we clean up everything!");
+          return msg.reply('Staff application cancelled! Please wait while we clean up everything!');
         }
 
 
@@ -220,7 +220,7 @@ ex = {
             if(user.id != author.id) return false;
             if(temp.confirmed||!temp.next) return false;
             if(reaction.emoji.toString() == Constants.emojis.X){
-              reply("Accepted choice " + reaction.emoji.name);
+              reply('Accepted choice ' + reaction.emoji.name);
               temp.confirmed=true;
               temp.next=false;
               temp.rxn = true;
@@ -231,7 +231,7 @@ ex = {
         step2rxnCol.on('collect', _=>_);
         step2rxnCol.on('end', collected => {
           if(temp.confirmed&&temp.rxn){
-            console.log("Stopping step2 msg collector, " + collected);
+            console.log('Stopping step2 msg collector, ' + collected);
             step2Col.stop();
             return;
           }
@@ -240,7 +240,7 @@ ex = {
         step2Col.on('collect',_=>_);
         step2Col.on('end',async collected => {
           if(collected.first()!=null){
-            reply("Received (Step2): \n" + collected.first());
+            reply('Received (Step2): \n' + collected.first());
             temp.step2Data = collected.first().cleanContent;
             temp.next = true;
             temp.confirmed = true;
@@ -251,7 +251,7 @@ ex = {
           }
           sentmsg.delete();
           if(!temp.confirmed){
-            msg.reply("Application timed out!");
+            msg.reply('Application timed out!');
             temp.next=false;
           }
           if(!temp.next){
@@ -264,7 +264,7 @@ ex = {
                 return reply(`Uh oh, could not end your staff application, please let an online staff know about this!`);
               }
             },5000);
-            return msg.reply("Staff application cancelled! Please wait while we clean up everything!");
+            return msg.reply('Staff application cancelled! Please wait while we clean up everything!');
           }
 
           //STEP 3:
@@ -292,7 +292,7 @@ ex = {
               if(user.id != author.id) return false;
               if(temp.confirmed||!temp.next) return false;
               if(reaction.emoji.toString() == Constants.emojis.X){
-                reply("Accepted choice " + reaction.emoji.name);
+                reply('Accepted choice ' + reaction.emoji.name);
                 temp.confirmed=true;
                 temp.next=false;
                 temp.rxn = true;
@@ -303,7 +303,7 @@ ex = {
           step3rxnCol.on('collect', _=>_);
           step3rxnCol.on('end', collected => {
             if(temp.confirmed&&temp.rxn){
-              console.log("Stopping step3 msg collector, " + collected);
+              console.log('Stopping step3 msg collector, ' + collected);
               step2Col.stop();
               return;
             }
@@ -312,7 +312,7 @@ ex = {
           step3Col.on('collect',_=>_);
           step3Col.on('end',async collected => {
             if(collected.first()!=null){
-              reply("Received (Step3): \n" + collected.first());
+              reply('Received (Step3): \n' + collected.first());
               temp.step3Data = collected.first().cleanContent;
               temp.next = true;
               temp.confirmed = true;
@@ -323,7 +323,7 @@ ex = {
             }
             sentmsg.delete();
             if(!temp.confirmed){
-              msg.reply("Application timed out!");
+              msg.reply('Application timed out!');
               temp.next=false;
             }
             setTimeout(async ()=>{
@@ -337,9 +337,9 @@ ex = {
             },5000);
             console.log(temp.toString());
             if(!temp.next){
-              msg.reply("Staff application cancelled! Please wait while we clean up everything!");
+              msg.reply('Staff application cancelled! Please wait while we clean up everything!');
             }else{
-              msg.reply("Thank you for your interest! Your application has been logged. This chat will now be cleared for confidentiality.");
+              msg.reply('Thank you for your interest! Your application has been logged. This chat will now be cleared for confidentiality.');
             }
             require('../../../handlers/Permissions').updatePermission( 'member', author.id, guild.id, 0, 'global.utility.applyforstaff.apply', -1 )
             .then(info=>console.log(`[APPLYFORSTAFF][PERMISSIONS]: ${info}`))

@@ -70,7 +70,7 @@ module.exports = {
               .setColor(9109504)
               .setThumbnail(Constants.images.WARNING)
               .addField("Softban reason: ", `${reason}`, true);
-          client.fetchUser(memberToUse.id)
+          client.users.fetch(memberToUse.id)
           .then(u=>{u.ssend('Uh oh!', {embed: emb});})
           .then(()=>{
             m.reply("Softbanning!");

@@ -72,7 +72,7 @@ module.exports = {
           .setColor(9109504)
           .setThumbnail(Constants.images.WARNING)
           .addField("Ban reason: ", `${reason}`, true);
-          client.fetchUser(memberToUse.id)
+          client.users.fetch(memberToUse.id)
           .then(u=>u.send('Uh oh!', {embed: emb}))
           .then(()=>{
             m.reply("Banning!");
