@@ -205,7 +205,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     if((/w(?:hite)?/).test(colorBottom)) {
       this.board.reverse();
     }
-    str=str.reverse();
+    //str=str.reverse();
     str = str.concat(label2.join('')).join('\n');
     return str;
   }
