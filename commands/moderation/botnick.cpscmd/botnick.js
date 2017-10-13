@@ -10,6 +10,6 @@ module.exports = {
     if(suffix.length>32)
       return send('My nickname can only be a maximum of 32 characters in length!');
     await guild.me.setNickname(suffix);
-    return send('Nickname set successfully!');
+    return send(`Nickname set successfully: ${suffix}`);
   }
 };
