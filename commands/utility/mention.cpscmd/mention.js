@@ -13,7 +13,7 @@ exports.func = async (msg, {guild, member, send, author, channel, suffix, Discor
   if(!suffix || suffix === '') return send('You must give me a role to mention!');
   if(!guild) return send('You must use this command in a server.');
 
-  if(!member.hasPermission('BAN_MEMBERS')&&!member.hasRole(guild.roles.find('Marshal'))&&!member.hasRole(guild.roles.find('Staff')))
+  if(!member.hasPermission('BAN_MEMBERS')&&!member.hasPermission('MANAGE_ROLES'))
     if(!~whitelist.indexOf(member.id))
       return send('You do not have permission to use this command!');
   if(inmention.get(author.id)) return send(`Type ${CANCEL} to leave the mention menu`);
