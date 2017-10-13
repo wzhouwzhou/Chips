@@ -28,7 +28,7 @@ const ex = {
           'In this example, to take e4 with the knight, black would type `Nxe4`'
         ].join('\n')],
         ['Castling and promotions: ', [
-          'Ke1g1 and O-O do the same thing. To castle queenside it would be O-O',
+          'Ke1g1 and O-O do the same thing. To castle queenside it would be O-O-O',
           'Promotions are always from pawn to queen',
         ].join('\n')],
         ['"Sloppy moves": ', [
