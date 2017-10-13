@@ -66,7 +66,7 @@ module.exports = {
     let collector = channel.createMessageCollector(m => {
         if(/^(?:y(?:es)?)|(?:no?)$/i.test(m.content)){
           if(m.author.id===author.id){
-            m.channel.send("Choice accepted. Now processing...").then(m => m.delete(3000));
+            m.channel.send("Choice accepted. Now processing...").then(m => m.delete({timeout: 3000}));
             confirmed = true;
             agreed = /^(?:y(?:es)?)$/i.test(m.content);
             setTimeout(()=>collector.stop(), 1000);

@@ -8,8 +8,8 @@ module.exports = {
     try{ //get mention:
       console.log("Trying to find user by mention..");
       if(!args[0]) return reply("Please specify a user to ban!");
-      let target = (args[0].match(Constants.patterns.MENTION)||[,null])[1];
-      let chipstarget = (args[0].match(Constants.users.CHIPS)||[,null])[1];
+      let target = (args[0].match(Constants.patterns.MENTION)||[0,null])[1];
+      let chipstarget = (args[0].match(Constants.users.CHIPS)||[0,null])[1];
       if(!target) return reply("Please specify a valid user to ban!");
       memberToUse = gMember(target);
       if(chipstarget)
@@ -44,7 +44,7 @@ module.exports = {
     let collector = channel.createMessageCollector(m => {
         if(/^(?:y(?:es)?)|(?:no?)$/i.test(m.content)){
           if(m.author.id==author.id){
-            m.reply("Choice accepted. Now processing...");
+            m.channel.send("Choice accepted. Now processing...").then(m=>m.delete({timeout: 3000}));
             confirmed = true;
             agreed = /^(?:y(?:es)?)$/i.test(m.content);
             setTimeout(()=>collector.stop(), 1000);

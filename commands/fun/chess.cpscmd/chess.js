@@ -12,18 +12,30 @@ const ex = {
 
     if(args[0]&&args[0]==='help'){
       const embed = new Discord.MessageEmbed;
-      new CG({newFen: 'rnbqkb1r/pppppppp/5n2/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1' , channel: msg.channel});
+      new CG({newFen: 'r1bqkb1r/pppp1ppp/2n2n2/4p3/4P3/3B1N2/PPPP1PPP/RNBQK2R w KQkq - 0 1' , channel: msg.channel}).updateAll();
 
       [
-        ['Capturing and non-pawn pieces: ', [
-          'To move another piece like the knight from f6 to g2 then Nf6g4 or simply Ng4',
+        ['Moving pawns: ', [
+          'To move a pawn forward simply type the target square.',
+          'To move a pawn from e7 to e5 just type `e5`',
+          'To take another piece with a pawn type the previous file (letter) followed by `x` and the square you are taking.',
+          'In this board for white to take d5 with a pawn, white would type `exd5`',
+        ].join('\n')],
+        ['Non-pawn pieces: ', [
+          'To move another piece like the knight in this example from f6 to g2 then Nf6g4 or simply Ng4',
           'If there is another piece at where you want to move that you want to take:',
           '\tNxe4, Nf6e4 Nf6-e4 would work',
+          'In this example, to take e4 with the knight, black would type `Nxe4`'
         ].join('\n')],
-        ['Castling: ', [
-          'Ke1g1 and O-O do the same thing',
+        ['Castling and promotions: ', [
+          'Ke1g1 and O-O do the same thing. To castle queenside it would be O-O',
+          'Promotions are always from pawn to queen',
         ].join('\n')],
-      ];
+        ['"Sloppy moves": ', [
+          "When in doubt with FEN notation or if something doesn't work you can try just specifying the \"before\" and \"after\" squares.",
+          'In this example, instead of typing `Nxe4`, black could move `f6e4` to achieve the same result',
+        ].join('\n')],
+      ].forEach(f=>embed.addField(...f));
       send(embed);
       return;
     }

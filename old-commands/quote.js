@@ -10,7 +10,7 @@ const ex= {
 
       const color = member.displayColor;
 
-      return channel.fetchMessages({ around: args[0], limit: 3 }).then(messages => {
+      return channel.messages.fetch({ around: args[0], limit: 3 }).then(messages => {
           const quotee = messages.get(args[0]);
 
           const embed = new Discord.MessageEmbed()

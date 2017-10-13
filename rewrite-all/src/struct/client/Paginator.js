@@ -157,7 +157,7 @@ const Paginator = class Paginator {
               try {
                 await this.setPage(+num-1);
               }catch(err){
-                m.channel.send(`${nextUser||this._msg.author}, Invalid page number of \`${+num}\` specified!`).then(mmm=>mmm.delete(3000));
+                m.channel.send(`${nextUser||this._msg.author}, Invalid page number of \`${+num}\` specified!`).then(mmm=>mmm.delete({timeout: 3000}));
               }
               tempmsg.delete();
               return m.delete().catch(_=>_);
@@ -204,29 +204,29 @@ const Paginator = class Paginator {
 
   toggleLock(setting, requester, r) {
     if(!this.lockToggle)
-      return this._msg.channel.send('The paginator controls may not be locked or unlocked!').then(mm=>mm.delete(3000));
+      return this._msg.channel.send('The paginator controls may not be locked or unlocked!').then(mm=>mm.delete({timeout: 3000}));
 
     if(setting) {
       if(this.locked)
-        return this._msg.channel.send('The paginator controls are already locked!').then(mm=>mm.delete(3000));
+        return this._msg.channel.send('The paginator controls are already locked!').then(mm=>mm.delete({timeout: 3000}));
       else if(this._msg.author.id === requester.id) {
         this.locked = true;
         r.remove('296855425255473154');
         this.sentMsg.react('🔓');
-        return this._msg.reply('Only you can operate paginator controls now!').then(mm=>mm.delete(3000));
+        return this._msg.reply('Only you can operate paginator controls now!').then(mm=>mm.delete({timeout: 3000}));
       } else
-        return this._msg.channel.send(requester+', you cannot lock the paginator controls!').then(mm=>mm.delete(3000));
+        return this._msg.channel.send(requester+', you cannot lock the paginator controls!').then(mm=>mm.delete({timeout: 3000}));
     }
 
     if(!this.locked)
-      return this._msg.channel.send('The paginator controls are already unlocked!').then(mm=>mm.delete(3000));
+      return this._msg.channel.send('The paginator controls are already unlocked!').then(mm=>mm.delete({timeout: 3000}));
     else if(this._msg.author.id === requester.id) {
       this.locked = false;
       this.sentMsg.react('🔒');
       r.remove('296855425255473154');
-      return this._msg.reply('Everyone can operate the paginator controls now!').then(mm=>mm.delete(3000));
+      return this._msg.reply('Everyone can operate the paginator controls now!').then(mm=>mm.delete({timeout: 3000}));
     } else
-      return this._msg.channel.send(requester+ ', you cannot unlock the paginator controls!').then(mm=>mm.delete(3000));
+      return this._msg.channel.send(requester+ ', you cannot unlock the paginator controls!').then(mm=>mm.delete({timeout: 3000}));
   }
 
   nextPage () {

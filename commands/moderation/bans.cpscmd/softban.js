@@ -3,7 +3,7 @@ const EXPIRE = 10000;
 
 module.exports = {
     name:'softban',
-    async func(msg, { send, reply, member, author, content, args, channel, guild, gMember }) {
+    async func(msg, { reply, member, author, content, args, channel, guild, gMember }) {
     let memberToUse;
     try{ //get mention:
       console.log("Trying to find user by mention..");
@@ -41,10 +41,10 @@ module.exports = {
     let collector = channel.createMessageCollector(m => {
         if(/^(?:y(?:es)?)|(?:no?)$/i.test(m.content)){
           if(m.author.id==author.id){
-            m.reply("Choice accepted. Now processing...");
+            m.channel.send("Choice accepted. Now processing...");
             confirmed = true;
             agreed = /^(?:y(?:es)?)$/i.test(m.content);
-            setTimeout(_=>collector.stop(), 1000);
+            setTimeout(()=>collector.stop(), 1000);
             return true;
           }
           //else return m.reply ("Denied");

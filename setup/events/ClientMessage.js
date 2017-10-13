@@ -61,7 +61,7 @@ const msghandle = async message => {
 
   if(message.guild&&message.guild.id==='257889450850254848')
     if(message.content.replace(/(\.|,|\/|\s)+/g,'').match(client.swearReg)){
-      message.reply('**LANGUAGE!!**').then(mm=>mm.delete(2000));
+      message.reply('**LANGUAGE!!**').then(mm=>mm.delete({timeout: 2000}));
       message.delete();
     }*/
 
@@ -263,7 +263,7 @@ const handleAntiDiepLink = (message) => {
     if(!client.antiDiepLink[gid]) return res(false);
 
     if(message.content.replace(/\s+/g,'').match(/(?:http(?:s)?\:\/\/)?diep\.io\/#((?:(?:[0-9a-f]){2,2}){10,})(?:\/)?/i)){
-      message.reply('You are not allowed to post your diep links here!').then(m=>m.delete(5000));
+      message.reply('You are not allowed to post your diep links here!').then(mm=>mm.delete({timeout: 5000}));
       res(message.delete());
     }
     res(false);

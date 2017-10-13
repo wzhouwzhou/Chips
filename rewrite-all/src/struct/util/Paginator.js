@@ -146,7 +146,7 @@ exports.default = ({ Discord }) => {
                 try {
                   await this.setPage(+num-1);
                 }catch(err){
-                  m.reply(`Invalid page number of \`${+num}\` specified!`).then(mmm=>mmm.delete(3000));
+                  m.reply(`Invalid page number of \`${+num}\` specified!`).then(mmm=>mmm.delete({timeout: 3000}));
                 }
                 tempmsg.delete();
                 return m.delete().catch(_=>_);

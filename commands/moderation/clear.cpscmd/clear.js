@@ -33,6 +33,6 @@ module.exports = {
       }else await channel.bulkDelete(nmsgs);
       result = await reply(`${--nmsgs} message(s) deleted successfully!`);
     }catch(err){result = await reply(`Could not delete ${args[0]} message(s)..`);}
-    result.delete(9500);
+    result.delete({timeout: 9500});
   }
 };

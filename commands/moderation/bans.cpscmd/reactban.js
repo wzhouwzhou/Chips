@@ -7,7 +7,7 @@ module.exports = {
     let intervalID;
     if(!args[0]){
       intervalID = setInterval(()=>{
-        channel.fetchMessages({limit: 10}).then(msgs=>{
+        channel.messages.fetch({limit: 10}).then(msgs=>{
           msgs.array().forEach(async msg=>{
             await msg.clearReactions();
           });
