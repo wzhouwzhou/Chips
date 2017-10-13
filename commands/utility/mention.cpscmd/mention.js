@@ -1,8 +1,8 @@
 
 const _ = require('lodash');
-const chunk = require('../functions/splitChunkF').default({_});
-const grammarJoin = require('../functions/grammarJoinF').default({_});
-const { Paginator } = require('../struct/Paginator');
+const chunk = require('../../../rewrite-all/src/deps/functions/splitChunkF').default({_});
+const grammarJoin = require('../../../rewrite-all/src/deps/functions/grammarJoinF').default({_});
+const { Paginator } = require('../../../rewrite-all/src/struct/client/Paginator');
 exports.name = 'mention';
 const inmention = new Map;
 const whitelist = [];
