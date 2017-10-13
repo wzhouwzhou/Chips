@@ -36,7 +36,7 @@ const ex = {
           'In this example, instead of typing `Nxe4`, black could move `f6e4` to achieve the same result',
         ].join('\n')],
       ].forEach(f=>embed.addField(...f));
-      send(embed.setFooter(`Type __${_.escapeRegExp(prefix)}chess__ to start a game!`));
+      send(embed.setFooter(`${_.escapeRegExp(prefix)}chess to start a game!`));
       return;
     }
 
