@@ -84,13 +84,13 @@ const ex = {
         [`Server region (voice): `, guild.region, true],
         [`AFK voice channel: ${guild.afkChannelID?'#'+guild.channels.get(guild.afkChannelID).name:''}`,`${guild.afkChannelID?'AFK Timeout: '+ guild.afkTimeout/60 +' minute(s)':'None'}` ],
         [`Date created: ${guild.createdAt.toUTCString()}`, `That's about ${diff} days ago!`],
-        [`${guild.members.size-7} member(s): ${trueMemC.size-7} ${trueMemC.size===1?'person':'people'}, ${guild.members.size-trueMemC.size} ${guild.members.size-trueMemC.size===1?'bot':'bots'}`,([
+        [`${guild.members.size} member(s): ${trueMemC.size} ${trueMemC.size===1?'person':'people'}, ${guild.members.size-trueMemC.size} ${guild.members.size-trueMemC.size===1?'bot':'bots'}`,([
           `Reachable member(s) (online, idle or dnd): **${available}**\n`,
           ...[
             ['<:online:313956277808005120>',online],
             ['<:away:313956277220802560>', idle],
             ['<:dnd:313956276893646850>', dnd],
-            ['<:offline:313956277237710868>', guild.members.size-available-7],
+            ['<:offline:313956277237710868>', guild.members.size-available],
           ].map(e=>`${e[0]}: **${e[1]}**`),
         ].join(' '))],
         [`Verification level: ${vLvl}`,`That means ${vInfo}`]
