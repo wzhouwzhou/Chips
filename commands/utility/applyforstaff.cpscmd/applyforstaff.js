@@ -184,7 +184,7 @@ ex = {
         if(!temp.next){
           setTimeout(async ()=>{
             try{
-              let msgs = await channel.message.fetch({limit: 100});
+              let msgs = await channel.messages.fetch({limit: 100});
               await channel.bulkDelete(msgs);
               await member.removeRole(Constants.roles.SUPPORT_STAFFAPPLICATIONROLE);
             }catch(err){
