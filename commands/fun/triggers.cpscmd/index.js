@@ -6,6 +6,7 @@ let kawaii = require('./kawaii');
 let lenny = require('./lenny');
 let rekt = require('./rekt');
 let triggered = require('./triggered');
+let everyone = require('./everyone')
 
 console.log('[CPSCMD][FUN][triggers] Building objects...');
 aboosed.metadata = {
@@ -28,6 +29,13 @@ exposed.metadata = {
   usage: 'exposed',
   example: 'exposed',
   perm: [['global.fun.triggers.exposed']],
+};
+everyone.metadata = {
+  category: require('../').category,
+  description: 'Everyone!',
+  usage: 'everyone',
+  example: 'everyone',
+  perm: [['global.fun.triggers.everyone']],
 };
 kawaii.metadata = {
   category: require('../').category,
@@ -68,4 +76,5 @@ module.exports = [
   [lenny.name,lenny],
   [rekt.name,rekt],
   [triggered.name,triggered],
+  [everyone.name,everyone]
 ];

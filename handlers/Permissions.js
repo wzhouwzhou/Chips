@@ -37,7 +37,6 @@ ex.permsList = [
       ['global.fun.eat.eat', true], //14
     ['global.fun.happy.*', true],
       ['global.fun.happy.happy', true], //18
-      ['global.fun.happy.everyone', true],
     ['global.fun.random.*', true],
       ['global.fun.random.coinflip', true], //12
       ['global.fun.random.roll', true],
@@ -56,6 +55,7 @@ ex.permsList = [
       ['global.fun.triggers.exposed', true], //17
       ['global.fun.triggers.lenny', true],
       ['global.fun.triggers.rekt', true],
+      ['global.fun.triggers.everyone', true],
   ['global.info.*', true],
     ['global.info.discordstatus.*', true],
       ['global.info.discordstatus.discordstatus', true],
