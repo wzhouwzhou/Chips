@@ -16,7 +16,7 @@ module.exports = {
     if (args[0]==='voice')
       return send(voice + " voice channels.");
     
-      if (~'cat category'.split(/\s+/).indexOf(args[0]))   
+      if (~'cat category categories'.split(/\s+/).indexOf(args[0]))   
       return send(category + " categories.")
 
 
