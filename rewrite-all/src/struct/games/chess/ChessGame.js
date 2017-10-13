@@ -18,7 +18,7 @@ const Constants = require('../../../deps/Constants');
 const ChessConstants = Constants.chess;
 const {W, B, chessPieces: pieces, startFen, label2} = ChessConstants;
 const files = new Array(8).fill(0).map((e,i)=>String.fromCharCode('A'.charCodeAt(0) + i));
-
+const rot = '🔄';
 const AIRAND = 1;
 const games = new Map;
 
@@ -47,7 +47,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.embed = new Discord[/^[^]*12\.\d+[^]*$/.test(Discord.version)?'MessageEmbed':'RichEmbed'];
     this.fen = options.newFen||startFen;
     this.boardFen = this.fen.split(/\s+/)[0];
-
+    this.sideDown = 'white';
     if(this.movers.get(this.turn.toLowerCase())&&this.movers.get(this.turn.toLowerCase()).id === client.user.id)
       this.aiMove(0, {noUpdate: true});
   }
@@ -69,8 +69,28 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       this.lastM.delete();
       this.lastM = null;
     }
-
-    this.channel.send(embed).then(m=>this.lastM = m);
+    this.sideDown = 'white';
+    !this.nextEdit&&this.channel.send(embed).then(m=>{
+      this.lastM = m;
+      if(!end){
+        const mover = this.movers.get(this.turn.toLowerCase());
+        const f = (r, u) => {
+          if(mover&&u.id === mover.id&&r.emoji.name === rot){
+            this.sideDown = this.sideDown == 'white'?'black':'white';
+            return true;
+          }
+          return false;
+        };
+        const rCol = m.createReactionCollector(f, { time: 200e3, errors: ['time'] });
+        rCol.on('collect', ()=>{
+          this.nextEdit = true;
+          this.updateFrontEnd();
+          this.nextEdit = false;
+        });
+        !this.pause&&m.react(rot);
+      }
+    });
+    this.nextEdit&&this.lastM.edit(embed);
     return this;
   }
 
@@ -178,7 +198,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     return this;
   }
 
-  toString(colorBottom='white'/*this.game.turn()*/) {
+  toString(colorBottom=this.sideDown/*this.game.turn()*/) {
     if((/w(?:hite)?/).test(colorBottom)) this.board.reverse();
     let str = this.board.map((e,i)=>[Constants.numbersA[i+1]].concat(Object.keys(e).map(k=>e[k])).join('')).reverse().concat(label2.join('')).join('\n');
     if((/w(?:hite)?/).test(colorBottom)) this.board.reverse();
