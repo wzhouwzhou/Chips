@@ -77,6 +77,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
         const f = (r, u) => {
           if(mover&&u.id === mover.id&&r.emoji.name === rot){
             this.sideDown = this.sideDown == 'white'?'black':'white';
+            r.remove(u).catch(_=>_);
             return true;
           }
           return false;
