@@ -13,8 +13,8 @@ module.exports = {
       const selftar = new Discord.MessageEmbed()
       .setTitle(`Avatar Image of ${author.tag} `, ``   , true)
       .setColor(guild?msg.member.displayColor:71340)
-      .addField('Avatar Link: ', `[Click Here](${author.avatarURL||author.displayAvatarURL({format: 'png', size: 2048})})`)
-      .setImage(author.avatarURL);
+      .addField('Avatar Link: ', `[Click Here](${author.avatarURL({format: 'png', size: 2048})||author.displayAvatarURL({format: 'png', size: 2048})})`)
+      .setImage(author.avatarURL({format: 'png', size: 2048}));
 
       let µs = false;
       let end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
@@ -33,7 +33,7 @@ module.exports = {
 
         memberList.set(member.id,{
           title: `Avatar Image of ${member.user.tag} `,
-          page: ['Avatar Link: ', `[Click Here](${member.user.avatarURL||member.user.displayAvatarURL({format: 'png', size: 2048})})`],
+          page: ['Avatar Link: ', `[Click Here](${member.user.avatarURL({format: 'png', size: 2048})||member.user.displayAvatarURL({format: 'png', size: 2048})})`],
           image: member.user.displayAvatarURL({format: 'png', size: 2048})
         });
       });
