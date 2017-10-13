@@ -5,7 +5,7 @@ let embed = (new Discord.MessageEmbed)
 
 module.exports = {
   name: "botnick",
-  async func(msg, { send, guild, suffix }) {
+  async func(msg, { send, guild, suffix, member }) {
     if(!guild)
      return send('You need to be in a server to use this!');
     if(!suffix)
