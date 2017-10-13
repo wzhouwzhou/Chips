@@ -5,7 +5,9 @@ const gifs = [
   "http://i3.kym-cdn.com/photos/images/original/001/243/406/73c.jpg",
   "http://i2.kym-cdn.com/photos/images/newsfeed/001/263/237/be8.gif",
   "http://i.imgur.com/sqaPWSV.gifv",
-  "https://pbs.twimg.com/media/CgggRytUUAAmvT6.jpg"
+  "https://pbs.twimg.com/media/CgggRytUUAAmvT6.jpg",
+  "https://cdn.discordapp.com/attachments/257895860757725186/367754148256415754/image.png",
+  "https://cdn.discordapp.com/attachments/257895860757725186/367754967773216768/image.png"
 ];
 
 module.exports = {
