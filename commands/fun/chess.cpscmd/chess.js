@@ -12,7 +12,7 @@ const ex = {
 
     if(args[0]&&args[0]==='help'){
       const embed = new Discord.MessageEmbed;
-      new CG({newFen: 'r1bqkb1r/pppp1ppp/2n2n2/4p3/4P3/3B1N2/PPPP1PPP/RNBQK2R w KQkq - 0 1' , channel: msg.channel}).updateAll();
+      new CG({newFen: 'r1bqkb1r/pppp1ppp/2n2n2/4p3/4P3/3B1N2/PPPP1PPP/RNBQK2R w KQkq - 0 1', channel: msg.channel, players: [author, client.user]}).updateAll();
 
       [
         ['Moving pawns: ', [
@@ -95,6 +95,8 @@ const ex = {
     );
     currentGame.once('end', game => {
       game.ended = true;
+      game.lastM.delete();
+      game.lastM = null;
       game.updateAll(currentGame.game.fen().split(/\s+/)[0], true);
     });
     games.set(channel.id, currentGame);

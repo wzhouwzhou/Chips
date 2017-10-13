@@ -13,7 +13,7 @@ module.exports = {
       const selftar = new Discord.MessageEmbed()
       .setTitle(`Avatar Image of ${author.tag} `, ``   , true)
       .setColor(guild?msg.member.displayColor:71340)
-      .addField('Avatar Link: ', `[Click Here](${author.avatarURL||author.displayAvatarURL})`)
+      .addField('Avatar Link: ', `[Click Here](${author.avatarURL||author.displayAvatarURL({format: 'png', size: 2048})})`)
       .setImage(author.avatarURL);
 
       let µs = false;
@@ -33,8 +33,8 @@ module.exports = {
 
         memberList.set(member.id,{
           title: `Avatar Image of ${member.user.tag} `,
-          page: ['Avatar Link: ', `[Click Here](${member.user.avatarURL||member.user.displayAvatarURL})`],
-          image: member.user.displayAvatarURL
+          page: ['Avatar Link: ', `[Click Here](${member.user.avatarURL||member.user.displayAvatarURL({format: 'png', size: 2048})})`],
+          image: member.user.displayAvatarURL({format: 'png', size: 2048})
         });
       });
       const pages = [], title = [], image = [];
