@@ -26,7 +26,7 @@ module.exports = {
         'Where [search engine] can be:',
         grammarJoin('google, bing, yahoo, aol, ask, duck (duckduckgo)'.split(/,\s*/g))
       ].join('\n').replace(/{}/g, `${_.escapeRegExp(prefix)}${this.name}`));
-    if(reg.match(args[0])&&args[1])
+    if(args[0].match(reg)&&args[1])
       query = suffix.substring(suffix.indexOf(args[1]));
     else query = suffix;
     return reply(`Here's how you search this: ${lmgtfy(query, args[0]||null)}`);
