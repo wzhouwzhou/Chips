@@ -9,23 +9,22 @@ module.exports = {
         .setColor(member.displayColor);
   
       if (!args[0])
-        await guild.fetchBans()
-        return send(embed)
+        return send(embed);
   
       if (args[0]==='help')
-        return send(embed)
+        return send(embed);
       
       if (args[0]==='name')
         if (args[1]>100||args[1]<2)
           return;
         if (args[1]<100||args[1]>2) 
-          return send('Name stuff...') 
+          return send('Name stuff...');
   
       if (args[0]==='topic')
         if (!args[1]&&args[1].length<1024)
           return;
         if (args[1]&&args[1].length<1024)
-          return send('Topic stuff..') 
+          return send('Topic stuff..');
     }
   
   };
