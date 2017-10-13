@@ -9,7 +9,7 @@ const whitelist = [];
 const STARTCONFIRM = '{prefix}select';
 const CANCEL = 'cancel/stop';
 
-exports.exec = async (msg, {guild, member, send, author, channel, suffix, Discord, prefix}) => {
+exports.func = async (msg, {guild, member, send, author, channel, suffix, Discord, prefix}) => {
   if(!suffix || suffix === '') return send('You must give me a role to mention!');
   if(!guild) return send('You must use this command in a server.');
 
