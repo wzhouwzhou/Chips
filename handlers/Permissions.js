@@ -62,12 +62,12 @@ ex.permsList = [
     ['global.info.discordstatus.*', true],
       ['global.info.discordstatus.discordstatus', true],
     ['global.info.avatar', true],
-    ['global.info.channeltopic', true]
+    ['global.info.channeltopic', true],
     ['global.info.count.*', true],
       ['global.info.count.channelcount', true],
       ['global.info.count.emojicount', true],
       ['global.info.count.membercount', true],
-      ['global.info.count.rolecount', true],              
+      ['global.info.count.rolecount', true],
     ['global.info.help.*', true],
       ['global.info.help.help', true],
     ['global.info.info.*', true],
@@ -199,7 +199,7 @@ ex.userpermissions = {
       {name: ex.permsList[0][0], action: 1},
       {name: ex.permsList[1][0], action: 1},
       {name: ex.permsList[2][0], action: 1},
-    ], 
+    ],
   "250815960250974209": //Edp
     [
       {name: ex.permsList[0][0], action: 1},
