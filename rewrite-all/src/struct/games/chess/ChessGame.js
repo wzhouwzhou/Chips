@@ -64,7 +64,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
 
   updateFrontEnd (end) {
     if(!this.channel) throw new Error('Channel is missing !!!11!');
-    const embed = this.embedify(end);
+    let embed = this.embedify(end);
     if(this.lastM) {
       this.lastM.delete();
       this.lastM = null;
@@ -84,13 +84,13 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
         const rCol = m.createReactionCollector(f, { time: 200e3, errors: ['time'] });
         rCol.on('collect', ()=>{
           this.nextEdit = true;
-          this.updateFrontEnd();
+          embed = this.embedify(end);
+          m.edit(embed);
           this.nextEdit = false;
         });
         !this.pause&&m.react(rot);
       }
     });
-    this.nextEdit&&this.lastM.edit(embed);
     return this;
   }
 
