@@ -8,7 +8,7 @@ module.exports = {
     const category = guild.channels.filter(c=>c.type==='category').size
 
     if (!args[0])
-      return send(text + " channels, " + voice, " channels and " + category, " categories!");
+      return send(`${text} channels, ${voice} channels and ${category} categories!`);
 
     if (args[0]==='text')
       return send(text + " text channels.");
