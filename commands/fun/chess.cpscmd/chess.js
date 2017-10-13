@@ -35,8 +35,14 @@ const ex = {
           "When in doubt with FEN notation or if something doesn't work you can try just specifying the \"before\" and \"after\" squares.",
           'In this example, instead of typing `Nxe4`, black could move `f6e4` to achieve the same result',
         ].join('\n')],
+        ['Usage:', [
+          'Click on 🔄 when it is your turn to rotate the board while in game.',
+          'Type __quit__ to forfeit the game when it is your turn.',
+          `Type __${_.escapeRegExp(prefix)}${this.name}__ to start a new game.`,
+          '\tWhen prompted mention someone to challenge, or me to play against my AI.',
+        ].join('\n')],
       ].forEach(f=>embed.addField(...f));
-      send(embed.setFooter(`${_.escapeRegExp(prefix)}chess to start a game!`));
+      send(embed);
       return;
     }
 
