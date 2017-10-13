@@ -201,8 +201,9 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
 
   toString(colorBottom=this.sideDown/*this.game.turn()*/) {
     if((/w(?:hite)?/).test(colorBottom)) this.board.reverse();
-    let str = this.board.map((e,i)=>[Constants.numbersA[i+1]].concat(Object.keys(e).map(k=>e[k])).join('')).reverse().concat(label2.join('')).join('\n');
-    if((/w(?:hite)?/).test(colorBottom)) this.board.reverse();
+    let str = this.board.map((e,i)=>[Constants.numbersA[i+1]].concat(Object.keys(e).map(k=>e[k])).join('')).reverse();
+    if((/w(?:hite)?/).test(colorBottom)) str=str.reverse();
+    str = str.concat(label2.join('')).join('\n');
     return str;
   }
 
