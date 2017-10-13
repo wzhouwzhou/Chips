@@ -7,6 +7,6 @@ const lenny = [
 module.exports = {
   name: "lenny",
   async func(msg, { send }) {
-    return send(lenny[~~(lenny.length*Math.random())]);
+    return send(lenny[_.random(0,lenny.length-1)]);
   }
 };

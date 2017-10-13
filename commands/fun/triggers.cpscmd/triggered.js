@@ -13,6 +13,6 @@ const gifs = [
 module.exports = {
   name: "triggered",
   async func(msg, { send }) {
-    return send(gifs[~~(gifs.length*Math.random())]);
+    return send(gifs[_.random(0,gifs.length-1)]);
   }
 };
