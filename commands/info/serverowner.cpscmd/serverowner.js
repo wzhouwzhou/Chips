@@ -1,4 +1,4 @@
-let embed = (new Discord.MessageEmbed).setDescription(`<@${guild.ownerID}`)
+let embed = (new Discord.MessageEmbed).setDescription(`<@${guild.ownerID}`);
 
 module.exports = {
     name: "serverowner",
