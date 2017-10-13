@@ -73,7 +73,7 @@ module.exports = {
     const FunMenu = ([
       '**{}con4 length width** to play connect four.',
       '\tFor example, **{}con4 12 6** will create a 12x6 board with 6 columns and 12 rows',
-      '**{}chess** *__New™ (beta)__* to play a chess game! Yes, you can invite Chips to play with you!',
+      '**{}chess help** *__New™ (beta)__* to see how to play a chess game! and Yes, _you can even invite Chips to play with you!_',
       '**{}aboose**/**{}aboosed** for aboose.',
       '**{}-ban [mention user]** to ban people (Disclaimer: This is a fake ban).',
       '**{}cat** to create a cat.',
