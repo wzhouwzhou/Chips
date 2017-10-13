@@ -1,8 +1,3 @@
-let embed = (new Discord.MessageEmbed)
-  .setTitle('Bot nickname')
-  .setDescription(suffix)
-  .setColor(member.displayColor);
-
 module.exports = {
   name: "botnick",
   async func(msg, { send, guild, suffix, member }) {
