@@ -3,9 +3,9 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 const { Chess } = require('chess.js');
 const AI = require('chess-ai-kong');
-const _ = require('lodash');
+
 AI.setOptions({
-  depth: _.random(500,600),
+  depth: 7, //_.random(500,600),
   strategy: 'basic',
   timeout: 0
 });
@@ -99,7 +99,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     if (this.ended||this.isOver()) return null;
     if(!delay) {
       AI.setOptions({
-        depth: _.random(500,1000),
+        depth: 7, //_.random(500,1000),
         strategy: 'basic',
         timeout: 0
       });
