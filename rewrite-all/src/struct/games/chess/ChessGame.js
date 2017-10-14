@@ -5,7 +5,7 @@ const { Chess } = require('chess.js');
 const AI = require('chess-ai-kong');
 
 AI.setOptions({
-  depth: 7, //_.random(500,600),
+  depth: 1500, //_.random(500,600),
   strategy: 'basic',
   timeout: 0
 });
@@ -48,8 +48,10 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.fen = options.newFen||startFen;
     this.boardFen = this.fen.split(/\s+/)[0];
     this.sideDown = 'white';
-    if(this.movers.get(this.turn.toLowerCase())&&this.movers.get(this.turn.toLowerCase()).id === client.user.id)
+    if(this.movers.get(this.turn.toLowerCase())&&this.movers.get(this.turn.toLowerCase()).id === client.user.id) {
+      this.sideDown = 'black';
       this.aiMove(0, {noUpdate: true});
+    }
   }
 
   embedify (end = false) {
@@ -99,7 +101,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     if (this.ended||this.isOver()) return null;
     if(!delay) {
       AI.setOptions({
-        depth: 7, //_.random(500,1000),
+        depth: 1500, //_.random(500,1000),
         strategy: 'basic',
         timeout: 0
       });
