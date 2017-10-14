@@ -14,7 +14,7 @@ const request = require('request');
 //const favicon = require('serve-favicon');
 global.Discord = require("discord.js");
 global.client = new Discord.Client({
-  fetchAllMembers:true,
+  fetchAllMembers: true,
   messageCacheMaxSize: 15,
   //messageCacheLifetime:(30*60),
   //messageSweepInterval:(60*60*1)

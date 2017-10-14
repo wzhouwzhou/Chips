@@ -101,7 +101,9 @@ module.exports = function( send ) {
     console.log('Bot2 is ready!');
   });
 
-  client.on('debug', console.log);
+  client.on('warn', info => console.log('[DJS Warn] '+info));
+  client.on('debug', info => console.log('[DJS Debug] '+info));
+  client.on('GUILD_MEMBERS_CHUNK', (members, guild) => console.log(`[DJS Debug] Received new Chunk of ${members.length} members for guild |${guild.name}|:|(${guild.id})|`));
   //hclient.on('debug', console.log);
   //h2client.on('debug', console.log);
   //h3client.on('debug', console.log);
