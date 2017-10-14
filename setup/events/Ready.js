@@ -103,7 +103,7 @@ module.exports = function( send ) {
 
   client.on('warn', info => console.log('[DJS Warn] '+info));
   client.on('debug', info => console.log('[DJS Debug] '+info));
-  client.on('GUILD_MEMBERS_CHUNK', (members, guild) => console.log(`[DJS Debug] Received new Chunk of ${members.length} members for guild |${guild.name}|:|(${guild.id})|`));
+  client.on('guildMembersChunk', (members, guild) => console.log(`[DJS Debug] Received new Chunk of ${members.length} members for guild |${guild.name}|:|(${guild.id})|`));
   client.on('disconnect', ({ code }) => {
     console.error('[FATAL] Client lost connection to ws, rebooting the bot');
     process.exit(code||404);
