@@ -21,7 +21,7 @@ const ex= {
 
       const embed = new Discord.MessageEmbed()
         .setDescription(quotee.content || '\u200B')
-        .setAuthor(`${quotee.author.username}#${quotee.author.discriminator}`, quotee.author.displayAvatarURL)
+        .setAuthor(`${quotee.author.username}#${quotee.author.discriminator}`, quotee.author.displayAvatarURL({format: 'png', size: 2048}))
         .setFooter(quotee.id)
         .setTimestamp(quotee.createdAt)
         .setColor(color);
