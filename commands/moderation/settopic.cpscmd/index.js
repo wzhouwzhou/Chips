@@ -17,4 +17,5 @@ module.exports = [
   [st.name,st],
   ['st', st],
   ['settopic', st],
+  ['setchanneltopic', st],
 ];
