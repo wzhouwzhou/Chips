@@ -70,6 +70,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       this.lastM = null;
     }
     this.sideDown = 'white';
+    this.sideDown = this.sideDown == 'white'?'black':'white';
     !this.nextEdit&&this.channel.send(embed).then(m=>{
       this.lastM = m;
       if(!end){
