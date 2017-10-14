@@ -75,7 +75,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       if(!end){
         const mover = this.movers.get(this.turn.toLowerCase());
         const f = (r, u) => {
-          if(mover&&u.id === mover.id&&r.emoji.name === rot){
+          if(!u.bot&&mover&&u.id === mover.id&&r.emoji.name === rot){
             r.remove(u).catch(_=>_);
             return true;
           }
@@ -84,7 +84,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
         const rCol = m.createReactionCollector(f, { time: 200e3, errors: ['time'] });
         rCol.on('collect', ()=>{
           this.nextEdit = true;
-          this.sideDown = this.sideDown == 'white'?'black':'white';
+          this.sideDown = this.sideDown == 'white'?'white':'black';
           embed = this.embedify(end);
           m.edit(embed);
           this.nextEdit = false;
