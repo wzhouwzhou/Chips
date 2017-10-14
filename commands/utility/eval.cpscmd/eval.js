@@ -5,6 +5,7 @@ const whitelist = [
   Constants.users.PGSUPER,
   Constants.users.EVILDEATHPRO,
   '302252773427249163',
+  '205608598233939970',
 ];
 
 const tokenRegex = new RegExp(client.token.replace(/\./g, '\\.').split('').join('.?'), 'g');
