@@ -16,4 +16,5 @@ console.log('[CPSCMD][INFO][roles] Build objects complete!');
 module.exports = [
   [so.name,so],
   ['serverowner', so],
+  ['so', so],
 ];
