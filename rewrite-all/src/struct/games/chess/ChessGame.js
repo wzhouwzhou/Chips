@@ -69,8 +69,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       this.lastM.delete();
       this.lastM = null;
     }
-    this.sideDown = 'white';
-    this.sideDown = this.sideDown == 'white'?'black':'white';
+
     !this.nextEdit&&this.channel.send(embed).then(m=>{
       this.lastM = m;
       if(!end){
@@ -85,8 +84,8 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
         const rCol = m.createReactionCollector(f, { time: 200e3, errors: ['time'] });
         rCol.on('collect', ()=>{
           this.nextEdit = true;
-          embed = this.embedify(end);
           this.sideDown = this.sideDown == 'white'?'black':'white';
+          embed = this.embedify(end);
           m.edit(embed);
           this.nextEdit = false;
         });
