@@ -101,7 +101,13 @@ module.exports = function( send ) {
     console.log('Bot2 is ready!');
   });
 
-  client.on('debug', console.log);
+  client.on('warn', info => console.log('[DJS Warn] '+info));
+  client.on('debug', info => console.log('[DJS Debug] '+info));
+  client.on('guildMembersChunk', (members, guild) => console.log(`[DJS Debug] Received new chunk of ${members.size} members for guild |${guild.name}|:|(${guild.id})|`));
+  client.on('disconnect', ({ code }) => {
+    console.error('[FATAL] Client lost connection to ws, rebooting the bot');
+    process.exit(code||404);
+  });
   //hclient.on('debug', console.log);
   //h2client.on('debug', console.log);
   //h3client.on('debug', console.log);
