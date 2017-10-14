@@ -84,8 +84,8 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
         const rCol = m.createReactionCollector(f, { time: 200e3, errors: ['time'] });
         rCol.on('collect', ()=>{
           this.nextEdit = true;
-          this.sideDown = this.sideDown == 'white'?'white':'black';
           embed = this.embedify(end);
+          this.sideDown = this.sideDown == 'white'?'black':'white';
           m.edit(embed);
           this.nextEdit = false;
         });
