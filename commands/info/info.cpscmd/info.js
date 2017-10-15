@@ -75,7 +75,7 @@ const ex = {
       let gname = guild.name.replace('@','(at)');
       [
         [`Name of this server: ${gname}`, `Guild id: ${guild.id}`],
-        [`Server owner: <@${guild.ownerID}> (${getUser(guild.ownerID).tag})`, `Server created on ${guild.createdAt.toUTCString()} about ${diff} days ago!`],
+        [`Server created on ${guild.createdAt.toUTCString()} about ${diff} days ago!`,`Server owner: <@${guild.ownerID}> (${getUser(guild.ownerID).tag})`],
         [`${guild.members.size} member(s): ${trueMemC.size} ${trueMemC.size===1?'person':'people'}, ${guild.members.size-trueMemC.size} ${guild.members.size-trueMemC.size===1?'bot':'bots'}`,([
           `Reachable member(s) (online, idle or dnd): **${available}**\n`,
           ...[
