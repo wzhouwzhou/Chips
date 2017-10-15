@@ -114,6 +114,9 @@ const ex = {
           null,
           guild.iconURL({ size: 2048, format: 'png' })||null,
         ],
+        thumbnail: [
+          guild.iconURL({ size: 2048, format: 'png' })||null,
+        ],
         author:[
           client.user.tag,
           'Server Emojis'
