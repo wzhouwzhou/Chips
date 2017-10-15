@@ -86,7 +86,7 @@ const ex = {
         ],
         text: author+[],
         description: [
-          ' ',
+          '.',
           `${guild.emojis.array().join(' ')}${guild.iconURL({ size: 2048, format: 'png' })?'\n\n**Server icon:**':''}`,
         ],
         pages:
@@ -115,7 +115,7 @@ const ex = {
           guild.iconURL({ size: 2048, format: 'png' })||null,
         ],
         author:[
-          ' ',
+          client.user.tag,
           'Server Emojis'
         ],
         color: member.displayColor,
