@@ -22,7 +22,7 @@ const Paginator = class Paginator {
       pagedfn(this);
     else if(data.type === 'rawtext')
       this.pages = data.raw.split(data.splitter||/\s+/);
-
+    this.description = data.description;
     this.embedding = true;
     this.fielding = data.fielding;
     this.title = data.title;
