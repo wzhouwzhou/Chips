@@ -75,15 +75,7 @@ const ex = {
       let gname = guild.name.replace('@','(at)');
       [
         [`Name of this server: ${gname}`, `Guild id: ${guild.id}`],
-        ['Server owner:', `${getUser(guild.ownerID).tag} <@${guild.ownerID}>`],
-        [`Number of roles: ${guild.roles.size}`,`Highest role: ${highestRole.name} (${highestRole.id})`],
-        [
-          `Total number of channels: ${tC}`,
-          `Text: **${textC}**\nNsfw: **${nsfw}**\nVoice: **${voiceC}**\n»Categories: ${categoryC}«`
-        ],
-        [`Server region (voice): `, guild.region, true],
-        [`AFK voice channel: ${guild.afkChannelID?'#'+guild.channels.get(guild.afkChannelID).name:''}`,`${guild.afkChannelID?'AFK Timeout: '+ guild.afkTimeout/60 +' minute(s)':'None'}` ],
-        [`Date created: ${guild.createdAt.toUTCString()}`, `That's about ${diff} days ago!`],
+        [`Server owner: <@${guild.ownerID}> (${getUser(guild.ownerID).tag})`, `Server created on ${guild.createdAt.toUTCString()} about ${diff} days ago!`],
         [`${guild.members.size} member(s): ${trueMemC.size} ${trueMemC.size===1?'person':'people'}, ${guild.members.size-trueMemC.size} ${guild.members.size-trueMemC.size===1?'bot':'bots'}`,([
           `Reachable member(s) (online, idle or dnd): **${available}**\n`,
           ...[
@@ -93,6 +85,12 @@ const ex = {
             ['<:offline:313956277237710868>', guild.members.size-available],
           ].map(e=>`${e[0]}: **${e[1]}**`),
         ].join(' '))],
+        [`Number of roles: ${guild.roles.size}`,`${highestRole.members.size} members with the highest role: ${highestRole.name} (${highestRole.id})`],
+        [
+          `Total number of channels: ${tC}`,
+          `Text: **${textC}**\nNsfw: **${nsfw}**\nVoice: **${voiceC}**\n»Categories: ${categoryC}«`
+        ],
+        [`Server region (voice): ${guild.region}`, `AFK voice channel: ${guild.afkChannelID?'#'+guild.channels.get(guild.afkChannelID).name:''}${guild.afkChannelID?'AFK Timeout: '+ guild.afkTimeout/60 +' minute(s)':'None'}`, true],
         [`Verification level: ${vLvl}`,`That means ${vInfo}`]
       ].forEach(f=>infobad.addField(...f));
 
