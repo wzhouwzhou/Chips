@@ -202,10 +202,9 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   }
 
   toString(colorBottom=this.sideDown/*this.game.turn()*/) {
-    /*if((/w(?:hite)?/).test(colorBottom))*/
     this.board.reverse();
     let str;
-    if((/w(?:hite)?/).test(colorBottom))
+    if((/w(?:hite)?/i).test(colorBottom))
       str = (
         this.board.map(
           (e,i)=>[firstF(Constants.numbersA, 9)[i+1]].concat(Object.keys(e).map(k=>e[k])).join('')
@@ -219,7 +218,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
           (e,i)=>[Object.assign([], firstF(Constants.numbersA, 10)).reverse()[i+1]].concat(Object.keys(e).map(k=>e[k]).reverse()).join('')
         )
       ).concat(
-        (([a, ...b]) => [...b,a])(Object.assign([], label2).reverse()).join('')
+        (([a, ...b]) => [...b,a])(Object.assign([], label2)).reverse().join('')
       ).join('\n');
     this.board.reverse();
 
