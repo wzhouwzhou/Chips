@@ -11,8 +11,8 @@ AI.setOptions({
 });
 
 const Discord = require('discord.js');
-
-// const lastF = require('../../../deps/functions/lastF').default({_});
+const _ = require('lodash');
+const firstF = require('../../../deps/functions/firstF').default({ _ });
 const Constants = require('../../../deps/Constants');
 
 const ChessConstants = Constants.chess;
@@ -206,9 +206,9 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.board.reverse();
     let str;
     if((/w(?:hite)?/).test(colorBottom))
-      str = this.board.map((e,i)=>[Constants.numbersA[i+1]].concat(Object.keys(e).map(k=>e[k]).reverse()).join('')).reverse().concat(label2.join('')).join('\n');
+      str = this.board.map((e,i)=>[firstF(Constants.numbersA, 9)[i+1]].concat(Object.keys(e).map(k=>e[k])).join('')).reverse().concat(label2.join('')).join('\n');
     else
-      str = this.board.map((e,i)=>[Object.assign([], Constants.numbersA).reverse()[i+1]].concat(Object.keys(e).map(k=>e[k])).join('')).concat(Object.assign([], label2).reverse().join('')).join('\n');
+      str = this.board.map((e,i)=>[Object.assign([], firstF(Constants.numbersA, 9)).reverse()[i+1]].concat(Object.keys(e).map(k=>e[k])).join('')).concat(Object.assign([], label2).reverse().join('')).join('\n');
     this.board.reverse();
 
     return str;
