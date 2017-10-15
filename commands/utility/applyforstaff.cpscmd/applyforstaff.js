@@ -120,11 +120,11 @@ ex = {
     }else{
       temp.submitter = author.tag;
       temp.submitterid = author.id;
-      temp.submitterImg = author.displayAvatarURL;
+      temp.submitterImg = author.displayAvatarURL({ format: 'png', size: 2048 });
       temp.timestamp = new Date().toUTCString();
       let embed = new Discord.MessageEmbed();
       embed
-        .setTitle(`${author.tag}`, author.displayAvatarURL)
+        .setTitle(`${author.tag}`, author.displayAvatarURL({ format: 'png', size: 2048 }))
         .setColor(101010)
         .setDescription(QUESTION1)
         .setTimestamp(new Date());

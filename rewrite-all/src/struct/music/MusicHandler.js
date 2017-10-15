@@ -66,7 +66,7 @@ const GuildMusicHandler = class MusicHandler {
     if(handler.demoActive) return tc.send('Demo mode was already activated for your server!');
 
     handler.demoActive = true;
-    handler.collector = tc.createCollector(
+    handler.collector = tc.createMessageCollector(
       () => true,
       { time: (time||1440)*60*1000 }
     );
