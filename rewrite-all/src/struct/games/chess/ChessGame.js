@@ -2,13 +2,8 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const { Chess } = require('chess.js');
-const AI = require('chess-ai-kong');
-
-AI.setOptions({
-  depth: 1500, //_.random(500,600),
-  strategy: 'basic',
-  timeout: 0
-});
+const AI = new Engine('../../../deps/chess-engines/stockfish-8-linux/Linux/stockfish_8_x64');
+AI.init().setoption('MultiPV', '4');
 
 const Discord = require('discord.js');
 const _ = require('lodash');
@@ -97,15 +92,10 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     return this;
   }
 
-  aiMove (delay = 0, options = {}) {
+  async aiMove (delay = 0, options = {}) {
     if (this.ended||this.isOver()) return null;
     if(!delay) {
-      AI.setOptions({
-        depth: 1500, //_.random(500,1000),
-        strategy: 'basic',
-        timeout: 0
-      });
-      const move = AI.play(this.game.history());
+      const move = (await AI.position('r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3').go({depth: 15})).bestmove;
       try {
         return this.go(move, true, options.noUpdate);
       } catch(err) { //AI Failed
