@@ -2,6 +2,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const { Chess } = require('chess.js');
+const { Engine } = require('node-uci');
 const AI = new Engine('../../../deps/chess-engines/stockfish-8-linux/Linux/stockfish_8_x64');
 AI.init().setoption('MultiPV', '4');
 
