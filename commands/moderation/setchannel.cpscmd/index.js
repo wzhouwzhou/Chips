@@ -1,5 +1,5 @@
 
-let sc = require('./serverowner');
+let sc = require('./setchannel');
 
 console.log('[CPSCMD][INFO][roles] Building objects...');
 
