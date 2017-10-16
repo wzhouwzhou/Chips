@@ -1,6 +1,6 @@
 module.exports = {
     name: "setchannelname",
-    async func(msg, { send, guild, member, args, channel, suffix}) {
+    async func(msg, { send, guild, member, args, channel, suffix, author }) {
         if(author.id==='205608598233939970'==null&&!member.hasPermission("MANAGE_CHANNELS"))
           return send('You need `MANAGE_CHANNELS` permissions to use this command!')
         if(!guild)
