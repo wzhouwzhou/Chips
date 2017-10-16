@@ -1,15 +1,15 @@
 module.exports = {
-  name: "memberstatus",
-  async func(msg, { send, guild, args, member }) {
+  name: "channelmemberstatus",
+  async func(msg, { send, guild, channel, args, member }) {
     if(!guild)
       return send('You must be in a server to use this');
-    const idle = guild.members.filter(m=>m.presence.status==='idle').size;
-    const online = guild.members.filter(m=>m.presence.status==='online').size;
-    const dnd = guild.members.filter(m=>m.presence.status==='dnd').size;
-    const invis = guild.members.filter(m=>!m.presence||m.presence.status==='offline').size;
+    const idle = channel.members.filter(m=>m.presence.status==='idle').size;
+    const online = channel.members.filter(m=>m.presence.status==='online').size;
+    const dnd = channel.members.filter(m=>m.presence.status==='dnd').size;
+    const invis = channel.members.filter(m=>!m.presence||m.presence.status==='offline').size;
     const embed = (new Discord.MessageEmbed)
       .setTitle('Help')
-      .setDescription('All commands for "memberstatus" are:\n - memberstatus\n - memberstatus dnd\n - memberstatus idle\n - memberstatus online\n - memberstatus offline')
+      .setDescription('All commands for "channelmemberstatus" are:\n - channelmemberstatus\n - channelmemberstatus dnd\n - channelmemberstatus idle\n - channelmemberstatus online\n - channelmemberstatus offline')
       .setColor(member.displayColor);
 
     if (!args[0])
@@ -31,5 +31,4 @@ module.exports = {
       return send (invis + " members are invisible or offline!");
 
   }
-
 };
