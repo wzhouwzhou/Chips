@@ -1,4 +1,4 @@
-const emojiurl = args[1].match(/^(https?\:\/\/[^.]+\.[^]+)$/)[1]  
+//const emojiurl = args[1].match(/^(https?\:\/\/[^.]+\.[^]+)$/)[1]  
 
 module.exports = {
     name: "addemoji",
