@@ -1,3 +1,6 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+
 const PermissionsHandler = require('../../handlers/Permissions');
 const GoogleSpreadsheet = require('google-spreadsheet');
 
@@ -11,6 +14,8 @@ const Database = class Database {
       client_email: process.env.SERVICE_ACCOUNT_EMAIL,
       private_key: process.env.GOOGLE_PRIVATE_KEY,
     };
+    this.gtables = {};
+    this.rtables = {};
   }
 
   connect () {
@@ -25,8 +30,12 @@ const Database = class Database {
     });
   }
 
-  async load () {
+  ensureRethink () {
     if(!this.rethink) throw new Error('Rethink not connect');
+  }
+
+  async load () {
+    this.ensureRethink();
 
     this.startLog = await this.rethink.table('botStartLog').run();
     this.latestStart = this.startLog&&this.startLog[0]?this.startLog[0]['status']:'Unknown';
@@ -47,7 +56,7 @@ const Database = class Database {
         if(err) throw err;
         this.numloads = info.worksheets.length;
         for (const sheet of info.worksheets) {
-          this.loadsheet(sheet);
+          this.loadGSheet(sheet);
         }
       });
     });
@@ -59,14 +68,24 @@ const Database = class Database {
 
   }
 
-  loadSheet (gsheet) {
+  loadGSheet (gsheet) {
     this.sheets[gsheet.title] = gsheet;
-    gsheet.getRows({ offset: 1, limit: 999999});
     for (const preF in this.loadFunctions) {
       if(gsheet.title === preF) {
-        this.loadFunctions[preF]({ sheet, client: this.client });
+        this.loadFunctions[preF]({ sheet, client: this.client, database: this });
       }
     }
+  }
+
+  async getTable (tablename, cache = true) {
+    this.ensureRethink();
+
+    const table = await this.rethink.table(tablename).run();
+    if(cache) {
+      if(!this.rtables) this.rtables = {};
+      this.rtables[tablename] = table;
+    }
+    return table;
   }
 };
 
