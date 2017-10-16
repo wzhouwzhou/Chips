@@ -4,11 +4,14 @@ module.exports = {
     name: "addemoji",
     async func(msg, { send, args, member, guild }) {
     
+    if (!args[0]) 
+      return reply("No emoji name given :(");   
+      
     if(!member.hasPermission('MANAGE_EMOJIS'))
       return send('no');
     
     if (!args[0]) 
-      return reply("No emoji name given :(");   
+      return send("No emoji name given :(");   
     
     let name = args[0].toLowerCase();
 
