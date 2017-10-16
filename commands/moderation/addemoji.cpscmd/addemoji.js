@@ -1,3 +1,5 @@
+const emojiurl = args[1].match(/^(https?\:\/\/[^.]+\.[^]+)$/)[1]  
+
 module.exports = {
     name: "addemoji",
     async func(msg, { send, args, member, guild }) {
@@ -7,8 +9,6 @@ module.exports = {
     
     if(guild.emojis.size==='50')
       return send('too much emoticons4me');
-    
-    const emojiurl = args[1].match(/^(https?\:\/\/[^.]+\.[^]+)$/)[1]    
     
     if (!args[0]) 
       return reply("No emoji name given :(");   
