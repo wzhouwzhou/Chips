@@ -108,11 +108,12 @@ const msghandle = async message => {
   if(message.guild&&message.guild.id==Constants.servers.SURSKIT)
     for(const id in keywords)
       if(keywords[id].toLowerCase().split('|').some(e=>message.content.toLowerCase().includes(e))&&notify[id])
-        client.users.fetch(id).then(user=>
-          user.send(`Someone said the keyword \`${keywords[id]}\` in server \`Sinbad Knights\`!\n**${message.author.tag}:** ${message.content}`)
-        ).catch(err=>
-          console.error('[KEYWORD NOTIFY][err] '+err)
-        );
+        if(message.author.id!==id)
+          client.users.fetch(id).then(user =>
+            user.send(`\`${keywords[id]}\` in server \`Sinbad Knights\`!\n${message.channel+[]} (${message.channel.name})\n**${message.author.tag}:** ${message.content}`)
+          ).catch(err=>
+            console.error('[KEYWORD NOTIFY][err] '+err)
+          );
   //====================================END KEYWORD TRIGGER=======================================
   /*try{
     if(message.guild&&message.guild.id==Constants.servers.DWAGON){
