@@ -2,10 +2,10 @@ const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).def
 const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Paginator;
 const Jimp = require('jimp');
 
-const ONLINE = 'https://cdn.discordapp.com/emojis/313956277808005120.png';
-const IDLE = 'https://cdn.discordapp.com/emojis/313956277220802560.png';
-const DND = 'https://cdn.discordapp.com/emojis/313956276893646850.png';
-const INVIS = 'https://cdn.discordapp.com/emojis/313956277237710868.png';
+const ONLINE = 'https://i.imgur.com/Yj3vYDB.png';
+const IDLE = 'https://i.imgur.com/IYAtFOU.png';
+const DND = 'https://i.imgur.com/Hij38VX.png';
+const INVIS = 'https://i.imgur.com/dQZuSIR.png';
 
 const ex = {
   name: "info",
