@@ -4,7 +4,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 const { Chess } = require('chess.js');
 const { Engine } = require('node-uci');
 const AI = new Engine(path.join(__dirname, '../../../deps/chess-engines/stockfish-8-linux/Linux/stockfish_8_x64'));
-AI.init().setoption('MultiPV', '4');
+AI.chain().init().setoption('MultiPV', '4');
 
 const Discord = require('discord.js');
 const _ = require('lodash');
