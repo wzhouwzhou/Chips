@@ -10,7 +10,7 @@ module.exports = {
     if (!args[0]) 
       return reply("No emoji name given :(");   
     
-    let name = args[0].toLowerCase();
+    let name = args[0];
 
     if(!args[1]) 
       return send('no url');
