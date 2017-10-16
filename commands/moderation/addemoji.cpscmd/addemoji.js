@@ -6,7 +6,7 @@ module.exports = {
       return send('no');
     
     if(guild.emojis.size==='50')
-      return send('too much emoticons4me')
+      return send('too much emoticons4me');
     
     const emojiurl = args[1].match(/^(https?\:\/\/[^.]+\.[^]+)$/)[1]    
     
