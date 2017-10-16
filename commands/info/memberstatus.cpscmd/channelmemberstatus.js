@@ -6,7 +6,7 @@ module.exports = {
     const idle = channel.members.filter(m=>m.presence.status==='idle').size;
     const online = channel.members.filter(m=>m.presence.status==='online').size;
     const dnd = channel.members.filter(m=>m.presence.status==='dnd').size;
-    const invis = channel.members.filter(m=>!m.presence||m.presence.status==='offline').size;
+    const invis = channel.members.filter(m=>!m.presence||!m.presence.status||m.presence.status==='offline').size;
     const embed = (new Discord.MessageEmbed)
       .setTitle('Help')
       .setDescription('All commands for "channelmemberstatus" are:\n - channelmemberstatus\n - channelmemberstatus dnd\n - channelmemberstatus idle\n - channelmemberstatus online\n - channelmemberstatus offline')

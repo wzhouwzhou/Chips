@@ -6,7 +6,7 @@ module.exports = {
     const idle = guild.members.filter(m=>m.presence.status==='idle').size;
     const online = guild.members.filter(m=>m.presence.status==='online').size;
     const dnd = guild.members.filter(m=>m.presence.status==='dnd').size;
-    const invis = guild.members.filter(m=>!m.presence||m.presence.status==='offline').size;
+    const invis = guild.members.filter(m=>!m.presence||!m.presence.status||m.presence.status==='offline').size;
     const embed = (new Discord.MessageEmbed)
       .setTitle('Help')
       .setDescription('All commands for "memberstatus" are:\n - memberstatus\n - memberstatus dnd\n - memberstatus idle\n - memberstatus online\n - memberstatus offline')
