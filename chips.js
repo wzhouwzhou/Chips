@@ -1,5 +1,9 @@
 /* eslint no-unused-vars: "off" */
 Object.defineProperty(exports, "__esModule", { value: true });
+global._ = require("lodash");
+const OL1 = console.log;
+console.log = (...args) => OL1(...args.map(e => (e+[]).replace(new RegExp(`${_.escapeRegExp(__dirname)}`,'gi'),'$./')));
+
 global.Constants = require("./setup/Constants");
 const changeConsole_1 = require("./setup/logging/changeConsole");
 let setShards = { id: null };
@@ -90,7 +94,7 @@ client.disableSelfStar = {
 global.database = require(path.join(__dirname, './setup/db/DatabaseLoader'));
 /** Other Global Constants **/
 global.moment = require('moment');
-global._ = require("lodash");
+
 global.chalk = require("chalk");
 chalk.enabled=true;
 global.Messager = new (require("events"));
