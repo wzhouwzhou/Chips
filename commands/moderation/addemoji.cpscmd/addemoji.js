@@ -7,9 +7,6 @@ module.exports = {
     if(!member.hasPermission('MANAGE_EMOJIS'))
       return send('no');
     
-    if(guild.emojis.size==='50')
-      return send('too much emoticons4me');
-    
     if (!args[0]) 
       return reply("No emoji name given :(");   
     
