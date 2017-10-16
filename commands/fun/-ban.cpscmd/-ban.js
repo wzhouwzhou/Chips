@@ -21,6 +21,7 @@ const neko = [
   '365972456139390977', //Vy alt
   '260024920757633025', //Xena, a nEkO SLaVE
   '205608598233939970',  //lucas, a guy that wants perms
+  '290177579267260416', //yosh, a guy that's hoping for immuniteh xd
 ];
 
 const ex= {
