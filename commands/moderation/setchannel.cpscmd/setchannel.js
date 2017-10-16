@@ -21,7 +21,7 @@ module.exports = {
   
       if (args[0]==='help')
         return send(embed);
-      
+          
       if (args[0]==='name')
         if (args[1]<100||args[1]>2)
           return channel.setName(nam)
