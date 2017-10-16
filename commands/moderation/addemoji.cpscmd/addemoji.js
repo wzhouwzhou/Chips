@@ -2,6 +2,9 @@ module.exports = {
     name: "addemoji",
     async func(msg, { send, args, member, guild }) {
 
+    if(guild.emojis('50'))
+     return 'how many emojis do you have in dis server boi'
+    
     if(!member.hasPermission('MANAGE_EMOJIS'))
       return send('no');
     
