@@ -1,17 +1,14 @@
-//const emojiurl = args[1].match(/^(https?\:\/\/[^.]+\.[^]+)$/)[1]  
-
 module.exports = {
     name: "addemoji",
     async func(msg, { send, args, member, guild }) {
-    
-    if (!args[0]) 
-      return reply("No emoji name given :(");   
-      
+
     if(!member.hasPermission('MANAGE_EMOJIS'))
       return send('no');
     
+    const emojiurl = args[1].match(/^(https?\:\/\/[^.]+\.[^]+)$/)[1]    
+    
     if (!args[0]) 
-      return send("No emoji name given :(");   
+      return reply("No emoji name given :(");   
     
     let name = args[0].toLowerCase();
 
