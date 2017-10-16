@@ -6,3 +6,4 @@ dependencies:
   pre:
     - npm install -g npm@4.2.0
     - npm install -g eslint
+    - npm install ytsearcher discordblacklist
