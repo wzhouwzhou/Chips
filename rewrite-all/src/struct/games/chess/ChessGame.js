@@ -3,16 +3,16 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 const { Chess } = require('chess.js');
 const AI = require('chess-ai-kong');
-const _ = require('lodash');
+
 AI.setOptions({
-  depth: _.random(500,600),
+  depth: 1500, //_.random(500,600),
   strategy: 'basic',
   timeout: 0
 });
 
 const Discord = require('discord.js');
-
-// const lastF = require('../../../deps/functions/lastF').default({_});
+const _ = require('lodash');
+const firstF = require('../../../deps/functions/firstF').default({ _ });
 const Constants = require('../../../deps/Constants');
 
 const ChessConstants = Constants.chess;
@@ -48,8 +48,10 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.fen = options.newFen||startFen;
     this.boardFen = this.fen.split(/\s+/)[0];
     this.sideDown = 'white';
-    if(this.movers.get(this.turn.toLowerCase())&&this.movers.get(this.turn.toLowerCase()).id === client.user.id)
+    if(this.movers.get(this.turn.toLowerCase())&&this.movers.get(this.turn.toLowerCase()).id === client.user.id) {
+      this.sideDown = 'black';
       this.aiMove(0, {noUpdate: true});
+    }
   }
 
   embedify (end = false) {
@@ -69,14 +71,13 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       this.lastM.delete();
       this.lastM = null;
     }
-    this.sideDown = 'white';
+
     !this.nextEdit&&this.channel.send(embed).then(m=>{
       this.lastM = m;
       if(!end){
         const mover = this.movers.get(this.turn.toLowerCase());
         const f = (r, u) => {
-          if(mover&&u.id === mover.id&&r.emoji.name === rot){
-            this.sideDown = this.sideDown == 'white'?'black':'white';
+          if(!u.bot&&mover&&u.id === mover.id&&r.emoji.name === rot){
             r.remove(u).catch(_=>_);
             return true;
           }
@@ -85,6 +86,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
         const rCol = m.createReactionCollector(f, { time: 200e3, errors: ['time'] });
         rCol.on('collect', ()=>{
           this.nextEdit = true;
+          this.sideDown = this.sideDown == 'white'?'black':'white';
           embed = this.embedify(end);
           m.edit(embed);
           this.nextEdit = false;
@@ -99,7 +101,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     if (this.ended||this.isOver()) return null;
     if(!delay) {
       AI.setOptions({
-        depth: _.random(500,1000),
+        depth: 1500, //_.random(500,1000),
         strategy: 'basic',
         timeout: 0
       });
@@ -200,14 +202,26 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   }
 
   toString(colorBottom=this.sideDown/*this.game.turn()*/) {
-    /*if((/w(?:hite)?/).test(colorBottom))*/ this.board.reverse();
-    let str = this.board.map((e,i)=>[Constants.numbersA[i+1]].concat(Object.keys(e).map(k=>e[k])).join(''));
     this.board.reverse();
-    if((/w(?:hite)?/).test(colorBottom)) {
-      str.reverse();
-    }
+    let str;
+    if((/w(?:hite)?/i).test(colorBottom))
+      str = (
+        this.board.map(
+          (e,i)=>[firstF(Constants.numbersA, 9)[i+1]].concat(Object.keys(e).map(k=>e[k])).join('')
+        )
+      ).reverse().concat(
+        label2.join('')
+      ).join('\n');
+    else
+      str = (
+        this.board.map(
+          (e,i)=>[Object.assign([], firstF(Constants.numbersA, 10)).reverse()[i+1]].concat(Object.keys(e).map(k=>e[k]).reverse()).join('')
+        )
+      ).concat(
+        (([a, ...b]) => [...b,a])(Object.assign([], label2)).reverse().join('')
+      ).join('\n');
+    this.board.reverse();
 
-    str = str.concat(label2.join('')).join('\n');
     return str;
   }
 

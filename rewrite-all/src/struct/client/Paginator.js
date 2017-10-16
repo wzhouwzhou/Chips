@@ -22,7 +22,7 @@ const Paginator = class Paginator {
       pagedfn(this);
     else if(data.type === 'rawtext')
       this.pages = data.raw.split(data.splitter||/\s+/);
-
+    this.description = data.description;
     this.embedding = true;
     this.fielding = data.fielding;
     this.title = data.title;
@@ -56,16 +56,17 @@ const Paginator = class Paginator {
     if(this.stopped) return null;
     if(this.embedding){
       this.embed=new Discord.MessageEmbed();
-      this.currentTitle = this.title?typeof this.title==='string'?this.title:this.title[pageNum]?this.title[pageNum]:' ':null;
+      this.currentTitle = this.title?typeof this.title==='string'?this.title:this.title[pageNum]||' ':null;
 
       this.embed.setTitle(this.currentTitle)
                 .setFooter(this.footer?typeof this.footer==='string'?this.footer.replace(/{pagenum}/gi,pageNum+1).replace(/{totalpages}/gi,this.pages.length):this.footer[pageNum]?this.footer[pageNum].replace(/{pagenum}/gi,pageNum+1).replace(/{totalpages}/gi,this.pages.length):`Page ${pageNum+1} of ${this.pages.length}`:`Page ${pageNum+1} of ${this.pages.length}`)
                 .setColor(this.color||DEFAULTCOLOR);
-      this.author&&this.embed.setAuthor(this.author);
+      this.author&&this.embed.setAuthor(typeof this.author==='string'?this.author:(this.author[pageNum]||' '));
 
       if(this.fielding){
         for(const fieldp of this.pages[pageNum])
           this.embed = this.embed.addField(...fieldp,false);
+        this.description&&this.embed.setDescription(typeof this.description==='string'?this.description:this.description[pageNum]||' ');
       }else{
         this.embed.setDescription(this.pages[pageNum]);
       }

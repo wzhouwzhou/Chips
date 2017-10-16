@@ -99,7 +99,7 @@ const msghandle = async message => {
   //======================================KEYWORD TRIGGER=========================================
   const keywords = {
     '306244855493951489': 'ban',
-    '259209114268336129': 'willy'
+    '259209114268336129': '259209114268336129|willy',
   };
   const notify = {
     '306244855493951489': false,
@@ -107,7 +107,7 @@ const msghandle = async message => {
   };
   if(message.guild&&message.guild.id==Constants.servers.SURSKIT)
     for(const id in keywords)
-      if(message.content.toLowerCase().includes(keywords[id].toLowerCase())&&notify[id])
+      if(keywords[id].toLowerCase().split('|').some(e=>message.content.toLowerCase().includes(e))&&notify[id])
         client.users.fetch(id).then(user=>
           user.send(`Someone said the keyword \`${keywords[id]}\` in server \`Sinbad Knights\`!\n**${message.author.tag}:** ${message.content}`)
         ).catch(err=>
