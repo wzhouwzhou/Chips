@@ -7,10 +7,10 @@ const STARTWAIT = 10*60*10e3;
 const games = new Map();
 const prompting = new Map();
 const promptingAll = new Map();
-const fill = '▓', unf = '░', mult = 2;
+const fill = '█', unf = '░', mult = 4;
 const check = '✅';
 const difficultyArr = new Array(5).fill(0).map((e, i, a) =>
-  `\`${fill.repeat(mult).repeat(i)}${unf.repeat(mult).repeat(a.length-1-i)}\``
+  `\`${fill.repeat(mult).repeat(i)}${unf.repeat(mult).repeat(a.length-1-i)}\` **(${i+1})**`
 );
 
 const ex = {
@@ -105,7 +105,7 @@ const ex = {
 
     console.log(`Creating a chess game for channel ${channel.id}...`);
 
-    const currentGame = await CG.factory({ client, channel, players: _.shuffle([member.user, othermember.user]), aiOptions: botting?CHESS.difficulties[difficulty]||CG.difficulties[2]||1<<3:null });
+    const currentGame = await CG.factory({ client, channel, players: _.shuffle([member.user, othermember.user]), aiOptions: botting?CHESS.difficulties[difficulty]!=null?CHESS.difficulties[difficulty]:Chess.difficulties[2]||1<<3:null });
 
     currentGame.game.header(
       'white',
@@ -223,7 +223,7 @@ const promptDifficulty = (msg, { author, reply }) => new Promise (async (res) =>
     title: 'Chess AI Difficulty',
     text: `React with ${check} to select your difficulty when you have chosen one with the arrows.`,
     pages: difficultyArr,
-    footer: 'Easy (1) >>> {pagenum} >>> (5) Hard'
+    footer: 'Easy (1) >>> (5) Hard'
     }, Discord
   );
   try{
