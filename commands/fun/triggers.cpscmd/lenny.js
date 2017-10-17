@@ -1,7 +1,10 @@
 const lenny = [
   "( ͡° ͜ʖ ͡°)",
   "( ͡°( ͡° ͜ʖ( ͡° ͜ʖ ͡°)ʖ ͡°) ͡°)",
-  "https://giphy.com/gifs/lenny-5uZjTWWr8gK8U"
+  "https://i.imgur.com/P8dHrF9.gif",
+  "https://i.imgur.com/svNztwx.gif",
+  "https://i.imgur.com/0VgpGVM.gif",
+  "https://i.imgur.com/0daFo5U.gif"
 ];
 
 module.exports = {
