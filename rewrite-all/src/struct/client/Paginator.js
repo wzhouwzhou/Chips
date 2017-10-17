@@ -22,7 +22,7 @@ const Paginator = class Paginator {
       pagedfn(this);
     else if(data.type === 'rawtext')
       this.pages = data.raw.split(data.splitter||/\s+/);
-    this.description = data.description;
+
     this.embedding = true;
     this.fielding = data.fielding;
     this.title = data.title;
@@ -43,12 +43,15 @@ const Paginator = class Paginator {
   }
 
   sendFirst () {
-    return new Promise( (res, rej) => {
+    return new Promise( async (res, rej) => {
       if(this.stopped) res(null);
       this.updateInternal(0);
-
-      this.updateView().catch(rej);
-      res(true);
+      try{
+        await this.updateView();
+        res(this.sentMsg);
+      }catch(err){
+        rej(err);
+      }
     });
   }
 
@@ -56,17 +59,16 @@ const Paginator = class Paginator {
     if(this.stopped) return null;
     if(this.embedding){
       this.embed=new Discord.MessageEmbed();
-      this.currentTitle = this.title?typeof this.title==='string'?this.title:this.title[pageNum]||' ':null;
+      this.currentTitle = this.title?typeof this.title==='string'?this.title:this.title[pageNum]?this.title[pageNum]:' ':null;
 
       this.embed.setTitle(this.currentTitle)
                 .setFooter(this.footer?typeof this.footer==='string'?this.footer.replace(/{pagenum}/gi,pageNum+1).replace(/{totalpages}/gi,this.pages.length):this.footer[pageNum]?this.footer[pageNum].replace(/{pagenum}/gi,pageNum+1).replace(/{totalpages}/gi,this.pages.length):`Page ${pageNum+1} of ${this.pages.length}`:`Page ${pageNum+1} of ${this.pages.length}`)
                 .setColor(this.color||DEFAULTCOLOR);
-      this.author&&this.embed.setAuthor(typeof this.author==='string'?this.author:(this.author[pageNum]||' '));
+      this.author&&this.embed.setAuthor(this.author);
 
       if(this.fielding){
         for(const fieldp of this.pages[pageNum])
           this.embed = this.embed.addField(...fieldp,false);
-        this.description&&this.embed.setDescription(typeof this.description==='string'?this.description:this.description[pageNum]||' ');
       }else{
         this.embed.setDescription(this.pages[pageNum]);
       }
@@ -91,19 +93,19 @@ const Paginator = class Paginator {
           await this.pageButtons(this.sentMsg);
         }else{
           if(this.replying)
-            await this.sentMsg.edit(this._msg.author+this.currentText, { embed: this.embed });
+            this.sentMsg = await this.sentMsg.edit(this._msg.author+this.currentText, { embed: this.embed });
           else
-            await this.sentMsg.edit(this.currentText, { embed: this.embed });
+            this.sentMsg = await this.sentMsg.edit(this.currentText, { embed: this.embed });
         }
       }catch(err){
         rej(err);
       }
 
-      res(true);
+      res(this);
     });
   }
 
-  pageButtons (sentMsg) {
+  pageButtons (sentMsg = this.sentMsg) {
     return new Promise( async (res, rej) => {
       if(this.stopped) return res(null);
       let nextUser;
@@ -199,7 +201,7 @@ const Paginator = class Paginator {
         if(!this.locked) await sentMsg.react('🔒');
         else await sentMsg.react('🔓');
 
-      res(true);
+      res(this);
     });
   }
 
