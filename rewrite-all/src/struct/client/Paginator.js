@@ -179,7 +179,7 @@ const Paginator = class Paginator {
                 });
               }
             });
-            tempmsg = await this._msg.channel.send(`${nextUser||this._msg.author}, Please enter the page number to jump to, or __cancel__ to cancel`);
+            tempmsg = await this._msg.channel.send(`${nextUser||this._msg.author}, Please enter a number to jump to, or __cancel__ to cancel`);
             return tempmsg;
           }
           case 'ℹ':{

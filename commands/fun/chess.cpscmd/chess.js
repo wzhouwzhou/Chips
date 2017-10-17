@@ -221,9 +221,9 @@ const promptDifficulty = (msg, { author, reply }) => new Promise (async (res) =>
     embedding: true,
     fielding: false,
     title: 'Chess AI Difficulty',
-    text: 'React with <{}> to select your difficulty.',
+    text: `React with ${check} to select your difficulty when you have chosen one with the arrows.`,
     pages: difficultyArr,
-    footer: 'Level {pagenum} selected'
+    footer: 'Easy (1) >>> {pagenum} >>> (5) Hard'
     }, Discord
   );
   try{
