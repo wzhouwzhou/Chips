@@ -1,4 +1,5 @@
-const CG = require('../../../rewrite-all/src/struct/games/chess/ChessGame.js').ChessGame;
+const CHESS = require('../../../rewrite-all/src/struct/games/chess/ChessGame.js');
+const CG = CHESS.ChessGame;
 const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Paginator;
 
 const TIME = 5*60*10e3;
@@ -104,7 +105,7 @@ const ex = {
 
     console.log(`Creating a chess game for channel ${channel.id}...`);
 
-    const currentGame = await CG.factory({ client, channel, players: _.shuffle([member.user, othermember.user]), aiOptions: botting?CG.difficulties[difficulty]||CG.difficulties[2]||1<<3:null });
+    const currentGame = await CG.factory({ client, channel, players: _.shuffle([member.user, othermember.user]), aiOptions: botting?CHESS.difficulties[difficulty]||CG.difficulties[2]||1<<3:null });
 
     currentGame.game.header(
       'white',
