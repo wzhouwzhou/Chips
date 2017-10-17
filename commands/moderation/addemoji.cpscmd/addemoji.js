@@ -1,3 +1,5 @@
+const reg = /^(https?:\/\/[^.]+\.[^]+)$/;
+
 module.exports = {
   name: "addemoji",
   async func(msg, { send, args, member, guild }) {
@@ -13,9 +15,9 @@ module.exports = {
     if(!args[1])
       return send('no url');
 
-    const emojiurl = (args[1].match(/^(https?:\/\/[^.]+\.[^]+)$/)||[0,null])[1];
+    const emojiurl = (args[1].match(reg)||[0,null])[1];
 
-    if(!args[1].match(/^https?:\/\/[^.]+\.[^]+$/))
+    if(!args[1].match(reg))
       return send("ensure you've given a url");
 
     let emoji;
