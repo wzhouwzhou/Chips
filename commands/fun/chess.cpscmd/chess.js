@@ -10,7 +10,7 @@ const promptingAll = new Map();
 const fill = '▓', unf = '░', mult = 2;
 const check = '✅';
 const difficultyArr = new Array(5).fill(0).map((e, i, a) =>
-  `\`${fill.repeat(mult).repeat(i)}${unf.repeat(mult).repeat(a.length-1-i)} (${i+1})\``
+  `\`${fill.repeat(mult).repeat(i)}${unf.repeat(mult).repeat(a.length-1-i)}\``
 );
 
 const ex = {
@@ -223,7 +223,7 @@ const promptDifficulty = (msg, { author, reply }) => new Promise (async (res) =>
     title: 'Chess AI Difficulty',
     text: 'React with <{}> to select your difficulty.',
     pages: difficultyArr,
-    footer: 'Level {pagenum}'
+    footer: 'Level {pagenum} selected'
     }, Discord
   );
   try{
