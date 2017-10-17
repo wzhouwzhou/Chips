@@ -31,10 +31,10 @@ ex.func = async (msg, {
         return reply(`Invalid user specified`);
       }
 
-      if(targetMember.roles.get('305302877641900052')==null&&targetMember.roles.find('name','unverified')==null&&targetMember.roles.find('name','Unverified')==null)
+      if(targetMember.roles.get('305302877641900052')==null&&targetMember.roles.find('name','unverified')==null&&targetMember.roles.find('name','Unverified')==null&&targetMember.roles.find('name', 'Unverified-Personel')==null)
         return reply(`User does not have the unverified role!`);
       try{
-        let therole = targetMember.roles.find('name','unverified')||targetMember.roles.find('name','Unverified');
+        let therole = targetMember.roles.find('name','unverified')||targetMember.roles.find('name','Unverified')||targetMember.roles.find('name', 'Unverified-Personel');
         await targetMember.removeRole(guild.roles.get('305302877641900052')||therole);
         if(client.memberjoin.verifyLogC[guild.id]){
           let embed = new Discord.MessageEmbed();
