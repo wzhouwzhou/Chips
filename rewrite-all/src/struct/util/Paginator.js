@@ -43,12 +43,14 @@ const Paginator = class Paginator {
   }
 
   sendFirst () {
-    return new Promise( (res, rej) => {
+    return new Promise( async (res, rej) => {
       if(this.stopped) res(null);
       this.updateInternal(0);
-
-      this.updateView().catch(rej);
-      res(true);
+      try{
+        res(await this.updateView());
+      }catch(err){
+        rej(err);
+      }
     });
   }
 
@@ -98,7 +100,7 @@ const Paginator = class Paginator {
         rej(err);
       }
 
-      res(true);
+      res(this);
     });
   }
 
