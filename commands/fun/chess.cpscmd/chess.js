@@ -5,6 +5,7 @@ const STARTWAIT = 10*60*10e3;
 const games = new Map();
 const prompting = new Map();
 const promptingAll = new Map();
+const fill = '▓', unf = '░';
 const ex = {
   name: "chess",
   async func(msg, ctx) {

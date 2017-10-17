@@ -15,7 +15,7 @@ const ChessConstants = Constants.chess;
 const {W, B, chessPieces: pieces, startFen, label2} = ChessConstants;
 const files = new Array(8).fill(0).map((e,i)=>String.fromCharCode('A'.charCodeAt(0) + i));
 const rot = '🔄';
-const AIBasic = 1, AIEasy = 1<<2, AIMedium = 1<<3, AIHard = 1<<4;
+const AIBasic = 1, AIEasy = 1<<2, AIMedium = 1<<3, AIHard = 1<<4, AIExtreme = 1<<4+1<<2;
 const games = new Map;
 
 const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
@@ -135,9 +135,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
           return null;
         }
       }
-    } else setTimeout(() =>
-      this.aiMove(0, options)
-    , delay);
+    } else setTimeout(() => this.aiMove(0, options), delay);
   }
 
   aiRandomMove (delay, options) {
@@ -147,38 +145,43 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       const possibleMoves = this.game.moves();
       const randomIndex = ~~(possibleMoves.length*Math.random());
       return this.go(possibleMoves[randomIndex], true, options.noUpdate);
-    } else setTimeout(() =>
-      this.aiRandomMove()
-    , delay);
+    } else setTimeout(() => this.aiRandomMove(), delay);
   }
 
   go (move, stopBot, noUpdate) {
     if (this.isOver()) {
       this.emit('end', this);
-      if(!this.ended&&!noUpdate)
+      if(!this.ended && !noUpdate)
         this.updateAll(this.game.fen().split(/\s+/)[0], true);
       this.ended = true;
       return null;
     }
 
     this.lastMove = this.move(move);
-    if(!stopBot&&this.aiOptions&&!this.isOver())
-      this.aiMove(2000, {noUpdate: false});
+    if(!stopBot && this.aiOptions && !this.isOver())
+      this.aiMove(2000, { noUpdate: false });
 
     if (this.isOver()) {
       this.emit('end', this);
-      if(!this.ended&&!noUpdate)
+      if (!this.ended && !noUpdate)
         this.updateAll(this.game.fen().split(/\s+/)[0], true);
       this.ended = true;
       return this;
-    }else if(!noUpdate)
+    }else if (!noUpdate)
       this.updateAll(this.game.fen().split(/\s+/)[0]);
 
     return this;
   }
 
   isOver () {
-    return this.game.history()&&this.game.history().length>0&&(this.ended || this.game.game_over() || this.game.in_draw() || this.game.moves().length === 0 || this.game.insufficient_material());
+    return this.game.history()
+    && this.game.history().length>0
+    && (this.ended
+     || this.game.game_over()
+     || this.game.in_draw()
+     || this.game.moves().length === 0
+     || this.game.insufficient_material()
+    );
   }
 
   updateAll (override = this.game.fen().split(/\s+/)[0], end) {
