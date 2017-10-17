@@ -72,7 +72,7 @@ const ex = {
       if(!othermember||!othermember.user||othermember.user.id!==client.user.id)
         othermember = await promptPlayer (ctx);
       else if(othermember&&othermember.user&&othermember.user.id===client.user.id)
-        difficulty = await promptDifficulty (msg);
+        difficulty = await promptDifficulty (msg, ctx);
     }catch(err){
       games.delete(channel.id);
       prompting.delete(othermember?othermember.id:0);
@@ -234,7 +234,6 @@ const promptDifficulty = (msg, { author }) => new Promise (async (res) => {
     rCol.on('end', () => res(p.currentPage));
 
     await p.sentMsg.react(rot);
-
   }catch(err){
     console.error(err);
     return reply ('Something went wrong...');
