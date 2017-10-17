@@ -2,7 +2,7 @@ const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Pa
 
 module.exports = {
   name: "help",
-  async func(msg, { prefix, Discord }) {
+  async func(msg, { prefix, Discord, reply }) {
     const IntroMenu1 = ([
       'Chips is a multipurpose bot under heavy development!',
       "We're working on a gui update and structural rewrite right now, so apologies if some commands are not listed",
