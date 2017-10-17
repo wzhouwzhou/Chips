@@ -1,5 +1,5 @@
-const top = args.slice(1).join(" ");
-const nam = args.slice(1).join(" ");
+const top = args[1];
+const nam = args[1];
 
 const embed = (new Discord.RichEmbed)
   .setTitle('Help')
