@@ -101,7 +101,9 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   async aiMove (delay = 0, options = {}) {
     if (this.ended||this.isOver()) return null;
     if(!delay) {
-      const move = (await AI.position(this.game.fen()).go({depth: 15})).bestmove;
+      await AI.isReady();
+      await AI.position(this.game.fen());
+      const move = (await AI.go({depth: 15})).bestmove;
       try {
         return this.go(move, true, options.noUpdate);
       } catch(err) { //AI Failed
