@@ -8,7 +8,7 @@ const prompting = new Map();
 const promptingAll = new Map();
 const fill = '▓', unf = '░', mult = 2;
 const check = '✅';
-let difficulty = new Array(5).fill(0).map((e, i, a) =>
+const difficultyArr = new Array(5).fill(0).map((e, i, a) =>
   `\`${fill.repeat(mult).repeat(i)}${unf.repeat(mult).repeat(a.length-1-i)} (${i+1})\``
 );
 
@@ -60,7 +60,7 @@ const ex = {
     if(promptingAll.get(channel.id)) return;
     if(games.get(channel.id)) return send('There is already a game going on.');
 
-    let othermember;
+    let othermember, difficulty;
 
     games.set(channel.id, channel);
     try{
@@ -71,8 +71,10 @@ const ex = {
       }
       if(!othermember||!othermember.user||othermember.user.id!==client.user.id)
         othermember = await promptPlayer (ctx);
-      else if(othermember&&othermember.user&&othermember.user.id===client.user.id)
+      else if(othermember&&othermember.user&&othermember.user.id===client.user.id) {
         difficulty = await promptDifficulty (msg, ctx);
+        send('Difficulty set to '+difficulty);
+      }
     }catch(err){
       games.delete(channel.id);
       prompting.delete(othermember?othermember.id:0);
@@ -212,7 +214,7 @@ const promptDifficulty = (msg, { author, reply }) => new Promise (async (res) =>
     fielding: false,
     title: 'Chess AI Difficulty',
     text: 'React with <{}> to select your difficulty.',
-    pages: difficulty,
+    pages: difficultyArr,
     footer: ''
     }, Discord
   );
