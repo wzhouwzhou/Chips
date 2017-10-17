@@ -8,7 +8,7 @@ const prompting = new Map();
 const promptingAll = new Map();
 const fill = '▓', unf = '░', mult = 2;
 let difficulty = new Array(5).fill(0).map((e, i, a) =>
-  `${fill.repeat(mult)}${unf.repeat(mult*(a.length-1-i))} ${i+1}`
+  `\`${i*fill.repeat(mult)}${unf.repeat(mult*(a.length-1-i))} ${i+1}\``
 );
 
 const ex = {
@@ -100,8 +100,7 @@ const ex = {
 
     console.log(`Creating a chess game for channel ${channel.id}...`);
 
-    const currentGame = new CG({channel, players: _.shuffle([member.user, othermember.user]) });
-    await currentGame.aiSetup(currentGame.aiOptions);
+    const currentGame = await CG.factory({client, channel, players: _.shuffle([member.user, othermember.user]) });
 
     currentGame.game.header(
       'white',
@@ -205,7 +204,7 @@ const ex = {
   }
 };
 
-const promptDifficulty = async (msg) => {
+const promptDifficulty = (msg) => new Promise (async (res) => {
   const p = new Paginator ( msg,  {
     type:'paged',
     embedding: true,
@@ -217,12 +216,13 @@ const promptDifficulty = async (msg) => {
     }, Discord
   );
   try{
-    return await p.sendFirst();
+    await p.sendFirst();
+    setTimeout(()=>res(8), 5000);
   }catch(err){
     console.error(err);
     return reply ('Something went wrong...');
   }
-};
+});
 
 const promptPlayer = ({ author, send, prefix, channel, targetMember, client }) => {
   targetMember!=null&&targetMember.id!=null&&prompting.set(targetMember.id, true);

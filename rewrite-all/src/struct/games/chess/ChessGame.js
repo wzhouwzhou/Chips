@@ -49,10 +49,16 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.fen = options.newFen||startFen;
     this.boardFen = this.fen.split(/\s+/)[0];
     this.sideDown = 'white';
-    if(this.movers.get(this.turn.toLowerCase())&&this.movers.get(this.turn.toLowerCase()).id === client.user.id) {
-      this.sideDown = 'black';
-      this.aiMove(0, {noUpdate: true});
+  }
+
+  static async factory (opts) {
+    const game = new this(opts);
+    await game.aiSetup(game.aiOptions);
+    if(game.movers.get(game.turn.toLowerCase())&&game.movers.get(game.turn.toLowerCase()).id === opts.client.user.id) {
+      game.sideDown = 'black';
+      await game.aiMove(0, {noUpdate: true});
     }
+    return game;
   }
 
   embedify (end = false) {
