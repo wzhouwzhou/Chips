@@ -238,11 +238,11 @@ const promptDifficulty = (msg, { author, reply }) => new Promise (async (res) =>
       return false;
     };
     const rCol = sentMsg.createReactionCollector(f, { time: 15e3, errors: ['time'] });
-    rCol.on('collect', ()=>{
-      res(p.currentPage);
+    rCol.on('collect', ()=> rCol.stop());
+    rCol.on('end', () => {
       p.collector.stop();
+      res(p.currentPage);
     });
-    rCol.on('end', () => res(p.currentPage));
 
     await sentMsg.react(check);
   }catch(err){
