@@ -8,7 +8,7 @@ const prompting = new Map();
 const promptingAll = new Map();
 const fill = '▓', unf = '░', mult = 2;
 let difficulty = new Array(5).fill(0).map((e, i, a) =>
-  `\`${i*fill.repeat(mult)}${unf.repeat(mult*(a.length-1-i))} ${i+1}\``
+  `\`${fill.repeat(mult).repeat(i)}${unf.repeat(mult).repeat(a.length-1-i)} (${i+1})\``
 );
 
 const ex = {
@@ -217,7 +217,10 @@ const promptDifficulty = (msg) => new Promise (async (res) => {
   );
   try{
     await p.sendFirst();
-    setTimeout(()=>res(8), 5000);
+    setTimeout(()=>{
+      p.collector.stop();
+      return res(8);
+    }, 5000);
   }catch(err){
     console.error(err);
     return reply ('Something went wrong...');
