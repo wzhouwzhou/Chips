@@ -237,7 +237,7 @@ const promptDifficulty = (msg, { author, reply }) => new Promise (async (res) =>
       }
       return false;
     };
-    const rCol = sentMsg.createReactionCollector(f, { time: 200e3, errors: ['time'] });
+    const rCol = sentMsg.createReactionCollector(f, { time: 15e3, errors: ['time'] });
     rCol.on('collect', ()=>{
       res(p.currentPage);
       p.collector.stop();
