@@ -18,9 +18,8 @@ module.exports = {
     if(!args[1].match(/^https?\:\/\/[^.]+\.[^]+$/)) 
       return send("ensure you've given a url");
 
-    let url = args[0].match(/^https?\:\/\/[^.]+\.[^]+$/) 
     
-    guild.createEmoji(url, name)
+    guild.createEmoji(emojiurl, name)
       .then(emoji => send(`Created new emoji with name ${emoji.name}!`))
       .catch(console.error);
 

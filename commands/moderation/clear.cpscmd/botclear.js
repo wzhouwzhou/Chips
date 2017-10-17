@@ -1,6 +1,7 @@
 
 const botPrefixes = [
   '.',
+  'do.',
   'r.',
   '-',
   '--',
@@ -52,7 +53,6 @@ const botPrefixes = [
   '[',
   ']',
   '?',
-  'do.',
   '-',
 ];
 
