@@ -236,7 +236,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     else
       str = (
         this.board.map(
-          (e,i)=>[Object.assign([], firstF(Constants.numbersA, 10)).reverse()[i+1]].concat(Object.keys(e).map(k=>e[k]).reverse()).join('')
+          (e,i)=>[Object.assign([], firstF(Constants.numbersA, 10))[i+1]].concat(Object.keys(e).map(k=>e[k]).reverse()).join('')
         )
       ).concat(
         (([a, ...b]) => [...b,a])(Object.assign([], label2)).reverse().join('')
