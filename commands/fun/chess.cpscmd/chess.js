@@ -71,7 +71,7 @@ const ex = {
       if(!othermember||!othermember.user||othermember.user.id!==client.user.id)
         othermember = await promptPlayer (ctx);
       else if(othermember&&othermember.user&&othermember.user.id===client.user.id)
-        difficulty = await promptDifficulty (ctx);
+        difficulty = await promptDifficulty (msg);
     }catch(err){
       games.delete(channel.id);
       prompting.delete(othermember?othermember.id:0);
@@ -205,7 +205,7 @@ const ex = {
   }
 };
 
-const promptDifficulty = async () => {
+const promptDifficulty = async (msg) => {
   const p = new Paginator ( msg,  {
     type:'paged',
     embedding: true,
