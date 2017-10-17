@@ -219,6 +219,7 @@ const promptDifficulty = (msg, { author, reply }) => new Promise (async (res) =>
   try{
     let sentMsg = await p.sendFirst();
     if(!sentMsg) reply('Cannot find sentmsg');
+    console.log(sentMsg.constructor.name);
     const f = (r, u) => {
       if(!u.bot&&u.id === author.id&&r.emoji.name === check){
         r.remove(u).catch(_=>_);
