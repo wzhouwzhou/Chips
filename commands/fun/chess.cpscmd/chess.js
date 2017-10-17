@@ -217,8 +217,8 @@ const promptDifficulty = (msg, { author, reply }) => new Promise (async (res) =>
     }, Discord
   );
   try{
-    await p.sendFirst();
-    if(!p.sentMsg) reply('Cannot find sentmsg');
+    let sentMsg = await p.sendFirst();
+    if(!sentMsg) reply('Cannot find sentmsg');
     const f = (r, u) => {
       if(!u.bot&&u.id === author.id&&r.emoji.name === check){
         r.remove(u).catch(_=>_);
@@ -226,14 +226,14 @@ const promptDifficulty = (msg, { author, reply }) => new Promise (async (res) =>
       }
       return false;
     };
-    const rCol = p.sentMsg.createReactionCollector(f, { time: 200e3, errors: ['time'] });
+    const rCol = sentMsg.createReactionCollector(f, { time: 200e3, errors: ['time'] });
     rCol.on('collect', ()=>{
       res(p.currentPage);
       p.collector.stop();
     });
     rCol.on('end', () => res(p.currentPage));
 
-    await p.sentMsg.react(rot);
+    await sentMsg.react(check);
   }catch(err){
     console.error(err);
     return reply ('Something went wrong...');

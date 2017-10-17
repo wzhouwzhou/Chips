@@ -47,7 +47,8 @@ const Paginator = class Paginator {
       if(this.stopped) res(null);
       this.updateInternal(0);
       try{
-        res(await this.updateView());
+        await this.updateView();
+        res(this.sentMsg);
       }catch(err){
         rej(err);
       }
