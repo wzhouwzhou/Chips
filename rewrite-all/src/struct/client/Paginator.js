@@ -39,6 +39,8 @@ const Paginator = class Paginator {
     this.help = data.help;
     this.locked = data.locked!=null?data.locked:!0;
     this.lockToggle = !!data.lockToggle;
+    this.description = data.description;
+
     return this;
   }
 
@@ -64,11 +66,12 @@ const Paginator = class Paginator {
       this.embed.setTitle(this.currentTitle)
                 .setFooter(this.footer?typeof this.footer==='string'?this.footer.replace(/{pagenum}/gi,pageNum+1).replace(/{totalpages}/gi,this.pages.length):this.footer[pageNum]?this.footer[pageNum].replace(/{pagenum}/gi,pageNum+1).replace(/{totalpages}/gi,this.pages.length):`Page ${pageNum+1} of ${this.pages.length}`:`Page ${pageNum+1} of ${this.pages.length}`)
                 .setColor(this.color||DEFAULTCOLOR);
-      this.author&&this.embed.setAuthor(this.author);
+            this.author&&this.embed.setAuthor(typeof this.author==='string'?this.author:(this.author[pageNum]||' '));
 
       if(this.fielding){
         for(const fieldp of this.pages[pageNum])
           this.embed = this.embed.addField(...fieldp,false);
+        this.description&&this.embed.setDescription(typeof this.description==='string'?this.description:this.description[pageNum]||' ');
       }else{
         this.embed.setDescription(this.pages[pageNum]);
       }
