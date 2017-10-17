@@ -15,7 +15,7 @@ const ChessConstants = Constants.chess;
 const {W, B, chessPieces: pieces, startFen, label2} = ChessConstants;
 const files = new Array(8).fill(0).map((e,i)=>String.fromCharCode('A'.charCodeAt(0) + i));
 const rot = '🔄';
-const AIEasy = 1, AIMedium = 1<<1, AIHard = 1<<2;
+const AIBasic = 1, AIEasy = 1<<2, AIMedium = 1<<3, AIHard = 1<<4;
 const games = new Map;
 
 const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
@@ -48,23 +48,6 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       this.sideDown = 'black';
       this.aiMove(0, {noUpdate: true});
     }
-  }
-
-  static async aiSetup (difficulty = AIHard) {
-    if(!initOnce) {
-      BasicAI.setOptions({
-        depth: 5,
-        strategy: 'basic',
-        timeout: 0
-      });
-      await AI.init();
-      initOnce = true;
-    }
-    await AI.setoption('Ponder', false);
-    await AI.setoption('Slow Mover', 10);
-    await AI.setoption('Threads', 2);
-    await AI.setoption('Skill Level', Math.max(0, Math.min(difficulty, 20)));
-    return { AI, BasicAI };
   }
 
   embedify (end = false) {
@@ -110,19 +93,39 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     return this;
   }
 
+  static async aiSetup (difficulty = AIMedium) {
+    if(!initOnce) {
+      BasicAI.setOptions({
+        depth: 5,
+        strategy: 'basic',
+        timeout: 0
+      });
+      await AI.init();
+      initOnce = true;
+    }
+    await AI.setoption('Slow Mover', 10);
+    await AI.setoption('Threads', 2);
+    await AI.setoption('Skill Level', Math.max(0, Math.min(difficulty, 20)));
+    return { AI, BasicAI };
+  }
+
   async aiMove (delay = 0, options = {}) {
     if (this.ended||this.isOver()) return null;
     if(!delay) {
       await AI.isready();
       await AI.position(this.game.fen());
-      const move = (await AI.go({depth: 15})).bestmove;
+      let move;
+      if(this.aiOptions === AIBasic)
+        move = BasicAI.play(this.game.history());
+      else
+        move = (await AI.go({ depth: this.aiOptions || AIMedium })).bestmove;
       try {
         return this.go(move, true, options.noUpdate);
       } catch(err) { //AI Failed
         console.log(err);
         this.channel.send('Something went wrong with the AI…attempting to fix').then(m=>m.delete({timeout: 7500}));
         try {
-          return this.randomMove(0, options);
+          return this.aiRandomMove(0, options);
         } catch(errB) {
           this.channel.send('The AI was unable to continue the game… you win!');
           this.emit('end', this);
@@ -137,7 +140,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     , delay);
   }
 
-  randomMove (delay, options) {
+  aiRandomMove (delay, options) {
     if (this.isOver()) return this;
 
     if(!delay) {
@@ -145,7 +148,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       const randomIndex = ~~(possibleMoves.length*Math.random());
       return this.go(possibleMoves[randomIndex], true, options.noUpdate);
     } else setTimeout(() =>
-      this.randomMove()
+      this.aiRandomMove()
     , delay);
   }
 
