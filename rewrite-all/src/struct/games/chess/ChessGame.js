@@ -82,7 +82,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
 
   async undo () {
     if(!this.undoable) return false;
-    if(this.game.history.length < 2) return this;
+    if(this.game.history().length < 2) return this;
     this.game.undo();
     this.game.undo();
     await this.updateAll();
