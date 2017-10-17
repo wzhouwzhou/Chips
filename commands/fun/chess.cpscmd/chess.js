@@ -1,11 +1,16 @@
 const CG = require('../../../rewrite-all/src/struct/games/chess/ChessGame.js').ChessGame;
+const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Paginator;
 
 const TIME = 5*60*10e3;
 const STARTWAIT = 10*60*10e3;
 const games = new Map();
 const prompting = new Map();
 const promptingAll = new Map();
-const fill = '▓', unf = '░';
+const fill = '▓', unf = '░', mult = 2;
+let difficulty = new Array(5).fill(0).map((e, i, a) =>
+  `${fill.repeat(mult)}${unf.repeat(mult*(a.length-1-i))} ${i+1}`
+);
+
 const ex = {
   name: "chess",
   async func(msg, ctx) {
@@ -64,9 +69,9 @@ const ex = {
         throw new Error('Bot invitee');
       }
       if(!othermember||!othermember.user||othermember.user.id!==client.user.id)
-        othermember = await promptPlayer (author, send, prefix, channel, othermember, client);
+        othermember = await promptPlayer (ctx);
       else if(othermember&&othermember.user&&othermember.user.id===client.user.id)
-        difficulty = await promptDifficulty (send);
+        difficulty = await promptDifficulty (ctx);
     }catch(err){
       games.delete(channel.id);
       prompting.delete(othermember?othermember.id:0);
@@ -200,7 +205,26 @@ const ex = {
   }
 };
 
-const promptPlayer = (author, send, prefix, channel, targetMember, client) => {
+const promptDifficulty = async () => {
+  const p = new Paginator ( msg,  {
+    type:'paged',
+    embedding: true,
+    fielding: false,
+    title: 'Chess AI Difficulty',
+    text: 'React with <{}> to select your difficulty.',
+    pages: difficulty,
+    footer: ''
+    }, Discord
+  );
+  try{
+    return await p.sendFirst();
+  }catch(err){
+    console.error(err);
+    return reply ('Something went wrong...');
+  }
+};
+
+const promptPlayer = ({ author, send, prefix, channel, targetMember, client }) => {
   targetMember!=null&&targetMember.id!=null&&prompting.set(targetMember.id, true);
   targetMember==null&&promptingAll.set(channel.id, true);
   return new Promise( async (res,rej) => {
@@ -236,7 +260,7 @@ const promptPlayer = (author, send, prefix, channel, targetMember, client) => {
   });
 };
 
-const promptInvitee = ({send, channel, author}) => {
+const promptInvitee = ({ send, channel, author }) => {
   return new Promise ( async (res,rej) => {
     let targetMember;
 
