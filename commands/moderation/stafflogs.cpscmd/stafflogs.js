@@ -2,6 +2,9 @@ module.exports = {
   name: "stafflogs",
   async func(msg, { channel, args, guild, send, member }) {
     
+    if(!guild)
+      return send('shut up')
+    
     let stafflogs = guild.channels.find('name', 'staff-logs');
     
     if(!member.hasPermission("MANAGE_CHANNELS"))
