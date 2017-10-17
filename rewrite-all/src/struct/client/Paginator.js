@@ -196,7 +196,7 @@ const Paginator = class Paginator {
         for(;btns<this.buttons.length;++btns)
           await sentMsg.react(this.buttons[btns]);
 
-        if(btns+1 !== this.buttons.length) throw new Error('Not all default buttons reacted!');
+        if(btns+1 < this.buttons.length) throw new Error('Not all default buttons reacted!');
       }catch(err){
         rej(err);
       }
