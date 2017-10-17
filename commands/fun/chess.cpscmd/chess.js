@@ -223,7 +223,7 @@ const promptDifficulty = (msg, { author, reply }) => new Promise (async (res) =>
     title: 'Chess AI Difficulty',
     text: 'React with <{}> to select your difficulty.',
     pages: difficultyArr,
-    footer: ''
+    footer: 'Level {pagenum}'
     }, Discord
   );
   try{
