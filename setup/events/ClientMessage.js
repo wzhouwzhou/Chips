@@ -129,7 +129,7 @@ const msghandle = async message => {
 module.exports = function() {
   console.log("Client message event..");
   client.on("message", msghandle);
-  client.on('messageUpdate', (oM, nM) => msghandle(nM));
+  client.on('messageUpdate', (oM, nM) => oM.content!==nM.content&&msghandle(nM));
   /*c2.on('message', m => {
     try{
       if(m.guild.id==Constants.servers.SUCKX){
