@@ -181,7 +181,7 @@ const ex = {
       }
     });
 
-    mCol.on('end', collected => {
+    mCol.once('end', collected => {
       if(collected.size===0)
         !silentQuit&&reply('Timed out, game was not saved to memory');
 
@@ -189,10 +189,11 @@ const ex = {
       games.delete(channel.id);
       promptingAll.delete(channel.id);
       prompting.delete(author.id);
+      currentGame.emit('ended', currentGame);
       console.log('MCol ended');
     });
 
-    currentGame.on('ended', async () => { //game=>{
+    currentGame.once('ended', async () => { //game=>{
       console.log('Chess game ended');
       // game.updateFrontEnd('end');
       // game.embed = new Discord.MessageEmbed()
@@ -202,6 +203,11 @@ const ex = {
       //   .addField(`Game ended!`,'\u200B');
       // await send('', {embed: game.embed});
       games.delete(channel.id);
+      games.delete(channel.id);
+      prompting.delete(othermember.id);
+      promptingAll.delete(channel.id);
+      prompting.delete(author.id);
+      silentQuit = true;
       mCol.stop();
     });
     currentGame.updateAll();
