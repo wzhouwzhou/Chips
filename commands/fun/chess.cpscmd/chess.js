@@ -205,7 +205,7 @@ const ex = {
   }
 };
 
-const promptDifficulty = (msg, { author }) => new Promise (async (res) => {
+const promptDifficulty = (msg, { author, reply }) => new Promise (async (res) => {
   const p = new Paginator ( msg,  {
     type:'paged',
     embedding: true,
@@ -218,7 +218,7 @@ const promptDifficulty = (msg, { author }) => new Promise (async (res) => {
   );
   try{
     await p.sendFirst();
-
+    if(!p.sentMsg) reply('Cannot find sentmsg');
     const f = (r, u) => {
       if(!u.bot&&u.id === author.id&&r.emoji.name === check){
         r.remove(u).catch(_=>_);
