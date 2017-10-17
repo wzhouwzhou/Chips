@@ -3,8 +3,9 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 const { Chess } = require('chess.js');
 const { Engine } = require('node-uci');
-const AI = new Engine(path.join(__dirname, '../../../deps/chess-engines/stockfish-8-linux/Linux/stockfish_8_x64_modern'));
-
+const AI = new Engine(path.join(__dirname, '../../../deps/chess-engines/stockfish-8-linux/Linux/stockfish_8_x64'));
+const BasicAI = require('chess-ai-kong');
+let initOnce = false;
 const Discord = require('discord.js');
 const _ = require('lodash');
 const firstF = require('../../../deps/functions/firstF').default({ _ });
@@ -14,7 +15,7 @@ const ChessConstants = Constants.chess;
 const {W, B, chessPieces: pieces, startFen, label2} = ChessConstants;
 const files = new Array(8).fill(0).map((e,i)=>String.fromCharCode('A'.charCodeAt(0) + i));
 const rot = '🔄';
-const AIRAND = 1;
+const AIEasy = 1, AIMedium = 1<<1, AIHard = 1<<2;
 const games = new Map;
 
 const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
@@ -30,7 +31,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.players = options.players || [];
     this.players = [...this.players, ...[null,null]];
     if(this.players.find(e=> e && e.id===client.user.id ))
-      this.aiOptions = options.aiOptions || AIRAND;
+      this.aiOptions = options.aiOptions || AIMedium;
     this.movers = new Map;
     this.movers.set('white',this.players[0]);
     this.movers.set('black',this.players[1]);
@@ -49,10 +50,21 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     }
   }
 
-  static async aiSetup () {
-    await AI.init();
-    await AI.setoption('MultiPV', '4');
-    return AI;
+  static async aiSetup (difficulty = AIHard) {
+    if(!initOnce) {
+      BasicAI.setOptions({
+        depth: 5,
+        strategy: 'basic',
+        timeout: 0
+      });
+      await AI.init();
+      initOnce = true;
+    }
+    await AI.setoption('Ponder', false);
+    await AI.setoption('Slow Mover', 10);
+    await AI.setoption('Threads', 2);
+    await AI.setoption('Skill Level', Math.max(0, Math.min(difficulty, 20)));
+    return { AI, BasicAI };
   }
 
   embedify (end = false) {
