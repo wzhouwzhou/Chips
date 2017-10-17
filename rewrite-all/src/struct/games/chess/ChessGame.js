@@ -3,9 +3,14 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 const { Chess } = require('chess.js');
 const { Engine } = require('node-uci');
-const AI = new Engine(path.join(__dirname, '../../../deps/chess-engines/stockfish-8-linux/Linux/stockfish_8_x64'));
+
 const BasicAI = require('chess-ai-kong');
-let initOnce = false;
+BasicAI.setOptions({
+  depth: 5,
+  strategy: 'basic',
+  timeout: 0
+});
+
 const Discord = require('discord.js');
 const _ = require('lodash');
 const firstF = require('../../../deps/functions/firstF').default({ _ });
@@ -93,32 +98,26 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     return this;
   }
 
-  static async aiSetup (difficulty = AIMedium) {
-    if(!initOnce) {
-      BasicAI.setOptions({
-        depth: 5,
-        strategy: 'basic',
-        timeout: 0
-      });
-      await AI.init();
-      initOnce = true;
-    }
-    await AI.setoption('Slow Mover', 10);
-    await AI.setoption('Threads', 2);
-    await AI.setoption('Skill Level', Math.max(0, Math.min(difficulty, 20)));
-    return { AI, BasicAI };
+  async aiSetup (difficulty = (this.aiOptions||AIMedium)) {
+    this.AI = new Engine(path.join(__dirname, '../../../deps/chess-engines/stockfish-8-linux/Linux/stockfish_8_x64'));
+    await this.AI.init();
+    await this.AI.setoption('Slow Mover', 10);
+    await this.AI.setoption('Threads', 2);
+    await this.AI.setoption('Skill Level', Math.max(0, Math.min(difficulty, 20)));
+    return { AI: this.AI, BasicAI };
   }
 
   async aiMove (delay = 0, options = {}) {
     if (this.ended||this.isOver()) return null;
     if(!delay) {
-      await AI.isready();
-      await AI.position(this.game.fen());
+      await this.AI.isready();
+      await this.AI.position(this.game.fen());
       let move;
       if(this.aiOptions === AIBasic)
         move = BasicAI.play(this.game.history());
-      else
-        move = (await AI.go({ depth: this.aiOptions || AIMedium })).bestmove;
+      else {
+        move = (await this.AI.go({ depth: this.aiOptions || AIMedium })).bestmove;
+      }
       try {
         return this.go(move, true, options.noUpdate);
       } catch(err) { //AI Failed

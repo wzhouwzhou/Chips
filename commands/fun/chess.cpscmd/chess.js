@@ -1,5 +1,5 @@
 const CG = require('../../../rewrite-all/src/struct/games/chess/ChessGame.js').ChessGame;
-let aiReady = false;
+
 const TIME = 5*60*10e3;
 const STARTWAIT = 10*60*10e3;
 const games = new Map();
@@ -10,10 +10,7 @@ const ex = {
   name: "chess",
   async func(msg, ctx) {
     let { author, reply, member, send, channel, args, prefix, client } = ctx;
-    if(!aiReady) {
-      await CG.aiSetup();
-      aiReady = true;
-    }
+
     if(args[0]&&args[0]==='help'){
       const embed = new Discord.MessageEmbed;
       new CG({newFen: 'r1bqkb1r/pppp1ppp/2n2n2/4p3/4P3/3B1N2/PPPP1PPP/RNBQK2R w KQkq - 0 1', channel: msg.channel, players: [author, client.user]}).updateAll();
@@ -68,6 +65,8 @@ const ex = {
       }
       if(!othermember||!othermember.user||othermember.user.id!==client.user.id)
         othermember = await promptPlayer (author, send, prefix, channel, othermember, client);
+      else if(othermember&&othermember.user&&othermember.user.id===client.user.id)
+        difficulty = await promptDifficulty (send);
     }catch(err){
       games.delete(channel.id);
       prompting.delete(othermember?othermember.id:0);
@@ -97,6 +96,8 @@ const ex = {
     console.log(`Creating a chess game for channel ${channel.id}...`);
 
     const currentGame = new CG({channel, players: _.shuffle([member.user, othermember.user]) });
+    await currentGame.aiSetup(currentGame.aiOptions);
+
     currentGame.game.header(
       'white',
       currentGame.movers.get('white')?currentGame.movers.get('white').tag:'Player1',
