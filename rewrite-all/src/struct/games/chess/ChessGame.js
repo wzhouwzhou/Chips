@@ -19,7 +19,7 @@ const Constants = require('../../../deps/Constants');
 const ChessConstants = Constants.chess;
 const {W, B, chessPieces: pieces, startFen, label2} = ChessConstants;
 const files = new Array(8).fill(0).map((e,i)=>String.fromCharCode('A'.charCodeAt(0) + i));
-const rot = '🔄';
+const rot = '🔄', undo = '↩';
 const AIBasic = 0, AIEasy = 1<<0, AIMedium = 1<<1, AIHard = 1<<1+1, AIExtreme = 1<<2;
 exports.difficulties = [
   AIBasic,
@@ -42,8 +42,10 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     games.set(this.channelID, this);
     this.players = options.players || [];
     this.players = [...this.players, ...[null,null]];
-    if(this.players.find(e=> e && e.id===client.user.id ))
+    if(this.players.find(e=> e && e.id===client.user.id )) {
       this.aiOptions = options.aiOptions || AIMedium;
+      this.undoable = true;
+    }
     this.movers = new Map;
     this.movers.set('white',this.players[0]);
     this.movers.set('black',this.players[1]);
@@ -78,6 +80,14 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     return this.embed;
   }
 
+  async undo () {
+    if(!this.undoable) return false;
+    if(this.game.history.length < 2) return this;
+    this.game.undo();
+    this.game.undo();
+    await this.updateAll();
+  }
+
   updateFrontEnd (end) {
     if(!this.channel) throw new Error('Channel is missing !!!11!');
     let embed = this.embedify(end);
@@ -91,21 +101,27 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       if(!end){
         const mover = this.movers.get(this.turn.toLowerCase());
         const f = (r, u) => {
-          if(!u.bot&&mover&&u.id === mover.id&&r.emoji.name === rot){
+          if(!u.bot&&mover&&u.id === mover.id&&(r.emoji.name === rot||r.emoji.name === undo)){
             r.remove(u).catch(_=>_);
             return true;
           }
           return false;
         };
         const rCol = m.createReactionCollector(f, { time: 200e3, errors: ['time'] });
-        rCol.on('collect', ()=>{
-          this.nextEdit = true;
-          this.sideDown = this.sideDown == 'white'?'black':'white';
-          embed = this.embedify(end);
-          m.edit(embed);
-          this.nextEdit = false;
+        this.rCol = rCol;
+        rCol.on('collect', r => {
+          if (r.emoji.name === rot) {
+            this.nextEdit = true;
+            this.sideDown = this.sideDown == 'white'?'black':'white';
+            embed = this.embedify(end);
+            m.edit(embed);
+            this.nextEdit = false;
+          } else if (r.emoji.name === undo) {
+            this.undoable&&this.undo().catch(console.error);
+          }
         });
         !this.pause&&m.react(rot);
+        !this.pause&&this.undoable&&m.react(undo);
       }
     });
     return this;
