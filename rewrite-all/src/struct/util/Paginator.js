@@ -93,9 +93,9 @@ const Paginator = class Paginator {
           await this.pageButtons(this.sentMsg);
         }else{
           if(this.replying)
-            await this.sentMsg.edit(this._msg.author+this.currentText, { embed: this.embed });
+            this.sentMsg = await this.sentMsg.edit(this._msg.author+this.currentText, { embed: this.embed });
           else
-            await this.sentMsg.edit(this.currentText, { embed: this.embed });
+            this.sentMsg = await this.sentMsg.edit(this.currentText, { embed: this.embed });
         }
       }catch(err){
         rej(err);
@@ -105,7 +105,7 @@ const Paginator = class Paginator {
     });
   }
 
-  pageButtons (sentMsg) {
+  pageButtons (sentMsg = this.sentMsg) {
     return new Promise( async (res, rej) => {
       if(this.stopped) return res(null);
       let nextUser;
