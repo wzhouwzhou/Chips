@@ -201,7 +201,7 @@ const Paginator = class Paginator {
         if(!this.locked) await sentMsg.react('🔒');
         else await sentMsg.react('🔓');
 
-      res(true);
+      res(this);
     });
   }
 
