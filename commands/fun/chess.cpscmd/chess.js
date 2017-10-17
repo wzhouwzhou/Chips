@@ -7,6 +7,7 @@ const games = new Map();
 const prompting = new Map();
 const promptingAll = new Map();
 const fill = '▓', unf = '░', mult = 2;
+const check = '✅';
 let difficulty = new Array(5).fill(0).map((e, i, a) =>
   `\`${fill.repeat(mult).repeat(i)}${unf.repeat(mult).repeat(a.length-1-i)} (${i+1})\``
 );
@@ -204,7 +205,7 @@ const ex = {
   }
 };
 
-const promptDifficulty = (msg) => new Promise (async (res) => {
+const promptDifficulty = (msg, { author }) => new Promise (async (res) => {
   const p = new Paginator ( msg,  {
     type:'paged',
     embedding: true,
@@ -217,10 +218,23 @@ const promptDifficulty = (msg) => new Promise (async (res) => {
   );
   try{
     await p.sendFirst();
-    setTimeout(()=>{
+
+    const f = (r, u) => {
+      if(!u.bot&&u.id === author.id&&r.emoji.name === check){
+        r.remove(u).catch(_=>_);
+        return true;
+      }
+      return false;
+    };
+    const rCol = p.sentMsg.createReactionCollector(f, { time: 200e3, errors: ['time'] });
+    rCol.on('collect', ()=>{
+      res(p.currentPage);
       p.collector.stop();
-      return res(8);
-    }, 5000);
+    });
+    rCol.on('end', () => res(p.currentPage));
+
+    await p.sentMsg.react(rot);
+
   }catch(err){
     console.error(err);
     return reply ('Something went wrong...');
