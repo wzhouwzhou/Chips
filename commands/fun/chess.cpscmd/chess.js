@@ -60,7 +60,7 @@ const ex = {
     if(promptingAll.get(channel.id)) return;
     if(games.get(channel.id)) return send('There is already a game going on.');
 
-    let othermember, difficulty;
+    let othermember, difficulty, botting = false;
 
     games.set(channel.id, channel);
     try{
@@ -73,7 +73,8 @@ const ex = {
         othermember = await promptPlayer (ctx);
       else if(othermember&&othermember.user&&othermember.user.id===client.user.id) {
         difficulty = await promptDifficulty (msg, ctx);
-        send('Difficulty set to '+difficulty);
+        send('Difficulty set to '+difficulty+1);
+        botting = true;
       }
     }catch(err){
       games.delete(channel.id);
@@ -103,7 +104,7 @@ const ex = {
 
     console.log(`Creating a chess game for channel ${channel.id}...`);
 
-    const currentGame = await CG.factory({client, channel, players: _.shuffle([member.user, othermember.user]) });
+    const currentGame = await CG.factory({ client, channel, players: _.shuffle([member.user, othermember.user]), aiOptions: botting?CG.difficulties[difficulty]||CG.difficulties[2]||1<<3:null });
 
     currentGame.game.header(
       'white',
