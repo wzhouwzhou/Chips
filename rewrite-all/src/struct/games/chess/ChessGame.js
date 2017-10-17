@@ -4,7 +4,6 @@ Object.defineProperty(exports, '__esModule', { value: true });
 const { Chess } = require('chess.js');
 const { Engine } = require('node-uci');
 const AI = new Engine(path.join(__dirname, '../../../deps/chess-engines/stockfish-8-linux/Linux/stockfish_8_x64'));
-AI.chain().init().setoption('MultiPV', '4');
 
 const Discord = require('discord.js');
 const _ = require('lodash');
@@ -48,6 +47,12 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       this.sideDown = 'black';
       this.aiMove(0, {noUpdate: true});
     }
+  }
+
+  static async aiSetup () {
+    await AI.init();
+    await AI.setoption('MultiPV', '4');
+    return AI;
   }
 
   embedify (end = false) {

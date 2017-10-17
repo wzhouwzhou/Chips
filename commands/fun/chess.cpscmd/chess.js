@@ -1,5 +1,5 @@
 const CG = require('../../../rewrite-all/src/struct/games/chess/ChessGame.js').ChessGame;
-
+let aiReady = false;
 const TIME = 5*60*10e3;
 const STARTWAIT = 10*60*10e3;
 const games = new Map();
@@ -9,7 +9,10 @@ const ex = {
   name: "chess",
   async func(msg, ctx) {
     let { author, reply, member, send, channel, args, prefix, client } = ctx;
-
+    if(!aiReady) {
+      await CG.aiSetup();
+      aiReady = true;
+    }
     if(args[0]&&args[0]==='help'){
       const embed = new Discord.MessageEmbed;
       new CG({newFen: 'r1bqkb1r/pppp1ppp/2n2n2/4p3/4P3/3B1N2/PPPP1PPP/RNBQK2R w KQkq - 0 1', channel: msg.channel, players: [author, client.user]}).updateAll();
