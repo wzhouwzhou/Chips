@@ -139,7 +139,7 @@ const ex = {
         if(result == 'Woah too fast!')
           return send('Too fast...');
 
-        m.delete().catch(_=>_);
+        !currentGame.isOver()&&!currentGame.ended&& m.delete().catch(_=>_);
       }catch(errA){ //'Invalid move!'
         try{
           move = move.replace(/^([RNKQB])([a-h])(\w)/i, (match, a, b, c)=>a.toUpperCase()+b.toLowerCase()+c)
