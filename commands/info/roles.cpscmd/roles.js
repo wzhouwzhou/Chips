@@ -10,7 +10,10 @@ module.exports = {
     if(args[0]&&args[0].toLowerCase()==='all')
       return send(new Discord.MessageEmbed().setColor(member.displayColor).setTitle(`Role List (${guild.roles.size})`).setDescription(guild._sortedRoles().map(e=>_.escapeRegExp(e.name)).reverse().join(', ')));
 
-    let roles = chunk(guild.roles.array().sort((a,b)=>b.position - a.position), {chunksize: 10});
+    let roles = guild.roles.array().sort((a,b) => b.position - a.position);
+    let totalroles = _.clone(roles);
+    let totalroleids = totalroles.map(e=>e.id);
+    roles = chunk(roles, {chunksize: 10});
 
     const p = new Paginator ( msg,  {
       type:'paged',
@@ -20,7 +23,7 @@ module.exports = {
       text: `Type __${_.escapeRegExp(prefix)}${this.name} all__  to see the whole list`,
       pages:
       [
-        ...roles.map((r,p)=>[`Roles (p${p+1})`, r.map(e => `**${guild.roles.map(r => r.id).indexOf(e.id)+1}.** ${e.name}`).join('\n')])
+        ...roles.map((r,p)=>[`Roles (p${p+1})`, r.map(e => `**${totalroleids.indexOf(e.id)+1}.** ${e.name}`).join('\n')])
       ],
       }, Discord
     );
