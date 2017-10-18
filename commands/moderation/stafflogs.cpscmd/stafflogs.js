@@ -13,13 +13,9 @@ module.exports = {
     if(stafflogs) 
       return send('You already have a staff-logs channel: ' + stafflogs);  
 
-    if(!args[0])
-      return send('Use \"stafflogs set\"!');
-    
-    if(args[0].match('set'))
     let logs;
        try {
-         logs = await guild.createChannel('stafflogs', 'text');
+         logs = await guild.createChannel('staff-logs', 'text');
          send(`Created new emoji with name ${stafflogs}!`);
        }catch(err){
          send('The emoji could not be created…');
