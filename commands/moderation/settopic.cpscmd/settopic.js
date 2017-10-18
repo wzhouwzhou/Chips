@@ -1,7 +1,7 @@
 module.exports = {
   name: "settopic",
   async func(msg, { send, guild, member, args, channel, suffix}) {
-      if(author.id==='205608598233939970'==null&&!member.hasPermission("MANAGE_CHANNELS"))
+      if(!member.hasPermission("MANAGE_CHANNELS"))
         return send('You need `MANAGE_CHANNELS` permissions to use this command!')
       if(!guild)
         return;

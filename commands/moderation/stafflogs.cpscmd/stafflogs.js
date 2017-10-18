@@ -3,7 +3,7 @@ module.exports = {
   async func(msg, { channel, args, guild, send, member }) {
     
     if(!guild)
-      return send('shut up')
+      return;
     
     let stafflogs = guild.channels.find('name', 'staff-logs');
     
@@ -13,13 +13,14 @@ module.exports = {
     if(stafflogs) 
       return send('You already have a staff-logs channel: ' + stafflogs);  
 
-    if(!args[0])
-      return send('Use \"stafflogs set\"!');
-    
-    if(args[0]==='set')
-      if(!stafflogs)
-      stafflogs = await guild.createChannel('staff-logs', 'text')
-       .then(reply => send(stafflogs + ' channel succesfully created!'));
+    let logs;
+       try {
+         logs = await guild.createChannel('staff-logs', 'text');
+         send(`Created new emoji with name ${stafflogs}!`);
+       }catch(err){
+         send('The emoji could not be created…');
+         throw err;
+       }   
 
   }
 }

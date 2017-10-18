@@ -2,23 +2,26 @@ const reg = /^(https?:\/\/[^.]+\.[^]+)$/;
 
 module.exports = {
   name: "addemoji",
-  async func(msg, { send, args, member, guild }) {
+  async func(msg, { send, args, member, guild, }) {
 
+    if(guild.emojis.size>=50)
+      return send('Maximum number of emojis reached (50)');
+    
     if(!member.hasPermission('MANAGE_EMOJIS'))
       return send('no');
 
     if (!args[0])
-      return reply("No emoji name given :(");
+      return send("No emoji name given :(");
 
     let name = args[0];
 
     if(!args[1])
-      return send('no url');
+      return send('No url given :(');
 
     const emojiurl = (args[1].match(reg)||[0,null])[1];
 
     if(!args[1].match(reg))
-      return send("ensure you've given a url");
+      return send("Ensure you've given a url!");
 
     let emoji;
     try {
