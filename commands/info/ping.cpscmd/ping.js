@@ -65,10 +65,10 @@ module.exports = {
       channel.stopTyping();
       return send(`🏓\u2000Pong! My weighted/overall ping is ${weighted.toFixed(2)}ms! ${scale}`, {embed: bad});
     } else {
-      let sentMetric = new Date, sentmsg;
+      let sentMetric = Date.now(), sentmsg;
       try{
         sentmsg = await send('Pong');
-        sentMetric = new Date - sentMetric;
+        sentMetric = Date.now() - sentMetric;
       }catch(err){
         sentMetric = '???';
       }
