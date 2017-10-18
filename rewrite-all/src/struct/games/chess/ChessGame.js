@@ -20,7 +20,7 @@ const ChessConstants = Constants.chess;
 const {W, B, chessPieces: pieces, startFen, label2} = ChessConstants;
 const files = new Array(8).fill(0).map((e,i)=>String.fromCharCode('A'.charCodeAt(0) + i));
 const rot = '🔄', undo = '↩';
-const AIBasic = 0, AIEasy = 1<<0, AIMedium = 1<<1, AIHard = 1<<1+1, AIExtreme = 1<<2;
+const AIBasic = 0, AIEasy = 1<<0, AIMedium = 1<<1, AIHard = 1<<2, AIExtreme = 1<<3;
 exports.difficulties = [
   AIBasic,
   AIEasy,
