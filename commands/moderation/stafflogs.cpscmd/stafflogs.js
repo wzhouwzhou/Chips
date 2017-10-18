@@ -16,6 +16,7 @@ module.exports = {
     if(!args[0])
       return send('Use \"stafflogs set\"!');
     
+    if(args[0].match('set'))
     let logs;
        try {
          logs = await guild.createChannel('stafflogs', 'text');
