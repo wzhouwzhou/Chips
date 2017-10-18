@@ -68,12 +68,12 @@ module.exports = {
       let sentMetric = new Date, sentmsg;
       try{
         sentmsg = await send('Pong');
-        sentMetric -= new Date;
+        sentMetric = new Date - sentMetric;
       }catch(err){
         sentMetric = '???';
       }
       sentMetric = (new Date)-sentMetric;
-      await sentmsg.edit(`🏓\u2000Pong! \nWebsocket: **${(~~(client.ping*100))/100} ms**\nApi: **${sentMetric}** ms`);
+      await sentmsg.edit(`🏓\u2000Pong! \nWebsocket: **${(~~(client.ping*100))/100} ms**\nApi: **${(~~(sentMetric*100))/100}** ms`);
     }
   }
 };
