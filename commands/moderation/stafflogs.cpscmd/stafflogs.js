@@ -16,7 +16,7 @@ module.exports = {
     let logs;
        try {
          logs = await guild.createChannel('staff-logs', 'text');
-         send(`Created new channel with name ${stafflogs}!`);
+         send(`Created new channel with name ${logs.name}!`);
        }catch(err){
          send('The channel could not be created…');
          throw err;
