@@ -74,7 +74,7 @@ const ex = {
         othermember = await promptPlayer (ctx);
       else if(othermember&&othermember.user&&othermember.user.id===client.user.id) {
         difficulty = await promptDifficulty (msg, ctx);
-        send('Difficulty set to '+(+difficulty+1));
+        await send('Difficulty set to '+(+difficulty+1));
         botting = true;
       }
     }catch(err){
