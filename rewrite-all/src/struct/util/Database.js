@@ -28,6 +28,7 @@ const Database = class Database {
       user: 'admin',
       password: process.env.RETHINKPSWD,
     });
+    return this;
   }
 
   ensureRethink () {
@@ -86,6 +87,19 @@ const Database = class Database {
       this.rtables[tablename] = table;
     }
     return table;
+  }
+
+  async insertTable (tablename, id, data) {
+    this.ensureRethink();
+
+    const entry = this.rethink.table(tablename).insert(Object.assign(
+      {},
+      data,
+      { id },
+    ), { conflict: 'replace '}).run(_=>_);
+    if(entry.inserted == 1 || entry.replaced == 1)
+      return entry;
+    throw new Error(`Data id [${id}] was not inserted: ${JSON.stringify(data)}`);
   }
 };
 
