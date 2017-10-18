@@ -27,6 +27,8 @@ console.log('[CPSCMD][INFO][ping] Build objects complete!');
 module.exports = [
   [ae.name,ae],
   ['addemoji', ae],
+  ['createemoji', ae]
   [re.name,re],
   ['removeemoji', re],
+  ['deleteemoji', re]
 ];

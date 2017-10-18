@@ -16,9 +16,9 @@ module.exports = {
     let logs;
        try {
          logs = await guild.createChannel('staff-logs', 'text');
-         send(`Created new emoji with name ${stafflogs}!`);
+         send(`Created new channel with name ${stafflogs}!`);
        }catch(err){
-         send('The emoji could not be created…');
+         send('The channel could not be created…');
          throw err;
        }   
 
