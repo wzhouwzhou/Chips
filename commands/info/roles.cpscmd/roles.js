@@ -4,7 +4,7 @@ const { Paginator } = require('../../../rewrite-all/src/struct/client/Paginator'
 
 module.exports = {
   name: 'roles',
-  async func(msg, { send, guild, member, args, Discord }) {
+  async func(msg, { send, guild, member, args, Discord, prefix }) {
     if(!guild)
       return send('You must be in a server to use this!');
     if(args[0]&&args[0].toLowerCase()==='all')
@@ -19,11 +19,10 @@ module.exports = {
       type:'paged',
       embedding: true,
       fielding: false,
-      title: 'Role List',
       text: `Type __${_.escapeRegExp(prefix)}${this.name} all__  to see the whole list`,
       pages:
       [
-        ...roles.map((r,p)=>[`Roles (p${p+1})`, r.map(e => `**${totalroleids.indexOf(e.id)+1}.** ${e.name}`).join('\n')])
+        ...roles.map(r => ['**Server Roles**', r.map(e => `**${totalroleids.indexOf(e.id)+1}.** ${e.name}`).join('\n')])
       ],
       }, Discord
     );
