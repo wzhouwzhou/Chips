@@ -65,15 +65,15 @@ module.exports = {
       channel.stopTyping();
       return send(`🏓\u2000Pong! My weighted/overall ping is ${weighted.toFixed(2)}ms! ${scale}`, {embed: bad});
     } else {
-      let sentMetric = Date.now(), sentmsg;
+      let sentMetric = new Date, sentmsg;
       try{
         sentmsg = await send('Pong');
-        sentMetric = Date.now() - sentMetric;
+        sentMetric -= new Date;
       }catch(err){
         sentMetric = '???';
       }
-      sentMetric = (new Date)-sentMetric;
-      await sentmsg.edit(`🏓\u2000Pong! \nWebsocket: **${(~~(client.ping*100))/100} ms**\nApi: **${(~~(sentMetric*100))/100}** ms`);
+
+      await sentmsg.edit(`🏓\u2000Pong! \nWebsocket: **${(~~(client.ping*100))/100} ms**\nApi: **${(~~(-sentMetric*100))/100}** ms`);
     }
   }
 };
