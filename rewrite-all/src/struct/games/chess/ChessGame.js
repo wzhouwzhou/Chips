@@ -20,7 +20,7 @@ const ChessConstants = Constants.chess;
 const {W, B, chessPieces: pieces, startFen, label2} = ChessConstants;
 const files = new Array(8).fill(0).map((e,i)=>String.fromCharCode('A'.charCodeAt(0) + i));
 const rot = '🔄', undo = '↩';
-const AIBasic = 0, AIEasy = 1<<0, AIMedium = 1<<1, AIHard = 1<<2, AIExtreme = 12;
+const AIBasic = 0, AIEasy = 1<<0, AIMedium = 1<<1, AIHard = 1<<2, AIExtreme = 13;
 exports.difficulties = [
   AIBasic,
   AIEasy,
@@ -132,7 +132,9 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     await this.AI.init();
     await this.AI.setoption('Slow Mover', 10);
     await this.AI.setoption('Threads', 2);
-    await this.AI.setoption('Skill Level', Math.max(0, Math.min(difficulty, 20)));
+    await this.AI.setoption('MultiPV', 1);
+    await this.AI.setoption('hash', 32);
+    await this.AI.setoption('Skill Level', Math.max(0, Math.min(difficulty+1, 20)));
     return { AI: this.AI, BasicAI };
   }
 
