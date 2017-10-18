@@ -3,6 +3,9 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 const Discord = require('discord.js');
 const EventEmitter = require('events');
+
+const ensureAbstract = require('../../deps/functions/ensureAbstractF').default();
+
 const GameClass = /* abstract */ class Game extends EventEmitter {
   constructor ({
     gameName,
