@@ -100,10 +100,12 @@ const msghandle = async message => {
   const keywords = {
     '306244855493951489': 'ban',
     '259209114268336129': '259209114268336129|willy',
+    '250815960250974209': '250815960250974209|edp|esp|evildeathpro',
   };
   const notify = {
     '306244855493951489': false,
     '259209114268336129': true,
+    '250815960250974209': true,
   };
   if(message.guild&&message.guild.id==Constants.servers.SURSKIT)
     for(const id in keywords)
