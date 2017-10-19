@@ -17,8 +17,8 @@ module.exports = {
       if (args[0]==='name')
         if(!args[1])
           return send('No name given to set');
-        else if(!suffix.substring(suffix.indexOf(args[1])).match(/^[0-9a-z\-_]/i))
-          return send('Channel names may only contain alphanumeric, dash, and underscore characters');
+        else if(!suffix.substring(suffix.indexOf(args[1])).match(/^[0-9a-z\-_]+$/i))
+          return send('Text channel name must be alphanumeric with dashes or underscores.');
         else
           return await channel.setName(suffix.substring(suffix.indexOf(args[1])));
 
