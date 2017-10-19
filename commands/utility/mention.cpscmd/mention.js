@@ -73,7 +73,7 @@ exports.func = async (msg, {guild, member, send, author, channel, suffix, Discor
     }, Discord
   );
   try{
-    await p.sendFirst();
+    p.sendFirst();
   }catch(err){
     console.error(err);
     inmention.set(author.id, false);
