@@ -1,7 +1,7 @@
 
 module.exports = {
     name: "setchannel",
-    async func(msg, { send, guild, args, member, channel }) {
+    async func(msg, { send, guild, args, member, channel, suffix }) {
 
       if(!guild)
         return send('You must be in a server to use this');
@@ -17,6 +17,8 @@ module.exports = {
       if (args[0]==='name')
         if(!args[1])
           return send('No name given to set');
+        else if(!suffix.substring(suffix.indexOf(args[1])).match(/^[0-9a-z\-_]/i))
+          return send('Channel names may only contain alphanumeric, dash, and underscore characters');
         else
           return await channel.setName(suffix.substring(suffix.indexOf(args[1])));
 
