@@ -9,7 +9,7 @@ sc.metadata = {
   usage: 'setchannel',
   example: 'setchannel',
   perm: [['global.moderation.setchannel.edit']],
-  cuscmperm: ['MANAGE_CHANNELS'],
+  customperm: ['MANAGE_CHANNELS'],
 };
 
 console.log('[CPSCMD][INFO][roles] Build objects complete!');
