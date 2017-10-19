@@ -1,38 +1,28 @@
-const top = args[1];
-const nam = args[1];
 
-const embed = (new Discord.RichEmbed)
+const embed = new Discord.MessageEmbed()
   .setTitle('Help')
-  .setDescription('All commands for \"setchannel\" are coming soon!')
+  .setDescription('All commands for "setchannel" are coming soon!')
   .setColor(member.displayColor);
 
 module.exports = {
     name: "setchannel",
-    async func(msg, { send, guild, args, member, author }) {
-      
-      if(!author.id==='205608598233939970')
-        return send('only lucas can aboose lmao');
-      
+    async func(msg, { send, guild, args }) {
       if(!guild)
         return send('You must be in a server to use this');
 
-      if (!args[0])
+      if (!args[0] || args[0]==='help')
         return send(embed);
-  
-      if (args[0]==='help')
-        return send(embed);
-          
+
       if (args[0]==='name')
-        if (args[1]<100||args[1]>2)
-          return channel.setName(nam)
-        if (args[1]<100||args[1]>2) 
-          return send('Name stuff...');
-  
+        if(!args[1])
+          return send('No name given to set');
+        else
+          return await channel.setName(suffix.substring(suffix.indexOf(args[1])));
+
       if (args[0]==='topic')
-        if (args[1]&&args[1].length<1024)
-          return channel.setTopic(top)
-        if (!args[1]&&args[1].length<1024)
-          return send('Topic stuff..');
+        if(!args[1])
+          return send('No topic given to set');
+        else
+          return await channel.setTopic(suffix.substring(suffix.indexOf(args[1])));
     }
-  
 };
