@@ -1,17 +1,18 @@
 
-const embed = new Discord.MessageEmbed()
-  .setTitle('Help')
-  .setDescription('All commands for "setchannel" are coming soon!')
-  .setColor(member.displayColor);
-
 module.exports = {
     name: "setchannel",
-    async func(msg, { send, guild, args }) {
+    async func(msg, { send, guild, args, member, channel }) {
+
       if(!guild)
         return send('You must be in a server to use this');
 
-      if (!args[0] || args[0]==='help')
+      if (!args[0] || args[0]==='help'){
+        const embed = new Discord.MessageEmbed()
+          .setTitle('Help')
+          .setDescription('All commands for "setchannel" are coming soon!')
+          .setColor(member.displayColor);
         return send(embed);
+      }
 
       if (args[0]==='name')
         if(!args[1])
