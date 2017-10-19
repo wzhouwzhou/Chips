@@ -100,7 +100,7 @@ const msghandle = async message => {
   const keywords = {
     '306244855493951489': 'ban',
     '259209114268336129': '259209114268336129|willy',
-    '250815960250974209': '250815960250974209|edp|esp|evildeathpro',
+    '250815960250974209': '250815960250974209|edp|evildeathpro',
   };
   const notify = {
     '306244855493951489': false,
