@@ -73,7 +73,7 @@ module.exports = {
         sentMetric = '???';
       }
 
-      await sentmsg.edit(`🏓\u2000Pong! \nWebsocket: **${(~~(client.ping*100))/100} ms**\nApi: **${(~~(-sentMetric*100))/100}** ms`);
+      await sentmsg.edit(`🏓\u2000Pong! \nWebsocket: **${~~client.ping} ms**\nApi: **${(~~(-sentMetric*100))/100}** ms`);
     }
   }
 };
