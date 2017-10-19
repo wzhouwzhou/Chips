@@ -8,7 +8,7 @@ module.exports = {
 
       if (!args[0] || args[0]==='help'){
         const embed = new Discord.MessageEmbed()
-          .setTitle('Help')
+          .setTitle('How to use setchannel')
           .setDescription([
             '{}<name> help - displays this msg.',
             '{}<name> name [new-name] - sets the channel name.',
