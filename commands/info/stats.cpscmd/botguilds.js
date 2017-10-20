@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const splitChunkF = require('../../../rewrite-all/src/deps/functions/firstF').default({_});
+const firstF = require('../../../rewrite-all/src/deps/functions/firstF').default({_});
 const splitChunkF = require('../../../rewrite-all/src/deps/functions/splitChunkF').default({_});
 const { Paginator } = require('../../../rewrite-all/src/struct/client/Paginator');
 
