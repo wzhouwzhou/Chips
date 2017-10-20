@@ -19,16 +19,16 @@ module.exports = {
       return send(embed);
 
     if (args[0]==='dnd')
-      return send(dnd + " members are dnd!");
+      return send(`${dnd} members are dnd!`);
 
     if (args[0]==='idle')
-      return send(idle+ " members are idle!");
+      return send(`${idle} members are idle!`);
 
     if (args[0]==='online')
-      return send (online + " members are online!");
+      return send (`${online} members are online!`);
 
     if (~'invisible offline invis off'.split(/\s+/).indexOf(args[0]))
-      return send (invis + " members are invisible or offline!");
+      return send (`${invis} members are invisible or offline!`);
 
   }
 };
