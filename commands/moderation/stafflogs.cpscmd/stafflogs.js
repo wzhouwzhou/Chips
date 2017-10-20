@@ -16,7 +16,7 @@ module.exports = {
     let logs;
        try {
          logs = await guild.createChannel('staff-logs', 'text');
-         await guild.channels.find('name', 'staff-logs').overwritePermissions(guild.roles.find(guild.defaultRole), 
+         await guild.channels.find('name', 'staff-logs').overwritePermissions(guild.roles.find('name', guild.defaultRole), 
         {
           SEND_MESSAGES: false
         });
