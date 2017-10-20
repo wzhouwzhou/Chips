@@ -203,8 +203,8 @@ a:focus {
 .btn-circle:hover i.animated {
   -webkit-animation-name: pulse;
   -moz-animation-name: pulse;
-  -webkit-animation-duration: 1.5s;
-  -moz-animation-duration: 1.5s;
+  -webkit-animation-duration: 0.5s;
+  -moz-animation-duration: 0.5s;
   -webkit-animation-iteration-count: infinite;
   -moz-animation-iteration-count: infinite;
   -webkit-animation-timing-function: linear;
