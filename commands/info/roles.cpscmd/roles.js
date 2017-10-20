@@ -22,7 +22,7 @@ module.exports = {
       text: `Type __${_.escapeRegExp(prefix)}${this.name} all__  to see the whole list`,
       pages:
       [
-        ...roles.map(r => ['**Server Roles**', r.map(e => `**${totalroleids.indexOf(e.id)+1}.** ${e.name}`).join('\n')])
+        ...roles.map(r => ['**Server Roles**', r.map(e => `(${e.members.size}) **${_.escapeRegExp(e.name)}**`).join('\n')])
       ],
       }, Discord
     );
