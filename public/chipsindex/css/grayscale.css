@@ -133,7 +133,11 @@ a:focus {
   padding-bottom: 100px 0;
   text-align: center;
   color: white;
-  background: url('/img/chipssplash.png') no-repeat bottom center scroll;
+  background-image: url('/img/chipssplash.png')/*no-repeat bottom center scroll*/;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-color: black;
   -webkit-background-size: cover;
   -moz-background-size: cover;
