@@ -24,7 +24,7 @@ module.exports = {
     if (args[0]==='idle')
       return send(`${idle} members are idle!`);
 
-    if (args[0]==='online')
+    if (~'online on'.split(/\s+/).indexOf(args[0]))
       return send (`${online} members are online!`);
 
     if (~'invisible offline invis off'.split(/\s+/).indexOf(args[0]))
