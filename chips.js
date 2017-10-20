@@ -51,12 +51,14 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
 
     "302983444009451541": `Hai hoi! I'm just testing :>`,
     "250801092143611905": 'Welcome to Diep Colony! Please wait for online staff to verify you!',
+    '359801125882298378': 'Welcome to nsfw empire. Please wait to be verified.',
   },
   captcha: {
     '302983444009451541': true,
     '257889450850254848': false,
     '250801092143611905': false,
     '329024870887456768': true,
+    '359801125882298378': true,
   },
   panics: {
     0: false,
