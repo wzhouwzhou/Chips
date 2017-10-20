@@ -59,25 +59,6 @@ const botPrefixes = [
 module.exports = {
   name: "botclear",
   async func(msg, { reply, channel, args }) {
-    const used = member || author;
-    if(!used.hasPermission("MANAGE_MESSAGES")){
-      switch (used.id) {
-        case Constants.users.WILLYZ:
-        case Constants.users.EVILDEATHPRO:
-        case Constants.users.PGSUPER:
-        case Constants.users.ZALGO:
-        case Constants.users.XZLQ:
-        case Constants.users.KONEKO:
-        case Constants.users.NELYN:
-        case Constants.users.LOAF:
-        case Constants.users.ARX:
-        case Constants.users.LUCAS:
-          break;
-        default:
-          return reply('You must have ``MANAGE_MESSAGES`` perms to use this command!');
-      }
-    }
-    
     let nummsgs = 0;
     let limit = args[0]&&(!isNaN(args[0]))?parseInt(args[0]):25;
 
