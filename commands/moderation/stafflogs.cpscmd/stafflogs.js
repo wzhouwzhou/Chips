@@ -16,9 +16,10 @@ module.exports = {
     let logs;
        try {
          logs = await guild.createChannel('staff-logs', 'text');
-         guild.channels.find('name', 'staff-logs').overwritePermissions(everyone, {
+         await guild.channels.find('name', 'staff-logs').overwritePermissions(guild.roles.find('name', 'everyone'), 
+        {
           SEND_MESSAGES: false
-        })
+        });
          send(`Created new channel with name ${logs.name}!`);
        }catch(err){
          send('The channel could not be created…');
