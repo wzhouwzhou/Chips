@@ -11,14 +11,9 @@ module.exports = {
       return send('You need `MANAGE_CHANNELS` permissions to use this command!')
     
     if(stafflogs) 
-      await guild.channels.find('name', 'staff-logs').overwritePermissions(guild.roles.find('name', '@everyone'),
-      {
-        "SEND_MESSAGES": false,
-        "ADD_REACTIONS": false
-      });
-      await send(`The channel already exists: ${stafflogs}`);
-    
-      let logs;
+      return send('You already have a staff-logs channel: ' + stafflogs);  
+
+    let logs;
        try {
          logs = await guild.createChannel('staff-logs', 'text');
          await guild.channels.find('name', 'staff-logs').overwritePermissions(guild.roles.find('name', '@everyone'), 
