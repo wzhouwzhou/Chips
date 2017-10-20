@@ -137,7 +137,6 @@ a:focus {
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
   background-color: black;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -242,7 +241,6 @@ a:focus {
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
   background-color: gray;
   -webkit-background-size: cover;
   -moz-background-size: cover;
