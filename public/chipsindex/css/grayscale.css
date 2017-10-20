@@ -186,10 +186,19 @@ a:focus {
   background: rgba(255, 165, 0, 0.5);
 }
 .btn-circle i.animated {
+  /*
   -webkit-transition-property: -webkit-transform;
   -webkit-transition-duration: 1s;
   -moz-transition-property: -moz-transform;
-  -moz-transition-duration: 1s;
+  -moz-transition-duration: 1s;*/
+  -webkit-animation-name: pulse;
+  -moz-animation-name: pulse;
+  -webkit-animation-duration: 1.5s;
+  -moz-animation-duration: 1.5s;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-timing-function: linear;
 }
 .btn-circle:hover i.animated {
   -webkit-animation-name: pulse;
