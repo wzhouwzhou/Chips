@@ -236,7 +236,7 @@ a:focus {
 .download-section {
   width: 100%;
   padding: 50px 0;
-  color: white;
+  color: black;
 
   background-image: url('https://discordapp.com/assets/e7a3b51fdac2aa5ec71975d257d5c405.png') /*no-repeat bottom center scroll*/;
   background-attachment: fixed;

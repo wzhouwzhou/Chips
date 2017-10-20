@@ -188,7 +188,9 @@
           (function(){
 
             var parallax = document.querySelectorAll(".intro"),
-                speed = 0.5;
+                parallax2 = document.querySelectorAll(".download-section"),
+                speed = 0.5,
+                speed2 =0.3;
 
             window.onscroll = function(){
               [].slice.call(parallax).forEach(function(el,i){
@@ -199,8 +201,14 @@
                 el.style.backgroundPosition = elBackgrounPos;
 
               });
-            };
+              [].slice.call(parallax2).forEach(function(el,i){
 
+                var windowYOffset2 = window.pageYOffset,
+                    elBackgrounPos = "50% " + (windowYOffset2 * speed2) + "px";
+
+                el.style.backgroundPosition = elBackgrounPos;
+              });
+            };
           })();
         </script>
 
