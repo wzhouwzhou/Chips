@@ -29,9 +29,17 @@ client.antilinkExemptedC = [
 client.antiDiepLinkExemptedC = [
   '286249976340676608','260853975216029697'
 ];
+
+client.mps = [0,0,0];
+client.thismcounter=0;
 const uu = eval(eval('"'+process.env.u+'"'));
 global.muteTrigger=false;
+client.mcounterI = setInterval(() => {
+  client.mps.unshift(~~(~~((100*client.thismcounter)/300)));
+  client.thismcounter = 0;
+}, 3000);
 const msghandle = async message => {
+  client.shard.broadcastEval(`client.thismcounter++`);
   /*try{
     r.table('lastMessage').insert( {
       id: message.author.id,
