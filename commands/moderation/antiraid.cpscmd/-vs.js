@@ -13,7 +13,7 @@ ex.func = async (msg, {
   reply,
   Discord,
   client,
-}) =>{
+}) => {
   if(!guild) return reply("You must use this in a server!");
   if (!args[0]) return reply("No action given :(");
 
@@ -37,7 +37,7 @@ ex.func = async (msg, {
         let therole = targetMember.roles.find('name','unverified')||targetMember.roles.find('name','Unverified')||targetMember.roles.find('name', 'Unverified-Personel');
         let fan = guild.roles.find('name', 'Fan');
         await targetMember.removeRole(guild.roles.get('305302877641900052')||therole);
-        await targetMember.addRole(fan)
+        fan&&await targetMember.addRole(fan);
         if(client.memberjoin.verifyLogC[guild.id]){
           let embed = new Discord.MessageEmbed();
           embed.setTitle('Member Verification').setColor(_.random(1,16777215));
@@ -51,7 +51,8 @@ ex.func = async (msg, {
         return reply('User verified successfully!');
       } catch (err) {
         console.log('Could not remove unverified role..probably: '+err);
-        return reply('User not unverified :< Something went wrong..');
+        await reply('User not unverified :< Something went wrong..');
+        throw err;
       }}
 
     case 'welcome':{
@@ -250,7 +251,7 @@ ex.func = async (msg, {
       }}
 
     case 'regenperms': {
-      const unverRole = guild.roles.find('name','Unverified')==null&&guild.roles.find('name', 'Unverified-Personel');
+      const unverRole = guild.roles.find('name','Unverified')||guild.roles.find('name', 'Unverified-Personel');
       const unverChan = guild.channels.find('name', 'unverified');
       if(!unverRole||!unverChan) return reply('Uh oh! Antiraid role and channel names are not set properly');
       const channels = guild.channels.filter(c => c.type === 'text');
