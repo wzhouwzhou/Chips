@@ -248,7 +248,7 @@ ex.func = async (msg, {
       }}
 
     case 'regenperms': {
-      const unverRole = guild.roles.find('name','Unverified');
+      const unverRole = guild.roles.find('name','Unverified')==null&&guild.roles.find('name', 'Unverified-Personel');
       const unverChan = guild.channels.find('name', 'unverified');
       if(!unverRole||!unverChan) return reply('Uh oh! Antiraid role and channel names are not set properly');
       const channels = guild.channels.filter(c => c.type === 'text');
