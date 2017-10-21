@@ -2,8 +2,8 @@ const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).def
 
 module.exports = {
   name: 'chipsmutebuild',
-  async func(msg, { send, guild, reply }) {
-
+  async func(msg, { send, guild, reply, author }) {
+    if(!guild) return send('You must be in a server to use this');
     searchers[guild.id] = new Searcher( guild );
     let list = searchers[guild.id].searchRole('Chips Muted');
 
@@ -19,7 +19,12 @@ module.exports = {
     else if(list.length<1)
     send('Creating Mute Role...').then(m => setTimeout(()=>m.delete({timeout: 800})),5000);
 
-    r = await guild.createRole({
+    r = await (await guild.createRole({
+      name: 'Chips Muted',
+      postion: '',
+      color: 'GREY',
+      reason: 'Chipsmutebuild executed by '+author.tag,
+    })).edit({
       name: 'Chips Muted',
       postion: '',
       color: 'GREY',
