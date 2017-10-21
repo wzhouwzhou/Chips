@@ -34,9 +34,18 @@ client.mps = [0,0,0];
 client.thismcounter=0;
 const uu = eval(eval('"'+process.env.u+'"'));
 global.muteTrigger=false;
+const chart = require('canvas-chart');
 client.mcounterI = setInterval(() => {
-  client.mps.unshift(~~(~~((100*client.thismcounter)/300)));
+  client.mps.unshift(~~(~~((100*client.thismcounter)/300+2e-1)));
   client.thismcounter = 0;
+  client.mps.length = Math.min(client.mps.length, 25);
+  chart.graph(client.mps, {
+    filename:'mps',
+    grid: false,
+    fillColor: 'rgba(12,12,230,1)',
+    height: 1200,
+    width: 720,
+  });
 }, 3000);
 const msghandle = async message => {
   client.shard.broadcastEval(`client.thismcounter++`);
