@@ -19,20 +19,18 @@ module.exports = {
     else if(list.length<1)
     send('Creating Mute Role...').then(m => setTimeout(()=>m.delete({timeout: 800})),5000);
 
-    r = await (await guild.createRole({
-      name: 'Chips Muted',
-      postion: +guild.me.highestRole.position-1,
-      color: 'GREY',
+    r = await guild.createRole({
+      data: {
+        name: 'Chips Muted',
+        postion: +guild.me.highestRole.position-1,
+        color: 'GREY',
+      },
       reason: 'Chipsmutebuild executed by '+author.tag,
-    })).edit({
-      name: 'Chips Muted',
-      postion: +guild.me.highestRole.position-1,
-      color: 'GREY',
     });
 
     list = searchers[guild.id].searchRole('Chips Muted');
 
-    await send('Mute role created. Editing permissions for mute role...').then(m => setTimeout(()=>m.delete({timeout: 800})),5000);
+    await send('Editing permissions for mute role...').then(m => setTimeout(()=>m.delete({timeout: 800})),5000);
 
     await guild.channels.forEach(channel => channel.overwritePermissions(list[0],
     {
@@ -42,6 +40,6 @@ module.exports = {
       'SPEAK': false,
     }));
 
-    return await send('Chips Mute role created!');
+    return await send('Chips Mute role created successfully!');
   }
 };
