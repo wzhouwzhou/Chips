@@ -43,7 +43,7 @@ client.mcounterI = setInterval(() => {
     filename:'mps',
     grid: true,
     lineWidth: 10,
-    //fillColor: 'rgba(12,12,132,1)',
+    fillColor: 'rgba(240,205,0,0.9)',
     height: 1200,
     width: 720,
   });
