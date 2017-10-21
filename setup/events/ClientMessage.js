@@ -40,7 +40,7 @@ client.mcounterI = setInterval(() => {
   client.thismcounter = 0;
   client.mps.length = Math.min(client.mps.length, 12);
   chart.graph(client.mps, {
-    filename:'mps',
+    filename:'public/mps',
     grid: true,
     lineWidth: 10,
     fillColor: 'rgba(240,205,0,0.9)',
