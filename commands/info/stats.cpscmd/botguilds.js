@@ -10,15 +10,13 @@ module.exports = {
     let total = results.reduce((a,b)=>[...a,...b],[]);
     total = splitChunkF(firstF(total, 100).map(e=>`__${_.escapeRegExp(e[0])}__ (${e[1]} members)`), {size: 10});
 
-    const p = new Paginator ( msg,  {
+    const p = new Paginator (msg, {
       type:'paged',
       embedding: true,
       fielding: false,
       text: 'Top 100 largest servers I am in!',
-      pages:
-      [
-        ...total
-      ],
+      pages: total,
+      lockToggle: true,
       }, Discord
     );
     try{
