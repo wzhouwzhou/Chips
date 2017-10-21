@@ -66,6 +66,7 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
     '250801092143611905': false,
     '329024870887456768': true,
     '359801125882298378': true,
+    '295601523050676226': true,
   },
   panics: {
     0: false,
