@@ -44,8 +44,8 @@ client.mcounterI = setInterval(() => {
     grid: true,
     lineWidth: 10,
     fillColor: 'rgba(240,205,0,0.9)',
-    height: 1200,
-    width: 720,
+    height: 360,
+    width: 600,
   });
 }, 5000);
 const msghandle = async message => {
