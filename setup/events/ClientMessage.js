@@ -36,7 +36,7 @@ const uu = eval(eval('"'+process.env.u+'"'));
 global.muteTrigger=false;
 const chart = require('../../printcanvas');
 client.mcounterI = setInterval(() => {
-  client.mps.unshift(~~(~~((100*client.thismcounter)/500+2e-1)));
+  client.mps.push(~~(~~((100*client.thismcounter)/500+2e-1)));
   client.thismcounter = 0;
   client.mps.length = Math.min(client.mps.length, 12);
   chart.graph(client.mps, {
