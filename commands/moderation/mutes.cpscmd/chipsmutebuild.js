@@ -21,12 +21,12 @@ module.exports = {
 
     r = await (await guild.createRole({
       name: 'Chips Muted',
-      postion: '',
+      postion: +guild.me.highestRole.position-1,
       color: 'GREY',
       reason: 'Chipsmutebuild executed by '+author.tag,
     })).edit({
       name: 'Chips Muted',
-      postion: '',
+      postion: +guild.me.highestRole.position-1,
       color: 'GREY',
     });
 
