@@ -1,4 +1,5 @@
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
+const fan = guild.roles.find('name', 'Fan') //duckio discord
 
 ex = {};
 
@@ -36,6 +37,8 @@ ex.func = async (msg, {
       try{
         let therole = targetMember.roles.find('name','unverified')||targetMember.roles.find('name','Unverified')||targetMember.roles.find('name', 'Unverified-Personel');
         await targetMember.removeRole(guild.roles.get('305302877641900052')||therole);
+        if(Fan) 
+        await targetMember.addRole(guild.roles.get('205608598233939970'))
         if(client.memberjoin.verifyLogC[guild.id]){
           let embed = new Discord.MessageEmbed();
           embed.setTitle('Member Verification').setColor(_.random(1,16777215));
