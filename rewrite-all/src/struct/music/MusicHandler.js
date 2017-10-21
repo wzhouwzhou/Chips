@@ -16,28 +16,28 @@ const _handlers = new Map();
 const cmds = [
   [
     'To queue a song from youtube:',
-    '<@296855425255473154> p/play songNameOrURL'
+    '{}p/play songNameOrURL'
   ],[
     'To skip a song:',
-    '<@296855425255473154> skip'
+    '{}skip'
   ],[
     'To remove a song from the queue',
-    '<@296855425255473154> unqueue songurl *or* <@296855425255473154> remove songurl'
+    '{}unqueue songurl *or* {}remove songurl'
   ],[
     'To pause the player',
-    '<@296855425255473154> pause'
+    '{}pause'
   ],[
     'To unpause the player',
-    '<@296855425255473154> unpause *or* <@296855425255473154> resume'
+    '{}unpause *or* {}resume'
   ],[
     'To toggle looping the player',
-    '<@296855425255473154> loop'
+    '{}loop'
   ],[
     'To set the volume of the player as a percentage from 0 to 200 (example below uses 30% volume)',
-    '<@296855425255473154> v/vol/volume 30'
+    '{}v/vol/volume 30'
   ],[
     'To see the song currently playing',
-    '<@296855425255473154> now playing'
+    '{}now playing'
   ]
 ];
 
@@ -101,7 +101,7 @@ const GuildMusicHandler = class MusicHandler {
         handler.player.setVolume(+vol,m.author.id===Constants.users.WILLYZ);
       }else if(m.content.match(/^<@!?296855425255473154>\s*music\s*help/i)){
         let embed =new Discord.MessageEmbed().setTitle('Chips music help').setColor(12305);
-        cmds.forEach(cmd=>embed.addField(...cmd));
+        cmds.map(cmd => cmd.map(text=>text=text.replace(/\{\}/g,handler.prefix||'<@296855425255473154> '))).forEach(cmd=>embed.addField(...cmd));
         tc.send('', { embed });
       }else if(m.content.match(/^<@!?296855425255473154>\s*now\s*playing/i)){
         tc.send(`Currently playing ${handler.player.lastPlayed.name}`);
