@@ -38,15 +38,16 @@ const chart = require('canvas-chart');
 client.mcounterI = setInterval(() => {
   client.mps.unshift(~~(~~((100*client.thismcounter)/300+2e-1)));
   client.thismcounter = 0;
-  client.mps.length = Math.min(client.mps.length, 25);
+  client.mps.length = Math.min(client.mps.length, 12);
   chart.graph(client.mps, {
     filename:'mps',
-    grid: false,
-    fillColor: 'rgba(12,12,230,1)',
+    grid: true,
+    lineWidth: 10,
+    //fillColor: 'rgba(12,12,132,1)',
     height: 1200,
     width: 720,
   });
-}, 3000);
+}, 5000);
 const msghandle = async message => {
   client.shard.broadcastEval(`client.thismcounter++`);
   /*try{
