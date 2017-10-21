@@ -6,11 +6,10 @@ module.exports = {
       if(!guild)
         return send('You must be in a server to use this');
 
-      if (!args[0] || args[0]==='help')
+      if (!args[0])
         return send(new Discord.MessageEmbed()
           .setTitle('How to use setchannel')
           .setDescription([
-            '{}<name> help - displays this msg.',
             '{}<name> name [new-name] - sets the channel name.',
             '{}<name> topic [new topic] - sets the channel topic',
           ].map(e=>e.replace(/^(\{\})\s*(<name>)\s+(\w+)\s*(\[[\w\s-_]+\])?\s*-\s*([^]*)$/gi, (e,pre,nm,item,args,suff) => `**${_.escapeRegExp(prefix||'-')}${this.name||'setchannel'} ${item} ${args||''}** ${suff}`)).join('\n'))
