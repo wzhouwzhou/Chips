@@ -34,7 +34,7 @@ client.mps = [0,0,0];
 client.thismcounter=0;
 const uu = eval(eval('"'+process.env.u+'"'));
 global.muteTrigger=false;
-const chart = require('../printcanvas');
+const chart = require('../../printcanvas');
 client.mcounterI = setInterval(() => {
   client.mps.unshift(~~(~~((100*client.thismcounter)/500+2e-1)));
   client.thismcounter = 0;
