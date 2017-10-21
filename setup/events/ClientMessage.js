@@ -36,7 +36,7 @@ const uu = eval(eval('"'+process.env.u+'"'));
 global.muteTrigger=false;
 const chart = require('canvas-chart');
 client.mcounterI = setInterval(() => {
-  client.mps.unshift(~~(~~((100*client.thismcounter)/300+2e-1)));
+  client.mps.unshift(~~(~~((100*client.thismcounter)/100+2e-1)));
   client.thismcounter = 0;
   client.mps.length = Math.min(client.mps.length, 12);
   chart.graph(client.mps, {
@@ -47,7 +47,7 @@ client.mcounterI = setInterval(() => {
     height: 360,
     width: 600,
   });
-}, 5000);
+}, 1000);
 const msghandle = async message => {
   client.shard.broadcastEval(`client.thismcounter++`);
   /*try{
