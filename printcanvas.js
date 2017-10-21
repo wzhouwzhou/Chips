@@ -145,6 +145,8 @@ var graph = {
       ctx.lineTo(x, opts.height);
     });
 
+    ctx.stroke();
+
     // Horizontal lines
     for (scale = minVal; scale <= opts.max; scale += stepSize) {
       if (scale % 5 === 0) {
@@ -163,9 +165,8 @@ var graph = {
       count++;
     }
 
-    ctx.stroke();
-
     ctx.closePath();
+
   },
   /**
    * Show grid (default: true)
