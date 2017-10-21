@@ -148,14 +148,14 @@ module.exports = function( send ) {
   //music(client, { prefix: '-', anyoneCanSkip: true });
   client.on('guildCreate', g => {
     const scpt = `try { client.channels.get('307624059984674816')
-.send('I just joined a new server! Its name is ${g.name.replace('@','(at)')} and it has ${g.members.size} members! It is owned by <@${g.ownerID}> (${getUser(g.ownerID).tag}, ${g.ownerID}!);} catch(err){}`;
+.send('I just joined a new server! Its name is ${g.name.replace('@','(at)')} and it has ${g.members.size} members! It is owned by <@${g.ownerID}> (${g.ownerID}!})');} catch(err){}`;
     clientutil.broadcastEval(scpt);
     console.log('I just joined a new server! Its name is '+g.name.replace('@','(at)') +' and it has ' + g.members.size + ' members!');
   });
 
   client.on('guildDelete', gu => {
     try{
-      const scpt = `try { client.channels.get('307624059984674816').send('I just left a server! Its name was ${gu.name.replace('@','(at)')} and it had ${gu.members.size} members! It was owned by <@${gu.ownerID}> (${getUser(gu.ownerID).tag}, ${gu.ownerID}!)');} catch(err){}`;
+      const scpt = `try { client.channels.get('307624059984674816').send('I just left a server! Its name was ${gu.name.replace('@','(at)')} and it had ${gu.members.size} members! It was owned by <@${gu.ownerID}> (${gu.ownerID})');} catch(err){}`;
       clientutil.broadcastEval(scpt);
       console.log('I just left a server! Its name was '+gu.name.replace('@','(at)') +' and it had ' + gu.members.size + ' members!');
     }catch(err){
