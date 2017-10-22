@@ -23,6 +23,7 @@ const neko = [
   '205608598233939970',  //lucas, a guy that wants perms
   '290177579267260416', //yosh, a guy that's hoping for immuniteh xd
   '262127229385965570', //devon, for making chips logos
+  '205708445725229056', //artifical, removing this soon
 ];
 
 const ex= {
