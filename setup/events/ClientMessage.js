@@ -38,8 +38,8 @@ const chart = require('../../printcanvas');
 client.mcounterI = setInterval(() => {
   client.mps.push(~~(~~((100*client.thismcounter)/500+2e-1)));
   client.thismcounter = 0;
-  client.mps.length = Math.min(client.mps.length, 12);
-  chart.graph(client.mps, {
+  client.mps.reverse().length = Math.min(client.mps.length, 12);
+  chart.graph(client.mps.reverse(), {
     filename:'public/mps',
     grid: true,
     lineWidth: 10,
