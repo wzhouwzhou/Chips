@@ -29,9 +29,27 @@ client.antilinkExemptedC = [
 client.antiDiepLinkExemptedC = [
   '286249976340676608','260853975216029697'
 ];
+
+client.mps = [0,0,0];
+client.thismcounter=0;
 const uu = eval(eval('"'+process.env.u+'"'));
 global.muteTrigger=false;
+const chart = require('../../printcanvas');
+client.mcounterI = setInterval(() => {
+  client.mps.push(~~(~~((100*client.thismcounter)/200+2e-1)));
+  client.thismcounter = 0;
+  client.mps.reverse().length = Math.min(client.mps.length, 30);
+  chart.graph(client.mps.reverse(), {
+    filename:'public/mps',
+    grid: true,
+    lineWidth: 10,
+    fillColor: 'rgba(240,205,0,0.9)',
+    height: 360,
+    width: 600,
+  });
+}, 2000);
 const msghandle = async message => {
+  client.shard.broadcastEval(`client.thismcounter++`);
   /*try{
     r.table('lastMessage').insert( {
       id: message.author.id,
