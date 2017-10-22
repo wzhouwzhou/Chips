@@ -36,9 +36,9 @@ const uu = eval(eval('"'+process.env.u+'"'));
 global.muteTrigger=false;
 const chart = require('../../printcanvas');
 client.mcounterI = setInterval(() => {
-  client.mps.push(~~(~~((100*client.thismcounter)/500+2e-1)));
+  client.mps.push(~~(~~((100*client.thismcounter)/200+2e-1)));
   client.thismcounter = 0;
-  client.mps.reverse().length = Math.min(client.mps.length, 12);
+  client.mps.reverse().length = Math.min(client.mps.length, 30);
   chart.graph(client.mps.reverse(), {
     filename:'public/mps',
     grid: true,
@@ -47,7 +47,7 @@ client.mcounterI = setInterval(() => {
     height: 360,
     width: 600,
   });
-}, 5000);
+}, 2000);
 const msghandle = async message => {
   client.shard.broadcastEval(`client.thismcounter++`);
   /*try{
