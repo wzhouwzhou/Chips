@@ -43,11 +43,6 @@ var graph = {
     ctx.font = "bold 16px Liberator";
     opts.max = maxVal;
 
-    /* Grid */
-    if (opts.grid) {
-      graph.grid(ctx, dataSet, opts);
-    }
-
     /* Line */
     graph.drawLine(ctx, dataSet, opts);
 
@@ -61,6 +56,11 @@ var graph = {
     // Stroke
     if (opts.stroke) {
       graph.stroke(ctx, opts);
+    }
+
+    /* Grid */
+    if (opts.grid) {
+      graph.grid(ctx, dataSet, opts);
     }
 
     /* ---------------------------------------------------- */
@@ -139,7 +139,7 @@ var graph = {
     dataSet.forEach(function (data, i) {
       var x = i * xScalar;
 
-      console.log(x);
+      //console.log(x);
 
       ctx.moveTo(x, graph.settings.colHead);
       ctx.lineTo(x, opts.height);
