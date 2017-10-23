@@ -101,6 +101,7 @@ ex.permsList = [
       ['global.moderation.bans.hackban', false],
       ['global.moderation.bans.reactban', false],//To be added/renamed
       ['global.moderation.bans.roleban', false], //To be added/renamed
+      ['global.moderation.bans.instaban', false]
     ['global.moderation.botnick.*', false],
       ['global.moderation.botnick.change', false],
     ['global.moderation.chipsprefix.*', false],
