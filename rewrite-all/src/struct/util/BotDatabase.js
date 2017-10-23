@@ -28,9 +28,9 @@ const BotDatabase = class BotDatabase extends Database {
     return await this.insertInTable('botStartLog', Date.now(), status);
   }
 
-  loadGFunctions (path = path.join(__dirname, './gLoaders')) {
-    if(!path) throw new Error(`Invalid gLoader path specified of ${path}`);
-    this.gLoaderPath = path;
+  loadGFunctions (lpath = path.join(__dirname, './gLoaders')) {
+    if(!lpath) throw new Error(`Invalid gLoader path specified of ${lpath}`);
+    this.gLoaderPath = lpath;
     for(const ploader of fs.readdirSync(this.gLoaderPath)) {
       const loader = new (require(`${this.gLoaderPath}/${ploader}`).default)(this);
       delete require.cache[require.resolve(`${this.gLoaderPath}/${ploader}`)];
