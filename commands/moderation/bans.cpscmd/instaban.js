@@ -26,7 +26,7 @@ module.exports = {
         if(reason == null)
             reason = "No reason provided.";
 
-    if(m.author.id!=author.id) return;
+    if(message.author.id!=author.id) return;
         
     if(!memberToUse.bannable) return reply("Uh oh! I can't ban this user! Perhaps I am missing perms..");
 
