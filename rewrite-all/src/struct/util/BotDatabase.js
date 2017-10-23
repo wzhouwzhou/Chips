@@ -32,6 +32,7 @@ const BotDatabase = class BotDatabase extends Database {
     if(!lpath) throw new Error(`Invalid gLoader path specified of ${lpath}`);
     this.gLoaderPath = lpath;
     for(const ploader of fs.readdirSync(this.gLoaderPath)) {
+      console.log(`Requiring ${this.gLoaderPath}/${ploader}…`)
       const loader = new (require(`${this.gLoaderPath}/${ploader}`).default)(this);
       delete require.cache[require.resolve(`${this.gLoaderPath}/${ploader}`)];
       this.loadFunctions[loader.loadername] = loader;
