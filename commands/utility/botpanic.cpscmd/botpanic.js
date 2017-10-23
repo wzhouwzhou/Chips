@@ -10,7 +10,7 @@ module.exports = {
       default:
         return reply(`No!`);
     }
-    database.sheets[`botlog`].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "PANIC", mainvalue: "SIGTERM"},(err) => {console.log(`Error : ${err}`);});
+    client.database.sheets[`botlog`].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "PANIC", mainvalue: "SIGTERM"},(err) => {console.log(`Error : ${err}`);});
     //await client.user.setStatus("idle");
     //await client.user.setGame("Restarting");
     await reply('Bot restarting!');
