@@ -41,10 +41,10 @@ module.exports = {
           .then(u=>u.send('Uh oh!', {embed: emb}))
           .then(()=>{
             message.reply("Banning!");
-            memberToUse.ban({reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
+            memberToUse.ban({reason: `[BAN]: [Author]: ${message.author.tag} [Reason]: ${reason}`});
           }).catch(()=>{
             message.reply("Could not dm the user, but banning anyway!");
-            memberToUse.ban({reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
+            memberToUse.ban({reason: `[BAN]: [Author]: ${message.author.tag} [Reason]: ${reason}`});
           });
       }
 };
