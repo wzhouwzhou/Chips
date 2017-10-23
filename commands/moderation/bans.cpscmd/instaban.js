@@ -23,28 +23,27 @@ module.exports = {
     let reason;
     if(args[1])
       reason = content.substring(content.indexOf(args[1]));
-        if(reason == null)
-            reason = "No reason provided.";
-
-    if(m.author.id!=author.id) return;
+    if(reason == null)
+      reason = "No reason provided.";
+    if(msg.author.id!=author.id) return;
 
     if(!memberToUse.bannable) return reply("Uh oh! I can't ban this user! Perhaps I am missing perms..");
 
-        console.log("[Ban] Banning...");
-        let emb = new Discord.MessageEmbed()
-          .setAuthor("Ban Notice!")
-          .setTitle(`You were banned from the server: ${guild.name}!`)
-          .setColor(9109504)
-          .setThumbnail(Constants.images.WARNING)
-          .addField("Ban reason: ", `${reason}`, true);
-          client.users.fetch(memberToUse.id)
-          .then(u=>u.send('Uh oh!', {embed: emb}))
-          .then(()=>{
-            message.reply("Banning!");
-            memberToUse.ban({reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
-          }).catch(()=>{
-            message.reply("Could not dm the user, but banning anyway!");
-            memberToUse.ban({reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
-          });
-      }
+    //console.log("[Ban] Banning...");
+    let emb = new Discord.MessageEmbed()
+      .setAuthor("Ban Notice!")
+      .setTitle(`You were banned from the server: ${guild.name}!`)
+      .setColor(9109504)
+      .setThumbnail(Constants.images.WARNING)
+      .addField("Ban reason: ", `${reason}`, true);
+    client.users.fetch(memberToUse.id)
+      .then(u=>u.send('Uh oh!', {embed: emb}))
+      .then(()=>{
+        reply("Banning!");
+        return memberToUse.ban({reason: `[BAN]: [Author]: ${msg.author.tag} [Reason]: ${reason}`});
+      }).catch(()=>{
+        msg.reply("Could not dm the user, but banning anyway!");
+        return memberToUse.ban({reason: `[BAN]: [Author]: ${msg.author.tag} [Reason]: ${reason}`});
+      });
+  }
 };
