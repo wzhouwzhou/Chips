@@ -104,10 +104,8 @@ client.disableSelfStar = {
 };
 const { BotDatabase } = require('./rewrite-all/src/struct/util/BotDatabase');
 client.database = new BotDatabase(client);//require(path.join(__dirname, './setup/db/DatabaseLoader'));
-client.database = database;
-database.load();
-
-client.database.connect().
+//client.database = database;
+client.database.connect().load();
 /** Other Global Constants **/
 global.moment = require('moment');
 
