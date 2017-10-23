@@ -9,6 +9,7 @@ exports.default = class SBKPointsLoader extends GLoader {
   }
 
   load ({ database, sheet }) {
+    console.log('Rawpts load called');
     return new Promise ((res, rej) => {
       sheet.getRows({ offset: 1, limit: 999999}, (err, rows) => {
         if (err) return rej(err);

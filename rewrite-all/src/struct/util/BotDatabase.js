@@ -3,6 +3,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 const moment = require('moment');
 const fs = require('fs');
+const path = require('path');
 const { Database } = require('./Database');
 
 const BotDatabase = class BotDatabase extends Database {
