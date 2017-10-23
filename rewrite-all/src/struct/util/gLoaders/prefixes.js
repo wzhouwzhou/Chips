@@ -5,7 +5,7 @@ const { GLoader } = require('../GLoader');
 
 exports.default = class CPrefixLoader extends GLoader {
   constructor (db) {
-    super((__filename).match(/\/([^/.]+)[^/]*$/), db);
+    super((__filename).match(/\/([^/.]+)[^/]*$/)[1], db);
   }
 
   load ({ client, sheet }) {
