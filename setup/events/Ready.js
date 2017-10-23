@@ -4,10 +4,10 @@ const readline = require('readline');
 
 module.exports = function( send ) {
   if(process.env.BETA!=null&&process.env.BETA=='true')
-    client.login(process.env.BETATOKEN);
+    client.database.load().then(()=>client.login(process.env.BETATOKEN));
   else{
     console.log('Logging in…');
-    client.login(process.env.TOKEN);
+    client.database.load().then(()=>client.login(process.env.TOKEN));
     console.log('Chips login called');
   }
   if(client.id!='309504998864060416'){
@@ -27,7 +27,6 @@ module.exports = function( send ) {
     c3.login(require(path.join(__dirname, '../sBotT'))[1]);
 
   client.on('ready', async function() {
-    await client.database.load();
     require(path.join(__dirname, '../../handlers/DiepAddons')).getServers();
     console.log('[DBLOADER][DB] Latest start: '+ (await client.database.fetchLastStartStatus()));
     await client.database.writeLastStart();
