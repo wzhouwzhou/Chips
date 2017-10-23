@@ -34,7 +34,7 @@ module.exports = {
     embed
       .setAuthor(`Ban confirmation - Banning ${memberToUse.user.tag}`, memberToUse.user.displayAvatarURL)
       .setColor("RED")
-      .setTitle("Instaban")
+      .setTitle(question)
       .setDescription(reason || "No reason")
       .setTimestamp(new Date())
       .setThumbnail(Constants.images.WARNING);

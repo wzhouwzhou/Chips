@@ -30,15 +30,15 @@ module.exports = {
     embed
       .setAuthor(`Ban confirmation - Banning ${memberToUse.user.tag}`, memberToUse.user.displayAvatarURL)
       .setColor("RED")
-      .setTitle(question)
+      .setTitle("Instaban")
       .setDescription(reason || "No reason")
       .setTimestamp(new Date())
       .setThumbnail(Constants.images.WARNING);
     await reply('', { embed } );
 
-        if(m.author.id!=author.id) return;
+    if(m.author.id!=author.id) return;
         
-        if(!memberToUse.bannable) return reply("Uh oh! I can't ban this user! Perhaps I am missing perms..");
+    if(!memberToUse.bannable) return reply("Uh oh! I can't ban this user! Perhaps I am missing perms..");
 
         console.log("[Ban] Banning...");
         let emb = new Discord.MessageEmbed()
@@ -57,4 +57,4 @@ module.exports = {
             memberToUse.ban({reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
           });
       }
-    };
+};
