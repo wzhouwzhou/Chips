@@ -68,7 +68,11 @@ console.log('[CPSCMD][MODERATION][ban] Build objects complete!');
 module.exports = [
   [ban.name,ban],
   [hackban.name,hackban],
-  [instaban.name,instaban],
-  [unban.name,unban],
-  [softban.name,softban],
+  ['hban', hackban],
+  [instaban.name, instaban],
+  ['iban', instaban],
+  [unban.name, unban],
+  ['uban', unban],
+  [softban.name, softban],
+  ['sban', softban]
 ];
