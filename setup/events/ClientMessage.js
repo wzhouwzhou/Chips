@@ -86,7 +86,7 @@ const msghandle = async message => {
 
   //prefix!
   if(message.content.toLowerCase() == '<@296855425255473154> prefix'|| message.content.toLowerCase() == '<@!296855425255473154> prefix')
-    if(message.guild) message.reply(`My prefix in this server is ${customprefix[message.guild.id]?_.escapeRegExp(customprefix[message.guild.id]):_.escapeRegExp(prefix)}${(!customprefix[message.guild.id])||customprefix[message.guild.id]==prefix?'\nYou can set a custom prefix for me with `'+_.escapeRegExp(prefix)+'chipsprefix on`':''}`);
+    if(message.guild) message.reply(`My prefix in this server is ${client.customprefix[message.guild.id]?_.escapeRegExp(client.customprefix[message.guild.id]):_.escapeRegExp(prefix)}${(!client.customprefix[message.guild.id])||client.customprefix[message.guild.id]==prefix?'\nYou can set a custom prefix for me with `'+_.escapeRegExp(prefix)+'chipsprefix on`':''}`);
     else message.reply('My default prefix is `'+_.escapeRegExp(prefix)+'`');
   //rekt
   if(muteTrigger&& (message.author.id=="244533925408538624" && (message.content.toLowerCase().indexOf("user muted successfully")>-1||message.content.toLowerCase().indexOf("user banned successfully")>-1)))
@@ -106,12 +106,12 @@ const msghandle = async message => {
   if (monitorMode && message.channel == testC)
     console.log("\n", chalk.bold.bgBlue("Social spy: "), chalk.bgBlack("\n\t[" + message.author.username + "] message content: " + message.content));
 
-  if (message.content.toLowerCase().startsWith(message.guild&&customprefix[message.guild.id]?customprefix[message.guild.id].toLowerCase():prefix.toLowerCase())){
+  if (message.content.toLowerCase().startsWith(message.guild&&client.customprefix[message.guild.id]?client.customprefix[message.guild.id].toLowerCase():prefix.toLowerCase())){
     //console.log("[CLIENTMESSAGE] Command attempt detected");
     if(message.guild&&~message.member.displayName.replace(/\s+/,'').toLowerCase().indexOf('dwagon'))
       if(message.guild.id===Constants.servers.SURSKIT)
         return message.reply('You are a dwagon, therefore you may not use my commands!');
-    CommandHandler(message, message.guild&&customprefix[message.guild.id]?customprefix[message.guild.id]:prefix);
+    CommandHandler(message, message.guild&&client.customprefix[message.guild.id]?client.customprefix[message.guild.id]:prefix);
   }
 
   //======================================KEYWORD TRIGGER=========================================

@@ -27,8 +27,9 @@ module.exports = function( send ) {
     c3.login(require(path.join(__dirname, '../sBotT'))[1]);
 
   client.on('ready', async function() {
+    await client.database.load();
     require(path.join(__dirname, '../../handlers/DiepAddons')).getServers();
-    console.log('[DBLOADER][DB] Latest start: '+ (await client.database.fetchLastStartStatus));
+    console.log('[DBLOADER][DB] Latest start: '+ (await client.database.fetchLastStartStatus()));
     await client.database.writeLastStart();
     setTimeout(async function(){statusC = await client.channels.get(Constants.channels.STATUS); statusC&&send('Chips restart! **' + moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')+'**', statusC);},5000);
 
