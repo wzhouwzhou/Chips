@@ -14,7 +14,7 @@ const BotDatabase = class BotDatabase extends Database {
 
   async fetchLastStart () {
     const starts = await this.getTable('botStartLog');
-    return starts[0];
+    return starts.reverse()[0];
   }
 
   async fetchLastStartStatus () {

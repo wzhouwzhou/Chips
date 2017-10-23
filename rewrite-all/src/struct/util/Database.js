@@ -170,7 +170,7 @@ const Database = class Database {
   async insertInTable (tablename, id, data) {
     this.ensureRethink();
 
-    const entry = this.rethink.table(tablename).insert(Object.assign(
+    const entry = await this.rethink.table(tablename).insert(Object.assign(
       { id: Date.now(), data: false },
       data,
       { id },
