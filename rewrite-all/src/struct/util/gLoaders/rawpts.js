@@ -1,7 +1,7 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const { GLoader } = require('./GLoader');
+const { GLoader } = require('../GLoader');
 
 exports.default = class SBKPointsLoader extends GLoader {
   constructor (db) {
