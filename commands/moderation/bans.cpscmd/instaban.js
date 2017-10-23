@@ -50,10 +50,10 @@ module.exports = {
           client.users.fetch(memberToUse.id)
           .then(u=>u.send('Uh oh!', {embed: emb}))
           .then(()=>{
-            m.reply("Banning!");
+            message.reply("Banning!");
             memberToUse.ban({reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
           }).catch(()=>{
-            m.reply("Could not dm the user, but banning anyway!");
+            message.reply("Could not dm the user, but banning anyway!");
             memberToUse.ban({reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`});
           });
       }
