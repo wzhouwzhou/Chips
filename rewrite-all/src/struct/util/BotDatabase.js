@@ -8,6 +8,7 @@ const { Database } = require('./Database');
 const BotDatabase = class BotDatabase extends Database {
   constructor(client) {
     super(client);
+    this.loadGFunctions();
   }
 
   async fetchLastStart () {
