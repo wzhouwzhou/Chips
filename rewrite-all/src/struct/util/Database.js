@@ -50,12 +50,12 @@ const Database = class Database {
    * Helper function to ensure that rethinkdb is initiated and usable.
    *
    * @method ensureRethink
-   * @return {boolean}      true if test passed
+   * @return {Database}      this if test passed
    */
 
   ensureRethink () {
     if(!this.rethink) throw new Error('Rethink not connect');
-    return true;
+    return this;
   }
 
   /**

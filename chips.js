@@ -48,14 +48,14 @@ global.memberjoin = {
       4. Did you read <#348082661060771841>? You must promise to follow the rules and agree to the bot TOS.
       5. What is your favorite diep.io tank?
 You can answer these in this channel (don't dm them!) with just a sentence or two for each, no need to write an essay!)`,
-    
+
     "274260111415836675": `**Hello There! If you want access to other text channels, you must be verified in the process. If there are no staff online, please wait.**
       __**Here are the questions:**__
       **1.** __How did you get here?__
       **2.** __Do you know anyone in this Discord?__
       **3.** __What is your favourite hat in Starve.io?__ **(If you don't know anything about starve.io, just say __"skip"__.)**
     **4.** __What is your favourite tank in Diep.io__ **(If you don't know anything about diep.io, just say __"skip"__.)**`,
-    
+
     "302983444009451541": `Hai hoi! I'm just testing :>`,
     "250801092143611905": 'Welcome to Diep Colony! Please wait for online staff to verify you!',
     '359801125882298378': 'Welcome to nsfw empire. Please wait to be verified.',
@@ -102,8 +102,12 @@ client.disableSelfStar = {
   "323867107840229376": true,
   "274260111415836675": true,
 };
+const { BotDatabase } = require('./rewrite-all/src/struct/util/BotDatabase');
+global.database = new BotDatabase(client);//require(path.join(__dirname, './setup/db/DatabaseLoader'));
+client.database = database;
+database.load();
 
-global.database = require(path.join(__dirname, './setup/db/DatabaseLoader'));
+client.database.connect().
 /** Other Global Constants **/
 global.moment = require('moment');
 
