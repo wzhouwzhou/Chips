@@ -13,6 +13,7 @@ const sinbad = require(path.join(__dirname, '../routes/sinbad'));
 const login = require(path.join(__dirname, '../routes/login'));
 const vy = require(path.join(__dirname, '../routes/vy'));
 const xena = require(path.join(__dirname, '../routes/xena'));
+const errp = require(path.join(__dirname, '../routes/error'));
 const updates = require(path.join(__dirname, '../routes/updates'));
 const useroverview = require(path.join(__dirname, '../routes/updates'));
 const index = require(path.join(__dirname, '../routes/index'));
@@ -158,13 +159,15 @@ module.exports = function() {
   app.use(function(err, req, res) {
     // set locals, only providing error in development
     res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    res.locals.error = {};//req.app.get('env') === 'development' ? err : {};
 
     // render the error page
     res.status(err.status || 500);
-    res.render('error', { type: err.status || 500 });
     if (!err.status || err.status == 500) console.error("Internal error: " + err);
+    next(err);
   });
+
+  app.use('/*',errp);
 
   app.set('port', (process.env.PORT || 5000));
 
