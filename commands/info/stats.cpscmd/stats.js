@@ -55,7 +55,7 @@ module.exports = {
       ['Shard Memory usage: ', `${memAverage} MB`],
       ['CPU usage (%): ', cpuAverage],
       [`Shard channel count: \n\t\t**${channels}**\nText Channel Count:\n\t\t**${textChannels}**\nVoice Channel Count:\n\t\t**${voiceChannels}**`,' '],
-    ].map(e=>`${e[0]}\n\t\t**${e[1]}**`).join('\n'), true);
+    ].map(e=>`**${e[0]}**\n\t\t${e[1]}`).join('\n'), true);
 
     embed.addField("Chips 0.3.4 stats across all shards:", [
       ['Total Member Count: ', userCountG],
@@ -67,7 +67,7 @@ module.exports = {
       ['Total CPU Usage: ', `${cpuAveG}%`],
       ['Memory Usage: ', `Used ${memAveG} of ${totalMemG} mb allocated`],
       [`Node **${process.version}**\nLib  **v${Discord.version}**`,' '],
-    ].map(e=>`${e[0]}\n\t\t**${e[1]}**`).join('\n'), true);
+    ].map(e=>`**${e[0]}**\n\t\t${e[1]}`).join('\n'), true);
 
     embed.setFooter(`Chips stats lookup and calculations took ${(new Date).getTime() - start}ms.`);
     channel.stopTyping();
