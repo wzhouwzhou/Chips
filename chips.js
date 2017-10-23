@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 global._ = require("lodash");
 const OL1 = console.log;
-console.log = (...args) => OL1(...args.map(e => (e+[]).replace(new RegExp(`${_.escapeRegExp(__dirname)}`,'gi'),'$./')));
+console.log = (...args) => OL1(...args.map(e => (e+[]).replace(new RegExp(`${_.escapeRegExp(__dirname)}`,'gi'),'$.')));
 
 global.Constants = require("./setup/Constants");
 const changeConsole_1 = require("./setup/logging/changeConsole");
