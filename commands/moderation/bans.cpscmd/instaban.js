@@ -1,6 +1,6 @@
 module.exports = {
     name:'instaban',
-    async func(msg, { send, reply, member, author, content, args, channel, guild, gMember }) {
+    async func(msg, { send, reply, member, author, content, args, guild, gMember }) {
     let memberToUse;
     try{ //get mention:
       console.log("Trying to find user by mention..");
@@ -27,7 +27,7 @@ module.exports = {
             reason = "No reason provided.";
 
     if(m.author.id!=author.id) return;
-        
+
     if(!memberToUse.bannable) return reply("Uh oh! I can't ban this user! Perhaps I am missing perms..");
 
         console.log("[Ban] Banning...");

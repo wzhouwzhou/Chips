@@ -19,19 +19,19 @@ ex = {
         customprefix[guild.id]=newprefix;
         filter=require(path.join(__dirname, '../../../handlers', 'Filter'))();
         console.log(`${member.user.tag} changed prefix for guild ${guild.id}: ${newprefix}`);
-        database.sheets['prefixes'].addRow({guildid: guild.id, prefix: newprefix});
-        return reply(`Prefix \`\`${newprefix}\`\` set as my prefix successfully!`);
+        client.database.sheets['prefixes'].addRow({guildid: guild.id, prefix: newprefix});
+        return reply(`Prefix __${_.escapeRegExp(newprefix)}__ set as my prefix successfully!`);
       }
     }else if(action=="reset"||action=="off"){
       if(!customprefix[guild.id]||customprefix[guild.id]==prefix) return reply(`Custom prefix is not enabled! Set a custom prefix for me with \`\`${prefix}chipsprefix set\`\``);
       customprefix[guild.id]=prefix;
-      database.sheets['prefixes'].addRow({guildid: guild.id, prefix: prefix});
+      client.database.sheets['prefixes'].addRow({ guildid: guild.id, prefix });
       return reply(`Custom prefix reset! My prefix is now \`\`${customprefix[guild.id]}\`\``);
     }else if(action=="on"){
       if((!customprefix[guild.id])||customprefix[guild.id]==prefix)
         return reply(`Set a custom prefix for me with \`\`${prefix}chipsprefix set\`\``);
       else
-        return reply(`A prefix has already been set for this server! Check it with \`\`${customprefix[guild.id]}chipsprefix status\`\``);
+        return reply(`A prefix has already been set for this server! Check it with __${_.escapeRegExp(customprefix[guild.id])}chipsprefix status__`);
     }
   }
 };
