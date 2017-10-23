@@ -143,13 +143,15 @@ const Database = class Database {
     this._sheets[gsheet.title] = gsheet;
     for (const preF in this.loadFunctions) {
       console.log('Seeing preF: '+preF);
-      if(gsheet.title === preF)
+      if(gsheet.title === preF) {
+        console.log('Loading preF: '+preF);
         await this.loadFunctions[preF].load({
-          sheet,
+          sheet: gsheet,
           client: this.client,
           database: this,
           permissions: PermissionsHandler
         });
+      }
     }
     return this._sheets;
   }
