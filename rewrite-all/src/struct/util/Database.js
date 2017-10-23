@@ -149,7 +149,7 @@ const Database = class Database {
           sheet: gsheet,
           client: this.client,
           database: this,
-          permissions: PermissionsHandler
+          Permissions: PermissionsHandler
         });
       }
     }
