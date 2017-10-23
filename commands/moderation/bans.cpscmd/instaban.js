@@ -26,7 +26,7 @@ module.exports = {
         if(reason == null)
             reason = "No reason provided.";
 
-    if(message.author.id!=author.id) return;
+    if(msg.author.id!=author.id) return;
         
     if(!memberToUse.bannable) return reply("Uh oh! I can't ban this user! Perhaps I am missing perms..");
 
@@ -40,11 +40,11 @@ module.exports = {
           client.users.fetch(memberToUse.id)
           .then(u=>u.send('Uh oh!', {embed: emb}))
           .then(()=>{
-            message.reply("Banning!");
-            memberToUse.ban({reason: `[BAN]: [Author]: ${message.author.tag} [Reason]: ${reason}`});
+            msg.reply("Banning!");
+            memberToUse.ban({reason: `[BAN]: [Author]: ${msg.author.tag} [Reason]: ${reason}`});
           }).catch(()=>{
-            message.reply("Could not dm the user, but banning anyway!");
-            memberToUse.ban({reason: `[BAN]: [Author]: ${message.author.tag} [Reason]: ${reason}`});
+            msg.reply("Could not dm the user, but banning anyway!");
+            memberToUse.ban({reason: `[BAN]: [Author]: ${msg.author.tag} [Reason]: ${reason}`});
           });
       }
 };
