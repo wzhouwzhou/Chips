@@ -162,16 +162,15 @@ module.exports = function() {
     res.locals.error = {};//req.app.get('env') === 'development' ? err : {};
 
     // render the error page
-    res.status(err.status || 500);
     if (!err.status || err.status == 500) console.error("Internal error: " + err);
     next(err);
   });
-
+  app.use('/errr',errp);
   app.use('/*',errp);
 
   app.set('port', (process.env.PORT || 5000));
 
-  app.listen(app.get('port'), '127.0.0.1', function() {
+  app.listen(app.get('port'), process.env.MYIP||'127.0.0.1', function() {
     console.log('Node app is running on port', app.get('port'));
   });
 
