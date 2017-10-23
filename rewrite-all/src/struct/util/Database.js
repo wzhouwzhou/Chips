@@ -98,7 +98,7 @@ const Database = class Database {
           this.numloads = info.worksheets.length;
           for (const sheet of info.worksheets) {
             this.loadGSheet(sheet);
-            --numloads;
+            --this.numloads;
           }
 
           return res(this);
@@ -122,9 +122,10 @@ const Database = class Database {
         this.sbkPoints.getInfo((err,info) => {
           if(err) return rej(err);
           this.numsbkloads = info.worksheets.length;
-          for (const sheet of info.worksheets)
+          for (const sheet of info.worksheets) {
             this.loadGSheet(sheet);
-
+            --this.numsbkloads;
+          }
           return res(this);
         });
       });
