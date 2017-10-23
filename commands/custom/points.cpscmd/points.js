@@ -2,10 +2,11 @@ const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).def
 
 module.exports = {
   name: "points",
-  async func(msg, {send, member, author, content, guild, args, gMember, reply, prefix, Discord}) {
+  async func(msg, { send, member, author, content, guild, args, gMember, reply, prefix, Discord, client }) {
     if(!guild||(guild.id!="257889450850254848"&&guild.id!="302983444009451541")) return;
     const used = member || author;
-    let dbUser = database.sinxUsers.get(used.id);
+    await client.database.loadSBKGS();
+    let dbUser = client.database.sinxUsers.get(used.id);
 
     let embed = new Discord.MessageEmbed;
     if(args[0]==null){
@@ -17,7 +18,7 @@ module.exports = {
 
         let nextUser2, nextUser, temp = [], ind = -1;
 
-        Array.from(database.sinxUsers).forEach(e=>temp.push([e[1],+e[1].rnk]));
+        Array.from(client.database.sinxUsers).forEach(e=>temp.push([e[1],+e[1].rnk]));
         temp.sort( (a,b) => a[1]-b[1]);
         console.log('tempsize'+temp.length);
         nextUser = temp[0][0];
@@ -52,7 +53,7 @@ module.exports = {
         return reply('', {embed});
       }else{
         let temp = [], firstPlace, lowest, diffP;
-        Array.from(database.sinxUsers).forEach(e=>temp.push([e[1],(+e[1].pts)]));
+        Array.from(client.database.sinxUsers).forEach(e=>temp.push([e[1],(+e[1].pts)]));
         temp.sort( (a,b) => a[1]-b[1]);
         firstPlace = temp[0][0];
         lowest = temp[temp.length-1][0];
@@ -62,7 +63,7 @@ module.exports = {
         embed.setColor(member.displayColor);
         embed.addField(`Ranked #${+firstPlace.rnk+1}`,`---`);
 
-        let stats1 =`${Array.from(database.sinxUsers).every(e=>{
+        let stats1 =`${Array.from(client.database.sinxUsers).every(e=>{
           if(e&&e[1]&&e[1].pts)
             return e.pts == '0';
           else return true;
@@ -182,7 +183,7 @@ ${diffP} points to go to catch up to ${lowest.unm} (#${lowest.rnk})`;
       // await send(`[Debug] memid: ${mem?mem.id:'none'}`);
       // console.log("Target: "+target);
       if(mem==null) return reply(`User [${target}] was not found in this server`);
-      let dbUser = database.sinxUsers.get(mem.id);
+      let dbUser = client.database.sinxUsers.get(mem.id);
 
       if(dbUser&&dbUser.pts!=0){
         const theMember = guild.members.get(dbUser.uid);
@@ -192,7 +193,7 @@ ${diffP} points to go to catch up to ${lowest.unm} (#${lowest.rnk})`;
 
         let nextUser, nextUser2, temp = [], ind = -1;
 
-        Array.from(database.sinxUsers).forEach(e=>temp.push([e[1],+e[1].rnk]));
+        Array.from(client.database.sinxUsers).forEach(e=>temp.push([e[1],+e[1].rnk]));
         temp.sort( (a,b) => a[1]-b[1]);
         console.log('tempsize'+temp.length);
         nextUser = temp[0][0];
@@ -226,7 +227,7 @@ ${diffP} points to go to catch up to ${lowest.unm} (#${lowest.rnk})`;
         embed.addField(`${dbUser.pts} ${dbUser.pts==1?'point':'points'}`,str2);
         return reply(`Stats for ${target}`, {embed});
       }else{
-        const arr =Array.from(database.sinxUsers);
+        const arr = Array.from(client.database.sinxUsers);
         let lowest;
         arr.forEach(e=>{
           if(e&&e[1]&&e[1].rnk){
@@ -237,9 +238,9 @@ ${diffP} points to go to catch up to ${lowest.unm} (#${lowest.rnk})`;
         embed.setTitle(mem.user.tag);
         embed.setColor(mem.displayColor);
         embed.addField(`Ranked #${+lowest.rnk+1}`,`---`);
-        let nextUser;// = Array.from(database.sinxUsers).find(e=>e[1].rnk==lowest.rnk-1);
+        let nextUser;// = Array.from(client.database.sinxUsers).find(e=>e[1].rnk==lowest.rnk-1);
 
-        Array.from(database.sinxUsers).forEach(e=>{
+        Array.from(client.database.sinxUsers).forEach(e=>{
           if(!nextUser) nextUser = e[1];
           else if(e[1].pts>0&&e[1].rnk>=nextUser.rnk-1)nextUser = e[1];
         });
