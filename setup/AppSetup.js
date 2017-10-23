@@ -157,7 +157,8 @@ module.exports = function() {
     res.locals.error = {};//req.app.get('env') === 'development' ? err : {};
     res.status(err.status || 500);
     if (!err.status || err.status == 500) console.error("Internal error: " + err);
-    next(err, req, res);
+    res.render('error', { type: err.status || 500, timestamp: new Date().toString() });
+    //next(err, req, res);
   });
 
   app.use('/*',errp);
