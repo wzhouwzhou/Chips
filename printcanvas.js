@@ -214,7 +214,7 @@ var graph = {
     });
 
     stream.on('end', function () {
-      console.log('Graph drawn');
+      //console.log('Graph drawn');
     });
   }
 };
