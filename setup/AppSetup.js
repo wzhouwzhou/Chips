@@ -146,26 +146,20 @@ module.exports = function() {
   app.use('/commands',cmds);
   app.use('/vy',vy);
   app.use('/xen*',xena);
+  app.use('/errr',errp);
   //app.use('/updates',updates);
 
-  // catch 404 and forward to error handler
-  app.use(function(req, res, next) {
+  // error handler
+  app.use((req, res) => {
     var err = new Error('Not Found');
     err.status = 404;
-    next(err);
-  });
-
-  // error handler
-  app.use(function(err, req, res) {
-    // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = {};//req.app.get('env') === 'development' ? err : {};
 
-    // render the error page
     if (!err.status || err.status == 500) console.error("Internal error: " + err);
     next(err);
   });
-  app.use('/errr',errp);
+
   app.use('/*',errp);
 
   app.set('port', (process.env.PORT || 5000));
