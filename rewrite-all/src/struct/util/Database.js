@@ -141,7 +141,8 @@ const Database = class Database {
    */
   async loadGSheet (gsheet) {
     this._sheets[gsheet.title] = gsheet;
-    for (const preF in this.loadFunctions)
+    for (const preF in this.loadFunctions) {
+      console.log('Seeing preF: '+preF);
       if(gsheet.title === preF)
         await this.loadFunctions[preF].load({
           sheet,
@@ -149,6 +150,7 @@ const Database = class Database {
           database: this,
           permissions: PermissionsHandler
         });
+    }
     return this._sheets;
   }
 

@@ -139,7 +139,7 @@ console.log("Initializing...");
 
 /** Events **/
 process.on("unhandledRejection", (rejection) => {
-    console.log(chalk.red("[ERR]"), rejection);
+    console.log(chalk.red("[ERR]"), `${rejection}|${rejection.message}\nStack:${rejection.stack}`);
 });
 //Messenger events
 Messager.on("eval", ({ evalContent, vars, timestamp }) => {
