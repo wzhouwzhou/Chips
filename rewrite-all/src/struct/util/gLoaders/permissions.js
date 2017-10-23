@@ -3,7 +3,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 const { GLoader } = require('./GLoader');
 
-exports.func = class PermisionsLoader extends GLoader {
+exports.default = class PermisionsLoader extends GLoader {
   constructor (db) {
     super((__filename).match(/\/([^/.]+)[^/]*$/), db);
   }
@@ -12,9 +12,9 @@ exports.func = class PermisionsLoader extends GLoader {
     return new Promise ((res, rej) => {
       sheet.getRows({ offset: 1, limit: 999999}, (err, rows) => {
         if (err) return rej(err);
-        rows.forEach(row => {
+        for(const row of rows) {
           if ((row.guildid!=null&&row.guildid!='')&&(client.guilds.get(row.guildid)==null))
-            return;
+            continue;
           else {
             let type = row.type;
             let userid = row.userid.toString();
@@ -23,10 +23,10 @@ exports.func = class PermisionsLoader extends GLoader {
             let perm = row.perm.toString();
             let action = parseInt(row.action);
             Permissions.updatePermission({ type: type, userid: userid, guildid: guildid, roleid: roleid, perm: perm, action: action })
-            .then(res)
             .catch(rej);
           }
-        });
+        }
+        return res(true);
       });
     });
   }

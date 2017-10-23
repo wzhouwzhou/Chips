@@ -7,6 +7,15 @@ const GoogleSpreadsheet = require('google-spreadsheet');
 const reql = require('rethinkdbdash');
 
 const Database = class Database {
+
+  /**
+   * Constructs a database object
+   *
+   * @method constructor
+   * @param  {Discord.Client}    client The bot client this database belongs to.
+   * @return {Database}          This database
+   */
+
   constructor(client) {
     this.client = client;
 
@@ -18,6 +27,12 @@ const Database = class Database {
     this.rtables = {};
   }
 
+  /**
+   * Connects this database to Reql
+   *
+   * @method connect
+   * @return {Database} Returns this database
+   */
   connect () {
     this.rethink = null;
     this.rethink = reql({
@@ -31,9 +46,25 @@ const Database = class Database {
     return this;
   }
 
+  /**
+   * Helper function to ensure that rethinkdb is initiated and usable.
+   *
+   * @method ensureRethink
+   * @return {boolean}      true if test passed
+   */
+
   ensureRethink () {
     if(!this.rethink) throw new Error('Rethink not connect');
+    return true;
   }
+
+  /**
+   * Loads all things related to this database
+   * - Namely, rethinkdb and google sheets;
+   *
+   * @method load
+   * @return {Promise} resolves to this
+   */
 
   async load () {
     this.ensureRethink();
@@ -42,40 +73,82 @@ const Database = class Database {
     this.latestStart = this.startLog&&this.startLog[0]?this.startLog[0]['status']:'Unknown';
 
     this.sinxUsers = new Map();
-    this.loadPrivateGS();
-    this.loadSBKGS();
+    await this.loadPrivateGS();
+    await this.loadSBKGS();
+
+    return this;
   }
 
+  /**
+   * Loads internal google sheets database
+   *
+   * @method loadPrivateGS
+   * @return {Promise}      Resolves to this
+   */
   loadPrivateGS () {
-    this.numloads = -1;
+    return new Promise((res,rej) => {
+      this.numloads = -1;
 
-    this.privateSheet = new GoogleSpreadsheet(process.env.SPREADSHEET_ID);
-    this.sheets = {};
+      this.privateSheet = new GoogleSpreadsheet(process.env.SPREADSHEET_ID);
+      this._sheets = {};
 
-    doc.useServiceAccountAuth(this.glogin, () => {
-      doc.getInfo((err,info) => {
-        if(err) throw err;
-        this.numloads = info.worksheets.length;
-        for (const sheet of info.worksheets) {
-          this.loadGSheet(sheet);
-        }
+      this.privateSheet.useServiceAccountAuth(this.glogin, () => {
+        this.privateSheet.getInfo((err,info) => {
+          if(err) return rej(err);
+          this.numloads = info.worksheets.length;
+          for (const sheet of info.worksheets) {
+            this.loadGSheet(sheet);
+            --numloads;
+          }
+
+          return res(this);
+        });
       });
     });
-
   }
 
+  /**
+   * Loads SBK sheets
+   *
+   * @method loadSBKGS
+   * @return {Promise}  Resolves to this
+   */
   loadSBKGS () {
-    this.sbkPoints = new GoogleSpreadsheet('1UHXrqeaapyCXv-xJV7YmA9r5c_6tjjS9t_55YJhIFVc');
+    return new Promise((res, rej) => {
+      this.sbkPoints = new GoogleSpreadsheet('1UHXrqeaapyCXv-xJV7YmA9r5c_6tjjS9t_55YJhIFVc');
+      this.numsbkloads = -1;
 
+      this.sbkPoints.useServiceAccountAuth(this.glogin, () => {
+        this.sbkPoints.getInfo((err,info) => {
+          if(err) return rej(err);
+          this.numsbkloads = info.worksheets.length;
+          for (const sheet of info.worksheets)
+            this.loadGSheet(sheet);
+
+          return res(this);
+        });
+      });
+    });
   }
 
-  loadGSheet (gsheet) {
-    this.sheets[gsheet.title] = gsheet;
-    for (const preF in this.loadFunctions) {
-      if(gsheet.title === preF) {
-        this.loadFunctions[preF]({ sheet, client: this.client, database: this });
-      }
-    }
+  /**
+   * Loads a google sheet
+   *
+   * @method loadGSheet
+   * @param  {GoogleSpreadsheet}   gsheet The sheet to load
+   * @return {Promise}         Resolves to this._sheets
+   */
+  async loadGSheet (gsheet) {
+    this._sheets[gsheet.title] = gsheet;
+    for (const preF in this.loadFunctions)
+      if(gsheet.title === preF)
+        await this.loadFunctions[preF].load({
+          sheet,
+          client: this.client,
+          database: this,
+          permissions: PermissionsHandler
+        });
+    return this._sheets;
   }
 
   async getTable (tablename, cache = true) {
@@ -89,11 +162,11 @@ const Database = class Database {
     return table;
   }
 
-  async insertTable (tablename, id, data) {
+  async insertInTable (tablename, id, data) {
     this.ensureRethink();
 
     const entry = this.rethink.table(tablename).insert(Object.assign(
-      {},
+      { id: Date.now(), data: false },
       data,
       { id },
     ), { conflict: 'replace '}).run(_=>_);
