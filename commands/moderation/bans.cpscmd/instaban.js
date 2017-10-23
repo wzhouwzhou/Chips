@@ -26,16 +26,6 @@ module.exports = {
         if(reason == null)
             reason = "No reason provided.";
 
-    const embed = new Discord.MessageEmbed;
-    embed
-      .setAuthor(`Ban confirmation - Banning ${memberToUse.user.tag}`, memberToUse.user.displayAvatarURL)
-      .setColor("RED")
-      .setTitle("Instaban")
-      .setDescription(reason || "No reason")
-      .setTimestamp(new Date())
-      .setThumbnail(Constants.images.WARNING);
-    await reply('', { embed } );
-
     if(m.author.id!=author.id) return;
         
     if(!memberToUse.bannable) return reply("Uh oh! I can't ban this user! Perhaps I am missing perms..");
