@@ -1,6 +1,6 @@
 module.exports = {
   name: "botpanic",
-  async func(msg, { reply, author /*, client*/ }) {
+  async func(msg, { reply, author, client }) {
     switch (author.id) {
       case Constants.users.WILLYZ:
       case Constants.users.PGSUPER:
