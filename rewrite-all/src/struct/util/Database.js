@@ -1,7 +1,7 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const PermissionsHandler = require('../../../../../handlers/Permissions');
+const PermissionsHandler = require('../../../../handlers/Permissions');
 const GoogleSpreadsheet = require('google-spreadsheet');
 
 const reql = require('rethinkdbdash');
