@@ -103,7 +103,7 @@ client.disableSelfStar = {
   "274260111415836675": true,
 };
 const { BotDatabase } = require('./rewrite-all/src/struct/util/BotDatabase');
-global.database = new BotDatabase(client);//require(path.join(__dirname, './setup/db/DatabaseLoader'));
+client.database = new BotDatabase(client);//require(path.join(__dirname, './setup/db/DatabaseLoader'));
 client.database = database;
 database.load();
 
