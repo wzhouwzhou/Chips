@@ -50,6 +50,7 @@ const GuildMusicHandler = class MusicHandler {
       this.enabled = true;
       this._client = client;
       _handlers.set(guildid,this);
+      this.streamOpts = { passes: 3, volume: 0.6, bitrate: 96000 };
     }
   }
 
@@ -59,7 +60,7 @@ const GuildMusicHandler = class MusicHandler {
     NCSBroadcast = this._client.createVoiceBroadcast();
     const NCS = await (new Song('https://www.youtube.com/watch?v=lFvQifetTAs', client.user).loadInfo());
     this._client.musicBroadcasts['ncs'] = NCSBroadcast;
-    NCSBroadcast.playStream(NCS.stream, { passes: 2, volume: 0.5, bitrate: 96000 });
+    NCSBroadcast.playStream(NCS.stream, this.streamOpts);
     return NCSBroadcast;
   }
 
@@ -69,7 +70,7 @@ const GuildMusicHandler = class MusicHandler {
     MonstercatBroadcast = this._client.createVoiceBroadcast();
     const Monstercat = await (new Song('https://www.youtube.com/watch?v=ueupsBPNkSc', client.user).loadInfo());
     this._client.musicBroadcasts['ncs'] = NCSBroadcast;
-    MonstercatBroadcast.playStream(Monstercat.stream, { passes: 2, volume: 0.5, bitrate: 96000 });
+    MonstercatBroadcast.playStream(Monstercat.stream, this.streamOpts);
     return MonstercatBroadcast;
   }
 
@@ -80,7 +81,7 @@ const GuildMusicHandler = class MusicHandler {
       if(~vc.name.indexOf('Chips Stream NCS')) {
         await vc.leave();
         const connection = await vc.join();
-        const dispatcher = connection.playBroadcast(NCSBroadcast);
+        const dispatcher = connection.playBroadcast(NCSBroadcast, this.streamOpts);
         this._client.ncsChannels[vc.id] = { connection, dispatcher };
       }
     return this._client.ncsChannels;
@@ -93,7 +94,7 @@ const GuildMusicHandler = class MusicHandler {
       if(~vc.name.indexOf('Chips Stream Monstercat')) {
         await vc.leave();
         const connection = await vc.join();
-        const dispatcher = connection.playBroadcast(MonstercatBroadcast);
+        const dispatcher = connection.playBroadcast(MonstercatBroadcast, this.streamOpts);
         this._client.monstercatChannels[vc.id] = { connection, dispatcher };
       }
     return this._client.monstercatChannels;
