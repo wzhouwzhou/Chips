@@ -92,7 +92,7 @@ const GuildMusicHandler = class MusicHandler {
   async playAllMonstercat () {
     if (!MonstercatBroadcast) return 'Monstercat Broadcast not started';
     if (!this._client.monstercatChannels) this._client.monstercatChannels = {};
-    for(const cid of Object.keys(this._client.ncsChannels))
+    for(const cid of Object.keys(this._client.monstercatChannels))
       await this._client.channels.get(cid).leave();
     this._client.monstercatChannels = {};
     for (const [,vc] of this._client.channels.filter(c => c.type==='voice'))
