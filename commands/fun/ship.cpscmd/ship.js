@@ -96,7 +96,7 @@ module.exports = {
     ]);
     const joiner = (()=>{
       switch(true) {
-        case outlookN < 2: return '<:blobnausea:364807145910435840>';
+        case outlookN < 2: return ' <:blobnausea:372214877248552960>';
         case outlookN > 8: return '😍';
       }
     })();
