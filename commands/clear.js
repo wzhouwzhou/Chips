@@ -15,7 +15,7 @@ module.exports = {
         case Constants.users.ARX:
           break;
         default:
-          return reply('You must have ``MANAGE_MESSAGES`` perms to use this command!');
+          return reply('You must have ``(MANAGE_MESSAGES)`` perms to use this command!');
       }
     }
 
@@ -30,7 +30,7 @@ module.exports = {
         let overload = await reply(`The maximum amount of msgs I can delete is 99!`);
         setTimeout(_=>overload.delete(),7500);
       }else await channel.bulkDelete(nmsgs);
-      result = await reply(`${--nmsgs} message(s) deleted successfully!`);
+      result = await reply(`**__${--nmsgs} message(s)__ deleted successfully!**`);
     }catch(err){result = await reply(`Could not delete ${args[0]} message(s)..`);}
 
     setTimeout(_=>result.delete(),9500);
