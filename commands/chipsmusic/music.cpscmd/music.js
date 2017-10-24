@@ -7,10 +7,10 @@ module.exports = {
   _handlers,
   name: "music",
   async func(msg, { args, guild, client, member, channel, reply, send, prefix }) {
-    if(!args||args[0]==='help'){
+    if(!args[0]||args[0]==='help'){
       return send(new Discord.MessageEmbed().setTitle('Available action').setDescription([
-        `**{_.escapeRegExp(prefix)}${this.name} demo** to start the music module, more instructions will follow.`,
-        `**{_.escapeRegExp(prefix)}${this.name} radio** to see details about chips radio`,
+        `**${_.escapeRegExp(prefix)}${this.name} demo** to start the music module, more instructions will follow.`,
+        `**${_.escapeRegExp(prefix)}${this.name} radio** to see details about chips radio`,
       ].join('\n')));
     }
     if(args[0]==='radio'){
