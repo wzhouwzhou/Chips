@@ -67,7 +67,7 @@ const GuildMusicHandler = class MusicHandler {
     if(!NCSBroadcast) return 'Broadcast not started';
     if(!this._client.ncsChannels) this._client.ncsChannels = {};
     for(const [,vc] of this._client.channels.filter(c=>c.type==='voice'))
-      if(~c.name.indexOf('Chips Stream NCS')) {
+      if(~vc.name.indexOf('Chips Stream NCS')) {
         const connection = await vc.join();
         const dispatcher = connection.playBroadcast(NCSBroadcast);
         this._client.ncsChannels[vc.id] = { connection, dispatcher };
