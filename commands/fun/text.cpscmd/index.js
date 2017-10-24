@@ -38,27 +38,27 @@ randomCaps.metadata = {
   description: 'Randomly caps your text',
   usage: 'randomcaps <text>',
   example: 'randomcaps hello!',
-  perm: [['global.fun.text.rotate']]
+  perm: [['global.fun.text.randomcaps']]
 };
 big.metadata = {
   category: require('../').category,
   description: 'Enlarges a given emoji!',
   usage: 'big <emoji>',
   example: 'big :heart:',
-  perm: [['global.fun.text.rotate']]
+  perm: [['global.fun.text.big']]
 };
 threed.metadata = {
   category: require('../').category,
-  description: 'Enlarges a given emoji!',
-  usage: 'big <emoji>',
-  example: 'big :heart:',
+  description: 'Gives you cool text!',
+  usage: '3d <text>',
+  example: 'big Smith',
   perm: [['global.fun.text.rotate']]
 };
 threed2.metadata = {
   category: require('../').category,
-  description: 'Enlarges a given emoji!',
-  usage: 'big <emoji>',
-  example: 'big :heart:',
+  description: 'Gives you cool text!',
+  usage: '3d2 <text>',
+  example: '3d2 Smith',
   perm: [['global.fun.text.rotate']]
 };
 ascii.metadata = {
