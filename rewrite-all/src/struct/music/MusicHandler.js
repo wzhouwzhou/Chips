@@ -79,7 +79,7 @@ const GuildMusicHandler = class MusicHandler {
     if (!this._client.ncsChannels) this._client.ncsChannels = {};
     for(const cid of Object.keys(this._client.ncsChannels))
       await this._client.channels.get(cid).leave();
-
+    this._client.ncsChannels = {};
     for (const [,vc] of this._client.channels.filter(c => c.type==='voice'))
       if (vc.name.replace(/\s+/g,'').match(/chip(?:sy?)?(?:streams?|24\/?7)(ncs|nocopyrightsounds?)/i)) {
         const connection = await vc.join();
@@ -94,6 +94,7 @@ const GuildMusicHandler = class MusicHandler {
     if (!this._client.monstercatChannels) this._client.monstercatChannels = {};
     for(const cid of Object.keys(this._client.ncsChannels))
       await this._client.channels.get(cid).leave();
+    this._client.monstercatChannels = {};
     for (const [,vc] of this._client.channels.filter(c => c.type==='voice'))
       if (vc.name.replace(/\s+/g,'').match(/chip(?:sy?)?(?:streams?|24\/?7)(monstercat|monster)/i)) {
         const connection = await vc.join();
