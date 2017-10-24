@@ -12,7 +12,7 @@ const token2Regex = new RegExp(h3client.token.replace(/\./g, '\\.').split('').jo
 module.exports = {
 	name:'eval',
 	async func(msg, { send, author, content, doEval }) {
-		if (whitelist.indexOf(author.id) < 0) return console.log("prohibited access to eval");
+		if (whitelist.indexOf(author.id) < 0) return console.log("Prohibited access to eval.");
 
 		let result = await send("Evaluating...");
 		let start = process.hrtime();
