@@ -38,49 +38,49 @@ randomCaps.metadata = {
   description: 'Randomly caps your text',
   usage: 'randomcaps <text>',
   example: 'randomcaps hello!',
-  perm: [['global.fun.text.rotate']]
+  perm: [['global.fun.text.randomcaps']]
 };
 big.metadata = {
   category: require('../').category,
   description: 'Enlarges a given emoji!',
   usage: 'big <emoji>',
   example: 'big :heart:',
-  perm: [['global.fun.text.rotate']]
+  perm: [['global.fun.text.big']]
 };
 threed.metadata = {
   category: require('../').category,
-  description: 'Enlarges a given emoji!',
-  usage: 'big <emoji>',
-  example: 'big :heart:',
-  perm: [['global.fun.text.rotate']]
+  description: 'Gives you cool text!',
+  usage: '3d <text>',
+  example: 'big Smith',
+  perm: [['global.fun.text.3d']]
 };
 threed2.metadata = {
   category: require('../').category,
-  description: 'Enlarges a given emoji!',
-  usage: 'big <emoji>',
-  example: 'big :heart:',
-  perm: [['global.fun.text.rotate']]
+  description: 'Gives you cool text!',
+  usage: '3d2 <text>',
+  example: '3d2 Smith',
+  perm: [['global.fun.text.3d2']]
 };
 ascii.metadata = {
   category: require('../').category,
-  description: 'Enlarges a given emoji!',
-  usage: 'big <emoji>',
-  example: 'big :heart:',
-  perm: [['global.fun.text.rotate']]
+  description: 'Gives you some fresh ASCII!',
+  usage: 'ascii <text>',
+  example: 'ascii Smith',
+  perm: [['global.fun.text.ascii']]
 };
 derp.metadata = {
   category: require('../').category,
   description: 'Enlarges a given emoji!',
   usage: 'big <emoji>',
   example: 'big :heart:',
-  perm: [['global.fun.text.rotate']]
+  perm: [['global.fun.text.derp']]
 };
 haiku.metadata = {
   category: require('../').category,
   description: 'Enlarges a given emoji!',
   usage: 'big <emoji>',
   example: 'big :heart:',
-  perm: [['global.fun.text.rotate']]
+  perm: [['global.fun.text.haiku']]
 };
 
 console.log('[CPSCMD][INFO][text] Build objects complete!');
