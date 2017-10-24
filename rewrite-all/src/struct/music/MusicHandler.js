@@ -41,6 +41,8 @@ const cmds = [
   ]
 ];
 
+let NCSBroadcast;
+
 const GuildMusicHandler = class MusicHandler {
   constructor ( guildid, client ) {
     if(!_handlers.has(guildid)){
@@ -49,6 +51,28 @@ const GuildMusicHandler = class MusicHandler {
       this._client = client;
       _handlers.set(guildid,this);
     }
+  }
+
+  async startNCSBroadcast () {
+    if(NCSBroadcast) return 'Broadcast already started';
+    if(!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
+    NCSBroadcast = this._client.createVoiceBroadcast();
+    const NCS = await (new Song('https://www.youtube.com/watch?v=lFvQifetTAs', client.user).loadInfo());
+    this._client.musicBroadcasts['ncs'] = NCSBroadcast;
+    NCSBroadcast.playStream(NCS.stream, { passes: 2, volume: 0.5, bitrate: 96000 });
+    return NCSBroadcast;
+  }
+
+  async playAllNCS () {
+    if(!NCSBroadcast) return 'Broadcast not started';
+    if(!this._client.ncsChannels) this._client.ncsChannels = {};
+    for(const [,vc] of this._client.channels.filter(c=>c.type==='voice'))
+      if(~c.name.indexOf('Chips Stream NCS')) {
+        const connection = await vc.join();
+        const dispatcher = connection.playBroadcast(NCSBroadcast);
+        this._client.ncsChannels[vc.id] = { connection, dispatcher };
+      }
+    return this._client.ncsChannels;
   }
 
   spawnPlayer (vc,tc) {
