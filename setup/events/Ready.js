@@ -32,6 +32,9 @@ module.exports = function( send ) {
     await client.database.writeLastStart();
     setTimeout(async function(){statusC = await client.channels.get(Constants.channels.STATUS); statusC&&send('Chips restart! **' + moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')+'**', statusC);},5000);
 
+    const MH = require('../../rewrite-all/src/struct/music/MusicHandler').default;
+    client.mh = new MH(0, client);
+    client.mh.startNCSBroadcast().then(() => client.mh.playAllNCS());
     //Console events
     if(client.shard.id===0)
       rl.on('line', (line) => {
