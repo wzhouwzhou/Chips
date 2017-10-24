@@ -87,7 +87,7 @@ const GuildMusicHandler = class MusicHandler {
   }
 
   async playAllMonstercat () {
-    if(!monstercatChannels) return 'Broadcast not started';
+    if(!MonstercatBroadcast) return 'Broadcast not started';
     if(!this._client.monstercatChannels) this._client.monstercatChannels = {};
     for(const [,vc] of this._client.channels.filter(c=>c.type==='voice'))
       if(~vc.name.indexOf('Chips Stream Monstercat')) {
