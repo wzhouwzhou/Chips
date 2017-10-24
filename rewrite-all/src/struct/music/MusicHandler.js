@@ -55,8 +55,8 @@ const GuildMusicHandler = class MusicHandler {
   }
 
   async startNCSBroadcast () {
-    if(NCSBroadcast) return 'Broadcast already started';
-    if(!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
+    if (NCSBroadcast) return 'NCS Broadcast already started';
+    if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
     NCSBroadcast = this._client.createVoiceBroadcast();
     const NCS = await (new Song('https://www.youtube.com/watch?v=lFvQifetTAs', client.user).loadInfo());
     this._client.musicBroadcasts['ncs'] = NCSBroadcast;
@@ -65,21 +65,23 @@ const GuildMusicHandler = class MusicHandler {
   }
 
   async startMonstercatBroadcast () {
-    if(MonstercatBroadcast) return 'Broadcast already started';
-    if(!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
+    if (MonstercatBroadcast) return 'Monstercat Broadcast already started';
+    if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
     MonstercatBroadcast = this._client.createVoiceBroadcast();
     const Monstercat = await (new Song('https://www.youtube.com/watch?v=ueupsBPNkSc', client.user).loadInfo());
-    this._client.musicBroadcasts['ncs'] = NCSBroadcast;
+    this._client.musicBroadcasts['monstercat'] = NCSBroadcast;
     MonstercatBroadcast.playStream(Monstercat.stream, this.streamOpts);
     return MonstercatBroadcast;
   }
 
   async playAllNCS () {
-    if(!NCSBroadcast) return 'Broadcast not started';
-    if(!this._client.ncsChannels) this._client.ncsChannels = {};
-    for(const [,vc] of this._client.channels.filter(c=>c.type==='voice'))
-      if(~vc.name.indexOf('Chips Stream NCS')) {
-        await vc.leave();
+    if (!NCSBroadcast) return 'NCS Broadcast not started';
+    if (!this._client.ncsChannels) this._client.ncsChannels = {};
+    for(const cid of Object.keys(this._client.ncsChannels))
+      await this._client.channels.get(cid).leave();
+
+    for (const [,vc] of this._client.channels.filter(c => c.type==='voice'))
+      if (vc.name.replace(/\s+/g,'').match(/chip(?:sy?)?(?:streams?|24\/?7)(ncs|nocopyrightsounds?)/i)) {
         const connection = await vc.join();
         const dispatcher = connection.playBroadcast(NCSBroadcast, this.streamOpts);
         this._client.ncsChannels[vc.id] = { connection, dispatcher };
@@ -88,11 +90,12 @@ const GuildMusicHandler = class MusicHandler {
   }
 
   async playAllMonstercat () {
-    if(!MonstercatBroadcast) return 'Broadcast not started';
-    if(!this._client.monstercatChannels) this._client.monstercatChannels = {};
-    for(const [,vc] of this._client.channels.filter(c=>c.type==='voice'))
-      if(~vc.name.indexOf('Chips Stream Monstercat')) {
-        await vc.leave();
+    if (!MonstercatBroadcast) return 'Monstercat Broadcast not started';
+    if (!this._client.monstercatChannels) this._client.monstercatChannels = {};
+    for(const cid of Object.keys(this._client.ncsChannels))
+      await this._client.channels.get(cid).leave();
+    for (const [,vc] of this._client.channels.filter(c => c.type==='voice'))
+      if (vc.name.replace(/\s+/g,'').match(/chip(?:sy?)?(?:streams?|24\/?7)(monstercat|monster)/i)) {
         const connection = await vc.join();
         const dispatcher = connection.playBroadcast(MonstercatBroadcast, this.streamOpts);
         this._client.monstercatChannels[vc.id] = { connection, dispatcher };
