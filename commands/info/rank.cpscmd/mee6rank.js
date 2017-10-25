@@ -1,9 +1,9 @@
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
 const Jimp = require('jimp');
-const ONLINE = 'https://cdn.discordapp.com/emojis/313956277808005120.png';
-const IDLE = 'https://cdn.discordapp.com/emojis/313956277220802560.png';
-const DND = 'https://cdn.discordapp.com/emojis/313956276893646850.png';
-const INVIS = 'https://cdn.discordapp.com/emojis/313956277237710868.png';
+const ONLINE = 'https://i.imgur.com/Yj3vYDB.png';
+const IDLE = 'https://i.imgur.com/IYAtFOU.png';
+const DND = 'https://i.imgur.com/Hij38VX.png';
+const INVIS = 'https://i.imgur.com/dQZuSIR.png';
 
 const m6r = require('../../../rewrite-all/src/deps/functions/mee6rankF').default({needle: require('needle')});
 
@@ -11,13 +11,13 @@ const ex = {
   name: "mee6rank",
   async func(msg, {send, author, guild, args, gMember, reply, content, prefix, Discord }) {
     let member = msg.member;
-    const waitingE = new Discord.RichEmbed().attachFile('loading.gif').setAuthor('Loading...','attachment://loading.gif','http://chipsbot.tk').setColor(msg.member.displayColor);
+    const waitingE = new Discord.MessageEmbed().attachFiles(['loading.gif']).setAuthor('Loading...','attachment://loading.gif','http://chipsbot.tk').setColor(msg.member.displayColor);
     const waiting = await send(' ', {embed: waitingE});
 
     console.log("[Mee6Rank] Creating new searcher for guild " + guild.id);
     let options = { guild: guild };
     searchers[guild.id] = new Searcher( options.guild );
-    let infobad = new Discord.RichEmbed().setColor(member.displayColor).setFooter(new Date());
+    let infobad = new Discord.MessageEmbed().setColor(member.displayColor).setFooter(new Date());
 
     let multiple = false;
     if (args[0]){
@@ -103,8 +103,8 @@ const ex = {
 
 const userData = (member, infobad, name) => {
   return new Promise( async res => {
-    let pfp = await Jimp.read(member.user.displayAvatarURL);
-    let pfp2 = (await Jimp.read(member.user.displayAvatarURL)).clone();
+    let pfp = await Jimp.read(member.user.displayAvatarURL({format: 'png', size: 2048}));
+    let pfp2 = (await Jimp.read(member.user.displayAvatarURL({format: 'png', size: 2048}))).clone();
     pfp =  pfp.resize(1024, 1024, Jimp.RESIZE_BEZIER);
     pfp2 =  pfp2.resize(1024, 1024, Jimp.RESIZE_BEZIER);
     const status = (()=>{
@@ -166,7 +166,7 @@ const userData = (member, infobad, name) => {
     }
     infobad.setColor(member.displayColor);
     pfp.write(name, ()=>{
-      infobad.attachFile(name).setThumbnail('attachment://'+name);
+      infobad.attachFiles([name]).setThumbnail('attachment://'+name);
       return res(infobad);
     });
   });

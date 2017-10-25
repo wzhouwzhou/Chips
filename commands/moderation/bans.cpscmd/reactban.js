@@ -7,14 +7,14 @@ module.exports = {
     let intervalID;
     if(!args[0]){
       intervalID = setInterval(()=>{
-        channel.fetchMessages({limit: 10}).then(msgs=>{
+        channel.messages.fetch({limit: 10}).then(msgs=>{
           msgs.array().forEach(async msg=>{
             await msg.clearReactions();
           });
         });
       },7000);
       timers.push([intervalID, channel.id]);
-      let bad = new Discord.RichEmbed();
+      let bad = new Discord.MessageEmbed();
       bad.setTitle('Reaction ban');
       bad.setDescription(`Reacting has been disabled in this channel!
 To stop this type \`\`${prefix}\`\`reactban ${timers.length-1}`);

@@ -8,8 +8,8 @@ module.exports = {
     try{ //get mention:
       console.log("Trying to find user by mention..");
       if(!args[0]) return reply("Please specify a user to ban!");
-      let target = (args[0].match(Constants.patterns.MENTION)||[,null])[1];
-      let chipstarget = (args[0].match(Constants.users.CHIPS)||[,null])[1];
+      let target = (args[0].match(Constants.patterns.MENTION)||[0,null])[1];
+      let chipstarget = (args[0].match(Constants.users.CHIPS)||[0,null])[1];
       if(!target) return reply("Please specify a valid user to ban!");
       memberToUse = gMember(target);
       if(chipstarget)
@@ -30,7 +30,7 @@ module.exports = {
             reason = "No reason provided.";
     let question = `Do you want to ban ${memberToUse.displayName}?\nThis expires in 10 seconds. Type __y__es or __n__o.`;
 
-    const embed = new Discord.RichEmbed;
+    const embed = new Discord.MessageEmbed;
     embed
       .setAuthor(`Ban confirmation - Banning ${memberToUse.user.tag}`, memberToUse.user.displayAvatarURL)
       .setColor("RED")
@@ -44,7 +44,7 @@ module.exports = {
     let collector = channel.createMessageCollector(m => {
         if(/^(?:y(?:es)?)|(?:no?)$/i.test(m.content)){
           if(m.author.id==author.id){
-            m.reply("Choice accepted. Now processing...");
+            m.channel.send("Choice accepted. Now processing...").then(m=>m.delete({timeout: 3000}));
             confirmed = true;
             agreed = /^(?:y(?:es)?)$/i.test(m.content);
             setTimeout(()=>collector.stop(), 1000);
@@ -66,13 +66,13 @@ module.exports = {
           if(!memberToUse.bannable) return reply("Uh oh! I can't ban this user! Perhaps I am missing perms..");
 
         console.log("[Ban] Banning...");
-        let emb = new Discord.RichEmbed()
+        let emb = new Discord.MessageEmbed()
           .setAuthor("Ban Notice!")
           .setTitle(`You were banned from the server: ${guild.name}!`)
           .setColor(9109504)
           .setThumbnail(Constants.images.WARNING)
           .addField("Ban reason: ", `${reason}`, true);
-          client.fetchUser(memberToUse.id)
+          client.users.fetch(memberToUse.id)
           .then(u=>u.send('Uh oh!', {embed: emb}))
           .then(()=>{
             m.reply("Banning!");

@@ -5,7 +5,7 @@ shipComments.set('259209114268336129,286522718965465090', 'Ily bb :3');
 shipJoin.set('259209114268336129,286522718965465090','<:blobkissheart:364815765045510145>'); //wolf and willy
 
 ships.set('205608598233939970,296855425255473154', 111);
-shipComments.set('205608598233939970,296855425255473154', 'DAB ON THE H8RS!');
+shipComments.set('205608598233939970,296855425255473154', `Marriage when?!`);
 shipJoin.set('205608598233939970,296855425255473154','<:blobkiss:364806533034278914>'); //lucas and chips
 
 ships.set('205608598233939970,292971521159200768', 100);
@@ -40,8 +40,8 @@ module.exports = {
 
     let userOne, userTwo;
     try {
-      userOne = !~targetOne.indexOf('#')?await client.fetchUser(targetOne):client.users.find('tag',targetOne);
-      userTwo = !~targetTwo.indexOf('#')?await client.fetchUser(targetTwo):client.users.find('tag',targetTwo);
+      userOne = !~targetOne.indexOf('#')?await client.users.fetch(targetOne):client.users.find('tag',targetOne);
+      userTwo = !~targetTwo.indexOf('#')?await client.users.fetch(targetTwo):client.users.find('tag',targetTwo);
       if(!userOne||!userTwo) throw new Error('Invalid user');
     } catch(err) {
       send(`[Error][Debug] m,t1,t2:${err.message}, ${targetOne},${targetTwo}`);
@@ -96,11 +96,11 @@ module.exports = {
     ]);
     const joiner = (()=>{
       switch(true) {
-        case outlookN < 2: return '<:blobnausea:364807145910435840>';
+        case outlookN < 2: return ' <:blobnausea:372214877248552960>';
         case outlookN > 8: return '😍';
       }
     })();
-    const embed = new Discord.RichEmbed().setTitle('Ship').setDescription(`${userOne+[]} ${shipJoin.get(assembled)||joiner||'x'} ${userTwo+[]}`);
+    const embed = new Discord.MessageEmbed().setTitle('Ship').setDescription(`${userOne+[]} ${shipJoin.get(assembled)||joiner||'x'} ${userTwo+[]}`);
     embed.addField(comment, `${progressbar} ${shipValue}%`);
     send(embed);
   }

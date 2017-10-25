@@ -3,10 +3,10 @@ const crypto = require('crypto');
 module.exports = {
   name: "password",
   async func(msg, { guild, author, args, send}) {
-    if(guild) return send('This command must be used as with `-` as prefix in dms!').then(m=>m.delete(3000));
+    if(guild) return send('This command must be used as with `-` as prefix in dms!').then(mm=>mm.delete({timeout: 3000}));
     const numQ = args.join(' ').match(/^[^\d]*(\d+)[^\d]*$/);
     const length = numQ?+(numQ[1]):10;
-    if(length>1800) return send('Password is too long!').then(m=>m.delete(3000));
+    if(length>1800) return send('Password is too long!').then(mm=>mm.delete({timeout: 3000}));
     const generated = crypto.randomBytes(+length);
     const optionsQ = args.join(' ').match(/^[^aunh]*(uni(?!code)|unicode|alphanumer(?:ic)?(?!(?:al))|(?!alpha)an|(?!alpha)numerical|number|num(?!(?:er(?:ic)?))|hex)[^]*$/i);
     const options = optionsQ?optionsQ[1]:'an';

@@ -2,7 +2,7 @@ const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Pa
 
 module.exports = {
   name: "help",
-  async func(msg, { prefix, Discord }) {
+  async func(msg, { prefix, Discord, reply }) {
     const IntroMenu1 = ([
       'Chips is a multipurpose bot under heavy development!',
       "We're working on a gui update and structural rewrite right now, so apologies if some commands are not listed",
@@ -73,7 +73,7 @@ module.exports = {
     const FunMenu = ([
       '**{}con4 length width** to play connect four.',
       '\tFor example, **{}con4 12 6** will create a 12x6 board with 6 columns and 12 rows',
-      '**{}chess** *__New™ (beta)__* to play a chess game! Yes, you can invite Chips to play with you!',
+      '**{}chess help** *__New™ (beta)__* to see how to play a chess game! and Yes, _you can even invite Chips to play with you!_',
       '**{}aboose**/**{}aboosed** for aboose.',
       '**{}-ban [mention user]** to ban people (Disclaimer: This is a fake ban).',
       '**{}cat** to create a cat.',
@@ -173,7 +173,7 @@ module.exports = {
       return reply ('Something went wrong...');
     }
     /*
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
       .setAuthor('This is the Chips Bot Help Menu!', "http://www.mkrfoodproducts.com/images/gallery/image_11.jpg")
       .setTitle('')
       .setDescription('')

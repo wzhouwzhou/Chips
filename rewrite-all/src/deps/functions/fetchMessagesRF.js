@@ -11,7 +11,7 @@ exports.default = ({ Discord, _ }) => {
     return new Promise( (res,rej) => {
       if(typeof limit !== 'number') return rej(new Error('Invalid limit'));
       if(collection.size >= limit) return res(firstF(collection,limit));
-      channel.fetchMessages(Object.assign({}, options, {limit: Math.min(options.limit,100)} )).then(async msgs=>{
+      channel.messages.fetch(Object.assign({}, options, {limit: Math.min(options.limit,100)} )).then(async msgs=>{
         if(msgs.size == 0) return res(collection);
         Array.from(msgs.values()).forEach(m => collection.set(m.id, m));
         try{

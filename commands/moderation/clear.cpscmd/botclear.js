@@ -1,6 +1,7 @@
 
 const botPrefixes = [
   '.',
+  'do.',
   'r.',
   '-',
   '--',
@@ -52,7 +53,6 @@ const botPrefixes = [
   '[',
   ']',
   '?',
-  'do.',
   '-',
 ];
 
@@ -62,7 +62,7 @@ module.exports = {
     let nummsgs = 0;
     let limit = args[0]&&(!isNaN(args[0]))?parseInt(args[0]):25;
 
-    channel.fetchMessages({limit: limit}).then(msgs => {
+    channel.messages.fetch({limit}).then(msgs => {
       msgs=msgs.filter(m=>{
         if(m.author.bot) return true;
         let matched = false;

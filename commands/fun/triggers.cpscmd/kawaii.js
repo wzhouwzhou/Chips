@@ -13,6 +13,6 @@ const kawaii = [
 module.exports = {
   name: "kawaii",
   async func(msg, { send }) {
-    return send(kawaii[~~(kawaii.length*Math.random())]);
+    return send(kawaii[_.random(0,kawaii.length-1)]);
   }
 };

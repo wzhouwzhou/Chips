@@ -3,10 +3,10 @@ const EXPIRE = 10000;
 const { escape } = require("querystring");
 
 module.exports = {
-	name:'kick',
+  name:'kick',
   perm:['global.server.kick'],
   customperm:['KICK_MEMBERS'],
-	async func(msg, { send, reply, member, author, content, args, channel, guild, gMember }) {
+  async func(msg, { send, reply, member, author, content, args, channel, guild, gMember }) {
     let memberToUse;
     try{ //get mention:
       console.log("Trying to find user by mention..");
@@ -26,10 +26,10 @@ module.exports = {
     let reason;
     if(args[1])
       reason = content.substring(content.indexOf(args[1]));
-		if(reason == null)
-			reason = "No reason provided.";
+    if(reason == null)
+      reason = "No reason provided.";
 
-    const embed = new Discord.RichEmbed();
+    const embed = new Discord.MessageEmbed();
     embed
       .setAuthor(`Kick confirmation - Kicking ${memberToUse.user.tag}`, memberToUse.user.displayAvatarURL)
       .setColor("RED")
@@ -64,25 +64,25 @@ module.exports = {
         console.log(`[Kick]: Collected ${m.content}`);
         if(m.author.id!=author.id) return;
         if(agreed){
-					if(!memberToUse.kickable) return reply("Uh oh! I can't kick this user! Perhaps I am missing perms..");
+          if(!memberToUse.kickable) return reply("Uh oh! I can't kick this user! Perhaps I am missing perms..");
 
           console.log("[Kick] Kicking...");
-					let emb = new Discord.RichEmbed()
-					.setAuthor("Kick Notice!")
-					.setTitle('You were kicked from the server: '+guild.name+'!')
-					.setColor(9109504)
-					.setThumbnail('https://i.ppy.sh/2dabc46c70a032cdeac21093ac8c4b9204f04e75/687474703a2f2f692e696d6775722e636f6d2f5a4e4f7445494e2e706e67')
-					.addField("Kick reason: ", reason, true);
-					client.fetchUser(memberToUse.id)
-					.then(u=>{u.send('Uh oh!', {embed: emb});})
-					.then(mes=>{
-						m.reply("Kicking!");
-						memberToUse.kick(escape(`[Kick]: [Author]: ${m.author.tag} [Reason]: ${reason}`));
-					}).catch(err=>{
-						console.log(err);
-						m.reply("Could not dm the user, but kicking anyway!");
-						memberToUse.kick(escape(`[Kick]: [Author]: ${m.author.tag} [Reason]: ${reason}`));
-					});
+          let emb = new Discord.MessageEmbed()
+          .setAuthor("Kick Notice!")
+          .setTitle('You were kicked from the server: '+guild.name+'!')
+          .setColor(9109504)
+          .setThumbnail('https://i.ppy.sh/2dabc46c70a032cdeac21093ac8c4b9204f04e75/687474703a2f2f692e696d6775722e636f6d2f5a4e4f7445494e2e706e67')
+          .addField("Kick reason: ", reason, true);
+          client.users.fetch(memberToUse.id)
+          .then(u=>{u.send('Uh oh!', {embed: emb});})
+          .then(mes=>{
+            m.reply("Kicking!");
+            memberToUse.kick(escape(`[Kick]: [Author]: ${m.author.tag} [Reason]: ${reason}`));
+          }).catch(err=>{
+            console.log(err);
+            m.reply("Could not dm the user, but kicking anyway!");
+            memberToUse.kick(escape(`[Kick]: [Author]: ${m.author.tag} [Reason]: ${reason}`));
+          });
         }else{
           console.log("[Kick] cancelled");
           m.reply("Ok, kick cancelled!");

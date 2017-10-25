@@ -3,7 +3,7 @@ const EXPIRE = 10000;
 
 module.exports = {
     name:'softban',
-    async func(msg, { send, reply, member, author, content, args, channel, guild, gMember }) {
+    async func(msg, { reply, member, author, content, args, channel, guild, gMember }) {
     let memberToUse;
     try{ //get mention:
       console.log("Trying to find user by mention..");
@@ -27,7 +27,7 @@ module.exports = {
             reason = "No reason provided.";
     let question = `Do you want to softban ${memberToUse.displayName}?\nThis expires in 10 seconds. Type __y__es or __n__o.`;
 
-    const embed = new Discord.RichEmbed();
+    const embed = new Discord.MessageEmbed();
     embed
       .setAuthor(`Softban confirmation - Softbanning ${memberToUse.user.tag}`, memberToUse.user.displayAvatarURL)
       .setColor("RED")
@@ -41,10 +41,10 @@ module.exports = {
     let collector = channel.createMessageCollector(m => {
         if(/^(?:y(?:es)?)|(?:no?)$/i.test(m.content)){
           if(m.author.id==author.id){
-            m.reply("Choice accepted. Now processing...");
+            m.channel.send("Choice accepted. Now processing...");
             confirmed = true;
             agreed = /^(?:y(?:es)?)$/i.test(m.content);
-            setTimeout(_=>collector.stop(), 1000);
+            setTimeout(()=>collector.stop(), 1000);
             return true;
           }
           //else return m.reply ("Denied");
@@ -64,13 +64,13 @@ module.exports = {
           if(!memberToUse.bannable) return reply("Uh oh! I can't ban this user! Perhaps I am missing perms..");
 
           console.log("[Softban] Softbanning...");
-          let emb = new Discord.RichEmbed()
+          let emb = new Discord.MessageEmbed()
               .setAuthor("Softban Notice!")
               .setTitle(`You were softbanned from the server: ${guild.name}!`)
               .setColor(9109504)
               .setThumbnail(Constants.images.WARNING)
               .addField("Softban reason: ", `${reason}`, true);
-          client.fetchUser(memberToUse.id)
+          client.users.fetch(memberToUse.id)
           .then(u=>{u.ssend('Uh oh!', {embed: emb});})
           .then(()=>{
             m.reply("Softbanning!");

@@ -8,7 +8,7 @@ const TIME2 = 60e3;
 const Paginator = class Paginator {
   constructor(msg, data, Discord = require('discord.js')) {
     this._msg = msg;
-    this.embed = new Discord.RichEmbed();
+    this.embed = new Discord.MessageEmbed();
     if(data) this.loadData (data);
     this.currentPage = 0;
   }
@@ -39,33 +39,39 @@ const Paginator = class Paginator {
     this.help = data.help;
     this.locked = data.locked!=null?data.locked:!0;
     this.lockToggle = !!data.lockToggle;
+    this.description = data.description;
+
     return this;
   }
 
   sendFirst () {
-    return new Promise( (res, rej) => {
+    return new Promise( async (res, rej) => {
       if(this.stopped) res(null);
       this.updateInternal(0);
-
-      this.updateView().catch(rej);
-      res(true);
+      try{
+        await this.updateView();
+        res(this.sentMsg);
+      }catch(err){
+        rej(err);
+      }
     });
   }
 
   updateInternal (pageNum, Discord = require('discord.js')) {
     if(this.stopped) return null;
     if(this.embedding){
-      this.embed=new Discord.RichEmbed();
+      this.embed=new Discord.MessageEmbed();
       this.currentTitle = this.title?typeof this.title==='string'?this.title:this.title[pageNum]?this.title[pageNum]:' ':null;
 
       this.embed.setTitle(this.currentTitle)
                 .setFooter(this.footer?typeof this.footer==='string'?this.footer.replace(/{pagenum}/gi,pageNum+1).replace(/{totalpages}/gi,this.pages.length):this.footer[pageNum]?this.footer[pageNum].replace(/{pagenum}/gi,pageNum+1).replace(/{totalpages}/gi,this.pages.length):`Page ${pageNum+1} of ${this.pages.length}`:`Page ${pageNum+1} of ${this.pages.length}`)
                 .setColor(this.color||DEFAULTCOLOR);
-      this.author&&this.embed.setAuthor(this.author);
+            this.author&&this.embed.setAuthor(typeof this.author==='string'?this.author:(this.author[pageNum]||' '));
 
       if(this.fielding){
         for(const fieldp of this.pages[pageNum])
           this.embed = this.embed.addField(...fieldp,false);
+        this.description&&this.embed.setDescription(typeof this.description==='string'?this.description:this.description[pageNum]||' ');
       }else{
         this.embed.setDescription(this.pages[pageNum]);
       }
@@ -90,19 +96,19 @@ const Paginator = class Paginator {
           await this.pageButtons(this.sentMsg);
         }else{
           if(this.replying)
-            await this.sentMsg.edit(this._msg.author+this.currentText, { embed: this.embed });
+            this.sentMsg = await this.sentMsg.edit(this._msg.author+this.currentText, { embed: this.embed });
           else
-            await this.sentMsg.edit(this.currentText, { embed: this.embed });
+            this.sentMsg = await this.sentMsg.edit(this.currentText, { embed: this.embed });
         }
       }catch(err){
         rej(err);
       }
 
-      res(true);
+      res(this);
     });
   }
 
-  pageButtons (sentMsg) {
+  pageButtons (sentMsg = this.sentMsg) {
     return new Promise( async (res, rej) => {
       if(this.stopped) return res(null);
       let nextUser;
@@ -157,7 +163,7 @@ const Paginator = class Paginator {
               try {
                 await this.setPage(+num-1);
               }catch(err){
-                m.channel.send(`${nextUser||this._msg.author}, Invalid page number of \`${+num}\` specified!`).then(mmm=>mmm.delete(3000));
+                m.channel.send(`${nextUser||this._msg.author}, Invalid page number of \`${+num}\` specified!`).then(mmm=>mmm.delete({timeout: 3000}));
               }
               tempmsg.delete();
               return m.delete().catch(_=>_);
@@ -173,7 +179,7 @@ const Paginator = class Paginator {
                 });
               }
             });
-            tempmsg = await this._msg.channel.send(`${nextUser||this._msg.author}, Please enter the page number to jump to, or __cancel__ to cancel`);
+            tempmsg = await this._msg.channel.send(`${nextUser||this._msg.author}, Please enter a number to jump to, or __cancel__ to cancel`);
             return tempmsg;
           }
           case 'ℹ':{
@@ -190,7 +196,7 @@ const Paginator = class Paginator {
         for(;btns<this.buttons.length;++btns)
           await sentMsg.react(this.buttons[btns]);
 
-        if(btns+1 !== this.buttons.length) throw new Error('Not all default buttons reacted!');
+        if(btns+1 < this.buttons.length) throw new Error('Not all default buttons reacted!');
       }catch(err){
         rej(err);
       }
@@ -198,35 +204,35 @@ const Paginator = class Paginator {
         if(!this.locked) await sentMsg.react('🔒');
         else await sentMsg.react('🔓');
 
-      res(true);
+      res(this);
     });
   }
 
   toggleLock(setting, requester, r) {
     if(!this.lockToggle)
-      return this._msg.channel.send('The paginator controls may not be locked or unlocked!').then(mm=>mm.delete(3000));
+      return this._msg.channel.send('The paginator controls may not be locked or unlocked!').then(mm=>mm.delete({timeout: 3000}));
 
     if(setting) {
       if(this.locked)
-        return this._msg.channel.send('The paginator controls are already locked!').then(mm=>mm.delete(3000));
+        return this._msg.channel.send('The paginator controls are already locked!').then(mm=>mm.delete({timeout: 3000}));
       else if(this._msg.author.id === requester.id) {
         this.locked = true;
         r.remove('296855425255473154');
         this.sentMsg.react('🔓');
-        return this._msg.reply('Only you can operate paginator controls now!').then(mm=>mm.delete(3000));
+        return this._msg.reply('Only you can operate paginator controls now!').then(mm=>mm.delete({timeout: 3000}));
       } else
-        return this._msg.channel.send(requester+', you cannot lock the paginator controls!').then(mm=>mm.delete(3000));
+        return this._msg.channel.send(requester+', you cannot lock the paginator controls!').then(mm=>mm.delete({timeout: 3000}));
     }
 
     if(!this.locked)
-      return this._msg.channel.send('The paginator controls are already unlocked!').then(mm=>mm.delete(3000));
+      return this._msg.channel.send('The paginator controls are already unlocked!').then(mm=>mm.delete({timeout: 3000}));
     else if(this._msg.author.id === requester.id) {
       this.locked = false;
       this.sentMsg.react('🔒');
       r.remove('296855425255473154');
-      return this._msg.reply('Everyone can operate the paginator controls now!').then(mm=>mm.delete(3000));
+      return this._msg.reply('Everyone can operate the paginator controls now!').then(mm=>mm.delete({timeout: 3000}));
     } else
-      return this._msg.channel.send(requester+ ', you cannot unlock the paginator controls!').then(mm=>mm.delete(3000));
+      return this._msg.channel.send(requester+ ', you cannot unlock the paginator controls!').then(mm=>mm.delete({timeout: 3000}));
   }
 
   nextPage () {

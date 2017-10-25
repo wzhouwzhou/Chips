@@ -15,7 +15,7 @@ module.exports = {
   name: "ass",
   perm: ["server.nsfw"],
   async func(msg, { member, send, channel }) {
-     let emb = new Discord.RichEmbed().setColor(member.displayColor);
+     let emb = new Discord.MessageEmbed().setColor(member.displayColor);
     if(channel.nsfw)
       return getAss((a,b)=>{
         b='http://media.obutts.ru/'+b;

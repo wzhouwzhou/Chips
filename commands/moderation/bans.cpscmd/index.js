@@ -1,6 +1,7 @@
 
 let ban = require('./ban');
 let hackban = require('./hackban');
+let instaban = require('./instaban')
 let reactban = require('./reactban');
 let unban = require('./unban');
 let softban = require('./softban');
@@ -21,6 +22,14 @@ hackban.metadata = {
   usage: 'hackban <UserID> <Optional Reason>',
   example: 'hackban 1234567890 Being a skrub!',
   perm: [['global.moderation.bans.hackban']],
+  customperm: ['BAN_MEMBERS'],
+};
+instaban.metadata = {
+  category: require('../').category,
+  description: 'This command lets you instanly ban server members!',
+  usage: 'instaban <User> <Optional Reason>',
+  example: 'instaban @周珺 • WillyZ#6686 Being dumb.',
+  perm: [['global.moderation.bans.instaban']],
   customperm: ['BAN_MEMBERS'],
 };
 reactban.metadata = {
@@ -59,6 +68,11 @@ console.log('[CPSCMD][MODERATION][ban] Build objects complete!');
 module.exports = [
   [ban.name,ban],
   [hackban.name,hackban],
-  [unban.name,unban],
-  [softban.name,softban],
+  ['hban', hackban],
+  [instaban.name, instaban],
+  ['iban', instaban],
+  [unban.name, unban],
+  ['uban', unban],
+  [softban.name, softban],
+  ['sban', softban]
 ];

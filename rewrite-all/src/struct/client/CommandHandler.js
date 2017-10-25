@@ -107,7 +107,7 @@ function(Discord, client) {
           }
         };
         if(emb){
-          embed = new context.Discord.RichEmbed().setDescription(cb+u.repeat(l)+cb).setColor(msg.member.displayColor || 10342).setTitle('Loading.');
+          embed = new context.Discord.MessageEmbed().setDescription(cb+u.repeat(l)+cb).setColor(msg.member.displayColor || 10342).setTitle('Loading.');
           m = await msg.channel.send('', { embed });
         }else
           m = await msg.channel.send(cb+u.repeat(l)+cb);

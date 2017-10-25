@@ -13,6 +13,7 @@ const sinbad = require(path.join(__dirname, '../routes/sinbad'));
 const login = require(path.join(__dirname, '../routes/login'));
 const vy = require(path.join(__dirname, '../routes/vy'));
 const xena = require(path.join(__dirname, '../routes/xena'));
+const errp = require(path.join(__dirname, '../routes/error'));
 const updates = require(path.join(__dirname, '../routes/updates'));
 const useroverview = require(path.join(__dirname, '../routes/updates'));
 const index = require(path.join(__dirname, '../routes/index'));
@@ -145,30 +146,26 @@ module.exports = function() {
   app.use('/commands',cmds);
   app.use('/vy',vy);
   app.use('/xen*',xena);
+  app.use('/errr',errp);
   //app.use('/updates',updates);
 
-  // catch 404 and forward to error handler
-  app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-  });
-
   // error handler
-  app.use(function(err, req, res) {
-    // set locals, only providing error in development
+  app.use((req, res, next) => {
+    let err = {error: 'Not found'}; //new Error('Not Found');
+    err.status = 404;
     res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-    // render the error page
+    res.locals.error = {};//req.app.get('env') === 'development' ? err : {};
     res.status(err.status || 500);
-    res.render('error', { type: err.status || 500 });
     if (!err.status || err.status == 500) console.error("Internal error: " + err);
+    res.render('error', { type: err.status || 500, timestamp: new Date().toString() });
+    //next(err, req, res);
   });
+
+  app.use('/*',errp);
 
   app.set('port', (process.env.PORT || 5000));
 
-  app.listen(app.get('port'), '127.0.0.1', function() {
+  app.listen(app.get('port'), process.env.MYIP||'127.0.0.1', function() {
     console.log('Node app is running on port', app.get('port'));
   });
 

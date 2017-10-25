@@ -7,7 +7,7 @@ avatar.metadata = {
   description: 'This shows avatars of users!',
   usage: 'avatar [mention user]',
   example: 'avatar @Evildeathpro#7553',
-  perm: [['global.info.help.help']],
+  perm: [['global.info.avatar']],
   customperm: ['SEND_MESSAGES'],
 };
 console.log('[CPSCMD][INFO][avatar] Build objects complete!');

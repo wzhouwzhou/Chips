@@ -10,7 +10,7 @@ module.exports = {
       if(suffix.length>1024)   
         return send('The channel topic can only be a maximum of 1024 characters in length!'); 
     
-    let embed = (new Discord.RichEmbed)
+    let embed = (new Discord.MessageEmbed)
       .setTitle('Channel Topic')
       .setDescription(suffix)
       .setColor(member.displayColor);

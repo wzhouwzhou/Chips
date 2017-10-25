@@ -3,7 +3,10 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 const Discord = require('discord.js');
 const EventEmitter = require('events');
-const GameClass = class Game extends EventEmitter {
+
+const ensureAbstract = require('../../deps/functions/ensureAbstractF').default();
+
+const GameClass = /* abstract */ class Game extends EventEmitter {
   constructor ({
     gameName,
     maxPlayers,
@@ -11,6 +14,7 @@ const GameClass = class Game extends EventEmitter {
     channelID,
   }) {
     super();
+    ensureAbstract(this, GameClass);
     this.name = gameName;
     this.maxPlayers = maxPlayers;
     this.guildOnly = guildOnly;

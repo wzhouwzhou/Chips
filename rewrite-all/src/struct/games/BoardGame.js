@@ -4,7 +4,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 const Game = require('./Game').GameClass;
 const ensureAbstract = require('../../deps/functions/ensureAbstractF').default();
 
-const BoardGame = class BoardGame extends Game {
+const BoardGame = /* abstract */ class BoardGame extends Game {
   constructor({
     gameName,
     maxPlayers,
@@ -18,7 +18,7 @@ const BoardGame = class BoardGame extends Game {
       guildOnly,
       channelID,
     });
-    ensureAbstract(this, BoardGame)
+    ensureAbstract(this, BoardGame);
     this.empty = empty;
 
   }

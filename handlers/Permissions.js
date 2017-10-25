@@ -35,9 +35,10 @@ ex.permsList = [
       ['global.fun.animals.cat', true], //10
     ['global.fun.eat.*', true],
       ['global.fun.eat.eat', true], //14
+    ['global.8ball.*', true],
+      ['global.8ball.8ball', true],
     ['global.fun.happy.*', true],
       ['global.fun.happy.happy', true], //18
-      ['global.fun.happy.everyone', true],
     ['global.fun.random.*', true],
       ['global.fun.random.coinflip', true], //12
       ['global.fun.random.roll', true],
@@ -50,15 +51,30 @@ ex.permsList = [
       ['global.fun.text.reverse', true],
       ['global.fun.text.spooky', true],
       ['global.fun.text.rotate', true],
+      ['global.fun.text.randomcaps', true],
+      ['global.fun.text.big', true],
+      ['global.fun.text.3d', true],
+      ['global.fun.text.3d2', true],
+      ['global.fun.text.ascii', true],
+      ['global.fun.text.derp', true],
+      ['global.fun.text.haiku', true],
     ['global.fun.triggers.*', false],
       ['global.fun.triggers.aboose', true], //6
       ['global.fun.triggers.confoosed', true],
       ['global.fun.triggers.exposed', true], //17
       ['global.fun.triggers.lenny', true],
       ['global.fun.triggers.rekt', true],
+      ['global.fun.triggers.everyone', true],
   ['global.info.*', true],
     ['global.info.discordstatus.*', true],
       ['global.info.discordstatus.discordstatus', true],
+    ['global.info.avatar', true],
+    ['global.info.channeltopic', true],
+    ['global.info.count.*', true],
+      ['global.info.count.channelcount', true],
+      ['global.info.count.emojicount', true],
+      ['global.info.count.membercount', true],
+      ['global.info.count.rolecount', true],
     ['global.info.help.*', true],
       ['global.info.help.help', true],
     ['global.info.info.*', true],
@@ -92,6 +108,7 @@ ex.permsList = [
       ['global.moderation.bans.hackban', false],
       ['global.moderation.bans.reactban', false],//To be added/renamed
       ['global.moderation.bans.roleban', false], //To be added/renamed
+      ['global.moderation.bans.instaban', false],
     ['global.moderation.botnick.*', false],
       ['global.moderation.botnick.change', false],
     ['global.moderation.chipsprefix.*', false],
@@ -190,7 +207,7 @@ ex.userpermissions = {
       {name: ex.permsList[0][0], action: 1},
       {name: ex.permsList[1][0], action: 1},
       {name: ex.permsList[2][0], action: 1},
-    ], 
+    ],
   "250815960250974209": //Edp
     [
       {name: ex.permsList[0][0], action: 1},

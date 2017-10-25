@@ -2,6 +2,9 @@ module.exports = {
   name: "stafflogs",
   async func(msg, { channel, args, guild, send, member }) {
     
+    if(!guild)
+      return;
+    
     let stafflogs = guild.channels.find('name', 'staff-logs');
     
     if(!member.hasPermission("MANAGE_CHANNELS"))
@@ -10,13 +13,19 @@ module.exports = {
     if(stafflogs) 
       return send('You already have a staff-logs channel: ' + stafflogs);  
 
-    if(!args[0])
-      return send('Use \"stafflogs set\"!');
-    
-    if(args[0]==='set')
-      if(!stafflogs)
-      stafflogs = await guild.createChannel('staff-logs', 'text')
-       .then(reply => send(stafflogs + ' channel succesfully created!'));
+    let logs;
+       try {
+         logs = await guild.createChannel('staff-logs', 'text');
+         await guild.channels.find('name', 'staff-logs').overwritePermissions(guild.roles.find('name', '@everyone'), 
+        {
+          "SEND_MESSAGES": false,
+          "ADD_REACTIONS": false
+        });
+         send(`Created new channel with name ${logs.name}!`);
+       }catch(err){
+         send('The channel could not be created…');
+         throw err;
+       }   
 
   }
 }

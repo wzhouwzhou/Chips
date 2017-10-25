@@ -45,6 +45,8 @@ const Song = class Song {
   }
 
   get stream () {
+    if(this.livestream&&this.livestream === '1')
+      return ytdl(this.url);
     return ytdl(this.url, {filter: 'audioonly'});
   }
 

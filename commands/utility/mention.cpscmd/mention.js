@@ -1,19 +1,19 @@
 
 const _ = require('lodash');
-const chunk = require('../functions/splitChunkF').default({_});
-const grammarJoin = require('../functions/grammarJoinF').default({_});
-const { Paginator } = require('../struct/Paginator');
+const chunk = require('../../../rewrite-all/src/deps/functions/splitChunkF').default({_});
+const grammarJoin = require('../../../rewrite-all/src/deps/functions/grammarJoinF').default({_});
+const { Paginator } = require('../../../rewrite-all/src/struct/client/Paginator');
 exports.name = 'mention';
 const inmention = new Map;
 const whitelist = [];
 const STARTCONFIRM = '{prefix}select';
 const CANCEL = 'cancel/stop';
 
-exports.exec = async (msg, {guild, member, send, author, channel, suffix, Discord, prefix}) => {
+exports.func = async (msg, {guild, member, send, author, channel, suffix, Discord, prefix}) => {
   if(!suffix || suffix === '') return send('You must give me a role to mention!');
   if(!guild) return send('You must use this command in a server.');
 
-  if(!member.hasPermission('BAN_MEMBERS')&&!member.hasRole(guild.roles.find('Marshal'))&&!member.hasRole(guild.roles.find('Staff')))
+  if(!member.hasPermission('BAN_MEMBERS')&&!member.hasPermission('MANAGE_ROLES'))
     if(!~whitelist.indexOf(member.id))
       return send('You do not have permission to use this command!');
   if(inmention.get(author.id)) return send(`Type ${CANCEL} to leave the mention menu`);
@@ -73,7 +73,7 @@ exports.exec = async (msg, {guild, member, send, author, channel, suffix, Discor
     }, Discord
   );
   try{
-    await p.sendFirst();
+    p.sendFirst();
   }catch(err){
     console.error(err);
     inmention.set(author.id, false);

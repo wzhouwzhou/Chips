@@ -55,7 +55,7 @@ for(p of Object.keys(pobj)){
 }
 beautified.push(cb);
 deniedpleb.push(cb);
-let embed = new Discord.RichEmbed()
+let embed = new Discord.MessageEmbed()
     .setTitle(themember.user.tag)
     .setColor(member.displayColor)
     .addField('can...', beautified.join('\n'));

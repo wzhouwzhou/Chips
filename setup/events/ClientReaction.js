@@ -13,7 +13,7 @@ module.exports = function() {
         }
       if(react.message.guild.id=='257889450850254848')
         //if(react.emoji.toString()==Constants.emojis.STAR)
-          react.message.guild.channels.get("320752455178780672").send(`${user.tag.replace(/@/g,'(at)')} just reacted with ${react.emoji.toString()} to a message in ${react.message.channel}`, {embed: new Discord.RichEmbed().setDescription(react.message.content).setAuthor(react.message.author.tag).setTimestamp(new Date()).setColor(react.message.member?react.message.member.displayColor:_.random(0,16777215))});
+          react.message.guild.channels.get("320752455178780672").send(`${user.tag.replace(/@/g,'(at)')} just reacted with ${react.emoji.toString()} to a message in ${react.message.channel}`, {embed: new Discord.MessageEmbed().setDescription(react.message.content).setAuthor(react.message.author.tag).setTimestamp(new Date()).setColor(react.message.member?react.message.member.displayColor:_.random(0,16777215))});
     }/*else{
       if(react.message.author.id != client.user.id) return;
       console.log("DM channel emoji: " + react.emoji);

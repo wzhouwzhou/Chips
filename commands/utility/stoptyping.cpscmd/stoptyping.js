@@ -3,6 +3,6 @@ module.exports = {
   name: "stoptyping",
   async func(msg, { reply, channel }) {
     await channel.stopTyping(true);
-    return reply("Typing forcibly stopped!").then(m=>m.delete(3000));
+    return reply("Typing forcibly stopped!").then(mm=>mm.delete({timeout: 3000}));
   }
 };

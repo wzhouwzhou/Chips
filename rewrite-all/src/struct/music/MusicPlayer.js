@@ -44,7 +44,7 @@ const MusicPlayer = class MusicPlayer {
       const song = this.looping?this.lastPlayed:this.queue.shift();
       let embed;
       if(!this.looping){
-        embed = new this.Discord.RichEmbed().setTitle('Now playing...').setColor(1);
+        embed = new this.Discord.MessageEmbed().setTitle('Now playing...').setColor(1);
         embed.setDescription(`${song.title}\nby: ${song.authorname}`).setFooter('Length: '+song.length);
         embed.setImage(song.image);
         this.textchannel.send('', { embed });
@@ -67,7 +67,7 @@ const MusicPlayer = class MusicPlayer {
             this.leaveVC();
             this.connection = null;
             this.dispatcher = null;
-            embed = new this.Discord.RichEmbed().setTitle('Queue ended!').setDescription('Queue another song!').setTimestamp(new Date()).setColor(8060672);
+            embed = new this.Discord.MessageEmbed().setTitle('Queue ended!').setDescription('Queue another song!').setTimestamp(new Date()).setColor(8060672);
             this.textchannel.send('', { embed });
           }
           else if(!this.shuttingDown)
@@ -90,7 +90,7 @@ const MusicPlayer = class MusicPlayer {
     if(this.shuttingDown) return null;
     return song.loadInfo().then(()=>{
       this.queue.push(song);
-      const embed = new this.Discord.RichEmbed().setTitle(`Successfully queued ${song.title}`).setColor(2386431);
+      const embed = new this.Discord.MessageEmbed().setTitle(`Successfully queued ${song.title}`).setColor(2386431);
       embed.setDescription(`There ${this.queue.length==1?'is':'are'} now ${this.queue.length} song${this.queue.length==1?'':'s'} in the queue.`);
 
       if(this.textchannel) this.textchannel.send('', { embed });

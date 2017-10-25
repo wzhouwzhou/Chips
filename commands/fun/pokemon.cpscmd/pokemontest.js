@@ -16,7 +16,7 @@ const BOOTWAIT = 1500;
 
 const SYSREADY = 'System is ready!';
 
-const ACTIONSEMBRXN = new Discord.RichEmbed().setTitle('Choose an action!');
+const ACTIONSEMBRXN = new Discord.MessageEmbed().setTitle('Choose an action!');
 [
   '{one}|Fite'.replace('{one}',Constants.CHOICES[1]).split(/\|/),
   '{two}|Bag'.replace('{two}',Constants.CHOICES[2]).split(/\|/),
@@ -29,7 +29,7 @@ const ACTIONCHOICESTEXT = [
   '**__Pokement__**',
 ].join('\n');
 
-const ACTIONSEMBTEXT = new Discord.RichEmbed().setTitle('Choose an action!').setDescription(ACTIONCHOICESTEXT);
+const ACTIONSEMBTEXT = new Discord.MessageEmbed().setTitle('Choose an action!').setDescription(ACTIONCHOICESTEXT);
 
 module.exports = {
   name: "pokemontest",

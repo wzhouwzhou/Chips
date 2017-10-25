@@ -21,7 +21,7 @@ module.exports = {
     let s='';
     for(let i=0;i<numSpaces;i++) s+=' ';
     let converted = spookymsg.split(/\s*/).join(s);
-    let bad = new Discord.RichEmbed();
+    let bad = new Discord.MessageEmbed();
     bad.setTitle('Spooky!').setColor(guild?member.displayColor:15152469);
     bad.setAuthor(author.tag, author.displayAvatarURL.replace(/\.webp/,`.png`)).setFooter(new Date().toUTCString());
     bad.setDescription(converted);

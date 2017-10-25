@@ -9,7 +9,7 @@ module.exports = {
   async func(msg, { reply, send, prefix, content, guild }) {
     const split = content.substring(`${prefix}3d2 `.length).split(/\s+/);
     if(split.length <= 0||!split.every(w=>w.length>0&&!w.match(/\s+/g)))
-      return send ('You must provide at least one word to 3dtext!').then(m=>m.delete(3000));
+      return send ('You must provide at least one word to 3dtext!').then(mm=>mm.delete({timeout: 3000}));
     else if(split.length<=5)
       if(!asciiCooldown.get(guild.id)){
         asciiCooldown.set(guild.id, true);
@@ -20,8 +20,8 @@ module.exports = {
           return send(str);
         }));
       }else
-        return send('Woah there this command has a 1 minute cooldown please wait before trying that again!').then(m=>m.delete(3000));
+        return send('Woah there this command has a 1 minute cooldown please wait before trying that again!').then(mm=>mm.delete({timeout: 3000}));
     else
-      return send('Too many words to 3dtext!').then(m=>m.delete(3000));
+      return send('Too many words to 3dtext!').then(mm=>mm.delete({timeout: 3000}));
   }
 };

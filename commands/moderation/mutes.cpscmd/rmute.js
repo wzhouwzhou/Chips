@@ -26,7 +26,7 @@ module.exports = {
 
     reply(`user <@${mem.id}> role-muted successfully!`);
 
-    let emb = new Discord.RichEmbed()
+    let emb = new Discord.MessageEmbed()
       .setAuthor("Mute Log")
       .setTitle(`${mem.displayName} was role-muted by ${used.displayName}`)
       .setColor(9109504)

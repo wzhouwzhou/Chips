@@ -39,7 +39,7 @@ module.exports = {
       reason = "No reason provided.";
     let user=null, found=false;
     try{
-      user = await client.fetchUser(typeof memberToUse === 'string'?memberToUse:memberToUse+[]);
+      user = await client.users.fetch(typeof memberToUse === 'string'?memberToUse:memberToUse+[]);
       //send('[Debug] user = '+user.toString());
       if(user!=null){
         console.log("Hackban target user found: "+ user.id);
@@ -52,7 +52,7 @@ module.exports = {
       throw err;
     }
 
-    const embed = new Discord.RichEmbed;
+    const embed = new Discord.MessageEmbed;
     embed
       .setAuthor(`Ban confirmation - Banning: ${found?user.tag:memberToUse}`, found?user.displayAvatarURL:client.user.displayAvatarURL)
       .setColor("RED")
@@ -66,7 +66,7 @@ module.exports = {
     let collector = channel.createMessageCollector(m => {
         if(/^(?:y(?:es)?)|(?:no?)$/i.test(m.content)){
           if(m.author.id===author.id){
-            m.channel.send("Choice accepted. Now processing...").then(m => m.delete(3000));
+            m.channel.send("Choice accepted. Now processing...").then(m => m.delete({timeout: 3000}));
             confirmed = true;
             agreed = /^(?:y(?:es)?)$/i.test(m.content);
             setTimeout(()=>collector.stop(), 1000);
@@ -85,13 +85,13 @@ module.exports = {
         if(m.author.id!=author.id) return;
         if(agreed){
           console.log("[Ban] Banning...");
-          let emb = new Discord.RichEmbed()
+          let emb = new Discord.MessageEmbed()
             .setAuthor("Ban Notice!")
             .setTitle(`You were banned from the server: ${guild.name}!`)
             .setColor(9109504)
             .setThumbnail(Constants.images.WARNING)
             .addField("Ban reason: ", `${reason?reason:"None provided"}`, true);
-          client.fetchUser(memberToUse).then(async u=>{
+          client.users.fetch(memberToUse).then(async u=>{
             try{
               if(dm)
                 await u.send('Uh oh!', {embed: emb});

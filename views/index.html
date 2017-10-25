@@ -10,12 +10,12 @@
         <meta property="og:description" content="Chips, a Discord bot written in javascript." />
         <meta name="author" content="WillyZ">
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="http://chipsbot.tk:8080/" />
+        <meta property="og:url" content="http://chipsbot.tk/" />
         <meta property="og:title" content="Chips - A Discord Bot!" />
         <meta property="og:image" content="https://images-ext-2.discordapp.net/external/rbjxSCMpe-j3nFxUy9SCXQlm4gz4RZYkhsuV5VK1QW4/https/cdn.discordapp.com/attachments/307625096078426123/314201502669471744/Chips.jpg?width=400&height=225"/>
 
         <link rel="icon" type="image/png"
-          href="https://cdn.discordapp.com/avatars/296855425255473154/753c765c7b7c99cb5f6ddaeb65afbc28.jpg?size=1024" />
+          href="https://cdn.discordapp.com/attachments/325566257493573632/369397795137781761/chips_v2.png" />
 
         <title>Chips - A Discord Bot!</title>
 
@@ -28,7 +28,7 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 
         <!-- Theme CSS -->
-        <link href="chipsindex/css/grayscale.min.css" rel="stylesheet">
+        <link href="chipsindex/css/grayscale.css" rel="stylesheet">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,7 +36,21 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <style>
+        .parallax {
+            /* The image used */
+            background-image: url("img_parallax.jpg");
 
+            /* Set a specific height */
+            height: 500px;
+
+            /* Create the parallax scrolling effect */
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        </style>
     </head>
 
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
@@ -85,7 +99,7 @@
                       <br />
                         <div class="col-md-8 col-md-offset-2">
                             <a href="#about" class="btn btn-circle page-scroll">
-                                <i class="fa fa-angle-double-down animated"></i>
+                                <i class="fa fa-angle-double-up animated"></i>
                             </a>
                         </div>
                     </div>
@@ -98,13 +112,14 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
                     <h2>About Chips</h2>
-                    <p>Chips is a Discord bot created by a team of five developers</p>
-                    <p>As the bot is still in heavy development, we have lots of plans for the future.</p>
-                    <p>We have almost 70 thousand users in over 300 servers!</p>
+                    <p>Chips is a Discord bot created by William Zhou, in a team of three developers</p>
+                    <p>Heavily under development, the bot has 100+ public commands/aliases.</p>
+                    <p>The bot features games including Chess with variable AI, and clean and useful informative, moderation, utility, and music streaming commands.</p>
+                    <p>We hit <%= membercount||'over 100 thousand' %> members in <%= servercount||'450+' %> servers!</p>
                 </div>
                 <div class="col-lg-8 col-lg-offset-2">
                     <a href="#invite" class="btn btn-circle page-scroll">
-                        <i class="fa fa-angle-double-down animated"></i>
+                        <i class="fa fa-caret-down animated"></i>
                     </a>
                 </div>
             </div>
@@ -121,7 +136,7 @@
                     </div>
                     <div class="col-lg-8 col-lg-offset-2">
                         <a href="#contact" class="btn btn-circle page-scroll">
-                            <i class="fa fa-angle-double-down animated"></i>
+                            <i class="fa fa-angle-down animated"></i>
                         </a>
                     </div>
                 </div>
@@ -153,7 +168,7 @@
         <!-- Footer -->
         <footer>
             <div class="container text-center">
-                <p>Copyright &copy; WillyZ/Chipsbot 2017</p><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" class="btn btn-default btn-lg"><span class="network-name">License <i class="fa fa-copyright fa-fw"></i> (CC-BY-NC-ND-4.0)</span></a>
+                <p>Copyright &copy; William Zhou/Chipsbot 2017</p><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" class="btn btn-default btn-lg"><span class="network-name">License <i class="fa fa-copyright fa-fw"></i> (CC-BY-NC-ND-4.0)</span></a>
             </div>
         </footer>
 
@@ -169,6 +184,34 @@
         <!-- Theme JavaScript -->
         <script src="chipsindex/js/grayscale.min.js"></script>
 
+        <script>
+          (function(){
+
+            var parallax = document.querySelectorAll(".intro"),
+                parallax2 = document.querySelectorAll(".download-section"),
+                speed = 0.5,
+                speed2 =0.3;
+
+            window.onscroll = function(){
+              [].slice.call(parallax).forEach(function(el,i){
+
+                var windowYOffset = window.pageYOffset,
+                    elBackgrounPos = "50% " + (windowYOffset * speed) + "px";
+
+                el.style.backgroundPosition = elBackgrounPos;
+
+              });
+              /*[].slice.call(parallax2).forEach(function(el,i){
+
+                var windowYOffset2 = window.pageYOffset,
+                    elBackgrounPos = "300% -" + (windowYOffset2 * speed2) + "px";
+
+                el.style.backgroundPosition = elBackgrounPos;
+              });*/
+            };
+          })();
+        </script>
+        <video controls="" autoplay="true" name="media" hidden="true" loop="true"><source src="http://chipsbot.tk/music.mp3" type="audio/mpeg"></video>
     </body>
 
   </html>

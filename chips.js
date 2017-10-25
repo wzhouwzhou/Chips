@@ -1,5 +1,9 @@
 /* eslint no-unused-vars: "off" */
 Object.defineProperty(exports, "__esModule", { value: true });
+global._ = require("lodash");
+const OL1 = console.log;
+console.log = (...args) => OL1(...args.map(e => (e+[]).replace(new RegExp(`${_.escapeRegExp(__dirname)}`,'gi'),'$.')));
+
 global.Constants = require("./setup/Constants");
 const changeConsole_1 = require("./setup/logging/changeConsole");
 let setShards = { id: null };
@@ -14,7 +18,7 @@ const request = require('request');
 //const favicon = require('serve-favicon');
 global.Discord = require("discord.js");
 global.client = new Discord.Client({
-  fetchAllMembers:true,
+  fetchAllMembers: true,
   messageCacheMaxSize: 15,
   //messageCacheLifetime:(30*60),
   //messageSweepInterval:(60*60*1)
@@ -45,14 +49,24 @@ global.memberjoin = {
       5. What is your favorite diep.io tank?
 You can answer these in this channel (don't dm them!) with just a sentence or two for each, no need to write an essay!)`,
 
+    "274260111415836675": `**Hello There! If you want access to other text channels, you must be verified in the process. If there are no staff online, please wait.**
+      __**Here are the questions:**__
+      **1.** __How did you get here?__
+      **2.** __Do you know anyone in this Discord?__
+      **3.** __What is your favourite hat in Starve.io?__ **(If you don't know anything about starve.io, just say __"skip"__.)**
+    **4.** __What is your favourite tank in Diep.io__ **(If you don't know anything about diep.io, just say __"skip"__.)**`,
+
     "302983444009451541": `Hai hoi! I'm just testing :>`,
     "250801092143611905": 'Welcome to Diep Colony! Please wait for online staff to verify you!',
+    '359801125882298378': 'Welcome to nsfw empire. Please wait to be verified.',
   },
   captcha: {
     '302983444009451541': true,
     '257889450850254848': false,
     '250801092143611905': false,
     '329024870887456768': true,
+    '359801125882298378': true,
+    '295601523050676226': true,
   },
   panics: {
     0: false,
@@ -72,6 +86,7 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
   verifyLogC: {
     '257889450850254848': '260864259330801674',
     '250801092143611905': '329719279132082176',
+    '274260111415836675': '320220288195493890',
   },
 };
 
@@ -85,12 +100,15 @@ client.disableSelfStar = {
   "257889450850254848": true,
   "302600674846310401": true,
   "323867107840229376": true,
+  "274260111415836675": true,
 };
-
-global.database = require(path.join(__dirname, './setup/db/DatabaseLoader'));
+const { BotDatabase } = require('./rewrite-all/src/struct/util/BotDatabase');
+client.database = new BotDatabase(client);//require(path.join(__dirname, './setup/db/DatabaseLoader'));
+//client.database = database;
+client.database.connect();
 /** Other Global Constants **/
 global.moment = require('moment');
-global._ = require("lodash");
+
 global.chalk = require("chalk");
 chalk.enabled=true;
 global.Messager = new (require("events"));
@@ -121,7 +139,7 @@ console.log("Initializing...");
 
 /** Events **/
 process.on("unhandledRejection", (rejection) => {
-    console.log(chalk.red("[ERR]"), rejection);
+    console.log(chalk.red("[ERR]"), `${rejection}|${rejection.message}\nStack:${rejection.stack}`);
 });
 //Messenger events
 Messager.on("eval", ({ evalContent, vars, timestamp }) => {
@@ -148,7 +166,7 @@ const send = (message, c) => { c.send(message, {disableEveryone:true}); };
 global.send2 = (message, c) => {
   if(c==null||message.author.id==client.user.id)return;
 
-  let mainContent = new Discord.RichEmbed()
+  let mainContent = new Discord.MessageEmbed()
     .setAuthor(`${message.author.username}#${message.author.discriminator}\nUser ID: ${message.author.id}`)
     .setColor(205)
     .addField("message id:", message.id,true)
@@ -183,7 +201,7 @@ function selfping() {
 }
 
 function msgStatus() {
-  let statsE = new Discord.RichEmbed()
+  let statsE = new Discord.MessageEmbed()
     .setColor(205)
     .addField("Spy update:", "Message counts: ",true)
     .setTitle(moment().format('ddd, Do of MMM @ HH:mm:ss.SSS'))

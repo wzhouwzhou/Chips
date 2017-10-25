@@ -48,7 +48,7 @@ module.exports = {
 
     await reply(`User ${usernm} emoji banned successfully!`);
 
-    let emb = new Discord.RichEmbed()
+    let emb = new Discord.MessageEmbed()
       .setAuthor("Emoji Ban Log")
       .setTitle(`<@${mem.user.id}> was emoji banned by <@${author.id}>`)
       .setColor(9109504)

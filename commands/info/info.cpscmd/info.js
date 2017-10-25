@@ -1,9 +1,11 @@
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
+const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Paginator;
 const Jimp = require('jimp');
-const ONLINE = 'https://cdn.discordapp.com/emojis/313956277808005120.png';
-const IDLE = 'https://cdn.discordapp.com/emojis/313956277220802560.png';
-const DND = 'https://cdn.discordapp.com/emojis/313956276893646850.png';
-const INVIS = 'https://cdn.discordapp.com/emojis/313956277237710868.png';
+
+const ONLINE = 'https://i.imgur.com/Yj3vYDB.png';
+const IDLE = 'https://i.imgur.com/IYAtFOU.png';
+const DND = 'https://i.imgur.com/Hij38VX.png';
+const INVIS = 'https://i.imgur.com/dQZuSIR.png';
 
 const ex = {
   name: "info",
@@ -18,7 +20,7 @@ const ex = {
     console.log("[Info] Creating new searcher for guild " + guild.id);
     let options = { guild: guild };
     searchers[guild.id] = new Searcher( options.guild );
-    let infobad = new Discord.RichEmbed().setColor(member.displayColor).setFooter(new Date());
+    let infobad = new Discord.MessageEmbed().setColor(member.displayColor).setFooter(new Date());
 
     if(action=="server"){
       try{
@@ -55,10 +57,11 @@ const ex = {
         return true;
       });
 
-      let textC = 0, voiceC = 0, tC = 0, nsfw = 0;
+      let textC = 0, voiceC = 0, categoryC = 0, tC = 0, nsfw = 0;
       guild.channels.filter((c) => {
         if(c.type=="text") textC++;
         else if(c.type=="voice") voiceC++;
+        else if(c.type==='category') categoryC++;
         tC++;
         if(c.nsfw) nsfw++;
         return true;
@@ -70,36 +73,57 @@ const ex = {
       if (vLvl >= 2) vInfo+= "They must also be registered on Discord for more than five minutes. ";
       if (vLvl >= 3) vInfo+= "In addition, upon joining, new members without a role must wait 10 minutes before they are able to speak. ";
       else if (vLvl >= 4) vInfo+= "In addition, upon joining, new users without a role must verify themselves with a mobile device before they are able to speak. ";
-      let highestRole = guild._sortedRoles.last();
+      let highestRole = guild._sortedRoles().last();
       let gname = guild.name.replace('@','(at)');
-      [
-        [`Name of this server: ${gname}`, `Guild id: ${guild.id}`],
-        ['Server owner:', `${getUser(guild.ownerID).tag} <@${guild.ownerID}>`],
-        [`Number of roles: ${guild.roles.size}`,`Highest role: ${highestRole.name} (${highestRole.id})`],
-        [
-          `Total number of channels: ${tC}`,
-          `Text: **${textC}**\nNsfw: **${nsfw}**\nVoice: **${voiceC}**`
-        ],
-        [`Server region (voice): `, guild.region, true],
-        [`AFK voice channel: ${guild.afkChannelID?'#'+guild.channels.get(guild.afkChannelID).name:''}`,`${guild.afkChannelID?'AFK Timeout: '+ guild.afkTimeout/60 +' minute(s)':'None'}` ],
-        [`Date created: ${guild.createdAt.toUTCString()}`, `That's about ${diff} days ago!`],
-        [`${guild.members.size} member(s): ${trueMemC.size} ${trueMemC.size===1?'person':'people'}, ${guild.members.size-trueMemC.size} ${guild.members.size-trueMemC.size===1?'bot':'bots'}`,([
-          `Reachable member(s) (online, idle or dnd): **${available}**\n`,
-          ...[
-            ['<:online:313956277808005120>',online],
-            ['<:away:313956277220802560>', idle],
-            ['<:dnd:313956276893646850>', dnd],
-            ['<:offline:313956277237710868>', guild.members.size-available],
-          ].map(e=>`${e[0]}: **${e[1]}**`),
-        ].join(' '))],
-        [`Verification level: ${vLvl}`,`That means ${vInfo}`]
-      ].forEach(f=>infobad.addField(...f));
 
-      await reply(`Server info`, {embed: infobad});
-      infobad = new Discord.RichEmbed();
-      infobad.setColor(member.displayColor).setAuthor('Server Emojis').setTitle(`Emoji List! # of emotes: ${guild.emojis.size}`);
-      infobad.setDescription(`${guild.emojis.array().join(' ')}\n\n**Server icon:**`);
-      if (guild.iconURL) infobad.setImage(guild.iconURL);
+      const data = {
+        type:'paged',
+        embedding: true,
+        fielding: true,
+        title: [
+          'Server Info',
+          `Emoji List! # of emotes: ${guild.emojis.size}`,
+        ],
+        text: author+[],
+        description: [
+          '.',
+          `${guild.emojis.array().join(' ')}${guild.iconURL({ size: 2048, format: 'png' })?'\n\n**Server icon:**':''}`,
+        ],
+        pages:
+        [[
+          [`Name of this server: ${gname}`, `Guild id: ${guild.id}`],
+          [`Server created on ${guild.createdAt.toUTCString()} about ${diff} days ago!`,`Server owner: <@${guild.ownerID}> (${getUser(guild.ownerID).tag})`],
+          [`${guild.members.size} member(s): ${trueMemC.size} ${trueMemC.size===1?'person':'people'}, ${guild.members.size-trueMemC.size} ${guild.members.size-trueMemC.size===1?'bot':'bots'}`,([
+            `Reachable member(s) (online, idle or dnd): **${available}**\n`,
+            ...[
+              ['<:online:313956277808005120>',online],
+              ['<:away:313956277220802560>', idle],
+              ['<:dnd:313956276893646850>', dnd],
+              ['<:offline:313956277237710868>', guild.members.size-available],
+            ].map(e=>`${e[0]}: **${e[1]}**`),
+          ].join(' '))],
+          [`Number of roles: ${guild.roles.size}`,`${highestRole.members.size} members with the highest role: ${highestRole.name} (${highestRole.id})`],
+          [
+            `Total number of channels: ${tC}`,
+            `Text: **${textC}**\nNsfw: **${nsfw}**\nVoice: **${voiceC}**\n»Categories: ${categoryC}«`
+          ],
+          [`Server region (voice): ${guild.region}`, `AFK voice channel: ${guild.afkChannelID?'#'+guild.channels.get(guild.afkChannelID).name:''}\n${guild.afkChannelID?'Timeout: '+ guild.afkTimeout/60 +' minute(s)':'None'}`, true],
+          [`Verification level: ${vLvl}`,`That means ${vInfo}`]
+        ],[]],
+        image: [
+          null,
+          guild.iconURL({ size: 2048, format: 'png' })||null,
+        ],
+        thumbnail: [
+          guild.iconURL({ size: 2048, format: 'png' })||null,
+        ],
+        author:[
+          client.user.tag,
+          'Server Emojis'
+        ],
+        color: member.displayColor,
+      };
+
       let hrTime = process.hrtime(start);
       let µs = false;
       let end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
@@ -108,10 +132,18 @@ const ex = {
         end = (hrTime[0] * 1000000 + hrTime[1] / 1000);
       }
       µs ? end += 'µs' : end += 'ms';
-      infobad.setFooter(`--Server info lookup and calculations took ${(end)}.--`);
-      return send('', {embed: infobad});
+      data.footer = `--Server info lookup and calculations took ${(end)}.--`;
+
+      try{
+        const p = new Paginator ( msg, data, Discord);
+        return await p.sendFirst();
+      }catch(err){
+        console.error(err);
+        return reply ('Something went wrong...');
+      }
+      ///await reply(`Server info`, {embed: infobad});
     }else if(action=="user"){
-      const waitingE = new Discord.RichEmbed().attachFile('loading.gif').setAuthor('Loading...','attachment://loading.gif','http://chipsbot.tk').setColor(msg.member.displayColor);
+      const waitingE = new Discord.MessageEmbed().attachFiles(['loading.gif']).setAuthor('Loading...','attachment://loading.gif','http://chipsbot.tk').setColor(msg.member.displayColor);
       const waiting = await send(' ', {embed: waitingE});
 
       let member=used;
@@ -277,7 +309,7 @@ const ex = {
         infobad.addField(`Mentionable: `,`${role.mentionable}`, true);
         infobad.addField(`Role Colour: `,`${role.hexColor}`, true);
         infobad.addField(`Hoist: ${role.hoist}`,`This means that the role is ${role.hoist?'':'not '}displayed separately in the member list.`);
-        infobad.addField(`Position: ${role.calculatedPosition}`,`This means that the role is ${role.calculatedPosition+1==guild.roles.size?'1st':(role.calculatedPosition+2==guild.roles.size?'2nd':(role.calculatedPosition+3==guild.roles.size?'3rd':((guild.roles.size-role.calculatedPosition)+'th')))} highest in this server!`);
+        infobad.addField(`Position: ${role.rawPosition+1}`,`This means that the role is ${role.rawPosition+1+1==guild.roles.size?'1st':(role.rawPosition+1+2==guild.roles.size?'2nd':(role.rawPosition+1+3==guild.roles.size?'3rd':((guild.roles.size-role.rawPosition+1)+'th')))} highest in this server!`);
         infobad.addField(`Members with this role: `,`${memList?memList:'Nobody has this role!'}`);
         return await reply(`Role information: `,{embed: infobad});
         //return await send(`Role Id: ${role.id}\nRole Name: ${rolename}\nMember count: ${role.members.size}`);
@@ -365,9 +397,9 @@ const ex = {
          ].map(e=>`${e[0]}: **${e[1]}**`),
        ].join(' ')));
 
-        infobad.addField(`Position: ${channel.calculatedPosition}`,`This means that the channel is ${channel.calculatedPosition==0?'1st':(channel.calculatedPosition==1?'2nd':(channel.calculatedPosition==2?'3rd':((channel.calculatedPosition+1)+'th')))} on the channel list in the sidebar!`);
+        infobad.addField(`Position: ${channel.rawPosition+1}`,`The channel is ${channel.rawPosition+1==0?'1st':(channel.rawPosition+1==1?'2nd':(channel.rawPosition+1==2?'3rd':((channel.rawPosition+1+1)+'th')))} on the channel list in the sidebar ${channel.parent?'and '+(channel.position+1==0?'1st':(channel.position+1==1?'2nd':(channel.position+1==2?'3rd':((channel.position+1+1)+'th'))))+' under the '+channel.parent.name+' divider':''}!`);
         //infobad.addField(`Permission Overwrite Count: `,`${channel.permissionOverwrites.size}`);
-        channel.type==='text'&&infobad.addField(`Nsfw channel: `,`${channel.nsfw?'yes':'no'}`);
+        channel.type==='text'&&channel.nsfw&&infobad.setThumbnail('https://i.imgur.com/PU6uVhu.png');
         memList&&infobad.addField(`Members with access to this channel: `,memList);
         return await reply(`Channel information: `,{embed: infobad});
       }
@@ -377,8 +409,8 @@ const ex = {
 
 const userData = (member, infobad, convertTime, times, name) => {
   return new Promise( async res => {
-    let pfp = await Jimp.read(member.user.displayAvatarURL);
-    let pfp2 = (await Jimp.read(member.user.displayAvatarURL)).clone();
+    let pfp = await Jimp.read(member.user.displayAvatarURL({format: 'png', size: 2048}));
+    let pfp2 = (await Jimp.read(member.user.displayAvatarURL({format: 'png', size: 2048}))).clone();
     const wl = 1024, sl = 640, bl=550;
     pfp =  pfp.resize(wl, wl, Jimp.RESIZE_BEZIER);
     pfp2 =  pfp2.resize(wl, wl, Jimp.RESIZE_BEZIER);
@@ -461,7 +493,7 @@ const userData = (member, infobad, convertTime, times, name) => {
     infobad.setColor(member.displayColor);
 
     pfp.write(name,async ()=>{
-      infobad.attachFile(name).setThumbnail('attachment://'+name);
+      infobad.attachFiles([name]).setThumbnail('attachment://'+name);
       return res(infobad);
     });
   });

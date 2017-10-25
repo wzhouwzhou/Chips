@@ -16,12 +16,12 @@ const ex= {
 
     const color = member.displayColor;
 
-    return channel.fetchMessages({ around: args[0], limit: 3 }).then(messages => {
+    return channel.messages.fetch({ around: args[0], limit: 3 }).then(messages => {
       const quotee = messages.get(args[0]);
 
-      const embed = new Discord.RichEmbed()
+      const embed = new Discord.MessageEmbed()
         .setDescription(quotee.content || '\u200B')
-        .setAuthor(`${quotee.author.username}#${quotee.author.discriminator}`, quotee.author.displayAvatarURL)
+        .setAuthor(`${quotee.author.username}#${quotee.author.discriminator}`, quotee.author.displayAvatarURL({format: 'png', size: 2048}))
         .setFooter(quotee.id)
         .setTimestamp(quotee.createdAt)
         .setColor(color);

@@ -15,7 +15,7 @@ module.exports = {
   name: "boobs",
   perm: ["server.nsfw"],
   async func(msg, { member, send, channel }) {
-    let emb = new Discord.RichEmbed().setColor(member.displayColor);
+    let emb = new Discord.MessageEmbed().setColor(member.displayColor);
     if(channel.nsfw)
       return getBoobs((a,b)=>{
         b='http://media.oboobs.ru/'+b;

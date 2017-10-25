@@ -14,6 +14,7 @@ module.exports = {
         case Constants.users.NELYN:
         case Constants.users.LOAF:
         case Constants.users.ARX:
+        case Constants.users.LUCAS:
           break;
         default:
           return reply('You must have Administrator perms to use this command!');

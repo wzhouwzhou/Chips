@@ -10,11 +10,11 @@ module.exports = {
     if(!targetmember||targetmember.size<1){
       let hrTime = process.hrtime(start);
 
-      const selftar = new Discord.RichEmbed()
+      const selftar = new Discord.MessageEmbed()
       .setTitle(`Avatar Image of ${author.tag} `, ``   , true)
       .setColor(guild?msg.member.displayColor:71340)
-      .addField('Avatar Link: ', `[Click Here](${author.avatarURL||author.displayAvatarURL})`)
-      .setImage(author.avatarURL);
+      .addField('Avatar Link: ', `[Click Here](${author.avatarURL({format: 'png', size: 2048})||author.displayAvatarURL({format: 'png', size: 2048})})`)
+      .setImage(author.avatarURL({format: 'png', size: 2048}));
 
       let µs = false;
       let end = (hrTime[0] * 1000 + hrTime[1] / 1000000);
@@ -33,8 +33,8 @@ module.exports = {
 
         memberList.set(member.id,{
           title: `Avatar Image of ${member.user.tag} `,
-          page: ['Avatar Link: ', `[Click Here](${member.user.avatarURL||member.user.displayAvatarURL})`],
-          image: member.user.displayAvatarURL
+          page: ['Avatar Link: ', `[Click Here](${member.user.avatarURL({format: 'png', size: 2048})||member.user.displayAvatarURL({format: 'png', size: 2048})})`],
+          image: member.user.displayAvatarURL({format: 'png', size: 2048})
         });
       });
       const pages = [], title = [], image = [];
@@ -45,7 +45,7 @@ module.exports = {
       });
 
       if(pages.length===1){
-        const avator = new Discord.RichEmbed()
+        const avator = new Discord.MessageEmbed()
           .setTitle(title[0])
           .setColor(guild?msg.member.displayColor:71340)
           .addField(...pages[0][0])

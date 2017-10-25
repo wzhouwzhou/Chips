@@ -21,6 +21,9 @@ const neko = [
   '365972456139390977', //Vy alt
   '260024920757633025', //Xena, a nEkO SLaVE
   '205608598233939970',  //lucas, a guy that wants perms
+  '290177579267260416', //yosh, a guy that's hoping for immuniteh xd
+  '262127229385965570', //devon, for making chips logos
+  '205708445725229056', //artifical, removing this soon
 ];
 
 const ex= {
@@ -61,7 +64,7 @@ const ex= {
       /*else
         console.log("-ban immunity override");*/
     }
-    let emb = new Discord.RichEmbed()
+    let emb = new Discord.MessageEmbed()
       .setAuthor("Ban Notice!")
       .setColor(9109504)
       .setThumbnail(Constants.images.WARNING)
@@ -85,8 +88,8 @@ const ex= {
     await reply('User banned successfully!');
     const mee6name = guild.members.get('159985870458322944')?guild.members.get('159985870458322944').displayName:null;
     if(mee6name)
-      channel.createWebhook(mee6name, Constants.avatars.MEE6)
-        .then (whook => whook.edit(mee6name, Constants.avatars.MEE6))
+      channel.createWebhook(mee6name, {avatar: Constants.avatars.MEE6, reason: `Fake ban executed by ${author.tag}`})
+        .then (whook => whook.edit(mee6name, {avatar: Constants.avatars.MEE6}))
         .then(hook => hook.send(`**${usernm}** left!`)
         .then(() => hook.delete())
         .catch(console.error)

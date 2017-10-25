@@ -17,7 +17,7 @@ module.exports = {
     results._end( (json) => {
       let defs = json.list;
       console.log('[Urban] Creating embed...');
-      let embed = new Discord.RichEmbed().setColor(guild?member.displayColor:42069);
+      let embed = new Discord.MessageEmbed().setColor(guild?member.displayColor:42069);
       if(defs.length>0) for(let i = 0; i < Math.min(defs.length,5); i++){
         console.log('[Urban] Looping results... '+i);
         let entry = defs[i];
