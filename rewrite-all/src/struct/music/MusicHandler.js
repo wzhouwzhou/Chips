@@ -69,52 +69,64 @@ const GuildMusicHandler = class MusicHandler {
     if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
     if (!MonstercatBroadcast) MonstercatBroadcast = this._client.createVoiceBroadcast();
     const Monstercat = await (new Song('https://www.youtube.com/watch?v=ueupsBPNkSc', client.user).loadInfo());
-    this._client.musicBroadcasts['monstercat'] = NCSBroadcast;
+    this._client.musicBroadcasts['monstercat'] = MonstercatBroadcast;
     MonstercatBroadcast.playStream(Monstercat.stream, this.streamOpts);
     return MonstercatBroadcast;
   }
 
-  async playAllNCS () {
-    if (!NCSBroadcast) return 'NCS Broadcast not started';
+  async playAllNCS() {
+    if (!MonstercatBroadcast) return 'NCS Broadcast not started';
     if (!this._client.ncsChannels) this._client.ncsChannels = {};
-    for(const cid of Object.keys(this._client.ncsChannels))
-      await this._client.channels.get(cid).leave();
-    return await new Promise(res => {
-      setTimeout(async () => {
-        this._client.ncsChannels = {};
-        for (const [,vc] of this._client.channels.filter(c => c.type==='voice'))
-          if (vc.name.replace(/\s+/g,'').match(/chip(?:sy?)?(?:streams?|24\/?7)(ncs|nocopyrightsounds?)/i)) {
-            const connection = await vc.join();
-            const dispatcher = connection.playBroadcast(NCSBroadcast, this.streamOpts);
-            this._client.ncsChannels[vc.id] = { connection, dispatcher };
+    const leaves = [];
+    for (const cid of Object.keys(this._client.ncsChannels)) leaves.push(this._client.channels.get(cid).leave());
+    await Promise.all(leaves);
+    this._client.ncsChannels = {};
+    return new Promise(res => {
+      setTimeout(async() => {
+        const connections = [];
+        for (const [, vc] of this._client.channels.filter(c => c.type === 'voice')) {
+          if (vc.name.replace(/\s+/g, '').match(/chip(?:sy?)?(?:streams?|24\/?7)(ncs|nocopyrightsounds?)/i)) {
+            connections.push(vc.join());
           }
+        }
+        await Promise.all(connections);
+        for (const connection in connections) {
+          connection.playBroadcast(NCSBroadcast, this.streamOpts);
+          this._client.ncsChannels[connection.channel.id] = { connection, dispatcher: connection.dispatcher };
+        }
         return res(this._client.ncsChannels);
       }, 2000);
     });
   }
 
-  async playAllMonstercat () {
+  async playAllMonstercat() {
     if (!MonstercatBroadcast) return 'Monstercat Broadcast not started';
     if (!this._client.monstercatChannels) this._client.monstercatChannels = {};
-    for(const cid of Object.keys(this._client.monstercatChannels))
-      await this._client.channels.get(cid).leave();
+    const leaves = [];
+    for (const cid of Object.keys(this._client.monstercatChannels)) leaves.push(this._client.channels.get(cid).leave());
+    await Promise.all(leaves);
     this._client.monstercatChannels = {};
-    return await new Promise(res => {
-      setTimeout(async () => {
-        for (const [,vc] of this._client.channels.filter(c => c.type==='voice'))
-          if (vc.name.replace(/\s+/g,'').match(/chip(?:sy?)?(?:streams?|24\/?7)(monstercat|monster)/i)) {
-            const connection = await vc.join();
-            const dispatcher = connection.playBroadcast(MonstercatBroadcast, this.streamOpts);
-            this._client.monstercatChannels[vc.id] = { connection, dispatcher };
+    return new Promise(res => {
+      setTimeout(async() => {
+        const connections = [];
+        for (const [, vc] of this._client.channels.filter(c => c.type === 'voice')) {
+          if (vc.name.replace(/\s+/g, '').match(/chip(?:sy?)?(?:streams?|24\/?7)(monstercat|monster)/i)) {
+            connections.push(vc.join());
           }
+        }
+        await Promise.all(connections);
+        for (const connection in connections) {
+          connection.playBroadcast(MonstercatBroadcast, this.streamOpts);
+          this._client.monstercatChannels[connection.channel.id] = { connection, dispatcher: connection.dispatcher };
+        }
         return res(this._client.monstercatChannels);
       }, 2000);
     });
   }
 
 
-  spawnPlayer (vc,tc) {
-    this.player = new MusicPlayer(vc,tc);
+  spawnPlayer(vc, tc) {
+    this.player = new MusicPlayer(vc, tc);
     return this;
   }
 

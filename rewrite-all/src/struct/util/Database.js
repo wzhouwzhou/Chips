@@ -10,7 +10,8 @@ const PermissionsHandler = require('../../../../handlers/Permissions');
 /**
  * Database
  * A utiliy class that represents a generic Database that uses both Google spreadsheet and Reql storage.
- *
+ * @abstract
+ * @class
  * @type {GLoader}
  */
 const Database = class Database {
@@ -21,10 +22,16 @@ const Database = class Database {
    * @param  {Discord.Client}    client The bot client this database belongs to.
    */
   constructor(client) {
+    /**
+     * The client this database belongs to.
+     * @member
+     * @type {Discord.Client}
+     */
     this.client = client;
 
     /**
     * The google login credentials
+    * @member
     * @type {Object}
     */
     this.glogin = {
@@ -85,7 +92,9 @@ const Database = class Database {
    * Loads all things related to this database
    * - Namely, rethinkdb and google sheets;
    *
+   * @async
    * @method load
+   * @async
    * @returns {Promise} resolves to this
    */
   async load() {
@@ -129,6 +138,7 @@ const Database = class Database {
    *
    * @method loadGSheet
    * @param  {GoogleSpreadsheet}   gsheet The sheet to load
+   * @async
    * @returns {Promise}         Resolves to this._sheets
    */
   async loadGSheet(gsheet) {
@@ -155,7 +165,7 @@ const Database = class Database {
    *
    * @param {string}  tablename    The name of the table to fetch
    * @param {boolean} [cache=true] Whether to internally cache the table contents into this.rtables
-   *
+   * @async
    * @returns {Object} Table entries, where keys are ids.
    */
   async getTable(tablename, cache = true) {
@@ -175,7 +185,7 @@ const Database = class Database {
    * @param {string}    tablename    The name of the table to insert data into.
    * @param {string} [id=Date.now()] The id of data to insert
    * @param {Object}  [data={}]      Data to insert
-   *
+   * @async
    * @returns {Object} Status of insertion.
    * @throws {Error}   If data wasn't inserted then it will attempt to be stringified in the error.
    */
@@ -193,4 +203,8 @@ const Database = class Database {
   }
 };
 
+/**
+ * Export Database class
+ * @module Database
+ */
 exports.Database = Database;
