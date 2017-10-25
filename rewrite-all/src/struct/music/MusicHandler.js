@@ -54,21 +54,21 @@ const GuildMusicHandler = class MusicHandler {
     }
   }
 
-  async startNCSBroadcast () {
+  async startNCSBroadcast() {
     if (NCSBroadcast) NCSBroadcast.end();
     if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
     if (!NCSBroadcast) NCSBroadcast = this._client.createVoiceBroadcast();
-    const NCS = await (new Song('https://www.youtube.com/watch?v=lFvQifetTAs', client.user).loadInfo());
+    const NCS = await new Song('https://www.youtube.com/watch?v=lFvQifetTAs', this.client.user).loadInfo();
     this._client.musicBroadcasts['ncs'] = NCSBroadcast;
     NCSBroadcast.playStream(NCS.stream, this.streamOpts);
     return NCSBroadcast;
   }
 
-  async startMonstercatBroadcast () {
+  async startMonstercatBroadcast() {
     if (MonstercatBroadcast) MonstercatBroadcast.end();
     if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
     if (!MonstercatBroadcast) MonstercatBroadcast = this._client.createVoiceBroadcast();
-    const Monstercat = await (new Song('https://www.youtube.com/watch?v=ueupsBPNkSc', client.user).loadInfo());
+    const Monstercat = await new Song('https://www.youtube.com/watch?v=ueupsBPNkSc', this.client.user).loadInfo();
     this._client.musicBroadcasts['monstercat'] = MonstercatBroadcast;
     MonstercatBroadcast.playStream(Monstercat.stream, this.streamOpts);
     return MonstercatBroadcast;
@@ -83,13 +83,13 @@ const GuildMusicHandler = class MusicHandler {
     this._client.ncsChannels = {};
     return new Promise(res => {
       setTimeout(async() => {
-        const connections = [];
+        let connections = [];
         for (const [, vc] of this._client.channels.filter(c => c.type === 'voice')) {
           if (vc.name.replace(/\s+/g, '').match(/chip(?:sy?)?(?:streams?|24\/?7)(ncs|nocopyrightsounds?)/i)) {
             connections.push(vc.join());
           }
         }
-        await Promise.all(connections);
+        connections = await Promise.all(connections);
         for (const connection in connections) {
           connection.playBroadcast(NCSBroadcast, this.streamOpts);
           this._client.ncsChannels[connection.channel.id] = { connection, dispatcher: connection.dispatcher };
@@ -108,13 +108,13 @@ const GuildMusicHandler = class MusicHandler {
     this._client.monstercatChannels = {};
     return new Promise(res => {
       setTimeout(async() => {
-        const connections = [];
+        let connections = [];
         for (const [, vc] of this._client.channels.filter(c => c.type === 'voice')) {
           if (vc.name.replace(/\s+/g, '').match(/chip(?:sy?)?(?:streams?|24\/?7)(monstercat|monster)/i)) {
             connections.push(vc.join());
           }
         }
-        await Promise.all(connections);
+        connections = await Promise.all(connections);
         for (const connection in connections) {
           connection.playBroadcast(MonstercatBroadcast, this.streamOpts);
           this._client.monstercatChannels[connection.channel.id] = { connection, dispatcher: connection.dispatcher };
