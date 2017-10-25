@@ -167,10 +167,10 @@ const Database = class Database {
   async insertInTable (tablename, id = Date.now(), data = { status: false }) {
     this.ensureRethink();
 
-    const entry = await this.rethink.table(tablename).insert({
-      id,
+    const entry = await this.rethink.table(tablename).insert(Object.assign(
+      { id },
       data,
-    }, {
+    ), {
       conflict: 'replace',
     }).run(_=>_);
     if(entry.inserted == 1 || entry.replaced == 1)
