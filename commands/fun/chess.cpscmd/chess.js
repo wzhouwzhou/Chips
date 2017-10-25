@@ -49,7 +49,7 @@ const ex = {
           `Type __${_.escapeRegExp(prefix)}${this.name}__ to start a new game.`,
           '\tWhen prompted mention someone to challenge, or me to play against my AI.',
         ].join('\n')],
-      ];//.forEach(f=>embed.addField(...f));
+      ].map(e=>[e]);//.forEach(f=>embed.addField(...f));
       //send(embed);
       const p = new Paginator ( msg,  {
         type:'paged',
@@ -63,7 +63,6 @@ const ex = {
         await p.sendFirst();
       }catch(err){
         console.error(err);
-        inmention.set(author.id, false);
         return send ('Something went wrong...');
       }
       return;

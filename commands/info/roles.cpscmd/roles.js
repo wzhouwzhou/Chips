@@ -11,7 +11,7 @@ module.exports = {
       return send(new Discord.MessageEmbed().setColor(member.displayColor).setTitle(`Role List (${guild.roles.size})`).setDescription(guild._sortedRoles().map(e=>_.escapeRegExp(e.name)).reverse().join(', ')));
 
     let roles = guild.roles.array().sort((a,b) => b.position - a.position);
-    let totalroles = _.clone(roles);
+    //let totalroles = _.clone(roles);
     //let totalroleids = totalroles.map(e=>e.id);
     roles = chunk(roles, {chunksize: 10});
 
