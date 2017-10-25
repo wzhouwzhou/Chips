@@ -105,16 +105,18 @@ const GuildMusicHandler = class MusicHandler {
     const leaves = [];
     for (const cid of Object.keys(this._client.monstercatChannels)) leaves.push(this._client.channels.get(cid).leave());
     await Promise.all(leaves);
+
     this._client.monstercatChannels = {};
+    let connections = [];
+    for (const [, vc] of this._client.channels.filter(c => c.type === 'voice')) {
+      if (vc.name.replace(/\s+/g, '').match(/chip(?:sy?)?(?:streams?|24\/?7)(monstercat|monster)/i)) {
+        connections.push(vc.join());
+      }
+    }
+    connections = await Promise.all(connections);
+
     return new Promise(res => {
-      setTimeout(async() => {
-        let connections = [];
-        for (const [, vc] of this._client.channels.filter(c => c.type === 'voice')) {
-          if (vc.name.replace(/\s+/g, '').match(/chip(?:sy?)?(?:streams?|24\/?7)(monstercat|monster)/i)) {
-            connections.push(vc.join());
-          }
-        }
-        connections = await Promise.all(connections);
+      setTimeout(() => {
         for (const connection in connections) {
           connection.playBroadcast(MonstercatBroadcast, this.streamOpts);
           this._client.monstercatChannels[connection.channel.id] = { connection, dispatcher: connection.dispatcher };
