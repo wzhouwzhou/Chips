@@ -135,6 +135,8 @@ ex.permsList = [
         ['global.moderation.roles.role.create', false],//To be added/renamed
         ['global.moderation.roles.role.delete', false],//To be added/renamed
         ['global.moderation.roles.role.update', false],//To be added/renamed
+    ['global.moderation.setchannel.*', false],
+      ['global.moderation.setchannel.edit', false],
   ['global.nsfw.*', false],
     ['global.nsfw.ass.*', false],
       ['global.nsfw.ass.ass', true],
