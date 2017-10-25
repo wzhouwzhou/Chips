@@ -15,7 +15,6 @@ const Database = class Database {
    * @param  {Discord.Client}    client The bot client this database belongs to.
    * @return {Database}          This database
    */
-
   constructor(client) {
     this.client = client;
 
@@ -52,7 +51,6 @@ const Database = class Database {
    * @method ensureRethink
    * @return {Database}      this if test passed
    */
-
   ensureRethink () {
     if(!this.rethink) throw new Error('Rethink not connect');
     return this;
@@ -65,7 +63,6 @@ const Database = class Database {
    * @method load
    * @return {Promise} resolves to this
    */
-
   async load () {
     this.ensureRethink();
 
@@ -167,14 +164,15 @@ const Database = class Database {
     return table;
   }
 
-  async insertInTable (tablename, id, data) {
+  async insertInTable (tablename, id = Date.now(), data = { status: false }) {
     this.ensureRethink();
 
     const entry = await this.rethink.table(tablename).insert(Object.assign(
-      { id: Date.now(), data: false },
-      data,
       { id },
-    ), { conflict: 'replace' }).run(_=>_);
+      data,
+    ), {
+      conflict: 'replace',
+    }).run(_=>_);
     if(entry.inserted == 1 || entry.replaced == 1)
       return entry;
     throw new Error(`Data id [${id}] was not inserted: ${JSON.stringify(data)}`);
