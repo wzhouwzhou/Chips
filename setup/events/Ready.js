@@ -37,8 +37,8 @@ module.exports = function( send ) {
     client.mh.startNCSBroadcast().then(() => client.mh.playAllNCS());
     client.mh.startMonstercatBroadcast().then(() => client.mh.playAllMonstercat());
     client.musicCheck = setInterval(() => {
-      client.mh.playAllNCS();
-      client.mh.playAllMonstercat();
+      client.mh.startNCSBroadcast().then(() => client.mh.playAllNCS());
+      client.mh.startMonstercatBroadcast().then(() => client.mh.playAllMonstercat());
     }, 30*60*1000);
     //Console events
     if(client.shard.id===0)
