@@ -27,7 +27,15 @@ ex.permsList = [
     ['global.custom.points.*', true],
       ['global.custom.points.self', true],
       ['global.custom.points.other', true],
+  ['global.chipsmusic.*', true],
+    ['global.chipsmusic.music.*', true],
+      ['global.chipsmusic.music.play', true],
   ['global.fun.*', false],
+    ['global.games.*', true],
+      ['global.games.chess.*', true],
+        ['global.games.chess.play', true],
+      ['global.games.con4.*', true],
+        ['global.games.con4.play', true],
     ['global.fun.-ban.*', false],
       ['global.fun.-ban.-ban', false], //4
     ['global.fun.animals.*', true],
@@ -306,13 +314,29 @@ ex.serverpermissions = {
     [
       {name: ex.permsList[30][0], action: -1},
     ],
+  '195278167181754369': //diepcord
+    [
+      { name: 'global.moderation.*', action: -1 },
+      { name: 'global.chipsmusic.*', action: -1 },
+      { name: 'global.fun.text.3d', action: -1 },
+      { name: 'global.fun.text.3d2', action: -1 },
+      { name: 'global.fun.text.ascii', action: -1 },
+    ]
 };
 
 ex.channelpermissions = {
-  '291057304512757760':
+  '195278167181754369': // Diepcord off-topic
     [
-      {name: 'OWNER.eval.git', action: -1},
-    ]
+      { name: 'global.info.*', action: -1 },
+      { name: 'global.games.*', action: -1 },
+      { name: 'global.utility.*', action: -1 }
+    ],
+  '214769704932343809': // Diepcord diepio-chat
+    [
+      { name: 'global.info.*', action: -1 },
+      { name: 'global.games.*', action: -1 },
+      { name: 'global.utility.*', action: -1 },
+    ],
 };
 
 ex.updatePermission = function({type, userid=null, guildid=null, roleid=null, channelid=null, perm, action}){

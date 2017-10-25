@@ -1,4 +1,3 @@
-
 let music = require('./music');
 
 console.log('[CPSCMD][CHIPSMUSIC][music] Building objects...');
@@ -9,10 +8,9 @@ music.metadata = {
   usage: 'music <args>',
   example: 'music demo',
   perm: [['global.chipsmusic.music.play']],
-  customperm: ['SEND_MESSAGES'],
 };
 
 console.log('[CPSCMD][CHIPSMUSIC][music] Build objects complete!');
 module.exports = [
-  [music.name,music],
+  [music.name, music],
 ];
