@@ -6,6 +6,6 @@ Chips is not meant to be run on your own system, so important boot files are not
 However, if you wish to contribute, feel free to fork the repository and submit a pull request.
 Make sure you have ESLint set up in your editor of choice so that obvious mistakes can be avoided.
 
-1. Fork & clone the repository, and make sure you're on the **djs-upgrade-12** branch
+1. Fork & clone the repository, and make sure you're on the **permissions-enhancements** branch
 2. Code something special!
 3. [Submit a pull request](https://github.com/wzhouwzhou/Chips/compare)
