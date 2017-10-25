@@ -18,7 +18,7 @@ module.exports = {
         '**Introducing Chips 24/7 radio!**\n',
         'Step 1: Have a voice channel with **`Chips Stream NCS`** or **`Chips Stream Monstercat`** in the name',
         'Step 2: Chips will check every 30 minutes and join that voice channel and stream 24/7 ncs or monstercat music',
-      ].join('\n')));
+      ].join('\n')).setFooter(`🔈🎵 ${Object.keys(client.monstercatChannels).length+Object.keys(client.ncsChannels).length} servers tuned in!`));
     }
 
     let h;
