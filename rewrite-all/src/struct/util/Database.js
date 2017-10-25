@@ -1,13 +1,18 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const Logger = require('../client/Logger').create('Database', 'Main');
-
-const PermissionsHandler = require('../../../../handlers/Permissions');
 const GoogleSpreadsheet = require('google-spreadsheet');
-
 const reql = require('rethinkdbdash');
 
+const Logger = require('../client/Logger').create('Database', 'Main');
+const PermissionsHandler = require('../../../../handlers/Permissions');
+
+/**
+ * Database
+ * A utiliy class that represents a generic Database that uses both Google spreadsheet and Reql storage.
+ *
+ * @type {GLoader}
+ */
 const Database = class Database {
   /**
    * Constructs a database object
@@ -155,6 +160,14 @@ const Database = class Database {
     return this._sheets;
   }
 
+  /**
+   * Gets a reql table.
+   *
+   * @param {string}  tablename    The name of the table to fetch
+   * @param {boolean} [cache=true] Whether to internally cache the table contents into this.rtables
+   *
+   * @returns {Object} Table entries, where keys are ids.
+   */
   async getTable(tablename, cache = true) {
     this.ensureRethink();
 
@@ -166,6 +179,16 @@ const Database = class Database {
     return table;
   }
 
+  /**
+   * Inserts data into a table.
+   *
+   * @param {string}    tablename    The name of the table to insert data into.
+   * @param {string} [id=Date.now()] The id of data to insert
+   * @param {Object}  [data={}]      Data to insert
+   *
+   * @returns {Object} Status of insertion.
+   * @throws {Error}   If data wasn't inserted then it will attempt to be stringified in the error.
+   */
   async insertInTable(tablename, id = Date.now(), data = { status: false }) {
     this.ensureRethink();
 

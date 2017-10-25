@@ -8,6 +8,14 @@ const fs = require('fs');
 const path = require('path');
 const { Database } = require('./Database');
 
+
+/**
+ * BotDatabase
+ * A utiliy class that represents a Discord client's database
+ *
+ * @extends {Database}
+ * @type {BotDatabase}
+ */
 const BotDatabase = class BotDatabase extends Database {
   /**
    * Constructs a BotDatabase
@@ -57,7 +65,7 @@ const BotDatabase = class BotDatabase extends Database {
   /**
    * Loads google sheet loaders
    *
-   * @param {string} [lpath] Path where google loaders are stored.
+   * @param {string} [lpath='./gLoaders'] Path where google loaders are stored.
    *
    * @returns {Object} Database load functions.
    */
