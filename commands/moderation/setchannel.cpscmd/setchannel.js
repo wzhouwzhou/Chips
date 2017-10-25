@@ -11,7 +11,8 @@ module.exports = {
           .setTitle('How to use setchannel')
           .setDescription([
             '{}<name> name [new-name] - sets the channel name.',
-            '{}<name> topic [new topic] - sets the channel topic',
+            '{}<name> topic [new topic] - sets the channel topic.',
+            '{}<name> position [new position] - sets the channel position.'
           ].map(e=>e.replace(/^(\{\})\s*(<name>)\s+(\w+)\s*(\[[\w\s-_]+\])?\s*-\s*([^]*)$/gi, (e,pre,nm,item,args,suff) => `**${_.escapeRegExp(prefix||'-')}${this.name||'setchannel'} ${item} ${args||''}** ${suff}`)).join('\n'))
           .setColor(member.displayColor));
 
@@ -23,6 +24,16 @@ module.exports = {
         else {
           await channel.setName(suffix.substring(suffix.indexOf(args[1])));
           return send(`Channel name set to ${_.escapeRegExp(channel.name).replace(/@/g,'(at)')} successfully`);
+        }
+      
+      if (args[0]==='position')
+        if(!args[1]) 
+          return send('No position given.') 
+        else if(!suffix.substring(suffix.indexOf(args[1])).match(/\d+/g)) 
+          return send('No number given') 
+        else {
+          await channel.setPosition(suffix.substring(suffix.indexOf(args[1])));
+          return send(`Channel position set to ${_.escapeRegExp(chanel.position).replace(/@/g, '(at)')} succesfully`)
         }
 
       if (args[0]==='topic')
