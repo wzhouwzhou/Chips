@@ -308,7 +308,12 @@ ex.serverpermissions = {
     ],
 };
 
-ex.channelpermissions = {};
+ex.channelpermissions = {
+  '291057304512757760':
+    [
+      {name: 'OWNER.eval.git', action: -1},
+    ]
+};
 
 ex.updatePermission = function({type, userid=null, guildid=null, roleid=null, channelid=null, perm, action}){
   return new Promise((resolve, reject) => {
