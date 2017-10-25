@@ -32,7 +32,7 @@ module.exports = {
         else if(!suffix.substring(suffix.indexOf(args[1])).match(/\d+/g)) 
           return send('No number given') 
         else {
-          await channel.setPosition(suffix.substring(suffix.indexOf(args[1])));
+          await channel.setPosition(`${suffix.substring(suffix.indexOf(args[1])) - 1}`);
           return send(`Channel position set to ${_.escapeRegExp(channel.position).replace(/@/g, '(at)')} succesfully`)
         }
 
