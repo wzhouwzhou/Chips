@@ -12,7 +12,7 @@ const Database = class Database {
   /**
    * Constructs a database object
    *
-   * @method constructor
+   * @constructor
    * @param  {Discord.Client}    client The bot client this database belongs to.
    */
   constructor(client) {
