@@ -33,7 +33,7 @@ module.exports = {
           return send('No number given') 
         else {
           await channel.setPosition(suffix.substring(suffix.indexOf(args[1])));
-          return send(`Channel position set to ${_.escapeRegExp(chanel.position).replace(/@/g, '(at)')} succesfully`)
+          return send(`Channel position set to ${_.escapeRegExp(channel.position).replace(/@/g, '(at)')} succesfully`)
         }
 
       if (args[0]==='topic')

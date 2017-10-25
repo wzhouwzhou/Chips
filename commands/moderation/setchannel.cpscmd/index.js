@@ -8,7 +8,7 @@ sc.metadata = {
   description: 'what do you think.',
   usage: 'setchannel',
   example: 'setchannel',
-  perm: [['global.moderation.setchannel.edit']],
+  perm: [['global.moderation.setchannel.*']],
   customperm: ['MANAGE_CHANNELS'],
 };
 
