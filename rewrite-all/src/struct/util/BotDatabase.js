@@ -24,8 +24,8 @@ const BotDatabase = class BotDatabase extends Database {
 
   async writeLastStart () {
     let time = moment().format('ddd, Do of MMM @ HH:mm:ss');
-    const status = `Shard restart on shard #${client.shard.id+1}! ${time}`.toString();
-    return await this.insertInTable('botStartLog', Date.now(), status);
+    const status = `Shard restart on shard #${client.shard.id+1}! ${time}`;
+    return await this.insertInTable('botStartLog', Date.now(), { status, data: true });
   }
 
   loadGFunctions (lpath = path.join(__dirname, './gLoaders')) {

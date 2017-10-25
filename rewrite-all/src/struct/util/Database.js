@@ -167,11 +167,11 @@ const Database = class Database {
     return table;
   }
 
-  async insertInTable (tablename, id, data) {
+  async insertInTable (tablename, id = Date.now(), data = false) {
     this.ensureRethink();
 
     const entry = await this.rethink.table(tablename).insert(Object.assign(
-      { id: Date.now(), data: false },
+      { id, data },
       data,
       { id },
     ), { conflict: 'replace' }).run(_=>_);
