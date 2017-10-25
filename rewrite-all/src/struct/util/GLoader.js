@@ -21,8 +21,22 @@ const GLoader = class GLoader extends Function {
    */
   constructor(name, db) {
     super();
+
+    /**
+    * Ensures that this class is not instantiated.
+    */
     ensureAbstract(this, GLoader);
+
+    /**
+    * The name of the loader.
+    * @type {string}
+    */
     this.loadername = name;
+
+    /**
+    * The database this loader belongs to.
+    * @type {Database}
+    */
     this.db = db;
   }
 };

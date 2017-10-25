@@ -23,11 +23,31 @@ const Database = class Database {
   constructor(client) {
     this.client = client;
 
+    /**
+    * The google login credentials
+    * @type {Object}
+    */
     this.glogin = {
       client_email: process.env.SERVICE_ACCOUNT_EMAIL,
       private_key: process.env.GOOGLE_PRIVATE_KEY,
     };
+
+    /**
+    * The google spreadsheets of this database, empty on instantiation.
+    * @type {Object}
+    */
     this.gtables = {};
+
+    /**
+    * The reql database of this object, null on instantiation.
+    * @type {Object}
+    */
+    this.rethink = null;
+
+    /**
+    * The reql tables of this database, empty on instantiation.
+    * @type {Object}
+    */
     this.rtables = {};
   }
 
@@ -71,12 +91,7 @@ const Database = class Database {
   async load() {
     this.ensureRethink();
 
-    this.startLog = await this.rethink.table('botStartLog').run();
-    this.latestStart = this.startLog && this.startLog[0] ? this.startLog[0].status : 'Unknown';
-
-    this.sinxUsers = new Map();
     await this.loadPrivateGS();
-    await this.loadSBKGS();
 
     return this;
   }
@@ -103,31 +118,6 @@ const Database = class Database {
             --this.numloads;
           }
 
-          return res(this);
-        });
-      });
-    });
-  }
-
-  /**
-   * Loads SBK sheets
-   *
-   * @method loadSBKGS
-   * @returns {Promise}  Resolves to this
-   */
-  loadSBKGS() {
-    return new Promise((res, rej) => {
-      this.sbkPoints = new GoogleSpreadsheet('1UHXrqeaapyCXv-xJV7YmA9r5c_6tjjS9t_55YJhIFVc');
-      this.numsbkloads = -1;
-
-      this.sbkPoints.useServiceAccountAuth(this.glogin, () => {
-        this.sbkPoints.getInfo((err, info) => {
-          if (err) return rej(err);
-          this.numsbkloads = info.worksheets.length;
-          for (const sheet of info.worksheets) {
-            this.loadGSheet(sheet);
-            --this.numsbkloads;
-          }
           return res(this);
         });
       });
