@@ -81,22 +81,15 @@ const GuildMusicHandler = class MusicHandler {
     for (const cid of Object.keys(this._client.ncsChannels)) leaves.push(this._client.channels.get(cid).leave());
     await Promise.all(leaves);
     this._client.ncsChannels = {};
-    return new Promise(res => {
-      setTimeout(async() => {
-        let connections = [];
-        for (const [, vc] of this._client.channels.filter(c => c.type === 'voice')) {
-          if (vc.name.replace(/\s+/g, '').match(/chip(?:sy?)?(?:streams?|24\/?7)(ncs|nocopyrightsounds?)/i)) {
-            connections.push(vc.join());
-          }
-        }
-        connections = await Promise.all(connections);
-        for (const connection in connections) {
+    for (const [, vc] of this._client.channels.filter(c => c.type === 'voice')) {
+      if (vc.name.replace(/\s+/g, '').match(/chip(?:sy?)?(?:streams?|24\/?7)(ncs|nocopyrightsounds?)/i)) {
+        vc.join().then(connection => {
           connection.playBroadcast(NCSBroadcast, this.streamOpts);
           this._client.ncsChannels[connection.channel.id] = { connection, dispatcher: connection.dispatcher };
-        }
-        return res(this._client.ncsChannels);
-      }, 2000);
-    });
+        });
+      }
+    }
+    return this._client.ncsChannels;
   }
 
   async playAllMonstercat() {
@@ -107,23 +100,15 @@ const GuildMusicHandler = class MusicHandler {
     await Promise.all(leaves);
 
     this._client.monstercatChannels = {};
-    let connections = [];
     for (const [, vc] of this._client.channels.filter(c => c.type === 'voice')) {
       if (vc.name.replace(/\s+/g, '').match(/chip(?:sy?)?(?:streams?|24\/?7)(monstercat|monster)/i)) {
-        connections.push(vc.join());
-      }
-    }
-    connections = await Promise.all(connections);
-
-    return new Promise(res => {
-      setTimeout(() => {
-        for (const connection in connections) {
+        vc.join().then(connection => {
           connection.playBroadcast(MonstercatBroadcast, this.streamOpts);
           this._client.monstercatChannels[connection.channel.id] = { connection, dispatcher: connection.dispatcher };
-        }
-        return res(this._client.monstercatChannels);
-      }, 2000);
-    });
+        });
+      }
+    }
+    return this._client.monstercatChannels;
   }
 
 
