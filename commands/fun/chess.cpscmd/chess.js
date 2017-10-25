@@ -55,7 +55,7 @@ const ex = {
         type:'paged',
         embedding: true,
         fielding: true,
-        text: `Type __${_.escapeRegExp(prefix)}${this.name} all__  to see the whole list`,
+        title: 'How-to: Chess in Discord!',
         pages,
         }, Discord
       );
