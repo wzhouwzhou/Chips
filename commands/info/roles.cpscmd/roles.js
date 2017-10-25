@@ -12,7 +12,7 @@ module.exports = {
 
     let roles = guild.roles.array().sort((a,b) => b.position - a.position);
     let totalroles = _.clone(roles);
-    let totalroleids = totalroles.map(e=>e.id);
+    //let totalroleids = totalroles.map(e=>e.id);
     roles = chunk(roles, {chunksize: 10});
 
     const p = new Paginator ( msg,  {

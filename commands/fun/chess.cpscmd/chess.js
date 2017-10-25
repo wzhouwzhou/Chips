@@ -19,10 +19,10 @@ const ex = {
     let { author, reply, member, send, channel, args, prefix, client } = ctx;
 
     if(args[0]&&args[0]==='help'){
-      const embed = new Discord.MessageEmbed;
+      //const embed = new Discord.MessageEmbed;
       new CG({newFen: 'r1bqkb1r/pppp1ppp/2n2n2/4p3/4P3/3B1N2/PPPP1PPP/RNBQK2R w KQkq - 0 1', channel: msg.channel, players: [author, client.user]}).updateAll();
 
-      [
+      const pages = [
         ['Moving pawns: ', [
           'To move a pawn forward simply type the target square.',
           'To move a pawn from e7 to e5 just type `e5`',
@@ -49,8 +49,23 @@ const ex = {
           `Type __${_.escapeRegExp(prefix)}${this.name}__ to start a new game.`,
           '\tWhen prompted mention someone to challenge, or me to play against my AI.',
         ].join('\n')],
-      ].forEach(f=>embed.addField(...f));
-      send(embed);
+      ];//.forEach(f=>embed.addField(...f));
+      //send(embed);
+      const p = new Paginator ( msg,  {
+        type:'paged',
+        embedding: true,
+        fielding: true,
+        text: `Type __${_.escapeRegExp(prefix)}${this.name} all__  to see the whole list`,
+        pages,
+        }, Discord
+      );
+      try{
+        await p.sendFirst();
+      }catch(err){
+        console.error(err);
+        inmention.set(author.id, false);
+        return send ('Something went wrong...');
+      }
       return;
     }
 
