@@ -23,7 +23,7 @@ module.exports = {
     let converted = spookymsg.split(/\s*/).join(s);
     let bad = new Discord.MessageEmbed();
     bad.setTitle('Spooky!').setColor(guild?member.displayColor:15152469);
-    bad.setAuthor(author.tag, author.displayAvatarURL.replace(/\.webp/,`.png`)).setFooter(new Date().toUTCString());
+    bad.setAuthor(author.tag, author.displayAvatarURL({ format: 'png', size: 2048 })).setFooter(new Date().toUTCString());
     bad.setDescription(converted);
     return reply(' ',{embed: bad});
   }
