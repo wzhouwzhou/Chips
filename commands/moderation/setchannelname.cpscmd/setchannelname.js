@@ -7,6 +7,8 @@ module.exports = {
           return;
         if(!suffix) 
           return send('Nothing provided to set as channel name');
+        if(!suffix.substring(suffix.indexOf(args[0])).match(/^[0-9a-z\-_]+$/i))
+          return send('Text channel name must be alphanumeric with dashes or underscores.');
         if(suffix.length>100)   
           return send('The channel name can only be a maximum of 100 characters in length!');
         if(suffix.length<2)
@@ -14,10 +16,10 @@ module.exports = {
       
       let embed = (new Discord.MessageEmbed)
         .setTitle('Channel Name')
-        .setDescription(suffix)
+        .setDescription(`Channel name set to ${_.escapeRegExp(channel.name).replace(/@/g,'(at)')} succesfully!`)
         .setColor(member.displayColor);
         
-        await channel.setName(suffix);
+        await channel.setName(suffix.substring(suffix.indexOf(args[0])));
         return send(embed); 
   
      }

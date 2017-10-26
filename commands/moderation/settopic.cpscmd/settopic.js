@@ -12,10 +12,10 @@ module.exports = {
     
     let embed = (new Discord.MessageEmbed)
       .setTitle('Channel Topic')
-      .setDescription(suffix)
+      .setDescription(`Channel topic set to \"${_.escapeRegExp(channel.topic).replace(/@/g,'(at)')}\" succesfully!`)
       .setColor(member.displayColor);
       
-      await channel.setTopic(suffix);
+      await channel.setTopic(suffix.substring(suffix.indexOf(args[0])));
       return send(embed); 
 
    }
