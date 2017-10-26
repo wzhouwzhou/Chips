@@ -38,21 +38,21 @@ module.exports = {
         weighted = (wsPing*0.11)+(sendMetrics*0.26)+(editMetrics*0.21)+(reactMetrics*0.11)+(delMetrics*0.21);
 
       let scale = '';
-      if(weighted < 100) scale = "That's amazing!";
-      else if(weighted < 200) scale = "That's very good!";
-      else if(weighted < 300) scale = "That's pretty decent!";
-      else if(weighted < 400) scale = "That's about average!";
-      else if(weighted < 500) scale = "That's slightly below average!";
-      else if(weighted < 600) scale = 'I might be lagging a bit!';
-      else if(weighted < 700) scale = "I think I am lagging a fair amount! Try doing -discordstatus to see if it's a problem on Discord's end!";
-      else if(weighted < 800) scale = "Perhaps I am having issues with the internet! Try doing -discordstatus to see if it's a problem on Discord's end!";
-      else if(weighted < 900) scale = "That's pretty bad! Try doing -discordstatus to see if it's a problem on Discord's end!";
-      else if(weighted < 1000)scale = "That's poor! Perhaps I just restarted? Try doing -discordstatus to see if it's a problem on Discord's end!";
-      else if(weighted > 1000)scale = "Help! Something must be wrong with me or Discord! Perhaps I just restarted? Try doing -discordstatus to see if it's a problem on Discord's end!";
+      if (weighted < 100) scale = "That's amazing!";
+      else if (weighted < 200) scale = "That's very good!";
+      else if (weighted < 300) scale = "That's pretty decent!";
+      else if (weighted < 400) scale = "That's about average!";
+      else if (weighted < 500) scale = "That's slightly below average!";
+      else if (weighted < 600) scale = 'I might be lagging a bit!';
+      else if (weighted < 700) scale = "I think I am lagging a fair amount! Try doing -discordstatus to see if it's a problem on Discord's end!";
+      else if (weighted < 800) scale = "Perhaps I am having issues with the internet! Try doing -discordstatus to see if it's a problem on Discord's end!";
+      else if (weighted < 900) scale = "That's pretty bad! Try doing -discordstatus to see if it's a problem on Discord's end!";
+      else if (weighted < 1000)scale = "That's poor! Perhaps I just restarted? Try doing -discordstatus to see if it's a problem on Discord's end!";
+      else if (weighted > 1000)scale = "Help! Something must be wrong with me or Discord! Perhaps I just restarted? Try doing -discordstatus to see if it's a problem on Discord's end!";
 
       console.log('ping pong! ' + author.username + '\'s ping was ' + wsPing + 'ms!');
 
-      database.sheets['botlog'].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: 'Crowd report: ping', mainvalue: wsPing, label: 'ms'},(err) => {console.log(err);});
+      client.database.sheets['botlog'].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: 'Crowd report: ping', mainvalue: wsPing, label: 'ms'},(err) => {console.log(err);});
 
       let bad = new Discord.MessageEmbed().setColor(member?member.color:1).setTitle('**Ping Metrics**');
       bad.setDescription('All metrics are measured in milliseconds it takes to perform an action.');
