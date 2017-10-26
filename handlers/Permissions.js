@@ -341,6 +341,13 @@ ex.channelpermissions = {
       { name: 'global.utility.*', action: -1 },
       { name: 'global.fun.*', action: -1 },
     ],
+  '214925415440056322': // Diepcord lounge
+    [
+      { name: 'global.info.*', action: -1 },
+      { name: 'global.games.*', action: 1 },
+      { name: 'global.utility.*', action: 1 },
+      { name: 'global.fun.*', action: 1 },
+    ]
 };
 
 ex.updatePermission = function({type, userid=null, guildid=null, roleid=null, channelid=null, perm, action}){
