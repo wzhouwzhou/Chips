@@ -8,7 +8,6 @@ con4.metadata = {
   usage: 'con4',
   example: 'con4',
   perm: [["global.games.con4.play"]],
-  customperm: ['SEND_MESSAGES'],
 };
 
 console.log('[CPSCMD][FUN][con4] Build objects complete!');

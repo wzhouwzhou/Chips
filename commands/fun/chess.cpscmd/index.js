@@ -8,7 +8,6 @@ chess.metadata = {
   usage: 'chess',
   example: 'chess',
   perm: [["global.games.chess.play"]],
-  customperm: ['SEND_MESSAGES'],
 };
 
 console.log('[CPSCMD][FUN][chess] Build objects complete!');

@@ -27,7 +27,15 @@ ex.permsList = [
     ['global.custom.points.*', true],
       ['global.custom.points.self', true],
       ['global.custom.points.other', true],
+  ['global.chipsmusic.*', true],
+    ['global.chipsmusic.music.*', true],
+      ['global.chipsmusic.music.play', true],
   ['global.fun.*', false],
+    ['global.games.*', true],
+      ['global.games.chess.*', true],
+        ['global.games.chess.play', true],
+      ['global.games.con4.*', true],
+        ['global.games.con4.play', true],
     ['global.fun.-ban.*', false],
       ['global.fun.-ban.-ban', false], //4
     ['global.fun.animals.*', true],
@@ -135,8 +143,6 @@ ex.permsList = [
         ['global.moderation.roles.role.create', false],//To be added/renamed
         ['global.moderation.roles.role.delete', false],//To be added/renamed
         ['global.moderation.roles.role.update', false],//To be added/renamed
-    ['global.moderation.setchannel.*', false],
-      ['global.moderation.setchannel.edit', false],
   ['global.nsfw.*', false],
     ['global.nsfw.ass.*', false],
       ['global.nsfw.ass.ass', true],
@@ -308,9 +314,43 @@ ex.serverpermissions = {
     [
       {name: ex.permsList[30][0], action: -1},
     ],
+  '195278167181754369': // Diepcord
+    [
+      { name: 'global.moderation.*', action: -1 },
+      { name: 'global.chipsmusic.*', action: -1 },
+      { name: 'global.fun.text.3d', action: -1 },
+      { name: 'global.fun.text.3d2', action: -1 },
+      { name: 'global.fun.text.ascii', action: -1 },
+      { name: 'global.info.nsfw.*', action: -1 },
+      { name: 'global.nsfw.*', action: -1 },
+    ]
 };
 
-ex.updatePermission = function({type, userid=null, guildid=null, roleid=null, perm, action}){
+ex.channelpermissions = {
+  '195278167181754369': // Diepcord off-topic
+    [
+      { name: 'global.info.*', action: -1 },
+      { name: 'global.games.*', action: -1 },
+      { name: 'global.utility.*', action: -1 },
+      { name: 'global.fun.*', action: -1 },
+    ],
+  '214769704932343809': // Diepcord diepio-chat
+    [
+      { name: 'global.info.*', action: -1 },
+      { name: 'global.games.*', action: -1 },
+      { name: 'global.utility.*', action: -1 },
+      { name: 'global.fun.*', action: -1 },
+    ],
+  '214925415440056322': // Diepcord lounge
+    [
+      { name: 'global.info.*', action: -1 },
+      { name: 'global.games.*', action: 1 },
+      { name: 'global.utility.*', action: -1 },
+      { name: 'global.fun.*', action: 1 },
+    ]
+};
+
+ex.updatePermission = function({type, userid=null, guildid=null, roleid=null, channelid=null, perm, action}){
   return new Promise((resolve, reject) => {
     let checked = false;
     if(!ex.defaultperms.has(perm)) return reject("Invalid Permission");
@@ -422,6 +462,31 @@ ex.updatePermission = function({type, userid=null, guildid=null, roleid=null, pe
         }
       break;
 
+      case "channel":
+        if(ex.channelpermissions[channelid]==null)
+          ex.channelpermissions[channelid] = [];
+        if(ex.channelpermissions[channelid].length!=0){
+          for(const p of ex.channelpermissions[channelid]){
+            if(p.name==perm){
+              p.action=action;
+              checked = true;
+              return resolve('Updated channel permissions');
+            }
+          }
+        }
+        ex.channelpermissions[channelid].push(
+          { name: perm, action: action }
+        );
+        //console.log("Created new channel permission");
+        checked = true;
+        resolve('Created channel permission');
+
+        if (!checked) {
+          //console.log("Could not update channel perm! ");
+          reject(JSON.stringify(ex.channelpermissions[channelid]));
+        }
+        break;
+
       default:
         //console.log("Unknown permission received!");
         reject("Invalid Permissions Type");
@@ -433,7 +498,8 @@ ex.updatePermission = function({type, userid=null, guildid=null, roleid=null, pe
 ex.checkPermission = function(msg, perm){
   return new Promise((resolve,reject) => {
     let guild = msg.guild,
-      id = msg.author.id;
+      id = msg.author.id,
+      cid = msg.channel.id;
     if(guild){
       let gp = ex.serverpermissions[guild.id];
       if(gp!=null){
@@ -475,6 +541,22 @@ ex.checkPermission = function(msg, perm){
                 default:
                   break;
               }
+          });
+        }
+      }
+      if (ex.channelpermissions[cid]) {
+        let cp = ex.channelpermissions[cid];
+        if (cp) {
+          cp.forEach(pEntry => {
+            if (pEntry.name == perm) {
+              switch (pEntry.action) {
+                case -1:
+                  reject(`(Channel lock) I'm sorry, but you do not have access to the \`\`${perm}\`\` permission!`);
+                  break;
+                default:
+                  break;
+              }
+            }
           });
         }
       }
