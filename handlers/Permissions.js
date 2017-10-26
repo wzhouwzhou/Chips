@@ -314,13 +314,15 @@ ex.serverpermissions = {
     [
       {name: ex.permsList[30][0], action: -1},
     ],
-  '195278167181754369': //diepcord
+  '195278167181754369': // Diepcord
     [
       { name: 'global.moderation.*', action: -1 },
       { name: 'global.chipsmusic.*', action: -1 },
       { name: 'global.fun.text.3d', action: -1 },
       { name: 'global.fun.text.3d2', action: -1 },
       { name: 'global.fun.text.ascii', action: -1 },
+      { name: 'global.info.nsfw.*', action: -1 },
+      { name: 'global.nsfw.*', action: -1 },
     ]
 };
 
@@ -329,13 +331,15 @@ ex.channelpermissions = {
     [
       { name: 'global.info.*', action: -1 },
       { name: 'global.games.*', action: -1 },
-      { name: 'global.utility.*', action: -1 }
+      { name: 'global.utility.*', action: -1 },
+      { name: 'global.fun.*', action: -1 },
     ],
   '214769704932343809': // Diepcord diepio-chat
     [
       { name: 'global.info.*', action: -1 },
       { name: 'global.games.*', action: -1 },
       { name: 'global.utility.*', action: -1 },
+      { name: 'global.fun.*', action: -1 },
     ],
 };
 
