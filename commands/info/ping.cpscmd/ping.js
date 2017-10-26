@@ -52,7 +52,7 @@ module.exports = {
 
       console.log('ping pong! ' + author.username + '\'s ping was ' + wsPing + 'ms!');
 
-      client.database.sheets['botlog'].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: 'Crowd report: ping', mainvalue: wsPing, label: 'ms'},(err) => {console.log(err);});
+      client.database._sheets['botlog'].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: 'Crowd report: ping', mainvalue: wsPing, label: 'ms'},(err) => {console.log(err);});
 
       let bad = new Discord.MessageEmbed().setColor(member?member.color:1).setTitle('**Ping Metrics**');
       bad.setDescription('All metrics are measured in milliseconds it takes to perform an action.');
