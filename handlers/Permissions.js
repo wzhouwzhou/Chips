@@ -345,7 +345,7 @@ ex.channelpermissions = {
     [
       { name: 'global.info.*', action: -1 },
       { name: 'global.games.*', action: 1 },
-      { name: 'global.utility.*', action: 1 },
+      { name: 'global.utility.*', action: -1 },
       { name: 'global.fun.*', action: 1 },
     ]
 };
