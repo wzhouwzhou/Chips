@@ -312,7 +312,7 @@ ex.serverpermissions = {
     ],
   "257889450850254848":
     [
-      {name: ex.permsList[30][0], action: -1},
+      {name: 'global.nsfw.*', action: -1},
     ],
   '195278167181754369': // Diepcord
     [
