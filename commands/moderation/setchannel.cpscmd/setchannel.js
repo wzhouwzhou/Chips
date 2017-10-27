@@ -28,14 +28,12 @@ module.exports = {
       if (args[0]==='position') 
         if(!args[1]) 
           return send('No position given.');
-        else if(!suffix.substring(suffix.indexOf(args[1])).match(/\d+/g)) 
+        if(!suffix.substring(suffix.indexOf(args[1])).match(/\d+/g)) 
           return send('No number given');
-        if(!args[2])
-          await channel.setPosition(`${suffix.substring(suffix.indexOf(args[1])) - 1}`);
-          return send(`Channel position set to ${_.escapeRegExp(channel.position - 1).replace(/@/g, '(at)')} succesfully`)
-        if(!suffix.substring(suffix.indexOf(args[2])).match(/^[^]*<#(\d+)>[^]*$/))
-          return send('No channel given');
-        
+        else { (args[1])
+            await channel.setPosition(`${suffix.substring(suffix.indexOf(args[1])) - 1}`);
+            return send(`Channel position set to ${_.escapeRegExp(channel.position - 1).replace(/@/g, '(at)')} position higher / lower succesfully!`);
+        }
       
       if (args[0]==='topic')
         if(!args[1])
