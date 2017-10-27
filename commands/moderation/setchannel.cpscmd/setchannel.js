@@ -29,12 +29,12 @@ module.exports = {
           return send(`Channel name set to ${_.escapeRegExp(channel.name).replace(/@/g,'(at)')} successfully`);
         }
       
-      if (args[0]==='position') {
+      if (args[0]==='position')
         if(!args[1]) 
           return send('No position given.');
         if(!suffix.substring(suffix.indexOf(args[1])).match(/\d+/g)) 
           return send('No number given');
-        if(args[1])
+        else {
           await channel.setPosition(`${suffix.substring(suffix.indexOf(args[1])) - 1}`);
           return send(`Channel position set to ${_.escapeRegExp(channel.position - 1).replace(/@/g, '(at)')} succesfully`)
       }
