@@ -1,4 +1,3 @@
-
 let calc = require('./-calc');
 
 console.log('[CPSCMD][MODERATION][calc] Building objects...');
@@ -13,5 +12,5 @@ calc.metadata = {
 
 console.log('[CPSCMD][UTILITY][calc] Build objects complete!');
 module.exports = [
-  [calc.name,calc],
+  [calc.name, calc],
 ];

@@ -1,4 +1,3 @@
-
 let staffapp = require('./applyforstaff');
 
 console.log('[CPSCMD][UTILITY][staffapp] Building objects...');
@@ -13,5 +12,5 @@ staffapp.metadata = {
 
 console.log('[CPSCMD][UTILITY][staffapp] Build objects complete!');
 module.exports = [
-  [staffapp.name,staffapp],
+  [staffapp.name, staffapp],
 ];

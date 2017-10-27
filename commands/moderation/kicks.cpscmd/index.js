@@ -1,4 +1,3 @@
-
 let kick = require('./kick');
 
 console.log('[CPSCMD][MODERATION][kick] Building objects...');
@@ -14,5 +13,5 @@ kick.metadata = {
 
 console.log('[CPSCMD][MODERATION][kick] Build objects complete!');
 module.exports = [
-  [kick.name,kick]
+  [kick.name, kick],
 ];

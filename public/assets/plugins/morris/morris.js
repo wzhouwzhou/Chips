@@ -1,4 +1,4 @@
-/*======================================================================================
+/* ======================================================================================
 Copyright (c) 2013, Olly Smith
 All rights reserved.
 
@@ -23,10 +23,10 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ============================================*/
 
-(function () {
+(function() {
   var $, Morris, minutesSpecHelper, secondsSpecHelper,
     __slice = [].slice,
-    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    __bind = function(fn, me) { return function() { return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
@@ -51,26 +51,25 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     EventEmitter.prototype.fire = function() {
       var args, handler, name, _i, _len, _ref, _results;
-      name = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+      name = arguments[0], args = arguments.length >= 2 ? __slice.call(arguments, 1) : [];
       if ((this.handlers != null) && (this.handlers[name] != null)) {
         _ref = this.handlers[name];
         _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           handler = _ref[_i];
-          _results.push(handler.apply(null, args));
+          _results.push(handler(...args));
         }
         return _results;
       }
     };
 
     return EventEmitter;
-
-  })();
+  }());
 
   Morris.commas = function(num) {
     var absnum, intnum, ret, strabsnum;
     if (num != null) {
-      ret = num < 0 ? "-" : "";
+      ret = num < 0 ? '-' : '';
       absnum = Math.abs(num);
       intnum = Math.floor(absnum).toFixed(0);
       ret += intnum.replace(/(?=(?:\d{3})+$)(?!^)/g, ',');
@@ -100,7 +99,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         this.el = $(options.element);
       }
       if ((this.el == null) || this.el.length === 0) {
-        throw new Error("Graph container element not found");
+        throw new Error('Graph container element not found');
       }
       if (this.el.css('position') === 'static') {
         this.el.css('position', 'relative');
@@ -118,7 +117,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         this.init();
       }
       this.setData(this.options.data);
-      this.el.bind('mousemove', function(evt) {
+      this.el.bind('mousemove', evt => {
         var left, offset, right, width, x;
         offset = _this.el.offset();
         x = evt.pageX - offset.left;
@@ -128,27 +127,27 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           width = right - left;
           return _this.selectionRect.attr({
             x: left,
-            width: width
+            width: width,
           });
         } else {
           return _this.fire('hovermove', x, evt.pageY - offset.top);
         }
       });
-      this.el.bind('mouseleave', function(evt) {
+      this.el.bind('mouseleave', evt => {
         if (_this.selectFrom) {
           _this.selectionRect.hide();
           _this.selectFrom = null;
         }
         return _this.fire('hoverout');
       });
-      this.el.bind('touchstart touchmove touchend', function(evt) {
+      this.el.bind('touchstart touchmove touchend', evt => {
         var offset, touch;
         touch = evt.originalEvent.touches[0] || evt.originalEvent.changedTouches[0];
         offset = _this.el.offset();
         _this.fire('hover', touch.pageX - offset.left, touch.pageY - offset.top);
         return touch;
       });
-      this.el.bind('click', function(evt) {
+      this.el.bind('click', evt => {
         var offset;
         offset = _this.el.offset();
         return _this.fire('gridclick', evt.pageX - offset.left, evt.pageY - offset.top);
@@ -156,14 +155,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       if (this.options.rangeSelect) {
         this.selectionRect = this.raphael.rect(0, 0, 0, this.el.innerHeight()).attr({
           fill: this.options.rangeSelectColor,
-          stroke: false
-        }).toBack().hide();
-        this.el.bind('mousedown', function(evt) {
+          stroke: false,
+        }).toBack()
+          .hide();
+        this.el.bind('mousedown', evt => {
           var offset;
           offset = _this.el.offset();
           return _this.startRange(evt.pageX - offset.left);
         });
-        this.el.bind('mouseup', function(evt) {
+        this.el.bind('mouseup', evt => {
           var offset;
           offset = _this.el.offset();
           _this.endRange(evt.pageX - offset.left);
@@ -171,7 +171,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         });
       }
       if (this.options.resize) {
-        $(window).bind('resize', function(evt) {
+        $(window).bind('resize', evt => {
           if (_this.timeoutId != null) {
             window.clearTimeout(_this.timeoutId);
           }
@@ -211,7 +211,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       eventLineColors: ['#005a04', '#ccffbb', '#3a5f0b', '#005502'],
       rangeSelect: null,
       rangeSelectColor: '#eef',
-      resize: false
+      resize: false,
     };
 
     Grid.prototype.setData = function(data, redraw) {
@@ -231,18 +231,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       ymax = this.cumulative ? 0 : null;
       ymin = this.cumulative ? 0 : null;
       if (this.options.goals.length > 0) {
-        minGoal = Math.min.apply(Math, this.options.goals);
-        maxGoal = Math.max.apply(Math, this.options.goals);
+        minGoal = Math.min(...this.options.goals);
+        maxGoal = Math.max(...this.options.goals);
         ymin = ymin != null ? Math.min(ymin, minGoal) : minGoal;
         ymax = ymax != null ? Math.max(ymax, maxGoal) : maxGoal;
       }
-      this.data = (function() {
+      this.data = function() {
         var _i, _len, _results;
         _results = [];
         for (index = _i = 0, _len = data.length; _i < _len; index = ++_i) {
           row = data[index];
           ret = {
-            src: row
+            src: row,
           };
           ret.label = row[this.options.xkey];
           if (this.options.parseTime) {
@@ -259,7 +259,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             }
           }
           total = 0;
-          ret.y = (function() {
+          ret.y = function() {
             var _j, _len1, _ref, _results1;
             _ref = this.options.ykeys;
             _results1 = [];
@@ -275,13 +275,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
               if (yval != null) {
                 if (this.cumulative) {
                   total += yval;
+                } else if (ymax != null) {
+                  ymax = Math.max(yval, ymax);
+                  ymin = Math.min(yval, ymin);
                 } else {
-                  if (ymax != null) {
-                    ymax = Math.max(yval, ymax);
-                    ymin = Math.min(yval, ymin);
-                  } else {
-                    ymax = ymin = yval;
-                  }
+                  ymax = ymin = yval;
                 }
               }
               if (this.cumulative && (total != null)) {
@@ -291,22 +289,20 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
               _results1.push(yval);
             }
             return _results1;
-          }).call(this);
+          }.call(this);
           _results.push(ret);
         }
         return _results;
-      }).call(this);
+      }.call(this);
       if (this.options.parseTime) {
-        this.data = this.data.sort(function(a, b) {
-          return (a.x > b.x) - (b.x > a.x);
-        });
+        this.data = this.data.sort((a, b) => (a.x > b.x) - (b.x > a.x));
       }
       this.xmin = this.data[0].x;
       this.xmax = this.data[this.data.length - 1].x;
       this.events = [];
       if (this.options.events.length > 0) {
         if (this.options.parseTime) {
-          this.events = (function() {
+          this.events = function() {
             var _i, _len, _ref, _results;
             _ref = this.options.events;
             _results = [];
@@ -315,12 +311,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
               _results.push(Morris.parseDate(e));
             }
             return _results;
-          }).call(this);
+          }.call(this);
         } else {
           this.events = this.options.events;
         }
-        this.xmax = Math.max(this.xmax, Math.max.apply(Math, this.events));
-        this.xmin = Math.min(this.xmin, Math.min.apply(Math, this.events));
+        this.xmax = Math.max(this.xmax, Math.max(...this.events));
+        this.xmin = Math.min(this.xmin, Math.min(...this.events));
       }
       if (this.xmin === this.xmax) {
         this.xmin -= 1;
@@ -341,14 +337,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           this.ymax = Math.max(this.ymax, this.grid[this.grid.length - 1]);
         } else {
           step = (this.ymax - this.ymin) / (this.options.numLines - 1);
-          this.grid = (function() {
+          this.grid = function() {
             var _i, _ref1, _ref2, _results;
             _results = [];
             for (y = _i = _ref1 = this.ymin, _ref2 = this.ymax; step > 0 ? _i <= _ref2 : _i >= _ref2; y = _i += step) {
               _results.push(y);
             }
             return _results;
-          }).call(this);
+          }.call(this);
         }
       }
       this.dirty = true;
@@ -359,7 +355,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     Grid.prototype.yboundary = function(boundaryType, currentValue) {
       var boundaryOption, suggestedValue;
-      boundaryOption = this.options["y" + boundaryType];
+      boundaryOption = this.options[`y${boundaryType}`];
       if (typeof boundaryOption === 'string') {
         if (boundaryOption.slice(0, 4) === 'auto') {
           if (boundaryOption.length > 5) {
@@ -368,12 +364,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
               return suggestedValue;
             }
             return Math[boundaryType](currentValue, suggestedValue);
+          } else if (currentValue != null) {
+            return currentValue;
           } else {
-            if (currentValue != null) {
-              return currentValue;
-            } else {
-              return 0;
-            }
+            return 0;
           }
         } else {
           return parseInt(boundaryOption, 10);
@@ -408,7 +402,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             _results.push(parseFloat(y.toFixed(1 - smag)));
           }
           return _results;
-        })();
+        }());
       } else {
         grid = (function() {
           var _i, _results;
@@ -417,7 +411,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             _results.push(y);
           }
           return _results;
-        })();
+        }());
       }
       return grid;
     };
@@ -435,7 +429,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         this.top = this.options.padding;
         this.bottom = this.elementHeight - this.options.padding;
         if ((_ref = this.options.axes) === true || _ref === 'both' || _ref === 'y') {
-          yLabelWidths = (function() {
+          yLabelWidths = function() {
             var _i, _len, _ref1, _results;
             _ref1 = this.grid;
             _results = [];
@@ -444,19 +438,19 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
               _results.push(this.measureText(this.yAxisFormat(gridLine)).width);
             }
             return _results;
-          }).call(this);
-          this.left += Math.max.apply(Math, yLabelWidths);
+          }.call(this);
+          this.left += Math.max(...yLabelWidths);
         }
         if ((_ref1 = this.options.axes) === true || _ref1 === 'both' || _ref1 === 'x') {
-          bottomOffsets = (function() {
+          bottomOffsets = function() {
             var _i, _ref2, _results;
             _results = [];
-            for (i = _i = 0, _ref2 = this.data.length; 0 <= _ref2 ? _i < _ref2 : _i > _ref2; i = 0 <= _ref2 ? ++_i : --_i) {
+            for (i = _i = 0, _ref2 = this.data.length; _ref2 >= 0 ? _i < _ref2 : _i > _ref2; i = _ref2 >= 0 ? ++_i : --_i) {
               _results.push(this.measureText(this.data[i].text, -this.options.xLabelAngle).height);
             }
             return _results;
-          }).call(this);
-          this.bottom -= Math.max.apply(Math, bottomOffsets);
+          }.call(this);
+          this.bottom -= Math.max(...bottomOffsets);
         }
         this.width = Math.max(1, this.right - this.left);
         this.height = Math.max(1, this.bottom - this.top);
@@ -496,7 +490,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       if (angle == null) {
         angle = 0;
       }
-      tt = this.raphael.text(100, 100, text).attr('font-size', this.options.gridTextSize).attr('font-family', this.options.gridTextFamily).attr('font-weight', this.options.gridTextWeight).rotate(angle);
+      tt = this.raphael.text(100, 100, text).attr('font-size', this.options.gridTextSize).attr('font-family', this.options.gridTextFamily)
+        .attr('font-weight', this.options.gridTextWeight)
+        .rotate(angle);
       ret = tt.getBBox();
       tt.remove();
       return ret;
@@ -510,7 +506,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       if (typeof this.options.yLabelFormat === 'function') {
         return this.options.yLabelFormat(label);
       } else {
-        return "" + this.options.preUnits + (Morris.commas(label)) + this.options.postUnits;
+        return `${this.options.preUnits}${Morris.commas(label)}${this.options.postUnits}`;
       }
     };
 
@@ -528,7 +524,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           this.drawYAxisLabel(this.left - this.options.padding / 2, y, this.yAxisFormat(lineY));
         }
         if (this.options.grid) {
-          _results.push(this.drawGridLine("M" + this.left + "," + y + "H" + (this.left + this.width)));
+          _results.push(this.drawGridLine(`M${this.left},${y}H${this.left + this.width}`));
         } else {
           _results.push(void 0);
         }
@@ -561,15 +557,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     };
 
     Grid.prototype.drawGoal = function(goal, color) {
-      return this.raphael.path("M" + this.left + "," + (this.transY(goal)) + "H" + this.right).attr('stroke', color).attr('stroke-width', this.options.goalStrokeWidth);
+      return this.raphael.path(`M${this.left},${this.transY(goal)}H${this.right}`).attr('stroke', color).attr('stroke-width', this.options.goalStrokeWidth);
     };
 
     Grid.prototype.drawEvent = function(event, color) {
-      return this.raphael.path("M" + (this.transX(event)) + "," + this.bottom + "V" + this.top).attr('stroke', color).attr('stroke-width', this.options.eventStrokeWidth);
+      return this.raphael.path(`M${this.transX(event)},${this.bottom}V${this.top}`).attr('stroke', color).attr('stroke-width', this.options.eventStrokeWidth);
     };
 
     Grid.prototype.drawYAxisLabel = function(xPos, yPos, text) {
-      return this.raphael.text(xPos, yPos, text).attr('font-size', this.options.gridTextSize).attr('font-family', this.options.gridTextFamily).attr('font-weight', this.options.gridTextWeight).attr('fill', this.options.gridTextColor).attr('text-anchor', 'end');
+      return this.raphael.text(xPos, yPos, text).attr('font-size', this.options.gridTextSize).attr('font-family', this.options.gridTextFamily)
+        .attr('font-weight', this.options.gridTextWeight)
+        .attr('fill', this.options.gridTextColor)
+        .attr('text-anchor', 'end');
     };
 
     Grid.prototype.drawGridLine = function(path) {
@@ -581,7 +580,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       this.selectFrom = x;
       return this.selectionRect.attr({
         x: x,
-        width: 0
+        width: 0,
       }).show();
     };
 
@@ -592,7 +591,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         end = Math.max(this.selectFrom, x);
         this.options.rangeSelect.call(this.el, {
           start: this.data[this.hitTest(start)].x,
-          end: this.data[this.hitTest(end)].x
+          end: this.data[this.hitTest(end)].x,
         });
         return this.selectFrom = null;
       }
@@ -605,8 +604,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     };
 
     return Grid;
-
-  })(Morris.EventEmitter);
+  }(Morris.EventEmitter));
 
   Morris.parseDate = function(date) {
     var isecs, m, msecs, n, o, offsetmins, p, q, r, ret, secs;
@@ -667,7 +665,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
   Morris.Hover = (function() {
     Hover.defaults = {
-      "class": 'morris-hover morris-default-style'
+      class: 'morris-hover morris-default-style',
     };
 
     function Hover(options) {
@@ -675,7 +673,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         options = {};
       }
       this.options = $.extend({}, Morris.Hover.defaults, options);
-      this.el = $("<div class='" + this.options["class"] + "'></div>");
+      this.el = $(`<div class='${this.options.class}'></div>`);
       this.el.hide();
       this.options.parent.append(this.el);
     }
@@ -709,8 +707,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         top = parentHeight / 2 - hoverHeight / 2;
       }
       return this.el.css({
-        left: left + "px",
-        top: parseInt(top) + "px"
+        left: `${left}px`,
+        top: `${parseInt(top)}px`,
       });
     };
 
@@ -723,8 +721,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     };
 
     return Hover;
-
-  })();
+  }());
 
   Morris.Line = (function(_super) {
     __extends(Line, _super);
@@ -743,7 +740,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     Line.prototype.init = function() {
       if (this.options.hideHover !== 'always') {
         this.hover = new Morris.Hover({
-          parent: this.el
+          parent: this.el,
         });
         this.on('hovermove', this.onHoverMove);
         this.on('hoverout', this.onHoverOut);
@@ -763,7 +760,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       xLabelFormat: null,
       xLabelMargin: 24,
       continuousLine: true,
-      hideHover: false
+      hideHover: false,
     };
 
     Line.prototype.calc = function() {
@@ -778,7 +775,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         row = _ref[_i];
         row._x = this.transX(row.x);
-        row._y = (function() {
+        row._y = function() {
           var _j, _len1, _ref1, _results1;
           _ref1 = row.y;
           _results1 = [];
@@ -791,8 +788,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             }
           }
           return _results1;
-        }).call(this);
-        _results.push(row._ymax = Math.min.apply(Math, [this.bottom].concat((function() {
+        }.call(this);
+        _results.push(row._ymax = Math.min(...[this.bottom].concat((function() {
           var _j, _len1, _ref1, _results1;
           _ref1 = row._y;
           _results1 = [];
@@ -855,11 +852,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     Line.prototype.hoverContentForRow = function(index) {
       var content, j, row, y, _i, _len, _ref;
       row = this.data[index];
-      content = "<div class='morris-hover-row-label'>" + row.label + "</div>";
+      content = `<div class='morris-hover-row-label'>${row.label}</div>`;
       _ref = row.y;
       for (j = _i = 0, _len = _ref.length; _i < _len; j = ++_i) {
         y = _ref[j];
-        content += "<div class='morris-hover-point' style='color: " + (this.colorFor(row, j, 'label')) + "'>\n  " + this.options.labels[j] + ":\n  " + (this.yLabelFormat(y)) + "\n</div>";
+        content += `<div class='morris-hover-point' style='color: ${this.colorFor(row, j, 'label')}'>\n  ${this.options.labels[j]}:\n  ${this.yLabelFormat(y)}\n</div>`;
       }
       if (typeof this.options.hoverCallback === 'function') {
         content = this.options.hoverCallback(index, this.options, content, row.src);
@@ -869,12 +866,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     Line.prototype.generatePaths = function() {
       var c, coords, i, r, smooth;
-      return this.paths = (function() {
+      return this.paths = function() {
         var _i, _ref, _ref1, _results;
         _results = [];
-        for (i = _i = 0, _ref = this.options.ykeys.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
-          smooth = typeof this.options.smooth === "boolean" ? this.options.smooth : (_ref1 = this.options.ykeys[i], __indexOf.call(this.options.smooth, _ref1) >= 0);
-          coords = (function() {
+        for (i = _i = 0, _ref = this.options.ykeys.length; _ref >= 0 ? _i < _ref : _i > _ref; i = _ref >= 0 ? ++_i : --_i) {
+          smooth = typeof this.options.smooth === 'boolean' ? this.options.smooth : (_ref1 = this.options.ykeys[i], __indexOf.call(this.options.smooth, _ref1) >= 0);
+          coords = function() {
             var _j, _len, _ref2, _results1;
             _ref2 = this.data;
             _results1 = [];
@@ -883,12 +880,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
               if (r._y[i] !== void 0) {
                 _results1.push({
                   x: r._x,
-                  y: r._y[i]
+                  y: r._y[i],
                 });
               }
             }
             return _results1;
-          }).call(this);
+          }.call(this);
           if (this.options.continuousLine) {
             coords = (function() {
               var _j, _len, _results1;
@@ -900,7 +897,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 }
               }
               return _results1;
-            })();
+            }());
           }
           if (coords.length > 1) {
             _results.push(Morris.Line.createPath(coords, smooth, this.bottom));
@@ -909,7 +906,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           }
         }
         return _results;
-      }).call(this);
+      }.call(this);
     };
 
     Line.prototype.draw = function() {
@@ -933,12 +930,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         var label, labelBox, margin, offset, textBox;
         label = _this.drawXAxisLabel(_this.transX(xpos), ypos, labelText);
         textBox = label.getBBox();
-        label.transform("r" + (-_this.options.xLabelAngle));
+        label.transform(`r${-_this.options.xLabelAngle}`);
         labelBox = label.getBBox();
-        label.transform("t0," + (labelBox.height / 2) + "...");
+        label.transform(`t0,${labelBox.height / 2}...`);
         if (_this.options.xLabelAngle !== 0) {
           offset = -0.5 * textBox.width * Math.cos(_this.options.xLabelAngle * Math.PI / 180.0);
-          label.transform("t" + offset + ",0...");
+          label.transform(`t${offset},0...`);
         }
         labelBox = label.getBBox();
         if (((prevLabelMargin == null) || prevLabelMargin >= labelBox.x + labelBox.width || (prevAngleMargin != null) && prevAngleMargin >= labelBox.x) && labelBox.x >= 0 && (labelBox.x + labelBox.width) < _this.el.width()) {
@@ -958,7 +955,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           labels = Morris.labelSeries(this.xmin, this.xmax, this.width, this.options.xLabels, this.options.xLabelFormat);
         }
       } else {
-        labels = (function() {
+        labels = function() {
           var _i, _len, _ref, _results;
           _ref = this.data;
           _results = [];
@@ -967,7 +964,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             _results.push([row.label, row.x]);
           }
           return _results;
-        }).call(this);
+        }.call(this);
       }
       labels.reverse();
       _results = [];
@@ -1017,12 +1014,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     Line.createPath = function(coords, smooth, bottom) {
       var coord, g, grads, i, ix, lg, path, prevCoord, x1, x2, y1, y2, _i, _len;
-      path = "";
+      path = '';
       if (smooth) {
         grads = Morris.Line.gradients(coords);
       }
       prevCoord = {
-        y: null
+        y: null,
       };
       for (i = _i = 0, _len = coords.length; _i < _len; i = ++_i) {
         coord = coords[i];
@@ -1036,14 +1033,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
               y1 = Math.min(bottom, prevCoord.y + ix * lg);
               x2 = coord.x - ix;
               y2 = Math.min(bottom, coord.y - ix * g);
-              path += "C" + x1 + "," + y1 + "," + x2 + "," + y2 + "," + coord.x + "," + coord.y;
+              path += `C${x1},${y1},${x2},${y2},${coord.x},${coord.y}`;
             } else {
-              path += "L" + coord.x + "," + coord.y;
+              path += `L${coord.x},${coord.y}`;
             }
-          } else {
-            if (!smooth || (grads[i] != null)) {
-              path += "M" + coord.x + "," + coord.y;
-            }
+          } else if (!smooth || (grads[i] != null)) {
+            path += `M${coord.x},${coord.y}`;
           }
         }
         prevCoord = coord;
@@ -1061,10 +1056,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         coord = coords[i];
         if (coord.y != null) {
           nextCoord = coords[i + 1] || {
-            y: null
+            y: null,
           };
           prevCoord = coords[i - 1] || {
-            y: null
+            y: null,
           };
           if ((prevCoord.y != null) && (nextCoord.y != null)) {
             _results.push(grad(prevCoord, nextCoord));
@@ -1085,14 +1080,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     Line.prototype.hilight = function(index) {
       var i, _i, _j, _ref, _ref1;
       if (this.prevHilight !== null && this.prevHilight !== index) {
-        for (i = _i = 0, _ref = this.seriesPoints.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
+        for (i = _i = 0, _ref = this.seriesPoints.length - 1; _ref >= 0 ? _i <= _ref : _i >= _ref; i = _ref >= 0 ? ++_i : --_i) {
           if (this.seriesPoints[i][this.prevHilight]) {
             this.seriesPoints[i][this.prevHilight].animate(this.pointShrinkSeries(i));
           }
         }
       }
       if (index !== null && this.prevHilight !== index) {
-        for (i = _j = 0, _ref1 = this.seriesPoints.length - 1; 0 <= _ref1 ? _j <= _ref1 : _j >= _ref1; i = 0 <= _ref1 ? ++_j : --_j) {
+        for (i = _j = 0, _ref1 = this.seriesPoints.length - 1; _ref1 >= 0 ? _j <= _ref1 : _j >= _ref1; i = _ref1 >= 0 ? ++_j : --_j) {
           if (this.seriesPoints[i][index]) {
             this.seriesPoints[i][index].animate(this.pointGrowSeries(i));
           }
@@ -1112,7 +1107,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     };
 
     Line.prototype.drawXAxisLabel = function(xPos, yPos, text) {
-      return this.raphael.text(xPos, yPos, text).attr('font-size', this.options.gridTextSize).attr('font-family', this.options.gridTextFamily).attr('font-weight', this.options.gridTextWeight).attr('fill', this.options.gridTextColor);
+      return this.raphael.text(xPos, yPos, text).attr('font-size', this.options.gridTextSize).attr('font-family', this.options.gridTextFamily)
+        .attr('font-weight', this.options.gridTextWeight)
+        .attr('fill', this.options.gridTextColor);
     };
 
     Line.prototype.drawLinePath = function(path, lineColor, lineIndex) {
@@ -1120,7 +1117,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     };
 
     Line.prototype.drawLinePoint = function(xPos, yPos, pointColor, lineIndex) {
-      return this.raphael.circle(xPos, yPos, this.pointSizeForSeries(lineIndex)).attr('fill', pointColor).attr('stroke-width', this.pointStrokeWidthForSeries(lineIndex)).attr('stroke', this.pointStrokeColorForSeries(lineIndex));
+      return this.raphael.circle(xPos, yPos, this.pointSizeForSeries(lineIndex)).attr('fill', pointColor).attr('stroke-width', this.pointStrokeWidthForSeries(lineIndex))
+        .attr('stroke', this.pointStrokeColorForSeries(lineIndex));
     };
 
     Line.prototype.pointStrokeWidthForSeries = function(index) {
@@ -1149,19 +1147,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     Line.prototype.pointGrowSeries = function(index) {
       return Raphael.animation({
-        r: this.pointSizeForSeries(index) + 3
+        r: this.pointSizeForSeries(index) + 3,
       }, 25, 'linear');
     };
 
     Line.prototype.pointShrinkSeries = function(index) {
       return Raphael.animation({
-        r: this.pointSizeForSeries(index)
+        r: this.pointSizeForSeries(index),
       }, 25, 'linear');
     };
 
     return Line;
-
-  })(Morris.Grid);
+  }(Morris.Grid));
 
   Morris.labelSeries = function(dmin, dmax, pxwidth, specName, xLabelFormat) {
     var d, d0, ddensity, name, ret, s, spec, t, _i, _len, _ref;
@@ -1180,11 +1177,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       }
     }
     if (spec === void 0) {
-      spec = Morris.LABEL_SPECS["second"];
+      spec = Morris.LABEL_SPECS.second;
     }
     if (xLabelFormat) {
       spec = $.extend({}, spec, {
-        fmt: xLabelFormat
+        fmt: xLabelFormat,
       });
     }
     d = spec.start(d0);
@@ -1205,11 +1202,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         return new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours());
       },
       fmt: function(d) {
-        return "" + (Morris.pad2(d.getHours())) + ":" + (Morris.pad2(d.getMinutes()));
+        return `${Morris.pad2(d.getHours())}:${Morris.pad2(d.getMinutes())}`;
       },
       incr: function(d) {
         return d.setUTCMinutes(d.getUTCMinutes() + interval);
-      }
+      },
     };
   };
 
@@ -1220,89 +1217,89 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         return new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes());
       },
       fmt: function(d) {
-        return "" + (Morris.pad2(d.getHours())) + ":" + (Morris.pad2(d.getMinutes())) + ":" + (Morris.pad2(d.getSeconds()));
+        return `${Morris.pad2(d.getHours())}:${Morris.pad2(d.getMinutes())}:${Morris.pad2(d.getSeconds())}`;
       },
       incr: function(d) {
         return d.setUTCSeconds(d.getUTCSeconds() + interval);
-      }
+      },
     };
   };
 
   Morris.LABEL_SPECS = {
-    "decade": {
+    decade: {
       span: 172800000000,
       start: function(d) {
         return new Date(d.getFullYear() - d.getFullYear() % 10, 0, 1);
       },
       fmt: function(d) {
-        return "" + (d.getFullYear());
+        return `${d.getFullYear()}`;
       },
       incr: function(d) {
         return d.setFullYear(d.getFullYear() + 10);
-      }
+      },
     },
-    "year": {
+    year: {
       span: 17280000000,
       start: function(d) {
         return new Date(d.getFullYear(), 0, 1);
       },
       fmt: function(d) {
-        return "" + (d.getFullYear());
+        return `${d.getFullYear()}`;
       },
       incr: function(d) {
         return d.setFullYear(d.getFullYear() + 1);
-      }
+      },
     },
-    "month": {
+    month: {
       span: 2419200000,
       start: function(d) {
         return new Date(d.getFullYear(), d.getMonth(), 1);
       },
       fmt: function(d) {
-        return "" + (d.getFullYear()) + "-" + (Morris.pad2(d.getMonth() + 1));
+        return `${d.getFullYear()}-${Morris.pad2(d.getMonth() + 1)}`;
       },
       incr: function(d) {
         return d.setMonth(d.getMonth() + 1);
-      }
+      },
     },
-    "week": {
+    week: {
       span: 604800000,
       start: function(d) {
         return new Date(d.getFullYear(), d.getMonth(), d.getDate());
       },
       fmt: function(d) {
-        return "" + (d.getFullYear()) + "-" + (Morris.pad2(d.getMonth() + 1)) + "-" + (Morris.pad2(d.getDate()));
+        return `${d.getFullYear()}-${Morris.pad2(d.getMonth() + 1)}-${Morris.pad2(d.getDate())}`;
       },
       incr: function(d) {
         return d.setDate(d.getDate() + 7);
-      }
+      },
     },
-    "day": {
+    day: {
       span: 86400000,
       start: function(d) {
         return new Date(d.getFullYear(), d.getMonth(), d.getDate());
       },
       fmt: function(d) {
-        return "" + (d.getFullYear()) + "-" + (Morris.pad2(d.getMonth() + 1)) + "-" + (Morris.pad2(d.getDate()));
+        return `${d.getFullYear()}-${Morris.pad2(d.getMonth() + 1)}-${Morris.pad2(d.getDate())}`;
       },
       incr: function(d) {
         return d.setDate(d.getDate() + 1);
-      }
+      },
     },
-    "hour": minutesSpecHelper(60),
-    "30min": minutesSpecHelper(30),
-    "15min": minutesSpecHelper(15),
-    "10min": minutesSpecHelper(10),
-    "5min": minutesSpecHelper(5),
-    "minute": minutesSpecHelper(1),
-    "30sec": secondsSpecHelper(30),
-    "15sec": secondsSpecHelper(15),
-    "10sec": secondsSpecHelper(10),
-    "5sec": secondsSpecHelper(5),
-    "second": secondsSpecHelper(1)
+    hour: minutesSpecHelper(60),
+    '30min': minutesSpecHelper(30),
+    '15min': minutesSpecHelper(15),
+    '10min': minutesSpecHelper(10),
+    '5min': minutesSpecHelper(5),
+    minute: minutesSpecHelper(1),
+    '30sec': secondsSpecHelper(30),
+    '15sec': secondsSpecHelper(15),
+    '10sec': secondsSpecHelper(10),
+    '5sec': secondsSpecHelper(5),
+    second: secondsSpecHelper(1),
   };
 
-  Morris.AUTO_LABEL_ORDER = ["decade", "year", "month", "week", "day", "hour", "30min", "15min", "10min", "5min", "minute", "30sec", "15sec", "10sec", "5sec", "second"];
+  Morris.AUTO_LABEL_ORDER = ['decade', 'year', 'month', 'week', 'day', 'hour', '30min', '15min', '10min', '5min', 'minute', '30sec', '15sec', '10sec', '5sec', 'second'];
 
   Morris.Area = (function(_super) {
     var areaDefaults;
@@ -1311,7 +1308,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     areaDefaults = {
       fillOpacity: 'auto',
-      behaveLikeLine: false
+      behaveLikeLine: false,
     };
 
     function Area(options) {
@@ -1322,7 +1319,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       areaOptions = $.extend({}, areaDefaults, options);
       this.cumulative = !areaOptions.behaveLikeLine;
       if (areaOptions.fillOpacity === 'auto') {
-        areaOptions.fillOpacity = areaOptions.behaveLikeLine ? .8 : 1;
+        areaOptions.fillOpacity = areaOptions.behaveLikeLine ? 0.8 : 1;
       }
       Area.__super__.constructor.call(this, areaOptions);
     }
@@ -1335,7 +1332,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         row = _ref[_i];
         row._x = this.transX(row.x);
         total = 0;
-        row._y = (function() {
+        row._y = function() {
           var _j, _len1, _ref1, _results1;
           _ref1 = row.y;
           _results1 = [];
@@ -1349,8 +1346,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             }
           }
           return _results1;
-        }).call(this);
-        _results.push(row._ymax = Math.max.apply(Math, row._y));
+        }.call(this);
+        _results.push(row._ymax = Math.max(...row._y));
       }
       return _results;
     };
@@ -1359,17 +1356,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       var i, range, _i, _j, _k, _len, _ref, _ref1, _results, _results1, _results2;
       this.seriesPoints = [];
       if (this.options.behaveLikeLine) {
-        range = (function() {
+        range = function() {
           _results = [];
-          for (var _i = 0, _ref = this.options.ykeys.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; 0 <= _ref ? _i++ : _i--){ _results.push(_i); }
+          for (var _i = 0, _ref = this.options.ykeys.length - 1; _ref >= 0 ? _i <= _ref : _i >= _ref; _ref >= 0 ? _i++ : _i--) { _results.push(_i); }
           return _results;
-        }).apply(this);
+        }.apply(this);
       } else {
-        range = (function() {
+        range = function() {
           _results1 = [];
-          for (var _j = _ref1 = this.options.ykeys.length - 1; _ref1 <= 0 ? _j <= 0 : _j >= 0; _ref1 <= 0 ? _j++ : _j--){ _results1.push(_j); }
+          for (var _j = _ref1 = this.options.ykeys.length - 1; _ref1 <= 0 ? _j <= 0 : _j >= 0; _ref1 <= 0 ? _j++ : _j--) { _results1.push(_j); }
           return _results1;
-        }).apply(this);
+        }.apply(this);
       }
       _results2 = [];
       for (_k = 0, _len = range.length; _k < _len; _k++) {
@@ -1385,7 +1382,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       var path;
       path = this.paths[index];
       if (path !== null) {
-        path = path + ("L" + (this.transX(this.xmax)) + "," + this.bottom + "L" + (this.transX(this.xmin)) + "," + this.bottom + "Z");
+        path += `L${this.transX(this.xmax)},${this.bottom}L${this.transX(this.xmin)},${this.bottom}Z`;
         return this.drawFilledPath(path, this.fillForSeries(index));
       }
     };
@@ -1397,12 +1394,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     };
 
     Area.prototype.drawFilledPath = function(path, fill) {
-      return this.raphael.path(path).attr('fill', fill).attr('fill-opacity', this.options.fillOpacity).attr('stroke', 'none');
+      return this.raphael.path(path).attr('fill', fill).attr('fill-opacity', this.options.fillOpacity)
+        .attr('stroke', 'none');
     };
 
     return Area;
-
-  })(Morris.Line);
+  }(Morris.Line));
 
   Morris.Bar = (function(_super) {
     __extends(Bar, _super);
@@ -1415,7 +1412,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         return new Morris.Bar(options);
       }
       Bar.__super__.constructor.call(this, $.extend({}, options, {
-        parseTime: false
+        parseTime: false,
       }));
     }
 
@@ -1423,7 +1420,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       this.cumulative = this.options.stacked;
       if (this.options.hideHover !== 'always') {
         this.hover = new Morris.Hover({
-          parent: this.el
+          parent: this.el,
         });
         this.on('hovermove', this.onHoverMove);
         this.on('hoverout', this.onHoverOut);
@@ -1437,7 +1434,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       barColors: ['#0b62a4', '#7a92a3', '#4da74d', '#afd8f8', '#edc240', '#cb4b4b', '#9440ed'],
       barOpacity: 1.0,
       barRadius: [0, 0, 0, 0],
-      xLabelMargin: 50
+      xLabelMargin: 50,
     };
 
     Bar.prototype.calc = function() {
@@ -1455,7 +1452,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       for (idx = _i = 0, _len = _ref.length; _i < _len; idx = ++_i) {
         row = _ref[idx];
         row._x = this.left + this.width * (idx + 0.5) / this.data.length;
-        _results.push(row._y = (function() {
+        _results.push(row._y = function() {
           var _j, _len1, _ref1, _results1;
           _ref1 = row.y;
           _results1 = [];
@@ -1468,7 +1465,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             }
           }
           return _results1;
-        }).call(this));
+        }.call(this));
       }
       return _results;
     };
@@ -1487,16 +1484,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       prevLabelMargin = null;
       prevAngleMargin = null;
       _results = [];
-      for (i = _i = 0, _ref = this.data.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
+      for (i = _i = 0, _ref = this.data.length; _ref >= 0 ? _i < _ref : _i > _ref; i = _ref >= 0 ? ++_i : --_i) {
         row = this.data[this.data.length - 1 - i];
         label = this.drawXAxisLabel(row._x, ypos, row.label);
         textBox = label.getBBox();
-        label.transform("r" + (-this.options.xLabelAngle));
+        label.transform(`r${-this.options.xLabelAngle}`);
         labelBox = label.getBBox();
-        label.transform("t0," + (labelBox.height / 2) + "...");
+        label.transform(`t0,${labelBox.height / 2}...`);
         if (this.options.xLabelAngle !== 0) {
           offset = -0.5 * textBox.width * Math.cos(this.options.xLabelAngle * Math.PI / 180.0);
-          label.transform("t" + offset + ",0...");
+          label.transform(`t${offset},0...`);
         }
         if (((prevLabelMargin == null) || prevLabelMargin >= labelBox.x + labelBox.width || (prevAngleMargin != null) && prevAngleMargin >= labelBox.x) && labelBox.x >= 0 && (labelBox.x + labelBox.width) < this.el.width()) {
           if (this.options.xLabelAngle !== 0) {
@@ -1518,14 +1515,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       barWidth = (groupWidth * this.options.barSizeRatio - this.options.barGap * (numBars - 1)) / numBars;
       leftPadding = groupWidth * (1 - this.options.barSizeRatio) / 2;
       zeroPos = this.ymin <= 0 && this.ymax >= 0 ? this.transY(0) : null;
-      return this.bars = (function() {
+      return this.bars = function() {
         var _i, _len, _ref, _results;
         _ref = this.data;
         _results = [];
         for (idx = _i = 0, _len = _ref.length; _i < _len; idx = ++_i) {
           row = _ref[idx];
           lastTop = 0;
-          _results.push((function() {
+          _results.push(function() {
             var _j, _len1, _ref1, _results1;
             _ref1 = row._y;
             _results1 = [];
@@ -1554,10 +1551,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
               }
             }
             return _results1;
-          }).call(this));
+          }.call(this));
         }
         return _results;
-      }).call(this);
+      }.call(this);
     };
 
     Bar.prototype.colorFor = function(row, sidx, type) {
@@ -1566,12 +1563,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         r = {
           x: row.x,
           y: row.y[sidx],
-          label: row.label
+          label: row.label,
         };
         s = {
           index: sidx,
           key: this.options.ykeys[sidx],
-          label: this.options.labels[sidx]
+          label: this.options.labels[sidx],
         };
         return this.options.barColors.call(this, r, s, type);
       } else {
@@ -1608,11 +1605,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     Bar.prototype.hoverContentForRow = function(index) {
       var content, j, row, x, y, _i, _len, _ref;
       row = this.data[index];
-      content = "<div class='morris-hover-row-label'>" + row.label + "</div>";
+      content = `<div class='morris-hover-row-label'>${row.label}</div>`;
       _ref = row.y;
       for (j = _i = 0, _len = _ref.length; _i < _len; j = ++_i) {
         y = _ref[j];
-        content += "<div class='morris-hover-point' style='color: " + (this.colorFor(row, j, 'label')) + "'>\n  " + this.options.labels[j] + ":\n  " + (this.yLabelFormat(y)) + "\n</div>";
+        content += `<div class='morris-hover-point' style='color: ${this.colorFor(row, j, 'label')}'>\n  ${this.options.labels[j]}:\n  ${this.yLabelFormat(y)}\n</div>`;
       }
       if (typeof this.options.hoverCallback === 'function') {
         content = this.options.hoverCallback(index, this.options, content, row.src);
@@ -1623,12 +1620,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     Bar.prototype.drawXAxisLabel = function(xPos, yPos, text) {
       var label;
-      return label = this.raphael.text(xPos, yPos, text).attr('font-size', this.options.gridTextSize).attr('font-family', this.options.gridTextFamily).attr('font-weight', this.options.gridTextWeight).attr('fill', this.options.gridTextColor);
+      return label = this.raphael.text(xPos, yPos, text).attr('font-size', this.options.gridTextSize).attr('font-family', this.options.gridTextFamily)
+        .attr('font-weight', this.options.gridTextWeight)
+        .attr('fill', this.options.gridTextColor);
     };
 
     Bar.prototype.drawBar = function(xPos, yPos, width, height, barColor, opacity, radiusArray) {
       var maxRadius, path;
-      maxRadius = Math.max.apply(Math, radiusArray);
+      maxRadius = Math.max(...radiusArray);
       if (maxRadius === 0 || maxRadius > height) {
         path = this.raphael.rect(xPos, yPos, width, height);
       } else {
@@ -1641,12 +1640,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       if (r == null) {
         r = [0, 0, 0, 0];
       }
-      return ["M", x, r[0] + y, "Q", x, y, x + r[0], y, "L", x + w - r[1], y, "Q", x + w, y, x + w, y + r[1], "L", x + w, y + h - r[2], "Q", x + w, y + h, x + w - r[2], y + h, "L", x + r[3], y + h, "Q", x, y + h, x, y + h - r[3], "Z"];
+      return ['M', x, r[0] + y, 'Q', x, y, x + r[0], y, 'L', x + w - r[1], y, 'Q', x + w, y, x + w, y + r[1], 'L', x + w, y + h - r[2], 'Q', x + w, y + h, x + w - r[2], y + h, 'L', x + r[3], y + h, 'Q', x, y + h, x, y + h - r[3], 'Z'];
     };
 
     return Bar;
-
-  })(Morris.Grid);
+  }(Morris.Grid));
 
   Morris.Donut = (function(_super) {
     __extends(Donut, _super);
@@ -1656,7 +1654,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       backgroundColor: '#FFFFFF',
       labelColor: '#000000',
       formatter: Morris.commas,
-      resize: false
+      resize: false,
     };
 
     function Donut(options) {
@@ -1674,14 +1672,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         this.el = $(options.element);
       }
       if (this.el === null || this.el.length === 0) {
-        throw new Error("Graph placeholder not found.");
+        throw new Error('Graph placeholder not found.');
       }
       if (options.data === void 0 || options.data.length === 0) {
         return;
       }
       this.raphael = new Raphael(this.el[0]);
       if (this.options.resize) {
-        $(window).bind('resize', function(evt) {
+        $(window).bind('resize', evt => {
           if (_this.timeoutId != null) {
             window.clearTimeout(_this.timeoutId);
           }
@@ -1722,7 +1720,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       }
       this.text1 = this.drawEmptyDonutLabel(cx, cy - 10, this.options.labelColor, 15, 800);
       this.text2 = this.drawEmptyDonutLabel(cx, cy + 10, this.options.labelColor, 14);
-      max_value = Math.max.apply(Math, this.values);
+      max_value = Math.max(...this.values);
       idx = 0;
       _ref2 = this.values;
       _results = [];
@@ -1740,7 +1738,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     Donut.prototype.setData = function(data) {
       var row;
       this.data = data;
-      this.values = (function() {
+      this.values = function() {
         var _i, _len, _ref, _results;
         _ref = this.data;
         _results = [];
@@ -1749,7 +1747,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           _results.push(parseFloat(row.value));
         }
         return _results;
-      }).call(this);
+      }.call(this);
       return this.redraw();
     };
 
@@ -1778,21 +1776,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       maxHeightBottom = inner / 3;
       this.text1.attr({
         text: label1,
-        transform: ''
+        transform: '',
       });
       text1bbox = this.text1.getBBox();
       text1scale = Math.min(maxWidth / text1bbox.width, maxHeightTop / text1bbox.height);
       this.text1.attr({
-        transform: "S" + text1scale + "," + text1scale + "," + (text1bbox.x + text1bbox.width / 2) + "," + (text1bbox.y + text1bbox.height)
+        transform: `S${text1scale},${text1scale},${text1bbox.x + text1bbox.width / 2},${text1bbox.y + text1bbox.height}`,
       });
       this.text2.attr({
         text: label2,
-        transform: ''
+        transform: '',
       });
       text2bbox = this.text2.getBBox();
       text2scale = Math.min(maxWidth / text2bbox.width, maxHeightBottom / text2bbox.height);
       return this.text2.attr({
-        transform: "S" + text2scale + "," + text2scale + "," + (text2bbox.x + text2bbox.width / 2) + "," + text2bbox.y
+        transform: `S${text2scale},${text2scale},${text2bbox.x + text2bbox.width / 2},${text2bbox.y}`,
       });
     };
 
@@ -1812,8 +1810,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     };
 
     return Donut;
-
-  })(Morris.EventEmitter);
+  }(Morris.EventEmitter));
 
   Morris.DonutSegment = (function(_super) {
     __extends(DonutSegment, _super);
@@ -1847,30 +1844,26 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       var ix0, ix1, iy0, iy1, ox0, ox1, oy0, oy1, _ref, _ref1;
       _ref = this.calcArcPoints(r1), ix0 = _ref[0], iy0 = _ref[1], ix1 = _ref[2], iy1 = _ref[3];
       _ref1 = this.calcArcPoints(r2), ox0 = _ref1[0], oy0 = _ref1[1], ox1 = _ref1[2], oy1 = _ref1[3];
-      return ("M" + ix0 + "," + iy0) + ("A" + r1 + "," + r1 + ",0," + this.is_long + ",0," + ix1 + "," + iy1) + ("L" + ox1 + "," + oy1) + ("A" + r2 + "," + r2 + ",0," + this.is_long + ",1," + ox0 + "," + oy0) + "Z";
+      return `M${ix0},${iy0}A${r1},${r1},0,${this.is_long},0,${ix1},${iy1}` + `L${ox1},${oy1}` + `A${r2},${r2},0,${this.is_long},1,${ox0},${oy0}` + `Z`;
     };
 
     DonutSegment.prototype.calcArc = function(r) {
       var ix0, ix1, iy0, iy1, _ref;
       _ref = this.calcArcPoints(r), ix0 = _ref[0], iy0 = _ref[1], ix1 = _ref[2], iy1 = _ref[3];
-      return ("M" + ix0 + "," + iy0) + ("A" + r + "," + r + ",0," + this.is_long + ",0," + ix1 + "," + iy1);
+      return `M${ix0},${iy0}A${r},${r},0,${this.is_long},0,${ix1},${iy1}`;
     };
 
     DonutSegment.prototype.render = function() {
       var _this = this;
       this.arc = this.drawDonutArc(this.hilight, this.color);
-      return this.seg = this.drawDonutSegment(this.path, this.color, this.backgroundColor, function() {
-        return _this.fire('hover', _this.index);
-      }, function() {
-        return _this.fire('click', _this.index);
-      });
+      return this.seg = this.drawDonutSegment(this.path, this.color, this.backgroundColor, () => _this.fire('hover', _this.index), () => _this.fire('click', _this.index));
     };
 
     DonutSegment.prototype.drawDonutArc = function(path, color) {
       return this.raphael.path(path).attr({
         stroke: color,
         'stroke-width': 2,
-        opacity: 0
+        opacity: 0,
       });
     };
 
@@ -1878,17 +1871,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       return this.raphael.path(path).attr({
         fill: fillColor,
         stroke: strokeColor,
-        'stroke-width': 3
-      }).hover(hoverFunction).click(clickFunction);
+        'stroke-width': 3,
+      }).hover(hoverFunction)
+        .click(clickFunction);
     };
 
     DonutSegment.prototype.select = function() {
       if (!this.selected) {
         this.seg.animate({
-          path: this.selectedPath
+          path: this.selectedPath,
         }, 150, '<>');
         this.arc.animate({
-          opacity: 1
+          opacity: 1,
         }, 150, '<>');
         return this.selected = true;
       }
@@ -1897,17 +1891,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     DonutSegment.prototype.deselect = function() {
       if (this.selected) {
         this.seg.animate({
-          path: this.path
+          path: this.path,
         }, 150, '<>');
         this.arc.animate({
-          opacity: 0
+          opacity: 0,
         }, 150, '<>');
         return this.selected = false;
       }
     };
 
     return DonutSegment;
-
-  })(Morris.EventEmitter);
-
+  }(Morris.EventEmitter));
 }).call(this);

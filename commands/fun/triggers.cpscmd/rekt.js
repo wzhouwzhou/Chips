@@ -1,6 +1,6 @@
 module.exports = {
-  name: "rekt",
+  name: 'rekt',
   async func(msg, { send }) {
-    return send("Slain! https://giphy.com/gifs/TEcDhtKS2QPqE");
-  }
+    return send('Slain! https://giphy.com/gifs/TEcDhtKS2QPqE');
+  },
 };

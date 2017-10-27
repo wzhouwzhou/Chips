@@ -1,4 +1,3 @@
-
 let invite = require('./invite');
 
 console.log('[CPSCMD][INFO][invite] Building objects...');
@@ -14,5 +13,5 @@ invite.metadata = {
 
 console.log('[CPSCMD][INFO][invite] Build objects complete!');
 module.exports = [
-  [invite.name,invite]
+  [invite.name, invite],
 ];

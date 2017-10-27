@@ -1,4 +1,3 @@
-
 let discordstatus = require('./discordstatus');
 
 console.log('[CPSCMD][INFO][discordstatus] Building objects...');
@@ -13,5 +12,5 @@ discordstatus.metadata = {
 
 console.log('[CPSCMD][INFO][discordstatus] Build objects complete!');
 module.exports = [
-  [discordstatus.name,discordstatus]
+  [discordstatus.name, discordstatus],
 ];

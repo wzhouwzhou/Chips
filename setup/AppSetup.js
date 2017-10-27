@@ -1,5 +1,5 @@
-const Constants = require("./Constants");
-const path = require("path");
+const Constants = require('./Constants');
+const path = require('path');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -8,7 +8,7 @@ const express = require('express');
 const app = express();
 const Strategy = require('./lib').Strategy;
 const session = require('express-session');
-const flash=require("connect-flash");
+const flash = require('connect-flash');
 const sinbad = require(path.join(__dirname, '../routes/sinbad'));
 const login = require(path.join(__dirname, '../routes/login'));
 const vy = require(path.join(__dirname, '../routes/vy'));
@@ -17,21 +17,21 @@ const errp = require(path.join(__dirname, '../routes/error'));
 const updates = require(path.join(__dirname, '../routes/updates'));
 const useroverview = require(path.join(__dirname, '../routes/updates'));
 const index = require(path.join(__dirname, '../routes/index'));
-const cmds = require(path.join(__dirname,'../routes/commands'));
+const cmds = require(path.join(__dirname, '../routes/commands'));
 const morgan = require('morgan');
 const morgan2 = require('morgan');
 const rfs = require('rotating-file-stream');
-// const chips ;
+// Const chips ;
 module.exports = function() {
   let botScopes = ['identify', 'guilds'];
   let logDirectory = path.join(__dirname, 'log');
   fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
   let accessLogStream = rfs('access.log', {
-    interval: '1d', // rotate daily
-    path: logDirectory
+    interval: '1d', // Rotate daily
+    path: logDirectory,
   });
 
-  app.engine(Constants.express.ENGINE, require("express-ejs-extend"));
+  app.engine(Constants.express.ENGINE, require('express-ejs-extend'));
   app.set('view engine', Constants.express.ENGINE);
   console.log(__dirname);
   app.use(express.static(path.join(__dirname, '../public')));
@@ -40,65 +40,59 @@ module.exports = function() {
   app.use(cookieParser());
   app.use(flash());
   app.use(morgan('combined'));
-  app.use(morgan2('combined', {stream: accessLogStream}));
-  app.use((req, res, next) =>{
-    let ip_address = (req.connection.remoteAddress ? req.connection.remoteAddress : req.remoteAddress);
-		if (typeof req.headers['cf-connecting-ip'] === 'undefined')
-		{
-			console.log('[EJS][IP]: '+ ip_address);
-		}
-		else
-		{
-			console.log('[EJS][IP] (behind cloudflare): '+ req.headers['cf-connecting-ip']);
-		}
+  app.use(morgan2('combined', { stream: accessLogStream }));
+  app.use((req, res, next) => {
+    let ip_address = req.connection.remoteAddress ? req.connection.remoteAddress : req.remoteAddress;
+    if (typeof req.headers['cf-connecting-ip'] === 'undefined') {
+      console.log(`[EJS][IP]: ${ip_address}`);
+    } else {
+      console.log(`[EJS][IP] (behind cloudflare): ${req.headers['cf-connecting-ip']}`);
+    }
     next();
   });
-  passport.serializeUser(function(user, done) {
+  passport.serializeUser((user, done) => {
     done(null, user);
   });
-  passport.deserializeUser(function(obj, done) {
+  passport.deserializeUser((obj, done) => {
     done(null, obj);
   });
 
-  if(process.env.BETA&&process.env.BETA=="true")
+  if (process.env.BETA && process.env.BETA == 'true') {
     passport.use(new Strategy({
-        clientID: process.env.ID||'296855425255473154',
-        clientSecret: process.env.SECRET||'secret',
-        callbackURL: 'http://chipsbot.tk/sinbad/user/',
-        scope: botScopes
-    }, function(accessToken, refreshToken, profile, done) {
-        process.nextTick(function() {
-            return done(null, profile);
-        });
+      clientID: process.env.ID || '296855425255473154',
+      clientSecret: process.env.SECRET || 'secret',
+      callbackURL: 'http://chipsbot.tk/sinbad/user/',
+      scope: botScopes,
+    }, (accessToken, refreshToken, profile, done) => {
+      process.nextTick(() => done(null, profile));
     }));
-  else
+  } else {
     passport.use(new Strategy({
-        clientID: process.env.ID||'296855425255473154',
-        clientSecret: process.env.SECRET||'secret',
-        callbackURL: 'http://chipsbot.tk/sinbad/user/',
-        scope: botScopes
-    }, function(accessToken, refreshToken, profile, done) {
-        process.nextTick(function() {
-            return done(null, profile);
-        });
+      clientID: process.env.ID || '296855425255473154',
+      clientSecret: process.env.SECRET || 'secret',
+      callbackURL: 'http://chipsbot.tk/sinbad/user/',
+      scope: botScopes,
+    }, (accessToken, refreshToken, profile, done) => {
+      process.nextTick(() => done(null, profile));
     }));
+  }
 
   app.use(session({
-      secret: process.env.SECRET||'secret',
-      resave: false,
-      saveUninitialized: false
+    secret: process.env.SECRET || 'secret',
+    resave: false,
+    saveUninitialized: false,
   }));
 
   app.use(passport.initialize());
   app.use(passport.session());
-  app.get('/sinbad/login', passport.authenticate('discord', { scope: botScopes }), function(req, res) {});
+  app.get('/sinbad/login', passport.authenticate('discord', { scope: botScopes }), (req, res) => {});
   app.get('/sinbad/user',
-    passport.authenticate('discord', { failureRedirect: '/sinbad' }), function(req, res) {
-      //if (req.query.hasOwnProperty('guild_id'))
+    passport.authenticate('discord', { failureRedirect: '/sinbad' }), (req, res) => {
+      // If (req.query.hasOwnProperty('guild_id'))
       res.redirect('/updates');
-    } // auth success
+    } // Auth success
   );
-  app.get('/sinbad/logout', function(req, res) {
+  app.get('/sinbad/logout', (req, res) => {
     req.logout();
     res.redirect('/sinbad');
   });
@@ -106,16 +100,16 @@ module.exports = function() {
   const httpProxy = require('http-proxy');
   const stdProxy = httpProxy.createProxyServer();
 
-  app.get('/api', function(req,res){
+  app.get('/api', (req, res) => {
     console.log('Redirecting api from 8080 to 8880');
-    stdProxy.web(req, res, {target: 'http://localhost:8880'});
+    stdProxy.web(req, res, { target: 'http://localhost:8880' });
   });
 
-  app.get('/api/*', function(req,res){
+  app.get('/api/*', (req, res) => {
     console.log('Redirecting api/* from 8080 to 8880');
-    stdProxy.web(req, res, {target: 'http://localhost:8880'});
+    stdProxy.web(req, res, { target: 'http://localhost:8880' });
   });
-  // routes
+  // Routes
   const secure = require(path.join(__dirname, '../Security'));
   let globalBruteforce = new secure()[0];
   let userBruteforce = new secure()[1];
@@ -124,51 +118,51 @@ module.exports = function() {
   app.post('/', globalBruteforce.prevent, userBruteforce.getMiddleware({
     key: function(req, res, next) {
       next();
-    }
-    }),function (req, res, next) {
-      res.flash('Load Success!');
-      next();
-    }
+    },
+  }), (req, res, next) => {
+    res.flash('Load Success!');
+    next();
+  }
   );
 
   app.use('/sinbad', sinbad, userBruteforce.prevent);
   app.post('/sinbad', globalBruteforce.prevent, userBruteforce.getMiddleware({
     key: function(req, res, next) {
       next();
-    }
-    }),function (req, res, next) {
-      res.flash('Load Success!');
-      next();
-    }
+    },
+  }), (req, res, next) => {
+    res.flash('Load Success!');
+    next();
+  }
   );
 
-  app.use('/sinbad/login',login);
-  app.use('/commands',cmds);
-  app.use('/vy',vy);
-  app.use('/xen*',xena);
-  app.use('/errr',errp);
-  //app.use('/updates',updates);
+  app.use('/sinbad/login', login);
+  app.use('/commands', cmds);
+  app.use('/vy', vy);
+  app.use('/xen*', xena);
+  app.use('/errr', errp);
+  // App.use('/updates',updates);
 
   // error handler
   app.use((req, res, next) => {
-    let err = {error: 'Not found'}; //new Error('Not Found');
+    let err = { error: 'Not found' }; // New Error('Not Found');
     err.status = 404;
     res.locals.message = err.message;
-    res.locals.error = {};//req.app.get('env') === 'development' ? err : {};
+    res.locals.error = {};// Req.app.get('env') === 'development' ? err : {};
     res.status(err.status || 500);
-    if (!err.status || err.status == 500) console.error("Internal error: " + err);
+    if (!err.status || err.status == 500) console.error(`Internal error: ${err}`);
     res.render('error', { type: err.status || 500, timestamp: new Date().toString() });
-    //next(err, req, res);
+    // Next(err, req, res);
   });
 
-  app.use('/*',errp);
+  app.use('/*', errp);
 
-  app.set('port', (process.env.PORT || 5000));
+  app.set('port', process.env.PORT || 5000);
 
-  app.listen(app.get('port'), process.env.MYIP||'127.0.0.1', function() {
+  app.listen(app.get('port'), process.env.MYIP || '127.0.0.1', () => {
     console.log('Node app is running on port', app.get('port'));
   });
 
-  //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+  // App.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
   return app;
 };

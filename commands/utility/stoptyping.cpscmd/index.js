@@ -1,4 +1,3 @@
-
 let stoptyping = require('./stoptyping');
 
 console.log('[CPSCMD][UTILITY][stoptyping] Building objects...');
@@ -14,5 +13,5 @@ stoptyping.metadata = {
 
 console.log('[CPSCMD][UTILITY][stoptyping] Build objects complete!');
 module.exports = [
-  [stoptyping.name,stoptyping],
+  [stoptyping.name, stoptyping],
 ];

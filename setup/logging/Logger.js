@@ -1,21 +1,20 @@
 const logmodes = [
-  'production'
+  'production',
 ];
 
 class Logger {
-  constructor(logLevel = 'verbose'){
+  constructor(logLevel = 'verbose') {
     this.logLevel = logLevel;
   }
 
-  log(type='info', msgmodule='main', logcategory, msg){
-    if(logmodes.indexOf(info))
-    msgmodule = chalk.bgBlack.bold(`[${msgmodule}]`);
+  log(type = 'info', msgmodule = 'main', logcategory, msg) {
+    if (logmodes.indexOf(info)) msgmodule = chalk.bgBlack.bold(`[${msgmodule}]`);
     let time = chalk.cyan(`[${moment().format('YYYY-MM-DD HH:mm:ss.SSS')}]:`);
     logcategory = chalk.underline.blue(`[${logcategory}]`);
     type = chalk.bold.bgBlue(`[${type}]`);
-    switch(type){
+    switch (type) {
       case 'error':
-        msg=chalk.bgRed(msg);
+        msg = chalk.bgRed(msg);
     }
     console.log(time, type, msgmodule, logcategory, msg);
   }

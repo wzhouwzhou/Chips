@@ -1,12 +1,11 @@
-
 let cat = require('./cat');
 let dog = require('./dog');
 
 console.log('[CPSCMD][FUN][animals] Building objects...');
 let cmds = [cat, dog];
 
-cmds.forEach(cmd=>{
-  cmd.metadata={};
+cmds.forEach(cmd => {
+  cmd.metadata = {};
   cmd.metadata.category = require('../').category;
 });
 
@@ -25,6 +24,6 @@ dog.metadata.perm = [['global.fun.animals.dog']];
 console.log('[CPSCMD][FUN][animals] Build objects complete!');
 
 module.exports = [
-  [cat.name,cat],
-  [dog.name,dog],
+  [cat.name, cat],
+  [dog.name, dog],
 ];

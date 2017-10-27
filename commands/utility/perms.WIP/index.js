@@ -1,4 +1,3 @@
-
 let perm = require('./perm');
 console.log('[CPSCMD][UTILITY][perm] Building objects...');
 
@@ -9,5 +8,5 @@ perm.metadata = {
 
 console.log('[CPSCMD][UTILITY][perm] Build objects complete!');
 module.exports = [
-  [perm.name,perm],
+  [perm.name, perm],
 ];

@@ -14,11 +14,11 @@ const HungerGames = class HungerGames extends Game {
       guildOnly: true,
       channelID,
     });
-    this.districts = new Array(14).fill(0).map((e,i) => new District(i, tributes));
+    this.districts = new Array(14).fill(0).map((e, i) => new District(i, tributes));
   }
 
-  addTribute (newTribute) {
-    this.districts.forEach(e=>e.addTribute(newTribute));
+  addTribute(newTribute) {
+    this.districts.forEach(e => e.addTribute(newTribute));
   }
 };
 

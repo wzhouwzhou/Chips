@@ -1,6 +1,6 @@
 module.exports = {
-  name: "confoosed",
+  name: 'confoosed',
   async func(msg, { send }) {
-    return send("*Confoooooosed!*");
-  }
+    return send('*Confoooooosed!*');
+  },
 };

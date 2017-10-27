@@ -40,8 +40,8 @@ undeafen.metadata = {
 
 console.log('[CPSCMD][MODERATION][voicemoderation] Build objects complete!');
 module.exports = [
-  [silence.name,silence],
-  [unsilence.name,unsilence],
-  [deafen.name,deafen],
-  [undeafen.name,undeafen]
+  [silence.name, silence],
+  [unsilence.name, unsilence],
+  [deafen.name, deafen],
+  [undeafen.name, undeafen],
 ];

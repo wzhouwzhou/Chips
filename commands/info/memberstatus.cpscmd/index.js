@@ -1,6 +1,5 @@
-
 let ms = require('./memberstatus');
-let cms = require('./channelmemberstatus') ;
+let cms = require('./channelmemberstatus');
 console.log('[CPSCMD][INFO][memberstatus] Building objects...');
 
 ms.metadata = {
@@ -22,7 +21,7 @@ cms.metadata = {
 
 console.log('[CPSCMD][INFO][memberstatus] Build objects complete!');
 module.exports = [
-  [ms.name,ms],
+  [ms.name, ms],
   ['ms', ms],
   ['memberstatuses', ms],
   [cms.name, cms],

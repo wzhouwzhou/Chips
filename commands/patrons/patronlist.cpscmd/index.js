@@ -1,4 +1,3 @@
-
 let tdl = require('./tdl');
 let wendy = require('./wendy');
 let patrons = require('./patrons');
@@ -33,7 +32,7 @@ patrons.metadata = {
 
 console.log('[CPSCMD][UTILITY][perm] Build objects complete!');
 module.exports = [
-  [tdl.name,tdl],
-  [wendy.name,wendy],
-  [patrons.name,patrons]
+  [tdl.name, tdl],
+  [wendy.name, wendy],
+  [patrons.name, patrons],
 ];

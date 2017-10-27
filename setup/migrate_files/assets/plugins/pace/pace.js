@@ -7,7 +7,7 @@
 
   defaultOptions = {
     catchupTime: 500,
-    initialRate: .03,
+    initialRate: 0.03,
     minTime: 500,
     ghostTime: 500,
     maxProgressPerFrame: 10,
@@ -18,22 +18,22 @@
     target: 'body',
     elements: {
       checkInterval: 100,
-      selectors: ['body']
+      selectors: ['body'],
     },
     eventLag: {
       minSamples: 10,
       sampleCount: 3,
-      lagThreshold: 3
+      lagThreshold: 3,
     },
     ajax: {
       trackMethods: ['GET'],
-      trackWebSockets: false
-    }
+      trackWebSockets: false,
+    },
   };
 
   now = function() {
     var _ref;
-    return (_ref = typeof performance !== "undefined" && performance !== null ? typeof performance.now === "function" ? performance.now() : void 0 : void 0) != null ? _ref : +(new Date);
+    return (_ref = typeof performance !== 'undefined' && performance !== null ? typeof performance.now === 'function' ? performance.now() : void 0 : void 0) != null ? _ref : +new Date;
   };
 
   requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
@@ -57,9 +57,7 @@
       diff = now() - last;
       if (diff >= 33) {
         last = now();
-        return fn(diff, function() {
-          return requestAnimationFrame(tick);
-        });
+        return fn(diff, () => requestAnimationFrame(tick));
       } else {
         return setTimeout(tick, 33 - diff);
       }
@@ -69,9 +67,9 @@
 
   result = function() {
     var args, key, obj;
-    obj = arguments[0], key = arguments[1], args = 3 <= arguments.length ? __slice.call(arguments, 2) : [];
+    obj = arguments[0], key = arguments[1], args = arguments.length >= 3 ? __slice.call(arguments, 2) : [];
     if (typeof obj[key] === 'function') {
-      return obj[key].apply(obj, args);
+      return obj[key](...args);
     } else {
       return obj[key];
     }
@@ -79,7 +77,7 @@
 
   extend = function() {
     var key, out, source, sources, val, _i, _len;
-    out = arguments[0], sources = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+    out = arguments[0], sources = arguments.length >= 2 ? __slice.call(arguments, 1) : [];
     for (_i = 0, _len = sources.length; _i < _len; _i++) {
       source = sources[_i];
       if (source) {
@@ -116,11 +114,11 @@
     if (json == null) {
       json = true;
     }
-    el = document.querySelector("[data-pace-" + key + "]");
+    el = document.querySelector(`[data-pace-${key}]`);
     if (!el) {
       return;
     }
-    data = el.getAttribute("data-pace-" + key);
+    data = el.getAttribute(`data-pace-${key}`);
     if (!json) {
       return data;
     }
@@ -128,7 +126,7 @@
       return JSON.parse(data);
     } catch (_error) {
       e = _error;
-      return typeof console !== "undefined" && console !== null ? console.error("Error parsing inline pace options", e) : void 0;
+      return typeof console !== 'undefined' && console !== null ? console.error('Error parsing inline pace options', e) : void 0;
     }
   };
 
@@ -149,7 +147,7 @@
       return this.bindings[event].push({
         handler: handler,
         ctx: ctx,
-        once: once
+        once: once,
       });
     };
 
@@ -180,7 +178,7 @@
 
     Evented.prototype.trigger = function() {
       var args, ctx, event, handler, i, once, _ref, _ref1, _results;
-      event = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+      event = arguments[0], args = arguments.length >= 2 ? __slice.call(arguments, 1) : [];
       if ((_ref = this.bindings) != null ? _ref[event] : void 0) {
         i = 0;
         _results = [];
@@ -198,8 +196,7 @@
     };
 
     return Evented;
-
-  })();
+  }());
 
   if (window.Pace == null) {
     window.Pace = {};
@@ -226,8 +223,7 @@
     }
 
     return NoTargetError;
-
-  })(Error);
+  }(Error));
 
   Bar = (function() {
     function Bar() {
@@ -242,7 +238,7 @@
           throw new NoTargetError;
         }
         this.el = document.createElement('div');
-        this.el.className = "pace pace-active";
+        this.el.className = 'pace pace-active';
         document.body.className = document.body.className.replace('pace-done', '');
         document.body.className += ' pace-running';
         this.el.innerHTML = '<div class="pace-progress">\n  <div class="pace-progress-inner"></div>\n</div>\n<div class="pace-activity"></div>';
@@ -284,16 +280,16 @@
         return false;
       }
       el = this.getElement();
-      el.children[0].style.width = "" + this.progress + "%";
-      if (!this.lastRenderedProgress || this.lastRenderedProgress | 0 !== this.progress | 0) {
-        el.children[0].setAttribute('data-progress-text', "" + (this.progress | 0) + "%");
+      el.children[0].style.width = `${this.progress}%`;
+      if (!this.lastRenderedProgress || this.lastRenderedProgress | this.progress !== 0 | 0) {
+        el.children[0].setAttribute('data-progress-text', `${this.progress | 0}%`);
         if (this.progress >= 100) {
           progressStr = '99';
         } else {
-          progressStr = this.progress < 10 ? "0" : "";
+          progressStr = this.progress < 10 ? '0' : '';
           progressStr += this.progress | 0;
         }
-        el.children[0].setAttribute('data-progress', "" + progressStr);
+        el.children[0].setAttribute('data-progress', `${progressStr}`);
       }
       return this.lastRenderedProgress = this.progress;
     };
@@ -303,8 +299,7 @@
     };
 
     return Bar;
-
-  })();
+  }());
 
   Events = (function() {
     function Events() {
@@ -333,8 +328,7 @@
     };
 
     return Events;
-
-  })();
+  }());
 
   _XMLHttpRequest = window.XMLHttpRequest;
 
@@ -364,18 +358,18 @@
 
   Pace.ignore = function() {
     var args, fn, ret;
-    fn = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+    fn = arguments[0], args = arguments.length >= 2 ? __slice.call(arguments, 1) : [];
     ignoreStack.unshift('ignore');
-    ret = fn.apply(null, args);
+    ret = fn(...args);
     ignoreStack.shift();
     return ret;
   };
 
   Pace.track = function() {
     var args, fn, ret;
-    fn = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+    fn = arguments[0], args = arguments.length >= 2 ? __slice.call(arguments, 1) : [];
     ignoreStack.unshift('track');
-    ret = fn.apply(null, args);
+    ret = fn(...args);
     ignoreStack.shift();
     return ret;
   };
@@ -413,7 +407,7 @@
             _this.trigger('request', {
               type: type,
               url: url,
-              request: req
+              request: req,
             });
           }
           return _open.apply(req, arguments);
@@ -444,7 +438,7 @@
               type: 'socket',
               url: url,
               protocols: protocols,
-              request: req
+              request: req,
             });
           }
           return req;
@@ -454,8 +448,7 @@
     }
 
     return RequestIntercept;
-
-  })(Events);
+  }(Events));
 
   _intercept = null;
 
@@ -475,12 +468,12 @@
       if (typeof after === 'boolean') {
         after = 0;
       }
-      return setTimeout(function() {
+      return setTimeout(() => {
         var stillActive, _j, _len1, _ref2, _ref3, _results;
         if (type === 'socket') {
           stillActive = request.readyState < 2;
         } else {
-          stillActive = (0 < (_ref2 = request.readyState) && _ref2 < 4);
+          stillActive = (_ref2 = request.readyState) > 0 && _ref2 < 4;
         }
         if (stillActive) {
           Pace.restart();
@@ -489,7 +482,7 @@
           for (_j = 0, _len1 = _ref3.length; _j < _len1; _j++) {
             source = _ref3[_j];
             if (source instanceof AjaxMonitor) {
-              source.watch.apply(source, args);
+              source.watch(...args);
               break;
             } else {
               _results.push(void 0);
@@ -506,7 +499,7 @@
       var _this = this;
       this.elements = [];
       getIntercept().on('request', function() {
-        return _this.watch.apply(_this, arguments);
+        return _this.watch(...arguments);
       });
     }
 
@@ -522,8 +515,7 @@
     };
 
     return AjaxMonitor;
-
-  })();
+  }());
 
   XHRRequestTracker = (function() {
     function XHRRequestTracker(request) {
@@ -532,19 +524,17 @@
       this.progress = 0;
       if (window.ProgressEvent != null) {
         size = null;
-        request.addEventListener('progress', function(evt) {
+        request.addEventListener('progress', evt => {
           if (evt.lengthComputable) {
             return _this.progress = 100 * evt.loaded / evt.total;
           } else {
-            return _this.progress = _this.progress + (100 - _this.progress) / 2;
+            return _this.progress += (100 - _this.progress) / 2;
           }
         });
         _ref2 = ['load', 'abort', 'timeout', 'error'];
         for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
           event = _ref2[_j];
-          request.addEventListener(event, function() {
-            return _this.progress = 100;
-          });
+          request.addEventListener(event, () => _this.progress = 100);
         }
       } else {
         _onreadystatechange = request.onreadystatechange;
@@ -555,14 +545,13 @@
           } else if (request.readyState === 3) {
             _this.progress = 50;
           }
-          return typeof _onreadystatechange === "function" ? _onreadystatechange.apply(null, arguments) : void 0;
+          return typeof _onreadystatechange === 'function' ? _onreadystatechange(...arguments) : void 0;
         };
       }
     }
 
     return XHRRequestTracker;
-
-  })();
+  }());
 
   SocketRequestTracker = (function() {
     function SocketRequestTracker(request) {
@@ -572,15 +561,12 @@
       _ref2 = ['error', 'open'];
       for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
         event = _ref2[_j];
-        request.addEventListener(event, function() {
-          return _this.progress = 100;
-        });
+        request.addEventListener(event, () => _this.progress = 100);
       }
     }
 
     return SocketRequestTracker;
-
-  })();
+  }());
 
   ElementMonitor = (function() {
     function ElementMonitor(options) {
@@ -600,8 +586,7 @@
     }
 
     return ElementMonitor;
-
-  })();
+  }());
 
   ElementTracker = (function() {
     function ElementTracker(selector) {
@@ -615,9 +600,7 @@
       if (document.querySelector(this.selector)) {
         return this.done();
       } else {
-        return setTimeout((function() {
-          return _this.check();
-        }), options.elements.checkInterval);
+        return setTimeout(() => _this.check(), options.elements.checkInterval);
       }
     };
 
@@ -626,14 +609,13 @@
     };
 
     return ElementTracker;
-
-  })();
+  }());
 
   DocumentMonitor = (function() {
     DocumentMonitor.prototype.states = {
       loading: 0,
       interactive: 50,
-      complete: 100
+      complete: 100,
     };
 
     function DocumentMonitor() {
@@ -645,13 +627,12 @@
         if (_this.states[document.readyState] != null) {
           _this.progress = _this.states[document.readyState];
         }
-        return typeof _onreadystatechange === "function" ? _onreadystatechange.apply(null, arguments) : void 0;
+        return typeof _onreadystatechange === 'function' ? _onreadystatechange(...arguments) : void 0;
       };
     }
 
     return DocumentMonitor;
-
-  })();
+  }());
 
   EventLagMonitor = (function() {
     function EventLagMonitor() {
@@ -662,7 +643,7 @@
       samples = [];
       points = 0;
       last = now();
-      interval = setInterval(function() {
+      interval = setInterval(() => {
         var diff;
         diff = now() - last - 50;
         last = now();
@@ -681,8 +662,7 @@
     }
 
     return EventLagMonitor;
-
-  })();
+  }());
 
   Scaler = (function() {
     function Scaler(source) {
@@ -727,8 +707,7 @@
     };
 
     return Scaler;
-
-  })();
+  }());
 
   sources = null;
 
@@ -770,7 +749,7 @@
     ajax: AjaxMonitor,
     elements: ElementMonitor,
     document: DocumentMonitor,
-    eventLag: EventLagMonitor
+    eventLag: EventLagMonitor,
   };
 
   (init = function() {
@@ -799,7 +778,7 @@
     bar.destroy();
     cancelAnimation = true;
     if (animation != null) {
-      if (typeof cancelAnimationFrame === "function") {
+      if (typeof cancelAnimationFrame === 'function') {
         cancelAnimationFrame(animation);
       }
       animation = null;
@@ -817,7 +796,7 @@
     Pace.running = true;
     bar.render();
     cancelAnimation = false;
-    return animation = runAnimation(function(frameTime, enqueueNextFrame) {
+    return animation = runAnimation((frameTime, enqueueNextFrame) => {
       var avg, count, done, element, elements, i, j, remaining, scaler, scalerList, start, sum, _j, _k, _len1, _len2, _ref2;
       remaining = 100 - bar.progress;
       count = sum = 0;
@@ -843,7 +822,7 @@
       if (bar.done() || done || cancelAnimation) {
         bar.update(100);
         Pace.trigger('done');
-        return setTimeout(function() {
+        return setTimeout(() => {
           bar.finish();
           Pace.running = false;
           return Pace.trigger('hide');
@@ -871,15 +850,10 @@
   };
 
   if (typeof define === 'function' && define.amd) {
-    define(function() {
-      return Pace;
-    });
+    define(() => Pace);
   } else if (typeof exports === 'object') {
     module.exports = Pace;
-  } else {
-    if (options.startOnPageLoad) {
-      Pace.start();
-    }
+  } else if (options.startOnPageLoad) {
+    Pace.start();
   }
-
 }).call(this);

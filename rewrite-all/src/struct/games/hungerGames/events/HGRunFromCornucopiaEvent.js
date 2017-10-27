@@ -4,7 +4,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 const { HGActionEvent } = require('./HGActionEvent');
 
 const HGRunFromCornucopiaEvent = class HGRunFromCornucopiaEvent extends HGActionEvent {
-  constructor () {
+  constructor() {
     super();
   }
 };

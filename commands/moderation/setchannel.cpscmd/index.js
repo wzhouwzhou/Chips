@@ -1,4 +1,3 @@
-
 let sc = require('./setchannel');
 
 console.log('[CPSCMD][INFO][roles] Building objects...');
@@ -14,6 +13,6 @@ sc.metadata = {
 
 console.log('[CPSCMD][INFO][roles] Build objects complete!');
 module.exports = [
-  [sc.name,sc],
+  [sc.name, sc],
   ['sc', sc],
 ];

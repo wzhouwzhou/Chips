@@ -1,4 +1,3 @@
-
 let translate = require('./translate');
 console.log('[CPSCMD][UTILITY][translate] Building objects...');
 translate.metadata = {
@@ -12,5 +11,5 @@ translate.metadata = {
 
 console.log('[CPSCMD][UTILITY][translate] Build objects complete!');
 module.exports = [
-  [translate.name,translate],
+  [translate.name, translate],
 ];

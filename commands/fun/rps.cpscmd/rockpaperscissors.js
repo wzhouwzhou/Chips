@@ -40,10 +40,10 @@ module.exports = {
           }
         })();
         sentMsg.edit(result, new Discord.MessageEmbed()
-        .setTitle('Rock Paper Scissors')
-        .setDescription(`Your move: ${user}\nThe computer went ${computer}`));
+          .setTitle('Rock Paper Scissors')
+          .setDescription(`Your move: ${user}\nThe computer went ${computer}`));
       }
       return true;
     });
-  }
+  },
 };

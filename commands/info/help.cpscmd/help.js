@@ -1,33 +1,33 @@
 const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Paginator;
 
 module.exports = {
-  name: "help",
+  name: 'help',
   async func(msg, { prefix, Discord, reply }) {
-    const IntroMenu1 = ([
+    const IntroMenu1 = [
       'Chips is a multipurpose bot under heavy development!',
       "We're working on a gui update and structural rewrite right now, so apologies if some commands are not listed",
-    ].join('\n'));
+    ].join('\n');
 
-    const IntroMenu2 = ([
+    const IntroMenu2 = [
       'You can use the arrow button reactions to navigate the help menu as well as other features of the bot that support it!',
       'The 🔢 button will let you jump to a specific page number.',
       'The ⏏ button will close this menu!',
       "Each command will update with your server's custom prefix!",
       `The prefix for your server is **{}**`,
-    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g,'\\`')));
+    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g, '\\`'));
 
-    const Table = ([
-      ['1_     _','Introductions'],
-      ['2_     _','Table of Contents'],
-      ['3/4' ,'Informative commands'],
-      ['5_     _','Moderation commands'],
-      ['6/7' ,'Fun/Games'],
-      ['8_     _','Utility commands'],
-      ['9_     _','(Experimental) Music information'],
-      ['10 _   _','Additional bot information'],
-    ].map(e=>`**P. ${e[0]}**¬\n\t${e[1]}`).join('\n'));
+    const Table = [
+      ['1_     _', 'Introductions'],
+      ['2_     _', 'Table of Contents'],
+      ['3/4', 'Informative commands'],
+      ['5_     _', 'Moderation commands'],
+      ['6/7', 'Fun/Games'],
+      ['8_     _', 'Utility commands'],
+      ['9_     _', '(Experimental) Music information'],
+      ['10 _   _', 'Additional bot information'],
+    ].map(e => `**P. ${e[0]}**¬\n\t${e[1]}`).join('\n');
 
-    const InfoMenu = ([
+    const InfoMenu = [
       '**{}help** for this help message.',
       '**{}ping** for more info about ping than you could ever want.',
       '**{}stats** to show my stats.',
@@ -40,9 +40,9 @@ module.exports = {
       '\t**user [user mention, name or id]** to get information on the user that you request!',
       '**{}quote [msgid]** to quote what someone said in the channel you use the command in.',
       "**{}avatar [user mention]** to get someone's avatar",
-      ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g,'\\`')));
+    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g, '\\`'));
 
-    const InfoMenu2 = ([
+    const InfoMenu2 = [
       '**{}discordstatus** to get the current status of discord.',
       '**{}memberstatus/{}ms help** to see how you can use it.',
       '**{}lastmessageid/{}lmid** to get last sent message ID.',
@@ -52,9 +52,9 @@ module.exports = {
       '**{}membercount/{}mc** to get amount of people in the server.',
       '**{}rolecount/{}rc** to get the amount of roles in the server.',
       '**{}channelcount/{}cc** to get the amount of channels in the server.',
-    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g,'\\`')));
+    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g, '\\`'));
 
-    const ModMenu = ([
+    const ModMenu = [
       '**{}ban [mention user]** to ban someone.',
       '**{}clear [amount]** to clear some messages. (up to 99)',
       '**{}botclear/{}bc [amount]** to delete bot-related messages. (up to the last 100 messages are checked)',
@@ -68,9 +68,9 @@ module.exports = {
       '**{}undeafen [mention user]** to undeafen someone.',
       '**{}rmute [mention user]** to give someone a muted role! (Disclaimer: this does not create a Muted role, manually remove the mute role to unmute)',
       '**{}chipsprefix on** to begin custom prefix setup, use **{}chipsprefix off** to turn off custom prefix',
-    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g,'\\`')));
+    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g, '\\`'));
 
-    const FunMenu = ([
+    const FunMenu = [
       '**{}con4 length width** to play connect four.',
       '\tFor example, **{}con4 12 6** will create a 12x6 board with 6 columns and 12 rows',
       '**{}chess help** *__New™ (beta)__* to see how to play a chess game! and Yes, _you can even invite Chips to play with you!_',
@@ -86,9 +86,9 @@ module.exports = {
       '**{}happy** for some gifs(credits to Tani)',
       '**{}lenny** to make a lenny face.',
       '**{}ship [mention user]** to ship some people.',
-    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g,'\\`')));
+    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g, '\\`'));
 
-    const FunMenu2 = ([
+    const FunMenu2 = [
       '**{}nsfw** to get NSFW commands',
       '**{}rekt** to make some people get rekt.',
       '**{}everyone** to get some at everyone pictures!',
@@ -102,34 +102,34 @@ module.exports = {
       '**{}big [emoji1, emoji2]** to enlarge one or more emojis',
       '**{}rotate [/ text]** *and* **{}rotate [\\ text]** to push your text around (the slashes dictate the direction and are required)',
       '**{}derp [text]** to make your text derpy (capitalises every other letter)',
-    ].join('\n').replace(/{}/g, prefix));
+    ].join('\n').replace(/{}/g, prefix);
 
-    const UtilityMenu = ([
+    const UtilityMenu = [
       '**{}-calc [equation or expression]** to calculate some things! The equation solver can only solve basic algebra up to cubics',
       '**{}urban [text]** To search up something in the urban dictionary. Add __--allownsfw__ somewhere in your search query to turn off the censor',
       '**{}translate [text]** or **{}translate text targetlang:spanish** to translate some text',
       '**{}stoptyping** for if a chips command errored and is stuck "typing" in the channel.',
       '**{}password (length) (numerical/alphanumeric/hex/unicode)** to generate a cryptographically strong password!',
       '**{}settopic**/**{}st [newtopic]** to set the channel topic',
-    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g,'\\`')));
+    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g, '\\`'));
 
-    const MusicMenu = ([
+    const MusicMenu = [
       '**{}music demo** to begin the music demo.',
       '__This **Open Beta** feature is still being heavily developed and is not necessarily stable at all times__. We apologize in advance.',
       'Mention me once demo is activated for music commands: __@Chips music help__',
       'Server specific prefixes do not work. The only prefix usable with Chips music is mentioning chips',
-    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g,'\\`')));
+    ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g, '\\`'));
 
-    const AdditionalSht = ([
-      ['Custom commands for our patrons:',`Type **${_.escapeRegExp(prefix)}patrons**`],
-      ['Invite Link:',`[Click Here!](${Constants.BOTINVITE})`],
+    const AdditionalSht = [
+      ['Custom commands for our patrons:', `Type **${_.escapeRegExp(prefix)}patrons**`],
+      ['Invite Link:', `[Click Here!](${Constants.BOTINVITE})`],
       ['Support Server:', `[Click Here](${Constants.SUPPORTINVITE})`],
-      ['Official Website:',`[${Constants.WEBSITE}](${Constants.WEBSITE})`],
-      ["Feeling generous? Donate here to help us pay for hosting and keep our bot updated constantly!", "[https://www.paypal.me/wzhouwzhou](https://www.paypal.me/wzhouwzhou)"]
-    ]);
+      ['Official Website:', `[${Constants.WEBSITE}](${Constants.WEBSITE})`],
+      ['Feeling generous? Donate here to help us pay for hosting and keep our bot updated constantly!', '[https://www.paypal.me/wzhouwzhou](https://www.paypal.me/wzhouwzhou)'],
+    ];
 
-    const p = new Paginator ( msg,  {
-      type:'paged',
+    const p = new Paginator(msg, {
+      type: 'paged',
       embedding: true,
       fielding: true,
       title: 'The Chips Help Menu',
@@ -138,23 +138,23 @@ module.exports = {
       [[
         ['Introductions', IntroMenu1],
         ['How to', IntroMenu2],
-      ],[
+      ], [
         ['Table of Contents', Table],
-      ],[
-        ['Informative commands (1)',InfoMenu],
-      ],[
-        ['Informative commands (2)',InfoMenu2],
-      ],[
-        ['Moderation commands',ModMenu],
-      ],[
-        ['Fun commands (1)',FunMenu],
-      ],[
+      ], [
+        ['Informative commands (1)', InfoMenu],
+      ], [
+        ['Informative commands (2)', InfoMenu2],
+      ], [
+        ['Moderation commands', ModMenu],
+      ], [
+        ['Fun commands (1)', FunMenu],
+      ], [
         ['Fun commands (2)', FunMenu2],
-      ],[
-        ['Utility commands',UtilityMenu],
-      ],[
-        ['Music commands (Open beta)',MusicMenu],
-      ],[
+      ], [
+        ['Utility commands', UtilityMenu],
+      ], [
+        ['Music commands (Open beta)', MusicMenu],
+      ], [
         ...AdditionalSht,
       ]],
       image: [
@@ -163,17 +163,17 @@ module.exports = {
       ],
       footer: [
         ...new Array(9).fill(null),
-        'Image made by @xdlf#6477.'
-      ]}, Discord
+        'Image made by @xdlf#6477.',
+      ] }, Discord
     );
-    try{
+    try {
       return await p.sendFirst();
-    }catch(err){
+    } catch (err) {
       console.error(err);
-      return reply ('Something went wrong...');
+      return reply('Something went wrong...');
     }
     /*
-    const embed = new Discord.MessageEmbed()
+    Const embed = new Discord.MessageEmbed()
       .setAuthor('This is the Chips Bot Help Menu!', "http://www.mkrfoodproducts.com/images/gallery/image_11.jpg")
       .setTitle('')
       .setDescription('')
@@ -186,5 +186,5 @@ module.exports = {
       .addField("Fun Commands", FunMenu, true)
       .setTimestamp((new Date));
     send(' ', {embed});*/
-  }
+  },
 };

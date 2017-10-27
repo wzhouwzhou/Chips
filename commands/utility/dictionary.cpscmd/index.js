@@ -1,4 +1,4 @@
-const needle = require ('needle');
+const needle = require('needle');
 const urbandict = require('./urbandict');
 
 urbandict.metadata = {
@@ -12,10 +12,9 @@ urbandict.metadata = {
 const swears = 'https://raw.githubusercontent.com/ChaseFlorell/jQuery.ProfanityFilter/master/swearWords.json';
 client.swearlist = [];
 
-needle.get(swears, function(error, response) {
-  if(error) throw error;
-  if (!error && response.statusCode == 200)
-    client.swearlist = JSON.parse(response.body);
+needle.get(swears, (error, response) => {
+  if (error) throw error;
+  if (!error && response.statusCode == 200) client.swearlist = JSON.parse(response.body);
 });
 
 module.exports = [

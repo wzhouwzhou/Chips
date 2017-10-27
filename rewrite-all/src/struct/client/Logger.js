@@ -1,7 +1,7 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 
-/*const logmodes = [
+/* Const logmodes = [
   'production',
   'info'
 ];*/
@@ -11,14 +11,14 @@ const chalk = require('chalk');
 chalk.enabled = true;
 
 class Logger {
-  constructor( mmodule = 'main', category = 'chips.js', logLevel = 'verbose', prefix = '' ){
+  constructor(mmodule = 'main', category = 'chips.js', logLevel = 'verbose', prefix = '') {
     this.msgmodule = mmodule;
     this.category = category;
     this.logLevel = logLevel;
     this.prefix = prefix;
   }
 
-  log( logstuff ){
+  log(logstuff) {
     let stuff = Object.assign({},
       { type: 'info', msgmodule: this.msgmodule, logcategory: this.category, msg: 'none' },
       logstuff
@@ -32,43 +32,41 @@ class Logger {
 
     logcategory = chalk.underline.blue(`[${logcategory}]`);
 
-    switch(type.toLowerCase()){
+    switch (type.toLowerCase()) {
       case 'error':
-        msg=chalk.bold.bgRed(msg);
-        type=chalk.bold.bgRed(`[${type}]`);
+        msg = chalk.bold.bgRed(msg);
+        type = chalk.bold.bgRed(`[${type}]`);
         break;
       default:
         type = chalk.bold.bgBlue(`[${type}]`);
     }
 
-    time=(this.prefix||'')+time;
+    time = (this.prefix || '') + time;
     console.log(time, type, msgmodule, logcategory, msg);
   }
 
-  error ( logstuff ) {
-    return this.log( Object.assign({},
+  error(logstuff) {
+    return this.log(Object.assign({},
       { type: 'error' },
       { msg: logstuff }
-    ) );
+    ));
   }
 
-  info ( logstuff ) {
-    return this.log( Object.assign({},
+  info(logstuff) {
+    return this.log(Object.assign({},
       { type: 'info' },
-      { msg: logstuff}
-    ) );
+      { msg: logstuff }
+    ));
   }
 
-  debug ( logstuff ) {
-    return this.log( Object.assign({},
+  debug(logstuff) {
+    return this.log(Object.assign({},
       { type: 'debug' },
       { msg: logstuff }
-    ) );
+    ));
   }
 }
 
 Logger.default = new Logger();
-exports.create = (mmodule, category, logLevel, prefix) => {
-  return new Logger(mmodule, category, logLevel, prefix);
-};
+exports.create = (mmodule, category, logLevel, prefix) => new Logger(mmodule, category, logLevel, prefix);
 exports.Logger = Logger;

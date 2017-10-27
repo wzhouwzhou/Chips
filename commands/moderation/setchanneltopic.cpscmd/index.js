@@ -1,4 +1,3 @@
-
 let st = require('./settopic');
 
 console.log('[CPSCMD][INFO][ping] Building objects...');
@@ -14,7 +13,7 @@ st.metadata = {
 
 console.log('[CPSCMD][INFO][ping] Build objects complete!');
 module.exports = [
-  [st.name,st],
+  [st.name, st],
   ['st', st],
   ['sct', st],
   ['settopic', st],
