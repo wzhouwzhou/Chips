@@ -1,7 +1,7 @@
 module.exports = {
-  name: "lenny",
-  perm: ["server.lenny"],
+  name: 'lenny',
+  perm: ['server.lenny'],
   async func(msg, { send }) {
-    send("( ͡° ͜ʖ ͡°)");
-  }
+    send('( ͡° ͜ʖ ͡°)');
+  },
 };
