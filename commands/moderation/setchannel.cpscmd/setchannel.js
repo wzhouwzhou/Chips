@@ -22,7 +22,7 @@ module.exports = {
           return send('The channel name can only be a minumum of 2 characters in length');
         if(!args[1])
           return send('No name given to set');
-        else if(!suffix.substring(suffix.indexOf(args[1])).match(/^[0-9a-z\-_]+$/i))
+        if(!suffix.substring(suffix.indexOf(args[1])).match(/^[0-9a-z\-_]+$/i))
           return send('Text channel name must be alphanumeric with dashes or underscores.');
         else {
           await channel.setName(suffix.substring(suffix.indexOf(args[1])));
