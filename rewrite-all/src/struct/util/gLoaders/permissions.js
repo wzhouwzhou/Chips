@@ -4,11 +4,11 @@ Object.defineProperty(exports, '__esModule', { value: true });
 const { GLoader } = require('../GLoader');
 
 exports.default = class PermisionsLoader extends GLoader {
-  constructor (db) {
-    super((__filename).match(/\/([^/.]+)[^/]*$/)[1], db);
+  constructor(db) {
+    super(__filename.match(/\/([^/.]+)[^/]*$/)[1], db);
   }
 
-  load ({ sheet, Permissions }) {
+  load({ sheet, Permissions }) {
     console.log('Permissions load called');
     return new Promise ((res, rej) => {
       sheet.getRows({ offset: 1, limit: 999999}, (err, rows) => {

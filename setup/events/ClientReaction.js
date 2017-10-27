@@ -5,7 +5,7 @@ module.exports = function() {
 
     console.log("Reaction detected");
     if (react.message.channel.type == 'text') {
-      console.log("Not in DM (->Starboard)");
+      // console.log("Not in DM (->Starboard)");
       if(client.disableSelfStar[react.message.guild.id]&&react.message.author.id==user.id)
         if(react.emoji.toString()==Constants.emojis.STAR){
           react.remove(user);
