@@ -22,8 +22,12 @@ module.exports = function(send) {
 
   client.on('ready', async() => {
     require(path.join(__dirname, '../../handlers/DiepAddons')).getServers();
-    console.log(`[DBLOADER][DB] Latest start: ${await client.database.fetchLastStartStatus()}`);
-    await client.database.writeLastStart();
+    try {
+      console.log(`[DBLOADER][DB] Latest start: ${await client.database.fetchLastStartStatus()}`);
+      await client.database.writeLastStart();
+    } catch(err) {
+      console.error('Unable to save starts');
+    }
     setTimeout(async() => { statusC = await client.channels.get(Constants.channels.STATUS); statusC && send(`Chips restart! **${moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')}**`, statusC); }, 5000);
 
     const MH = require('../../rewrite-all/src/struct/music/MusicHandler').default;

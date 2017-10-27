@@ -46,6 +46,7 @@ const BotDatabase = class BotDatabase extends Database {
   }
 
   async fetchStartLog(cache = false) {
+    this.ensureRethink();
     const startLog = await this.getTable('botStartLog');
     if (cache) this.startLog = startLog;
     return startLog;
