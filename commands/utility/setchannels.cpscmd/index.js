@@ -1,4 +1,3 @@
-
 let dm = require('./setdm');
 let logstatus = require('./slogstatus');
 let out = require('./setoutput');
@@ -13,7 +12,7 @@ out.description = 'This command sets output channel for the current shard! (Prob
 
 console.log('[CPSCMD][UTILITY][setchannels] Build objects complete!');
 module.exports = [
-  [dm.name,dm],
-  [logstatus.name,logstatus],
-  [out.name,out],
+  [dm.name, dm],
+  [logstatus.name, logstatus],
+  [out.name, out],
 ];

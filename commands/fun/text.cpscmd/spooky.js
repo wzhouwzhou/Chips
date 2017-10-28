@@ -7,12 +7,12 @@ module.exports = {
     let numSpaces = 1;
     if (toMatch) {
       let numMatcher = toMatch[0];
-      console.log('[SPOOKY] numMatcher: '+ numMatcher);
+      console.log(`[SPOOKY] numMatcher: ${numMatcher}`);
       let numquery = truecontent.substring(truecontent.indexOf(numMatcher) + numMatcher.length);
       console.log(`[SPOOKY] numquery: ${numquery}`);
       numSpaces = numquery.split(/\s+/)[0];
       numSpaces = isNaN(numSpaces) ? 1 : parseInt(numSpaces);
-      console.log('[SPOOKY] numspaces: '+ numSpaces);
+      console.log(`[SPOOKY] numspaces: ${numSpaces}`);
       spookymsg = truecontent.replace(numMatcher && numSpaces ? numMatcher + numSpaces : '', '');
       spookymsg = spookymsg.length < 1 ? ' ' : spookymsg;
       console.log(`[SPOOKY] stuff to convert: ${spookymsg}`);

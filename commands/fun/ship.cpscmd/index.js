@@ -1,4 +1,3 @@
-
 let ship = require('./ship');
 
 console.log('[CPSCMD][MODERATION][ship] Building objects...');
@@ -12,5 +11,5 @@ ship.metadata = {
 
 console.log('[CPSCMD][MODERATION][ship] Build objects complete!');
 module.exports = [
-  [ship.name,ship],
+  [ship.name, ship],
 ];

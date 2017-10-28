@@ -1,4 +1,3 @@
-
 let ass = require('./ass');
 
 console.log('[CPSCMD][NSFW][ass] Building objects...');
@@ -12,5 +11,5 @@ ass.metadata = {
 
 console.log('[CPSCMD][NSFW][ass] Build objects complete!');
 module.exports = [
-  [ass.name,ass],
+  [ass.name, ass],
 ];

@@ -4,7 +4,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 const { HGTributeTool } = require('./HGTributeTool');
 
 const Bottle = class Bottle extends HGTributeTool {
-  constructor (options) {
+  constructor(options) {
     super();
     this.options = options;
   }

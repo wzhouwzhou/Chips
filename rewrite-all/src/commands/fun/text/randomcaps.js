@@ -1,7 +1,7 @@
 'use strict';
-Object.defineProperty(exports,'__esModule', { value: true });
+Object.defineProperty(exports, '__esModule', { value: true });
 
-const Logger = require('../../../struct/client/Logger').create('command','randomcaps');
+const Logger = require('../../../struct/client/Logger').create('command', 'randomcaps');
 const COLOR = 1;
 
 Logger.debug('Entered into randomcaps.js');
@@ -11,21 +11,21 @@ exports.name = 'randomcaps';
 Logger.debug('Assembling randomcaps metadata...');
 const metarel = '/metadata/randomcaps.json';
 
-exports.metapath = __dirname+metarel;
+exports.metapath = __dirname + metarel;
 exports.metadata = require(`.${metarel}`);
 delete require.cache[require.resolve(`.${metarel}`)];
 Logger.debug('Metadata assembly done!');
 
-exports.handle = async (
+exports.handle = async(
   ctx,
   modules
 ) => {
   Logger.debug('Entered handle');
 
-  return await this.selfPreHandle (ctx, modules);
+  return await this.selfPreHandle(ctx, modules);
 };
 
-exports.selfPreHandle = async (
+exports.selfPreHandle = async(
   ctx,
   modules,
   settings = {}
@@ -40,19 +40,19 @@ exports.selfPreHandle = async (
   return await this.selfPostHandle(ctx, modules, settings, result);
 };
 
-exports.exec = async (
+exports.exec = async(
   { send, suffix },
   { Discord, randomCapsF },
   { embeddable, color, cb },
 ) => {
   Logger.debug('Entered exec');
 
-  return embeddable
-    ? await send(new Discord.MessageEmbed().setDescription(randomCapsF(suffix)).setColor(color))
-    : await send(cb+randomCapsF(suffix)+cb);
+  return embeddable ?
+    await send(new Discord.MessageEmbed().setDescription(randomCapsF(suffix)).setColor(color)) :
+    await send(cb + randomCapsF(suffix) + cb);
 };
 
-exports.selfPostHandle  = async (
+exports.selfPostHandle = async(
   ctx,
   modules,
   settings,

@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const Game = require('./Game');
 
 const GameClass = class PokeGame extends Game {
-  constructor ({
+  constructor({
     basicdata,
     usingRxns,
   }) {
@@ -11,38 +11,35 @@ const GameClass = class PokeGame extends Game {
     this.playerData = new Discord.Collection();
   }
 
-  reloadAllPlayerData () {
-    return new Promise( (res, rej) => {
-      setImmediate(async () => {
-        try{
+  reloadAllPlayerData() {
+    return new Promise((res, rej) => {
+      setImmediate(async() => {
+        try {
           this.playerData = await r.table('pokemonData').run();
           res(true);
-        }catch(err){
+        } catch (err) {
           rej(err);
         }
       });
     });
   }
 
-  clearPlayerData (id) {
-    return new Promise( async ( res ) => {
+  clearPlayerData(id) {
+    return new Promise(async res => {
       const oldData = this.playerData[id];
       this.playerData[id] = null;
       res(oldData);
     });
   }
 
-  getPlayerData (id) {
-    return new Promise( async (res, rej) => {
-      if(!this.playerData) await this.reloadAllPlayerData();
+  getPlayerData(id) {
+    return new Promise(async(res, rej) => {
+      if (!this.playerData) await this.reloadAllPlayerData();
 
-      if(this.playerData[id])
-        res(this.playerData[id]);
-      else
-        rej(false);
+      if (this.playerData[id]) res(this.playerData[id]);
+      else rej(false);
     });
   }
-
 };
 
 module.exports = GameClass;

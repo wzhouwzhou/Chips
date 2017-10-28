@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 
 const GameClass = class Game {
-  constructor ({
+  constructor({
     gameName,
     maxPlayers,
     guildOnly,
@@ -15,34 +15,35 @@ const GameClass = class Game {
     this.joinAfterStart = joinAfterStart;
   }
 
-  join ( msg ) {
-    return new Promise ( (res, rej) => {
-      if( this.channelID == msg.channel.id )
-        if( !this.started || ( this.started && this.joinAfterStart )) {
-          res( this.players.set( msg.author.id, msg.author ));
+  join(msg) {
+    return new Promise((res, rej) => {
+      if (this.channelID == msg.channel.id) {
+        if (!this.started || (this.started && this.joinAfterStart)) {
+          res(this.players.set(msg.author.id, msg.author));
         }
-      rej(msg);
-    });
-  }
-
-  leave ( msg ) {
-    return new Promise (( res, rej ) => {
-      if( this.channelID == msg.channel.id ) {
-        this.players.delete( msg.author.id );
-        res(clearPlayerData ( msg.author.id ));
       }
       rej(msg);
     });
   }
 
-  getPlayerCount () {
+  leave(msg) {
+    return new Promise((res, rej) => {
+      if (this.channelID == msg.channel.id) {
+        this.players.delete(msg.author.id);
+        res(clearPlayerData(msg.author.id));
+      }
+      rej(msg);
+    });
+  }
+
+  getPlayerCount() {
     return this.playerCount || 0;
   }
 
-  reloadAllPlayerData  () { }
-  clearPlayerData () { }
-  setPlayerData   () { }
-  getPlayerData () { }
+  reloadAllPlayerData() { }
+  clearPlayerData() { }
+  setPlayerData() { }
+  getPlayerData() { }
 };
 
 module.exports = GameClass;

@@ -1,4 +1,4 @@
-const exec = require ('../../../rewrite-all/src/deps/functions/execF').default({_, child_process: require('child_process')});
+const exec = require('../../../rewrite-all/src/deps/functions/execF').default({ _, child_process: require('child_process') });
 
 const whitelist = [
   Constants.users.WILLYZ,
@@ -9,15 +9,14 @@ const whitelist = [
 ];
 
 module.exports = {
-  name:'git',
+  name: 'git',
   async func(msg, { send, author, args }) {
-    if (whitelist.indexOf(author.id) < 0) return console.log("Prohibited access to git to user " + author.id);
+    if (whitelist.indexOf(author.id) < 0) return console.log(`Prohibited access to git to user ${author.id}`);
     let result = null;
-    if(args[0] === 'pull') {
+    if (args[0] === 'pull') {
       result = await exec('git pull');
-      await send(new Discord.MessageEmbed().setDescription(result.substring(0,1800)));
+      await send(new Discord.MessageEmbed().setDescription(result.substring(0, 1800)));
     }
-    if(result&&!~result.toLowerCase().replace(/(\s|-)+/g,'').indexOf('uptodate'))
-      process.exit(42);
-  }
+    if (result && !~result.toLowerCase().replace(/(\s|-)+/g, '').indexOf('uptodate')) process.exit(42);
+  },
 };

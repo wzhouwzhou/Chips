@@ -1,6 +1,5 @@
-
 let ae = require('./addemoji');
-let re = require('./removeemoji')
+let re = require('./removeemoji');
 
 console.log('[CPSCMD][INFO][ping] Building objects...');
 
@@ -25,10 +24,10 @@ re.metadata = {
 
 console.log('[CPSCMD][INFO][ping] Build objects complete!');
 module.exports = [
-  [ae.name,ae],
+  [ae.name, ae],
   ['addemoji', ae],
   ['createemoji', ae]
-  [re.name,re],
+    [re.name, re],
   ['removeemoji', re],
-  ['deleteemoji', re]
+  ['deleteemoji', re],
 ];

@@ -4,7 +4,7 @@ const SHIP = '⚫', WATER = '🔵', HIT = '🔴', MISS = '⚪';
 
 const BattleshipGame = class BattleshipGame extends BoardGame {
   constructor({
-    channelID
+    channelID,
   }) {
     super({
       gameName: 'Battleship',
@@ -13,7 +13,5 @@ const BattleshipGame = class BattleshipGame extends BoardGame {
       channelID,
       empty: WATER,
     });
-
-
   }
-}
+};

@@ -1,4 +1,3 @@
-
 let chipsprefix = require('./chipsprefix');
 
 console.log('[CPSCMD][UTILITY][chipsprefix] Building objects...');
@@ -14,5 +13,5 @@ chipsprefix.metadata = {
 
 console.log('[CPSCMD][UTILITY][chipsprefix] Build objects complete!');
 module.exports = [
-  [chipsprefix.name,chipsprefix]
+  [chipsprefix.name, chipsprefix],
 ];

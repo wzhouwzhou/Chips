@@ -30,18 +30,23 @@ const BotDatabase = class BotDatabase extends Database {
   }
 
   async load() {
-    await super.load();
+    try {
+      await super.load();
+      this.startLog = await this.rethink.table('botStartLog').run();
+      this.latestStart = this.startLog && this.startLog[0] ? this.startLog[0].status : 'Unknown';
 
-
-    this.startLog = await this.rethink.table('botStartLog').run();
-    this.latestStart = this.startLog && this.startLog[0] ? this.startLog[0].status : 'Unknown';
-
-    this.sinxUsers = new Map();
-    await this.loadSBKGS();
+      this.sinxUsers = new Map();
+      await this.loadSBKGS();
+    } catch (err) {
+      this.ready = false;
+      this.err = err;
+      Logger.error('Database failed to load … skipping db boot');
+    }
     return this;
   }
 
   async fetchStartLog(cache = false) {
+    this.ensureRethink();
     const startLog = await this.getTable('botStartLog');
     if (cache) this.startLog = startLog;
     return startLog;

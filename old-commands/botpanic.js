@@ -1,6 +1,6 @@
 module.exports = {
-  name: "botpanic",
-  perm: ["global.botpanic"],
+  name: 'botpanic',
+  perm: ['global.botpanic'],
   async func(msg, { send, reply, member, author, content, channel, guild, args, gMember, Discord }) {
     const used = member || author;
     switch (used.id) {
@@ -16,11 +16,11 @@ module.exports = {
       default:
         return reply(`No!`);
     }
-    database.sheets[`botlog`].addRow({time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: "PANIC", mainvalue: "SIGTERM"},(err) => {console.log(`Error : ${err}`);});
-    client.user.setStatus("idle");
-    client.user.setGame("Restarting");
+    database.sheets.botlog.addRow({ time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: 'PANIC', mainvalue: 'SIGTERM' }, err => { console.log(`Error : ${err}`); });
+    client.user.setStatus('idle');
+    client.user.setGame('Restarting');
     await send(`${member.displayName}, panic mode activated! Chips forcibly restarting! (Attempt immediate restart)`);
-    client.user.setStatus("invisible");
+    client.user.setStatus('invisible');
     process.exit(-100);
-  }
+  },
 };

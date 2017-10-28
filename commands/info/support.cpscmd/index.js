@@ -1,4 +1,3 @@
-
 let support = require('./support');
 
 console.log('[CPSCMD][INFO][support] Building objects...');
@@ -8,10 +7,10 @@ support.metadata = {
   usage: 'support',
   example: 'support',
   perm: [['public.info.support.support']],
-  customperm: ['SEND_MESSAGES']
+  customperm: ['SEND_MESSAGES'],
 };
 
 console.log('[CPSCMD][INFO][support] Build objects complete!');
 module.exports = [
-  [support.name,support]
+  [support.name, support],
 ];

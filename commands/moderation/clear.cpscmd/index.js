@@ -1,10 +1,9 @@
-
 let clear = require('./clear');
 let bc = require('./botclear');
 
 console.log('[CPSCMD][MODERATION][clear] Building objects...');
 let cmds = [clear, bc];
-cmds.forEach(cmd=>{
+cmds.forEach(cmd => {
   cmd.metadata = {};
   cmd.metadata.category = require('../').category;
   cmd.metadata.customperm = ['MANAGE_MESSAGES'];
@@ -24,7 +23,7 @@ bc.metadata.perm = [['global.moderation.clear.botclear']];
 
 console.log('[CPSCMD][MODERATION][clear] Build objects complete!');
 module.exports = [
-  [clear.name,clear],
+  [clear.name, clear],
   [bc.name, bc],
-  ['bc', bc]
+  ['bc', bc],
 ];

@@ -1,4 +1,3 @@
-
 let eat = require('./eat');
 
 console.log('[CPSCMD][FUN][eat] Building objects...');
@@ -14,5 +13,5 @@ eat.metadata = {
 
 console.log('[CPSCMD][FUN][eat] Build objects complete!');
 module.exports = [
-  [eat.name,eat],
+  [eat.name, eat],
 ];

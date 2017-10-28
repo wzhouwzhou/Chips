@@ -1,11 +1,9 @@
-
 module.exports = {
-  name: "channeltopic",
+  name: 'channeltopic',
   async func(msg, { send, channel, member, guild }) {
-    if(!guild) return send('You must be in a server!');
+    if (!guild) return send('You must be in a server!');
 
-    if (!channel.topic)
-      return send('Rip. No channel topic for you!');
+    if (!channel.topic) return send('Rip. No channel topic for you!');
 
     const embed = (new Discord.MessageEmbed)
       .setTitle('Channel Topic')
@@ -13,5 +11,5 @@ module.exports = {
       .setColor(member.displayColor);
 
     return send(embed);
-  }
+  },
 };

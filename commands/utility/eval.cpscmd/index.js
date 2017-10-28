@@ -1,4 +1,3 @@
-
 let regeval = require('./eval');
 let asynceval = require('./async');
 let pythoneval = require('./python');
@@ -30,8 +29,8 @@ git.metadata = {
 
 console.log('[CPSCMD][UTILITY][eval] Build objects complete!');
 module.exports = [
-  [regeval.name,regeval],
-  [asynceval.name,asynceval],
-  [pythoneval.name,pythoneval],
+  [regeval.name, regeval],
+  [asynceval.name, asynceval],
+  [pythoneval.name, pythoneval],
   [git.name, git],
 ];

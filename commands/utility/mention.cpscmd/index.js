@@ -1,4 +1,3 @@
-
 let mention = require('./mention');
 
 console.log('[CPSCMD][UTILITY][mention] Building objects...');
@@ -14,5 +13,5 @@ mention.metadata = {
 
 console.log('[CPSCMD][UTILITY][mention] Build objects complete!');
 module.exports = [
-  [mention.name,mention],
+  [mention.name, mention],
 ];

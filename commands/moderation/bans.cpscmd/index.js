@@ -1,7 +1,6 @@
-
 let ban = require('./ban');
 let hackban = require('./hackban');
-let instaban = require('./instaban')
+let instaban = require('./instaban');
 let reactban = require('./reactban');
 let unban = require('./unban');
 let softban = require('./softban');
@@ -66,13 +65,13 @@ softban.metadata = {
 };
 console.log('[CPSCMD][MODERATION][ban] Build objects complete!');
 module.exports = [
-  [ban.name,ban],
-  [hackban.name,hackban],
+  [ban.name, ban],
+  [hackban.name, hackban],
   ['hban', hackban],
   [instaban.name, instaban],
   ['iban', instaban],
   [unban.name, unban],
   ['uban', unban],
   [softban.name, softban],
-  ['sban', softban]
+  ['sban', softban],
 ];

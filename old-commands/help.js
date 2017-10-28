@@ -1,6 +1,6 @@
 module.exports = {
-  name: "help",
-  perm: ["server.help"],
+  name: 'help',
+  perm: ['server.help'],
   async func(msg, { send, prefix }) {
     send(`**Main commands:**
 We apologize for any inconveniences at this time, we are doing a permissions rewrite that may interfere with daily usage.
@@ -39,5 +39,5 @@ We apologize for any inconveniences at this time, we are doing a permissions rew
 	**{}rekt** to make some people get rekt.
 	**{}roll** to roll some dice.
 	**{}nsfw** to get NSFW commands`.replace(/{}/g, prefix));
-  }
+  },
 };
