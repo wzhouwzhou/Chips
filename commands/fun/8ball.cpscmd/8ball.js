@@ -29,10 +29,13 @@ module.exports = {
   async func(msg, { send, args }) {
     if (!args[0]) return send('Do you have a question?');
 
+    if (!args.substring(suffix.indexOf(args[0]).match(/([?])/g))) return send('Question mark?');
+
     if (args[0]) return send(args1[~~(args1.length * Math.random())]);
 
     if (args[1]) return send(args2[~~(args2.length * Math.random())]);
 
     if (args[2]) return send(args3[~~(args3.length * Math.random())]);
+
   },
 };
