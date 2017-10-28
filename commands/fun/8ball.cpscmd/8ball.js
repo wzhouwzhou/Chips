@@ -1,41 +1,25 @@
-const args1 = [
-  '-_-',
-  'Go away.',
-  'Give up.',
-  'Stop hoping.',
-];
-
-const args2 = [
-  'What?',
-  'Did you say something?',
-  'Uhm..',
-  'Yes? No?',
-  "I don't know.",
-];
-
-const args3 = [
+const answer = [
+  'Ok!',
+  'No.',
   'Yes!',
-  'Sure.',
-  'Never.',
-  "Why don't you?",
-  'Are you sure about that?',
-  'Not even think about it..',
-  'Rethink.',
-  'Error 404: Ask again.',
+  'Maybe.',
 ];
+
+const embed = (new Discord.MessageEmbed)
+      .setDescription(`🎱 | ${(answer[~~(answer.length * Math.random())])}`)
+      .setColor(member.displayColor);
 
 module.exports = {
   name: '8ball',
-  async func(msg, { send, args, suffix }) {
+  async func(msg, { send, args, suffix, member }) {
     if (!args[0]) return send('Do you have a question?');
 
-    if (suffix.split(' ').reverse()[0]==='?') return send('Question mark?');
+    if (suffix.split('').reverse()[0]!=='?') return send('Question mark?');
 
-    if (args[0]) return send(args1[~~(args1.length * Math.random())]);
+    if (author.id = '205608598233939970')
+      return send('lucas is a narb')
 
-    if (args[1]) return send(args2[~~(args2.length * Math.random())]);
-
-    if (args[2]) return send(args3[~~(args3.length * Math.random())]);
+    if (args[0]) return send(embed)
 
   },
 };
