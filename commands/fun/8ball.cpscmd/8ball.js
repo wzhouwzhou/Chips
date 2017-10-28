@@ -6,7 +6,7 @@ const answer = [
 ];
 
 const embed = (new Discord.MessageEmbed)
-      .setDescription(`🎱 | ${answer[~~(answer.length * Math.random())]}`)
+      .setDescription(`🎱 | ${(answer[~~(answer.length * Math.random())])}`)
       .setColor(member.displayColor);
 
 module.exports = {
@@ -15,6 +15,9 @@ module.exports = {
     if (!args[0]) return send('Do you have a question?');
 
     if (suffix.split('').reverse()[0]!=='?') return send('Question mark?');
+
+    if (author.id = '205608598233939970')
+      return send('lucas is a narb')
 
     if (args[0]) return send(embed)
 
