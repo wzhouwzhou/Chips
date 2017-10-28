@@ -6,7 +6,7 @@ module.exports = {
     if (!channel.topic) return send('Rip. No channel topic for you!');
 
     const embed = (new Discord.MessageEmbed)
-      .setTitle('Channel Topic')
+      .setTitle(`${channel.name}`)
       .setDescription(channel.topic)
       .setColor(member.displayColor);
 
