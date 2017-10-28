@@ -29,7 +29,7 @@ module.exports = {
   async func(msg, { send, args, suffix }) {
     if (!args[0]) return send('Do you have a question?');
 
-    if (suffix.split(' ').reverse()[0]==='?') return send('Question mark?');
+    if (suffix.split('').reverse()[0]!=='?') return send('Question mark?');
 
     if (args[0]) return send(args1[~~(args1.length * Math.random())]);
 
