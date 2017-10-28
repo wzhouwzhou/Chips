@@ -26,7 +26,7 @@ const args3 = [
 
 module.exports = {
   name: '8ball',
-  async func(msg, { send, args }) {
+  async func(msg, { send, args, suffix }) {
     if (!args[0]) return send('Do you have a question?');
 
     if (!args.substring(suffix.indexOf(args[0]).match(/([?])/g))) return send('Question mark?');
