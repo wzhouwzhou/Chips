@@ -3,6 +3,8 @@ const answer = [
   'No.',
   'Yes!',
   'Maybe.',
+  `${client.member.size} people would agree.`,
+  'Eat chips!',
 ];
 
 module.exports = {
@@ -12,10 +14,8 @@ module.exports = {
 
     if (suffix.split('').reverse()[0] !== '?') return send('Question mark?');
 
-    if (author.id === '205608598233939970') return send('lucas is a narb');
-
     const embed = (new Discord.MessageEmbed)
-      .setDescription(`🎱 | ${(answer[~~(answer.length * Math.random())])}`)
+      .setDescription(`🎱 | **${(answer[~~(answer.length * Math.random())])}**`)
       .setColor(member ? member.displayColor : 34203);
 
       return send(embed);
