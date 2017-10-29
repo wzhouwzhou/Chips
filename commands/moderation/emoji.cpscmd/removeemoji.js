@@ -1,7 +1,6 @@
 module.exports = {
   name: 'removeemoji',
   async func(msg, { send, args, member, guild }) {
-    if (!member.hasPermission('MANAGE_EMOJIS')) return;
 
     if (!args[0]) return send('No emoji name given :(');
 
