@@ -5,20 +5,20 @@ console.log('[CPSCMD][INFO][ping] Building objects...');
 
 ae.metadata = {
   category: require('../').category,
-  description: 'no',
-  usage: 'no',
-  example: 'no one',
+  description: 'Adds emojis',
+  usage: '-addemoji <name> <link>',
+  example: '-addemoji waitwhat https://cdn.discordapp.com/emojis/356568603488681985.png',
   perm: [['global.info.info']],
-  customperm: ['MANAGE_CHANNELS'],
+  customperm: ['MANAGE_EMOJIS'],
 };
 
 re.metadata = {
   category: require('../').category,
-  description: 'nothing',
-  usage: 'hax',
-  example: 'rz',
+  description: 'Removes emojis',
+  usage: '-removeemoji <name>',
+  example: '-removeemoji waitwhat',
   perm: [['global.info.info']],
-  customperm: ['MANAGE_CHANNELS'],
+  customperm: ['MANAGE_EMOJIS'],
 };
 
 
@@ -27,7 +27,7 @@ module.exports = [
   [ae.name, ae],
   ['addemoji', ae],
   ['createemoji', ae]
-    [re.name, re],
+  [re.name, re],
   ['removeemoji', re],
   ['deleteemoji', re],
 ];
