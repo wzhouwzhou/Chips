@@ -1,4 +1,3 @@
-
 let aboosed = require('./aboose');
 let confoosed = require('./confoosed');
 let exposed = require('./exposed');
@@ -6,7 +5,7 @@ let kawaii = require('./kawaii');
 let lenny = require('./lenny');
 let rekt = require('./rekt');
 let triggered = require('./triggered');
-let everyone = require('./everyone')
+let everyone = require('./everyone');
 
 console.log('[CPSCMD][FUN][triggers] Building objects...');
 aboosed.metadata = {
@@ -42,14 +41,14 @@ kawaii.metadata = {
   description: 'Kawaii faces!',
   usage: 'kawaii',
   example: 'kawaii',
-  perm: [['global.fun.triggers.lenny']]
+  perm: [['global.fun.triggers.lenny']],
 };
 lenny.metadata = {
   category: require('../').category,
   description: 'Lenny!',
   usage: 'lenny',
   example: 'lenny',
-  perm: [['global.fun.triggers.lenny']]
+  perm: [['global.fun.triggers.lenny']],
 };
 rekt.metadata = {
   category: require('../').category,
@@ -68,13 +67,13 @@ triggered.metadata = {
 
 console.log('[CPSCMD][FUN][triggers] Build objects complete!');
 module.exports = [
-  [aboosed.name,aboosed],
-  ['aboose',aboosed],
-  [confoosed.name,confoosed],
-  [exposed.name,exposed],
-  [kawaii.name,kawaii],
-  [lenny.name,lenny],
-  [rekt.name,rekt],
-  [triggered.name,triggered],
-  [everyone.name,everyone]
+  [aboosed.name, aboosed],
+  ['aboose', aboosed],
+  [confoosed.name, confoosed],
+  [exposed.name, exposed],
+  [kawaii.name, kawaii],
+  [lenny.name, lenny],
+  [rekt.name, rekt],
+  [triggered.name, triggered],
+  [everyone.name, everyone],
 ];

@@ -1,4 +1,3 @@
-
 let avatar = require('./avatar');
 
 console.log('[CPSCMD][INFO][avatar] Building objects...');
@@ -12,5 +11,5 @@ avatar.metadata = {
 };
 console.log('[CPSCMD][INFO][avatar] Build objects complete!');
 module.exports = [
-  [avatar.name,avatar]
+  [avatar.name, avatar],
 ];

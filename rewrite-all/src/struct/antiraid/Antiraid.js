@@ -9,11 +9,11 @@ const AR = class ChipsAntiraid {
   /**
    * Construct a default antiraid for a guild
    */
-  constructor( guildid, client ) {
+  constructor(guildid, client) {
     this.id = guildid;
     this.guild = client.guilds.get(guildid);
     this.enabled = false;
-    if ( this.guild ) {
+    if (this.guild) {
       this.blacklistedAvatars = [
         '179efa3239c9cafdd4bdf70f7190fd6a',
         'd099bd2863449670ab2a902c7c6e47de',
@@ -24,133 +24,121 @@ const AR = class ChipsAntiraid {
       this.maxRoleMention = 0;
       this.security = MEDIUM;
     }
-    ARStore.set( this.id , this );
+    ARStore.set(this.id, this);
   }
 
-  setSecurity ( newS ) {
+  setSecurity(newS) {
     this.security = newS;
   }
 
-  updateAvatarBlacklist ( opts ) {
-    if(typeof opts === 'object'){
-      if(!opts.avatar) return false;
+  updateAvatarBlacklist(opts) {
+    if (typeof opts === 'object') {
+      if (!opts.avatar) return false;
 
-      if(opts.action == null) this.blacklistedAvatars.add(opts.avatar);
+      if (opts.action == null) this.blacklistedAvatars.add(opts.avatar);
 
-      if(opts.action === 'remove')
-        this.blacklistedAvatars.delete(opts.avatar);
-
-    }else if(typeof opts === 'string')
-      this.blacklistedAvatars.add(opts);
-    else return false;
+      if (opts.action === 'remove') this.blacklistedAvatars.delete(opts.avatar);
+    } else if (typeof opts === 'string') { this.blacklistedAvatars.add(opts); } else { return false; }
 
     return true;
   }
 
-  setUC ( unverifiedChannelID ) {
+  setUC(unverifiedChannelID) {
     this.ucID = unverifiedChannelID;
-    this.uc = this.guild.channels.get (this.ucID);
-    if(!this.uc) return false;
+    this.uc = this.guild.channels.get(this.ucID);
+    if (!this.uc) return false;
     return true;
   }
 
-  setUR ( unverifiedRoleID ) {
+  setUR(unverifiedRoleID) {
     this.urID = unverifiedRoleID;
-    this.ur = this.guild.roles.get (this.urID);
-    if(!this.ur) return false;
+    this.ur = this.guild.roles.get(this.urID);
+    if (!this.ur) return false;
     return true;
   }
 
-  setMaxMentions ( options ) {
-    if ( !options ) return false;
-    if ( options.member){
-      if( typeof options.member !== 'number' || options.member|0 !== options.member ) return false;
+  setMaxMentions(options) {
+    if (!options) return false;
+    if (options.member) {
+      if (typeof options.member !== 'number' || options.member | options.member !== 0) return false;
       this.maxMemberMention = options.member;
     }
-    if ( options.role ){
-      if( typeof options.role !== 'number' || options.role|0 !== options.role ) return false;
+    if (options.role) {
+      if (typeof options.role !== 'number' || options.role | options.role !== 0) return false;
       this.maxRoleMention = options.role;
     }
-    if ( options.all ){
-      if( typeof options.all !== 'number' || options.all|0 !== options.all ) return false;
+    if (options.all) {
+      if (typeof options.all !== 'number' || options.all | options.all !== 0) return false;
       this.maxAllMention = options.all;
     }
     return true;
   }
 
-  setAntiraidWelcome ( newmsg ) {
+  setAntiraidWelcome(newmsg) {
     if (!newmsg) return false;
     this.wcmsg = newmsg;
   }
 
-  toggle ( override ) {
-    if(!override) this.enabled = !this.enabled;
-    else if ( typeof override !== 'boolean' ) return false;
+  toggle(override) {
+    if (!override) this.enabled = !this.enabled;
+    else if (typeof override !== 'boolean') return false;
     this.enabled = override;
     return true;
   }
 
-  handleJoin ( newM ) {
-    return new Promise ( async res => {
-      try{
-        if(!this.enabled) res(true);
+  handleJoin(newM) {
+    return new Promise(async res => {
+      try {
+        if (!this.enabled) res(true);
 
-        if (this.handleDefaultMemberAction (newM) == FAIL)
-          handleFailJoinB (newM);
+        if (this.handleDefaultMemberAction(newM) == FAIL) handleFailJoinB(newM);
 
-        if (this.security >= HIGH){
+        if (this.security >= HIGH) {
+          if (this.security >= INSANE || this.panic) if (this.handleUsername(newM) == FAIL || this.handleAvatar(newM) == FAIL) return res(handleFailJoinA(newM) == PASS);
 
-          if(this.security >= INSANE || this.panic)
-            if(this.handleUsername (newM) == FAIL || this.handleAvatar (newM) == FAIL)
-              return res (handleFailJoinA (newM) == PASS);
-
-          if (await this.handleCaptcha (newM) == FAIL)
-            return res (handleFailJoinB (newM) == PASS);
+          if (await this.handleCaptcha(newM) == FAIL) return res(handleFailJoinB(newM) == PASS);
         }
 
-        if ( this.handleWelcome (newM) == PASS )
-          return res(true);
+        if (this.handleWelcome(newM) == PASS) return res(true);
         return res(false);
-      }catch(err){
+      } catch (err) {
         return res(false);
       }
     });
   }
 
-  handleUsername ( mem ) {
-    if(!this.enabled) return PASS;
-    if(!this.usernameThresh || this.usernameThresh == 0) return PASS;
+  handleUsername(mem) {
+    if (!this.enabled) return PASS;
+    if (!this.usernameThresh || this.usernameThresh == 0) return PASS;
 
     const name = mem.user.username;
-    let matched = name.length>=this.usernameThresh?name.match(new RegExp(`[a-z]{${this.usernameThresh},}`,'gi')):name.match(/[a-z]+/i);
-    if(matched&&matched[0]?matched[0].length>=THRESHOLD:false)
-      return PASS;
+    let matched = name.length >= this.usernameThresh ? name.match(new RegExp(`[a-z]{${this.usernameThresh},}`, 'gi')) : name.match(/[a-z]+/i);
+    if (matched && matched[0] ? matched[0].length >= THRESHOLD : false) return PASS;
     return FAIL;
   }
 
-  handleDefaultMemberAction ( mem ) {
-    if(!this.enabled) return PASS;
-    if(!this.ur) return PASS;
+  handleDefaultMemberAction(mem) {
+    if (!this.enabled) return PASS;
+    if (!this.ur) return PASS;
     mem.addRole(ur);
     return PASS;
   }
 
-  handleAvatar ( mem ) {
-    if(!this.enabled) return true;
-    if(!this.blacklistAvatars) return true;
+  handleAvatar(mem) {
+    if (!this.enabled) return true;
+    if (!this.blacklistAvatars) return true;
     let hash = mem.avatar;
-    if(~this.blacklistedAvatars.indexOf(hash))
-      return this.AvatarAction ( m );
+    if (~this.blacklistedAvatars.indexOf(hash)) return this.AvatarAction(m);
     return true;
   }
 
-  handleWelcome ( mem ) {
-    if(!this.enabled) return true;
+  handleWelcome(mem) {
+    if (!this.enabled) return true;
 
     return true;
   }
 
-  handleCaptcha ( mem ) {
+  handleCaptcha(mem) {
     // Random character captchaText
 
 
@@ -159,74 +147,69 @@ const AR = class ChipsAntiraid {
 
   }
 
-  handleFailJoinA ( mem ) {
+  handleFailJoinA(mem) {
 
   }
 
-  handleFailJoinB ( mem ) {
+  handleFailJoinB(mem) {
 
   }
 
-  handleMsg ( m ) {
-    if(!this.enabled) return true;
-    if(this.uc && m.channel.id === this.ucID)
-      this.handleWelcomeMsg();
-    this.handleMentions ( m );
+  handleMsg(m) {
+    if (!this.enabled) return true;
+    if (this.uc && m.channel.id === this.ucID) this.handleWelcomeMsg();
+    this.handleMentions(m);
   }
 
-  handleMentions ( m ) {
+  handleMentions(m) {
     let channel = m.channel;
     let perms = channel.permissionsFor(m.member);
     let canEveryone = false;
-    if(perms)
-      canEveryone = perms.serialize()['MENTION_EVERYONE'];
+    if (perms) canEveryone = perms.serialize().MENTION_EVERYONE;
 
     let allmentionid = [];
 
-    m.mentions.roles.forEach(role=>{
-      role.members.forEach(mem=>{
+    m.mentions.roles.forEach(role => {
+      role.members.forEach(mem => {
         allmentionid.push(mem.id);
       });
     });
 
-    m.mentions.members.forEach(mem=>{
+    m.mentions.members.forEach(mem => {
       allmentionid.push(mem.id);
     });
 
-    let uniqueUserCount = (removeDupls(allmentionid)||[]).length;
+    let uniqueUserCount = (removeDupls(allmentionid) || []).length;
 
-    if(canEveryone && m.content.match(/@(everyone|here)/g))
-      uniqueUserCount = m.channel.members.size;
+    if (canEveryone && m.content.match(/@(everyone|here)/g)) uniqueUserCount = m.channel.members.size;
 
-    if(
-      this.maxRoleMention   && (m.mentions.roles  ||new Map()).size > this.maxRoleMention   ||
-      this.maxMemberMention && (m.mentions.members||new Map()).size > this.maxMemberMention ||
-      this.maxAllMention    && uniqueUserCount                      > this.maxAllMention
-    )
-      return this.mentionAction ( m );
+    if (
+      this.maxRoleMention && (m.mentions.roles || new Map()).size > this.maxRoleMention ||
+      this.maxMemberMention && (m.mentions.members || new Map()).size > this.maxMemberMention ||
+      this.maxAllMention && uniqueUserCount > this.maxAllMention
+    ) return this.mentionAction(m);
     return true;
   }
 
-  static serialize ( ARObj ) {
+  static serialize(ARObj) {
     const serialized = {};
     serialized.id = ARObj.id;
     serialized.enabld = ARObj.enabled;
     serialized.ucID = ARObj.ucID;
-    serialized.ucName = ARObj.uc?ARObj.uc.name:null;
+    serialized.ucName = ARObj.uc ? ARObj.uc.name : null;
     serialized.urID = ARObj.urID;
-    serialized.urName = ARObj.ur?ARObj.ur.name:null;
+    serialized.urName = ARObj.ur ? ARObj.ur.name : null;
 
-    serialized.usernameThresh = this.usernameThresh||0;
-
+    serialized.usernameThresh = this.usernameThresh || 0;
   }
 
-  static handleMember ( newM ) {
-    if(!ARStore.has(newM.guild.id)) return true;
+  static handleMember(newM) {
+    if (!ARStore.has(newM.guild.id)) return true;
 
     let theObj = ARStore.get(newM.guild.id);
-    if(!theObj.enabled) return true;
+    if (!theObj.enabled) return true;
 
-    return theObj.handlejoin ( newM );
+    return theObj.handlejoin(newM);
   }
 };
 

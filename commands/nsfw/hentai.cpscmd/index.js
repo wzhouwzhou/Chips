@@ -1,4 +1,3 @@
-
 let hentai = require('./hentai');
 let autohentai;
 
@@ -14,5 +13,5 @@ hentai.metadata = {
 
 console.log('[CPSCMD][NSFW][hentai] Build objects complete!');
 module.exports = [
-  [hentai.name,hentai],
+  [hentai.name, hentai],
 ];

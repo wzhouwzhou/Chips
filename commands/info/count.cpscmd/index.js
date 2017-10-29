@@ -1,4 +1,3 @@
-
 let mc = require('./membercount');
 let rc = require('./rolecount');
 let cc = require('./channelcount');
@@ -45,16 +44,16 @@ ec.metadata = {
 
 console.log('[CPSCMD][INFO][avatar] Build objects complete!');
 module.exports = [
-  [mc.name,mc],
+  [mc.name, mc],
   ['membercount', mc],
   ['mc', mc],
-  [rc.name,rc],
+  [rc.name, rc],
   ['rolecount', rc],
   ['rc', rc],
-  [cc.name,cc],
+  [cc.name, cc],
   ['channelcount', cc],
   ['cc', cc],
-  [ec.name,cc],
+  [ec.name, cc],
   ['emojicount', cc],
   ['ec', ec],
 ];

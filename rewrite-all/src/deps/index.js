@@ -1,12 +1,11 @@
 'use strict';
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, '__esModule', { value: true });
 
-const rrequire = (m) => {
-  try{
-    if(m.match(/^[^]*%delete%[^]*$/i))
-      delete require.cache[require.resolve(m.replace(/%delete%/g,''))];
-    return require(m.replace(/%delete%/g,''));
-  }catch(err){
+const rrequire = m => {
+  try {
+    if (m.match(/^[^]*%delete%[^]*$/i)) delete require.cache[require.resolve(m.replace(/%delete%/g, ''))];
+    return require(m.replace(/%delete%/g, ''));
+  } catch (err) {
     console.error(err);
     return null;
   }
@@ -14,47 +13,47 @@ const rrequire = (m) => {
 exports.rrequire = rrequire;
 
 const Exporter = class Exporter {
-  define (temp, sub, key, modu, options) {
+  define(temp, sub, key, modu, options) {
     Object.defineProperty(temp[sub], key, {
-      get: (() => {
+      get: () => {
         const m = rrequire(modu);
         const de = m.default;
-        if(de && (~(typeof de).indexOf('function'))) return de(options);
+        if (de && ~(typeof de).indexOf('function')) return de(options);
         return m;
-      }),
+      },
       configurable: false,
-      enumerable: true
+      enumerable: true,
     });
-    Object.defineProperty(temp['all'], key, {
-      get: (() => {
+    Object.defineProperty(temp.all, key, {
+      get: () => {
         const m = rrequire(modu);
         const de = m.default;
-        if(de && (~(typeof de).indexOf('function'))) return de(options);
+        if (de && ~(typeof de).indexOf('function')) return de(options);
         return m;
-      }),
+      },
       configurable: false,
-      enumerable: true
+      enumerable: true,
     });
     return temp;
   }
 
-  serialize(){
+  serialize() {
     const data = {
       packages: {},
       functions: {},
     };
     Object.defineProperty(data.packages, 'chalk', {
-      get: (() => {
+      get: () => {
         const chalk = require('chalk');
         chalk.enabled = true;
         return chalk;
-      }),
+      },
       configurable: false,
     });
     [
       ['discord.js', ['Discord', 'djs']],
       'fs',
-      ['lodash',['_','lodash']],
+      ['lodash', ['_', 'lodash']],
       'path',
       'body-parser',
       'cookie-parser',
@@ -62,7 +61,7 @@ const Exporter = class Exporter {
       'express-session',
       'connect-flash',
       'morgan',
-      ['rotating-file-stream', ['rfs','rotating_file_stream']],
+      ['rotating-file-stream', ['rfs', 'rotating_file_stream']],
       'crypto',
       ['ytdl-core', 'ytdl'],
       'moment',
@@ -81,22 +80,19 @@ const Exporter = class Exporter {
       ['events', 'EventEmitter'],
       'rethinkdbdash',
       'rethinkdb',
-      ['google-spreadsheet', ['google-spreadsheet','GoogleSpreadsheet']],
+      ['google-spreadsheet', ['google-spreadsheet', 'GoogleSpreadsheet']],
       'express-ejs-extend',
       'passport',
       'http-proxy',
       'asciify',
       'assert',
       'pmx',
-      ['cheerio', ['cheerio','$']],
+      ['cheerio', ['cheerio', '$']],
       'querystring',
     ].forEach(m => {
-      if(typeof m === 'string')
-        return this.define(data, 'packages', m, m);
-      if(m[1] === undefined)
-        return this.define(data, 'packages', m[0], m[0]);
-      if(typeof m[1] === 'string')
-        return this.define(data, 'packages', m[1], m[0]);
+      if (typeof m === 'string') return this.define(data, 'packages', m, m);
+      if (m[1] === undefined) return this.define(data, 'packages', m[0], m[0]);
+      if (typeof m[1] === 'string') return this.define(data, 'packages', m[1], m[0]);
       m[1].forEach(k => this.define(data, 'packages', k, m[0]));
     });
 
@@ -108,8 +104,8 @@ const Exporter = class Exporter {
       'checkNumberF',
       'collectAllF',
       'delayF',
-      ['reverseF',['rs','reverse','reverseF']],
-      ['reverseWF',['rws','reverseW','reverseWF']],
+      ['reverseF', ['rs', 'reverse', 'reverseF']],
+      ['reverseWF', ['rws', 'reverseW', 'reverseWF']],
       'timeAgoF',
       'grammarJoinF',
       'fetchMessagesRF',
@@ -117,12 +113,9 @@ const Exporter = class Exporter {
       'randomCapsF',
       'ensureAbstractF',
     ].forEach(f => {
-      if(typeof f === 'string')
-        return this.define(data, 'functions', f, f);
-      if(f[1] === undefined)
-        return this.define(data, 'functions', f[0], f[0]);
-      if(typeof f[1] === 'string')
-        return this.define(data, 'functions', f[1], f[0]);
+      if (typeof f === 'string') return this.define(data, 'functions', f, f);
+      if (f[1] === undefined) return this.define(data, 'functions', f[0], f[0]);
+      if (typeof f[1] === 'string') return this.define(data, 'functions', f[1], f[0]);
       f[1].forEach(k => this.define(data, 'functions', k, f[0], data.packages));
     });
 

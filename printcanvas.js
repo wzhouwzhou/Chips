@@ -7,9 +7,9 @@
  */
 
 var Canvas = require('canvas');
-var fs     = require('fs');
-var path   = require('path');
-var merge  = require('deepmerge');
+var fs = require('fs');
+var path = require('path');
+var merge = require('deepmerge');
 
 var graph = {
   settings: {
@@ -18,29 +18,29 @@ var graph = {
     colHead: 0,
     rowHead: 0,
     margin: 5,
-    grey: "rgba(99,99,99,0.3)",
-    yScalar: function (opts) {
-     return (opts.height - graph.settings.margin) / (opts.max - graph.settings.minVal);
+    grey: 'rgba(99,99,99,0.3)',
+    yScalar: function(opts) {
+      return (opts.height - graph.settings.margin) / (opts.max - graph.settings.minVal);
     },
-    xScalar: function (opts, length) {
+    xScalar: function(opts, length) {
       return (opts.width - graph.settings.rowHead) / length;
-    }
+    },
   },
   /**
    * Create a line graph
    * @param  {array} dataSet - Array of data points
    * @param  {obj} opts - Object of options
    */
-  line: function (dataSet, opts) {
+  line: function(dataSet, opts) {
     var canvas = new Canvas(opts.width, opts.height);
-    var ctx    = canvas.getContext('2d');
+    var ctx = canvas.getContext('2d');
     var maxVal = Math.max.apply(null, dataSet);
 
     // Set origin at lower-left corner
     ctx.translate(0, canvas.height);
-    ctx.scale(1,-1);
-    ctx.moveTo(0,0);
-    ctx.font = "bold 16px Liberator";
+    ctx.scale(1, -1);
+    ctx.moveTo(0, 0);
+    ctx.font = 'bold 16px Liberator';
     opts.max = maxVal;
 
     /* Line */
@@ -49,7 +49,7 @@ var graph = {
     /* Optionals */
 
     // Points
-    if (opts.points){
+    if (opts.points) {
       graph.points(ctx, dataSet, opts);
     }
 
@@ -73,11 +73,11 @@ var graph = {
    * @param  {array} dataSet - Data values
    * @param  {obj} opts - Options
    */
-  points: function (ctx, dataSet, opts) {
+  points: function(ctx, dataSet, opts) {
     var xScalar = graph.settings.xScalar(opts, dataSet.length);
     var yScalar = graph.settings.yScalar(opts);
 
-    dataSet.forEach(function (data, i) {
+    dataSet.forEach((data, i) => {
       ctx.beginPath();
 
       var x = i * xScalar;
@@ -99,13 +99,13 @@ var graph = {
    * Stroke the outlines of a canvas (default: true)
    * @param  {canvas} ctx - The Canvas context
    */
-  stroke: function (ctx, opts) {
+  stroke: function(ctx, opts) {
     ctx.beginPath();
 
     ctx.lineWidth = 1;
     ctx.strokeStyle = graph.settings.grey;
 
-    ctx.moveTo(0,0);
+    ctx.moveTo(0, 0);
     ctx.lineTo(0, opts.height);
 
     ctx.lineTo(opts.width, opts.height);
@@ -121,7 +121,7 @@ var graph = {
    * @param  {array} dataSet - Data values
    * @param  {obj} opts - Options
    */
-  grid: function (ctx, dataSet, opts) {
+  grid: function(ctx, dataSet, opts) {
     var xScalar = graph.settings.xScalar(opts, dataSet.length);
     var yScalar = graph.settings.yScalar(opts);
     var colHead = graph.settings.colHead;
@@ -136,10 +136,10 @@ var graph = {
     ctx.strokeStyle = graph.settings.grey;
 
     // Vertical lines
-    dataSet.forEach(function (data, i) {
+    dataSet.forEach((data, i) => {
       var x = i * xScalar;
 
-      //console.log(x);
+      // Console.log(x);
 
       ctx.moveTo(x, graph.settings.colHead);
       ctx.lineTo(x, opts.height);
@@ -152,10 +152,10 @@ var graph = {
       if (scale % 5 === 0) {
         var y = colHead + (yScalar * count * stepSize);
 
-        yText = (scale % 5 == 0) ? scale : '';
+        yText = scale % 5 == 0 ? scale : '';
 
         ctx.save();
-        ctx.scale(1,-1);
+        ctx.scale(1, -1);
         ctx.fillText(yText, 0, -y + margin);
         ctx.restore();
         ctx.moveTo(rowHead, y);
@@ -166,7 +166,6 @@ var graph = {
     }
 
     ctx.closePath();
-
   },
   /**
    * Show grid (default: true)
@@ -174,7 +173,7 @@ var graph = {
    * @param  {array} dataSet - Data values
    * @param  {obj} opts - Options
    */
-  drawLine: function (ctx, dataSet, opts) {
+  drawLine: function(ctx, dataSet, opts) {
     var xScalar = graph.settings.xScalar(opts, dataSet.length);
     var yScalar = graph.settings.yScalar(opts);
 
@@ -182,7 +181,7 @@ var graph = {
 
     ctx.lineTo(0, 0);
 
-    dataSet.forEach(function (data, i) {
+    dataSet.forEach((data, i) => {
       var y = yScalar * data;
       ctx.lineTo(i * xScalar, y);
     });
@@ -205,18 +204,18 @@ var graph = {
    * @param  {canvas} canvas - The Canvas
    * @param  {obj} opts - Options
    */
-  write: function (canvas, opts) {
-    var out = fs.createWriteStream(path.join(path.dirname(require.main.filename),opts.filename + '.png'))
-    , stream = canvas.pngStream();
+  write: function(canvas, opts) {
+    var out = fs.createWriteStream(path.join(path.dirname(require.main.filename), `${opts.filename}.png`)),
+      stream = canvas.pngStream();
 
-    stream.on('data', function (chunk) {
+    stream.on('data', chunk => {
       out.write(chunk);
     });
 
-    stream.on('end', function () {
-      //console.log('Graph drawn');
+    stream.on('end', () => {
+      // Console.log('Graph drawn');
     });
-  }
+  },
 };
 
 /**
@@ -224,7 +223,7 @@ var graph = {
  * @param  {obj} opts - Options
  * @return {obj} - Optional options merged with standard options
  */
-function setup (opts) {
+function setup(opts) {
   var options = merge({
     filename: 'public/out',
     grid: true,
@@ -236,13 +235,13 @@ function setup (opts) {
     stroke: true,
     strokeColor: '#000',
     type: 'line',
-    width: 800
+    width: 800,
   }, opts || {});
 
   return options;
 }
 
-exports.graph = function (data, opts) {
+exports.graph = function(data, opts) {
   var options = setup(opts);
 
   switch (options.type) {
@@ -250,6 +249,6 @@ exports.graph = function (data, opts) {
       graph.line(data, options);
       break;
     default:
-      throw Error('Graph type ' + options.type + ' does not exist');
+      throw Error(`Graph type ${options.type} does not exist`);
   }
 };

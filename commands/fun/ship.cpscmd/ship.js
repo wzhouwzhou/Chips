@@ -2,64 +2,63 @@ const _ = require('lodash');
 const ships = new Map, shipComments = new Map, shipJoin = new Map;
 ships.set('259209114268336129,286522718965465090', 100);
 shipComments.set('259209114268336129,286522718965465090', 'Ily bb :3');
-shipJoin.set('259209114268336129,286522718965465090','<:blobkiss:372739966100439042>'); //wolf and willy
+shipJoin.set('259209114268336129,286522718965465090', '<:blobkiss:372739966100439042>'); // Wolf and willy
 
-ships.set('205608598233939970,296855425255473154', 111);
+ships.set('205608598233939970,296855425255473154', 420);
 shipComments.set('205608598233939970,296855425255473154', `Marriage when?!`);
-shipJoin.set('205608598233939970,296855425255473154','<:blobkiss:372739966100439042>'); //lucas and chips
+shipJoin.set('205608598233939970,296855425255473154', '<:blobkiss:372739966100439042>'); // Lucas and chips
 
 ships.set('205608598233939970,292971521159200768', 100);
 shipComments.set('205608598233939970,292971521159200768', '❤');
-shipJoin.set('205608598233939970,292971521159200768','<:blobkiss:372739966100439042>'); //lucas & josh
+shipJoin.set('205608598233939970,292971521159200768', '<:blobkiss:372739966100439042>'); // Lucas & josh
 
 ships.set('205608598233939970,365972456139390977', 100);
 shipComments.set('205608598233939970,365972456139390977', '❤');
-shipJoin.set('205608598233939970,365972456139390977','<:blobkiss:372739966100439042>'); //lucas and vy
+shipJoin.set('205608598233939970,365972456139390977', '<:blobkiss:372739966100439042>'); // Lucas and vy
 
 ships.set('286475753049292800,260024920757633025', 100);
 shipComments.set('286475753049292800,260024920757633025', 'uhm');
-shipJoin.set('286475753049292800,260024920757633025','<:blobkiss:372739966100439042>'); //ayoubelk and xena
+shipJoin.set('286475753049292800,260024920757633025', '<:blobkiss:372739966100439042>'); // Ayoubelk and xena
 
 module.exports = {
   name: 'ship',
   async func(msg, { send, Discord, client, suffix, member, guild }) {
-    if(!guild) return send('You must be in a server to use this.');
+    if (!guild) return send('You must be in a server to use this.');
 
-    if(!suffix || suffix.length === 0)
-      return send('Nobody to ship with!');
+    if (!suffix || suffix.length === 0) return send('Nobody to ship with!');
 
     let matches = suffix.match(/(?:"?(?:([^"#<]{1,32}#(?:\d){4,4}))|(?:<@!?(\d+)>)"?)(?:\s|,|x)*(?:"?(?:(?:([^"#<]{1,32}#(?:\d){4,4}))|(?:<@!?(\d+)>))"?)?/);
-    if(!matches||(!matches[1]&&!matches[2]&&!matches[3]&&!matches[4])) return send('You must mention a user or give their discord tag!');
-    let targetOne = matches[1]||matches[2];
-    let targetTwo = matches[3]||matches[4];
+    if (!matches || (!matches[1] && !matches[2] && !matches[3] && !matches[4])) return send('You must mention a user or give their discord tag!');
+    let targetOne = matches[1] || matches[2];
+    let targetTwo = matches[3] || matches[4];
 
-    if(!targetTwo) {
+    if (!targetTwo) {
       targetTwo = targetOne;
       targetOne = member.id;
     }
 
     let userOne, userTwo;
     try {
-      userOne = !~targetOne.indexOf('#')?await client.users.fetch(targetOne):client.users.find('tag',targetOne);
-      userTwo = !~targetTwo.indexOf('#')?await client.users.fetch(targetTwo):client.users.find('tag',targetTwo);
-      if(!userOne||!userTwo) throw new Error('Invalid user');
-    } catch(err) {
+      userOne = !~targetOne.indexOf('#') ? await client.users.fetch(targetOne) : client.users.find('tag', targetOne);
+      userTwo = !~targetTwo.indexOf('#') ? await client.users.fetch(targetTwo) : client.users.find('tag', targetTwo);
+      if (!userOne || !userTwo) throw new Error('Invalid user');
+    } catch (err) {
       send(`[Error][Debug] m,t1,t2:${err.message}, ${targetOne},${targetTwo}`);
       return send('An error occured, are you sure you mentioned valid members?');
     }
-    if(userOne.id === userTwo.id)
-      if(userOne.id === member.id)
-        return send('Are you really that alone?');
-      else return send(`Is ${userTwo.tag.replace(/@/g,'(at)')} really that alone?`);
-    const assembled = `${[userOne.id,userTwo.id].sort((a,b)=>a-b).join(',')}`;
-    const shipValue = ships.get(assembled)||~~(100*Math.random());
+    if (userOne.id === userTwo.id) {
+      if (userOne.id === member.id) return send('Are you really that alone?');
+      else return send(`Is ${userTwo.tag.replace(/@/g, '(at)')} really that alone?`);
+    }
+    const assembled = `${[userOne.id, userTwo.id].sort((a, b) => a - b).join(',')}`;
+    const shipValue = ships.get(assembled) || ~~(100 * Math.random());
     ships.set(assembled, shipValue);
-    const outlookN = ~~(shipValue/10);
+    const outlookN = ~~(shipValue / 10);
     const progressbar = '█'.repeat(outlookN);
 
-    const comment = shipComments.get(assembled)||_.sample([
-      (()=>{
-        switch(outlookN) {
+    const comment = shipComments.get(assembled) || _.sample([
+      (() => {
+        switch (outlookN) {
           case 0:
           case 1:
             return 'Don\'t even think about it.';
@@ -81,27 +80,27 @@ module.exports = {
             return 'What are you waiting for?!';
         }
       })(),
-      (()=>{
-        switch(true) {
+      (() => {
+        switch (true) {
           case outlookN < 4:
             return 'RIP';
-          case 3 < outlookN && outlookN < 8:
+          case outlookN > 3 && outlookN < 8:
             return 'Noice.';
-          case 7 < outlookN && outlookN < 10:
+          case outlookN > 7 && outlookN < 10:
             return 'owo';
           case outlookN > 9:
             return 'What are you waiting for?!';
         }
       })(),
     ]);
-    const joiner = (()=>{
-      switch(true) {
+    const joiner = (() => {
+      switch (true) {
         case outlookN < 2: return ' <:blobnausea:372214877248552960>';
         case outlookN > 8: return '😍';
       }
     })();
-    const embed = new Discord.MessageEmbed().setTitle('Ship').setDescription(`${userOne+[]} ${shipJoin.get(assembled)||joiner||'x'} ${userTwo+[]}`);
+    const embed = new Discord.MessageEmbed().setTitle('Ship').setDescription(`${userOne + []} ${shipJoin.get(assembled) || joiner || 'x'} ${userTwo + []}`);
     embed.addField(comment, `${progressbar} ${shipValue}%`);
     send(embed);
-  }
+  },
 };

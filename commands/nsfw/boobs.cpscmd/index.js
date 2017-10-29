@@ -1,4 +1,3 @@
-
 let boobs = require('./boobs');
 
 console.log('[CPSCMD][NSFW][boobs] Building objects...');
@@ -13,5 +12,5 @@ boobs.metadata = {
 
 console.log('[CPSCMD][NSFW][boobs] Build objects complete!');
 module.exports = [
-  [boobs.name,boobs],
+  [boobs.name, boobs],
 ];

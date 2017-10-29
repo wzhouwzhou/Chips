@@ -1,4 +1,3 @@
-
 let password = require('./password');
 
 console.log('[CPSCMD][UTILITY][password] Building objects...');
@@ -14,5 +13,5 @@ password.metadata = {
 
 console.log('[CPSCMD][UTILITY][password] Build objects complete!');
 module.exports = [
-  [password.name,password],
+  [password.name, password],
 ];

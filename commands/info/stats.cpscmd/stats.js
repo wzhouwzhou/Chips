@@ -1,6 +1,6 @@
 'use strict';
 module.exports = {
-  name: "stats",
+  name: 'stats',
   async func(msg, {
     send,
     guild,
@@ -14,12 +14,12 @@ module.exports = {
     let globalValues;
     try {
       globalValues = await getGlobalStats();
-    } catch(err) {
+    } catch (err) {
       send('Error...');
       throw err;
     }
 
-    //Lets Get Some Values that are global
+    // Lets Get Some Values that are global
     let guildCountG = globalValues[0];
     let channelCountG = globalValues[1];
     let userCountG = globalValues[2];
@@ -29,55 +29,55 @@ module.exports = {
     let cpuAveG = globalValues[6];
     let memAveG = globalValues[7];
     let totalMemG = globalValues[10];
-    //Local Boissss
-    //let avatar = bot.user.avatarURL(2048);
+    // Local Boissss
+    // let avatar = bot.user.avatarURL(2048);
     let uptime = formatUptime(process.uptime());
     let currentTime = moment().format('ddd, Do of MMM @ HH:mm:ss.SSS');
     let guilds = bot.guilds.size;
     let channels = bot.channels.size;
     let users = bot.users.size;
     let ping = bot.ping;
-    let textChannels = bot.channels.filter(c => c.type === "text").size;
-    let voiceChannels = bot.channels.filter(c => c.type === "voice").size;
+    let textChannels = bot.channels.filter(c => c.type === 'text').size;
+    let voiceChannels = bot.channels.filter(c => c.type === 'voice').size;
     let cpuAverage = Math.ceil(require('os').loadavg()[1] * 1000) / 10;
-    let memAverage = ~~(2e-1 + process.memoryUsage().heapUsed /1024 / 1024);
+    let memAverage = ~~(2e-1 + process.memoryUsage().heapUsed / 1024 / 1024);
 
-    //Create the embed
+    // Create the embed
     let embed = new Discord.MessageEmbed();
     embed.setTitle(`Chip's Stats Report! Current Time: ${currentTime}`);
-    embed.setColor(guild?member.displayColor:1503);
+    embed.setColor(guild ? member.displayColor : 1503);
 
-    embed.addField(`Chips stats for shard ${bot.shard.id+1}/${clientutil.count}:`, [
+    embed.addField(`Chips stats for shard ${bot.shard.id + 1}/${clientutil.count}:`, [
       ['Shard Uptime: ', uptime],
-      ['Shard Ping (ms): ',~~(2e-1+100*ping)/100],
+      ['Shard Ping (ms): ', ~~(2e-1 + 100 * ping) / 100],
       ['Shard User count: ', users],
       ['Shard Server count: ', guilds],
       ['Shard Memory usage: ', `${memAverage} MB`],
       ['CPU usage (%): ', cpuAverage],
-      [`Shard channel count: \n\t\t**${channels}**\nText Channel Count:\n\t\t**${textChannels}**\nVoice Channel Count:\n\t\t**${voiceChannels}**`,' '],
-    ].map(e=>`**${e[0]}**\n\t\t${e[1]}`).join('\n'), true);
+      [`Shard channel count: \n\t\t**${channels}**\nText Channel Count:\n\t\t**${textChannels}**\nVoice Channel Count:\n\t\t**${voiceChannels}**`, ' '],
+    ].map(e => `**${e[0]}**\n\t\t${e[1]}`).join('\n'), true);
 
-    embed.addField("Chips 0.3.4 stats across all shards:", [
+    embed.addField('Chips 0.3.4 stats across all shards:', [
       ['Total Member Count: ', userCountG],
       ['Total Server Count: ', guildCountG],
       ['Total Channel Count: ', channelCountG],
       ['Total Text Channel Count: ', textCountG],
       ['Total Voice Channel Count: ', voiceCountG],
-      ['Average Client Ping: ', `${~~(2e-1+100*averagePingG)/100} ms`],
+      ['Average Client Ping: ', `${~~(2e-1 + 100 * averagePingG) / 100} ms`],
       ['Total CPU Usage: ', `${cpuAveG}%`],
       ['Memory Usage: ', `Used ${memAveG} of ${totalMemG} mb allocated`],
-      [`Node **${process.version}**\nLib  **v${Discord.version}**`,' '],
-    ].map(e=>`**${e[0]}**\n\t\t${e[1]}`).join('\n'), true);
+      [`Node **${process.version}**\nLib  **v${Discord.version}**`, ' '],
+    ].map(e => `**${e[0]}**\n\t\t${e[1]}`).join('\n'), true);
 
     embed.setFooter(`Chips stats lookup and calculations took ${(new Date).getTime() - start}ms.`);
     channel.stopTyping();
     return await send(embed);
-  }
+  },
 };
 
-const getGlobalStats = async () => {
+const getGlobalStats = async() => {
   let results = await clientutil.broadcastEval(`let m = 0; client.guilds.forEach(g=>m+=g.members.size); m`);
-  let members = results.reduce((p, v)=>p+v,0);
+  let members = results.reduce((p, v) => p + v, 0);
   results = await clientutil.fetchClientValues('guilds.size');
   let guilds = results.reduce((prev, val) => prev + val, 0);
   results = await clientutil.fetchClientValues('channels.size');
@@ -86,24 +86,24 @@ const getGlobalStats = async () => {
   let users = results.reduce((prev, val) => prev + val, 0);
   results = await clientutil.fetchClientValues('ping');
   let ping = results.reduce((prev, val) => prev + val, 0) / clientutil.count;
-  let text=0, voice=0, cpu=0, mem=0, memtotal=0;
+  let text = 0, voice = 0, cpu = 0, mem = 0, memtotal = 0;
   results = await clientutil.broadcastEval(`client.channels.filter(c => c.type === 'text').size`);
-  results.forEach(s=>text+=s);
+  results.forEach(s => text += s);
   results = await clientutil.broadcastEval(`client.channels.filter(c => c.type === 'voice').size`);
-  results.forEach(s=>voice+=s);
+  results.forEach(s => voice += s);
   results = await clientutil.broadcastEval(`Math.ceil(require('os').loadavg()[1] * 1000) / 10`);
-  results.forEach(s=>cpu+=s);
+  results.forEach(s => cpu += s);
   results = await clientutil.broadcastEval(`process.memoryUsage().heapUsed / 1024 / 1024`);
-  results.forEach(s=>mem+=s);
+  results.forEach(s => mem += s);
   results = await clientutil.broadcastEval(`process.memoryUsage().heapTotal / 1024 / 1024`);
-  results.forEach(s=>memtotal+=s);
-  return [guilds, channels, members, ping, text, voice, Math.round(cpu*100)/100, Math.round(mem*100)/100, users, results, Math.round(memtotal*100)/100];
+  results.forEach(s => memtotal += s);
+  return [guilds, channels, members, ping, text, voice, Math.round(cpu * 100) / 100, Math.round(mem * 100) / 100, users, results, Math.round(memtotal * 100) / 100];
   //        0        1        2        3    4       5        6                 7             8      9        10
 };
 
-const formatUptime = (seconds) => {
+const formatUptime = seconds => {
   let temp = Math.floor(seconds / 60);
-  seconds = +((+(seconds % 60)).toFixed(3));
+  seconds = +(+(seconds % 60)).toFixed(3);
   let minutes = temp % 60;
 
   temp = Math.floor(temp / 60);
@@ -119,7 +119,7 @@ const formatUptime = (seconds) => {
   return `${days !== '0' ? `${days}:` : ''}${hours}:${minutes}:${seconds}`;
 };
 
-/*module.exports = {
+/* Module.exports = {
   name: "stats",
   perm: ["global.stats"],
   async func(msg, {

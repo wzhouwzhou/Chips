@@ -1,45 +1,26 @@
-const args1 = [
-  "-_-",
-  "Go away.",
-  "Give up.",
-  "Stop hoping."
+const answer = [
+  'Ok!',
+  'No.',
+  'Yes!',
+  'Maybe.',
+  '{shardusercount} people would agree.',
+  'Eat chips!',
 ];
-
-const args2 = [
-    "What?",
-    "Did you say something?",
-    "Uhm..",
-    "Yes? No?",
-    "I don't know."
-];
-
-const args3 = [
-    "Yes!",
-    "Sure.",
-    "Never.",
-    "Why don't you?",
-    "Are you sure about that?",
-    "Not even think about it..",
-    "Rethink.",
-    "Error 404: Ask again."
-];    
 
 module.exports = {
-  name: "8ball",
-  async func(msg, { send, args }) {
-    
-    if (!args[0])
-      return send('Do you have a question?');
-    
-    if (args[0])
-      return send(args1[~~(args1.length*Math.random())]);
+  name: '8ball',
+  func(msg, { send, args, suffix, Discord, member, client }) {
+    if (!args[0]) return send('Do you have a question?');
 
-    if (args[1])
-      return send(args2[~~(args2.length*Math.random())]);
+    if (suffix.split('').reverse()[0] !== '?') return send('Question mark?');
 
-    if (args[2])
-      return send(args3[~~(args3.length*Math.random())]);
+    const embed = (new Discord.MessageEmbed)
+      .setDescription(`🎱 | **${
+        answer[~~(answer.length * Math.random())]
+          .replace(/\{shardusercount\}/g, client.users.size)
+      }**`)
+      .setColor(member ? member.displayColor : 34203);
 
-
-  }
+    return send(embed);
+  },
 };

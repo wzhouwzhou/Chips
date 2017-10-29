@@ -1,4 +1,3 @@
-
 let fakeban = require('./-ban');
 
 console.log('[CPSCMD][FUN][fakeban] Building objects...');
@@ -9,10 +8,10 @@ fakeban.metadata = {
   usage: '-ban <user> <reason>',
   example: '-ban @周珺 • WillyZ#6686 Letting Chips be eaten',
   perm: [['global.fun.-ban.-ban']],
-  customperm: ['BAN_MEMBERS']
+  customperm: ['BAN_MEMBERS'],
 };
 
 console.log('[CPSCMD][FUN][fakeban] Build objects complete!');
 module.exports = [
-  [fakeban.name,fakeban],
+  [fakeban.name, fakeban],
 ];

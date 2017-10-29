@@ -1,4 +1,3 @@
-
 let rmute = require('./rmute');
 let extEmojiBan = require('./emojiban');
 let chipsmutebuild = require('./chipsmutebuild');
@@ -34,7 +33,7 @@ chipsmutebuild.metadata = {
 
 console.log('[CPSCMD][MODERATION][mutes] Build objects complete!');
 module.exports = [
-  [rmute.name,rmute],
-  [extEmojiBan.name,extEmojiBan],
-  [chipsmutebuild.name,chipsmutebuild]
+  [rmute.name, rmute],
+  [extEmojiBan.name, extEmojiBan],
+  [chipsmutebuild.name, chipsmutebuild],
 ];

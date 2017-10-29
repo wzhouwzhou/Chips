@@ -1,4 +1,3 @@
-
 let chess = require('./chess');
 
 console.log('[CPSCMD][FUN][chess] Building objects...');
@@ -7,11 +6,10 @@ chess.metadata = {
   description: 'Play some chess!',
   usage: 'chess',
   example: 'chess',
-  perm: [["global.games.chess.play"]],
-  customperm: ['SEND_MESSAGES'],
+  perm: [['global.games.chess.play']],
 };
 
 console.log('[CPSCMD][FUN][chess] Build objects complete!');
 module.exports = [
-  [chess.name,chess]
+  [chess.name, chess],
 ];

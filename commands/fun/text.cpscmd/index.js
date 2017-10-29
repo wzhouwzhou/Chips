@@ -1,4 +1,3 @@
-
 let spooky = require('./spooky');
 let reverse = require('./reverse');
 let rotate = require('./rotate');
@@ -16,7 +15,7 @@ reverse.metadata = {
   category: require('../').category,
   description: ['Reverses an input string'],
   usage: ['reverse <text>'],
-  example: ['reverse some text','reverse some text --keepwordorder'],
+  example: ['reverse some text', 'reverse some text --keepwordorder'],
   perm: [['global.fun.text.reverse']],
 };
 spooky.metadata = {
@@ -24,68 +23,68 @@ spooky.metadata = {
   description: 'Prints your text with spooky formatting!',
   usage: 'spooky <text> <optional flag>',
   example: 'spooky testing numspaces: 5',
-  perm: [['global.fun.text.spooky']]
+  perm: [['global.fun.text.spooky']],
 };
 rotate.metadata = {
   category: require('../').category,
   description: 'Rotates your text',
   usage: 'rotate <\\ or /> <text>',
   example: 'rotate \\ hello!',
-  perm: [['global.fun.text.rotate']]
+  perm: [['global.fun.text.rotate']],
 };
 randomCaps.metadata = {
   category: require('../').category,
   description: 'Randomly caps your text',
   usage: 'randomcaps <text>',
   example: 'randomcaps hello!',
-  perm: [['global.fun.text.randomcaps']]
+  perm: [['global.fun.text.randomcaps']],
 };
 big.metadata = {
   category: require('../').category,
   description: 'Enlarges a given emoji!',
   usage: 'big <emoji>',
   example: 'big :heart:',
-  perm: [['global.fun.text.big']]
+  perm: [['global.fun.text.big']],
 };
 threed.metadata = {
   category: require('../').category,
   description: 'Gives you cool text!',
   usage: '3d <text>',
   example: 'big Smith',
-  perm: [['global.fun.text.3d']]
+  perm: [['global.fun.text.3d']],
 };
 threed2.metadata = {
   category: require('../').category,
   description: 'Gives you cool text!',
   usage: '3d2 <text>',
   example: '3d2 Smith',
-  perm: [['global.fun.text.3d2']]
+  perm: [['global.fun.text.3d2']],
 };
 ascii.metadata = {
   category: require('../').category,
   description: 'Gives you some fresh ASCII!',
   usage: 'ascii <text>',
   example: 'ascii Smith',
-  perm: [['global.fun.text.ascii']]
+  perm: [['global.fun.text.ascii']],
 };
 derp.metadata = {
   category: require('../').category,
   description: 'Enlarges a given emoji!',
   usage: 'big <emoji>',
   example: 'big :heart:',
-  perm: [['global.fun.text.derp']]
+  perm: [['global.fun.text.derp']],
 };
 haiku.metadata = {
   category: require('../').category,
   description: 'Enlarges a given emoji!',
   usage: 'big <emoji>',
   example: 'big :heart:',
-  perm: [['global.fun.text.haiku']]
+  perm: [['global.fun.text.haiku']],
 };
 
 console.log('[CPSCMD][INFO][text] Build objects complete!');
 module.exports = [
-  [spooky.name,spooky],
+  [spooky.name, spooky],
   [reverse.name, reverse],
   [rotate.name, rotate],
   [randomCaps.name, randomCaps],

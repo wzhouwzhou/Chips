@@ -22,6 +22,6 @@ pokemontest.metadata = {
 
 console.log('[CPSCMD][FUN][pokemon] Build objects complete!');
 module.exports = [
-  [pokemon.name,pokemon],
-  [pokemontest.name,pokemontest],
+  [pokemon.name, pokemon],
+  [pokemontest.name, pokemontest],
 ];

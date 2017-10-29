@@ -1,4 +1,3 @@
-
 let r = require('./roles');
 
 console.log('[CPSCMD][INFO][roles] Building objects...');
@@ -14,7 +13,7 @@ r.metadata = {
 
 console.log('[CPSCMD][INFO][roles] Build objects complete!');
 module.exports = [
-  [r.name,r],
+  [r.name, r],
   ['rolelist', r],
   ['roles', r],
   ['allroles', r],

@@ -1,9 +1,9 @@
-const flip=()=>{return(_.random([+[]]+[],[+!+[]]+[])==[+[]]+[])?"Heads":"Tails";};
+const flip = () => _.random([+[]] + [], [+!+[]] + []) == [+[]] + [] ? 'Heads' : 'Tails';
 
 module.exports = {
-  name: "coinflip",
+  name: 'coinflip',
   perm: ['server.coinflip'],
   async func(msg, { reply }) {
     return reply(flip());
-  }
+  },
 };

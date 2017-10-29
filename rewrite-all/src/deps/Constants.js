@@ -13,5 +13,5 @@ exports.numbersA = [
   'seven',
   'eight',
   'nine',
-  'keycap_ten'
-].map(e=>`:${e}:`);
+  'keycap_ten',
+].map(e => `:${e}:`);

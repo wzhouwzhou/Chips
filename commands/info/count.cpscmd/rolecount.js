@@ -1,8 +1,6 @@
 module.exports = {
-  name: "rolecount",
+  name: 'rolecount',
   async func(msg, { send, guild }) {
-    if(guild)
-      return send(`${guild.roles.size} roles.`);
-    else return send('You must be in a server to use this!');
-  }
+    if (guild) { return send(`${guild.roles.size} roles.`); } else { return send('You must be in a server to use this!'); }
+  },
 };

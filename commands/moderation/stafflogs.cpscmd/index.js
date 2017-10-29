@@ -1,4 +1,3 @@
-
 let sl = require('./stafflogs');
 
 console.log('[CPSCMD][MODERATION][botnic] Building objects...');
@@ -14,6 +13,6 @@ sl.metadata = {
 
 console.log('[CPSCMD][MODERATION][botnick] Build objects complete!');
 module.exports = [
-  [sl.name,sl],
+  [sl.name, sl],
   ['stafflogs', sl],
 ];

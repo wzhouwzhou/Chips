@@ -1,4 +1,3 @@
-
 let ball = require('./8ball');
 
 console.log('[CPSCMD][INFO][ball] Building objects...');
@@ -12,7 +11,7 @@ ball.metadata = {
 };
 console.log('[CPSCMD][INFO][ball] Build objects complete!');
 module.exports = [
-  [ball.name,ball],
+  [ball.name, ball],
   ['8ball', ball],
   ['8', ball],
 ];

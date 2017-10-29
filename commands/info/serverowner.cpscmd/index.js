@@ -1,4 +1,3 @@
-
 let so = require('./serverowner');
 
 console.log('[CPSCMD][INFO][roles] Building objects...');
@@ -14,6 +13,6 @@ so.metadata = {
 
 console.log('[CPSCMD][INFO][roles] Build objects complete!');
 module.exports = [
-  [so.name,so],
+  [so.name, so],
   ['serverowner', so],
 ];

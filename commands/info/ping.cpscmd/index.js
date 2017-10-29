@@ -1,4 +1,3 @@
-
 let ping = require('./ping');
 
 console.log('[CPSCMD][INFO][ping] Building objects...');
@@ -14,5 +13,5 @@ ping.metadata = {
 
 console.log('[CPSCMD][INFO][ping] Build objects complete!');
 module.exports = [
-  [ping.name,ping]
+  [ping.name, ping],
 ];

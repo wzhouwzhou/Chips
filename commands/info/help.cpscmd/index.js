@@ -1,4 +1,3 @@
-
 let help = require('./help');
 
 console.log('[CPSCMD][INFO][help] Building objects...');
@@ -13,5 +12,5 @@ help.metadata = {
 
 console.log('[CPSCMD][INFO][help] Build objects complete!');
 module.exports = [
-  [help.name,help]
+  [help.name, help],
 ];

@@ -1,6 +1,6 @@
 module.exports = {
-  name: "emojiban",
-  perm: ["server.emojiban"],
+  name: 'emojiban',
+  perm: ['server.emojiban'],
   async func(msg, { send, member, author, content, guild, args, gMember, Discord }) {
     const used = member || author;
     switch (used.id) {
@@ -17,29 +17,31 @@ module.exports = {
         return send(`No bans for you! ${member.displayName}`);
     }
 
-    if (!args[0]) return send("No user given :(");
+    if (!args[0]) return send('No user given :(');
     const target = args[0].match(Constants.patterns.MENTION)[1];
-    // console.log("Target: "+target);
-    const split = content.replace(/\s+/g, ' ').trim().split(" ");
-    let reason = split.slice(2, split.length).join(" ");
-    if (reason == "") reason = "None";
+    // Console.log("Target: "+target);
+    const split = content.replace(/\s+/g, ' ').trim().split(' ');
+    let reason = split.slice(2, split.length).join(' ');
+    if (reason == '') reason = 'None';
 
     const mem = gMember(target);
 
-    let ebanRole=guild.roles.find("name","Emoji Banned");
-    if (ebanRole==null)
-      ebanRole= await guild.createRole(
-        { name: 'Emoji Banned'}
+    let ebanRole = guild.roles.find('name', 'Emoji Banned');
+    if (ebanRole == null) {
+      ebanRole = await guild.createRole(
+        { name: 'Emoji Banned' }
       );
+    }
 
-    if(ebanRole==null)console.log("Error getting emoji banned role");
+    if (ebanRole == null)console.log('Error getting emoji banned role');
 
     const channels = guild.channels.filter(c => c.type === 'text');
-    if(channels==null)console.log("Error getting text channels");
-    for (const channel of channels.values())
+    if (channels == null)console.log('Error getting text channels');
+    for (const channel of channels.values()) {
       await channel.overwritePermissions(ebanRole, {
-        USE_EXTERNAL_EMOJIS: false
+        USE_EXTERNAL_EMOJIS: false,
       });
+    }
 
     mem.addRole(ebanRole);
 
@@ -48,10 +50,10 @@ module.exports = {
     send(`<@${author.id}>, user ${usernm} emoji banned successfully!`);
 
     let emb = new Discord.MessageEmbed()
-      .setAuthor("Emoji Ban Log")
+      .setAuthor('Emoji Ban Log')
       .setTitle(`<@${mem.user.id}> was emoji banned by <@${author.id}>`)
       .setColor(9109504)
       .setThumbnail(Constants.images.WARNING)
-      .addField("Emoji Ban reason: ", `${reason}`, true);
-  }
+      .addField('Emoji Ban reason: ', `${reason}`, true);
+  },
 };

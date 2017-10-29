@@ -12,5 +12,5 @@ lmgtfy.metadata = {
 
 console.log('[CPSCMD][FUN][lmgtfy] Build objects complete!');
 module.exports = [
-  [lmgtfy.name,lmgtfy],
+  [lmgtfy.name, lmgtfy],
 ];

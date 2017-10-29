@@ -1,6 +1,5 @@
-
 const got = require('got');
-getCat = (callback) => {
+getCat = callback => {
   got('http://www.random.cat/meow').then(res => {
     try {
       callback(undefined, JSON.parse(res.body).file);
@@ -11,9 +10,9 @@ getCat = (callback) => {
 };
 
 module.exports = {
-  name: "cat",
-  perm: ["server.cat"],
+  name: 'cat',
+  perm: ['server.cat'],
   async func(msg, { send }) {
-    return getCat((a,b)=>send(b));
-  }
+    return getCat((a, b) => send(b));
+  },
 };
