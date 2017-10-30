@@ -1,17 +1,8 @@
-let mc = require('./membercount');
 let rc = require('./rolecount');
 let cc = require('./channelcount');
 let ec = require('./emojicount');
 
 console.log('[CPSCMD][INFO][avatar] Building objects...');
-mc.metadata = {
-  category: require('../').category,
-  description: 'This shows you the channel topic! btw it doesnt',
-  usage: 'membercount',
-  example: 'membercount',
-  perm: [['global.info.count.membercount']],
-  customperm: ['SEND_MESSAGES'],
-};
 
 console.log('[CPSCMD][INFO][avatar] Building objects...');
 rc.metadata = {
@@ -44,9 +35,6 @@ ec.metadata = {
 
 console.log('[CPSCMD][INFO][avatar] Build objects complete!');
 module.exports = [
-  [mc.name, mc],
-  ['membercount', mc],
-  ['mc', mc],
   [rc.name, rc],
   ['rolecount', rc],
   ['rc', rc],
