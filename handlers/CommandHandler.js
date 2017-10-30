@@ -3,6 +3,7 @@ module.exports = function(Discord, client) {
     const regprefix = _.escapeRegExp(prefix);
     const noprefix = msg.content.replace(new RegExp(`^${regprefix}`), '');
     let context = {
+      Constants,
       noprefix, prefix, msg, Discord, client,
       message: msg,
       channel: msg.channel,

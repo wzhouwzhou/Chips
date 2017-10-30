@@ -88,7 +88,7 @@ ex.BOTINVITE = 'https://discordapp.com/oauth2/authorize?client_id=29685542525547
 
 ex.SUPPORTINVITE = 'https://discord.gg/jj5FzF7';
 
-ex.WEBSITE = 'http://www.chipsbot.tk:8080/';
+ex.WEBSITE = 'http://chipsbot.me';
 
 ex.DJS = `Useful links for learning JavaScript and Node:
 codecademy online course:| https://www.codecademy.com/learn/javascript
