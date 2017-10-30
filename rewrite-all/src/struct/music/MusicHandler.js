@@ -58,7 +58,7 @@ const GuildMusicHandler = class MusicHandler {
     if (NCSBroadcast) NCSBroadcast.end();
     if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
     if (!NCSBroadcast) NCSBroadcast = this._client.createVoiceBroadcast();
-    const NCS = await new Song('https://www.youtube.com/watch?v=lFvQifetTAs', this._client.user).loadInfo();
+    const NCS = await new Song('https://youtube.com/watch?v=4rdaGSlLyDE', this._client.user).loadInfo();
     this._client.musicBroadcasts.ncs = NCSBroadcast;
     NCSBroadcast.playStream(NCS.stream, this.streamOpts);
     return NCSBroadcast;
