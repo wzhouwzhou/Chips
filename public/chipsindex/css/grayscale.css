@@ -60,12 +60,12 @@ a:focus {
   background-color: white;
 }
 .navbar-custom .navbar-toggle {
-  color: white;
+  color: blue;
   background-color: rgba(255, 255, 255, 0.2);
   font-size: 12px;
 }
 .navbar-custom .navbar-toggle:focus {
-  color: white;
+  color: red;
 }
 .navbar-custom .navbar-toggle:active {
   outline: none;
@@ -133,7 +133,10 @@ a:focus {
   padding-bottom: 100px 0;
   text-align: center;
   color: white;
-  background: url('/img/chipssplash.png') no-repeat bottom center scroll;
+  background-image: url('/img/chipssplash.png') /*no-repeat bottom center scroll*/;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
   background-color: black;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -183,16 +186,25 @@ a:focus {
   background: rgba(255, 165, 0, 0.5);
 }
 .btn-circle i.animated {
+  /*
   -webkit-transition-property: -webkit-transform;
   -webkit-transition-duration: 1s;
   -moz-transition-property: -moz-transform;
-  -moz-transition-duration: 1s;
-}
-.btn-circle:hover i.animated {
+  -moz-transition-duration: 1s;*/
   -webkit-animation-name: pulse;
   -moz-animation-name: pulse;
   -webkit-animation-duration: 1.5s;
   -moz-animation-duration: 1.5s;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-timing-function: linear;
+}
+.btn-circle:hover i.animated {
+  -webkit-animation-name: pulse;
+  -moz-animation-name: pulse;
+  -webkit-animation-duration: 0.5s;
+  -moz-animation-duration: 0.5s;
   -webkit-animation-iteration-count: infinite;
   -moz-animation-iteration-count: infinite;
   -webkit-animation-timing-function: linear;
@@ -232,12 +244,22 @@ a:focus {
 .download-section {
   width: 100%;
   padding: 50px 0;
-  color: white;
+  color: black;
+
+  background-image: url('https://cdn.discordapp.com/attachments/325566257493573632/369397795137781761/chips_v2.png') /*no-repeat bottom center scroll*/;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
   background-color: gray;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
+}
+@media only screen and (max-device-width: 1024px) {
+    .parallax {
+        background-attachment: scroll;
+    }
 }
 #map {
   width: 100%;

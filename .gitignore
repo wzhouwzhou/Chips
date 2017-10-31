@@ -3,7 +3,7 @@ node_modules
 bower_components
 c.js
 crypto.js
-
+testfonts
 gource.mp4
 
 start.bat
@@ -16,3 +16,14 @@ deploy.bat
 deploy2.bat
 
 setup/log/access.log
+
+npm-debug.log
+
+*.log
+
+public/commands.html
+
+servers.json
+setup/cert.pem
+setup/key.pem
+mps.png

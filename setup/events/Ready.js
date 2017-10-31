@@ -1,179 +1,192 @@
-let d = "", consoleTyping = false;
+let d = '', consoleTyping = false;
 global.statusC;
-module.exports = function( send ) {
-  if(process.env.BETA!=null&&process.env.BETA=="true")
-    client.login(process.env.BETATOKEN);
-  else
-    client.login(process.env.TOKEN);
-  if(client.id!="309504998864060416"){
+const readline = require('readline');
+
+module.exports = function(send) {
+  if (process.env.BETA != null && process.env.BETA == 'true') { client.database.load().then(() => client.login(process.env.BETATOKEN)); } else {
+    console.log('Logging in…');
+    client.database.load().then(() => client.login(process.env.TOKEN));
+    console.log('Chips login called');
+  }
+  if (client.id != '309504998864060416') {
     hclient.login(process.env.HTOKEN);
     h2client.login(process.env.H2TOKEN);
   }
   h3client.login(process.env.H3TOKEN);
 
-  if(process.env.C2TOKEN!=null&&process.env.C2TOKEN!="")
-    c2.login(process.env.C2TOKEN);
-  else
-    c2.login(require(path.join(__dirname, '../sBotT'))[0]);
+  if (process.env.C2TOKEN != null && process.env.C2TOKEN != '') c2.login(process.env.C2TOKEN);
+  else c2.login(require(path.join(__dirname, '../sBotT'))[0]);
 
-  if(process.env.C3TOKEN!=null&&process.env.C3TOKEN!="")
-    c3.login(process.env.C3TOKEN);
-  else
-    c3.login(require(path.join(__dirname, '../sBotT'))[1]);
+  if (process.env.C3TOKEN != null && process.env.C3TOKEN != '') c3.login(process.env.C3TOKEN);
+  else c3.login(require(path.join(__dirname, '../sBotT'))[1]);
 
-  client.on("ready", async function() {
+  client.on('ready', async() => {
     require(path.join(__dirname, '../../handlers/DiepAddons')).getServers();
+    try {
+      console.log(`[DBLOADER][DB] Latest start: ${await client.database.fetchLastStartStatus()}`);
+      await client.database.writeLastStart();
+    } catch (err) {
+      console.error('Unable to save starts');
+    }
+    setTimeout(async() => { statusC = await client.channels.get(Constants.channels.STATUS); statusC && send(`Chips restart! **${moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')}**`, statusC); }, 5000);
 
-  setTimeout(async function(){statusC = await client.channels.get(Constants.channels.STATUS); statusC&&send('Chips restart! **' + moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')+'**', statusC);},5000);
+    const MH = require('../../rewrite-all/src/struct/music/MusicHandler').default;
+    client.mh = new MH(0, client);
+    client.mh.startNCSBroadcast().then(() => client.mh.playAllNCS());
+    client.mh.startMonstercatBroadcast().then(() => client.mh.playAllMonstercat());
+    client.musicCheck = setInterval(() => {
+      client.mh.startNCSBroadcast().then(() => client.mh.playAllNCS());
+      client.mh.startMonstercatBroadcast().then(() => client.mh.playAllMonstercat());
+    }, 30 * 60 * 1000);
+    // Console events
+    if (client.shard.id === 0) {
+      rl.on('line', line => {
+        console.log(`Received: ${line}`);
+        evalConsoleCommand(line.trim());
+      });
+    }
+    /* Stdin.addListener('data', d => {
+          if (testC == null) {
+            return;//console.log('YOU HAVEN'T DEFINED AN OUTPUT CHANNEL');
+          }
+          if (consoleTyping == false) {
+            consoleTyping = true;
+            rl.question('\x1b[1mInput? \x1b[0m', txt => {
+              console.log('\x1b[0m', '\tConsole input:', txt);
+              if (txt == '') {
+                consoleTyping = false;
+              } else {
+                evalConsoleCommand(txt);
+                consoleTyping = false;
+              }
+            });
+          }
+      });*/
 
-    console.log('Chips is ready!');
-    client.user.setStatus("online");
-    if(process.env.BETA=="true")
-      client.user.setGame("Chips PTB","https://twitch.tv/twitch");//client.user.setGame("Updated -help!");
-    else
-      client.user.setGame("Do -help | NOT eating a bag of chips","https://twitch.tv/twitch");//client.user.setGame("Do -help!");
+    console.log('Chips is booting up!');
+    client.user.setStatus('online');
+    client.user.setPresence({
+      status: 'online',
+      activity: {
+        name: process.env.BETA == 'true' ? 'Chips PTB' : '-help | "-chess help" is here!! | 100k members!!!',
+        type: 'STREAMING',
+        url: 'https://twitch.tv/twitch',
+      },
+    });
 
-    setTimeout(_=>{DMLogger = require(path.join(__dirname, '../../handlers/DMLogger'))(Discord, client, dmC, moment);},3000);
+    // SetTimeout(()=>{DMLogger = require(path.join(__dirname, '../../handlers/DMLogger'))(Discord, client, dmC, moment);},3000);
   });
-  hclient.on("ready", _ => {
-    testC  = hclient.channels.get(Constants.channels.TEST);
-    sLogs  = hclient.channels.get(Constants.channels.SLOGS);
-    dmC    = hclient.channels.get(Constants.channels.DMS);
-    snLogs = hclient.channels.get(Constants.channels.SNLOGS);
+  hclient.on('ready', () => {
+    testC = hclient.channels.get(Constants.channels.TEST);
+    sLogs = hclient.channels.get(Constants.channels.SLUGS);
+    dmC = hclient.channels.get(Constants.channels.DMS);
+    snLogs = hclient.channels.get(Constants.channels.DWAGONLOGS);
 
     console.log('Chips helper is ready!');
-    hclient.user.setStatus("online");
-    hclient.user.setGame("Chips is bae!");
-
-    //Console events
-    stdin.addListener('data', d => {
-        if (testC == null) {
-          //return;//console.log("YOU HAVEN'T DEFINED AN OUTPUT CHANNEL");
-        }
-        if (consoleTyping == false) {
-          consoleTyping = true;
-          rl.question("\x1b[1mInput? \x1b[0m", txt => {
-            console.log("\x1b[0m", "\tConsole input:", txt);
-            if (txt == "") {
-              consoleTyping = false;
-            } else {
-              evalConsoleCommand(txt);
-              consoleTyping = false;
-            }
-          });
-        }
-    });
+    hclient.user.setStatus('online');
+    // Hclient.user.setGame('Chips is bae!');
   });
-  h2client.on("ready", _ => {
+  h2client.on('ready', _ => {
     sxLogs = h2client.channels.get(Constants.channels.SXLOGS);
 
     console.log('Chips helper 2 is ready!');
-    h2client.user.setStatus("online");
-    h2client.user.setGame("Chips and Chips helper are bae!");
+    h2client.user.setStatus('online');
+    // H2client.user.setGame('Chips and Chips helper are bae!');
   });
-  h3client.on("ready", _ => {
-    sLogs2 = h3client.channels.get(Constants.channels.SLOGS);
-    nLogs = h3client.channels.get(Constants.channels.NLOGS);
-    stLogs = h3client.channels.get(Constants.channels.STLOGS);
+  h3client.on('ready', _ => {
+    sLogs2 = h3client.channels.get(Constants.channels.SLUGS);
+    nLogs = h3client.channels.get(Constants.channels.SARK);
+    stLogs = h3client.channels.get(Constants.channels.HOMEY);
 
     console.log('Chips helper 3 is ready!');
-    h3client.user.setStatus("online");
-    h3client.user.setGame("Chips, Chips2 and Chips3 are bae!");
+    h3client.user.setStatus('online');
+    // H3client.user.setGame('Chips, Chips2 and Chips3 are bae!');
   });
-  c2.on("ready", _ => {
+  c2.on('ready', _ => {
     console.log('Bot is ready!');
   });
-  c3.on("ready", _ => {
+  c3.on('ready', _ => {
     console.log('Bot2 is ready!');
   });
 
-  client.on("debug", console.log);
-  hclient.on("debug", console.log);
-  h2client.on("debug", console.log);
-  h3client.on("debug", console.log);
-  //replace me with https://github.com/thlorenz/readdirp/blob/master/README.md
-  //const glob = require( 'glob' );
-  //glob( path.join(__dirname, '../../commands/**/*.js'), function( err, files ) {
-  //  files.forEach(f=>{
-  //    console.log("New command loaded!: " + f);
-  //    const precmd = require(path.join(__dirname, '../../commands', f));
-  //    client.commands[precmd.name] = new Command(precmd);
-  //  });
-  //  console.log( files );
-  //});
-
-  fs.readdirSync(path.join(__dirname, '../../commands')).map(f => {
-    if (/\.js/.test(f)) {
-      console.log("New command loaded!: " + f);
-      const precmd = require(path.join(__dirname, '../../commands', f));
-      client.commands[precmd.name] = new Command(precmd);
-    }
+  client.on('warn', info => console.log(`[DJS Warn] ${info}`));
+  client.on('debug', info => console.log(`[DJS Debug] ${info}`));
+  client.on('guildMembersChunk', (members, guild) => console.log(`[DJS Debug] Received new chunk of ${members.size} members for guild |${guild.name}|:|(${guild.id})|`));
+  client.on('disconnect', ({ code }) => {
+    console.error('[FATAL] Client lost connection to ws, rebooting the bot');
+    process.exit(code || 404);
   });
-
-  client.on("guildMemberAdd",  (member) => {
-    try {
-      let memberguild = member.guild;
-      let userid= member.user.id;
-      if(memberguild.id=="257889450850254848"){
-        setTimeout(_ =>{
-          console.log("[SINX] adding role...");
-          member.addRole(memberguild.roles.get("305302877641900052")||memberguild.roles.find('name',"unverified"));
-          /*console.log("[SINX] sending welcome msg...");
-          let welcomeC=client.channels.get("307342989783728131")||memberguild.channels.find('name','unverified');
-          welcomeC.send(`<@${userid}>, Welcome to Sinbadx Knights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!**
-            1. How did you hear about this server?
-            2. Why did you join this server?
-            3. Do you promise to read <#308361914923089940>?
-            4. What is your favorite diep.io tank?
-            (you can answer these with just a sentence or two, no need to write an essay!)`).then(console.log("[SINX] Welcome msg sent"));*/
-        }, 1500);
-      }else if(memberguild.id=="252525368865456130"){
-        setTimeout(_ => {
-          console.log("[SK] adding role...");
-          member.addRole(memberguild.roles.get("303587467741757440")||memberguild.roles.find('name',"lollipop-unverified"));
-          console.log("[SK] sending welcome msg...");
-          let welcomeC=memberguild.channels.get("308772937731670016")||memberguild.channels.find('name','unverified');
-          welcomeC.send(`<@${userid}>, Welcome! Please read <#307895557815402496> and become acquainted with the rules here, then contact a staff member to be able to speak in other channels!`);
-        }, 1000);
-      }else if(memberguild.id=="315891125825044482"){
-        setTimeout(_ =>{
-          console.log("[SK2] adding role...");
-          member.addRole(memberguild.roles.get("316017088160595970")||memberguild.roles.find('name',"unverified"));
-          console.log("[SK2] sending welcome msg...");
-          let welcomeC=client.channels.get("307342989783728131")||memberguild.channels.find('name','unverified');
-          welcomeC.send(`<@${userid}>, Welcome to Sunk Nights! **If you would like to get verified and be able to speak in the other channels, please answer the following questions!**
-            1. How did you hear about this server?
-            2. Why did you join this server?
-            3. Do you promise to read <#316019707276820483>?
-            4. What is your favorite diep.io tank?
-            (you can answer these with just a sentence or two, no need to write an essay!)`).then(console.log("[SK2] Welcome msg sent"));
-        }, 1500);
-      }else if(memberguild.id=="315502587111669772"){
-        setTimeout(_=>{
-          console.log("Changing nick...");
-          member.setNickname(`(♤)${member.user.username}`.substring(0,Math.min(member.user.username+`(♤)`.length,32)));
-        });
+  // Hclient.on('debug', console.log);
+  // h2client.on('debug', console.log);
+  // h3client.on('debug', console.log);
+  let numCmds = 0;
+  const load = startPath => {
+    let subset = [];
+    if (!fs.existsSync(startPath)) return;
+    let files = fs.readdirSync(startPath);
+    files.forEach(f => {
+      let filename = path.join(startPath, f);
+      let stat = fs.lstatSync(filename);
+      console.log(`[COMMAND LOADER] File or folder found: ${filename}`);
+      if (stat.isDirectory() && !/\.cpscmd/.test(filename)) { subset = subset.concat(load(filename)); } else if (stat.isDirectory() && /\.cpscmd/.test(filename)) {
+        try {
+          console.log(`[COMMAND LOADER] Loading cmd list: ${filename}`);
+          let precmdlist = require(path.join(__dirname, '../../', filename));
+          precmdlist.forEach(precmd => {
+            let cmdpath = `${filename}/${precmd[0]}`;
+            console.log(`[COMMAND LOADER] Loading cmd: ${cmdpath}`);
+            client.commands[precmd[0]] = new Command(precmd[1]);
+            subset.push([filename, precmd]);
+            numCmds++;
+            console.log(`[COMMAND LOADER] loaded: ${cmdpath}`);
+          });
+        } catch (err) {
+          console.error('[COMMAND LOADER][ERR] Could not load: ', path.join(__dirname, '../../', filename), err);
+        }
       }
-    } catch (err) {
-      console.log("could not add unverified role or set nick");
-    }
+    });
+    return subset;
+  };
+  load('./commands');
+  console.log(`[COMMAND LOADER] Loaded a total of ${numCmds} commands!`);
+  // Const music = require('discord.js-music-v11');
+  // music(client, { prefix: '-', anyoneCanSkip: true });
+  client.on('guildCreate', g => {
+    const scpt = `try { client.channels.get('307624059984674816')
+.send('I just joined a new server! Its name is ${g.name.replace('@', '(at)')} and it has ${g.members.size} members! It is owned by <@${g.ownerID}> (${g.ownerID})');} catch(err){}`;
+    clientutil.broadcastEval(scpt);
+    console.log(`I just joined a new server! Its name is ${g.name.replace('@', '(at)')} and it has ${g.members.size} members!`);
   });
 
-  //const music = require('discord.js-music-v11');
-  //music(client, { prefix: "-", anyoneCanSkip: true });
+  client.on('guildDelete', gu => {
+    try {
+      const scpt = `try { client.channels.get('307624059984674816').send('I just left a server! Its name was ${gu.name.replace('@', '(at)')} and it had ${gu.members.size} members! It was owned by <@${gu.ownerID}> (${gu.ownerID})');} catch(err){}`;
+      clientutil.broadcastEval(scpt);
+      console.log(`I just left a server! Its name was ${gu.name.replace('@', '(at)')} and it had ${gu.members.size} members!`);
+    } catch (err) {
+      console.error(err);
+    }
+  });
+  require('./GuildMemberAdd')();
 };
 
 
 const evalConsoleCommand = txt => {
   txt = detectPastes(txt);
-  if (txt == "monitor") {
+  if (txt == 'monitor') {
     monitorMode = true;
-    console.log("\tActivating Monitor Mode");
-  } else if (txt == "unmon") {
+    console.log('\tActivating Monitor Mode');
+  } else if (txt == 'unmon') {
     monitorMode = false;
-    console.log("\tDeactivating Monitor Mode");
+    console.log('\tDeactivating Monitor Mode');
   } else {
-    send(txt, testC);
+    try {
+      let r = eval(txt);
+      if (r && r.constructor && r.constructor.name === 'Promise') r.catch(e => { throw e; });
+      console.log(r);
+    } catch (err) {
+      console.error(err);
+    }
   }
 };
 
@@ -181,7 +194,7 @@ const detectPastes = txt => {
   const pairPastes = _.toPairs(Constants.PASTES);
   for (const i in pairPastes) {
     if (txt == pairPastes[i][0]) {
-      console.log("paste " + i + " found!");
+      console.log(`paste ${i} found!`);
       return pairPastes[i][1];
     }
   }

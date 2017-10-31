@@ -4,7 +4,7 @@
     "type": "git",
     "url": "git+https://github.com/wzhouwzhou/Chips.git"
   },
-  "version": "2.0.0",
+  "version": "0.3.4",
   "author": "WillyZ",
   "license": "SEE LICENSE IN LICENSE",
   "bugs": {
@@ -39,6 +39,7 @@
   },
   "name": "chips",
   "engines": {
-    "node": "7.10.0"
+    "node": "8.2.1",
+    "npm": "5.2.0"
   }
 }
