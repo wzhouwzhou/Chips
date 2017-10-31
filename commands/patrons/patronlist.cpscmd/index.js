@@ -1,6 +1,6 @@
 let tdl = require('./tdl');
 let wendy = require('./wendy');
-let masontgc = require('./masontgc');
+let masontcg = require('./masontcg');
 let patrons = require('./patrons');
 console.log('[CPSCMD][PATRONS][tdl] Building objects...');
 
@@ -22,11 +22,11 @@ wendy.metadata = {
   customperm: ['SEND_MESSAGES'],
 };
 
-masontgc.metadata = {
+masontcg.metadata = {
   category: require('../').category,
   description: 'A custom cmd for our third patron!',
-  usage: 'masontgc',
-  example: 'masontgc',
+  usage: 'masontcg',
+  example: 'masontcg',
   perm: [['public.info.support.support']],
   customperm: ['SEND_MESSAGES'],
 };
@@ -44,6 +44,6 @@ console.log('[CPSCMD][UTILITY][perm] Build objects complete!');
 module.exports = [
   [tdl.name, tdl],
   [wendy.name, wendy],
-  [masontgc.name, masontgc],
+  [masontcg.name, masontcg],
   [patrons.name, patrons],
 ];
