@@ -1,5 +1,5 @@
 # Chips
-This is the source for Chips, a discord bot by WillyZ.
+This is the source for Chips, a discord bot by William Zhou.
 Node.js/npm is required.
 
 ### Support
