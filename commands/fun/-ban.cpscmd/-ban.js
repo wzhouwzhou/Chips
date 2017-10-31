@@ -57,7 +57,7 @@ const ex = {
     }*/
     // console.log("Target: "+target);
     if (neko.indexOf(user.id) >= 0) {
-      if (author.id != '324364368752148481' && author.id != Constants.users.WILLYZ && author.id != Constants.users.EVILDEATHPRO) {
+      if (author.id != '324364368752148481' && author.id != Constants.users.WILLYZ && author.id != Constants.users.EVILDEATHPRO && author.id != '365972456139390977' /*Evildeathpro's Boyfriend*/) {
         setTimeout(() => { reply('go ban yourself!!!'); }, 50);
         return;
       }
