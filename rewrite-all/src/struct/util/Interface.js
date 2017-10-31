@@ -6,10 +6,14 @@ const ensureAbstract = require('../../deps/functions/ensureAbstractF').default()
 const Interface = class Interface {
   constructor() {
     ensureAbstract(this, Interface);
+    this.constructor.isImplemented(this);
   }
 
   static isImplemented(object) {
-    for (const k in Object.keys(this.prototype)) if (typeof this.prototype[k] === 'function') if (!object[k]) throw new Error(`Missing interface function ${k}`);
+    for (const k in this.funcs) {
+      if (typeof this.prototype[k] === 'function' && !object[k]) throw new Error(`Missing interface function ${k}`);
+    }
+    return object;
   }
 };
 
