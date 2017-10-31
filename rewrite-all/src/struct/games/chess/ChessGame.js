@@ -6,9 +6,9 @@ const { Engine } = require('node-uci');
 
 const BasicAI = require('chess-ai-kong');
 BasicAI.setOptions({
-  depth: 3,
+  depth: 1000,
   strategy: 'basic',
-  timeout: 1500,
+  timeout: 1,
 });
 
 const Discord = require('discord.js');

@@ -5,8 +5,6 @@ module.exports = {
   async func(msg, { send, args, member, guild }) {
     if (guild.emojis.size >= 50) return send(`Maximum number of emojis reached (${guild.emojis.size})`);
 
-    if (!member.hasPermission('MANAGE_EMOJIS')) return send('no');
-
     if (!args[0]) return send('No emoji name given :(');
 
     let name = args[0];

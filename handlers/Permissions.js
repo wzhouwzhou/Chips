@@ -77,6 +77,7 @@ ex.permsList = [
   ['global.info.discordstatus.*', true],
   ['global.info.discordstatus.discordstatus', true],
   ['global.info.avatar', true],
+  ['global.info.channels', true],
   ['global.info.channeltopic', true],
   ['global.info.count.*', true],
   ['global.info.count.channelcount', true],

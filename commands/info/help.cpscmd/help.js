@@ -1,15 +1,16 @@
 const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Paginator;
+const _ = require('lodash');
 
 module.exports = {
   name: 'help',
-  async func(msg, { prefix, Discord, reply }) {
+  async func(msg, { prefix, Discord, reply, Constants }) {
     const IntroMenu1 = [
       'Chips is a multipurpose bot under heavy development!',
       "We're working on a gui update and structural rewrite right now, so apologies if some commands are not listed",
     ].join('\n');
 
     const IntroMenu2 = [
-      'You can use the arrow button reactions to navigate the help menu as well as other features of the bot that support it!',
+      'Use the arrow button reactions to navigate the help menu and other features of the bot that support it!',
       'The 🔢 button will let you jump to a specific page number.',
       'The ⏏ button will close this menu!',
       "Each command will update with your server's custom prefix!",
@@ -59,21 +60,24 @@ module.exports = {
       '**{}clear [amount]** to clear some messages. (up to 99)',
       '**{}botclear/{}bc [amount]** to delete bot-related messages. (up to the last 100 messages are checked)',
       '**{}hackban [user id]** to ban someone by their ID',
-      '**{}softban [mention user]** to kick someone and clear their messages. The user is immediately unbanned afterwards.',
+      '**{}softban [mention user]** to kick someone and clear their messages.',
+      '\tThe user is immediately unbanned afterwards.',
       '**{}kick [mention user]** to kick someone.',
       '**{}botnick/{}bn [text]** to change Chips\' nick.',
       '**{}silence [mention user]** to server-mute someone.',
       '**{}deafen [mention user]** to deafen someone.',
       '**{}unsilence [mention user]** to unserver-mute someone.',
       '**{}undeafen [mention user]** to undeafen someone.',
-      '**{}rmute [mention user]** to give someone a muted role! (Disclaimer: this does not create a Muted role, manually remove the mute role to unmute)',
+      '**{}rmute [mention user]** to give someone a muted role! ',
+      '\t(Disclaimer: this does not create a Muted role, manually remove the mute role to unmute)',
       '**{}chipsprefix on** to begin custom prefix setup, use **{}chipsprefix off** to turn off custom prefix',
     ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g, '\\`'));
 
     const FunMenu = [
       '**{}con4 length width** to play connect four.',
       '\tFor example, **{}con4 12 6** will create a 12x6 board with 6 columns and 12 rows',
-      '**{}chess help** *__New™ (beta)__* to see how to play a chess game! and Yes, _you can even invite Chips to play with you!_',
+      '**{}chess help** *__New™ (beta)__* to see how to play a chess game!',
+      '\tand Yes, _you can even invite Chips to play with you!_',
       '**{}aboose**/**{}aboosed** for aboose.',
       '**{}-ban [mention user]** to ban people (Disclaimer: This is a fake ban).',
       '**{}cat** to create a cat.',
@@ -105,8 +109,10 @@ module.exports = {
     ].join('\n').replace(/{}/g, prefix);
 
     const UtilityMenu = [
-      '**{}-calc [equation or expression]** to calculate some things! The equation solver can only solve basic algebra up to cubics',
-      '**{}urban [text]** To search up something in the urban dictionary. Add __--allownsfw__ somewhere in your search query to turn off the censor',
+      '**{}-calc [equation or expression]** to calculate some things!',
+      '\tThe equation solver can only solve basic algebra up to cubics',
+      '**{}urban [text]** To search up something in the urban dictionary.',
+      '\tAdd __--allownsfw__ to the end of your search query to turn off the censor',
       '**{}translate [text]** or **{}translate text targetlang:spanish** to translate some text',
       '**{}stoptyping** for if a chips command errored and is stuck "typing" in the channel.',
       '**{}password (length) (numerical/alphanumeric/hex/unicode)** to generate a cryptographically strong password!',
@@ -115,17 +121,21 @@ module.exports = {
 
     const MusicMenu = [
       '**{}music demo** to begin the music demo.',
-      '__This **Open Beta** feature is still being heavily developed and is not necessarily stable at all times__. We apologize in advance.',
+      '__This **Beta** feature is still being heavily developed and is not necessarily stable at all times__, sorry!',
       'Mention me once demo is activated for music commands: __@Chips music help__',
       'Server specific prefixes do not work. The only prefix usable with Chips music is mentioning chips',
     ].join('\n').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g, '\\`'));
 
     const AdditionalSht = [
       ['Custom commands for our patrons:', `Type **${_.escapeRegExp(prefix)}patrons**`],
-      ['Invite Link:', `[Click Here!](${Constants.BOTINVITE})`],
-      ['Support Server:', `[Click Here](${Constants.SUPPORTINVITE})`],
-      ['Official Website:', `[${Constants.WEBSITE}](${Constants.WEBSITE})`],
-      ['Feeling generous? Donate here to help us pay for hosting and keep our bot updated constantly!', '[https://www.paypal.me/wzhouwzhou](https://www.paypal.me/wzhouwzhou)'],
+      ['Invite Link:',
+        `[Click Here!](${Constants.BOTINVITE})`],
+      ['Support Server:',
+        `[Click Here](${Constants.SUPPORTINVITE})`],
+      ['Official Website:',
+        `[${Constants.WEBSITE}](${Constants.WEBSITE})`],
+      ['Feeling generous? Donate here to help us pay for hosting and keep our bot updated constantly!',
+        '[https://www.paypal.me/wzhouwzhou](https://www.paypal.me/wzhouwzhou)'],
     ];
 
     const p = new Paginator(msg, {
@@ -169,22 +179,8 @@ module.exports = {
     try {
       return await p.sendFirst();
     } catch (err) {
-      console.error(err);
-      return reply('Something went wrong...');
+      reply('Something went wrong...');
+      throw err;
     }
-    /*
-    Const embed = new Discord.MessageEmbed()
-      .setAuthor('This is the Chips Bot Help Menu!', "http://www.mkrfoodproducts.com/images/gallery/image_11.jpg")
-      .setTitle('')
-      .setDescription('')
-      .setColor(1)
-      .addField("Main commands", "We apologize for any inconveniences at this time, we are doing a permissions rewrite that may interfere with daily usage.")
-      .addField("Informative commands", InfoMenu, true)
-      .addBlankField()
-      .addField("Moderation Commands", ModMenu, true)
-      .addBlankField()
-      .addField("Fun Commands", FunMenu, true)
-      .setTimestamp((new Date));
-    send(' ', {embed});*/
   },
 };

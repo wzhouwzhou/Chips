@@ -8,8 +8,8 @@ module.exports = {
     if (!guild) return send('You must be in a server to use this!');
     if (args[0] && args[0].toLowerCase() === 'all') {
       return send(new Discord.MessageEmbed().setColor(member.displayColor).setTitle(`Role List (${guild.roles.size})`)
-        .setDescription(guild._sortedRoles().map(e => _.escapeRegExp(e.name)).reverse()
-          .join(', ')));
+        .setDescription(guild._sortedRoles().map(e => _.escapeRegExp(`<@&` + e.id || `>`)).reverse()
+          .join('>, ')));
     }
 
     let roles = guild.roles.array().sort((a, b) => b.position - a.position);

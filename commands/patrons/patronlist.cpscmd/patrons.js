@@ -5,8 +5,8 @@ module.exports = {
       .setAuthor('Here are all of the commands for Chips Patrons!')
       .setTitle('A huge thanks to the following people for supporting Chips in the best way possible!')
       .setDescription([
-        `${_.escapeRegExp(prefix)}tdl`,
-        `${_.escapeRegExp(prefix)}wendy`,
+        `tdl`,
+        `wendy`,
       ].map(e => `**${_.escapeRegExp(prefix)}${e}**`).join('\n'))
       .setTimestamp(new Date)
       .setColor(guild ? member.displayColor : 1)
