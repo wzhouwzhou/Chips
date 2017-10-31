@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'masontgc',
+  name: 'masontcg',
   async func(msg, { send, Discord }) {
     const embed = new Discord.MessageEmbed()
       .setAuthor('MasonTheCoolGuy#8263', 'https://i.imgur.com/KkRF64b.png')
