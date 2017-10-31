@@ -7,6 +7,7 @@ module.exports = {
       .setDescription([
         `tdl`,
         `wendy`,
+        `masontcg`,
       ].map(e => `**${_.escapeRegExp(prefix)}${e}**`).join('\n'))
       .setTimestamp(new Date)
       .setColor(guild ? member.displayColor : 1)
