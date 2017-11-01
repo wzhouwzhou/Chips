@@ -165,6 +165,8 @@ ex.permsList = [
   ['global.utility.perm.*', false], // To be added/renamed
   ['global.utility.perm.perms.*', false], // To be added/renamed
   ['global.utility.perm.perms.set', false], // To be added/renamed
+  ['global.utility.setchannel.*', false],
+  ['global.utility.setchannel.setchannel', false],
   ['global.utility.stoptyping.*', false],
   ['global.utility.stoptyping.stoptyping', false],
   ['global.utility.translate.*', true],
