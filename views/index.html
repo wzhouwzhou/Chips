@@ -176,24 +176,27 @@
                 parallax2 = document.querySelectorAll(".download-section"),
                 speed = 0.5,
                 speed2 =0.3;
+            var oldScroll = window.onscroll||function(){};
 
-            window.onscroll = function(){
-              [].slice.call(parallax).forEach(function(el,i){
+            if(window.width > 720)
+              window.onscroll = function(){
+                oldScroll();
+                [].slice.call(parallax).forEach(function(el,i){
 
-                var windowYOffset = window.pageYOffset,
-                    elBackgrounPos = "50% " + (windowYOffset * speed) + "px";
+                  var windowYOffset = window.pageYOffset,
+                      elBackgrounPos = "50% " + (windowYOffset * speed) + "px";
 
-                el.style.backgroundPosition = elBackgrounPos;
+                  el.style.backgroundPosition = elBackgrounPos;
 
-              });
-              /*[].slice.call(parallax2).forEach(function(el,i){
+                });
+                /*[].slice.call(parallax2).forEach(function(el,i){
 
-                var windowYOffset2 = window.pageYOffset,
-                    elBackgrounPos = "300% -" + (windowYOffset2 * speed2) + "px";
+                  var windowYOffset2 = window.pageYOffset,
+                      elBackgrounPos = "300% -" + (windowYOffset2 * speed2) + "px";
 
-                el.style.backgroundPosition = elBackgrounPos;
-              });*/
-            };
+                  el.style.backgroundPosition = elBackgrounPos;
+                });*/
+              };
           })();
         </script>
         <video controls="" autoplay="true" name="media" hidden="true" loop="true"><source src="http://chipsbot.tk/music.mp3" type="audio/mpeg"></video>
