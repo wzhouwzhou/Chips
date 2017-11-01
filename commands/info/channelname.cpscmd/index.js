@@ -6,7 +6,7 @@ channelname.metadata = {
   description: 'Shows channelname',
   usage: 'channelname',
   example: ['channelname'],
-  perm: ['global.info.info'],
+  perm: ['global.info.channelname'],
   customperm: ['SEND_MESSAGES'],
 };
 
