@@ -1,7 +1,6 @@
 module.exports = {
   name: 'setchannelname',
   async func(msg, { send, guild, member, args, channel, suffix, author }) {
-    if (!member.hasPermission('MANAGE_CHANNELS')) return send('You need `MANAGE_CHANNELS` permissions to use this command!');
     if (!guild) return;
     if (!suffix) return send('Nothing provided to set as channel name');
     if (!suffix.substring(suffix.indexOf(args[0])).match(/^[0-9a-z\-_]+$/i)) return send('Text channel name must be alphanumeric with dashes or underscores.');

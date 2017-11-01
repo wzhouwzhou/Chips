@@ -1,7 +1,7 @@
 let ae = require('./addemoji');
 let re = require('./removeemoji');
 
-console.log('[CPSCMD][INFO][ping] Building objects...');
+console.log('[CPSCMD][UTILITY][EMOJI] Building objects...');
 
 ae.metadata = {
   category: require('../').category,
@@ -22,7 +22,7 @@ re.metadata = {
 };
 
 
-console.log('[CPSCMD][INFO][ping] Build objects complete!');
+console.log('[CPSCMD][UTILITY][EMOJI] Build objects complete!');
 module.exports = [
   [ae.name, ae],
   ['addemoji', ae],

@@ -118,8 +118,6 @@ ex.permsList = [
   ['global.moderation.bans.reactban', false], // To be added/renamed
   ['global.moderation.bans.roleban', false], // To be added/renamed
   ['global.moderation.bans.instaban', false],
-  ['global.moderation.botnick.*', false],
-  ['global.moderation.botnick.change', false],
   ['global.moderation.chipsprefix.*', false],
   ['global.moderation.chipsprefix.chipsprefix', false],
   ['global.moderation.clear.*', false],
@@ -158,6 +156,8 @@ ex.permsList = [
   ['global.utility.applyforpartnership.applyforpartnership', false], // To be added/renamed
   ['global.utility.applyforstaff', false],
   ['global.utility.applyforstaff.apply', true],
+  ['global.utility.botnick.*', false],
+  ['global.utility.botnick.change', false],
   ['global.utility.dictionary.*', false],
   ['global.utility.dictionary.urban', true],
   ['global.utility.nR.*', false],
@@ -165,6 +165,8 @@ ex.permsList = [
   ['global.utility.perm.*', false], // To be added/renamed
   ['global.utility.perm.perms.*', false], // To be added/renamed
   ['global.utility.perm.perms.set', false], // To be added/renamed
+  ['global.utility.setchannel.*', false],
+  ['global.utility.setchannel.setchannel', false],
   ['global.utility.stoptyping.*', false],
   ['global.utility.stoptyping.stoptyping', false],
   ['global.utility.translate.*', true],

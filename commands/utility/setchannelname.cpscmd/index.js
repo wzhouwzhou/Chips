@@ -1,17 +1,17 @@
 let scn = require('./setchannelname');
 
-console.log('[CPSCMD][INFO][roles] Building objects...');
+console.log('[CPSCMD][UTILITY][setchannel] Building objects...');
 
 scn.metadata = {
   category: require('../').category,
-  description: 'Lists all roles of a guild.',
+  description: 'Sets a channel name',
   usage: 'setchannelname "name"',
   example: 'setchannelname derp-channel',
-  perm: [['global.info.info']],
+  perm: [['global.utility.setchannel.*']],
   cusomperm: ['MANAGE_CHANNELS'],
 };
 
-console.log('[CPSCMD][INFO][roles] Build objects complete!');
+console.log('[CPSCMD][UTILITY][setchannel] Build objects complete!');
 module.exports = [
   [scn.name, scn],
   ['setchannelname', scn],

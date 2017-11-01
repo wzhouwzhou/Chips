@@ -1,6 +1,6 @@
 let st = require('./settopic');
 
-console.log('[CPSCMD][INFO][ping] Building objects...');
+console.log('[CPSCMD][UTILITY][SetChannelTopic] Building objects...');
 
 st.metadata = {
   category: require('../').category,
@@ -11,7 +11,7 @@ st.metadata = {
   customperm: ['MANAGE_CHANNELS'],
 };
 
-console.log('[CPSCMD][INFO][ping] Build objects complete!');
+console.log('[CPSCMD][UTILITY][SetChannelTopic] Build objects complete!');
 module.exports = [
   [st.name, st],
   ['st', st],
