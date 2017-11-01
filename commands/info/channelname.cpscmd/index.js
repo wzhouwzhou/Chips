@@ -1,6 +1,6 @@
 let channelname = require('./channelname');
 
-console.log('[CPSCMD][INFO][info] Building objects...');
+console.log('[CPSCMD][INFO][channelname] Building objects...');
 channelname.metadata = {
   category: require('../').category,
   description: 'Shows channelname',
@@ -10,7 +10,7 @@ channelname.metadata = {
   customperm: ['SEND_MESSAGES'],
 };
 
-console.log('[CPSCMD][INFO][info] Build objects complete!');
+console.log('[CPSCMD][INFO][channelname] Build objects complete!');
 module.exports = [
   [channelname.name, channelname],
   ['cn', channelname],
