@@ -5,6 +5,7 @@ const whitelist = [
   Constants.users.XZLQ,
   Constants.users.PGSUPER,
   Constants.users.EVILDEATHPRO,
+  Constants.users.LUCAS,
 ];
 
 const util = require('util');
