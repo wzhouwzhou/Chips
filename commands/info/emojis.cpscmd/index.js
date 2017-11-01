@@ -1,6 +1,6 @@
 let emojis = require('./emojis');
 
-console.log('[CPSCMD][INFO][info] Building objects...');
+console.log('[CPSCMD][INFO][emojis] Building objects...');
 emojis.metadata = {
   category: require('../').category,
   description: 'Shows all emojis',
@@ -10,7 +10,7 @@ emojis.metadata = {
   customperm: ['SEND_MESSAGES'],
 };
 
-console.log('[CPSCMD][INFO][info] Build objects complete!');
+console.log('[CPSCMD][INFO][emojis] Build objects complete!');
 module.exports = [
   [emojis.name, emojis],
 ];
