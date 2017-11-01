@@ -1,24 +1,6 @@
 module.exports = {
   name: '-blacklist',
   async func(msg, { send, member, author, guild, args, reply }) {
-    const used = member || author;
-
-    if (!used.hasPermission('ADMINISTRATOR')) {
-      switch (used.id) {
-        case Constants.users.WILLYZ:
-        case Constants.users.PGSUPER:
-        case Constants.users.ZALGO:
-        case Constants.users.XZLQ:
-        case Constants.users.KONEKO:
-        case Constants.users.NELYN:
-        case Constants.users.LOAF:
-        case Constants.users.ARX:
-        case Constants.users.LUCAS:
-          break;
-        default:
-          return reply('You must have Administrator perms to use this command!');
-      }
-    }
 
     let action;
     if (!args[0]) return send('No action given :(');
