@@ -1,6 +1,6 @@
 let scn = require('./setchannelname');
 
-console.log('[CPSCMD][INFO][roles] Building objects...');
+console.log('[CPSCMD][MODERATION][setchannelname] Building objects...');
 
 scn.metadata = {
   category: require('../').category,
@@ -11,7 +11,7 @@ scn.metadata = {
   cusomperm: ['MANAGE_CHANNELS'],
 };
 
-console.log('[CPSCMD][INFO][roles] Build objects complete!');
+console.log('[CPSCMD][MODERATION][setchannelname] Build objects complete!');
 module.exports = [
   [scn.name, scn],
   ['setchannelname', scn],
