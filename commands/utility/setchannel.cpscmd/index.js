@@ -4,7 +4,7 @@ console.log('[CPSCMD][UTILITY][SETCHANNEL] Building objects...');
 
 sc.metadata = {
   category: require('../').category,
-  description: 'what do you think.',
+  description: 'Sets up channels',
   usage: 'setchannel',
   example: 'setchannel',
   perm: [['global.utility.setchannel.*']],
