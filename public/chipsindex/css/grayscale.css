@@ -256,10 +256,30 @@ a:focus {
   background-size: cover;
   -o-background-size: cover;
 }
-@media only screen and (max-device-width: 1024px) {
+.parallax {
+    /* The image used */
+    background-image: url("img_parallax.jpg");
+
+    /* Set a specific height */
+    height: 500px;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+@media only screen and (max-device-width: 720px) {
     .parallax {
         background-attachment: scroll;
     }
+    .download-section {
+      background-image: url('https://cdn.discordapp.com/attachments/325566257493573632/369397795137781761/chips_v2.png') no-repeat bottom center scroll;
+    }
+    .intro {
+      background-image: url('/img/chipssplash.png') no-repeat bottom center scroll;
+    }
+
 }
 #map {
   width: 100%;
