@@ -1,6 +1,6 @@
 let bn = require('./botnick');
 
-console.log('[CPSCMD][MODERATION][botnic] Building objects...');
+console.log('[CPSCMD][MODERATION][botnick] Building objects...');
 bn.metadata = {
   category: require('../').category,
   description: 'This changes the bot nickname.',
