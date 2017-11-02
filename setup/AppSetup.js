@@ -25,23 +25,23 @@ const rfs = require('rotating-file-stream');
 const https = require('https');
 
 const ssloptions = {
-  key: fs.readFileSync('./key.pem'),
-  cert: fs.readFileSync('./cert.pem')
+  key: fs.readFileSync(path.join(__dirname, './key.pem')),
+  cert: fs.readFileSync(path.join(__dirname, './cert.pem')),
 };
 
-// Const chips ;
-module.exports = function() {
+
+module.exports = () => {
   let botScopes = ['identify', 'guilds'];
   let logDirectory = path.join(__dirname, 'log');
   fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
   let accessLogStream = rfs('access.log', {
-    interval: '1d', // Rotate daily
+    interval: '1d',
     path: logDirectory,
   });
 
   app.engine(Constants.express.ENGINE, require('express-ejs-extend'));
   app.set('view engine', Constants.express.ENGINE);
-  console.log(__dirname);
+
   app.use(express.static(path.join(__dirname, '../public')));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
@@ -93,12 +93,13 @@ module.exports = function() {
 
   app.use(passport.initialize());
   app.use(passport.session());
-  app.get('/sinbad/login', passport.authenticate('discord', { scope: botScopes }), (req, res) => {});
+  app.get('/sinbad/login', passport.authenticate('discord', { scope: botScopes }), _ => _);
   app.get('/sinbad/user',
     passport.authenticate('discord', { failureRedirect: '/sinbad' }), (req, res) => {
       // If (req.query.hasOwnProperty('guild_id'))
       res.redirect('/updates');
-    } // Auth success
+    }
+    // Auth success
   );
   app.get('/sinbad/logout', (req, res) => {
     req.logout();
@@ -124,7 +125,7 @@ module.exports = function() {
 
   app.use('/', index, userBruteforce.prevent);
   app.post('/', globalBruteforce.prevent, userBruteforce.getMiddleware({
-    key: function(req, res, next) {
+    key: (req, res, next) => {
       next();
     },
   }), (req, res, next) => {
@@ -135,7 +136,7 @@ module.exports = function() {
 
   app.use('/sinbad', sinbad, userBruteforce.prevent);
   app.post('/sinbad', globalBruteforce.prevent, userBruteforce.getMiddleware({
-    key: function(req, res, next) {
+    key: (req, res, next) => {
       next();
     },
   }), (req, res, next) => {
