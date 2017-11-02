@@ -21,6 +21,14 @@ const cmds = require(path.join(__dirname, '../routes/commands'));
 const morgan = require('morgan');
 const morgan2 = require('morgan');
 const rfs = require('rotating-file-stream');
+
+const https = require('https');
+
+const ssloptions = {
+  key: fs.readFileSync('./key.pem'),
+  cert: fs.readFileSync('./cert.pem')
+};
+
 // Const chips ;
 module.exports = function() {
   let botScopes = ['identify', 'guilds'];
@@ -144,22 +152,23 @@ module.exports = function() {
   // App.use('/updates',updates);
 
   // error handler
-  app.use((req, res, next) => {
-    let err = { error: 'Not found' }; // New Error('Not Found');
+  app.use((req, res) => {
+    let err = { error: 'Not found' };
+    // New Error('Not Found');
     err.status = 404;
     res.locals.message = err.message;
-    res.locals.error = {};// Req.app.get('env') === 'development' ? err : {};
+    res.locals.error = {};
+    // Req.app.get('env') === 'development' ? err : {};
     res.status(err.status || 500);
-    if (!err.status || err.status == 500) console.error(`Internal error: ${err}`);
+    if (!err.status || err.status === 500) console.error(`Internal error: ${err}`);
     res.render('error', { type: err.status || 500, timestamp: new Date().toString() });
-    // Next(err, req, res);
   });
 
   app.use('/*', errp);
 
   app.set('port', process.env.PORT || 5000);
 
-  app.listen(app.get('port'), process.env.MYIP || '127.0.0.1', () => {
+  https.createServer(ssloptions, app).listen(app.get('port'), process.env.MYIP || '127.0.0.1', () => {
     console.log('Node app is running on port', app.get('port'));
   });
 
