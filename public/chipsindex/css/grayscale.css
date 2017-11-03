@@ -135,7 +135,6 @@ a:focus {
   color: white;
   background-image: url('/img/chipssplash.png') /*no-repeat bottom center scroll*/;
   background-attachment: fixed;
-  background-position: center;
   background-repeat: no-repeat;
   background-color: black;
   -webkit-background-size: cover;
@@ -248,7 +247,6 @@ a:focus {
 
   background-image: url('https://cdn.discordapp.com/attachments/325566257493573632/369397795137781761/chips_v2.png') /*no-repeat bottom center scroll*/;
   background-attachment: fixed;
-  background-position: center;
   background-repeat: no-repeat;
   background-color: gray;
   -webkit-background-size: cover;
@@ -268,6 +266,14 @@ a:focus {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+@media only screen and (min-device-width: 720px) {
+  .intro {
+    background-position: center;
+  }
+  .download-section {
+    background-position: center;
+  }
 }
 @media only screen and (max-device-width: 720px) {
     .parallax {
