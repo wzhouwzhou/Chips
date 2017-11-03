@@ -8,12 +8,13 @@ module.exports = {
     if (suffix.length > 100) return send('The channel name can only be a maximum of 100 characters in length!');
     if (suffix.length < 2) return send('The channel name can only be a minumum of 2 characters in length!');
 
+    await channel.setName(suffix.substring(suffix.indexOf(args[0])));
+    
     let embed = (new Discord.MessageEmbed)
       .setTitle('Channel Name')
       .setDescription(`Channel name set to ${_.escapeRegExp(channel.name).replace(/@/g, '(at)')} succesfully!`)
       .setColor(member.displayColor);
-
-    await channel.setName(suffix.substring(suffix.indexOf(args[0])));
+    
     return send(embed);
   },
 };
