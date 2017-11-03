@@ -81,7 +81,7 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
     '250801092143611905': '329719279132082176',
   },
 };
-
+ 
 client.memberjoin = memberjoin;
 
 global.memberleave = {

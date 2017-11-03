@@ -68,7 +68,7 @@ module.exports = function(send) {
     client.user.setPresence({
       status: 'online',
       activity: {
-        name: process.env.BETA == 'true' ? 'Chips PTB' : 'Chips: username change temp for a prank!',
+        name: process.env.BETA == 'true' ? 'Chips PTB' : '-help | Send suggestions in Chips\'s Official Server! | Chips 0.4.0 is released!!',
         type: 'STREAMING',
         url: 'https://twitch.tv/twitch',
       },
