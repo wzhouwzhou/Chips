@@ -68,7 +68,7 @@ module.exports = function(send) {
     client.user.setPresence({
       status: 'online',
       activity: {
-        name: process.env.BETA == 'true' ? 'Chips PTB' : '-help | "-chess help" is here!! | 100k members!!!',
+        name: process.env.BETA == 'true' ? 'Chips PTB' : 'Chips: username change temp for a prank!',
         type: 'STREAMING',
         url: 'https://twitch.tv/twitch',
       },
