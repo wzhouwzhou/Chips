@@ -31,9 +31,12 @@ ex.func = async(msg, {
         return reply(`Invalid user specified`);
       }
 
-      if (targetMember.roles.get('305302877641900052') == null && targetMember.roles.find('name', 'unverified') == null && targetMember.roles.find('name', 'Unverified') == null) return reply(`User does not have the unverified role!`);
+      if (targetMember.roles.get('305302877641900052') == null && targetMember.roles.find('name', 'unverified') == null && targetMember.roles.find('name', 'Unverified') == null && targetMember.roles.find('name', 'Unverified-Personel') == null) return reply(`User does not have the unverified role!`);
       try {
-        let therole = targetMember.roles.find('name', 'unverified') || targetMember.roles.find('name', 'Unverified');
+        let therole = targetMember.roles.find('name', 'unverified') || targetMember.roles.find('name', 'Unverified') || targetMember.roles.find('name', 'Unverified-Personel');
+        let fan = guild.roles.find('name', 'Fan');
+        await targetMember.removeRole(guild.roles.get('305302877641900052') || therole);
+        fan && await targetMember.addRole(fan);
         if (client.memberjoin.verifyLogC[guild.id]) {
           let embed = new Discord.MessageEmbed();
           embed.setTitle('Member Verification').setColor(_.random(1, 16777215));
@@ -242,7 +245,7 @@ ex.func = async(msg, {
       } }
 
     case 'regenperms': {
-      const unverRole = guild.roles.find('name', 'Unverified');
+      const unverRole = guild.roles.find('name', 'Unverified') || guild.roles.find('name', 'Unverified-Personel');
       const unverChan = guild.channels.find('name', 'unverified');
       if (!unverRole || !unverChan) return reply('Uh oh! Antiraid role and channel names are not set properly');
       const channels = guild.channels.filter(c => c.type === 'text');
