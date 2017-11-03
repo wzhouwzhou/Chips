@@ -50,7 +50,7 @@ const GuildMusicHandler = class MusicHandler {
       this.enabled = true;
       this._client = client;
       _handlers.set(guildid, this);
-      this.streamOpts = { passes: 3, volume: 0.6, bitrate: 128000 };
+      this.streamOpts = { passes: 3, volume: 0.6, bitrate: 96000 };
     }
   }
 
@@ -162,8 +162,8 @@ const GuildMusicHandler = class MusicHandler {
         handler.player.setVolume(+vol, m.author.id === Constants.users.WILLYZ);
       } else if (m.content.match(/^<@!?296855425255473154>\s*music\s*help/i)) {
         let embed = new Discord.MessageEmbed().setTitle('Chips music help').setColor(12305);
-        cmds.map(cmd => cmd.map(text => text = text.replace(/\{\}/g, handler.prefix || '<@296855425255473154> ')))
-        .forEach(cmd => embed.addField(...cmd));
+        cmds.map(cmd => cmd.map(text => text.replace(/\{\}/g, handler.prefix || '<@296855425255473154> ')))
+          .forEach(cmd => embed.addField(...cmd));
         tc.send('', { embed });
       } else if (m.content.match(/^<@!?296855425255473154>\s*now\s*playing/i)) {
         tc.send(`Currently playing ${handler.player.lastPlayed.name}`);
@@ -222,6 +222,7 @@ const GuildMusicHandler = class MusicHandler {
     if (!this.player) return null;
     this.player.shutDown();
     this.player = null;
+    return true;
   }
 };
 
