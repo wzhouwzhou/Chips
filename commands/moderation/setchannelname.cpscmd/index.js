@@ -8,7 +8,7 @@ scn.metadata = {
   usage: 'setchannelname "name"',
   example: 'setchannelname derp-channel',
   perm: [['global.moderation.setchannel.name']],
-  cusomperm: ['MANAGE_CHANNELS'],
+  customperm: ['MANAGE_CHANNELS'],
 };
 
 console.log('[CPSCMD][MODERATION][setchannelname] Build objects complete!');
