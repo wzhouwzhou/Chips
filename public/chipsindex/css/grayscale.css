@@ -264,7 +264,7 @@ a:focus {
     background-repeat: no-repeat;
     background-size: cover;
 }
-@media only screen and (min-device-width: 769px) {
+@media only screen and (min-device-width: 768px) {
   .parallax {
     background-position: center;
     background-attachment: fixed;
@@ -281,16 +281,19 @@ a:focus {
 @media only screen and (max-device-width: 768px) {
     .parallax {
         background-attachment: scroll;
+        background-position: center center;
     }
     .download-section {
       background-image: url('https://cdn.discordapp.com/attachments/325566257493573632/369397795137781761/chips_v2.png') no-repeat bottom center scroll;
       width:100%;
       background-attachment: scroll;
+      background-position: center center;
     }
     .intro {
       background-image: url('/img/chipssplash.png') no-repeat bottom center scroll;
-      width:100%;
+
       background-attachment: scroll;
+      background-position: center center;
     }
 
 }
