@@ -264,7 +264,7 @@ a:focus {
     background-repeat: no-repeat;
     background-size: cover;
 }
-@media only screen and (min-device-width: 720px) {
+@media only screen and (min-device-width: 769px) {
   .parallax {
     background-position: center;
     background-attachment: fixed;
@@ -278,7 +278,7 @@ a:focus {
     background-attachment: fixed;
   }
 }
-@media only screen and (max-device-width: 720px) {
+@media only screen and (max-device-width: 768px) {
     .parallax {
         background-attachment: scroll;
     }
