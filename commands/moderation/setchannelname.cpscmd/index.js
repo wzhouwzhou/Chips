@@ -7,7 +7,7 @@ scn.metadata = {
   description: 'Lists all roles of a guild.',
   usage: 'setchannelname "name"',
   example: 'setchannelname derp-channel',
-  perm: [['global.info.info']],
+  perm: [['global.moderation.setchannel.name']],
   cusomperm: ['MANAGE_CHANNELS'],
 };
 
