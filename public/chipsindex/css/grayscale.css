@@ -281,9 +281,13 @@ a:focus {
     }
     .download-section {
       background-image: url('https://cdn.discordapp.com/attachments/325566257493573632/369397795137781761/chips_v2.png') no-repeat bottom center scroll;
+      background-size:100%;
+      width:100%;
     }
     .intro {
       background-image: url('/img/chipssplash.png') no-repeat bottom center scroll;
+      background-size:100%;
+      width:100%;
     }
 
 }
