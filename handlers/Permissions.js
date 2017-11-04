@@ -220,7 +220,7 @@ ex.userpermissions = {
       { name: ex.permsList[1][0], action: 1 },
       { name: ex.permsList[2][0], action: 1 },
     ],
-  205608598233939970: // Lucas
+  '205608598233939970': // Lucas
     [
       { name: ex.permsList[0][0], action: 1 },
       { name: ex.permsList[1][0], action: 1 },
