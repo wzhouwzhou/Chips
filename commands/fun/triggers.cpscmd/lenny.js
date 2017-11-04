@@ -7,7 +7,8 @@ const lenny = [
   'https://i.imgur.com/0daFo5U.gif',
   'https://www.tenor.co/uhvl.gif',
   'https://www.tenor.co/IEEk.gif',
-  'https://www.tenor.co/vb3T.gif ',
+  'https://www.tenor.co/vb3T.gif',
+  'https://giphy.com/gifs/lenny-YcTRRbkZLELny',
 ];
 
 module.exports = {
