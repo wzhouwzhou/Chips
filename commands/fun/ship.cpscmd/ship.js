@@ -25,6 +25,8 @@ module.exports = {
   async func(msg, { send, Discord, client, suffix, member, guild }) {
     if (!guild) return send('You must be in a server to use this.');
 
+    if (guild.id === '274260111415836675') return send('Shipping is not allowed here!')
+
     if (!suffix || suffix.length === 0) return send('Nobody to ship with!');
 
     let matches = suffix.match(/(?:"?(?:([^"#<]{1,32}#(?:\d){4,4}))|(?:<@!?(\d+)>)"?)(?:\s|,|x)*(?:"?(?:(?:([^"#<]{1,32}#(?:\d){4,4}))|(?:<@!?(\d+)>))"?)?/);
