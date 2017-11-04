@@ -1,5 +1,7 @@
 'use strict';
 const ex = {};
+const Constants = require('../setup/Constants');
+
 ex.permsList = [
   ['OWNER.*', false],
   ['OWNER.owner.*', false], // 0
@@ -214,91 +216,96 @@ ex.defaultperms = new Map(ex.permsList);
 
 // These perms are active across ALL servers
 ex.userpermissions = {
-  '259209114268336129': // Willy
-    [
-      { name: ex.permsList[0][0], action: 1 },
-      { name: ex.permsList[1][0], action: 1 },
-      { name: ex.permsList[2][0], action: 1 },
-    ],
-  '205608598233939970': // Lucas
-    [
-      { name: ex.permsList[0][0], action: 1 },
-      { name: ex.permsList[1][0], action: 1 },
-      { name: ex.permsList[2][0], action: 1 },
-    ],
-  '250815960250974209': // Edp
-    [
-      { name: ex.permsList[0][0], action: 1 },
-      { name: ex.permsList[1][0], action: 1 },
-      { name: ex.permsList[2][0], action: 1 },
-    ],
-  '309504998864060416': // BetaBot
-    [
-      { name: ex.permsList[4][0], action: 1 },
-    ],
-  '292971521159200768': // JTJosh
-    [
-      { name: ex.permsList[4][0], action: 1 },
-    ],
-  277670245034885120: // Asuna
-    [
-      { name: ex.permsList[4][0], action: 1 },
-    ],
-  '270834390643376129': // Harb
-    [
-      { name: ex.permsList[4][0], action: 1 },
-      { name: ex.permsList[32][0], action: 1 },
-    ],
+  // William
+  '259209114268336129':
+  [
+    { name: ex.permsList[0][0], action: 1 },
+    { name: ex.permsList[1][0], action: 1 },
+    { name: ex.permsList[2][0], action: 1 },
+  ],
+  /*
+ '205608598233939970': // Lucas
+  [
+    { name: ex.permsList[0][0], action: 1 },
+    { name: ex.permsList[1][0], action: 1 },
+    { name: ex.permsList[2][0], action: 1 },
+  ],*/
+  // Edp
+  '250815960250974209':
+  [
+    { name: ex.permsList[0][0], action: 1 },
+    { name: ex.permsList[1][0], action: 1 },
+    { name: ex.permsList[2][0], action: 1 },
+  ],
+  // Chips beta
+  '309504998864060416':
+  [
+    { name: ex.permsList[4][0], action: 1 },
+  ],
+  // "Harb"
+  '270834390643376129':
+  [
+    { name: ex.permsList[4][0], action: 1 },
+    { name: ex.permsList[32][0], action: 1 },
+  ],
   '226769318736691201':
-    [
-      { name: ex.permsList[4][0], action: 1 },
-    ],
+  [
+    { name: ex.permsList[4][0], action: 1 },
+  ],
 };
 
 ex.rolepermissions = {
   '309348424418066433':
-    [
-      { name: ex.permsList[3][0], action: 1 },
-    ],
+  [
+    { name: ex.permsList[3][0], action: 1 },
+  ],
   260863475075514370:
-    [
-      { name: ex.permsList[4][0], action: 1 },
-    ],
-  // Mute permissions:
-  '260849020291907584': // Sinx Admin
-    [
-      { name: ex.permsList[27][0], action: 1 },
-      { name: ex.permsList[38][0], action: 1 },
-    ],
-  '302776088088674305': // Sinx Manager
-    [
-      { name: ex.permsList[27][0], action: 1 },
-      { name: ex.permsList[38][0], action: 1 },
-    ],
-  '260849226169319425': // Sinx Moderator
-    [
-      { name: ex.permsList[27][0], action: 1 },
-      { name: ex.permsList[38][0], action: 1 },
-    ],
-  '291758886971768833': // Sinx Leader
-    [
-      { name: ex.permsList[27][0], action: 1 },
-      { name: ex.permsList[38][0], action: 1 },
-    ],
-  '303732451862118410': // Chips
-    [
-      { name: ex.permsList[27][0], action: 1 },
-    ],
+  [
+    { name: ex.permsList[4][0], action: 1 },
+  ],
+// Mute permissions:
+  // Sbk Leader
+  '291758886971768833':
+  [
+    { name: ex.permsList[27][0], action: 1 },
+    { name: ex.permsList[38][0], action: 1 },
+  ],
+  // Sinx Admin
+  '260849020291907584':
+  [
+    { name: ex.permsList[27][0], action: 1 },
+    { name: ex.permsList[38][0], action: 1 },
+  ],
+  // Sbk Manager
+  '302776088088674305':
+  [
+    { name: ex.permsList[27][0], action: 1 },
+    { name: ex.permsList[38][0], action: 1 },
+  ],
+  // Sbk Moderator
+  '260849226169319425':
+  [
+    { name: ex.permsList[27][0], action: 1 },
+    { name: ex.permsList[38][0], action: 1 },
+  ],
+  // Chips
+  '303732451862118410':
+  [
+    { name: ex.permsList[27][0], action: 1 },
+  ],
 };
 
 ex.memberpermissions = {
-  '257889450850254848': // Sinx
+  // SBK
+  '257889450850254848':
   {
-    '259209114268336129': // Willy
+    // Willy
+    '259209114268336129':
     [
       { name: ex.permsList[37][0], action: 1 },
     ],
-    277670245034885120: // Asuna
+    // Asuna
+    277670245034885120:
     [
       { name: ex.permsList[24][0], action: 1 },
       { name: ex.permsList[37][0], action: 1 },
@@ -308,73 +315,76 @@ ex.memberpermissions = {
 
 ex.serverpermissions = {
   '302983444009451541':
-    [
-      { name: ex.permsList[0][0], action: -1 },
-      { name: ex.permsList[1][0], action: -1 },
-      { name: ex.permsList[2][0], action: -1 },
-      // {name: ex.permsList[5][0], action: 1}
-    ],
+  [
+    { name: ex.permsList[0][0], action: -1 },
+    { name: ex.permsList[1][0], action: -1 },
+    { name: ex.permsList[2][0], action: -1 },
+    // {name: ex.permsList[5][0], action: 1}
+  ],
   '303911829778726934':
-    [
-      { name: ex.permsList[0][0], action: -1 },
-      { name: ex.permsList[1][0], action: -1 },
-      { name: ex.permsList[2][0], action: -1 },
-    ],
+  [
+    { name: ex.permsList[0][0], action: -1 },
+    { name: ex.permsList[1][0], action: -1 },
+    { name: ex.permsList[2][0], action: -1 },
+  ],
   '257889450850254848':
-    [
-      { name: 'global.nsfw.*', action: -1 },
-    ],
-  '195278167181754369': // Diepcord
-    [
-      { name: 'global.moderation.*', action: -1 },
-      { name: 'global.chipsmusic.*', action: -1 },
-      { name: 'global.fun.text.3d', action: -1 },
-      { name: 'global.fun.text.3d2', action: -1 },
-      { name: 'global.fun.text.ascii', action: -1 },
-      { name: 'global.info.nsfw.*', action: -1 },
-      { name: 'global.nsfw.*', action: -1 },
-    ],
+  [
+    { name: 'global.nsfw.*', action: -1 },
+  ],
+  // Diepcord
+  '195278167181754369':
+  [
+    { name: 'global.moderation.*', action: -1 },
+    { name: 'global.chipsmusic.*', action: -1 },
+    { name: 'global.fun.text.3d', action: -1 },
+    { name: 'global.fun.text.3d2', action: -1 },
+    { name: 'global.fun.text.ascii', action: -1 },
+    { name: 'global.info.nsfw.*', action: -1 },
+    { name: 'global.nsfw.*', action: -1 },
+  ],
 };
 
 ex.channelpermissions = {
-  '195278167181754369': // Diepcord off-topic
-    [
-      { name: 'global.info.*', action: -1 },
-      { name: 'global.games.*', action: -1 },
-      { name: 'global.utility.*', action: -1 },
-      { name: 'global.fun.*', action: -1 },
-    ],
-  '214769704932343809': // Diepcord diepio-chat
-    [
-      { name: 'global.info.*', action: -1 },
-      { name: 'global.games.*', action: -1 },
-      { name: 'global.utility.*', action: -1 },
-      { name: 'global.fun.*', action: -1 },
-    ],
-  '214925415440056322': // Diepcord lounge
-    [
-      { name: 'global.info.*', action: -1 },
-      { name: 'global.games.*', action: 1 },
-      { name: 'global.utility.*', action: -1 },
-      { name: 'global.fun.*', action: 1 },
-    ],
+  // Diepcord off-topic
+  '195278167181754369':
+  [
+    { name: 'global.info.*', action: -1 },
+    { name: 'global.games.*', action: -1 },
+    { name: 'global.utility.*', action: -1 },
+    { name: 'global.fun.*', action: -1 },
+  ],
+  // Diepcord diepio-chat
+  '214769704932343809':
+  [
+    { name: 'global.info.*', action: -1 },
+    { name: 'global.games.*', action: -1 },
+    { name: 'global.utility.*', action: -1 },
+    { name: 'global.fun.*', action: -1 },
+  ],
+   // Diepcord lounge
+  '214925415440056322':
+  [
+    { name: 'global.info.*', action: -1 },
+    { name: 'global.games.*', action: 1 },
+    { name: 'global.utility.*', action: -1 },
+    { name: 'global.fun.*', action: 1 },
+  ],
 };
 
-ex.updatePermission = function({ type, userid = null, guildid = null, roleid = null, channelid = null, perm, action }) {
-  return new Promise((resolve, reject) => {
+ex.updatePermission = ({ type, userid = null, guildid = null, roleid = null, channelid = null, perm, action }) =>
+  new Promise((resolve, reject) => {
     let checked = false;
     if (!ex.defaultperms.has(perm)) return reject('Invalid Permission');
     switch (type) {
       case 'user':
-        if (ex.userpermissions[userid] == null) ex.userpermissions[userid] = [];
-        if (ex.userpermissions[userid].length != 0) {
+        if (!ex.userpermissions[userid]) ex.userpermissions[userid] = [];
+        if (ex.userpermissions[userid].length !== 0) {
           for (const p of ex.userpermissions[userid]) {
-            if (perm.toLowerCase().startsWith('owner')) resolve(`Bot owner perm override for ${currentPerm}`);
-            if (p.name == perm) {
+            if (perm.toLowerCase().startsWith('owner')) resolve(`Bot owner perm override for ${perm}`);
+            if (p.name === perm) {
               p.action = action;
               checked = true;
-              resolve('Updated user permissions');
-              return;
+              return resolve('Updated user permissions');
             }
           }
         }
@@ -392,15 +402,14 @@ ex.updatePermission = function({ type, userid = null, guildid = null, roleid = n
         break;
 
       case 'member':
-        if (ex.memberpermissions[guildid] == null) ex.memberpermissions[guildid] = {};
-        if (ex.memberpermissions[guildid][userid] == null) ex.memberpermissions[guildid][userid] = [];
-        if (ex.memberpermissions[guildid][userid].length != 0) {
+        if (!ex.memberpermissions[guildid]) ex.memberpermissions[guildid] = {};
+        if (!ex.memberpermissions[guildid][userid]) ex.memberpermissions[guildid][userid] = [];
+        if (ex.memberpermissions[guildid][userid].length !== 0) {
           for (const p of ex.memberpermissions[guildid][userid]) {
-            if (p.name == perm) {
+            if (p.name === perm) {
               p.action = action;
               checked = true;
-              resolve('Updated member permissions');
-              return;
+              return resolve('Updated member permissions');
             }
           }
         }
@@ -418,10 +427,10 @@ ex.updatePermission = function({ type, userid = null, guildid = null, roleid = n
         break;
 
       case 'role':
-        if (ex.rolepermissions[roleid] == null) ex.rolepermissions[roleid] = [];
-        if (ex.rolepermissions[roleid].length != 0) {
+        if (!ex.rolepermissions[roleid]) ex.rolepermissions[roleid] = [];
+        if (ex.rolepermissions[roleid].length !== 0) {
           ex.rolepermissions[roleid].forEach(p => {
-            if (p.name == perm) {
+            if (p.name === perm) {
               p.action = action;
               checked = true;
               resolve('Updated role permissions');
@@ -442,14 +451,13 @@ ex.updatePermission = function({ type, userid = null, guildid = null, roleid = n
         break;
 
       case 'server':
-        if (ex.serverpermissions[guildid] == null) ex.serverpermissions[guildid] = [];
-        if (ex.serverpermissions[guildid].length != 0) {
+        if (!ex.serverpermissions[guildid]) ex.serverpermissions[guildid] = [];
+        if (ex.serverpermissions[guildid].length !== 0) {
           for (const p of ex.serverpermissions[guildid]) {
-            if (p.name == perm) {
+            if (p.name === perm) {
               p.action = action;
               checked = true;
-              resolve('Updated server permissions');
-              return;
+              return resolve('Updated server permissions');
             }
           }
         }
@@ -467,10 +475,10 @@ ex.updatePermission = function({ type, userid = null, guildid = null, roleid = n
         break;
 
       case 'channel':
-        if (ex.channelpermissions[channelid] == null) ex.channelpermissions[channelid] = [];
-        if (ex.channelpermissions[channelid].length != 0) {
+        if (!ex.channelpermissions[channelid]) ex.channelpermissions[channelid] = [];
+        if (ex.channelpermissions[channelid].length !== 0) {
           for (const p of ex.channelpermissions[channelid]) {
-            if (p.name == perm) {
+            if (p.name === perm) {
               p.action = action;
               checked = true;
               return resolve('Updated channel permissions');
@@ -492,29 +500,28 @@ ex.updatePermission = function({ type, userid = null, guildid = null, roleid = n
 
       default:
         // Console.log("Unknown permission received!");
-        reject('Invalid Permissions Type');
-        break;
+        return reject('Invalid Permissions Type');
     }
+    return reject(new Error('Unknown Error occured'));
   });
-};
 
-ex.checkPermission = function(msg, perm) {
+ex.checkPermission = (msg, perm) => {
   return new Promise((resolve, reject) => {
     let guild = msg.guild,
       id = msg.author.id,
       cid = msg.channel.id;
     if (guild) {
       let gp = ex.serverpermissions[guild.id];
-      if (gp != null) {
-        gp.forEach(pEntry => {
-          if (pEntry.name == perm && pEntry.action == -1) reject('This action is disabled serverwide!');
-        });
+      if (!gp) {
+        gp.forEach(pEntry =>
+          pEntry.name === perm && pEntry.action === -1 ? reject('This action is disabled serverwide!') : null
+        );
       }
     }
     let up = ex.userpermissions[id];
     if (up) {
       up.forEach(pEntry => {
-        if (pEntry.name == perm) {
+        if (pEntry.name === perm) {
           switch (pEntry.action) {
             case -1:
               reject(`I'm sorry, but you do not have access to the \`\`${perm}\`\` permission!`);
@@ -533,7 +540,7 @@ ex.checkPermission = function(msg, perm) {
         let mp = ex.memberpermissions[guild.id][id];
         if (mp) {
           mp.forEach(pEntry => {
-            if (pEntry.name == perm) {
+            if (pEntry.name === perm) {
               switch (pEntry.action) {
                 case -1:
                   reject(`I'm sorry, but you do not have access to the \`\`${perm}\`\` permission!`);
@@ -551,43 +558,35 @@ ex.checkPermission = function(msg, perm) {
       if (ex.channelpermissions[cid]) {
         let cp = ex.channelpermissions[cid];
         if (cp) {
-          cp.forEach(pEntry => {
-            if (pEntry.name == perm) {
-              switch (pEntry.action) {
-                case -1:
-                  reject(`(Channel lock) I'm sorry, but you do not have access to the \`\`${perm}\`\` permission!`);
-                  break;
-                default:
-                  break;
-              }
-            }
-          });
+          cp.forEach(pEntry =>
+            pEntry.name === perm && pEntry.action === -1 ?
+            reject(`(Channel lock) I'm sorry, but you do not have access to the \`\`${perm}\`\` permission!`) :
+            null
+          );
         }
       }
       msg.member.roles.forEach(r => {
         // Console.log("New role found: " + r.id + "for user "+ id);
         let rid = r.id;
-        if (ex.rolepermissions[rid] != null) {
+        if (!ex.rolepermissions[rid]) {
           let found = false;
           ex.rolepermissions[rid].forEach(pEntry => {
             // Console.log("new entry found: " + pEntry.name);
             if (!found) {
-              if (pEntry.name == perm) {
+              if (pEntry.name === perm) {
                 found = true;
                 // Console.log("We found an entry!");
                 switch (pEntry.action) {
                   case 1:
-                  // Console.log("Success: role");
-                    resolve('This action is approved (by member role)');
-                    break;
+                    // Console.log("Success: role");
+                    return resolve('This action is approved (by member role)');
                   case -1:
-                  // Console.log("Denial: role");
-                    rej(`I'm sorry but you do not have access to ${perm} (Denied by member role :${r.name})`);
-                    break;
-                  default:
+                    // Console.log("Denial: role");
+                    return reject(`I'm sorry but you do not have access to ${perm} (Denied by member role :${r.name})`);
                 }
               }
             }
+            return 'Found';
           });
         }
         // Console.log("Role: " + rid + "for user "+ id + "did not have any perm overwrites for " + perm);
@@ -596,13 +595,16 @@ ex.checkPermission = function(msg, perm) {
     let registered = ex.defaultperms.has(perm);
     if (!registered) {
       // Console.log('Someone just tried to use a cmd with an unregistered perm '+ perm);
-      reject('Sorry, you just tried to use an unregistered command. Please report this to my developers.');
+      return reject('Sorry, you just tried to use an unregistered command. Please report this to my developers.');
     }
 
     // Console.log(`Now checking the default perms.: ${perm}\nIs the perm registered list? : ${registered}`);
     let value = registered ? ex.defaultperms.get(perm) : true;
     // Console.log("The default for that perm is: " + value);
-    !value ? resolve('This perm is denied by default.') : resolve('This perm is accepted by default');// Resolve("This command is enabled by default"):reject(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`);
+    if (!value) return resolve('This perm is denied by default.');
+    return resolve('This perm is accepted by default');
+    // Resolve("This command is enabled by default")
+    // reject(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`);
   });
 };
 
@@ -618,11 +620,11 @@ ex.checkMulti = async(msg, permArr) => {
       for (let i = 1; i < permSpecifics.length; i++) {
       // Console.log(`[PERMISSIONS][checkMulti] Looping through perms [${i}]:${currentPerm}`);
         let status = await ex.checkPermission(msg, `${currentPerm}.*`);
-        if (status == 'This perm is accepted by default.') {
+        if (status === 'This perm is accepted by default.') {
           checkDefault = true;
           currentPerm += `.${permSpecifics[i]}`;
           continue;
-        } else if (status == 'This perm is denied by default.') {
+        } else if (status === 'This perm is denied by default.') {
           checkDefault = false;
           currentPerm += `.${permSpecifics[i]}`;
           continue;
@@ -633,8 +635,8 @@ ex.checkMulti = async(msg, permArr) => {
     }
     // Console.log(`[PERMISSIONS][checkMulti] Now checking original perm ${permEl}`);
     let status = await ex.checkPermission(msg, permEl);
-    if (status == 'This perm is accepted by default.') checkDefault = true;
-    else if (status == 'This perm is denied by default.') checkDefault = false;
+    if (status === 'This perm is accepted by default.') checkDefault = true;
+    else if (status === 'This perm is denied by default.') checkDefault = false;
     else return `Positive perm override for ${permEl}`;
   }
   // Console.log(`[PERMISSIONS][checkMulti] Checking default...  ${checkDefault}`);
