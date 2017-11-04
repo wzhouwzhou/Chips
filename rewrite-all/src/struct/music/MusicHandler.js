@@ -76,7 +76,7 @@ const GuildMusicHandler = class MusicHandler {
   }
 
   async playAllNCS() {
-    if (!MonstercatBroadcast) return 'NCS Broadcast not started';
+    if (!NCSBroadcast) return 'NCS Broadcast not started';
     if (!this._client.ncsChannels) this._client.ncsChannels = {};
     const leaves = [];
     for (const cid of Object.keys(this._client.ncsChannels)) leaves.push(this._client.channels.get(cid).leave());
