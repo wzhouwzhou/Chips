@@ -16,6 +16,10 @@ ships.set('205608598233939970,365972456139390977', 100);
 shipComments.set('205608598233939970,365972456139390977', '❤');
 shipJoin.set('205608598233939970,365972456139390977', '<:blobkiss:372739966100439042>'); // Lucas and vy
 
+ships.set('250815960250974209,365972456139390977', 9001);
+shipComments.set('250815960250974209,365972456139390977', '❤It\'s❤Over❤Nine❤Thousand❤');
+shipJoin.set('250815960250974209,365972456139390977', '<:blobhearteyes:376509082791575552>'); // Evildeathpro and Vee
+
 ships.set('286475753049292800,260024920757633025', 100);
 shipComments.set('286475753049292800,260024920757633025', 'uhm');
 shipJoin.set('286475753049292800,260024920757633025', '<:blobkiss:372739966100439042>'); // Ayoubelk and xena
@@ -24,8 +28,6 @@ module.exports = {
   name: 'ship',
   async func(msg, { send, Discord, client, suffix, member, guild }) {
     if (!guild) return send('You must be in a server to use this.');
-
-    if (channel.id === '274260111415836675') return send('Shipping is not allowed here!') //main chat of duckiodiscord
 
     if (!suffix || suffix.length === 0) return send('Nobody to ship with!');
 
