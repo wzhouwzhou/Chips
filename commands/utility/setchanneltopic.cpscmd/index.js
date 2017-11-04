@@ -1,17 +1,17 @@
 let stc = require('./setchanneltopic');
 
-console.log('[CPSCMD][MODERATION][setchanneltopic] Building objects...');
+console.log('[CPSCMD][UTILITY][setchanneltopic] Building objects...');
 
 stc.metadata = {
   category: require('../').category,
   description: 'Changes to channel topic.',
   usage: 'settopic \"topic\"',
   example: 'settopic',
-  perm: [['global.moderation.setchannel.topic']],
+  perm: [['global.utility.setchannel.topic']],
   customperm: ['MANAGE_CHANNELS'],
 };
 
-console.log('[CPSCMD][MODERATION][setchanneltopic] Build objects complete!');
+console.log('[CPSCMD][UTILITY][setchanneltopic] Build objects complete!');
 module.exports = [
   [stc.name, stc],
   ['st', stc],

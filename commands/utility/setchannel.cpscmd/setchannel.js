@@ -15,19 +15,19 @@ module.exports = {
     }
 
     if (args[0] === 'name') {
-      if (suffix.substring(suffix.indexOf(args[1])).length > 100) return send('The channel name can only be a maximum of 100 characters in length!');
-      if (suffix.substring(suffix.indexOf(args[1])).length < 2) return send('The channel name can only be a minumum of 2 characters in length');
-      if (!args[1]) return send('No name given to set');
-      if (!suffix.substring(suffix.indexOf(args[1])).match(/^[0-9a-z\-_]+$/i)) { return send('Text channel name must be alphanumeric with dashes or underscores.'); } else {
-        await channel.setName(suffix.substring(suffix.indexOf(args[1])));
-       return send(`Channel name set to ${_.escapeRegExp(channel.name).replace(/@/g, '(at)')} successfully`);
+      if (suffix.substring(suffix.indexOf(args[1])) > 100) return send('The channel name can only be a maximum of 100 characters in length!');
+    }
+    if (suffix.substring(suffix.indexOf(args[1])) < 2) return send('The channel name can only be a minumum of 2 characters in length');
+    if (!args[1]) return send('No name given to set');
+    if (!suffix.substring(suffix.indexOf(args[1])).match(/^[0-9a-z\-_]+$/i)) { return send('Text channel name must be alphanumeric with dashes or underscores.'); } else {
+      await channel.setName(suffix.substring(suffix.indexOf(args[1])));
+      return send(`Channel name set to ${_.escapeRegExp(channel.name).replace(/@/g, '(at)')} successfully`);
     }
 
-    if (args[0] === 'position') { 
-      if (!args[1]) return send('No position given.'); }
-      if (!suffix.substring(suffix.indexOf(args[1])).match(/\d+/g)) { return send('No number given'); } else {
-        await channel.setPosition(`${suffix.substring(suffix.indexOf(args[1])) - 1}`);
-        return send(`Channel position set to ${_.escapeRegExp(channel.position - 1).replace(/@/g, '(at)')} succesfully`);
+    if (args[0] === 'position') { if (!args[1]) return send('No position given.'); }
+    if (!suffix.substring(suffix.indexOf(args[1])).match(/\d+/g)) { return send('No number given'); } else {
+      await channel.setPosition(`${suffix.substring(suffix.indexOf(args[1])) - 1}`);
+      return send(`Channel position set to ${_.escapeRegExp(channel.position - 1).replace(/@/g, '(at)')} succesfully`);
     }
 
     if (args[0] === 'topic') {

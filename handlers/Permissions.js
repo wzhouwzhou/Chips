@@ -150,9 +150,6 @@ ex.permsList = [
   ['global.moderation.roles.role.create', false], // To be added/renamed
   ['global.moderation.roles.role.delete', false], // To be added/renamed
   ['global.moderation.roles.role.update', false], // To be added/renamed
-  ['global.moderation.setchannel.*', false],
-  ['global.moderation.setchannel.name', false],
-  ['global.moderation.setchannel.topic', false],
   ['global.nsfw.*', false],
   ['global.nsfw.ass.*', false],
   ['global.nsfw.ass.ass', true],
@@ -174,6 +171,9 @@ ex.permsList = [
   ['global.utility.perm.*', false], // To be added/renamed
   ['global.utility.perm.perms.*', false], // To be added/renamed
   ['global.utility.perm.perms.set', false], // To be added/renamed
+  ['global.utility.setchannel.*', false],
+  ['global.utility.setchannel.name', false],
+  ['global.utility.setchannel.topic', false],
   ['global.utility.stoptyping.*', false],
   ['global.utility.stoptyping.stoptyping', false],
   ['global.utility.translate.*', true],
