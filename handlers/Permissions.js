@@ -380,7 +380,6 @@ ex.updatePermission = ({ type, userid = null, guildid = null, roleid = null, cha
         if (!ex.userpermissions[userid]) ex.userpermissions[userid] = [];
         if (ex.userpermissions[userid].length !== 0) {
           for (const p of ex.userpermissions[userid]) {
-            if (perm.toLowerCase().startsWith('owner')) resolve(`Bot owner perm override for ${perm}`);
             if (p.name === perm) {
               p.action = action;
               checked = true;
@@ -522,6 +521,7 @@ ex.checkPermission = (msg, perm) => {
     if (up) {
       up.forEach(pEntry => {
         if (pEntry.name === perm) {
+          if (perm.toLowerCase().startsWith('owner')) return resolve(`Bot owner perm override for ${perm}`);
           switch (pEntry.action) {
             case -1:
               reject(`I'm sorry, but you do not have access to the \`\`${perm}\`\` permission!`);
@@ -583,6 +583,7 @@ ex.checkPermission = (msg, perm) => {
                   case -1:
                     // Console.log("Denial: role");
                     return reject(`I'm sorry but you do not have access to ${perm} (Denied by member role :${r.name})`);
+                  default:
                 }
               }
             }
