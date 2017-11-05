@@ -14,8 +14,7 @@ const MusicPlayer = class MusicPlayer {
     this.Discord = Discord;
     this.volume = 0.5;
     this.streamOpts = streamOpts;
-    this.streamOpts.bitrate = streamOpts.bitrate || 96000;
-    // Math.max(vc.bitrate, streamOpts.bitrate);
+    this.streamOpts.bitrate = Math.max(vc.bitrate, streamOpts.bitrate);
   }
 
   setVC(newVC) {
@@ -63,7 +62,7 @@ const MusicPlayer = class MusicPlayer {
       this.playing = true;
       this.dispatcher.on('debug', Logger.debug);
 
-      this.dispatcher.on('end', () => {
+      this.dispatcher.once('end', () => {
         setTimeout(() => {
           this.playing = false;
           if (this.queue.length === 0 && !this.looping && !this.shuttingDown) {
