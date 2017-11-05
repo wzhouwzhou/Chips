@@ -616,12 +616,13 @@ ex.checkMulti = async(msg, permArr) => {
   for (let permEl of permArr) {
     console.log(`[PERMISSIONS][checkMulti] Perm element: ${permEl}`);
     let permSpecifics = permEl.split('.');
-    // Console.log(`[PERMISSIONS][checkMulti] Perm breakdown: ${permSpecifics}`);
+    console.log(`[PERMISSIONS][checkMulti] Perm breakdown: ${permSpecifics}`);
     let currentPerm = permSpecifics[0];
     if (permSpecifics.length > 1) {
       for (let i = 1; i < permSpecifics.length; i++) {
-      console.log(`[PERMISSIONS][checkMulti] Looping through perms [${i}]:${currentPerm}`);
+        console.log(`[PERMISSIONS][checkMulti] Looping through perms [${i}]:${currentPerm}`);
         let status = await ex.checkPermission(msg, `${currentPerm}.*`);
+        console.log(`Status: ${status}`);
         if (status === 'This perm is accepted by default.') {
           checkDefault = true;
           currentPerm += `.${permSpecifics[i]}`;
