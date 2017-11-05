@@ -59,6 +59,7 @@ const GuildMusicHandler = class MusicHandler {
     Logger.debug('Starting NCSBroadcast');
     if (NCSBroadcast) NCSBroadcast.end();
     if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
+    NCSBroadcast.removeAllListeners();
     if (!NCSBroadcast) NCSBroadcast = this._client.createVoiceBroadcast();
     const NCS = await new Song('https://youtube.com/watch?v=4rdaGSlLyDE', this._client.user).loadInfo();
     this._client.musicBroadcasts.ncs = NCSBroadcast;
@@ -73,6 +74,7 @@ const GuildMusicHandler = class MusicHandler {
     Logger.debug('Starting MonstercatBroadcast');
     if (MonstercatBroadcast) MonstercatBroadcast.end();
     if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
+    Monstercat.removeAllListeners();
     if (!MonstercatBroadcast) MonstercatBroadcast = this._client.createVoiceBroadcast();
     const Monstercat = await new Song('https://www.youtube.com/watch?v=ueupsBPNkSc', this._client.user).loadInfo();
     this._client.musicBroadcasts.monstercat = MonstercatBroadcast;
