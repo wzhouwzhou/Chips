@@ -160,7 +160,7 @@ const ex = {
               let info = await permissions.checkMulti(msg, ['global.info.info.user.other']);
               console.log(`[Info] ${info}`);
             } catch (err) {
-              if (!member.hasPermission(ex.customperm[0])) {
+              if (!member.hasPermission(this.metadata.customperm[0])) {
                 console.log(`Rejected info user other to ${used.id}`);
                 return msg.reply(err);
               }
@@ -170,7 +170,7 @@ const ex = {
               let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
               console.log(`[Info] ${info}`);
             } catch (err) {
-              if (!member.hasPermission(ex.customperm[0])) {
+              if (!member.hasPermission(this.metadata.customperm[0])) {
                 console.log(`Rejected info self other to ${used.id}`);
                 return msg.reply(err);
               }
@@ -189,7 +189,7 @@ const ex = {
               let info = await permissions.checkMulti(msg, ['global.info.info.user.other']);
               console.log(`[Info] ${info}`);
             } catch (err) {
-              if (!member.hasPermission(ex.customperm[0])) {
+              if (!member.hasPermission(this.metadata.customperm[0])) {
                 console.log(`Rejected info user other to ${used.id}`);
                 return msg.reply(err);
               }
@@ -199,7 +199,7 @@ const ex = {
               let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
               console.log(`[Info] ${info}`);
             } catch (err) {
-              if (!member.hasPermission(ex.customperm[0])) {
+              if (!member.hasPermission(this.metadata.customperm[0])) {
                 console.log(`Rejected info self other to ${used.id}`);
                 return msg.reply(err);
               }
@@ -216,7 +216,7 @@ const ex = {
           let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
           console.log(`[Command] ${info}`);
         } catch (err) {
-          if (!member.hasPermission(ex.customperm[0])) {
+          if (!member.hasPermission(this.metadata.customperm[0])) {
             console.log(`Rejected info user (self) to ${used.id}`);
             return msg.reply(err);
           }
@@ -232,7 +232,7 @@ const ex = {
         let info = await permissions.checkMulti(msg, ['global.info.info.role']);
         console.log(`[Command] ${info}`);
       } catch (err) {
-        if (!member.hasPermission(ex.customperm[0])) {
+        if (!member.hasPermission(this.metadata.customperm[0])) {
           console.log(`Rejected info role to ${used.id}`);
           return msg.reply(err);
         }
@@ -319,7 +319,7 @@ const ex = {
         let info = await permissions.checkMulti(msg, ['global.info.info.channel']);
         console.log(`[Command] ${info}`);
       } catch (err) {
-        if (!member.hasPermission(ex.customperm[0])) {
+        if (!member.hasPermission(this.metadata.customperm[0])) {
           console.log(`Rejected info channel to ${used.id}`);
           return msg.reply(err);
         }
