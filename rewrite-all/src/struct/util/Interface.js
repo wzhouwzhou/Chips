@@ -4,9 +4,10 @@ Object.defineProperty(exports, '__esModule', { value: true });
 const ensureAbstract = require('../../deps/functions/ensureAbstractF').default();
 
 const Interface = class Interface {
-  constructor() {
+  constructor(funcs) {
+    this.funcs = funcs;
     ensureAbstract(this, Interface);
-    this.constructor.isImplemented(this);
+    if (this.funcs) this.constructor.isImplemented(this);
   }
 
   static isImplemented(object) {
