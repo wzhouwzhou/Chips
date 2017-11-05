@@ -594,7 +594,6 @@ ex.checkPermission = (msg, perm) => {
                 }
               }
             }
-            return resolve('Found');
           });
         }
         console.log("Role: " + rid + "for user "+ id + "did not have any perm overwrites for " + perm);
