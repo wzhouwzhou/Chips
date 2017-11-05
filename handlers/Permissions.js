@@ -505,13 +505,15 @@ ex.updatePermission = ({ type, userid = null, guildid = null, roleid = null, cha
   });
 
 ex.checkPermission = (msg, perm) => {
+  console.log('Entering check permissions');
   return new Promise((resolve, reject) => {
     let guild = msg.guild,
       id = msg.author.id,
       cid = msg.channel.id;
     if (guild) {
+      console.log('Check gperms');
       let gp = ex.serverpermissions[guild.id];
-      if (!gp) {
+      if (gp) {
         gp.forEach(pEntry =>
           pEntry.name === perm && pEntry.action === -1 ? reject('This action is disabled serverwide!') : null
         );
@@ -519,6 +521,7 @@ ex.checkPermission = (msg, perm) => {
     }
     let up = ex.userpermissions[id];
     if (up) {
+      console.log('Check uperms');
       up.forEach(pEntry => {
         if (pEntry.name === perm) {
           console.log('Found a pEntry: ' +pEntry);
@@ -537,6 +540,7 @@ ex.checkPermission = (msg, perm) => {
       });
     }
     if (guild) {
+      console.log('Checking mperms');
       if (ex.memberpermissions[guild.id]) {
         let mp = ex.memberpermissions[guild.id][id];
         if (mp) {
@@ -557,6 +561,7 @@ ex.checkPermission = (msg, perm) => {
         }
       }
       if (ex.channelpermissions[cid]) {
+        console.log('Checking cperms');
         let cp = ex.channelpermissions[cid];
         if (cp) {
           cp.forEach(pEntry =>
@@ -566,6 +571,7 @@ ex.checkPermission = (msg, perm) => {
           );
         }
       }
+      console.log('Checking rperms');
       msg.member.roles.forEach(r => {
         console.log("New role found: " + r.id + "for user "+ id);
         let rid = r.id;
@@ -588,7 +594,7 @@ ex.checkPermission = (msg, perm) => {
                 }
               }
             }
-            return 'Found';
+            return resolve('Found');
           });
         }
         console.log("Role: " + rid + "for user "+ id + "did not have any perm overwrites for " + perm);
