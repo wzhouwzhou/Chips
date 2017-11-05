@@ -521,7 +521,8 @@ ex.checkPermission = (msg, perm) => {
     if (up) {
       up.forEach(pEntry => {
         if (pEntry.name === perm) {
-          if (perm.toLowerCase().startsWith('owner')) return resolve(`Bot owner perm override for ${perm}`);
+          console.log('Found a pEntry: ' +pEntry);
+          if (pEntry.name.toLowerCase().startsWith('owner')) return resolve(`Bot owner perm override for ${perm}`);
           switch (pEntry.action) {
             case -1:
               reject(`I'm sorry, but you do not have access to the \`\`${perm}\`\` permission!`);
@@ -566,22 +567,22 @@ ex.checkPermission = (msg, perm) => {
         }
       }
       msg.member.roles.forEach(r => {
-        // Console.log("New role found: " + r.id + "for user "+ id);
+        console.log("New role found: " + r.id + "for user "+ id);
         let rid = r.id;
         if (!ex.rolepermissions[rid]) {
           let found = false;
           ex.rolepermissions[rid].forEach(pEntry => {
-            // Console.log("new entry found: " + pEntry.name);
+            console.log("new entry found: " + pEntry.name);
             if (!found) {
               if (pEntry.name === perm) {
                 found = true;
                 // Console.log("We found an entry!");
                 switch (pEntry.action) {
                   case 1:
-                    // Console.log("Success: role");
+                    console.log("Success: role");
                     return resolve('This action is approved (by member role)');
                   case -1:
-                    // Console.log("Denial: role");
+                    console.log("Denial: role");
                     return reject(`I'm sorry but you do not have access to ${perm} (Denied by member role :${r.name})`);
                   default:
                 }
