@@ -590,16 +590,16 @@ ex.checkPermission = (msg, perm) => {
             return 'Found';
           });
         }
-        // Console.log("Role: " + rid + "for user "+ id + "did not have any perm overwrites for " + perm);
+        console.log("Role: " + rid + "for user "+ id + "did not have any perm overwrites for " + perm);
       });
     }
     let registered = ex.defaultperms.has(perm);
     if (!registered) {
-      // Console.log('Someone just tried to use a cmd with an unregistered perm '+ perm);
+      console.log('Someone just tried to use a cmd with an unregistered perm '+ perm);
       return reject('Sorry, you just tried to use an unregistered command. Please report this to my developers.');
     }
 
-    // Console.log(`Now checking the default perms.: ${perm}\nIs the perm registered list? : ${registered}`);
+    console.log(`Now checking the default perms.: ${perm}\nIs the perm registered list? : ${registered}`);
     let value = registered ? ex.defaultperms.get(perm) : true;
     // Console.log("The default for that perm is: " + value);
     if (!value) return resolve('This perm is denied by default.');
@@ -610,16 +610,16 @@ ex.checkPermission = (msg, perm) => {
 };
 
 ex.checkMulti = async(msg, permArr) => {
-  // Console.log('[PERMISSIONS][checkMulti] Received perm check request');
+  console.log('[PERMISSIONS][checkMulti] Received perm check request');
   let checkDefault = false;
   for (let permEl of permArr) {
-    // Console.log(`[PERMISSIONS][checkMulti] Perm element: ${permEl}`);
+    console.log(`[PERMISSIONS][checkMulti] Perm element: ${permEl}`);
     let permSpecifics = permEl.split('.');
     // Console.log(`[PERMISSIONS][checkMulti] Perm breakdown: ${permSpecifics}`);
     let currentPerm = permSpecifics[0];
     if (permSpecifics.length > 1) {
       for (let i = 1; i < permSpecifics.length; i++) {
-      // Console.log(`[PERMISSIONS][checkMulti] Looping through perms [${i}]:${currentPerm}`);
+      console.log(`[PERMISSIONS][checkMulti] Looping through perms [${i}]:${currentPerm}`);
         let status = await ex.checkPermission(msg, `${currentPerm}.*`);
         if (status === 'This perm is accepted by default.') {
           checkDefault = true;
@@ -634,7 +634,7 @@ ex.checkMulti = async(msg, permArr) => {
         return `Positive perm override for ${currentPerm}`;
       }
     }
-    // Console.log(`[PERMISSIONS][checkMulti] Now checking original perm ${permEl}`);
+    console.log(`[PERMISSIONS][checkMulti] Now checking original perm ${permEl}`);
     let status = await ex.checkPermission(msg, permEl);
     if (status === 'This perm is accepted by default.') checkDefault = true;
     else if (status === 'This perm is denied by default.') checkDefault = false;
