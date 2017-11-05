@@ -50,32 +50,47 @@ const GuildMusicHandler = class MusicHandler {
       this.enabled = true;
       this._client = client;
       _handlers.set(guildid, this);
-      this.streamOpts = { passes: 3, volume: 0.6, bitrate: 96000 };
+      this.streamOpts = { passes: 3, volume: 0.5, bitrate: 96000 };
+      this.broadcastOpts = { passes: 2, volume: 0.6, bitrate: 96000 };
     }
   }
 
   async startNCSBroadcast() {
-    if (NCSBroadcast) NCSBroadcast.end();
+    Logger.debug('Starting NCSBroadcast');
+    if (NCSBroadcast) {
+      NCSBroadcast.removeAllListeners();
+      NCSBroadcast.end();
+    }
     if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
     if (!NCSBroadcast) NCSBroadcast = this._client.createVoiceBroadcast();
     const NCS = await new Song('https://youtube.com/watch?v=4rdaGSlLyDE', this._client.user).loadInfo();
     this._client.musicBroadcasts.ncs = NCSBroadcast;
-    NCSBroadcast.playStream(NCS.stream, this.streamOpts);
+    NCSBroadcast.once('end', this.startNCSBroadcast.bind(this));
+    NCSBroadcast.on('error', Logger.error.bind(Logger));
+    NCSBroadcast.on('warn', Logger.error.bind(Logger));
+    NCSBroadcast.playStream(NCS.stream, this.broadcastOpts);
     return NCSBroadcast;
   }
 
   async startMonstercatBroadcast() {
-    if (MonstercatBroadcast) MonstercatBroadcast.end();
+    Logger.debug('Starting MonstercatBroadcast');
+    if (MonstercatBroadcast) {
+      MonstercatBroadcast.removeAllListeners();
+      MonstercatBroadcast.end();
+    }
     if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
     if (!MonstercatBroadcast) MonstercatBroadcast = this._client.createVoiceBroadcast();
     const Monstercat = await new Song('https://www.youtube.com/watch?v=ueupsBPNkSc', this._client.user).loadInfo();
     this._client.musicBroadcasts.monstercat = MonstercatBroadcast;
-    MonstercatBroadcast.playStream(Monstercat.stream, this.streamOpts);
+    MonstercatBroadcast.once('end', this.startMonstercatBroadcast.bind(this));
+    MonstercatBroadcast.on('error', Logger.error.bind(Logger));
+    MonstercatBroadcast.on('warn', Logger.error.bind(Logger));
+    MonstercatBroadcast.playStream(Monstercat.stream, this.broadcastOpts);
     return MonstercatBroadcast;
   }
 
   async playAllNCS() {
-    if (!MonstercatBroadcast) return 'NCS Broadcast not started';
+    if (!NCSBroadcast) return 'NCS Broadcast not started';
     if (!this._client.ncsChannels) this._client.ncsChannels = {};
     const leaves = [];
     for (const cid of Object.keys(this._client.ncsChannels)) leaves.push(this._client.channels.get(cid).leave());
@@ -113,7 +128,7 @@ const GuildMusicHandler = class MusicHandler {
 
 
   spawnPlayer(vc, tc) {
-    this.player = new MusicPlayer(vc, tc);
+    this.player = new MusicPlayer(vc, tc, this.streamOpts);
     return this;
   }
 
@@ -152,7 +167,9 @@ const GuildMusicHandler = class MusicHandler {
         if (ind > -1) {
           handler.player.queue.splice(ind, 1);
           await tc.send(`Removed \`${searchQ}\` from the queue`);
-        } else { await tc.send(`Could not find \`${url}\` in the queue`); }
+        } else {
+          await tc.send(`Could not find \`${m.content.replace(/@/g, '(at)')}\` in the queue`);
+        }
       } else if (m.content.match(/^<@!?296855425255473154>\s*v(?:ol(?:ume)?)?\s*/i)) {
         const vol = m.content.match(/v(?:ol(?:ume)?)?\s*\d+/i)[0].match(/\d+/);
         if (!vol) return m.reply('You must provide a volume to set!');
@@ -160,7 +177,8 @@ const GuildMusicHandler = class MusicHandler {
         handler.player.setVolume(+vol, m.author.id === Constants.users.WILLYZ);
       } else if (m.content.match(/^<@!?296855425255473154>\s*music\s*help/i)) {
         let embed = new Discord.MessageEmbed().setTitle('Chips music help').setColor(12305);
-        cmds.map(cmd => cmd.map(text => text = text.replace(/\{\}/g, handler.prefix || '<@296855425255473154> '))).forEach(cmd => embed.addField(...cmd));
+        cmds.map(cmd => cmd.map(text => text.replace(/\{\}/g, handler.prefix || '<@296855425255473154> ')))
+          .forEach(cmd => embed.addField(...cmd));
         tc.send('', { embed });
       } else if (m.content.match(/^<@!?296855425255473154>\s*now\s*playing/i)) {
         tc.send(`Currently playing ${handler.player.lastPlayed.name}`);
@@ -219,6 +237,7 @@ const GuildMusicHandler = class MusicHandler {
     if (!this.player) return null;
     this.player.shutDown();
     this.player = null;
+    return true;
   }
 };
 

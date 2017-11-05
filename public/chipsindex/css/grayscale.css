@@ -121,7 +121,7 @@ a:focus {
   }
   .navbar-custom.top-nav-collapse {
     padding: 0;
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.9);
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   }
 }
@@ -134,8 +134,6 @@ a:focus {
   text-align: center;
   color: white;
   background-image: url('/img/chipssplash.png') /*no-repeat bottom center scroll*/;
-  background-attachment: fixed;
-  background-position: center;
   background-repeat: no-repeat;
   background-color: black;
   -webkit-background-size: cover;
@@ -248,7 +246,6 @@ a:focus {
 
   background-image: url('https://cdn.discordapp.com/attachments/325566257493573632/369397795137781761/chips_v2.png') /*no-repeat bottom center scroll*/;
   background-attachment: fixed;
-  background-position: center;
   background-repeat: no-repeat;
   background-color: gray;
   -webkit-background-size: cover;
@@ -256,10 +253,49 @@ a:focus {
   background-size: cover;
   -o-background-size: cover;
 }
-@media only screen and (max-device-width: 1024px) {
+.parallax {
+    /* The image used */
+    background-image: url("img_parallax.jpg");
+
+    /* Set a specific height */
+    height: 500px;
+
+    /* Create the parallax scrolling effect */
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+@media only screen and (min-device-width: 768px) {
+  .parallax {
+    background-position: center;
+    background-attachment: fixed;
+  }
+  .intro {
+    background-position: center;
+    background-attachment: fixed;
+  }
+  .download-section {
+    background-position: center;
+    background-attachment: fixed;
+  }
+}
+@media only screen and (max-device-width: 768px) {
     .parallax {
         background-attachment: scroll;
+        background-position: center center;
     }
+    .download-section {
+      background-image: url('https://cdn.discordapp.com/attachments/325566257493573632/369397795137781761/chips_v2.png') no-repeat bottom center scroll;
+      width:100%;
+      background-attachment: scroll;
+      background-position: center center;
+    }
+    .intro {
+      background-image: url('/img/chipssplash.png') no-repeat bottom center scroll;
+
+      background-attachment: scroll;
+      background-position: center center;
+    }
+
 }
 #map {
   width: 100%;

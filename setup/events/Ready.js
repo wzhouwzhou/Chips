@@ -34,10 +34,10 @@ module.exports = function(send) {
     client.mh = new MH(0, client);
     client.mh.startNCSBroadcast().then(() => client.mh.playAllNCS());
     client.mh.startMonstercatBroadcast().then(() => client.mh.playAllMonstercat());
-    client.musicCheck = setInterval(() => {
+    /*client.musicCheck = setInterval(() => {
       client.mh.startNCSBroadcast().then(() => client.mh.playAllNCS());
       client.mh.startMonstercatBroadcast().then(() => client.mh.playAllMonstercat());
-    }, 30 * 60 * 1000);
+    }, 30 * 60 * 1000);*/
     // Console events
     if (client.shard.id === 0) {
       rl.on('line', line => {
@@ -68,7 +68,7 @@ module.exports = function(send) {
     client.user.setPresence({
       status: 'online',
       activity: {
-        name: process.env.BETA == 'true' ? 'Chips PTB' : '-help | "-chess help" is here!! | 100k members!!!',
+        name: process.env.BETA == 'true' ? 'Chips PTB' : '-help | Send suggestions in Chips\'s Official Server! | Chips 0.4.0 is released!!',
         type: 'STREAMING',
         url: 'https://twitch.tv/twitch',
       },

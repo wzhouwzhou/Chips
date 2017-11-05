@@ -31,7 +31,7 @@ const ex = {
             let info = await permissions.checkMulti(msg, ['global.info.info.user.other']);
             console.log(`[Mee6Rank] ${info}`);
           } catch (err) {
-            if (!member.hasPermission(ex.customperm[0])) {
+            if (!member.hasPermission(this.metadata.customperm[0])) {
               console.log(`Rejected mee6rank other to ${used.id}`);
               return reply(err);
             }
@@ -41,7 +41,7 @@ const ex = {
             let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
             console.log(`[Mee6Rank] ${info}`);
           } catch (err) {
-            if (!member.hasPermission(ex.customperm[0])) {
+            if (!member.hasPermission(this.metadata.customperm[0])) {
               console.log(`Rejected mee6rank self to ${used.id}`);
               return reply(err);
             }
@@ -60,7 +60,7 @@ const ex = {
             let info = await permissions.checkMulti(msg, ['global.info.info.user.other']);
             console.log(`[Mee6Rank] ${info}`);
           } catch (err) {
-            if (!member.hasPermission(ex.customperm[0])) {
+            if (!member.hasPermission(this.metadata.customperm[0])) {
               console.log(`Rejected mee6rank other to ${used.id}`);
               return reply(err);
             }
@@ -70,7 +70,7 @@ const ex = {
             let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
             console.log(`[Mee6Rank] ${info}`);
           } catch (err) {
-            if (!member.hasPermission(ex.customperm[0])) {
+            if (!member.hasPermission(this.metadata.customperm[0])) {
               console.log(`Rejected mee6rank self to ${used.id}`);
               return reply(err);
             }
@@ -87,7 +87,7 @@ const ex = {
         let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
         console.log(`[Mee6Rank] ${info}`);
       } catch (err) {
-        if (!member.hasPermission(ex.customperm[0])) {
+        if (!member.hasPermission(this.metadata.customperm[0])) {
           console.log(`Rejected mee6rank self to ${used.id}`);
           return reply(err);
         }

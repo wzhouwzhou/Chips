@@ -57,7 +57,7 @@ module.exports = {
       [`Shard channel count: \n\t\t**${channels}**\nText Channel Count:\n\t\t**${textChannels}**\nVoice Channel Count:\n\t\t**${voiceChannels}**`, ' '],
     ].map(e => `**${e[0]}**\n\t\t${e[1]}`).join('\n'), true);
 
-    embed.addField('Chips 0.3.4 stats across all shards:', [
+    embed.addField('Chips 0.4.0 stats across all shards:', [
       ['Total Member Count: ', userCountG],
       ['Total Server Count: ', guildCountG],
       ['Total Channel Count: ', channelCountG],

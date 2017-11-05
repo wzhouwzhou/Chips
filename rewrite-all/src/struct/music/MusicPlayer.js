@@ -6,12 +6,15 @@ const _ = require('lodash');
 // Const snekfetch = require('snekfetch');
 
 const MusicPlayer = class MusicPlayer {
-  constructor(vc, tc, Discord = require('discord.js')) {
+  constructor(vc, tc, streamOpts = {}, Discord = require('discord.js')) {
     this.voicechannel = vc;
     this.textchannel = tc;
-    this.queue = new Array();
+    this.queue = [];
     this.looping = false;
     this.Discord = Discord;
+    this.volume = 0.5;
+    this.streamOpts = streamOpts;
+    this.streamOpts.bitrate = Math.max(vc.bitrate, streamOpts.bitrate);
   }
 
   setVC(newVC) {
@@ -36,9 +39,10 @@ const MusicPlayer = class MusicPlayer {
     if (!this.textchannel) return Logger.error('Text Channel is undefined!');
 
     if (!this.voicechannel) return this.textchannel.send('I am not bound to a voice channel!');
-    if (!this.queue || (this.queue.length == 0 && !this.looping)) return this.textchannel.send('There is nothing left in the song queue!');
-
-    this.joinVC().then(() => {
+    if (!this.queue || (this.queue.length === 0 && !this.looping)) {
+      return this.textchannel.send('There is nothing left in the song queue!');
+    }
+    return this.joinVC().then(() => {
       const song = this.looping ? this.lastPlayed : this.queue.shift();
       let embed;
       if (!this.looping) {
@@ -52,25 +56,29 @@ const MusicPlayer = class MusicPlayer {
 
       const stream = song.stream;
       this.dispatcher = null;
-      this.dispatcher = this.connection.playStream(stream);
-      this.dispatcher.setVolume(this.volume != null ? this.volume : 0.5);
+      this.dispatcher = this.connection.playStream(stream, this.streamOpts);
+      this.dispatcher.setVolume(this.volume !== null ? this.volume : 0.5);
 
       this.playing = true;
       this.dispatcher.on('debug', Logger.debug);
 
-      this.dispatcher.on('end', () => {
+      this.dispatcher.once('end', () => {
         setTimeout(() => {
           this.playing = false;
-          if (this.queue.length == 0 && !this.looping && !this.shuttingDown) {
+          if (this.queue.length === 0 && !this.looping && !this.shuttingDown) {
             this.leaveVC();
             this.connection = null;
             this.dispatcher = null;
             embed = new this.Discord.MessageEmbed().setTitle('Queue ended!').setDescription('Queue another song!')
               .setTimestamp(new Date())
               .setColor(8060672);
-            this.textchannel.send('', { embed });
-          } else if (!this.shuttingDown) { return this.playNextQueue(); } // Recurse
-        }, 750);
+            return this.textchannel.send('', { embed });
+          } else if (!this.shuttingDown) {
+            return this.playNextQueue();
+          } else {
+            return false;
+          }
+        }, 700);
       });
     });
   }

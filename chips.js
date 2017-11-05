@@ -89,7 +89,7 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
     '274260111415836675': '320220288195493890',
   },
 };
-
+ 
 client.memberjoin = memberjoin;
 
 global.memberleave = {

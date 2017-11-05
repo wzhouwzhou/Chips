@@ -10,7 +10,7 @@
         <meta property="og:description" content="Chips, a Discord bot written in javascript." />
         <meta name="author" content="WillyZ">
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="http://chipsbot.tk/" />
+        <meta property="og:url" content="https://chipsbot.me/" />
         <meta property="og:title" content="Chips - A Discord Bot!" />
         <meta property="og:image" content="https://images-ext-2.discordapp.net/external/rbjxSCMpe-j3nFxUy9SCXQlm4gz4RZYkhsuV5VK1QW4/https/cdn.discordapp.com/attachments/307625096078426123/314201502669471744/Chips.jpg?width=400&height=225"/>
 
@@ -36,21 +36,6 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <style>
-        .parallax {
-            /* The image used */
-            background-image: url("img_parallax.jpg");
-
-            /* Set a specific height */
-            height: 500px;
-
-            /* Create the parallax scrolling effect */
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-        </style>
     </head>
 
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
@@ -115,7 +100,7 @@
                     <p>Chips is a Discord bot created by William Zhou, in a team of three developers</p>
                     <p>Heavily under development, the bot has 100+ public commands/aliases.</p>
                     <p>The bot features games including Chess with variable AI, and clean and useful informative, moderation, utility, and music streaming commands.</p>
-                    <p>We hit <%= membercount||'over 100 thousand' %> members in <%= servercount||'450+' %> servers!</p>
+                    <p><%= membercount||'over 100 thousand' %> members and <%= servercount||'500+' %> servers connected to Chips at this moment!</p>
                 </div>
                 <div class="col-lg-8 col-lg-offset-2">
                     <a href="#invite" class="btn btn-circle page-scroll">
@@ -152,13 +137,13 @@
                     If you're feeling extra special and want to help keep Chips up and running please let us know!</p>
                     <ul class="list-inline banner-social-buttons">
                         <li>
-                            <a href="https://discord.gg/jj5FzF7" class="btn btn-default btn-lg"><i class="fa fa-ticket fa-fw"></i> <span class="network-name">Support Server Invite Link</span></a>
-                        </li>
-                        <li>
                             <a href="https://paypal.me/wzhouwzhou" class="btn btn-default btn-lg"><i class="fa fa-cc-paypal fa-fw"></i> <span class="network-name">Help us keep our bot up!</span></span></a>
                         </li>
                         <li>
-                            <a href="" class="btn btn-default btn-lg"><i class="fa fa-list fa-fw"></i> <span class="network-name">Features List! (Coming soon)</span></a>
+                            <a href="https://www.patreon.com/chips" class="btn btn-default btn-lg"><i class="fa fa-list fa-fw"></i> <span class="network-name">Support us monthly!</span></a>
+                        </li>
+                        <li>
+                            <a href="https://discord.gg/jj5FzF7" class="btn btn-default btn-lg"><i class="fa fa-ticket fa-fw"></i> <span class="network-name">Support Server Invite Link</span></a>
                         </li>
                     </ul>
                 </div>
@@ -173,7 +158,8 @@
         </footer>
 
         <!-- jQuery -->
-        <script src="vendor/jquery/jquery.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <!--<script src="vendor/jquery/jquery.js"></script>-->
 
         <!-- Bootstrap Core JavaScript -->
         <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -191,27 +177,30 @@
                 parallax2 = document.querySelectorAll(".download-section"),
                 speed = 0.5,
                 speed2 =0.3;
+            var oldScroll = window.onscroll||function(){};
 
-            window.onscroll = function(){
-              [].slice.call(parallax).forEach(function(el,i){
+            if($(window).width() > 720)
+              window.onscroll = function(){
+                oldScroll();
+                [].slice.call(parallax).forEach(function(el,i){
 
-                var windowYOffset = window.pageYOffset,
-                    elBackgrounPos = "50% " + (windowYOffset * speed) + "px";
+                  var windowYOffset = window.pageYOffset,
+                      elBackgrounPos = "50% " + (windowYOffset * speed) + "px";
 
-                el.style.backgroundPosition = elBackgrounPos;
+                  el.style.backgroundPosition = elBackgrounPos;
 
-              });
-              /*[].slice.call(parallax2).forEach(function(el,i){
+                });
+                /*[].slice.call(parallax2).forEach(function(el,i){
 
-                var windowYOffset2 = window.pageYOffset,
-                    elBackgrounPos = "300% -" + (windowYOffset2 * speed2) + "px";
+                  var windowYOffset2 = window.pageYOffset,
+                      elBackgrounPos = "300% -" + (windowYOffset2 * speed2) + "px";
 
-                el.style.backgroundPosition = elBackgrounPos;
-              });*/
-            };
+                  el.style.backgroundPosition = elBackgrounPos;
+                });*/
+              };
           })();
         </script>
-        <video controls="" autoplay="true" name="media" hidden="true" loop="true"><source src="http://chipsbot.tk/music.mp3" type="audio/mpeg"></video>
+        <video controls="" autoplay="true" name="media" hidden="true" loop="true"><source src="https://chipsbot.me/music.mp3" type="audio/mpeg"></video>
     </body>
 
   </html>

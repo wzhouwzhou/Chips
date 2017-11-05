@@ -2,9 +2,9 @@ let rc = require('./rolecount');
 let cc = require('./channelcount');
 let ec = require('./emojicount');
 
-console.log('[CPSCMD][INFO][avatar] Building objects...');
+console.log('[CPSCMD][INFO][count] Building objects...');
 
-console.log('[CPSCMD][INFO][avatar] Building objects...');
+console.log('[CPSCMD][INFO][count] Building objects...');
 rc.metadata = {
   category: require('../').category,
   description: 'Fetches the amount of roles',
@@ -33,7 +33,7 @@ ec.metadata = {
 };
 
 
-console.log('[CPSCMD][INFO][avatar] Build objects complete!');
+console.log('[CPSCMD][INFO][count] Build objects complete!');
 module.exports = [
   [rc.name, rc],
   ['rolecount', rc],

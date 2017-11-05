@@ -4,8 +4,8 @@ const whitelist = [
   Constants.users.WILLYZ,
   Constants.users.PGSUPER,
   Constants.users.EVILDEATHPRO,
+  Constants.users.LUCAS,
   '302252773427249163',
-  '205608598233939970',
 ];
 
 module.exports = {

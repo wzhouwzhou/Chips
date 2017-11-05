@@ -1,6 +1,6 @@
 let mc = require('./membercount');
 
-console.log('[CPSCMD][INFO][avatar] Building objects...');
+console.log('[CPSCMD][INFO][membercount] Building objects...');
 mc.metadata = {
   category: require('../').category,
   description: 'This shows you the channel topic!',
@@ -11,7 +11,7 @@ mc.metadata = {
 };
 
 
-console.log('[CPSCMD][INFO][avatar] Build objects complete!');
+console.log('[CPSCMD][INFO][membercount] Build objects complete!');
 module.exports = [
   [mc.name, mc],
   ['membercount', mc],
