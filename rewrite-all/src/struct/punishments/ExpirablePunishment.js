@@ -5,7 +5,7 @@ const { Punishment } = require('./Punishment');
 const ensureAbstract = require('../../deps/functions/ensureAbstractF').default();
 
 const ExpirablePunishment = class ExpirablePunishment extends Punishment {
-  constructor(options) {
+  constructor(options = {}) {
     super(options);
     this.duration = options.duration || 0;
     this.checkOver();

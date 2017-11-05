@@ -2,14 +2,16 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const { Serializable } = require('../util/Serializable');
+const ensureAbstract = require('../../deps/functions/ensureAbstractF').default();
 
 const Punishment = class Punishment extends Serializable {
-  constructor(options) {
+  constructor(options = {}) {
     super();
     this.executors = options.executors || [];
     this.targets = options.executors || [];
     this.type = options.type;
     this.date = options.date || new Date;
+    ensureAbstract(this, Punishment);
     this.constructor.isImplemented(this);
   }
 
