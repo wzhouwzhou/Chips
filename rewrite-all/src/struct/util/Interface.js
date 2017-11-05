@@ -10,8 +10,10 @@ const Interface = class Interface {
   }
 
   static isImplemented(object) {
-    for (const k in this.funcs) {
-      if (typeof this.prototype[k] === 'function' && !object[k]) throw new Error(`Missing interface function ${k}`);
+    for (const k in object.funcs) {
+      if (typeof object.constructor.prototype[k] === 'function' && !object[k]) {
+        throw new Error(`Missing interface function ${k}`);
+      }
     }
     return object;
   }

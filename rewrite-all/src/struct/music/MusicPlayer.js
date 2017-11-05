@@ -15,6 +15,7 @@ const MusicPlayer = class MusicPlayer {
     this.volume = 0.5;
     this.streamOpts = streamOpts;
     this.streamOpts.bitrate = Math.max(vc.bitrate, streamOpts.bitrate);
+    this.dispatcher = {};
   }
 
   setVC(newVC) {
@@ -55,7 +56,7 @@ const MusicPlayer = class MusicPlayer {
       this.lastPlayed = song;
 
       const stream = song.stream;
-      this.dispatcher = null;
+      delete this.dispatcher;
       this.dispatcher = this.connection.playStream(stream, this.streamOpts);
       this.dispatcher.setVolume(this.volume !== null ? this.volume : 0.5);
 
