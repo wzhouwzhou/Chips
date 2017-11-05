@@ -575,7 +575,7 @@ ex.checkPermission = (msg, perm) => {
       msg.member.roles.forEach(r => {
         console.log("New role found: " + r.id + "for user "+ id);
         let rid = r.id;
-        if (!ex.rolepermissions[rid]) {
+        if (ex.rolepermissions[rid]) {
           let found = false;
           ex.rolepermissions[rid].forEach(pEntry => {
             console.log("new entry found: " + pEntry.name);
