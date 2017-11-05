@@ -12,11 +12,8 @@ const ensureAbstract = require('../../deps/functions/ensureAbstractF').default()
 
 const Serializable = class Serializable extends Interface {
   constructor(funcs = []) {
-    super((() => {
-      if (!this.funcs) this.funcs = funcs || [];
-      this.funcs.push('serialize');
-      return this.funcs;
-    })());
+    super(Array.from(new Set([...funcs, 'serialize'])));
+    this.funcs = Array.from(new Set([...funcs, 'serialize']));
     ensureAbstract(this, Serializable);
     this.constructor.isImplemented(this);
   }
