@@ -2,7 +2,7 @@ module.exports = {
   name: 'masontcg',
   async func(msg, { send, Discord }) {
     const embed = new Discord.MessageEmbed()
-      .setAuthor('MasonTheCoolGuy#8263', 'https://i.imgur.com/KkRF64b.png')
+      .setAuthor('MasonTheCoolGuy#8263', 'https://i.imgur.com/Wlty9eI.png')
       .setTitle('')
       .setDescription('The third Patron of Chips, :heart: Mason! Thank you for showing your support!')
       .setTimestamp(new Date())
