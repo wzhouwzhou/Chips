@@ -20,7 +20,7 @@ module.exports = {
       if (result.status !== 200) throw new Error(`Status ${result.status}`);
       const { id } = result.body.data;
       console.log(`Gif found at: https://media.giphy.com/media/${id}/giphy.gif`);
-      return send(new Discord.MessageAttachment(`https://media.giphy.com/media/${id}/giphy.gif`));
+      return send(`https://media.giphy.com/media/${id}/giphy.gif`);
     } catch (err) {
       send('No images found, try some different tags. Make sure to separate them with commas');
       throw err;
