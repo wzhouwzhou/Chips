@@ -12,14 +12,15 @@ module.exports = {
       api_key,
       format: 'json',
       limit: 1,
-      rating: 'pg13',
+      rating: 'r',
     };
-    if (tags.length > 0) opts.tag = tags;
+    if (tags.length > 0) opts.tag = qs.escape(tags);
     try {
       const result = await snek.get(`${api}?${qs.stringify(opts)}`);
       if (result.status !== 200) throw new Error(`Status ${result.status}`);
       const { id } = result.body.data;
-      send(new Discord.MessageAttachment(`https://media.giphy.com/media/${id}/giphy.gif`));
+      console.log(`Gif found at: https://media.giphy.com/media/${id}/giphy.gif`);
+      return send(new Discord.MessageAttachment(`https://media.giphy.com/media/${id}/giphy.gif`));
     } catch (err) {
       send('No images found, try some different tags. Make sure to separate them with commas');
       throw err;
