@@ -19,10 +19,11 @@ module.exports = {
       const result = await snek.get(`${api}?${qs.stringify(opts)}`);
       if (result.status !== 200) throw new Error(`Status ${result.status}`);
       const { id } = result.body.data;
+      if (!id) throw new Error('No images found');
       console.log(`Gif found at: https://media.giphy.com/media/${id}/giphy.gif`);
       return send(`https://media.giphy.com/media/${id}/giphy.gif`);
     } catch (err) {
-      send('No images found, try some different tags. Make sure to separate them with commas');
+      send('Try some different tags. Make sure to separate them with commas');
       throw err;
     }
   },
