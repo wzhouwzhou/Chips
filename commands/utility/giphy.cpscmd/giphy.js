@@ -18,7 +18,7 @@ module.exports = {
     try {
       const result = await snek.get(`${api}?${qs.stringify(opts)}`);
       if (result.status !== 200) throw new Error(`Status ${result.status}`);
-      const { id } = JSON.parse(result.body).data;
+      const { id } = result.body.data;
       send(new Discord.MessageAttachment(`https://media.giphy.com/media/${id}/giphy.gif`));
     } catch (err) {
       send('No images found, try some different tags. Make sure to separate them with commas');
