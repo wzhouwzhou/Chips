@@ -3,6 +3,12 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 const ensureAbstract = require('../../deps/functions/ensureAbstractF').default();
 
+/**
+ * Interface
+ *
+ * @type {Interface}
+ * @abstract
+ */
 const Interface = class Interface {
   constructor(funcs) {
     this.funcs = funcs;

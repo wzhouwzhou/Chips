@@ -7,9 +7,9 @@ const ensureAbstract = require('../../deps/functions/ensureAbstractF').default()
 /**
  * Serializable Interface
  *
+ * @abstract
  * @interface
  */
-
 const Serializable = class Serializable extends Interface {
   constructor(funcs = []) {
     super(Array.from(new Set([...funcs, 'serialize'])));
