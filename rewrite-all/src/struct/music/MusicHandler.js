@@ -63,7 +63,7 @@ const GuildMusicHandler = class MusicHandler {
     }
     if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
     if (!NCSBroadcast) NCSBroadcast = this._client.createVoiceBroadcast();
-    const NCS = await new Song('https://youtube.com/watch?v=4rdaGSlLyDE', this._client.user).loadInfo();
+    const NCS = await new Song('http://youtube.com/watch?v=4rdaGSlLyDE', this._client.user).loadInfo();
     this._client.musicBroadcasts.ncs = NCSBroadcast;
     NCSBroadcast.once('end', this.startNCSBroadcast.bind(this));
     NCSBroadcast.on('error', Logger.error.bind(Logger));
@@ -80,7 +80,7 @@ const GuildMusicHandler = class MusicHandler {
     }
     if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
     if (!MonstercatBroadcast) MonstercatBroadcast = this._client.createVoiceBroadcast();
-    const Monstercat = await new Song('https://www.youtube.com/watch?v=ueupsBPNkSc', this._client.user).loadInfo();
+    const Monstercat = await new Song('http://www.youtube.com/watch?v=ueupsBPNkSc', this._client.user).loadInfo();
     this._client.musicBroadcasts.monstercat = MonstercatBroadcast;
     MonstercatBroadcast.once('end', this.startMonstercatBroadcast.bind(this));
     MonstercatBroadcast.on('error', Logger.error.bind(Logger));
