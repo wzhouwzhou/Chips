@@ -65,7 +65,8 @@ const Punishment = class Punishment extends Serializable {
         }
       }
     }
-    this.callbacks[event] = callbacks;
+    if (callbacks.length === 0) delete this.callbacks[event];
+    else this.callbacks[event] = callbacks;
     return this;
   }
 
