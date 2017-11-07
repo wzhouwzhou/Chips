@@ -13,6 +13,8 @@ const Punishment = class Punishment extends Serializable {
     this.date = options.date || new Date;
     ensureAbstract(this, Punishment);
     this.constructor.isImplemented(this);
+
+    this.callbacks = {};
   }
 
   serialize(cache = false) {
@@ -24,6 +26,52 @@ const Punishment = class Punishment extends Serializable {
     };
     if (cache) this.data = data;
     return data;
+  }
+
+  on(event, callback, original) {
+    if (typeof callback !== 'function') throw new TypeError('Callback must be a function');
+    if (original && typeof original !== 'function') throw new TypeError('Original callback must be a function');
+    this.addCallback(event, callback, original);
+    return this;
+  }
+
+  once(event, callback) {
+    const oncecb = (...args) => {
+      this.removeCallback(event, oncecb);
+      return callback(...args);
+    };
+
+    this.on(event, oncecb, callback);
+  }
+
+  addCallback(event, callback, original) {
+    const callbacks = this.callbacks[event] || [];
+    if (!original || !callbacks.indexOf(original)) callbacks.push(callback);
+    this.callbacks[event] = Array.from(new Set(callbacks));
+    return callback;
+  }
+
+  removeCallback(event, callback) {
+    if (!callback) this.callbacks[event] = [];
+    const callbacks = this.callbacks[event] || [];
+    if (callbacks.length !== 0) {
+      const ind = !!~callbacks.indexOf(callback);
+      if (ind) {
+        callbacks.splice(ind, 1);
+      }
+    }
+    return this;
+  }
+
+  emit(event, ...data) {
+    for (const cb of this.callbacks[event] || []) {
+      // As opposed to setImmediate so that other events will fire first.
+      setTimeout(() => cb(...data), 0);
+    }
+  }
+
+  getListeners(event) {
+    return this.callbacks[event];
   }
 };
 
