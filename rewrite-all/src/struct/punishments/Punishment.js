@@ -54,13 +54,18 @@ const Punishment = class Punishment extends Serializable {
 
   removeCallback(event, callback) {
     if (!callback) this.callbacks[event] = [];
-    const callbacks = this.callbacks[event] || [];
+    let callbacks = this.callbacks[event] || [];
     if (callbacks.length !== 0) {
-      const ind = !!~callbacks.indexOf(callback);
-      if (ind) {
-        callbacks.splice(ind, 1);
+      if (callbacks.length === 1 && callbacks[0] === callback) {
+        callbacks = [];
+      } else {
+        const ind = !!~callbacks.indexOf(callback);
+        if (ind) {
+          callbacks.splice(ind, 1);
+        }
       }
     }
+    this.callbacks[event] = callbacks;
     return this;
   }
 
