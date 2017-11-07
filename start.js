@@ -6,12 +6,13 @@ const pmx = require('pmx').init({
 });
 const startprobe = pmx.probe();
 
-const SHARDCOUNT = 2;
+const SHARDCOUNT = 1;
 
 const Discord = require('discord.js');
 let nodefile = ['./chips.js'];
 // Setup + start
-require('./setup/AppSetup')(); // Website start
+// Website start
+require('./setup/AppSetup')();
 const colors = require('chalk');
 
 const changeConsole_1 = require('./setup/logging/changeConsole');
@@ -63,7 +64,8 @@ const usercount = startprobe.metric({
   name: 'Total Users',
 });
 setInterval(async() => {
-  usercount.set((await Manager.broadcastEval(`let m = 0; this.guilds.forEach(g=>m+=g.members.size); m`)).reduce((p, v) => p + v, 0));
+  usercount.set((await Manager.broadcastEval(`let m = 0; this.guilds.forEach(g=>m+=g.members.size); m`))
+    .reduce((p, v) => p + v, 0));
 }, 5000);
 
 const histogram = startprobe.histogram({
