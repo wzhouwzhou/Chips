@@ -19,7 +19,7 @@ const request = require('request');
 global.Discord = require('discord.js');
 global.client = new Discord.Client({
   fetchAllMembers: true,
-  messageCacheMaxSize: 15,
+  messageCacheMaxSize: 25,
   // MessageCacheLifetime:(30*60),
   // messageSweepInterval:(60*60*1)
 });
@@ -89,7 +89,7 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
     '274260111415836675': '320220288195493890',
   },
 };
- 
+
 client.memberjoin = memberjoin;
 
 global.memberleave = {
