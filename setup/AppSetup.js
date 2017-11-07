@@ -54,7 +54,7 @@ module.exports = () => {
     if (typeof req.headers['cf-connecting-ip'] === 'undefined') {
       console.log(`[EJS][IP]: ${ip_address}`);
     } else {
-      console.log(`[EJS][IP] (behind cloudflare): ${req.headers['cf-connecting-ip']}`);
+      console.log(`[EJS][IP] (behind cloudflare): ${req.headers['cf-connecting-ip']}\n\tCountry: ${req.headers['cf-ipcountry']}`);
     }
     next();
   });
