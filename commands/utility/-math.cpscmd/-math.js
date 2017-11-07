@@ -5,7 +5,7 @@ module.exports = {
   name: '-math',
   async func(msg, { suffix, args, send }) {
 
-    if (!suffix.substring(suffix.indexOf(args[0])).match(/[0-9,]/))
+    if (!suffix.substring(suffix.indexOf(args[0])).match(/^\d*(\,|\.)?\d+$/))
       return send('Numbers/Comma\'s?')
     
     if(args[0].match(/add|plus/)) 
