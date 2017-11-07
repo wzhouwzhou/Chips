@@ -2,7 +2,7 @@ const Jimp = require('jimp');
 global.SBKWC = true;
 const algebra = require('../../handlers/algebra-0.2.6.min');
 
-module.exports = function() {
+module.exports = () => {
   client.on('guildMemberAdd', async member => {
     let memberguild = member.guild;
     let userid = member.user.id;
@@ -12,7 +12,7 @@ module.exports = function() {
 
       if (client.memberjoin.captcha[memberguild.id]) {
         try {
-          let choose = true;// _.random(0,1);
+          let choose = true; // _.random(0,1);
           let results;
           if (!choose) results = await antiraidCaptcha(member);
           else results = await antiraidCaptcha2(member);
@@ -70,6 +70,11 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
           setTimeout(() => {
             console.log('Changing nick...');
             member.setNickname(`(♤)${member.user.username}`.substring(0, Math.min(member.user.username + `(♤)`.length, 32)));
+          });
+        } else if (memberguild.id == '291558782755012610') {
+          setTimeout(() => {
+            console.log('Changing nick for sm...');
+            member.setNickname(`[SM] ${member.user.username}`.substring(0, 32));
           });
         }
       } catch (err) {
