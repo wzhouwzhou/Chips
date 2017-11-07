@@ -42,11 +42,12 @@ const Punishment = class Punishment extends Serializable {
     };
 
     this.on(event, oncecb, callback);
+    return this;
   }
 
   addCallback(event, callback, original) {
     const callbacks = this.callbacks[event] || [];
-    if (!original || !callbacks.indexOf(original)) callbacks.push(callback);
+    if (!original || !~callbacks.indexOf(original)) callbacks.push(callback);
     this.callbacks[event] = Array.from(new Set(callbacks));
     return callback;
   }
@@ -68,6 +69,7 @@ const Punishment = class Punishment extends Serializable {
       // As opposed to setImmediate so that other events will fire first.
       setTimeout(() => cb(...data), 0);
     }
+    return data;
   }
 
   getListeners(event) {
