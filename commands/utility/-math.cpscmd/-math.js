@@ -3,7 +3,7 @@ const splitter = (/(\s|,)+/)
 
 module.exports = {
   name: '-math',
-  async func(msg, { suffix, args, send }) {
+  async func(msg, { suffix, args, send, math }) {
 
     if (!suffix.substring(suffix.indexOf(args[0])).match(/^\d*(\,|\.)?\d+$/))
       return send('Numbers/Comma\'s?')
