@@ -11,13 +11,12 @@ module.exports = {
      let help = [
       '{}botnick reset confirm/yes - To reset Chips\'s nickname!'
      ].join(' ').replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g, '\\`'));
-    return send(help)
+    return send(help);
     if (args[0].match(/reset|r/) && args[1].match(/c|confirm|y|yes/)) {
-      let chips = 'Chips'
-      await guild.me.setNickname(chips)
-      return send(`Nickname set succesfully: ${chips}`)
+      let chips = 'Chips';
+      await guild.me.setNickname(chips);
+      return send(`Nickname set succesfully: ${chips}`);
     }
-    
     await guild.me.setNickname(suffix);
     return send(`Nickname set successfully: ${suffix}`);
   },
