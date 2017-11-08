@@ -13,8 +13,8 @@ module.exports = {
       return send(`${math.add(splitter)}`) 
     
     if(args[0]==='round') 
-      suffix.split(splitter)
-      return send(`${math.round(spliter)}`)
+      let round = args[1];
+      return send(`${math.round(round)}`)
     
     if(args[0].match(/min|minimum|low|lowest/)) 
       suffix.split(splitter)
