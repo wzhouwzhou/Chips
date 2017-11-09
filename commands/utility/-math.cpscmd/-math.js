@@ -26,5 +26,9 @@ module.exports = {
     
     if(args[0].match(/pi|mathpi/)) 
       return send(`${math.PI}`)
+
+    if(args[0].match(/sr|square|root|squareroot|sqrt/)) 
+      let root = args[1];
+      return send(`${math.sqrt(root)}`) 
   }  
 }
