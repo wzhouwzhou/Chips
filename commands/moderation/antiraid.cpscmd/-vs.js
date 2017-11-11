@@ -34,9 +34,7 @@ ex.func = async(msg, {
       if (targetMember.roles.get('305302877641900052') == null && targetMember.roles.find('name', 'unverified') == null && targetMember.roles.find('name', 'Unverified') == null && targetMember.roles.find('name', 'Unverified-Personel') == null) return reply(`User does not have the unverified role!`);
       try {
         let therole = targetMember.roles.find('name', 'unverified') || targetMember.roles.find('name', 'Unverified') || targetMember.roles.find('name', 'Unverified-Personel');
-        let fan = guild.roles.find('name', 'Fan');
-        await targetMember.removeRole(guild.roles.get('305302877641900052') || therole, `${author} verified ${targetMember}!`);
-        fan && await targetMember.addRole(fan);
+        await targetMember.removeRole(guild.roles.get('305302877641900052') || therole, `${author.nickname} verified ${targetMember.nickname}!`);
         if (client.memberjoin.verifyLogC[guild.id]) {
           let embed = new Discord.MessageEmbed();
           embed.setTitle('Member Verification').setColor(_.random(1, 16777215));
