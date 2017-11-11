@@ -35,7 +35,7 @@ ex.func = async(msg, {
       try {
         let therole = targetMember.roles.find('name', 'unverified') || targetMember.roles.find('name', 'Unverified') || targetMember.roles.find('name', 'Unverified-Personel');
         let fan = guild.roles.find('name', 'Fan');
-        await targetMember.removeRole(guild.roles.get('305302877641900052') || therole, `${author} verified ${targetMember}!`);
+        await targetMember.removeRole(guild.roles.get('305302877641900052') || therole, { reason: `${author} verified ${targetMember}!`});
         fan && await targetMember.addRole(fan);
         if (client.memberjoin.verifyLogC[guild.id]) {
           let embed = new Discord.MessageEmbed();
