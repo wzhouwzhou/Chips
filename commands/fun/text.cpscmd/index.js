@@ -8,6 +8,7 @@ let threed2 = require('./3d2');
 let ascii = require('./ascii');
 let derp = require('./derp');
 let haiku = require('./haiku');
+const bify = require('./bify');
 
 console.log('[CPSCMD][INFO][text] Building objects...');
 
@@ -81,6 +82,13 @@ haiku.metadata = {
   example: 'big :heart:',
   perm: [['global.fun.text.haiku']],
 };
+bify.metadata = {
+  category: require('../').category,
+  description: 'Prints your text with :b: replacements!',
+  usage: 'bify <text>',
+  example: 'bify testing one two three',
+  perm: [['global.fun.text.bify']],
+};
 
 console.log('[CPSCMD][INFO][text] Build objects complete!');
 module.exports = [
@@ -94,4 +102,5 @@ module.exports = [
   [ascii.name, ascii],
   [derp.name, derp],
   [haiku.name, haiku],
+  [bify.name, bify],
 ];
