@@ -64,6 +64,14 @@ triggered.metadata = {
   example: 'triggered',
   perm: [['global.fun.triggers.rekt']],
 };
+fail.metadata = {
+  category: require('../').category,
+  description: 'FAIL!!',
+  usage: 'fail',
+  example: 'fail',
+  perm: [['global.fun.triggers.fail']]
+
+};  
 
 console.log('[CPSCMD][FUN][triggers] Build objects complete!');
 module.exports = [
@@ -71,6 +79,9 @@ module.exports = [
   ['aboose', aboosed],
   [confoosed.name, confoosed],
   [exposed.name, exposed],
+  [fail.name, fail],
+  ['wasted', fail],
+  ['failed', fail],
   [kawaii.name, kawaii],
   [lenny.name, lenny],
   [rekt.name, rekt],
