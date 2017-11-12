@@ -12,7 +12,8 @@ module.exports = () => {
 
       if (client.memberjoin.captcha[memberguild.id]) {
         try {
-          let choose = true; // _.random(0,1);
+          // _.random(0,1);
+          let choose = true;
           let results;
           if (!choose) results = await antiraidCaptcha(member);
           else results = await antiraidCaptcha2(member);
@@ -70,12 +71,20 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
           setTimeout(() => {
             console.log('Changing nick...');
             member.setNickname(`(♤)${member.user.username}`.substring(0, Math.min(member.user.username + `(♤)`.length, 32)));
-          });
+          }, 500);
+        } else if (memberguild.id === '339930093042532363') {
+          setTimeout(() => {
+            console.log('[HH] adding role...');
+            member.addRole(memberguild.roles.get('378216052351565834') || memberguild.roles.find('name', 'unverified'));
+            console.log('[HH] sending welcome msg...');
+            let welcomeC = client.channels.get('378216458314055710') || memberguild.channels.find('name', 'unverified');
+            welcomeC.send(`<@${userid}>, Welcome to ${memberguild.name}! Please wait for staff to verify you!`);
+          }, 500);
         } else if (memberguild.id == '291558782755012610') {
           setTimeout(() => {
             console.log('Changing nick for sm...');
             member.setNickname(`[SM] ${member.user.username}`.substring(0, 32));
-          });
+          }, 500);
         }
       } catch (err) {
         console.log('could not add unverified role or set nick');

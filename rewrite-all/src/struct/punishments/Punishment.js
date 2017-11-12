@@ -45,6 +45,27 @@ const Punishment = class Punishment extends Serializable {
     return this;
   }
 
+  only(event, callback, original) {
+    const callbacks = this.callbacks[event] || [];
+    if (!!~callbacks.indexOf(callback) || (original && !!~callbacks.indexOf(original))) {
+      throw new Error('Callback has already been added');
+    }
+    if (callbacks.length > 1) {
+      throw new Error(`More than one callback has been assigned for event ${event}`);
+    }
+    this.addCallback(event, callback, original);
+  }
+
+  onlyOnce(event, callback) {
+    const onlyoncecb = (...args) => {
+      this.removeCallback(event, onlyoncecb);
+      return callback(...args);
+    };
+
+    this.only(event, onlyoncecb, callback);
+    return this;
+  }
+
   addCallback(event, callback, original) {
     const callbacks = this.callbacks[event] || [];
     if (!original || !~callbacks.indexOf(original)) callbacks.push(callback);

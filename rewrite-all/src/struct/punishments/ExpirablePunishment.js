@@ -15,16 +15,20 @@ const ExpirablePunishment = class ExpirablePunishment extends Punishment {
   }
 
   serialize(cache = false) {
-    const data = super.serialize(false);
+    const data = super.serialize(cache);
     data.duration = this.duration;
 
     if (cache) this.data = data;
     return data;
   }
 
-  checkOver(dateB) {
-    if (this.date + this.duration > (dateB || new Date)) this.concluded = true;
-    this.concluded = false;
+  checkOver(dateB = new Date) {
+    if (this.date + this.duration > dateB) {
+      this.concluded = true;
+      this.emit('expired', this.serialize(false));
+    } else {
+      this.concluded = false;
+    }
     return this.concluded;
   }
 };
