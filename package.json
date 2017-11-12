@@ -83,6 +83,7 @@
     "magnific-popup": "^1.1.0",
     "minimatch": "^3.0.4",
     "moment": "^2.18.1",
+    "moment-duration-format": "^1.3.0",
     "morgan": "^1.8.2",
     "music-manager": "^1.1.3",
     "needle": "^2.0.1",
