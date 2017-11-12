@@ -7,10 +7,10 @@ console.log('[CPSCMD][MODERATION][mutes] Building objects...');
 rmute.metadata = {
   category: require('../').category,
   description: 'This command lets you mute server members by role',
-  usage: 'pmute <User> <Optional Reason>',
+  usage: 'rmute <User> <Optional Reason>',
   example: 'rmute @Evildeathpro✔#3981 stop',
   perm: [['global.moderation.mutes.pmute']],
-  customperm: [['BAN_MEMBERS']],
+  customperm: [['MANAGE_ROLES']],
 };
 
 extEmojiBan.metadata = {
@@ -28,7 +28,7 @@ chipsmutebuild.metadata = {
   usage: 'chipsmutebuild',
   example: 'chipsmutebuild',
   perm: [['global.moderation.mutes.pmute']],
-  customperm: [['BAN_MEMBERS']],
+  customperm: [['MANAGE_ROLES']],
 };
 
 console.log('[CPSCMD][MODERATION][mutes] Build objects complete!');
