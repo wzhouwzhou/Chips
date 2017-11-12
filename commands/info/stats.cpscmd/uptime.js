@@ -1,10 +1,10 @@
-const gjF = require('./rewrite-all/src/deps/functions/grammarJoinF').default({ _ });
-const fF = require('./rewrite-all/src/deps/functions/firstF').default({ _ });
-const lF = require('./rewrite-all/src/deps/functions/lastF').default({ _ });
-
 const _ = require('lodash');
 const moment = require('moment');
 require('moment-duration-format');
+
+const gjF = require('../../../rewrite-all/src/deps/functions/grammarJoinF').default({ _ });
+const fF = require('../../../rewrite-all/src/deps/functions/firstF').default({ _ });
+const lF = require('../../../rewrite-all/src/deps/functions/lastF').default({ _ });
 
 module.exports = {
   name: 'uptime',
