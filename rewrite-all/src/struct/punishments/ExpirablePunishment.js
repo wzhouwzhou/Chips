@@ -32,8 +32,12 @@ const ExpirablePunishment = class ExpirablePunishment extends Punishment {
     return this.concluded;
   }
 
+  isOver(...args) {
+    this.checkOver(...args);
+  }
+
   timeLeft(dateB = new Date) {
-    return dateB - this.date - this.duration;
+    return this.date - dateB + this.duration;
   }
 };
 
