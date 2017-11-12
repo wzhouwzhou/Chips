@@ -1,6 +1,7 @@
 let aboosed = require('./aboose');
 let confoosed = require('./confoosed');
 let exposed = require('./exposed');
+let fail = require('./fail');
 let kawaii = require('./kawaii');
 let lenny = require('./lenny');
 let rekt = require('./rekt');
