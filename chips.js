@@ -1,5 +1,7 @@
 /* eslint no-unused-vars: "off" */
 Object.defineProperty(exports, '__esModule', { value: true });
+require('long-stack-traces');
+
 global._ = require('lodash');
 const OL1 = console.log;
 console.log = (...args) => OL1(...args.map(e => (e + []).replace(new RegExp(`${_.escapeRegExp(__dirname)}`, 'gi'), '$.')));
@@ -67,6 +69,7 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
     '329024870887456768': true,
     '359801125882298378': true,
     '295601523050676226': true,
+    '339930093042532363': true,
   },
   panics: {
     0: false,
