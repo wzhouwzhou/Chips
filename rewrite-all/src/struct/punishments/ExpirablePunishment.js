@@ -23,7 +23,7 @@ const ExpirablePunishment = class ExpirablePunishment extends Punishment {
   }
 
   checkOver(dateB = new Date) {
-    if (dateB - this.date > this.duration) {
+    if (this.timeLeft(dateB) <= 0) {
       this.concluded = true;
       this.emit('expired', this.serialize(false));
     } else {
@@ -33,7 +33,7 @@ const ExpirablePunishment = class ExpirablePunishment extends Punishment {
   }
 
   timeLeft(dateB = new Date) {
-    return (this.date - dateB) + this.duration;
+    return dateB - this.date - this.duration;
   }
 };
 
