@@ -7,7 +7,7 @@ bn.metadata = {
   usage: 'botnick <Name>',
   example: 'botnick Chips-Sux',
   perm: [['global.utility.botnick.*']],
-  customperm: ['MANAGE_NICKNAMES'],
+  customperm: [['MANAGE_NICKNAMES']],
 };
 
 
