@@ -14,6 +14,11 @@ const PunishmentHandler = class PunishmentHandler extends Serializable {
     this.guild = this._client ? this._client.guilds.get(this.id || 0) : null;
     this.punishOptions = punishOptions;
 
+    for (const [k, v] of Object.entries(Object.assign({},
+      opts,
+      { client: undefined, guildid: undefined, punishOptions: undefined })
+    )) this[k] = v;
+
     this.muteHandler = opts.muteHandler || new MuteHandler(this);
     this.banHandler = opts.banHandler || new BanHandler(this);
     this.kickHandler = opts.kickHandler || new KickHandler(this);
