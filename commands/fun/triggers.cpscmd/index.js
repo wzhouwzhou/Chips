@@ -69,8 +69,7 @@ fail.metadata = {
   description: 'FAIL!!',
   usage: 'fail',
   example: 'fail',
-  perm: [['global.fun.triggers.fail']]
-
+  perm: [['global.fun.triggers.fail']],
 };  
 
 console.log('[CPSCMD][FUN][triggers] Build objects complete!');
