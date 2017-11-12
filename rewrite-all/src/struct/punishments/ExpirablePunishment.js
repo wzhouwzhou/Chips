@@ -23,13 +23,21 @@ const ExpirablePunishment = class ExpirablePunishment extends Punishment {
   }
 
   checkOver(dateB = new Date) {
-    if (this.date + this.duration < dateB) {
+    if (this.timeLeft(dateB) <= 0) {
       this.concluded = true;
       this.emit('expired', this.serialize(false));
     } else {
       this.concluded = false;
     }
     return this.concluded;
+  }
+
+  isOver(...args) {
+    this.checkOver(...args);
+  }
+
+  timeLeft(dateB = new Date) {
+    return this.date - dateB + this.duration;
   }
 };
 

@@ -47,7 +47,8 @@ const Punishment = class Punishment extends Serializable {
 
   only(event, callback, original) {
     const callbacks = this.callbacks[event] || [];
-    if (!!~callbacks.indexOf(callback) || (original && !!~callbacks.indexOf(original))) {
+    if (callbacks.some(cb => [] + cb === callback + []) ||
+       (original && callbacks.some(cb => [] + cb === original + []))) {
       throw new Error('Callback has already been added');
     }
     if (callbacks.length > 1) {
