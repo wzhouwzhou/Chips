@@ -6,7 +6,7 @@ bn.metadata = {
   description: 'This changes the bot nickname.',
   usage: 'botnick <Name>',
   example: 'botnick Chips-Sux',
-  perm: [['global.utility.botnick.*']],
+  perm: [['global.moderation.mutes.pmute']],
   customperm: [['MANAGE_NICKNAMES']],
 };
 
