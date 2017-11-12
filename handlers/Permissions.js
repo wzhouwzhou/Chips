@@ -73,6 +73,7 @@ ex.permsList = [
   ['global.fun.triggers.aboose', true], // 6
   ['global.fun.triggers.confoosed', true],
   ['global.fun.triggers.exposed', true], // 17
+  ['global.fun.triggers.fail', true],
   ['global.fun.triggers.lenny', true],
   ['global.fun.triggers.rekt', true],
   ['global.fun.triggers.everyone', true],
