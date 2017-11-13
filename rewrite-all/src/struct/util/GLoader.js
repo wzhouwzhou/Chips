@@ -7,10 +7,10 @@ const ensureAbstract = require('../../deps/functions/ensureAbstractF').default()
  * Gloader
  * An abstract utiliy class that represents a Google Spreadsheet Loader.
  *
- * @extends {Function}
+ * @extends {Runnable}
  * @type {GLoader}
  */
-const GLoader = class GLoader extends Function {
+const GLoader = class GLoader extends require('./Runnable').Runnable {
   /**
    * Constructs a GSheets Loader
    *
@@ -38,6 +38,10 @@ const GLoader = class GLoader extends Function {
     * @type {Database}
     */
     this.db = db;
+  }
+
+  run(...args) {
+    return this.load(...args);
   }
 };
 
