@@ -13,6 +13,13 @@ const fails = [
     'https://www.tenor.co/GbH3.gif',
     'https://www.tenor.co/wK2a.gif',
     'https://giphy.com/gifs/wasted-sign-uAH7abSiUAlPO',
+    'https://giphy.com/gifs/Jalikml2XiUgw \n Wait for it!',
+    'https://media.giphy.com/media/uMWIZ4uioxFja/giphy.gif',
+    'https://media.giphy.com/media/12fFFvFOaffWww/giphy.gif',
+    'https://media.giphy.com/media/xT9IgF8MrlZiZUwyU8/giphy.gif',
+    'https://media.giphy.com/media/HQZiHJ7haZ5JK/giphy.gif',
+    'https://media.giphy.com/media/QWKspPE4Ehtra/giphy.gif',
+    'https://media.giphy.com/media/9ZVdNukqksT04/giphy.gif'
   ];
   
   module.exports = {
