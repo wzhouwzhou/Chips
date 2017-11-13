@@ -12,6 +12,7 @@ const fails = [
     'https://www.tenor.co/tphJ.gif',
     'https://www.tenor.co/GbH3.gif',
     'https://www.tenor.co/wK2a.gif',
+    'https://giphy.com/gifs/wasted-sign-uAH7abSiUAlPO',
   ];
   
   module.exports = {
