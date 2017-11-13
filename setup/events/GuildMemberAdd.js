@@ -74,11 +74,11 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
           }, 500);
         } else if (memberguild.id === '339930093042532363') {
           setTimeout(() => {
-            console.log('[HH] adding role...');
-            member.addRole(memberguild.roles.get('378216052351565834') || memberguild.roles.find('name', 'unverified'));
+            //console.log('[HH] adding role...');
+            //member.addRole(memberguild.roles.get('378216052351565834') || memberguild.roles.find('name', 'unverified'));
             console.log('[HH] sending welcome msg...');
             let welcomeC = client.channels.get('378216458314055710') || memberguild.channels.find('name', 'unverified');
-            welcomeC.send(`<@${userid}>, Welcome to ${memberguild.name}! Please wait for staff to verify you!`);
+            if (welcomeC) welcomeC.send(`<@${userid}>, Welcome to ${memberguild.name}! Please check your dms!`);
           }, 500);
         } else if (memberguild.id == '291558782755012610') {
           setTimeout(() => {
@@ -187,7 +187,7 @@ const antiraidCaptcha = mem => new Promise((res, rej) => {
           if (collected.size == 0 && mem.died == false) {
             console.log(`After 5 minutes, the user did not respond.`);
             mem.died = true;
-            res([mem, 'timeout']);
+            rej([mem, 'timeout']);
           } else {
             thisDmC.send('Uh oh, something went wrong with your verification!');
           }

@@ -1,10 +1,10 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const { Serializable } = require('../util/Serializable');
+const { Stringifiable } = require('../util/Stringifiable');
 const ensureAbstract = require('../../deps/functions/ensureAbstractF').default();
 
-const Punishment = class Punishment extends Serializable {
+const Punishment = class Punishment extends Stringifiable {
   constructor(options = {}) {
     super();
     this.executors = options.executors || [];
