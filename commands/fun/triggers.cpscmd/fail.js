@@ -21,13 +21,14 @@ const fails = [
     'https://media.giphy.com/media/QWKspPE4Ehtra/giphy.gif',
     'https://media.giphy.com/media/9ZVdNukqksT04/giphy.gif',
     'https://media.giphy.com/media/qRMobwGqHdvck/giphy.gif',
-    'https://media.giphy.com/media/3ohhwFfsEJJFQpEY24/giphy.gif'
+    'https://media.giphy.com/media/3ohhwFfsEJJFQpEY24/giphy.gif',
+    'https://media.giphy.com/media/3o7ZeAgHVHDH0jCTN6/giphy.gif',
   
   ];
   
   module.exports = {
     name: 'fail',
     async func(msg, { send }) {
-      return send(fails[_.random(0, fails.length - 1)]);
+      return send(new Discord.MessageEmbed().setDescription(fails[_.random(0, fails.length - 1)]));
     },
   };
