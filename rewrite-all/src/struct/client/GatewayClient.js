@@ -35,6 +35,7 @@ const GatewayClient = class GatewayClient {
     this.socket = io(process.env.GATEWAY);
     this.event_disconnect();
     this.event_HBConnect();
+    this.event_message();
     return this;
   }
 
@@ -43,6 +44,10 @@ const GatewayClient = class GatewayClient {
       const dec = this.decrypt(data);
       this.handleMessage(dec);
     });
+  }
+
+  emit(...args) {
+    return this.socket.emit(...args);
   }
 
   handleMessage({ room, type, data, senderid }) {
