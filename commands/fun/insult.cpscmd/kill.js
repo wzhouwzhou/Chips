@@ -1,7 +1,7 @@
 module.exports = {
   name: 'kill',
   async func(msg, { send, author, args }) {
-  		if(!guild) return send('This command can only be used in a server');
+  		if(!msg.guild) return send('This command can only be used in a server');
 		if(!args) return reply("Please mention someone to kill!");
 			const first = author.id;
 			const second = msg.mentions.members.first();
