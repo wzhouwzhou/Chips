@@ -1,4 +1,4 @@
-const math = require('nodecpp-test');
+const { math } = require('nodecpp-test');
 const splitter = (/(\s|,)+/);
 
 module.exports = {
@@ -19,19 +19,19 @@ module.exports = {
     }
 
     if (args[0].match(/min|minimum|low|lowest/)) {
-      return send(`${math.min(suffix.split(splitter))}`);
+      return send(`${Math.min(suffix.split(splitter))}`);
     }
 
     if (args[0].match(/highest|high|maximum|max/)) {
       suffix.split(splitter);
-      return send(`${math.max(splitter)}`);
+      return send(`${Math.max(splitter)}`);
     }
 
-    if (args[0].match(/pi|mathpi/)) return send(`${math.PI}`);
+    if (args[0].match(/pi|mathpi/)) return send(`${Math.PI}`);
 
     if (args[0].match(/sr|square|root|squareroot|sqrt|rt/)) {
       let root = args[1];
-      return send(`${math.sqrt(root)}`);
+      return send(`${Math.sqrt(root)}`);
     }
 
     return send('Invalid operation');
