@@ -9,7 +9,7 @@ module.exports = {
     }
 
     if (args[0].match(/add|plus/)) {
-      return send(`${math.add(...suffix.split(splitter).map(e => +e))}`);
+      return send(`${math.add(..._.drop(suffix.split(splitter)).map(e => +e))}`);
     }
 
     if (args[0] === 'round') {
