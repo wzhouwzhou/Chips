@@ -46,17 +46,22 @@ const GatewayClient = class GatewayClient {
   }
 
   handleMessage({ room, type, data, senderid }) {
-    if (room === 'heartbeat' && type === 'ping') {
-      if (senderid === this.myid) return true;
-      this.socket.emit('message', this.encrypt({ type: 'pong', data: { time: new Date + [] }, senderid: this.myid }));
-      this.socket.emit('message', this.encrypt({ type: 'ping2', data: { time: new Date + [] }, senderid: this.myid }));
-      if (type === 'pong2') {
+    if (room === 'heartbeat') {
+      if (type === 'ping') {
+        if (senderid === this.myid) return true;
+        this.socket.emit('message', this.encrypt({ type: 'pong', data: { time: new Date + [] }, senderid: this.myid }));
+        this.socket.emit('message', this.encrypt({
+          type: 'ping2',
+          data: { time: new Date + [] },
+          senderid: this.myid,
+        }));
+      } else if (type === 'pong2') {
         Logger.debug(`Client received a ping ${new Date - new Date(data.time)}ms from socket ${senderid}`);
       }
     }
-    if (type === 'debug') console.dir(data);
+    if (type === 'debug') Logger.debug(data);
     return this;
-    // return this.msgHandles[type]({ room, type, data, senderid });
+    // Return this.msgHandles[type]({ room, type, data, senderid });
   }
 
   event_disconnect() {
