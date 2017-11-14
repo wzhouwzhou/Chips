@@ -2,10 +2,10 @@ module.exports = {
   name: 'kill',
   async func(msg, { send, author, args }) {
   		if(!msg.guild) return send('This command can only be used in a server');
-		if(!args) return reply("Please mention someone to kill!");
+		if(!args) return msg.reply("Please mention someone to kill!");
 			const first = author.id;
 			const second = msg.mentions.members.first();
-			if(!second) return reply("Please mention a user to murder!");
+			if(!second) return msg.reply("Please mention a user to murder!");
 				const killerMan = [
 					`<@!${first}> shoves a double barreled shotgun into ${second}\'s mouth and squeezes the trigger of the gun, causing ${second}'s head to horrifically explode like a ripe pimple, splattering the young person's brain matter, gore, and bone fragments all over the walls and painting it a crimson red.`,
 
