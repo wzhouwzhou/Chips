@@ -1,21 +1,20 @@
 const { math } = require('nodecpp-test');
 const splitter = (/(\s|,)+/);
-
+const _ = require('lodash');
 module.exports = {
   name: '-math',
   func(msg, { suffix, args, send }) {
-    if (!suffix.substring(suffix.indexOf(args[1])).match(/^\d*(,|\.)?\d+$/)) {
+    if (!_.drop(suffix.split(/\s+/))[0].match(/^\d*(,|\.)?\d+$/)) {
       return send('Numbers/Comma\'s?');
     }
 
     if (args[0].match(/add|plus/)) {
-      suffix.split(splitter);
-      return send(`${math.add(splitter)}`);
+      return send(`${math.add(...suffix.split(splitter).map(e => +e))}`);
     }
 
     if (args[0] === 'round') {
       let round = args[1];
-      return send(`${math.round(round)}`);
+      return send(`${math.round(+round)}`);
     }
 
     if (args[0].match(/min|minimum|low|lowest/)) {
