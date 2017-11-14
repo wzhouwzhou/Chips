@@ -2,7 +2,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const io = require('socket.io-client');
-const erlpack = require('erpack');
+const erlpack = require('erlpack');
 
 const crypto = require('crypto');
 const algorithm = 'aes-256-ctr';
@@ -41,7 +41,8 @@ const GatewayClient = class GatewayClient {
   event_message() {
     this.socket.on('message', data => {
       const dec = this.decrypt(data);
-      this.handleMessage(dec);
+      //this.handleMessage(dec);
+      console.log(dec);
     });
   }
 
