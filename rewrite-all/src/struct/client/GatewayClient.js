@@ -41,14 +41,19 @@ const GatewayClient = class GatewayClient {
   event_message() {
     this.socket.on('message', data => {
       const dec = this.decrypt(data);
-      //this.handleMessage(dec);
-      console.log(dec);
+      this.handleMessage(dec);
     });
   }
 
   handleMessage({ room, type, data, senderid }) {
-    if (room === 'heartbeat' && senderid === this.id) return true;
-    return this.msgHandles[type]({ room, type, data, senderid });
+    if (room === 'heartbeat' && type === 'ping') {
+      if (senderid === this.id) return true;
+      Logger.debug(`Client received a ping ${new Date - new Date(data.time)}ms from socket ${senderid}`);
+      this.socket.emit('message', this.encrypt({ type: 'pong', data: { time: new Date + [] }, senderid: this.id }));
+    }
+    if (type === 'debug') console.dir(data);
+    return this;
+    // return this.msgHandles[type]({ room, type, data, senderid });
   }
 
   event_disconnect() {
@@ -56,7 +61,7 @@ const GatewayClient = class GatewayClient {
   }
 
   event_HBConnect() {
-    this.socket.once('connect', () => {
+    this.socket.on('connect', () => {
       this.socket.emit('room', 'heartbeat');
       Logger.debug('Heartbeat room request');
     });
