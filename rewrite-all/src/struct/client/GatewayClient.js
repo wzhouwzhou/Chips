@@ -49,7 +49,7 @@ const GatewayClient = class GatewayClient {
     if (room === 'heartbeat') {
       if (type === 'ping') {
         if (senderid === this.myid) return true;
-        this.socket.emit('message', this.encrypt({ type: 'pong', data: { time: new Date + [] }, senderid: this.myid }));
+        this.socket.emit('message', this.encrypt({ type: 'pong', data, senderid: this.myid }));
         this.socket.emit('message', this.encrypt({
           type: 'ping2',
           data: { time: new Date + [] },
