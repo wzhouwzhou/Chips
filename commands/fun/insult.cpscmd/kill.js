@@ -15,7 +15,7 @@ module.exports = {
 
 					`<@!${first}> pours acid over ${second}. *"Well don't you look pretty right now?"*`,
 
-					`${second} screams in terror as a giant creature with huge muscular arms grab {$second}'s head; ${second}'s screams of terror are cut off as the creature tears off the head with a sickening crunching sound. ${second}'s spinal cord, which is still attached to the dismembered head, is used by the creature as a makeshift sword to slice a perfect asymmetrical line down ${second}'s body, causing the organs to spill out as the two halves fall to their respective sides.`,
+					`${second} screams in terror as a giant creature with huge muscular arms grab ${second}'s head; ${second}'s screams of terror are cut off as the creature tears off the head with a sickening crunching sound. ${second}'s spinal cord, which is still attached to the dismembered head, is used by the creature as a makeshift sword to slice a perfect asymmetrical line down ${second}'s body, causing the organs to spill out as the two halves fall to their respective sides.`,
 
 					`<@!${first}> grabs ${second}'s head and tears it off with superhuman speed and efficiency. Using ${second}'s head as a makeshift basketball, <@!${first}> expertly slams dunk it into the basketball hoop, much to the applause of the audience watching the gruesome scene.`,
 
