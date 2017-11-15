@@ -8,7 +8,7 @@ const BasicAI = require('chess-ai-kong');
 BasicAI.setOptions({
   depth: 500,
   strategy: 'basic',
-  timeout: 1,
+  timeout: 0,
 });
 
 const Discord = require('discord.js');
