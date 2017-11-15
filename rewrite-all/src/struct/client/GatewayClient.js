@@ -64,7 +64,9 @@ const GatewayClient = class GatewayClient {
       } else if (type === 'pong2') {
         Logger.debug(`Client received a roundtrip ping ${new Date - new Date(data.time)}ms from socket ${senderid}`);
         this.lastpings.push((new Date - new Date(data.time)) / 2);
+        this.lastpings.reverse();
         this.lastpings.length = Math.min(this.lastpings.length, 3);
+        this.lastpings.reverse();
       }
     }
     if (type === 'debug') Logger.debug(data);
