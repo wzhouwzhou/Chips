@@ -16,6 +16,7 @@ const steps = {
 client.antilink = {
   '340162857155035148': true,
   '257889450850254848': true,
+  '339930093042532363': true,
 };
 
 client.antiDiepLink = {
