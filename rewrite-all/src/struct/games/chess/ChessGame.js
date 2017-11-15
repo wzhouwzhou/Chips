@@ -6,7 +6,7 @@ const { Engine } = require('node-uci');
 
 const BasicAI = require('chess-ai-kong');
 BasicAI.setOptions({
-  depth: 1000,
+  depth: 500,
   strategy: 'basic',
   timeout: 1,
 });
