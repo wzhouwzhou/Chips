@@ -15,6 +15,7 @@ const GatewayClient = class GatewayClient {
   constructor(client) {
     this.myid = client.shard.id;
     _keys.set(this, client.token);
+    this.lastpings = [];
   }
 
   encrypt(item) {
@@ -61,7 +62,9 @@ const GatewayClient = class GatewayClient {
           senderid: this.myid,
         }));
       } else if (type === 'pong2') {
-        Logger.debug(`Client received a ping ${new Date - new Date(data.time)}ms from socket ${senderid}`);
+        Logger.debug(`Client received a roundtrip ping ${new Date - new Date(data.time)}ms from socket ${senderid}`);
+        this.lastpings.push((new Date - new Date(data.time)) / 2);
+        this.lastpings.length = Math.min(this.lastpings.length, 3);
       }
     }
     if (type === 'debug') Logger.debug(data);
@@ -79,6 +82,10 @@ const GatewayClient = class GatewayClient {
       Logger.debug('Heartbeat room request');
     });
     return this;
+  }
+
+  getPingAvg() {
+    return ~~(100 * this.lastpings.reduce((a, b) => a + b, 0) / this.lastpings.length) / 100;
   }
 };
 

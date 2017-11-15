@@ -1,6 +1,8 @@
+const moment = require('moment');
+
 module.exports = {
   name: 'ping',
-  async func(msg, { send, author, member, channel, args, client }) {
+  async func(msg, { send, author, member, channel, args, client, Discord }) {
     if (args[0] && args[0] === 'verbose') {
       channel.startTyping();
       let wsPing = client.ping;
@@ -8,7 +10,9 @@ module.exports = {
       let sentmsg;
       try {
         sentmsg = await send('Pong! ');
-      } catch (err) { return console.error(`Error at sending message of Ping: ${err}`); }
+      } catch (err) {
+        return console.error(`Error at sending message of Ping: ${err}`);
+      }
       let sendMetrics = Date.now() - now;
 
       const m = await sentmsg.edit(`Pong!`);
@@ -43,13 +47,13 @@ module.exports = {
       else if (weighted < 400) scale = "That's about average!";
       else if (weighted < 500) scale = "That's slightly below average!";
       else if (weighted < 600) scale = 'I might be lagging a bit!';
-      else if (weighted < 700) scale = "I think I am lagging a fair amount! Try doing -discordstatus to see if it's a problem on Discord's end!";
-      else if (weighted < 800) scale = "Perhaps I am having issues with the internet! Try doing -discordstatus to see if it's a problem on Discord's end!";
-      else if (weighted < 900) scale = "That's pretty bad! Try doing -discordstatus to see if it's a problem on Discord's end!";
-      else if (weighted < 1000)scale = "That's poor! Perhaps I just restarted? Try doing -discordstatus to see if it's a problem on Discord's end!";
-      else if (weighted > 1000)scale = "Help! Something must be wrong with me or Discord! Perhaps I just restarted? Try doing -discordstatus to see if it's a problem on Discord's end!";
+      else if (weighted < 700) scale = "I think I am lagging a fair amount!";
+      else if (weighted < 800) scale = "Perhaps I am having issues with the internet! Try doing discordstatus to see if it's a problem on Discord's end!";
+      else if (weighted < 900) scale = "That's pretty bad! Try doing discordstatus to see if it's a problem on Discord's end!";
+      else if (weighted < 1000)scale = "That's poor! Perhaps I just restarted? Try doing discordstatus to see if it's a problem on Discord's end!";
+      else if (weighted > 1000)scale = "Help! Something must be wrong with me or Discord! Perhaps I just restarted? Try doing discordstatus to see if it's a problem on Discord's end!";
 
-      console.log(`ping pong! ${author.username}'s ping was ${wsPing}ms!`);
+      // Console.log(`ping pong! ${author.username}'s ping was ${wsPing}ms!`);
 
       client.database._sheets.botlog.addRow({ time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: 'Crowd report: ping', mainvalue: wsPing, label: 'ms' }, err => { console.log(err); });
 
@@ -59,8 +63,10 @@ module.exports = {
       bad.addField('Sending a msg: ', sendMetrics.toFixed(2));
       bad.addField('Editing a msg: ', editMetrics.toFixed(2));
       bad.addField('Reacting to a msg (rate limit): ', reactMetrics.toFixed(2));
-      bad.addField('Clearing message reactions: ', typeof creactMetrics !== 'string' ? creactMetrics.toFixed(2) : creactMetrics);
+      bad.addField('Clearing message reactions: ',
+        typeof creactMetrics !== 'string' ? creactMetrics.toFixed(2) : creactMetrics);
       bad.addField('Deleting a msg: ', delMetrics.toFixed(2));
+      bad.addField('Gateway: ', client.gatewayc.getPingAvg() || 'unknown');
       channel.stopTyping();
       return send(`🏓\u2000Pong! My weighted/overall ping is ${weighted.toFixed(2)}ms! ${scale}`, { embed: bad });
     } else {
@@ -72,7 +78,7 @@ module.exports = {
         sentMetric = '???';
       }
 
-      await sentmsg.edit(`🏓\u2000Pong! \nWebsocket: **${~~client.ping} ms**\nApi: **${~~(-sentMetric * 100) / 100}** ms`);
+      await sentmsg.edit(`🏓\u2000Pong! (times in ms)\nWebsocket: **${~~client.ping}**\nApi: **${~~(-sentMetric * 100) / 100}**\nGateway: **${client.gatewayc.getPingAvg() || 'unknown'}**`);
     }
   },
 };
