@@ -6,7 +6,7 @@ const { Engine } = require('node-uci');
 
 const BasicAI = require('chess-ai-kong');
 BasicAI.setOptions({
-  depth: 500,
+  depth: 200,
   strategy: 'basic',
   timeout: 0,
 });
@@ -76,7 +76,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     let comment = '';
     if (end) {
       if (this.game.in_draw()) comment += 'The game was a draw';
-      else if (this.turn) if (this.movers.get(this.turn.toLowerCase())) comment += `${this.movers.get(this.turn.toLowerCase() === 'white' ? 'black' : 'white').username}won`;
+      else if (this.turn) if (this.movers.get(this.turn.toLowerCase())) comment += `${this.movers.get(this.turn.toLowerCase() === 'white' ? 'black' : 'white').username} won`;
       comment += ` after ${this.game.history().length} moves!`;
     } else {
       if (this.movers.get(this.turn.toLowerCase())) comment += this.movers.get(this.turn.toLowerCase()).username;
