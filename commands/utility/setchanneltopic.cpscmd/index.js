@@ -7,7 +7,7 @@ stc.metadata = {
   description: 'Changes to channel topic.',
   usage: 'settopic \"topic\"',
   example: 'settopic',
-  perm: [['global.utility.setchannel.*']],
+  perm: [['global.moderation.mutes.pmute']],
   customperm: ['MANAGE_CHANNELS'],
 };
 
