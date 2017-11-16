@@ -7,7 +7,7 @@ sc.metadata = {
   description: 'Sets up channels',
   usage: 'setchannel',
   example: 'setchannel',
-  perm: [['global.utility.setchannel.*']],
+  perm: [['global.moderation.mutes.pmute']],
   customperm: ['MANAGE_CHANNELS'],
 };
 
