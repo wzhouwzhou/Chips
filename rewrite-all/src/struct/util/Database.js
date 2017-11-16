@@ -145,7 +145,7 @@ const Database = class Database {
     this._sheets[gsheet.title] = gsheet;
     const toLoad = [];
     for (const preF in this.loadFunctions) {
-      Logger.debug(`Seeing preF: ${preF}`);
+      // Logger.debug(`Seeing preF: ${preF}`);
       if (gsheet.title === preF) {
         Logger.info(`Loading preF: ${preF}`);
         toLoad.push(this.loadFunctions[preF].load({
@@ -154,6 +154,7 @@ const Database = class Database {
           database: this,
           Permissions: PermissionsHandler,
         }));
+        break;
       }
     }
     await Promise.all(toLoad);
