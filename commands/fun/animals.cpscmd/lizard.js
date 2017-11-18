@@ -9,8 +9,8 @@ module.exports = {
 		}
 
 		send('', {
-			embed: new RichEmbed(member.displayColor)
-				.setColor(config.discord.defaultColor)
+			embed: new RichEmbed()
+				.setColor(member.displayColor)
 				.setTitle('Random Lizards')
 				.setDescription('This message will be deleted in 3 minutes')
 				.setImage(res.body.url)
