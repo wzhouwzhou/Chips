@@ -9,7 +9,7 @@ module.exports = {
 		}
 
 		send('', {
-			embed: new RichEmbed()
+			embed: new  Discord.MessageEmbed()
 				.setColor(member.displayColor)
 				.setTitle('Random Lizards')
 				.setDescription('This message will be deleted in 3 minutes')
