@@ -7,7 +7,7 @@ module.exports = {
 	if (res.status !== 200) {
 		return send('An error has occurred!');
 	}
-	cosnt embed = new  Discord.MessageEmbed()
+	const embed = new  Discord.MessageEmbed()
 			.setColor(member.displayColor)
 			.setTitle('Random Lizards')
 			.setDescription('This message will be deleted in 3 minutes')
