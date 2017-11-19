@@ -59,8 +59,8 @@ const ex = {
 
       let textC = 0, voiceC = 0, categoryC = 0, tC = 0, nsfw = 0;
       guild.channels.filter(c => {
-        if (c.type == 'text') textC++;
-        else if (c.type == 'voice') voiceC++;
+        if (c.type === 'text') textC++;
+        else if (c.type === 'voice') voiceC++;
         else if (c.type === 'category') categoryC++;
         tC++;
         if (c.nsfw) nsfw++;
@@ -462,7 +462,7 @@ const userData = (member, infobad, convertTime, times, name) => new Promise(asyn
 
   const membername = member.displayName.replace('@', '(at)');
   let highest = 'years';
-  diff = await convertTime(member.joinedAt, times.indexOf(highest));
+  let diff = await convertTime(member.joinedAt, times.indexOf(highest));
   diff = `${diff[0]} ${times[diff[1]]}`;
 
   /* Let diff2;
@@ -478,7 +478,18 @@ const userData = (member, infobad, convertTime, times, name) => new Promise(asyn
   highest = 'years';
   diff3 = await convertTime(member.user.createdAt, times.indexOf(highest));
   diff3 = `${diff3[0]} ${times[diff3[1]]}`;
-  infobad.addField(`${member.user.tag}: `, `${member.presence.game && member.presence.game.streaming ? 'Streaming' : 'Playing'} ${member.presence.game ? member.presence.game.name : 'nothing.'}`, true);
+  infobad.addField(`${member.user.tag}: `,
+    `${member.presence.activity && member.presence.activity.type ?
+        member.presence.activity.type
+        .replace(/(\w)(\w+)/,
+          (a, b, c) => b.toUpperCase() + c.toLowerCase()) :
+          'Playing'
+      } ${
+        member.presence.activity ?
+        member.presence.activity.name :
+        'nothing.'
+      }`, true
+  );
   infobad.addField('User id:', `${member.id}`, true)
     .addField(`Nickname: ${membername}`, `Colour: ${member.displayHexColor}`, true);
   infobad.addField(`Joined Discord on ${member.user.createdAt.toUTCString()}`, `That's about ${diff3} ago!`);
