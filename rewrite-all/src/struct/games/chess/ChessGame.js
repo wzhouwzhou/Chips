@@ -1,6 +1,8 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 
+const path = require('path');
+
 const { Chess } = require('chess.js');
 const { Engine } = require('node-uci');
 
@@ -56,6 +58,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.players = [...this.players, ...[null, null]];
     if (this.players.find(e => e && e.id === client.user.id)) {
       this.aiOptions = options.aiOptions || AIMedium;
+      this.aiDepth = exports.depths[exports.difficulties.indexOf(this.aiOptions)];
       this.undoable = true;
     }
     this.movers = new Map;
@@ -180,12 +183,15 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       await this.AI.isready();
       await this.AI.position(this.game.fen());
       let move;
-      if (this.aiOptions === AIBasic) { move = BasicAI.play(this.game.history()); } else {
-        move = (await this.AI.go({ depth: this.aiOptions || AIMedium })).bestmove;
+      if (this.aiOptions === AIBasic) {
+        move = BasicAI.play(this.game.history());
+      } else {
+        move = (await this.AI.go({ depth: this.aiDepth || AIMediumD })).bestmove;
       }
       try {
         return this.go(move, true, options.noUpdate);
-      } catch (err) { // AI Failed
+      } catch (err) {
+        // AI Failed
         console.log(err);
         this.channel.send('Something went wrong with the AI…attempting to fix').then(m => m.delete({ timeout: 7500 }));
         try {
@@ -208,7 +214,9 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       const possibleMoves = this.game.moves();
       const randomIndex = ~~(possibleMoves.length * Math.random());
       return this.go(possibleMoves[randomIndex], true, options.noUpdate);
-    } else { setTimeout(() => this.aiRandomMove(), delay); }
+    } else {
+      return setTimeout(() => this.aiRandomMove(), delay);
+    }
   }
 
   go(move, stopBot, noUpdate) {
@@ -271,13 +279,20 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       for (let i = 0; i < all[c].length; i++) {
         this.board[c][files[i]] = all[c][i] === 'A' ?
           c % 2 === i % 2 ? W : B :
-          pieces.get(`${all[c][i].toLowerCase()}${all[c][i].toLowerCase() === all[c][i] ? 'b' : 'w'}${c % 2 === i % 2 ? 'w' : 'b'}`);
+          pieces.get(`${
+                      all[c][i].toLowerCase()
+                     }${
+                      all[c][i].toLowerCase() === all[c][i] ? 'b' : 'w'
+                     }${
+                       c % 2 === i % 2 ? 'w' : 'b'
+                     }`
+          );
       }
     }
     return this;
   }
 
-  toString(colorBottom = this.sideDown/* This.game.turn()*/) {
+  toString(colorBottom = (this.sideDown || this.game.turn())) {
     this.board.reverse();
     let str;
     if ((/w(?:hite)?/i).test(colorBottom)) {
@@ -292,11 +307,18 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     } else {
       str =
         this.board.map(
-          (e, i) => [Object.assign([], firstF(Constants.numbersA, 10))[i + 1]].concat(Object.keys(e).map(k => e[k]).reverse()).join('')
-        )
-          .concat(
-            (([a, ...b]) => [...b, a])(Object.assign([], label2)).reverse().join('')
-          ).join('\n');
+          (e, i) => [Object.assign(
+              [],
+              firstF(Constants.numbersA, 10))[i + 1]]
+                .concat(Object.keys(e)
+                .map(k => e[k])
+                .reverse())
+                .join('')
+        ).concat(
+          (([a, ...b]) => [...b, a])(Object.assign([], label2))
+            .reverse()
+            .join('\u200B')
+        ).join('\n');
     }
     this.board.reverse();
 
