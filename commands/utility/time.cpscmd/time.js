@@ -9,7 +9,7 @@ const timebase = 'https://time.is/';
 
 module.exports = {
   name: 'time',
-  func(msg, { send, args, suffix }) {
+  func(msg, { send, suffix }) {
     const q = suffix.replace(/@/g, '(at)');
     return needle.get(`${geobase}?q=${qs.escape(q)}&country=`, (err, resp) => {
       if (err) throw err;
