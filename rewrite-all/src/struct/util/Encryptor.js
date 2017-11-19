@@ -28,6 +28,12 @@ const Encryptor = class Encryptor {
     const final = erlpack.unpack(Buffer.concat([decipher.update(buffer), decipher.final()]));
     return final;
   }
+
+  setKey(newKey, oldKey) {
+    if (_keys.get(this) !== oldKey) return false;
+    _keys.set(this, newKey);
+    return true;
+  }
 };
 
 exports.Encryptor = Encryptor;

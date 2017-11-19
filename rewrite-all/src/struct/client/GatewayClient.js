@@ -8,6 +8,7 @@ const crypto = require('crypto');
 const algorithm = 'aes-256-ctr';
 
 const Logger = require('./Logger').create('GatewayClient', 'Main');
+const { Encryptor } = require('../util/Encryptor');
 
 const _keys = new WeakMap;
 
@@ -16,20 +17,7 @@ const GatewayClient = class GatewayClient {
     this.myid = client.shard.id;
     _keys.set(this, client.token);
     this.lastpings = [];
-  }
-
-  encrypt(item) {
-    const buffer = erlpack.pack(item);
-    const cipher = crypto.createCipher(algorithm, _keys.get(this));
-    const final = Buffer.concat([cipher.update(buffer), cipher.final()]).toString('base64');
-    return final;
-  }
-
-  decrypt(str) {
-    const buffer = new Buffer(str, 'base64');
-    const decipher = crypto.createDecipher(algorithm, _keys.get(this));
-    const final = erlpack.unpack(Buffer.concat([decipher.update(buffer), decipher.final()]));
-    return final;
+    this.crypt = new Encryptor(client);
   }
 
   socketInit() {
@@ -42,7 +30,7 @@ const GatewayClient = class GatewayClient {
 
   event_message() {
     this.socket.on('message', data => {
-      const dec = this.decrypt(data);
+      const dec = this.crypt.decrypt(data);
       this.handleMessage(dec);
     });
   }
@@ -55,8 +43,8 @@ const GatewayClient = class GatewayClient {
     if (room === 'heartbeat') {
       if (type === 'ping') {
         if (senderid === this.myid) return true;
-        this.socket.emit('message', this.encrypt({ type: 'pong', data, senderid: this.myid }));
-        this.socket.emit('message', this.encrypt({
+        this.socket.emit('message', this.crypt.encrypt({ type: 'pong', data, senderid: this.myid }));
+        this.socket.emit('message', this.crypt.encrypt({
           type: 'ping2',
           data: { time: new Date + [] },
           senderid: this.myid,

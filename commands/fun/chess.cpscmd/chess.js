@@ -141,15 +141,15 @@ const ex = {
     );
     console.log('Adding on-collect...');
     mCol.on('collect', async m => {
-      if (m.author.id !== currentGame.movers.get(currentGame.turn.toLowerCase()).id) return;
+      if (m.author.id !== currentGame.movers.get(currentGame.turn.toLowerCase()).id) return false;
 
-      if (!m.content) return;
+      if (!m.content) return false;
       // Console.log(m.content);
-      if (/quit/i.test(m.content) || (currentGame.isOver() && !currentGame.ended)) {
+      if (/quit/i.test(m.content) || (currentGame.isOver() || currentGame.ended)) {
         // CurrentGame.game.end();
         send('Ending…');
         currentGame.emit('ended', currentGame);
-        mCol.stop();
+        return mCol.stop();
       }
 
       let move = m.content
@@ -162,8 +162,12 @@ const ex = {
         // Console.log('Game: '+result);
         if (result == 'Woah too fast!') return send('Too fast...');
 
-        !currentGame.isOver() && !currentGame.ended && m.delete().catch(_ => _);
-        if(currentGame.isOver() || currentGame.ended) games.delete(channel.id);
+        if (currentGame.isOver() || currentGame.ended) {
+          games.delete(channel.id);
+          mCol.stop();
+        } else {
+          m.delete().catch(_ => _);
+        }
       } catch (errA) { // 'Invalid move!'
         try {
           move = move.replace(/^([RNKQB])([a-h])(\w)/i, (match, a, b, c) => a.toUpperCase() + b.toLowerCase() + c)
@@ -172,9 +176,14 @@ const ex = {
 
           result = currentGame.go(move);
           console.log(`Pre-auto: ${move}`);
-          if (result == 'Woah too fast!') return send('Too fast...');
-          !currentGame.isOver() && !currentGame.ended && m.delete().catch(_ => _);
-          if(currentGame.isOver() || currentGame.ended) games.delete(channel.id);
+          if (result === 'Woah too fast!') return send('Too fast...');
+
+          if (currentGame.isOver() || currentGame.ended) {
+            games.delete(channel.id);
+            mCol.stop();
+          } else {
+            m.delete().catch(_ => _);
+          }
         } catch (errB) {
           try {
             move = move.replace(/^([RNKQB])([a-hx])(\w)/i, (match, a, b, c) => a.toUpperCase() + b.toLowerCase() + c)
@@ -182,14 +191,21 @@ const ex = {
               .trim();
             result = currentGame.go(move);
             if (result == 'Woah too fast!') return send('Too fast...');
-            !currentGame.isOver() && !currentGame.ended && m.delete().catch(_ => _);
-            if(currentGame.isOver() || currentGame.ended) games.delete(channel.id);
+            if (currentGame.isOver() || currentGame.ended) {
+              games.delete(channel.id);
+              mCol.stop();
+            } else {
+              m.delete().catch(_ => _);
+            }
           } catch (errC) {
             if (move.length < 6) console.log(`Autocomplete: ${move}`);
             if (move.match(/^[RNKQB](([a-h][1-8]{1,2})|([1-8][a-h]{1,2}))$/)) send('Ensure you have given a valid move');
             if (!~errB.message.indexOf('Move not completed')) console.error(err);
 
-            if(currentGame.isOver() || currentGame.ended) games.delete(channel.id);
+            if (currentGame.isOver() || currentGame.ended) {
+              games.delete(channel.id);
+              mCol.stop();
+            }
           }
         }
       }
@@ -206,7 +222,7 @@ const ex = {
       send('[Debug] MCol ended');
     });
 
-    currentGame.once('ended', () => { // Game=>{
+    currentGame.once('end', () => { // Game=>{
       send('Chess game ended');
       // Game.updateFrontEnd('end');
       // game.embed = new Discord.MessageEmbed()
