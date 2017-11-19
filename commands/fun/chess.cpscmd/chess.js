@@ -62,8 +62,8 @@ const ex = {
       try {
         await p.sendFirst();
       } catch (err) {
-        console.error(err);
-        return send('Something went wrong...');
+        send('Something went wrong...');
+        throw err;
       }
       return;
     }
