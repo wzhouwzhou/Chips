@@ -50,6 +50,7 @@ client.mcounterI = setInterval(() => {
   });
 }, 2000);
 const msghandle = async message => {
+  if(message.author.id==='305776092822765568') return;
   client.shard.broadcastEval(`client.thismcounter++`);
   /* Try{
     r.table('lastMessage').insert( {
