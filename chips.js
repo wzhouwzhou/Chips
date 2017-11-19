@@ -47,7 +47,7 @@ global.memberjoin = {
       2. If you got our invite link online (e.g. on youtube), please provide **a url** (something that looks like https://youtu.be/something) to where you got it. (We don't want a discord.gg link)
       \tIf you got it from a friend, please tell us who like so: **SomebodyHere#1234**.
       3. Why did you join this server?
-      4. Did you read <#348082661060771841>? You must promise to follow the rules and agree to the bot TOS.
+      4. Did you read <#348082661060771841> and <#359141257051635713>? Will you follow the rules and agree to the bot TOS?
       5. What is your favorite diep.io tank?
 You can answer these in this channel (don't dm them!) with just a sentence or two for each, no need to write an essay!)`,
 
