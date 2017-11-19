@@ -7,8 +7,9 @@ module.exports = {
 	if (res.status !== 200) {
 		return send('An error has occurred!');
 	}
+	const color = "#"+((1<<24)*Math.random()|0).toString(16);
 	const embed = new  Discord.MessageEmbed()
-			.setColor(member.displayColor)
+			.setColor(color)
 			.setTitle('Random Lizards')
 			.setDescription('This message will be deleted in 3 minutes')
 			.setImage(res.body.url)
