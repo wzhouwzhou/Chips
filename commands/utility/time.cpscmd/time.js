@@ -1,5 +1,5 @@
 const convert = time => time && time.replace(/(0?(\d+)(:\d+:\d+))/,
-  (a, ...e) => +e[1] < 12 ? `${e[0]} AM` : +e[1] > 12 ? `${+e[1] - 12}${e[2]} PM` : `${e[0]} PM`);
+  (a, ...e) => +e[1] < 12 ? `${+e[1]}${e[2]} AM` : +e[1] > 12 ? `${+e[1] - 12}${e[2]} PM` : `${+e[1]}${e[2]} PM`);
 
 const needle = require('needle');
 const qs = require('querystring');
