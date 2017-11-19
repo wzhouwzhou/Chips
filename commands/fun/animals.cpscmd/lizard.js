@@ -2,7 +2,7 @@ const snekfetch = require('snekfetch');
 
 module.exports = {
 	name: 'lizard',
-	async func(msg, { send, Discord }) {
+	async func(msg, { send, author, Discord }) {
 		snekfetch.get('https://nekos.life/api/lizard').then((res) => {
 		if (res.status !== 200) {
 			return send('An error has occurred!');
@@ -11,10 +11,10 @@ module.exports = {
 		const embed = new  Discord.MessageEmbed()
 				.setColor(color)
 				.setTitle('Random Lizards')
-				.setDescription('This message will be deleted in 3 minutes')
+				.setDescription(`Requested by ${author.tag}`)
 				.setImage(res.body.url)
 				.setTimestamp();
-		send('', { embed: embed}).then(msg.delete(180000));
+		send('', { embed: embed});
 		});
 	},
 };
