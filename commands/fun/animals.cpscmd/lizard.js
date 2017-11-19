@@ -9,12 +9,13 @@ module.exports = {
 		}
 		const color = "#"+((1<<24)*Math.random()|0).toString(16);
 		const embed = new  Discord.MessageEmbed()
-				.setColor(color)
-				.setTitle('Random Lizards')
-				.setDescription(`Requested by ${author.tag}`)
-				.setImage(res.body.url)
-				.setTimestamp();
-		send('', { embed: embed});
+			.setColor(color)
+			.setTitle('Random Lizards')
+			.setDescription('This message will be deleted in 3 minutes')
+			.setImage(res.body.url)
+			.setFooter(`Requested by ${author.tag}`)
+			.setTimestamp();
+		send('', { embed: embed}).then(message.delete({ timeout: 3*60*1000 }));
 		});
 	},
 };
