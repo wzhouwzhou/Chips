@@ -2,7 +2,7 @@ const snekfetch = require('snekfetch');
 
 module.exports = {
   name: 'lizard',
-  async func(msg, { send, Discord }) {
+  async func(msg, { send, member, Discord }) {
 	snekfetch.get('https://nekos.life/api/lizard').then((res) => {
 	if (res.status !== 200) {
 		return send('An error has occurred!');
