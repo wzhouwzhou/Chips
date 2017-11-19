@@ -10,7 +10,7 @@ const timebase = 'https://time.is/';
 module.exports = {
   name: 'time',
   func(msg, { send, args, suffix }) {
-    const q = args[0] ? 'EST' : suffix.replace(/@/g, '(at)');
+    const q = suffix.replace(/@/g, '(at)');
     return needle.get(`${geobase}?q=${qs.escape(q)}&country=`, (err, resp) => {
       if (err) throw err;
       if (resp.statusCode !== 200) return send(`Status ${resp.statusCode}\nTime data could not be fetched for [${q}]`);
@@ -28,7 +28,7 @@ module.exports = {
         let $$ = require('cheerio').load(res.body);
         const theplace = $$('div').filter((a, b) => $$(b).attr('id') === 'msgdiv').text();
         const thetime = convert($$('div').filter((a, b) => $$(b).attr('id') === 'twd').html());
-        return send(`${theplace}is ${thetime}`);
+        return send(`${theplace.replace(/:/, ' (US-East) ')}is ${thetime}`);
       });
     });
   },
