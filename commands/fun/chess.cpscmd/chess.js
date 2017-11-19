@@ -287,8 +287,8 @@ const promptDifficulty = (msg, { author, reply }) => new Promise(async res => {
 
     await sentMsg.react(check);
   } catch (err) {
-    console.error(err);
-    return reply('Something went wrong...');
+    reply('Something went wrong...');
+    throw err;
   }
 });
 
