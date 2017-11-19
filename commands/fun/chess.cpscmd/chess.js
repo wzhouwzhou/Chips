@@ -153,6 +153,7 @@ const ex = {
       }
 
       let move = m.content
+        .replace(/^P/i, '')
         .trim();
       let result;
       try {
@@ -162,6 +163,7 @@ const ex = {
         if (result == 'Woah too fast!') return send('Too fast...');
 
         !currentGame.isOver() && !currentGame.ended && m.delete().catch(_ => _);
+        if(currentGame.isOver() || currentGame.ended) games.delete(channel.id);
       } catch (errA) { // 'Invalid move!'
         try {
           move = move.replace(/^([RNKQB])([a-h])(\w)/i, (match, a, b, c) => a.toUpperCase() + b.toLowerCase() + c)
@@ -172,6 +174,7 @@ const ex = {
           console.log(`Pre-auto: ${move}`);
           if (result == 'Woah too fast!') return send('Too fast...');
           !currentGame.isOver() && !currentGame.ended && m.delete().catch(_ => _);
+          if(currentGame.isOver() || currentGame.ended) games.delete(channel.id);
         } catch (errB) {
           try {
             move = move.replace(/^([RNKQB])([a-hx])(\w)/i, (match, a, b, c) => a.toUpperCase() + b.toLowerCase() + c)
@@ -180,10 +183,13 @@ const ex = {
             result = currentGame.go(move);
             if (result == 'Woah too fast!') return send('Too fast...');
             !currentGame.isOver() && !currentGame.ended && m.delete().catch(_ => _);
+            if(currentGame.isOver() || currentGame.ended) games.delete(channel.id);
           } catch (errC) {
             if (move.length < 6) console.log(`Autocomplete: ${move}`);
-            if (move.match(/^[RNKQB][a-h0-9]{3,4}$/)) send('Ensure you have given a valid move');
+            if (move.match(/^[RNKQB](([a-h][1-8]{1,2})|([1-8][a-h]{1,2}))$/)) send('Ensure you have given a valid move');
             if (!~errB.message.indexOf('Move not completed')) console.error(err);
+
+            if(currentGame.isOver() || currentGame.ended) games.delete(channel.id);
           }
         }
       }
@@ -197,11 +203,11 @@ const ex = {
       promptingAll.delete(channel.id);
       prompting.delete(author.id);
       currentGame.emit('ended', currentGame);
-      console.log('MCol ended');
+      send('[Debug] MCol ended');
     });
 
-    currentGame.once('ended', async() => { // Game=>{
-      console.log('Chess game ended');
+    currentGame.once('ended', () => { // Game=>{
+      send('Chess game ended');
       // Game.updateFrontEnd('end');
       // game.embed = new Discord.MessageEmbed()
       //   .setTitle('Connect Four')
@@ -210,7 +216,6 @@ const ex = {
       //   .addField(`Game ended!`,'\u200B');
       // await send('', {embed: game.embed});
       games.delete(channel.id);
-      games.delete(channel.id);
       prompting.delete(othermember.id);
       promptingAll.delete(channel.id);
       prompting.delete(author.id);
@@ -218,7 +223,7 @@ const ex = {
       mCol.stop();
     });
     currentGame.updateAll();
-    console.log('Chess game setup complete');
+    send('[Debug] Chess game setup complete');
   },
 };
 
