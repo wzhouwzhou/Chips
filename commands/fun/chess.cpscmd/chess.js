@@ -119,7 +119,16 @@ const ex = {
 
     console.log(`Creating a chess game for channel ${channel.id}...`);
 
-    const currentGame = await CG.factory({ client, channel, players: _.shuffle([member.user, othermember.user]), aiOptions: botting ? CHESS.difficulties[difficulty] != null ? CHESS.difficulties[difficulty] : Chess.difficulties[2] || 1 << 3 : null });
+    const currentGame = await CG.factory({
+      client,
+      channel,
+      players: _.shuffle([member.user, othermember.user]),
+      aiOptions: botting ?
+                  CHESS.difficulties[difficulty] !== null && CHESS.difficulties[difficulty] !== undefined ?
+                    CHESS.difficulties[difficulty] :
+                    CHESS.difficulties[2] || 1 << 3 :
+                    null,
+    });
 
     currentGame.game.header(
       'white',
@@ -140,7 +149,7 @@ const ex = {
       { time: TIME, errors: ['time'] }
     );
     console.log('Adding on-collect...');
-    mCol.on('collect', async m => {
+    mCol.on('collect', m => {
       if (m.author.id !== currentGame.movers.get(currentGame.turn.toLowerCase()).id) return false;
 
       if (!m.content) return false;
@@ -160,15 +169,15 @@ const ex = {
         result = currentGame.go(move);
         console.log(`Pre-auto: ${move}`);
         // Console.log('Game: '+result);
-        if (result == 'Woah too fast!') return send('Too fast...');
+        if (result === 'Woah too fast!') return send('Too fast...');
 
         if (currentGame.isOver() || currentGame.ended) {
           games.delete(channel.id);
           mCol.stop();
         } else {
-          m.delete().catch(_ => _);
+          return m.delete().catch(_ => _);
         }
-      } catch (errA) { // 'Invalid move!'
+      } catch (errA) {
         try {
           move = move.replace(/^([RNKQB])([a-h])(\w)/i, (match, a, b, c) => a.toUpperCase() + b.toLowerCase() + c)
             .replace(/^([a-h])(\d)/i, (match, a, b) => a.toLowerCase() + b)
@@ -182,7 +191,7 @@ const ex = {
             games.delete(channel.id);
             mCol.stop();
           } else {
-            m.delete().catch(_ => _);
+            return m.delete().catch(_ => _);
           }
         } catch (errB) {
           try {
@@ -190,25 +199,29 @@ const ex = {
               .replace(/^([a-h])(\d)/i, (match, a, b) => a.toLowerCase() + b)
               .trim();
             result = currentGame.go(move);
-            if (result == 'Woah too fast!') return send('Too fast...');
+            if (result === 'Woah too fast!') return send('Too fast...');
             if (currentGame.isOver() || currentGame.ended) {
               games.delete(channel.id);
               mCol.stop();
             } else {
-              m.delete().catch(_ => _);
+              return m.delete().catch(_ => _);
             }
           } catch (errC) {
-            if (move.length < 6) console.log(`Autocomplete: ${move}`);
-            if (move.match(/^[RNKQB](([a-h][1-8]{1,2})|([1-8][a-h]{1,2}))$/)) send('Ensure you have given a valid move');
+            // If (move.length < 6) console.log(`Autocomplete update of: ${move} failed`);
+            if (move.match(/^[RNKQB](([a-h][1-8]{1,2})|([1-8][a-h]{1,2}))$/)) {
+              send('Ensure you have given a valid move');
+            }
             if (!~errB.message.indexOf('Move not completed')) console.error(err);
 
             if (currentGame.isOver() || currentGame.ended) {
               games.delete(channel.id);
               mCol.stop();
             }
+            return m;
           }
         }
       }
+      return m;
     });
 
     mCol.once('end', collected => {

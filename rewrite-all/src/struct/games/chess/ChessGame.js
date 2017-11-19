@@ -5,8 +5,12 @@ const { Chess } = require('chess.js');
 const { Engine } = require('node-uci');
 
 const BasicAI = require('chess-ai-kong');
+
+const AIBasic = 0, AIEasy = 1, AIMedium = 3, AIHard = 6, AIExtreme = 12;
+const AIBasicD = 3, AIEasyD = 1, AIMediumD = 2, AIHardD = 3, AIExtremeD = 4;
+
 BasicAI.setOptions({
-  depth: 200,
+  depth: AIBasicD,
   strategy: 'basic',
   timeout: 0,
 });
@@ -20,7 +24,7 @@ const ChessConstants = Constants.chess;
 const { W, B, chessPieces: pieces, startFen, label2 } = ChessConstants;
 const files = new Array(8).fill(0).map((e, i) => String.fromCharCode('A'.charCodeAt(0) + i));
 const rot = '🔄', undo = '↩';
-const AIBasic = 0, AIEasy = 1, AIMedium = 3, AIHard = 6, AIExtreme = 13;
+
 exports.difficulties = [
   AIBasic,
   AIEasy,
@@ -28,6 +32,14 @@ exports.difficulties = [
   AIHard,
   AIExtreme,
 ];
+exports.depths = [
+  AIBasicD,
+  AIEasyD,
+  AIMediumD,
+  AIHardD,
+  AIExtremeD,
+];
+
 const games = new Map;
 
 const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
@@ -63,7 +75,8 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
   static async factory(opts) {
     const game = new this(opts);
     await game.aiSetup(game.aiOptions);
-    if (game.movers.get(game.turn.toLowerCase()) && game.movers.get(game.turn.toLowerCase()).id === opts.client.user.id) {
+    if (game.movers.get(game.turn.toLowerCase()) &&
+    game.movers.get(game.turn.toLowerCase()).id === opts.client.user.id) {
       game.sideDown = 'black';
       await game.aiMove(0, { noUpdate: true });
     }
@@ -75,27 +88,35 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.embed = new this.embed.constructor;
     let comment = '';
     if (end) {
-      if (this.game.in_draw()) comment += 'The game was a draw';
-      else if (this.turn) if (this.movers.get(this.turn.toLowerCase())) comment += `${this.movers.get(this.turn.toLowerCase() === 'white' ? 'black' : 'white').username} won`;
+      if (this.game.in_draw()) {
+        comment += 'The game was a draw';
+      } else if (this.turn &&
+        this.movers.get(this.turn.toLowerCase())) {
+        comment += `${this.movers.get(this.turn.toLowerCase() === 'white' ? 'black' : 'white').username} won`;
+      }
       comment += ` after ${this.game.history().length} moves!`;
     } else {
       if (this.movers.get(this.turn.toLowerCase())) comment += this.movers.get(this.turn.toLowerCase()).username;
       else comment += this.turn;
       comment += ' to move';
     }
-    this.embed.addField(comment, `Last move: ${this.game.history() && this.game.history()[0] ? this.game.history().reverse()[0] : 'None'}`);
+    this.embed.addField(comment,
+      `Last move: ${this.game.history() && this.game.history()[0] ?
+        this.game.history().reverse()[0] :
+        'None'}`
+    );
     this.embed.setDescription(this.toString());
     this.embed.setAuthor('Chess');
     this.embed.setTitle(`${this.movers.get('white').username}⬜ vs ⬛${this.movers.get('black').username}`);
     return this.embed;
   }
 
-  async undo() {
+  undo() {
     if (!this.undoable) return false;
     if (this.game.history().length < 2) return this;
     this.game.undo();
     this.game.undo();
-    await this.updateAll();
+    return this.updateAll();
   }
 
   updateFrontEnd(end) {
@@ -106,34 +127,39 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
       this.lastM = null;
     }
 
-    !this.nextEdit && this.channel.send(embed).then(m => {
-      this.lastM = m;
-      if (!end) {
-        const mover = this.movers.get(this.turn.toLowerCase());
-        const f = (r, u) => {
-          if (!u.bot && mover && u.id === mover.id && (r.emoji.name === rot || r.emoji.name === undo)) {
-            r.remove(u).catch(_ => _);
-            return true;
+    if (!this.nextEdit) {
+      this.channel.send(embed).then(m => {
+        this.lastM = m;
+        if (!end) {
+          const mover = this.movers.get(this.turn.toLowerCase());
+          const f = (r, u) => {
+            if (!u.bot && mover && u.id === mover.id && (r.emoji.name === rot || r.emoji.name === undo)) {
+              r.remove(u).catch(__ => __);
+              return true;
+            }
+            return false;
+          };
+          const rCol = m.createReactionCollector(f, { time: 200e3, errors: ['time'] });
+          this.rCol = rCol;
+          rCol.on('collect', r => {
+            if (r.emoji.name === rot) {
+              this.nextEdit = true;
+              this.sideDown = this.sideDown === 'white' ? 'black' : 'white';
+              embed = this.embedify(end);
+              m.edit(embed);
+              this.nextEdit = false;
+            } else if (r.emoji.name === undo && this.undoable) {
+              this.undo().catch(console.error);
+            }
+          });
+          if (!this.pause) {
+            m.react(rot).then(() => {
+              if (!this.pause && this.undoable) m.react(undo);
+            });
           }
-          return false;
-        };
-        const rCol = m.createReactionCollector(f, { time: 200e3, errors: ['time'] });
-        this.rCol = rCol;
-        rCol.on('collect', r => {
-          if (r.emoji.name === rot) {
-            this.nextEdit = true;
-            this.sideDown = this.sideDown == 'white' ? 'black' : 'white';
-            embed = this.embedify(end);
-            m.edit(embed);
-            this.nextEdit = false;
-          } else if (r.emoji.name === undo) {
-            this.undoable && this.undo().catch(console.error);
-          }
-        });
-        !this.pause && m.react(rot);
-        !this.pause && this.undoable && m.react(undo);
-      }
-    });
+        }
+      });
+    }
     return this;
   }
 
