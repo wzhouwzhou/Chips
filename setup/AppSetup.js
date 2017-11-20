@@ -136,7 +136,9 @@ module.exports = () => {
 );*/
   app.post('/mail', (request, res) => {
     console.log('------> Incoming /mail post:\n');
-    console.dir(request);
+    console.dir(require('util').inspect(request, { depth: 2 }));
+    console.log('------> Inspect');
+    console.log(require('util').inspect(request, { depth: 0 }));
     res.status(200);
     res.json({ message: 'success' });
     res.end();
