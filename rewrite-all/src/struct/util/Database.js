@@ -7,6 +7,7 @@ const reql = require('rethinkdbdash');
 const Logger = require('../client/Logger').create('Database', 'Main');
 const PermissionsHandler = require('../../../../handlers/Permissions');
 
+const EventEmitter = require('events');
 /**
  * Database
  * A utiliy class that represents a generic Database that uses both Google spreadsheet and Reql storage.
@@ -14,7 +15,7 @@ const PermissionsHandler = require('../../../../handlers/Permissions');
  * @class
  * @type {GLoader}
  */
-const Database = class Database {
+const Database = class Database extends EventEmitter {
   /**
    * Constructs a database object
    *
@@ -22,6 +23,8 @@ const Database = class Database {
    * @param  {Discord.Client}    client The bot client this database belongs to.
    */
   constructor(client) {
+    super();
+
     /**
      * The client this database belongs to.
      * @member

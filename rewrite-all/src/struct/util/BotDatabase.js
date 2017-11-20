@@ -116,9 +116,15 @@ const BotDatabase = class BotDatabase extends Database {
       const P = require(`${this.pluginPath}/${plugin}`).default;
       delete require.cache[require.resolve(`${this.pluginPath}/${plugin}`)];
       const p = new P(this);
-      this.plugins[p.loadername] = p;
+      this.plugins[p.name] = p;
     }
     return this.plugins;
+  }
+
+  emit(event, ...data) {
+    super.emit(event, ...data);
+    for (const pkey in this.plugins) this.plugins[pkey].emit(event, ...data);
+    return this;
   }
 
   /**
