@@ -136,7 +136,7 @@ module.exports = () => {
 );*/
   app.post('/mail', (request, res) => {
     console.log('------> Incoming /mail post:\n');
-    console.dir(request.body);
+    console.dir(request);
     res.status(200);
     res.json({ message: 'success' });
     res.end();
