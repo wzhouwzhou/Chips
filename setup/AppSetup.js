@@ -93,6 +93,10 @@ module.exports = () => {
 
   app.use(passport.initialize());
   app.use(passport.session());
+  app.post('/mail', (request, res) => {
+    console.log(`Incoming /mail post:\n\t${request.body}`);
+    res.json({ message: 'success' });
+  });
   app.get('/sinbad/login', passport.authenticate('discord', { scope: botScopes }), _ => _);
   app.get('/sinbad/user',
     passport.authenticate('discord', { failureRedirect: '/sinbad' }), (req, res) => {
