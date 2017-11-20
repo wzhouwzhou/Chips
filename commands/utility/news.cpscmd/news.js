@@ -38,7 +38,7 @@ module.exports = {
       apiKey: process.env.NEWSAPI,
     });
     try {
-      const results = await s.get(`https://${url}?${params}`);
+      const results = await s.get(`https://${url}?${params}`).set('Accept-Language', 'en-US');
       if (results.status !== 200) throw new Error(`Status code ${results.status}`);
       const articles = results.body.articles;
       const embed = new Discord.MessageEmbed;
