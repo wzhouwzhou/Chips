@@ -201,7 +201,11 @@ module.exports = {
         throw err;
       }
     }
-    const preHelp = Object.entries(client.commands).find(([c]) => c.toLowerCase() === suffix.toLowerCase());
+    const preHelp = Object.entries(client.commands)
+      .find(([c]) =>
+        c.toLowerCase() === suffix.toLowerCase()
+        .replace(new RegExp(_.escapeRegExp(prefix), 'gi'), '')
+      );
     if (!preHelp) return send(`No command with the name "${suffix}" found`);
     const embed = new Discord.MessageEmbed();
     embed.setTitle(preHelp[0]);
