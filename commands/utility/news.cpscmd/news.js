@@ -7,7 +7,7 @@ const _ = require('lodash');
 const fF = require('../../../rewrite-all/src/deps/functions/firstF').default({ _ });
 
 const sort = 'publishedAt';
-const base = 'https://newsapi.org/v2/';
+const base = 'newsapi.org/v2/';
 
 const headlines = 'top-headlines';
 const latest = 'everything';
@@ -38,7 +38,7 @@ module.exports = {
       apiKey: process.env.NEWSAPI,
     });
     try {
-      const results = await s.get(`${url}?${params}`);
+      const results = await s.get(`https://${url}?${params}`);
       if (results.status !== 200) throw new Error(`Status code ${results.status}`);
       const articles = results.body.articles;
       const embed = new Discord.MessageEmbed;
