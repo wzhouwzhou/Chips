@@ -93,10 +93,7 @@ module.exports = () => {
 
   app.use(passport.initialize());
   app.use(passport.session());
-  app.post('mail', (request, res) => {
-    console.log(`Incoming /mail post:\n\t${request.body}`);
-    // Res.json({ message: 'success' });
-  });
+
   app.get('/sinbad/login', passport.authenticate('discord', { scope: botScopes }), _ => _);
   app.get('/sinbad/user',
     passport.authenticate('discord', { failureRedirect: '/sinbad' }), (req, res) => {
@@ -128,7 +125,7 @@ module.exports = () => {
   let userBruteforce = new secure()[1];
 
   app.use('/', index, userBruteforce.prevent);
-  app.post('/', globalBruteforce.prevent, userBruteforce.getMiddleware({
+  /* app.post('/', globalBruteforce.prevent, userBruteforce.getMiddleware({
     key: (req, res, next) => {
       next();
     },
@@ -136,7 +133,13 @@ module.exports = () => {
     res.flash('Load Success!');
     next();
   }
-  );
+);*/
+  app.post('/mail', (request, res) => {
+    console.log(`Incoming /mail post:\n\t${request.body}`);
+    res.status(200);
+    res.json({ message: 'success' });
+    res.end();
+  });
 
   app.use('/sinbad', sinbad, userBruteforce.prevent);
   app.post('/sinbad', globalBruteforce.prevent, userBruteforce.getMiddleware({
