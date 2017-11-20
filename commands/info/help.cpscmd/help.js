@@ -217,7 +217,7 @@ module.exports = {
     embed.setDescription(meta.description || 'No description was found!')
          .addField(`Usage: ${prefix}${meta.usage}`, `Example: ${prefix}${meta.example}`)
          .addField(`Permissions required: ${gJ(_.flatten(meta.perm))}`,
-          `Bypass Discord permissions: ${gJ(_.flatten(meta.customperm)) || 'None'}`)
+          `Bypass Discord permissions: ${gJ(_.flatten(meta.customperm || ['None'])) || 'None'}`)
          .setFooter(`Category: ${meta.category.replace(/(\w)(\w+)/, (a, b, c) => b.toUpperCase() + c) || 'Default'}`);
     return send(embed);
   },
