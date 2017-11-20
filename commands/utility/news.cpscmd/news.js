@@ -41,6 +41,8 @@ module.exports = {
       const results = await s.get(`https://${url}?${params}`).set('Accept-Language', 'en-US');
       if (results.status !== 200) throw new Error(`Status code ${results.status}`);
       const articles = results.body.articles;
+      if (articles.length === 0) return send('No articles were found');
+      console.log(articles);
       const embed = new Discord.MessageEmbed;
       embed.setTitle(`Found ${articles.length} ${state}`)
         .setColor(member ? member.displayColor : `#${((1 << 24) * Math.random() | 0).toString(16)}`)
