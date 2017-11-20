@@ -126,7 +126,7 @@ const _MusicMenu = [
 
 module.exports = {
   name: 'help',
-  async func(msg, { prefix, Discord, reply, Constants, args, suffix, send, client }) {
+  async func(msg, { prefix, Discord, reply, member, Constants, args, suffix, send, client }) {
     if (!args[0] || args[0] === 'all') {
       const IntroMenu2 = _IntroMenu2.replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g, '\\`'));
 
@@ -207,7 +207,11 @@ module.exports = {
         .replace(new RegExp(_.escapeRegExp(prefix), 'gi'), '')
       );
     if (!preHelp) return send(`No command with the name "${suffix}" found`);
-    const embed = new Discord.MessageEmbed();
+    const embed = new Discord.MessageEmbed()
+      .setColor(member ?
+        member.displayColor :
+        `#${((1 << 24) * Math.random() | 0).toString(16)}`
+      );
     embed.setTitle(preHelp[0]);
     const meta = preHelp[1].metadata;
     embed.setDescription(meta.description || 'No description was found!')
