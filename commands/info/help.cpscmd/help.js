@@ -215,7 +215,7 @@ module.exports = {
     embed.setTitle(`${prefix}${preHelp[0]}`);
     const meta = preHelp[1].metadata;
     embed.setDescription(meta.description || 'No description was found!')
-         .addField(`Usage: \`${meta.usage}\``, `Example: \`${meta.example}\``)
+         .addField(`Usage: ${prefix}${meta.usage}`, `Example: ${prefix}${meta.example}`)
          .addField(`Permissions required: ${gJ(_.flatten(meta.perm))}`,
           `Bypass Discord permissions: ${gJ(_.flatten(meta.customperm)) || 'None'}`)
          .setFooter(`Category: ${meta.category.replace(/(\w)(\w+)/, (a, b, c) => b.toUpperCase() + c) || 'Default'}`);
