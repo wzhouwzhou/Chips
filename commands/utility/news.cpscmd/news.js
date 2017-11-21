@@ -35,18 +35,19 @@ module.exports = {
     const params = qs.stringify({
       q: query,
       sortBy: sort || latest,
-      apiKey: process.env.NEWSAPI,
     });
     try {
-      const results = await s.get(`https://${url}?${params}`).set('Accept-Language', 'en-US');
+      const results = await s.get(`https://${url}?${params}`)
+        .set('Authorization', process.env.NEWSAPI)
+        .set('Accept-Language', 'en-US');
       if (results.status !== 200) throw new Error(`Status code ${results.status}`);
       const articles = results.body.articles;
       if (articles.length === 0) return send('No articles were found');
-      console.log(articles);
+      // Console.log(articles);
       const embed = new Discord.MessageEmbed;
       embed.setTitle(`Found ${articles.length} ${state}`)
         .setColor(member ? member.displayColor : `#${((1 << 24) * Math.random() | 0).toString(16)}`)
-        .setThumbnail(articles[0].urlToImage)
+        .setThumbnail(articles.find(a => 'urlToImage' in a).urlToImage)
         .setFooter(`Requested by ${author.tag}`);
       for (const article of fF(articles, 3)) {
         embed.addField(`__${
