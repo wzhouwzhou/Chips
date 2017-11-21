@@ -53,7 +53,7 @@ module.exports = {
         embed.addField(`__${
           article.author || article.source.name || article.source.id
         }__ - ${(_s => _s.length > 50 ? `${fF(_s, 50)}...` : _s)(article.title)
-        }`, `${
+        }\u200B`, `${
           article.description}\n**Published at:** ${
           new Date(article.publishedAt).toUTCString()
         }\n**url:** ${article.url
