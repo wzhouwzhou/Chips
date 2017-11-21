@@ -125,7 +125,7 @@ const msghandle = async message => {
     '250815960250974209': true,
   };
   if (message.guild && message.guild.id == Constants.servers.SURSKIT) {
-    if (message.content.match(new RegExp(`${'despac'.split('').join('+')}i+?t+?o+?`, 'i'))) return message.delete();
+    if (message.content.replace(/[\s.,|/]+/g, '').match(new RegExp(`${'despac'.split('').join('+')}i+?t+?o+?`, 'i'))) return message.delete();
     for (const id in keywords) {
       if (keywords[id].toLowerCase().split('|').some(e => message.content.toLowerCase().includes(e)) && notify[id]) {
         if (message.author.id !== id) {
