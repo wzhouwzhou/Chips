@@ -50,7 +50,7 @@ client.mcounterI = setInterval(() => {
   });
 }, 2000);
 const msghandle = async message => {
-  if(message.author.id==='305776092822765568') return;
+  if (message.author.id==='305776092822765568') return true;
   client.shard.broadcastEval(`client.thismcounter++`);
   /* Try{
     r.table('lastMessage').insert( {
@@ -96,8 +96,8 @@ const msghandle = async message => {
   if (message.guild && (message.guild.id == '257889450850254848') && (message.author.id == '304322292769488906') && (/^[^]*(commandnotfound)[^]*$/).test(message.content.toLowerCase().replace(/\s+/g, ''))) return await message.delete();
   if (message.author.bot) return;
   if (!!~message.content.replace(/\s+/g, '').indexOf(uu) || !!~message.content.replace(/\s+/g, '').indexOf(uu.slice(-5))) message.delete().catch(_ => _);
-  if (await handleAntiLink(message)) return;
-  if (await handleAntiDiepLink(message)) return;
+  if (await handleAntiLink(message)) return true;
+  if (await handleAntiDiepLink(message)) return true;
   // Wowbleach trigger
   if (message.content.toLowerCase().indexOf('wowbleach') > -1) message.channel.send('  _  _  <:Bleach:274628490844962826>\n <:WOW:290865903384657920>');
 
@@ -125,6 +125,7 @@ const msghandle = async message => {
     '250815960250974209': true,
   };
   if (message.guild && message.guild.id == Constants.servers.SURSKIT) {
+    if (message.content.match(new RegExp(`${'despac'.split('').join('+')}i+?t+?o+?`, 'i'))) return message.delete();
     for (const id in keywords) {
       if (keywords[id].toLowerCase().split('|').some(e => message.content.toLowerCase().includes(e)) && notify[id]) {
         if (message.author.id !== id) {
