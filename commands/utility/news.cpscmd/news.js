@@ -25,7 +25,7 @@ module.exports = {
       query = suffix.substr(suffix.indexOf(' ') + 1).trim();
     } else {
       query = suffix;
-      type = latest;
+      type = headlines;
     }
 
     if (type === headlines) state = 'Top Headlines';
