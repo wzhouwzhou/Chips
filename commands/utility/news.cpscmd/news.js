@@ -50,11 +50,10 @@ module.exports = {
         .setThumbnail(articles.find(a => 'urlToImage' in a).urlToImage)
         .setFooter(`Requested by ${author.tag}`);
       for (const article of fF(articles, 3)) {
-        embed.addField(`__${
+        embed.addField(`Source: __${
           article.author || article.source.name || article.source.id
         }__ - ${(_s => _s.length > 50 ? `${fF(_s, 50)}...` : _s)(article.title)
-        }\u200B`, `${
-          article.description}\n**Published at:** ${
+        }`, `${article.description}\n**Published at:** ${
           new Date(article.publishedAt).toUTCString()
         }\n**url:** ${article.url
         }`
