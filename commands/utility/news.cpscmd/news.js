@@ -12,7 +12,7 @@ const base = 'newsapi.org/v2/';
 const headlines = 'top-headlines';
 const latest = 'everything';
 
-const trimmer = _s => _s.length > 50 ? `${fF(_s, 50)}...` : _s;
+const trimmer = _s => _s.length > 50 ? `${fF(_s, 47)}...` : _s;
 
 module.exports = {
   name: 'news',
@@ -54,8 +54,7 @@ module.exports = {
       for (const article of fF(articles, 3)) {
         embed.addField(`Source: __${
           trimmer(article.author || article.source.name || article.source.id)
-        }__ - ${trimmer(article.title)
-        }`, `${article.description}\n**Published at:** ${
+        }__ - ${trimmer(article.title)}`, `${article.description}\n**Published at:** ${
           new Date(article.publishedAt).toUTCString()
         }\n**url:** ${article.url
         }`
