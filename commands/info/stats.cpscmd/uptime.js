@@ -10,14 +10,13 @@ module.exports = {
   name: 'uptime',
   async func(msg, { client, Discord, send }) {
     const timesTotal = (await client.shard.broadcastEval(`process.uptime()`))
-    .map(e =>
-      moment.duration(+e, 'seconds')
+      .map(e => moment.duration(+e, 'seconds')
         .format('H&m&s.S')
         .replace(/^[^\d]*(\d+)?&?(\d+)?&?(\d+\.\d+)?[^]*$/i, (...args) => {
           const times = fF(lF(args, args.length - 1), args.length - 2).filter(t => t);
           const labels = lF(['hour', 'minute', 'second'], times.length);
           const final = times.map((t, i) => `${+t} ${labels[i]}${+t === 1 ? '' : 's'}`)
-          .filter(s => !s.startsWith('0 '));
+            .filter(s => !s.startsWith('0 '));
           return gjF(final, 'and');
         }));
     const embed = new Discord.MessageEmbed();
