@@ -12,6 +12,8 @@ const base = 'newsapi.org/v2/';
 const headlines = 'top-headlines';
 const latest = 'everything';
 
+const trimmer = _s => _s.length > 50 ? `${fF(_s, 50)}...` : _s;
+
 module.exports = {
   name: 'news',
   async func(msg, { suffix, send, args, member, author, Discord }) {
@@ -51,8 +53,8 @@ module.exports = {
         .setFooter(`Requested by ${author.tag}`);
       for (const article of fF(articles, 3)) {
         embed.addField(`Source: __${
-          article.author || article.source.name || article.source.id
-        }__ - ${(_s => _s.length > 50 ? `${fF(_s, 50)}...` : _s)(article.title)
+          trimmer(article.author || article.source.name || article.source.id)
+        }__ - ${trimmer(article.title)
         }`, `${article.description}\n**Published at:** ${
           new Date(article.publishedAt).toUTCString()
         }\n**url:** ${article.url
