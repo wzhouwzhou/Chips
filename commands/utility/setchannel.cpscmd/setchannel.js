@@ -31,8 +31,8 @@ module.exports = {
       if (!suffix.substring(suffix.indexOf(args[1])).match(/^[0-9a-z\-_]+$/i)) {
         return send('Text channel name must be alphanumeric with dashes or underscores.');
       } else {
-        await channel.setName(suffix.substring(suffix.indexOf(args[1])));
-        return send(`Channel name set to ${_.escapeRegExp(channel.name).replace(/@/g, '(at)')} successfully`);
+        const cc = await channel.setName(suffix.substring(suffix.indexOf(args[1])));
+        return send(`Channel name set to ${_.escapeRegExp(cc.name).replace(/@/g, '(at)')} successfully`);
       }
     }
 
@@ -44,16 +44,16 @@ module.exports = {
       if (!suffix.substring(suffix.indexOf(args[1])).match(/\d+/g)) {
         return send('No number given');
       } else {
-        await channel.setPosition(`${suffix.substring(suffix.indexOf(args[1])) - 1}`);
-        return send(`Channel position set to ${_.escapeRegExp(channel.position - 1)
+        const cc = await channel.setPosition(`${suffix.substring(suffix.indexOf(args[1])) - 1}`);
+        return send(`Channel position set to ${_.escapeRegExp(cc.position - 1)
           .replace(/@/g, '(at)')} succesfully`);
       }
     }
 
     if (args[0] === 'topic') {
       if (!args[1]) { return send('No topic given to set'); } else {
-        await channel.setTopic(suffix.substring(suffix.indexOf(args[1])));
-        return send(`Channel topic set to ${_.escapeRegExp(channel.topic).replace(/@/g, '(at)')} successfully`);
+        const cc = await channel.setTopic(suffix.substring(suffix.indexOf(args[1])));
+        return send(`Channel topic set to ${_.escapeRegExp(cc.topic).replace(/@/g, '(at)')} successfully`);
       }
     }
 

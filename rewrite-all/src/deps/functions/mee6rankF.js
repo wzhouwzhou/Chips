@@ -21,7 +21,7 @@ exports.default = ({ needle }) => {
       }
       const filter = user => user.id == uid;
       const userI = members.findIndex(filter);
-      if (userI == null || userI < 0) return res(null);
+      if (!userI || userI < 0) return res(null);
       const userO = members[userI];
       const data = Object.assign({}, userO,
         {
@@ -31,7 +31,7 @@ exports.default = ({ needle }) => {
       );
       delete data.avatar;
       delete data.discriminator;
-      res(data);
+      return res(data);
     });
   });
 

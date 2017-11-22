@@ -4,8 +4,8 @@ Object.defineProperty(exports, '__esModule', { value: true });
 exports.default = ({ _ } = {}) => (arr, n) => {
   let clone = !0;
   if (typeof n === 'object') {
-    n = n.count || n.num || n.n || 0;
     if ('clone' in n) clone = n.clone;
+    n = n.count || n.num || n.n || 0;
   }
   switch (arr.constructor.name) {
     case 'Collection':
