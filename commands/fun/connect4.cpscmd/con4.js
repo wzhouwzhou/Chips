@@ -239,7 +239,8 @@ const C4Game = class C4Game extends EventEmitter {
       .setColor(this.player == 'red' ? 16711680 : 255)
       .setAuthor(`${this.player1 ? this.player1.tag : ''}${RED} vs ${BLUE}${this.player2 ? this.player2.tag : ''}`)
       .setDescription(this.toString())
-      .addField(`${this.player && this.player == 'red' ? 'Blue' : 'Red'} to move.`, '\u200B');
+      .addField(`${this.player && this.player == 'red' ? 'Blue' : 'Red'} to move.`, '\u200B')
+      .setFooter('Type the column number to move');
   }
 
   send() {

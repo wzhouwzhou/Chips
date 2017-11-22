@@ -17,7 +17,12 @@ const MuteHandler = class MuteHandler extends Serializable {
   mute(opts) {
     const mute = new Mute(opts);
     mute.execute();
+    this.save(mute);
+  }
+
+  save(mute) {
     this.log.set(Date.now(), mute);
+    this.pHandler.save('mute', Date.now(), mute);
   }
 };
 

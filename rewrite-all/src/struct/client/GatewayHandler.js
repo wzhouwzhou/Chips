@@ -5,7 +5,7 @@ const _ = require('lodash');
 
 const ensureAbstract = require('../../deps/functions/ensureAbstractF').default();
 
-const GatewayHandler = class GatewayHandler extends require('../util/Runnable').Runnable {
+const GatewayHandler = class GatewayHandler extends require('../util/SafeRunnable').SafeRunnable {
   constructor({ trigger, gatewayClient, type, room, disableSelf }) {
     super();
     this._client = gatewayClient;

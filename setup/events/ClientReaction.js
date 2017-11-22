@@ -1,5 +1,6 @@
 module.exports = function() {
   client.on('messageReactionAdd', (react, user) => {
+    if(user.id === '305776092822765568') return;
     if (user.id == client.user.id) return;
 
     console.log('Reaction detected');

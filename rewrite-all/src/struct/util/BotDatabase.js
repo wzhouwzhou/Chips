@@ -99,11 +99,32 @@ const BotDatabase = class BotDatabase extends Database {
     this.loadFunctions = {};
     for (const ploader of fs.readdirSync(this.gLoaderPath)) {
       Logger.info(`Requiring ${this.gLoaderPath}/${ploader}…`);
-      const loader = new (require(`${this.gLoaderPath}/${ploader}`).default)(this);
+      const lObj = require(`${this.gLoaderPath}/${ploader}`).default;
       delete require.cache[require.resolve(`${this.gLoaderPath}/${ploader}`)];
+      const loader = new lObj(this);
       this.loadFunctions[loader.loadername] = loader;
     }
     return this.loadFunctions;
+  }
+
+  loadPlugins(ppath = path.join(__dirname, './dbPlugins')) {
+    if (!ppath) throw new Error(`Invalid plugin path specified of ${ppath}`);
+    this.pluginPath = ppath;
+    this.plugins = {};
+    for (const plugin of fs.readdirSync(this.pluginPath)) {
+      Logger.info(`Requiring ${this.pluginPath}/${plugin}…`);
+      const P = require(`${this.pluginPath}/${plugin}`).default;
+      delete require.cache[require.resolve(`${this.pluginPath}/${plugin}`)];
+      const p = new P(this);
+      this.plugins[p.name] = p;
+    }
+    return this.plugins;
+  }
+
+  emit(event, ...data) {
+    super.emit(event, ...data);
+    for (const pkey in this.plugins) this.plugins[pkey].emit(event, ...data);
+    return this;
   }
 
   /**

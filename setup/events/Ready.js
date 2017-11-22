@@ -1,6 +1,7 @@
 let d = '', consoleTyping = false;
 global.statusC;
 const readline = require('readline');
+const GW = require('../../rewrite-all/src/struct/client/GatewayClient').GatewayClient;
 
 module.exports = function(send) {
   if (process.env.BETA != null && process.env.BETA == 'true') { client.database.load().then(() => client.login(process.env.BETATOKEN)); } else {
@@ -74,6 +75,7 @@ module.exports = function(send) {
       },
     });
 
+    client.gatewayc = new GW(client).socketInit();
     // SetTimeout(()=>{DMLogger = require(path.join(__dirname, '../../handlers/DMLogger'))(Discord, client, dmC, moment);},3000);
   });
   hclient.on('ready', () => {
