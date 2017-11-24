@@ -1,6 +1,6 @@
 module.exports = {
     name: 'userid',
-    async func(msg, { args, send, user }) {
+    async func(msg, { args, send, user, author }) {
        
         if(!args[0]) {
          return send(`${author.id}`);
