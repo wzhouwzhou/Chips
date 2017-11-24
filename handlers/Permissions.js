@@ -24,6 +24,7 @@ ex.permsList = [
   ['public.info.stats.stats', true],
   ['public.info.support.*', true],
   ['public.info.support.support', true],
+  ['public.info.userid', true],
   ['global.*', false],
   ['global.custom.*', false],
   ['global.custom.points.*', true],
