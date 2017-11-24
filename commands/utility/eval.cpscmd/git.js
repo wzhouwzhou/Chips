@@ -10,12 +10,12 @@ const whitelist = [
 
 module.exports = {
   name: 'git',
-  async func(msg, { send, author, args }) {
+  async func(msg, { send, author, args, member }) {
     if (whitelist.indexOf(author.id) < 0) return console.log(`Prohibited access to git to user ${author.id}`);
     let result = null;
     if (args[0] === 'pull') {
       result = await exec('git pull');
-      await send(new Discord.MessageEmbed().setDescription(result.substring(0, 1800)));
+      await send(new Discord.MessageEmbed().setColor(member.displayColor).setDescription(result.substring(0, 1800)));
     }
     if (result && !~result.toLowerCase().replace(/(\s|-)+/g, '').indexOf('uptodate')) process.exit(42);
   },
