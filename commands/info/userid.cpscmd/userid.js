@@ -11,8 +11,8 @@ module.exports = {
         }  
         
           if(args[0].match(/^[^]*<@!?(\d+)>[^]*$/)) {
-          let targetUser = msg.mentions.user.first() 
-          return send(`${targetUser.id}`);
+            let targetUser = args[0].match(Constants.patterns.MENTION)[0]
+            return send(`${targetUser.id}`);
         }  
         
     },
