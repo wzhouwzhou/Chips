@@ -24,6 +24,7 @@ ex.permsList = [
   ['public.info.stats.stats', true],
   ['public.info.support.*', true],
   ['public.info.support.support', true],
+  ['public.info.userid', true],
   ['global.*', false],
   ['global.custom.*', false],
   ['global.custom.points.*', true],
@@ -63,7 +64,6 @@ ex.permsList = [
   ['global.fun.text.rotate', true],
   ['global.fun.text.randomcaps', true],
   ['global.fun.text.big', true],
-  ['global.fun.text.bify', true],
   ['global.fun.text.3d', true],
   ['global.fun.text.3d2', true],
   ['global.fun.text.ascii', true],
@@ -73,7 +73,6 @@ ex.permsList = [
   ['global.fun.triggers.aboose', true], // 6
   ['global.fun.triggers.confoosed', true],
   ['global.fun.triggers.exposed', true], // 17
-  ['global.fun.triggers.fail', true],
   ['global.fun.triggers.lenny', true],
   ['global.fun.triggers.rekt', true],
   ['global.fun.triggers.everyone', true],
