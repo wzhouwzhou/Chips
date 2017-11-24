@@ -3,9 +3,9 @@ let userid = require('./userid');
 console.log('[CPSCMD][INFO][userid] Building objects...');
 userid.metadata = {
   category: require('../').category,
-  description: "Links Chips' userid server!",
-  usage: 'userid',
-  example: 'userid',
+  description: "Gives you someone's id!",
+  usage: 'userid <mention>',
+  example: 'userid @James#0001',
   perm: [['public.info.userid']],
   customperm: ['SEND_MESSAGES'],
 };
