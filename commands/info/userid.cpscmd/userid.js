@@ -13,7 +13,7 @@ module.exports = {
           if(args[0].match(/^[^]*<@!?(\d+)>[^]*$/)) {
             let targetUser;
             try {
-              const target = args[1].match(Constants.patterns.MENTION)[1];
+              const target = args[0].match(Constants.patterns.MENTION);
               const user = gMember(target).user;
               targetUser = guild.members.get(user.id);
               console.log(`[USERID](FETCH) :${targetUser}`);
