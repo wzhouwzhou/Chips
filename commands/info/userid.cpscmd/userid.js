@@ -10,8 +10,8 @@ module.exports = {
           return send(`Did you mention someone?`)
         }  
         
-          if(args[0].match(/^[^]*<@!?(\d+)>[^]*$/)) {
-            let targetUser = msg.mentions.members.first(); 
+        if(args[0].match(/^[^]*<@!?(\d+)>[^]*$/)) {
+          let targetUser = msg.mentions.members.first(); 
           return send(`${targetUser.id}`);
         }  
         
