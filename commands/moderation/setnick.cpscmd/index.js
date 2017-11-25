@@ -7,7 +7,7 @@ sn.metadata = {
   usage: 'setnick',
   example: 'setnick',
   perm: [['global.moderation.setnick.*']],
-  customperm: ['MANAGE_CHANNELS'],
+  customperm: ['SEND_MESSAGES'],
 };
 
 
