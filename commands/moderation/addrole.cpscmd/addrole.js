@@ -7,16 +7,7 @@ module.exports = {
       if(!args[0]) {
           return send('Role? Mention?')
       if(args[0].match(/^[^]*<@!?(\d+)>[^]*$/) && args[1]) {
-        let targetUser;
-        try {
-          const target = args[0].match(/^[^]*<@!?(\d+)>[^]*$/);
-          const User = gMember(target).user;
-          targetUser = guild.members.get(User.id);
-          console.log(`[ADDROLE](idkwhattoputhere) :${targetUser}`);
-        } catch (err) {
-          return reply(`Invalid user specified`);
-        } 
-        
+        let targetUser = msg.mentions.members.first() 
         let targetRole = args[1];
         await targetUser.addRole(guild.roles.find('name', `${targetRole}`))
         return send(`Gucci.`);
