@@ -8,12 +8,12 @@ const { Engine } = require('node-uci');
 
 const BasicAI = require('chess-ai-kong');
 
-const AIBasic = 0, AIEasy = 1, AIMedium = 2, AIHard = 4, AIExtreme = 10;
-const AIBasicD = 1, AIEasyD = 1, AIMediumD = 1, AIHardD = 2, AIExtremeD = 3;
+const AIBasic = 0, AIEasy = 0, AIMedium = 2, AIHard = 4, AIExtreme = 10;
+const AIBasicD = 0, AIEasyD = 1, AIMediumD = 1, AIHardD = 2, AIExtremeD = 3;
 
 BasicAI.setOptions({
   depth: AIBasicD,
-  strategy: 'basic',
+  strategy: 'random',
   timeout: 0,
 });
 
