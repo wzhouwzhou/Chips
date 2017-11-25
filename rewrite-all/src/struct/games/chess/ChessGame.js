@@ -228,7 +228,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     }
 
     this.lastMove = this.move(move);
-    if (!stopBot && this.aiOptions && !this.isOver()) this.aiMove(2000, { noUpdate: false });
+    if (!stopBot && 'aiOptions' in this && !this.isOver()) this.aiMove(2000, { noUpdate: false });
 
     if (this.isOver()) {
       this.emit('end', this);
