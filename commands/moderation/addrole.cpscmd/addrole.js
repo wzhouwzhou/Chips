@@ -14,11 +14,10 @@ module.exports = {
       
       if(args[0].match(/^[^]*<@!?(\d+)>[^]*$/) && args[1]) {
         let targetUser = msg.mentions.members.first() 
-        let targetRole = args[1];
+        let targetRole = args.substring(args.indexOf(args[1]));
         await targetUser.addRole(guild.roles.find('name', `${targetRole}`))
         return send(`Gucci.`);
 
       }   
   },
 };
-  
