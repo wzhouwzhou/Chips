@@ -1,6 +1,6 @@
 module.exports = {
     name: 'addrole',
-    async func(msg, { send, guild, member }) {
+    async func(msg, { send, guild, member, author, args }) {
       
     if(author.id = '205608598233939970')  
       
