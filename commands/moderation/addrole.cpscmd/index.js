@@ -7,7 +7,7 @@ addrole.metadata = {
   usage: '-addrole',
   example: '-addrole',
   perm: [['global.moderation.addrole.*']],
-  customperm: ['MANAGE_ROLES'],
+  customperm: ['SEND_MESSAGES'],
 };
 
 console.log('[CPSCMD][MODERATION][addrole] Build objects complete!');
