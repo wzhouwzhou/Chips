@@ -113,6 +113,7 @@ ex.permsList = [
   ['global.info.quote.*', true],
   ['global.info.quote.quote', false],
   ['global.moderation.*', false],
+  ['global.moderation.addrole.*', false], //To be renamed
   ['global.moderation.antiraid.*', false],
   ['global.moderation.antiraid.-vs', false], // 5
   ['global.moderation.antiselfstar.*', false],
