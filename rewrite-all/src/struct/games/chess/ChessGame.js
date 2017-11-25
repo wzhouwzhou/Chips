@@ -12,7 +12,7 @@ const AIBasic = 0, AIEasy = 0, AIMedium = 2, AIHard = 4, AIExtreme = 10;
 const AIBasicD = 0, AIEasyD = 1, AIMediumD = 1, AIHardD = 2, AIExtremeD = 3;
 
 BasicAI.setOptions({
-  depth: AIBasicD,
+  /* depth: AIBasicD, */
   strategy: 'random',
   timeout: 0,
 });
