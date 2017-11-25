@@ -11,16 +11,8 @@ module.exports = {
         }  
         
           if(args[0].match(/^[^]*<@!?(\d+)>[^]*$/)) {
-            let targetUser;
-            try {
-              const target = args[0].match(/^[^]*<@!?(\d+)>[^]*$/);
-              const User = gMember(target).user;
-              targetUser = guild.members.get(User.id);
-              console.log(`[USERID](FETCH) :${targetUser}`);
-            } catch (err) {
-              return reply(`Invalid user specified`);
-            } 
-          return send(`${targetUser}`);
+            let targetUser = msg.mentions.members.first(); 
+          return send(`${targetUser.id}`);
         }  
         
     },
