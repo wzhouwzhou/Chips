@@ -57,7 +57,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.players = options.players || [];
     this.players = [...this.players, ...[null, null]];
     if (this.players.find(e => e && e.id === client.user.id)) {
-      this.aiOptions = 'aiOptions' in options ? options.aiOptions || AIEasy;
+      this.aiOptions = 'aiOptions' in options ? options.aiOptions : AIEasy;
       this.aiDepth = exports.depths[exports.difficulties.indexOf(this.aiOptions)];
       this.undoable = true;
     }
