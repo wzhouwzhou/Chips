@@ -6,6 +6,12 @@ module.exports = {
       
       if(!args[0]) {
           return send('Role? Mention?')
+      }
+      
+      if(!args[1]) {
+        return send('Role?')
+      }
+      
       if(args[0].match(/^[^]*<@!?(\d+)>[^]*$/) && args[1]) {
         let targetUser = msg.mentions.members.first() 
         let targetRole = args[1];
@@ -13,7 +19,6 @@ module.exports = {
         return send(`Gucci.`);
 
       }   
-    }
   },
 };
   
