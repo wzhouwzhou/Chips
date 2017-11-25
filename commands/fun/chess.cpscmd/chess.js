@@ -138,9 +138,9 @@ const ex = {
       channel,
       players: _.shuffle([member.user, othermember.user]),
       aiOptions: botting ?
-                  CHESS.difficulties[difficulty] !== null && CHESS.difficulties[difficulty] !== undefined ?
-                    CHESS.difficulties[difficulty] :
-                    CHESS.difficulties[2] || 1 << 3 :
+                  CHESS.difficulties[+difficulty] !== null && CHESS.difficulties[+difficulty] !== undefined ?
+                    CHESS.difficulties[+difficulty] :
+                    CHESS.difficulties[0] || 0 :
                     null,
     });
 
