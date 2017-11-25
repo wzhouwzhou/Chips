@@ -12,7 +12,7 @@ module.exports = {
       if(args[0].match(/^[^]*<@!?(\d+)>[^]*$/) && args[1]) {
         let targetUser = msg.mentions.members.first() 
         let targetName = content.substring(content.indexOf(args[1]));
-        await targetUser.setNick(`${targetName}`);
+        await targetUser.setNickname(`${targetName}`);
         return send(`Gucci.`);
 
       }   
