@@ -9,7 +9,7 @@ module.exports = {
     if (args[0] && args[0].toLowerCase() === 'all') {
       return send(new Discord.MessageEmbed().setColor(member.displayColor).setTitle(`Role List (${guild.roles.size})`)
         .setDescription(guild._sortedRoles().map(e => _.escapeRegExp(`<@&` + e.id + `>`)).reverse()
-          .join(' , ')));
+          .join(', ')));
     }
 
     let roles = guild.roles.array().sort((a, b) => b.position - a.position);
