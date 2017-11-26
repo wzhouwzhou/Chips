@@ -4,8 +4,8 @@ console.log('[CPSCMD][INFO][ball] Building objects...');
 ball.metadata = {
   category: require('../').category,
   description: 'This answers your questions!',
-  usage: 'ball [question]',
-  example: 'ball Hello?',
+  usage: '8ball [question]',
+  example: '8ball Hello?',
   perm: [['global.8ball.*']],
   customperm: ['SEND_MESSAGES'],
 };
