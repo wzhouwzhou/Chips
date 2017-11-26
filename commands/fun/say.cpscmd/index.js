@@ -12,4 +12,5 @@ s.metadata = {
 console.log('[CPSCMD][FUN][say] Build objects complete!');
 module.exports = [
   [s.name, s],
+  ['say', s],
 ];
