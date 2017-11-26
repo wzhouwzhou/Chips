@@ -192,6 +192,10 @@
                   el.style.backgroundPosition = elBackgrounPos;
 
                 });
+                var windowYOffset = window.pageYOffset,
+                    elBackgrounPos = "50% " + (windowYOffset * speed) + "px";
+
+                el.style.backgroundPosition = elBackgrounPos;
                 /*[].slice.call(parallax2).forEach(function(el,i){
 
                   var windowYOffset2 = window.pageYOffset,
