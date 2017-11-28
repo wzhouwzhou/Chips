@@ -13,7 +13,7 @@ module.exports = {
         let targetRole = content.substring(content.indexOf(args[1]));
         let targetRoleSend = guild.roles.find('name', `${targetRole}`);
         await targetUser.removeRole(guild.roles.find('name', `${targetRole}`));
-        return send(new Discord.MessageEmbed().setColor(member.displayColor).setDescription(`**Succesfully removed** <@&${targetRoleSend.id}> || **${targetRole}** **from** <@${targetUser.id}> (${targetUser.nickname})!`));
+        return send(new Discord.MessageEmbed().setColor(member.displayColor).setDescription(`**Succesfully removed** <@&${targetRoleSend.id}> || **${targetRole}** **from** <@${targetUser.id}> (${targetUser + []})!`));
       }
     }
   },
