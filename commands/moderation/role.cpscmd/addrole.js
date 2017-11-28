@@ -11,8 +11,9 @@ module.exports = {
       if (args[0].match(/^[^]*<@!?(\d+)>[^]*$/) && args[1]) {
         let targetUser = msg.mentions.members.first();
         let targetRole = content.substring(content.indexOf(args[1]));
+        let targetRoleSend = guild.roles.find('name', `${targetRole}`);
         await targetUser.addRole(guild.roles.find('name', `${targetRole}`));
-        return reply(`Succesfully gave <@${targetUser.id}> <@${targetRole.id}>!`);
+        return reply(`Succesfully gave <@${targetUser.id}> <@${targetRoleSend.id}>!`);
       }
     }
   },
