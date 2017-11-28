@@ -12,7 +12,7 @@ module.exports = {
         let targetUser = msg.mentions.members.first();
         let targetRole = content.substring(content.indexOf(args[1]));
         await targetUser.addRole(guild.roles.find('name', `${targetRole}`));
-        return reply(`, Succesfully gave <@${targetUser.id}> ${targetRole}`);
+        return reply(`Succesfully gave <@${targetUser.id}> <@${targetRole.id}>!`);
       }
     }
   },
