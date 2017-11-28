@@ -1,8 +1,8 @@
 module.exports = {
-    name: 'setnick',
-    async func(msg, { send, guild, member, author, args, content }) {
+  name: 'setnick',
+  async func(msg, { send, guild, member, author, args, content }) {
       
-    if(author.id == '205608598233939970') {
+    if(author.id === '205608598233939970') {
     
     if(!args[0]) {
         return send('Name? Mention?')
