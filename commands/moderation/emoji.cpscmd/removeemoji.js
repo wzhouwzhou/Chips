@@ -1,7 +1,6 @@
 module.exports = {
   name: 'removeemoji',
   async func(msg, { send, args, member, guild }) {
-
     if (!args[0]) return send('No emoji name given :(');
 
     let name = args[0];
