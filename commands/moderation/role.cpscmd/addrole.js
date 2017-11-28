@@ -1,6 +1,6 @@
 module.exports = {
   name: 'addrole',
-  async func(msg, { send, guild, member, author, args, content }) {
+  async func(msg, { send, guild, author, args, content, reply }) {
     if (author.id === '205608598233939970') {
       if (!args[0]) {
         return send('Role? Mention?');
@@ -12,7 +12,7 @@ module.exports = {
         let targetUser = msg.mentions.members.first();
         let targetRole = content.substring(content.indexOf(args[1]));
         await targetUser.addRole(guild.roles.find('name', `${targetRole}`));
-        return send(`Gucci.`);
+        return reply(`, Succesfully gave <@${targetUser.id}> ${targetRole}`);
       }
     }
   },
