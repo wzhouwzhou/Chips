@@ -13,7 +13,7 @@ module.exports = {
         let targetRole = content.substring(content.indexOf(args[1]));
         let targetRoleSend = guild.roles.find('name', `${targetRole}`);
         await targetUser.addRole(guild.roles.find('name', `${targetRole}`));
-        return send(new Discord.MessageEmbed().setColor(member.displayColor).setDescription(`Succesfully gave <@${targetUser.id}> <@&${targetRoleSend.id}>!`));
+        return send(new Discord.MessageEmbed().setColor(member.displayColor).setDescription(`Succesfully gave <@&${targetUser.id}> <@&${targetRoleSend.id}>!`));
       }
     }
   },
