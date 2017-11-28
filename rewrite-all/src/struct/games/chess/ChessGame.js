@@ -97,7 +97,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
         this.movers.get(this.turn.toLowerCase())) {
         comment += `${this.movers.get(this.turn.toLowerCase() === 'white' ? 'black' : 'white').username} won`;
       }
-      comment += ` after ${this.game.history().length} moves!`;
+      comment += ` after ${Math.ceil(this.game.history().length / 2)} moves!`;
     } else {
       if (this.movers.get(this.turn.toLowerCase())) comment += this.movers.get(this.turn.toLowerCase()).username;
       else comment += this.turn;

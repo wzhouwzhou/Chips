@@ -3,6 +3,7 @@ const EXPIRE = 10000;
 module.exports = {
   name: '-calc',
   async func(msg, { member, author, content, channel, args, Discord, reply }) {
+    if(!args[0]) return send('Nothing to calc!');
     if ((content.match(/=/g) || []).length > 1) return reply('Invalid equation entered');
     let query;
     let start = process.hrtime();

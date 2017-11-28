@@ -13,4 +13,5 @@ calc.metadata = {
 console.log('[CPSCMD][UTILITY][calc] Build objects complete!');
 module.exports = [
   [calc.name, calc],
+  ['calc', calc],
 ];
