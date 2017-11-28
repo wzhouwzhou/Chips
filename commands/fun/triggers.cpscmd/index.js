@@ -71,7 +71,7 @@ fail.metadata = {
   usage: 'fail',
   example: 'fail',
   perm: [['global.fun.triggers.fail']],
-};  
+};
 
 console.log('[CPSCMD][FUN][triggers] Build objects complete!');
 module.exports = [
