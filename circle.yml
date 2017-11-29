@@ -6,4 +6,4 @@ dependencies:
   pre:
     - npm install -g npm@4.2.0
     - npm install -g eslint
-    - npm install ytsearcher discordblacklist
+    - npm install ytsearcher discordblacklist@2.0.0-rc https://github.com/wzhouwzhou/nodecpp-test
