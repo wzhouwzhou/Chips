@@ -2,7 +2,7 @@ module.exports = {
   name: 'removerole',
   async func(msg, { send, guild, member, author, args, content, Discord }) {
     if (author.id === '205608598233939970') {
-      if (guild) {
+      if (!guild) {
         return send('You cannot use this command in Direct Messages.');
       } if (!args[0]) {
         return send('Role? Mention?');
