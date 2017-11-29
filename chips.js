@@ -72,7 +72,7 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
     '329024870887456768': true,
     '359801125882298378': true,
     '295601523050676226': true,
-    '384976959500845057': true, //Anxiety🔞
+    '384976959500845057': false, //Anxiety🔞
     '339930093042532363': true,
     '300727201119076352': true,
   },
