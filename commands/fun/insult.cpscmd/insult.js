@@ -15,11 +15,11 @@ module.exports = {
 
     return new Promise((res, rej) => meme.rotate(-54).crop(500, 350, 770, 1100).write(name, () =>
       send(new Discord.MessageEmbed().attachFiles([name]).setImage(`attachment://${name}`))
-      .then(mm => {
-        fs.unlinkSync(name);
-        res(mm);
-      })
-      .catch(rej)
+        .then(mm => {
+          fs.unlinkSync(name);
+          res(mm);
+        })
+        .catch(rej)
     ));
   },
 };

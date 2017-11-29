@@ -1,16 +1,8 @@
 module.exports = {
   name: 'addrole',
   async func(msg, { send, guild, author, args, content, member, Discord }) {
-    if (!author.id === 'lol') {
-      try {
-        let info = await permissions.checkMulti(msg, ['OWNER.*']);
-        console.log(`[Command] ADDROLE`);
-      } catch (err) {
-        if (!member.hasPermission('OWNER.*')) {
-          console.log(`Rejected info server to ${author.id}`);
-          return msg.reply(err);
-        }
-      } if (!guild) {
+    if (author.id === '205608598233939970') {
+      if (!guild) {
         return send('You cannot use this command in Direct Messages.');
       } if (!args[0]) {
         return send('Role? Mention?');
