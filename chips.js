@@ -38,9 +38,7 @@ if (process.env.BETA == 'true')prefix = '!!';
 global.customprefix = {};
 global.memberjoin = {
   msgs: {},
-  autorole: {
-    '291558782755012610': `[SM] `
-  },
+  autorole: {},
   autoname: {},
   antiraidEnabled: {},
   antiraidWelcome: {
