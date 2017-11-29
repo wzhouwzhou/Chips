@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'devremoverole',
+  name: 'removerole',
   async func(msg, { send, guild, member, author, args, content, Discord }) {
     if (author.id === '205608598233939970') {
       if (!guild) {

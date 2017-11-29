@@ -1,5 +1,5 @@
-let addrole = require('./devaddrole');
-let removerole = require('./devremoverole');
+let addrole = require('./addrole');
+let removerole = require('./removerole');
 
 console.log('[CPSCMD][MODERATION][addrole] Building objects...');
 addrole.metadata = {
