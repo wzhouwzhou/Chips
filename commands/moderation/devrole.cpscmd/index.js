@@ -1,5 +1,5 @@
-let addrole = require('./addrole');
-let removerole = require('./removerole');
+let addrole = require('./devaddrole');
+let removerole = require('./devremoverole');
 
 console.log('[CPSCMD][MODERATION][addrole] Building objects...');
 addrole.metadata = {
@@ -8,7 +8,7 @@ addrole.metadata = {
   usage: '-addrole',
   example: '-addrole',
   perm: [['global.moderation.role.add']],
-  customperm: ['SEND_MESSAGES'],
+  customperm: ['MANAGE_ROLES'],
 };
 
 console.log('[CPSCMD][MODERATION][removerole] Building objects...');
@@ -18,7 +18,7 @@ removerole.metadata = {
   usage: '-removerole',
   example: '-removerole',
   perm: [['global.moderation.role.remove']],
-  customperm: ['SEND_MESSAGES'],
+  customperm: ['MANAGE_ROLES'],
 };
 
 console.log('[CPSCMD][MODERATION][role] Build objects complete!');

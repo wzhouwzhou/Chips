@@ -1,6 +1,6 @@
 module.exports = {
-  name: 'addrole',
-  async func(msg, { send, guild, author, args, content, member, Discord }) {
+  name: 'devremoverole',
+  async func(msg, { send, guild, member, author, args, content, Discord }) {
     if (author.id === '205608598233939970') {
       if (!guild) {
         return send('You cannot use this command in Direct Messages.');
@@ -12,8 +12,8 @@ module.exports = {
         let targetUser = msg.mentions.members.first();
         let targetRole = content.substring(content.indexOf(args[1]));
         let targetRoleSend = guild.roles.find('name', `${targetRole}`);
-        await targetUser.addRole(guild.roles.find('name', `${targetRole}`));
-        return send(new Discord.MessageEmbed().setColor(member.displayColor).setDescription(`**Succesfully gave** <@&${targetRoleSend.id}> || **${targetRole}** **to** <@${targetUser.id}> || ${targetUser.username}`));
+        await targetUser.removeRole(guild.roles.find('name', `${targetRole}`));
+        return send(new Discord.MessageEmbed().setColor(member.displayColor).setDescription(`**Succesfully removed** <@&${targetRoleSend.id}> || **${targetRole}** **from** <@${targetUser.id}> (${targetUser.username})!`));
       }
     }
   },
