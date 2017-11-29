@@ -70,6 +70,7 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
     '359801125882298378': true,
     '295601523050676226': true,
     '339930093042532363': true,
+    '300727201119076352': true,
   },
   panics: {
     0: false,
