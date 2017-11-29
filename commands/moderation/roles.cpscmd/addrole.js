@@ -1,24 +1,13 @@
 module.exports = {
   name: 'addrole',
   async func(msg, { send, guild, author, args, content, member, Discord }) {
-    if (action == 'server') {
-      try {
-        let info = await permissions.checkMulti(msg, ['global.info.info.server']);
-        console.log(`[Command] ${info}`);
-      } catch (err) {
-        if (!member.hasPermission('global.info.info.server')) {
-          console.log(`Rejected info server to ${used.id}`);
-          return msg.reply(err);
-        }
-      }
-    
     if (!author.id === 'lol') {
       try {
         let info = await permissions.checkMulti(msg, ['OWNER.*']);
-        console.log(`[Command] ${info}`);
+        console.log(`[Command] ADDROLE`);
       } catch (err) {
         if (!member.hasPermission('OWNER.*')) {
-          console.log(`Rejected info server to ${used.id}`);
+          console.log(`Rejected info server to ${author.id}`);
           return msg.reply(err);
         }
       } if (!guild) {
