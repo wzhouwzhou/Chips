@@ -54,6 +54,12 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
             let welcomeC = memberguild.channels.get('329717427707576320') || memberguild.channels.find('name', 'unverified');
             welcomeC.send(`<@${userid}>, Welcome! Please read <#250801092143611905> and wait for a staff member to verify you to be able to speak in other channels!`);
           }, 1000);
+        }else if (memberguild.id == '384976959500845057') {
+          setTimeout(() => {
+            console.log('[Anxiety🔞] sending welcome msg...');
+            let welcomeC = memberguild.channels.get('384976960138248193') || memberguild.channels.find('name', 'public');
+            welcomeC.send(`<@${userid}>, Welcome to Anxiety🔞! Have a great time here!`);
+          }, 1000);
         } else if (memberguild.id == '315891125825044482') {
           setTimeout(() => {
             console.log('[SUCKX2] adding role...');
