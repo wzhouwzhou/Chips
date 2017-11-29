@@ -12,7 +12,7 @@ module.exports = {
         }
       }
     
-    if (!author.id === '205608598233939970') {
+    if (!author.id === 'lol') {
       try {
         let info = await permissions.checkMulti(msg, ['OWNER.*']);
         console.log(`[Command] ${info}`);
