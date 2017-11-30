@@ -70,22 +70,22 @@ module.exports = {
       bad.addField('Deleting a msg: ', delMetrics.toFixed(2));
       const gateway = client.gatewayc ? client.gatewayc.getPingAvg() : null;
       bad.addField('Gateway: ', gateway || 'unknown');
-      bad.addField('Databas: ', dbping || 'unknown');
+      bad.addField('Database write latency: ', dbping || 'unknown');
       channel.stopTyping();
       return send(`🏓\u2000Pong! My weighted/overall ping is ${weighted.toFixed(2)}ms! ${scale}`, { embed: bad });
     } else {
-      let sentMetric = new Date, sentmsg;
+      let sentMetric = new Date, sentmsg, dbping, dbo;
       try {
         sentmsg = await send('Pong');
         sentMetric -= new Date;
-        const dbo = Date.now();
-        await client.database.rethink ? client.database.rethink.js('0').run() : null;
-        const dbping = Date.now()-dbo;
+        dbo = Date.now();
+        dbping = client.database.rethink ? await client.database.rethink(new Date).run() : null;
       } catch (err) {
         sentMetric = '???';
       }
+      dbping = Date.now() - dbo;
       const gateway = client.gatewayc ? client.gatewayc.getPingAvg() : null;
-      await sentmsg.edit(`🏓\u2000Pong! (times in ms)\nWebsocket: **${~~client.ping}**\nApi: **${~~(-sentMetric * 100) / 100}**\nGateway: **${gateway || 'unknown'}**\nDatabase: **${dbping || 'unknown'}**`);
+      await sentmsg.edit(`🏓\u2000Pong! (times in ms)\nWebsocket: **${~~client.ping}**\nApi: **${~~(-sentMetric * 100) / 100}**\nGateway: **${gateway || 'unknown'}**\nDatabase writes: **${dbping || 'unknown'}**`);
     }
   },
 };
