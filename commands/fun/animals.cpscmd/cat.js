@@ -1,38 +1,25 @@
 const snekfetch = require('snekfetch');
-const got = require('got');
-const getCat = () => new Promise((resolve, rej) => {
-  got('http://www.random.cat/meow').then(res => {
-    try {
-      const f = JSON.parse(res.body).file;
-      f != null ? resolve(f) : rej('File not found');
-    } catch (err) {
-      rej(err);
-    }
-  }).catch(rej);
-});
+
+const getCat = () => new Promise((resolve, rej) => snekfetch.get('http://www.random.cat/meow').then(async res => {
+  try {
+    let f = JSON.parse(res.body).file;
+    if (!~f.indexOf('png')) f = await getCat();
+    if (f) resolve(f); else rej(new Error('File not found'));
+  } catch (err) {
+    rej(err);
+  }
+}).catch(rej));
 
 module.exports = {
   name: 'cat',
-  async func(msg, { send, channel }) {
+  async func(msg, { send, channel, Discord }) {
     channel.startTyping();
     try {
-      await send('', { files: [{ attachment: (await snekfetch.get(await getCat())).body }] });
+      await send(new Discord.MessageAttachment(await getCat(), 'cat.png'));
     } catch (err) {
-      console.log(err);
-      send('The cat photographer went missing!').catch(err => console.log(err));
+      channel.stopTyping();
+      await send('The cat photographer went missing!');
+      throw err;
     }
-    channel.stopTyping();
   },
 };
-
-/*
-GetCat = () => {
-  got('http://www.random.cat/meow').then(res => {
-    try {
-      callback(undefined, JSON.parse(res.body).file);
-    } catch (err) {
-      callback(err);
-    }
-  }).catch(callback);
-};
-*/
