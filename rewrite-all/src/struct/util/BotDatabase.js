@@ -32,7 +32,7 @@ const BotDatabase = class BotDatabase extends Database {
   async load() {
     try {
       await super.load();
-      this.startLog = await this.rethink.table('botStartLog').run();
+      await this.fetchStartLog(true);
       this.latestStart = this.startLog && this.startLog[0] ? this.startLog[0].status : 'Unknown';
 
       this.sinxUsers = new Map();
@@ -47,7 +47,7 @@ const BotDatabase = class BotDatabase extends Database {
 
   async fetchStartLog(cache = false) {
     this.ensureRethink();
-    const startLog = await this.getTable('botStartLog');
+    const startLog = await this.getTableIDSorted('botStartLog');
     if (cache) this.startLog = startLog;
     return startLog;
   }
