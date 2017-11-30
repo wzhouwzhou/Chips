@@ -4,8 +4,8 @@ module.exports = {
     if (author.id === '205608598233939970') {
       if (!guild) {
         return send('You cannot use this command in Direct Messages.');
-      } if (!args[0]) {
-        return send('Role? Mention?');
+      } if ((!args[0].match(/^[^]*<@!?(\d+)>[^]*$/)) && (args[1].match(/^[^]*<@!?(\d+)>[^]*$/))) {
+        return send('Mention?');
       } if (!args[1]) {
         return send('Role?');
       } if (args[0].match(/^[^]*<@!?(\d+)>[^]*$/) && args[1]) {

@@ -1,7 +1,7 @@
 module.exports = {
   name: 'role',
   customperm: ['MANAGE_ROLES'],
-  async func(msg, { reply, member, author, content, guild, args, gMember, Discord }) {
+  async func(msg, { reply, author, content, guild, args, gMember, Discord }) {
     if (!guild) return reply(`This action may only be used in a server!`);
 
     if (!args[0]) return send('No action given :(');
