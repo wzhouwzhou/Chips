@@ -93,7 +93,7 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
             member.addRole(memberguild.roles.get('385865868417957888') || memberguild.roles.find('name', 'Unverified'));
             let welcomeC = client.channels.get('385851855084978176') || memberguild.channels.find('name', 'unverified');
             if (welcomeC) welcomeC.send(`${member.user + []}, Welcome to ${memberguild.name}! Make SURE to read the <#366505552752148481> and <#312224217967886336>!\nPlease wait for staff to verify you with __\`-vs ok ${member.user + []}__!`);
-          }, 500);
+          }, 1500);
         }
       } catch (err) {
         console.log('could not add unverified role or set nick');
