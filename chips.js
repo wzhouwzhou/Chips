@@ -60,6 +60,7 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
 
     '302983444009451541': `Hai hoi! I'm just testing :>`,
     '250801092143611905': 'Welcome to Diep Colony! Please wait for online staff to verify you!',
+    '384976959500845057': 'Welcome to Anxiety🔞! Please enjoy your stay!',
     '359801125882298378': 'Welcome to nsfw empire. Please wait to be verified.',
   },
   captcha: {
@@ -69,6 +70,7 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
     '329024870887456768': true,
     '359801125882298378': true,
     '295601523050676226': true,
+    '384976959500845057': false, //Anxiety🔞
     '339930093042532363': true,
     '300727201119076352': true,
   },

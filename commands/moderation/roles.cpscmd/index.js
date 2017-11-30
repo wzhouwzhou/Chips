@@ -8,7 +8,7 @@ addrole.metadata = {
   usage: '-addrole',
   example: '-addrole',
   perm: [['global.moderation.role.add']],
-  customperm: ['SEND_MESSAGES'],
+  customperm: ['MANAGE_ROLES'],
 };
 
 console.log('[CPSCMD][MODERATION][removerole] Building objects...');
@@ -18,7 +18,7 @@ removerole.metadata = {
   usage: '-removerole',
   example: '-removerole',
   perm: [['global.moderation.role.remove']],
-  customperm: ['SEND_MESSAGES'],
+  customperm: ['MANAGE_ROLES'],
 };
 
 console.log('[CPSCMD][MODERATION][role] Build objects complete!');
