@@ -184,7 +184,7 @@ const Database = class Database extends EventEmitter {
     return table;
   }
   /**
-   * Same of getTable except array is sorted by id
+   * Same of getTable except array is sorted by id (in ascending order)
    *
    * @param {string}  tablename    The name of the table to fetch
    * @param {boolean} [cache=true] Whether to internally cache the table contents into this.rtables
