@@ -62,7 +62,7 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
     '250801092143611905': 'Welcome to Diep Colony! Please wait for online staff to verify you!',
     '384976959500845057': 'Welcome to Anxiety🔞! Please enjoy your stay!',
     '359801125882298378': 'Welcome! Please wait to be verified.',
-    '291558782755012610': 'Welcome to SickMania <@&385865868417957888>, please come so staff can verify you with __`-vs ok @ mention__!',
+    '291558782755012610': 'Welcome to SickMania <@&385865868417957888>, make SURE to read the <#366505552752148481> and <#312224217967886336>! Please come so staff can verify you with __`-vs ok @ mention__!',
   },
   captcha: {
     '302983444009451541': true,
