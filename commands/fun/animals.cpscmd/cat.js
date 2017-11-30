@@ -20,6 +20,7 @@ module.exports = {
     channel.startTyping();
     try {
       await send(new Discord.MessageAttachment((await getCat()).file, 'cat.png'));
+      return channel.stopTyping();
     } catch (err) {
       channel.stopTyping();
       await send('The cat photographer went missing!');
