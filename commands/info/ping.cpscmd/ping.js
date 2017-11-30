@@ -66,7 +66,8 @@ module.exports = {
       bad.addField('Clearing message reactions: ',
         typeof creactMetrics !== 'string' ? creactMetrics.toFixed(2) : creactMetrics);
       bad.addField('Deleting a msg: ', delMetrics.toFixed(2));
-      bad.addField('Gateway: ', client.gatewayc.getPingAvg() || 'unknown');
+      const gateway = client.gatewayc ? client.gatewayc.getPingAvg() : null;
+      bad.addField('Gateway: ', gateway || 'unknown');
       channel.stopTyping();
       return send(`🏓\u2000Pong! My weighted/overall ping is ${weighted.toFixed(2)}ms! ${scale}`, { embed: bad });
     } else {
@@ -77,8 +78,8 @@ module.exports = {
       } catch (err) {
         sentMetric = '???';
       }
-
-      await sentmsg.edit(`🏓\u2000Pong! (times in ms)\nWebsocket: **${~~client.ping}**\nApi: **${~~(-sentMetric * 100) / 100}**\nGateway: **${client.gatewayc.getPingAvg() || 'unknown'}**`);
+      const gateway = client.gatewayc ? client.gatewayc.getPingAvg() : null;
+      await sentmsg.edit(`🏓\u2000Pong! (times in ms)\nWebsocket: **${~~client.ping}**\nApi: **${~~(-sentMetric * 100) / 100}**\nGateway: **${gateway || 'unknown'}**`);
     }
   },
 };
