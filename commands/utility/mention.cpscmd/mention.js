@@ -12,8 +12,16 @@ exports.func = async(msg, { guild, member, send, author, channel, suffix, Discor
   if (!suffix || suffix === '') return send('You must give me a role to mention!');
   if (!guild) return send('You must use this command in a server.');
 
-  if (!member.hasPermission('BAN_MEMBERS') && !member.hasPermission('MANAGE_ROLES')) if (!~whitelist.indexOf(member.id)) return send('You do not have permission to use this command!');
-  if (!member.roles.some(r => ['Event Organizors', 'Event Organizers', 'Admin', 'Staff', 'Administrator'].includes(r.name))) { return send('You do not have permission to use this command!') };
+  if (!member.hasPermission('BAN_MEMBERS') && !member.hasPermission('MANAGE_ROLES')) {
+    if (!~whitelist.indexOf(member.id) &&
+    !member.roles.some(r => [
+      'Event Organizors',
+      'Event Organizers',
+      'Admin',
+      'Staff',
+      'Administrator',
+    ].includes(r.name))) return send('You do not have permission to use this command!');
+  }
   if (inmention.get(author.id)) return send(`Type ${CANCEL} to leave the mention menu`);
   inmention.set(author.id, true);
   const preRList = suffix.split(/,/g).map(e => e.trim());
