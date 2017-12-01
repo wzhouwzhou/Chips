@@ -1,7 +1,7 @@
 module.exports = {
   name: 'addrole',
   async func(msg, { send, guild, author, args, content, member, Discord }) {
-    if (author.id === '205608598233939970') {
+    //if (author.id === '205608598233939970') {
       if (!guild) {
         return send('You cannot use this command in Direct Messages.');
       } if (!args[0].match(/^[^]*<@!?(\d+)>[^]*$/) && args[1].match(/^[^]*<@!?(\d+)>[^]*$/)) {
