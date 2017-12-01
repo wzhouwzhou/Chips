@@ -12,8 +12,16 @@ exports.func = async(msg, { guild, member, send, author, channel, suffix, Discor
   if (!suffix || suffix === '') return send('You must give me a role to mention!');
   if (!guild) return send('You must use this command in a server.');
 
-  if (!member.hasPermission('BAN_MEMBERS') && !member.hasPermission('MANAGE_ROLES')) if (!~whitelist.indexOf(member.id)) return send('You do not have permission to use this command!');
-  if (!member.roles.some(r => ['Event Organizors', 'Event Organizers', 'Admin', 'Staff', 'Administrator'].includes(r.name))) { return send('You do not have permission to use this command!') };
+  if (!member.hasPermission('BAN_MEMBERS') && !member.hasPermission('MANAGE_ROLES')) {
+    if (!~whitelist.indexOf(member.id) &&
+    !member.roles.some(r => [
+      'Event Organizors',
+      'Event Organizers',
+      'Admin',
+      'Staff',
+      'Administrator',
+    ].includes(r.name))) return send('You do not have permission to use this command!');
+  }
   if (inmention.get(author.id)) return send(`Type ${CANCEL} to leave the mention menu`);
   inmention.set(author.id, true);
   const preRList = suffix.split(/,/g).map(e => e.trim());
@@ -71,9 +79,9 @@ exports.func = async(msg, { guild, member, send, author, channel, suffix, Discor
   try {
     p.sendFirst();
   } catch (err) {
-    console.error(err);
     inmention.set(author.id, false);
-    return send('Something went wrong...');
+    send('Something went wrong...');
+    throw err;
   }
 
   let tocancel = true, matcher;
@@ -127,7 +135,7 @@ exports.func = async(msg, { guild, member, send, author, channel, suffix, Discor
     if (!wasment) {
       const theR = guild.roles.get(totalroleids[i - 1]);
       try {
-        mModified.push(await theR.setMentionable(true, `${prefix}mention executed by ${author.tag}`));
+        mModified.push(theR.setMentionable(true, `${prefix}mention executed by ${author.tag}`));
       } catch (err) {
         // ;
       }
@@ -135,6 +143,7 @@ exports.func = async(msg, { guild, member, send, author, channel, suffix, Discor
     rtoment.push(totalroles[i - 1] + []);
     // Console.debug.mention('Added role '+totalroles[i-1]);
   }
+  mModified = await Promise.all(mModified);
   await send(mentStr + grammarJoin(rtoment, 'and'));
   mModified.forEach(r => r.setMentionable(false, `Restoring previous settings after ${author.tag}'s mentioning`));
   inmention.set(author.id, false);
