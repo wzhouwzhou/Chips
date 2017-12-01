@@ -1,6 +1,10 @@
 module.exports = {
   name: 'channelname',
   async func(msg, { send, guild, channel }) {
-    if (guild) { return send(`<#${channel.id}>, ${channel.name}`); } else { return send('You must be in a server to use this!'); }
+    if (guild) {
+      return send(`<#${channel.id}>, ${channel.name}`);
+    } else {
+      return send('You must be in a server to use this!');
+    }
   },
 };

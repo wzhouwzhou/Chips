@@ -1,6 +1,6 @@
 module.exports = {
   name: 'channelmemberstatus',
-  async func(msg, { send, guild, channel, args, member }) {
+  async func(msg, { send, guild, channel, args, member, Discord }) {
     if (!guild) return send('You must be in a server to use this');
     const idle = channel.members.filter(m => m.presence.status === 'idle').size;
     const online = channel.members.filter(m => m.presence.status === 'online').size;
