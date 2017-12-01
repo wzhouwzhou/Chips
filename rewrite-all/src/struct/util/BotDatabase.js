@@ -32,7 +32,7 @@ const BotDatabase = class BotDatabase extends Database {
   async load() {
     try {
       await super.load();
-      this.startLog = await this.rethink.table('botStartLog').run();
+      await this.fetchStartLog(true);
       this.latestStart = this.startLog && this.startLog[0] ? this.startLog[0].status : 'Unknown';
 
       this.sinxUsers = new Map();
@@ -47,7 +47,7 @@ const BotDatabase = class BotDatabase extends Database {
 
   async fetchStartLog(cache = false) {
     this.ensureRethink();
-    const startLog = await this.getTable('botStartLog');
+    const startLog = (await this.getTableIDSorted('botStartLog')).reverse();
     if (cache) this.startLog = startLog;
     return startLog;
   }
@@ -81,9 +81,9 @@ const BotDatabase = class BotDatabase extends Database {
    * @returns {Promise} The status of insertion for last start.
    */
   writeLastStart() {
-    let time = moment().format('ddd, Do of MMM @ HH:mm:ss');
+    let time = moment().format('ddd, Do of MMM @ HH:mm:ss.SSS');
     const status = `Shard restart on shard #${this.client.shard.id + 1}! ${time}`;
-    return this.insertInTable('botStartLog', Date.now(), { status: status, data: true });
+    return this.insertInTable('botStartLog', `${Date.now()}`, { status: status, data: true });
   }
 
   /**

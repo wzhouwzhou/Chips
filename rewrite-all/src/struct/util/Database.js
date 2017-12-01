@@ -77,6 +77,7 @@ const Database = class Database extends EventEmitter {
       user: 'admin',
       password: process.env.RETHINKPSWD,
     });
+    this.rtables = {};
     return this;
   }
 
@@ -170,12 +171,31 @@ const Database = class Database extends EventEmitter {
    * @param {string}  tablename    The name of the table to fetch
    * @param {boolean} [cache=true] Whether to internally cache the table contents into this.rtables
    * @async
-   * @returns {Object} Table entries, where keys are ids.
+   * @returns {Promise.<Array>} Table entries, where keys are ids.
    */
   async getTable(tablename, cache = true) {
     this.ensureRethink();
 
     const table = await this.rethink.table(tablename).run();
+    if (cache) {
+      if (!this.rtables) this.rtables = {};
+      this.rtables[tablename] = table;
+    }
+    return table;
+  }
+  /**
+   * Same of getTable except array is sorted by id (in ascending order)
+   *
+   * @param {string}  tablename    The name of the table to fetch
+   * @param {boolean} [cache=true] Whether to internally cache the table contents into this.rtables
+   * @async
+   * @returns {Promise.<Array>} Table entries, where keys are ids.
+   */
+
+  async getTableIDSorted(tablename, cache = true) {
+    this.ensureRethink();
+
+    const table = (await this.rethink.table(tablename).run()).sort((a, b) => b.id - a.id);
     if (cache) {
       if (!this.rtables) this.rtables = {};
       this.rtables[tablename] = table;

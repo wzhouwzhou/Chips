@@ -2,10 +2,6 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const io = require('socket.io-client');
-const erlpack = require('erlpack');
-
-const crypto = require('crypto');
-const algorithm = 'aes-256-ctr';
 
 const Logger = require('./Logger').create('GatewayClient', 'Main');
 const { Encryptor } = require('../util/Encryptor');
