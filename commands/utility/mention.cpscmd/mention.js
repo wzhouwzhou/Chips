@@ -79,9 +79,9 @@ exports.func = async(msg, { guild, member, send, author, channel, suffix, Discor
   try {
     p.sendFirst();
   } catch (err) {
-    console.error(err);
     inmention.set(author.id, false);
-    return send('Something went wrong...');
+    send('Something went wrong...');
+    throw err;
   }
 
   let tocancel = true, matcher;
@@ -135,7 +135,7 @@ exports.func = async(msg, { guild, member, send, author, channel, suffix, Discor
     if (!wasment) {
       const theR = guild.roles.get(totalroleids[i - 1]);
       try {
-        mModified.push(await theR.setMentionable(true, `${prefix}mention executed by ${author.tag}`));
+        mModified.push(theR.setMentionable(true, `${prefix}mention executed by ${author.tag}`));
       } catch (err) {
         // ;
       }
@@ -143,6 +143,7 @@ exports.func = async(msg, { guild, member, send, author, channel, suffix, Discor
     rtoment.push(totalroles[i - 1] + []);
     // Console.debug.mention('Added role '+totalroles[i-1]);
   }
+  mModified = await Promise.all(mModified);
   await send(mentStr + grammarJoin(rtoment, 'and'));
   mModified.forEach(r => r.setMentionable(false, `Restoring previous settings after ${author.tag}'s mentioning`));
   inmention.set(author.id, false);
