@@ -166,7 +166,7 @@ const BotDatabase = class BotDatabase extends Database {
       throw new Error('Already registered');
     }
 
-    previous.push(targetUser);
+    previous.data.push(targetUser);
 
     const inviteauthor = this.bw.inviteauthors.get(invitecode);
 
@@ -198,6 +198,14 @@ const BotDatabase = class BotDatabase extends Database {
 
   async bwreferLoad() {
     const bwrefer = await this.client.database.getTable('bwrefer');
+    const previous = bwrefer.filter(e => e.id === 'previous')[0];
+    if (!previous) {
+      const pdata = {
+        id: 'previous',
+        data: [],
+      };
+      await this.insertInTable('bwrefer', pdata.id, pdata);
+    }
     for (const { invite, authorid } of bwrefer.filter(e => e.id !== 'previous').map(e => e.data)) {
       this.bw.inviteauthors.set(invite, authorid);
     }
