@@ -27,6 +27,8 @@ const BotDatabase = class BotDatabase extends Database {
   constructor(client) {
     super(client);
     this.loadGFunctions();
+    this.bw = {};
+    this.bw.inviteauthors = new Map;
   }
 
   async load() {
@@ -37,6 +39,7 @@ const BotDatabase = class BotDatabase extends Database {
 
       this.sinxUsers = new Map();
       await this.loadSBKGS();
+      await this.bwreferLoad();
     } catch (err) {
       this.ready = false;
       this.err = err;
@@ -150,6 +153,55 @@ const BotDatabase = class BotDatabase extends Database {
         });
       });
     });
+  }
+
+  async bwreferadd(invitecode, targetUser) {
+    const bwrefer = await this.client.database.getTable('bwrefer');
+    const previous = bwrefer.filter(e => e.id === 'previous')[0];
+
+    const inviteData = bwrefer.filter(e => e.id === invitecode)[0];
+    const previousrefers = inviteData.refers;
+
+    if (previous && (!!~previous.data.indexOf(targetUser) || !!~previousrefers.indexOf(previous))) {
+      throw new Error('Already registered');
+    }
+
+    previous.push(targetUser);
+
+    const inviteauthor = this.bw.inviteauthors.get(invitecode);
+
+    if (!inviteauthor) throw new Error('Invite not found');
+
+    const data = {
+      invite: invitecode,
+      authorid: inviteauthor,
+      refers: [...previousrefers, targetUser],
+    };
+    await this.insertInTable('bwrefer', invitecode, { id: invitecode, data });
+    return this.insertInTable('bwrefer', 'refers', previous);
+  }
+
+  async bwrefercreate(invitecode, inviteauthor) {
+    const bwrefer = await this.client.database.getTable('bwrefer');
+    if (this.bw.inviteauthors.has(invitecode) || bwrefer.some(e => e.id === invitecode)) {
+      throw new Error('Invite already exists');
+    }
+    this.bw.inviteauthors.set(invitecode, inviteauthor);
+    const data = {
+      invite: invitecode,
+      authorid: inviteauthor,
+      refers: [],
+    };
+
+    return this.insertInTable('bwrefer', invitecode, data);
+  }
+
+  async bwreferLoad() {
+    const bwrefer = await this.client.database.getTable('bwrefer');
+    for (const { invite, authorid } of bwrefer.filter(e => e.id !== 'previous').map(e => e.data)) {
+      this.bw.inviteauthors.set(invite, authorid);
+    }
+    return this;
   }
 };
 
