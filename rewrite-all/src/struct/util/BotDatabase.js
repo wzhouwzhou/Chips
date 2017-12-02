@@ -197,7 +197,7 @@ const BotDatabase = class BotDatabase extends Database {
   }
 
   async bwreferLoad() {
-    const bwrefer = await this.client.database.getTable('bwrefer');
+    const bwrefer = await this.getTable('bwrefer');
     const previous = bwrefer.filter(e => e.id === 'previous')[0];
     if (!previous) {
       const pdata = {
@@ -206,7 +206,7 @@ const BotDatabase = class BotDatabase extends Database {
       };
       await this.insertInTable('bwrefer', pdata.id, pdata);
     }
-    for (const { invite, authorid } of bwrefer.filter(e => e.id !== 'previous').map(e => e.data)) {
+    for (const { invite, authorid } of bwrefer.filter(e => e.id !== 'previous')) {
       this.bw.inviteauthors.set(invite, authorid);
     }
     return this;
