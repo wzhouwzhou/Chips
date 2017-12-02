@@ -31,14 +31,12 @@ module.exports = {
       let targetUser = msg.mentions.members.first();
       let targetRole = content.substring(content.indexOf(args[1]));
       let targetRoleSend = guild.roles.find('name', `${targetRole}`);
-      if (targetUser.highestRole.position > targetRoleSend.position) {
-        await targetUser.addRole(guild.roles.find('name', `${targetRole}`));
-        return send(new Discord.MessageEmbed()
-          .setColor(member.displayColor)
-          .setDescription(`**Succesfully gave** <@&${targetRoleSend.id}> || **${targetRole}** **to** <@${targetUser.id}> || ${targetUser.username}`));
-      }
+      await targetUser.addRole(guild.roles.find('name', `${targetRole}`));
+      return send(new Discord.MessageEmbed()
+        .setColor(member.displayColor)
+        .setDescription(`**Succesfully gave** <@&${targetRoleSend.id}> || **${targetRole}** **to** <@${targetUser.id}> || ${targetUser.username}`));
     } else {
-      return send('You don\'t have enough permissions to use this command!')
+      return send('You don\'t have enough permissions to use this command!');
     }
   },
 };
