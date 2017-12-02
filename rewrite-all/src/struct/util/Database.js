@@ -225,6 +225,20 @@ const Database = class Database extends EventEmitter {
     if (entry.inserted === 1 || entry.replaced === 1) return entry;
     throw new Error(`Data id [${id}] was not inserted: ${JSON.stringify(data)}`);
   }
+
+  async removeFromTable(tablename, id) {
+    const result = await (new Promise)((res, rej) => {
+      this.rethink
+        .table(tablename)
+        .get(id)
+        .delete({ returnChanges: !0 })
+        .run((e, data) => {
+          if (e) return rej(e);
+          return res(data);
+        });
+    });
+    return result;
+  }
 };
 
 /**
