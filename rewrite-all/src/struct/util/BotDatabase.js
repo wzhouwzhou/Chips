@@ -178,7 +178,7 @@ const BotDatabase = class BotDatabase extends Database {
       refers: [...previousrefers, targetUser],
     };
     await this.insertInTable('bwrefer', invitecode, { id: invitecode, data });
-    return this.insertInTable('bwrefer', 'refers', previous);
+    return this.insertInTable('bwrefer', 'previous', previous);
   }
 
   async bwrefercreate(invitecode, inviteauthor) {
