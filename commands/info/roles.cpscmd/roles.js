@@ -4,7 +4,7 @@ const { Paginator } = require('../../../rewrite-all/src/struct/client/Paginator'
 
 module.exports = {
   name: 'roles',
-  async func(msg, { send, guild, member, args, Discord, prefix }) {
+  async func(msg, { send, guild, member, args, Discord, prefix, author }) {
     if (!guild) return send('You must be in a server to use this!');
     if (args[0] && args[0].toLowerCase() === 'all') {
       return send(new Discord.MessageEmbed().setColor(member.displayColor).setTitle(`Role List (${guild.roles.size})`)
