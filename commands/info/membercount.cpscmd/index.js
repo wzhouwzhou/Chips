@@ -3,7 +3,7 @@ let mc = require('./membercount');
 console.log('[CPSCMD][INFO][membercount] Building objects...');
 mc.metadata = {
   category: require('../').category,
-  description: 'This shows you the channel topic!',
+  description: 'This shows you the amount of members in the guild!',
   usage: 'membercount',
   example: 'membercount',
   perm: [['global.info.info']],
