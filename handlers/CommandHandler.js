@@ -82,7 +82,7 @@ module.exports = function(Discord, client) {
     };
     for (const cmdn in client.commands) {
       const cmd = client.commands[cmdn];
-      if (new RegExp(`^${_.escapeRegExp(cmdn)}$`).test(noprefix.split(/\s+/)[0])) {
+      if (new RegExp(`^${_.escapeRegExp(cmdn)}$`,'i').test(noprefix.split(/\s+/)[0])) {
         const meta = cmd.metadata;
         if (meta == null) return msg.reply('This command has an error with its metadata! Please report this to my developers!');
         if (meta.perm != null && meta.perm[0] != null) {
