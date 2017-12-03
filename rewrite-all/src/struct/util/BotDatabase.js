@@ -207,7 +207,7 @@ const BotDatabase = class BotDatabase extends Database {
       };
       await this.insertInTable('bwrefer', pdata.id, pdata);
     }
-    for (const { invite, authorid } of bwrefer.filter(e => e.id !== 'previous')) {
+    for (const { invite, authorid } of bwrefer.filter(e => e.id !== 'previous').data) {
       this.bw.inviteauthors.set(invite, authorid);
       this.bw.inviteauthors.set(authorid, invite);
     }
