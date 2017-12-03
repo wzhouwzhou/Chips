@@ -24,6 +24,11 @@ ships.set('286475753049292800,260024920757633025', 100);
 shipComments.set('286475753049292800,260024920757633025', 'uhm');
 shipJoin.set('286475753049292800,260024920757633025', '<:blobkiss:372739966100439042>'); // Ayoubelk and xena
 
+const sorachino = '277969198401978379,296934568068513793';
+ships.set(sorachino, 100);
+shipComments.set(sorachino, 'OwO You guys are perfect for each other');
+shipJoin.set(sorachino, '🌹❤');
+
 module.exports = {
   name: 'ship',
   async func(msg, { send, Discord, client, suffix, member, guild }) {
