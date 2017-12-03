@@ -8,9 +8,10 @@ const gifs = [
   'https://pbs.twimg.com/media/CgggRytUUAAmvT6.jpg',
   'https://cdn.discordapp.com/attachments/257895860757725186/367754148256415754/image.png',
   'https://cdn.discordapp.com/attachments/257895860757725186/367754967773216768/image.png',
-  'https://cdn.discordapp.com/attachments/257895860757725186/372258920171044864/b4nzy.gif',
+  'https://imgur.com/a/2o1M0',
   'https://cdn.discordapp.com/attachments/360171866964623361/373629631074664448/FTB2stB.gif',
   'https://imgur.com/a/bvmVK',
+  'https://imgur.com/a/ooQEP',
 ];
 
 module.exports = {
