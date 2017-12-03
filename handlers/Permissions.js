@@ -117,6 +117,7 @@ ex.permsList = [
   ['global.moderation.role.*', false], //To be renamed
   ['global.moderation.role.add', false],
   ['global.moderation.role.remove', false],
+  ['global.moderation.role.setcolor', false],
   ['global.moderation.antiraid.*', false],
   ['global.moderation.antiraid.-vs', false], // 5
   ['global.moderation.antiselfstar.*', false],
