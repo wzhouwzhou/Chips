@@ -187,6 +187,7 @@ const BotDatabase = class BotDatabase extends Database {
       throw new Error('Invite already exists');
     }
     this.bw.inviteauthors.set(invitecode, inviteauthor);
+    this.bw.inviteauthors.set(inviteauthor, invitecode);
     const data = {
       invite: invitecode,
       authorid: inviteauthor,
@@ -208,6 +209,7 @@ const BotDatabase = class BotDatabase extends Database {
     }
     for (const { invite, authorid } of bwrefer.filter(e => e.id !== 'previous')) {
       this.bw.inviteauthors.set(invite, authorid);
+      this.bw.inviteauthors.set(authorid, invite);
     }
     return this;
   }
