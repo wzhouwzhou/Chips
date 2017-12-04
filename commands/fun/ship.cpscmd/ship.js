@@ -1,28 +1,26 @@
 const _ = require('lodash');
 const ships = new Map, shipComments = new Map, shipJoin = new Map;
-ships.set('259209114268336129,286522718965465090', 100);
-shipComments.set('259209114268336129,286522718965465090', 'Ily bb :3');
-shipJoin.set('259209114268336129,286522718965465090', '<:blobkiss:372739966100439042>'); // Wolf and willy
 
-ships.set('205608598233939970,296855425255473154', 420);
-shipComments.set('205608598233939970,296855425255473154', `Marriage when?!`);
-shipJoin.set('205608598233939970,296855425255473154', '<:blobkiss:372739966100439042>'); // Lucas and chips
+const lucheps = '205608598233939970,296855425255473154';
+ships.set(lucheps, 420);
+shipComments.set(lucheps, `Marriage when?!`);
+shipJoin.set(lucheps, '<:blobkiss:372739966100439042>');
 
-ships.set('205608598233939970,214234647947771907', 6969);
-shipComments.set('205608598233939970,214234647947771907', '❤ real di-love when ❤ ');
-shipJoin.set('205608598233939970,214234647947771907', '<:blobkiss:372739966100439042>'); // Lucas & Kat
+// Lucas and chips
 
-ships.set('205608598233939970,365972456139390977', 100);
-shipComments.set('205608598233939970,365972456139390977', '❤');
-shipJoin.set('205608598233939970,365972456139390977', '<:blobkiss:372739966100439042>'); // Lucas and vy
+const lukat = '205608598233939970,214234647947771907';
+ships.set(lukat, 6969);
+shipComments.set(lukat, '❤ real di-love when ❤ ');
+shipJoin.set(lukat, '<:blobkiss:372739966100439042>');
 
-ships.set('250815960250974209,365972456139390977', 9001);
-shipComments.set('250815960250974209,365972456139390977', '❤It\'s❤Over❤Nine❤Thousand❤');
-shipJoin.set('250815960250974209,365972456139390977', '<:blobhearteyes:376509082791575552>'); // Evildeathpro and Vee
+// Lucas & Kat
 
-ships.set('286475753049292800,260024920757633025', 100);
-shipComments.set('286475753049292800,260024920757633025', 'uhm');
-shipJoin.set('286475753049292800,260024920757633025', '<:blobkiss:372739966100439042>'); // Ayoubelk and xena
+const veedp = '250815960250974209,365972456139390977';
+ships.set(veedp, 9001);
+shipComments.set(veedp, '❤It\'s❤Over❤Nine❤Thousand❤');
+shipJoin.set(veedp, '<:blobhearteyes:376509082791575552>');
+
+// Evildeathpro and Vee
 
 const sorachino = '277969198401978379,296934568068513793';
 ships.set(sorachino, 100);
