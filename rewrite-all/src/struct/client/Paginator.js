@@ -136,7 +136,6 @@ const Paginator = class Paginator {
           if (this.replying) this.sentMsg = await this._msg.reply(this.currentText, { embed: this.embed });
           else this.sentMsg = await this._msg.channel.send(this.currentText, { embed: this.embed });
           if (waitforbuttons) await this.pageButtons(this.sentMsg);
-          else this.pageButtons(this.sentMsg);
         } else if (this.replying) {
           this.sentMsg = await this.sentMsg.edit(this._msg.author + this.currentText, { embed: this.embed });
         } else {

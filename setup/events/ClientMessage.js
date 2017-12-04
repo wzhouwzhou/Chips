@@ -1,3 +1,4 @@
+/* eslint complexity: 'off' */
 // Client Message Events
 let slSwitcher = false, helper3 = false;
 global.testC, global.nLogs, global.sLogs, global.sxLogs, global.stLogs, global.snLogs;
@@ -49,8 +50,9 @@ client.mcounterI = setInterval(() => {
     width: 600,
   });
 }, 2000);
+const ignoreid = ['304338588588441601', '305776092822765568', '300633021701423106'];
 const msghandle = async message => {
-  if (message.author.id==='305776092822765568') return true;
+  if (~ignoreid.indexOf(message.author.id)) return true;
   client.shard.broadcastEval(`client.thismcounter++`);
   /* Try{
     r.table('lastMessage').insert( {
