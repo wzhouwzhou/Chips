@@ -1,3 +1,4 @@
+/* eslint complexity: 'off' */
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 
@@ -43,6 +44,19 @@ const Paginator = class Paginator {
     return this;
   }
 
+  sendFirstGetMsg() {
+    return new Promise(async(res, rej) => {
+      if (this.stopped) res(null);
+      await this.updateInternal(0);
+      try {
+        await this.updateView(false);
+        res(this.sentMsg);
+      } catch (err) {
+        rej(err);
+      }
+    });
+  }
+
   sendFirst() {
     return new Promise(async(res, rej) => {
       if (this.stopped) res(null);
@@ -66,7 +80,7 @@ const Paginator = class Paginator {
           this.title[pageNum] ?
             this.title[pageNum] :
             ' ' :
-          null;
+        null;
 
       this.embed.setTitle(this.currentTitle)
         .setFooter(this.footer ?
@@ -76,26 +90,23 @@ const Paginator = class Paginator {
               .replace(/{totalpages}/gi, this.pages.length) :
             this.footer[pageNum] ?
               this.footer[pageNum]
-              .replace(/{pagenum}/gi, pageNum + 1)
-              .replace(/{totalpages}/gi, this.pages.length) :
-            `Page ${pageNum + 1} of ${this.pages.length}` :
+                .replace(/{pagenum}/gi, pageNum + 1)
+                .replace(/{totalpages}/gi, this.pages.length) :
+              `Page ${pageNum + 1} of ${this.pages.length}` :
           `Page ${pageNum + 1} of ${this.pages.length}`
         )
         .setColor(this.color || DEFAULTCOLOR);
       if (this.author) {
-        this.embed.setAuthor(typeof this.author === 'string' ?
-                                                 this.author :
-                                                 this.author[pageNum] || ' '
-        );
+        this.embed.setAuthor(typeof this.author === 'string' ? this.author : this.author[pageNum] || ' ');
       }
 
       if (this.fielding) {
         for (const fieldp of this.pages[pageNum]) this.embed = this.embed.addField(...fieldp, false);
         if (this.description) {
-          this.embed.setDescription(typeof this.description === 'string' ?
-                                                        this.description :
-                                                        this.description[pageNum] || ' '
-          );
+          this.embed
+            .setDescription(typeof this.description === 'string' ?
+              this.description :
+              this.description[pageNum] || ' ');
         }
       } else {
         this.embed.setDescription(this.pages[pageNum]);
@@ -112,7 +123,7 @@ const Paginator = class Paginator {
     return true;
   }
 
-  updateView() {
+  updateView(waitforbuttons = true) {
     return new Promise(async(res, rej) => {
       if (this.stopped) return res(null);
       try {
@@ -124,7 +135,8 @@ const Paginator = class Paginator {
         if (!this.sentMsg) {
           if (this.replying) this.sentMsg = await this._msg.reply(this.currentText, { embed: this.embed });
           else this.sentMsg = await this._msg.channel.send(this.currentText, { embed: this.embed });
-          await this.pageButtons(this.sentMsg);
+          if (waitforbuttons) await this.pageButtons(this.sentMsg);
+          else this.pageButtons(this.sentMsg);
         } else if (this.replying) {
           this.sentMsg = await this.sentMsg.edit(this._msg.author + this.currentText, { embed: this.embed });
         } else {

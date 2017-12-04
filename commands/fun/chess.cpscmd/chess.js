@@ -1,3 +1,4 @@
+/* eslint complexity: 'off' */
 const _ = require('lodash');
 
 const CHESS = require('../../../rewrite-all/src/struct/games/chess/ChessGame.js');
@@ -73,7 +74,7 @@ const ex = {
       }, Discord
       );
       try {
-        return await p.sendFirst();
+        return await p.sendFirstGetMsg();
       } catch (err) {
         send('Something went wrong...');
         throw err;
