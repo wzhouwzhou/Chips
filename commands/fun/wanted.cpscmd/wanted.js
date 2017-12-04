@@ -7,7 +7,10 @@ let mm;
 module.exports = {
   name: 'wanted',
   async func(msg, { member, send, channel, author, Discord }) {
-    if (!mm) mm = (await JR('https://imgur.com/a/696eq')).resize(a_, b_);
+    if (!mm) {
+      mm = (await JR('https://cdn.discordapp.com/attachments/342946261428731907/384586085356929025/plate_wanted.png'))
+        .resize(a_, b_);
+    }
     const ava = (await JR(
       (msg.mentions.users.first() || author)
         .displayAvatarURL({ format: 'jpg', size: f_ }))

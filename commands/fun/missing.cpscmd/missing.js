@@ -5,7 +5,7 @@ const [a_, b_, c_, d_, e_, f_] = [600, 613, 225, 115, 320, 2048];
 let mm;
 
 module.exports = {
-  name: 'wanted',
+  name: 'missing',
   async func(msg, { member, send, channel, author, Discord }) {
     if (!mm) {
       mm = (await JR('https://cdn.discordapp.com/attachments/307493997184679937/384574611104333825/missing.jpg'))
