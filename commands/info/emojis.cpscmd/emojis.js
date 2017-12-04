@@ -8,7 +8,7 @@ module.exports = {
         .setColor(member.displayColor));
     } else if (guild.emojis.size < '1') {
       return send('The server doesn\'t have any emojis!');
-    } else {
+    } else if (!guild) {
       return send('You need to be in a server to use this!');
     }
   },
