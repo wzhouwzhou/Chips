@@ -17,7 +17,7 @@ module.exports = {
     ).resize(c_, c_);
 
     const photo = await mm.clone().blit(ava, d_, e_);
-    const f = `${author.id}|${channel.id}.${Date.now()}.missing.png`;
+    const f = `${author.id}.${channel.id}.${Date.now()}.missing.png`;
     return new Promise(r => photo.write(f,
       () => r(send(new Discord.MessageEmbed()
         .attachFiles([f])
