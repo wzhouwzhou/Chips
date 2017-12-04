@@ -317,7 +317,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
         ).concat(
           (([a, ...b]) => [...b, a])(Object.assign([], label2))
             .reverse()
-            .join('\u200B')
+            .join('')
         ).join('\n');
     }
     this.board.reverse();
