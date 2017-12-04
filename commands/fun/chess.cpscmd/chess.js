@@ -285,7 +285,7 @@ const promptDifficulty = (msg, { author, reply, Discord }) => new Promise(async 
   }, Discord
   );
   try {
-    let sentMsg = await p.sendFirst();
+    let sentMsg = await p.sendFirstGetMsg();
     if (!sentMsg) reply('Cannot find sentmsg');
     // Console.log(sentMsg.constructor.name);
     const f = (r, u) => {
@@ -299,8 +299,9 @@ const promptDifficulty = (msg, { author, reply, Discord }) => new Promise(async 
     rCol.on('collect', () => rCol.stop());
     rCol.on('end', () => {
       p.collector.stop();
-      res(p.currentPage);
+      return res(p.currentPage);
     });
+    return p.pageButtons();
   } catch (err) {
     reply('Something went wrong...');
     throw err;
