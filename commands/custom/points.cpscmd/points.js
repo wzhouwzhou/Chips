@@ -1,5 +1,5 @@
 /* eslint complexity: "off" */
-
+const _ = require('lodash');
 const path = require('path');
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
 
@@ -40,13 +40,15 @@ const handleSend = data => {
     .sort((a, b) => +a.pts - +b.pts)[0];
   let str = '';
 
-  for (const other of [firstPlace, nextUser]) {
+  const looper = [firstPlace, nextUser];
+  looper.length = Math.min(looper.length, +dbUser.rnk - 1);
+  for (const other of looper) {
     const name = other.unm;
     const pointsUntil = +other.pts - +dbUser.pts;
     const rank = other.rnk;
     str += `${pointsUntil} ${
       pointsUntil === 1 ? 'point' : 'points'
-    } to go to catch up to ${name}(${rank})\n`;
+    } to go to catch up to ${_.escapeRegExp(name).replace(/([_`])/g, '\\$1')}(${rank})\n`;
   }
 
   embed.addField(`${dbUser.pts} ${+dbUser.pts === 1 ? 'point' : 'points'}`, str);
