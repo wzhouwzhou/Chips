@@ -59,7 +59,7 @@ const ex = {
         ].join('\n')],
         ['Usage:', [
           'Click on 🔄 when it is your turn to rotate the board while in game.',
-          'Type __quit__ to forfeit the game when it is your turn.',
+          'Type __quit__ to resign when it is your turn.',
           `Type __${_.escapeRegExp(prefix)}${this.name}__ to start a new game.`,
           '\tWhen prompted mention someone to challenge, or me to play against my AI.',
         ].join('\n')],
@@ -172,7 +172,7 @@ const ex = {
       if (/quit/i.test(m.content) || (currentGame.isOver() || currentGame.ended)) {
         // CurrentGame.game.end();
         // const other = [member.user, othermember.user].filter(e => e.id !== m.author.id)[0];
-        send(new Discord.MessageEmbed().setTitle(`${m.author.tag} forfeited!`));
+        send(new Discord.MessageEmbed().setTitle(`${m.author.tag} resigned!`));
         currentGame.updateAll(currentGame.game.fen().split(/\s+/)[0], true);
         currentGame.emit('ended', currentGame);
         return mCol.stop();
