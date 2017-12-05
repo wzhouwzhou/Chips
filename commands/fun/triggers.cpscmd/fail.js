@@ -19,12 +19,11 @@ const fails = [
   'https://media.giphy.com/media/xT9IgF8MrlZiZUwyU8/giphy.gif',
   'https://media.giphy.com/media/HQZiHJ7haZ5JK/giphy.gif',
   'https://media.giphy.com/media/QWKspPE4Ehtra/giphy.gif',
-  'https://media.giphy.com/media/9ZVdNukqksT04/giphy.gif',
+/*  'https://media.giphy.com/media/9ZVdNukqksT04/giphy.gif',
   'https://media.giphy.com/media/qRMobwGqHdvck/giphy.gif',
   'https://media.giphy.com/media/3ohhwFfsEJJFQpEY24/giphy.gif',
   'https://www.tenor.co/vnkc.gif',
-  'https://tenor.com/view/fail-catch-gif-10252500',
-
+  'https://tenor.com/view/fail-catch-gif-10252500', */
 ];
 
 module.exports = {
