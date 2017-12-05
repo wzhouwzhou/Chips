@@ -113,7 +113,7 @@ const ex = {
       if (mCol) mCol.stop();
       return console.error(err);
     }
-    if (othermember === 'decline') {
+    if (!othermember || othermember === 'decline') {
       games.delete(channel.id);
       prompting.delete(othermember.id);
       promptingAll.delete(channel.id);
@@ -328,10 +328,12 @@ const promptPlayer = ({ author, send, prefix, channel, targetMember, client }) =
           ) {
             prompting.delete(targetMember.id);
             return res('decline');
+          } else {
+            return false;
           }
         }
+        return false;
       }
-
       return false;
     };
 
@@ -339,7 +341,7 @@ const promptPlayer = ({ author, send, prefix, channel, targetMember, client }) =
     try {
       let str = `${targetMember || ''} Please type __${_.escapeRegExp(prefix)}chess join__ to join the game`;
       if (targetMember) str += ` or __${_.escapeRegExp(prefix)}chess decline__.`;
-      await send(str);
+      send(str);
       startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
     } catch (err) {
       // Console.error(err);
@@ -376,7 +378,7 @@ const promptInvitee = ({ send, channel, author }) => new Promise(async(res, rej)
   let startCol;
   try {
     await send(
-      `${author || ''} Please mention who you want to invite to this game, or __none__ to allow anyone to join`
+      `${author || ''} Please mention who you want to invite to this game, or __none__ to allow anyone to join.`
     );
     startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
   } catch (err) {
