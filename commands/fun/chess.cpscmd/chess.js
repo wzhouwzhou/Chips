@@ -98,7 +98,7 @@ const ex = {
         throw new Error('Bot invitee');
       }
       if (!othermember || !othermember.user || othermember.user.id !== client.user.id) {
-        othermember = await promptPlayer(ctx);
+        othermember = await promptPlayer(Object.assign({}, ctx, { targetMember: othermember || null }));
       } else if (othermember && othermember.user && othermember.user.id === client.user.id) {
         difficulty = await promptDifficulty(msg, ctx);
         await send(`Difficulty set to ${+difficulty + 1}`);
@@ -317,7 +317,7 @@ const promptPlayer = ({ author, send, prefix, channel, targetMember = null, clie
 
       if (m.author.bot) return false;
       if ((new RegExp(`${_.escapeRegExp(prefix)}chess(join|decline)`, 'gi'))
-      .test(m.content.toLowerCase().replace(/\s+/g, ''))) {
+        .test(m.content.toLowerCase().replace(/\s+/g, ''))) {
         if (m.author.id !== author.id) {
           if (!targetMember || targetMember.id === m.author.id) {
             if (~m.content.toLowerCase().indexOf('join')) return res(targetMember || m.member);
