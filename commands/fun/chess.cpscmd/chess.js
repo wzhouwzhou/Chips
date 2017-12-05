@@ -43,7 +43,7 @@ const ex = {
           'In this board for white to take d5 with a pawn, white would type `exd5`',
         ].join('\n')],
         ['Non-pawn pieces: ', [
-          'To move another piece like the knight in this example from f6 to g2 then Nf6g4 or simply Ng4',
+          'To move another piece like the knight in this example from f6 to g4 then Nf6g4 or simply Ng4',
           'If there is another piece at where you want to move that you want to take:',
           '\tNxe4, Nf6e4 Nf6-e4 would work',
           'In this example, to take e4 with the knight, black would type `Nxe4`',
@@ -171,7 +171,10 @@ const ex = {
       // Console.log(m.content);
       if (/quit/i.test(m.content) || (currentGame.isOver() || currentGame.ended)) {
         // CurrentGame.game.end();
-        send('Ending…');
+        const other = [member.user, othermember.user].some(e => e.id !== m.author.id)[0];
+        send(new Discord.MessageEmbed().setTitle(`${m.author.tag} forfeited!`,
+          `**${_.escapeRegExp(other.tag).replace(/([_`])/g, '\\$1')} wins!**`));
+        currentGame.updateAll(currentGame.game.fen().split(/\s+/)[0], true);
         currentGame.emit('ended', currentGame);
         return mCol.stop();
       }
