@@ -81,7 +81,7 @@ const GuildMusicHandler = class MusicHandler {
     if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
     if (!LM) LM = this._client.createVoiceBroadcast();
     const LMS = new Song('https://listen.moe/fallback', this._client.user);
-    this._client.musicBroadcasts.ncs = NCSBroadcast;
+    this._client.musicBroadcasts.lm = LM;
     LM.once('end', this.startLMBroadcast.bind(this));
     LM.on('error', Logger.error.bind(Logger));
     LM.on('warn', Logger.error.bind(Logger));
