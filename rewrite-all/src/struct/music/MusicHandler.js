@@ -41,7 +41,7 @@ const cmds = [
   ],
 ];
 
-let NCSBroadcast, MonstercatBroadcast;
+let NCSBroadcast, MonstercatBroadcast, LM;
 
 const GuildMusicHandler = class MusicHandler {
   constructor(guildid, client) {
@@ -70,6 +70,23 @@ const GuildMusicHandler = class MusicHandler {
     NCSBroadcast.on('warn', Logger.error.bind(Logger));
     NCSBroadcast.playStream(NCS.stream, this.broadcastOpts);
     return NCSBroadcast;
+  }
+
+  async startLMBroadcast() {
+    Logger.debug('Starting LM');
+    if (LM) {
+      LM.removeAllListeners();
+      LM.end();
+    }
+    if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
+    if (!LM) LM = this._client.createVoiceBroadcast();
+    const LMS = new Song('https://listen.moe/stream', this._client.user);
+    this._client.musicBroadcasts.ncs = NCSBroadcast;
+    LM.once('end', this.startLMBroadcast.bind(this));
+    LM.on('error', Logger.error.bind(Logger));
+    LM.on('warn', Logger.error.bind(Logger));
+    LM.playStream(LMS.url, this.broadcastOpts);
+    return LM;
   }
 
   async startMonstercatBroadcast() {
@@ -126,6 +143,24 @@ const GuildMusicHandler = class MusicHandler {
     return this._client.monstercatChannels;
   }
 
+  async playAllLM() {
+    if (!LM) return 'LM Broadcast not started';
+    if (!this._client.lmChannels) this._client.lmChannels = {};
+    const leaves = [];
+    for (const cid of Object.keys(this._client.lmChannels)) leaves.push(this._client.channels.get(cid).leave());
+    await Promise.all(leaves);
+
+    this._client.lmChannels = {};
+    for (const [, vc] of this._client.channels.filter(c => c.type === 'voice')) {
+      if (vc.name.replace(/\s+/g, '').match(/chip(?:sy?)?(?:streams?|24\/?7)(listen\.moe)/i)) {
+        vc.join().then(connection => {
+          connection.playBroadcast(LM, this.streamOpts);
+          this._client.lmChannels[connection.channel.id] = { connection, dispatcher: connection.dispatcher };
+        });
+      }
+    }
+    return this._client.lmChannels;
+  }
 
   spawnPlayer(vc, tc) {
     this.player = new MusicPlayer(vc, tc, this.streamOpts);

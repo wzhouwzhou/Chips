@@ -1,15 +1,18 @@
+/* eslint no-undef: 'off', no-console: 'off' */
 let d = '', consoleTyping = false;
 global.statusC;
 const readline = require('readline');
 const GW = require('../../rewrite-all/src/struct/client/GatewayClient').GatewayClient;
 
-module.exports = function(send) {
-  if (process.env.BETA != null && process.env.BETA == 'true') { client.database.load().then(() => client.login(process.env.BETATOKEN)); } else {
+module.exports = send => {
+  if (process.env.BETA !== null && process.env.BETA === 'true') {
+    client.database.load().then(() => client.login(process.env.BETATOKEN));
+  } else {
     console.log('Logging in…');
     client.database.load().then(() => client.login(process.env.TOKEN));
     console.log('Chips login called');
   }
-  if (client.id != '309504998864060416') {
+  if (client.id !== '309504998864060416') {
     hclient.login(process.env.HTOKEN);
     h2client.login(process.env.H2TOKEN);
   }
@@ -35,9 +38,11 @@ module.exports = function(send) {
     client.mh = new MH(0, client);
     client.mh.startNCSBroadcast().then(() => client.mh.playAllNCS());
     client.mh.startMonstercatBroadcast().then(() => client.mh.playAllMonstercat());
+    client.mh.playAllLM().then(() => client.mh.playAllLM());
     client.musicCheck = setInterval(() => {
       client.mh.startNCSBroadcast().then(() => client.mh.playAllNCS());
       client.mh.startMonstercatBroadcast().then(() => client.mh.playAllMonstercat());
+      client.mh.playAllLM().then(() => client.mh.playAllLM());
     }, 30 * 60 * 1000);
     // Console events
     if (client.shard.id === 0) {
