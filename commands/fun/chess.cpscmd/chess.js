@@ -112,7 +112,11 @@ const ex = {
 
       // if (mCol) mCol.stop();
       // return console.error(err);
-      throw err;
+      if (err === 'Timed out') {
+        return send('Timed out');
+      } else {
+        throw err;
+      }
     }
     if (!othermember || othermember === 'decline') {
       games.delete(channel.id);
