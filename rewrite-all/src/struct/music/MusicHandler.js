@@ -80,7 +80,7 @@ const GuildMusicHandler = class MusicHandler {
     }
     if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
     if (!LM) LM = this._client.createVoiceBroadcast();
-    const LMS = new Song('https://listen.moe/stream', this._client.user);
+    const LMS = new Song('https://listen.moe/fallback', this._client.user);
     this._client.musicBroadcasts.ncs = NCSBroadcast;
     LM.once('end', this.startLMBroadcast.bind(this));
     LM.on('error', Logger.error.bind(Logger));
