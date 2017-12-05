@@ -121,8 +121,7 @@ const ex = {
       silentQuit = true;
       if (mCol) mCol.stop();
       return reply('Game was declined!');
-    }
-    if (othermember && othermember.id) {
+    } else if (othermember && othermember.id) {
       setTimeout(() => {
         prompting.delete(othermember.id);
         prompting.delete(author.id);
@@ -308,9 +307,9 @@ const promptDifficulty = (msg, { author, reply, Discord }) => new Promise(async 
   }
 });
 
-const promptPlayer = ({ author, send, prefix, channel, targetMember = null, client }) => {
+const promptPlayer = ({ author, send, prefix, channel, targetMember, client }) => {
   if (targetMember !== null && targetMember.id !== undefined) prompting.set(targetMember.id, true);
-  if (targetMember === null) promptingAll.set(channel.id, true);
+  if (!targetMember) promptingAll.set(channel.id, true);
   return new Promise(async(res, rej) => {
     const startFilter = m => {
       if (m.author.id === client.user.id) return res(targetMember || m.member);
@@ -319,9 +318,14 @@ const promptPlayer = ({ author, send, prefix, channel, targetMember = null, clie
       if ((new RegExp(`${_.escapeRegExp(prefix)}chess(join|decline)`, 'gi')).test(m.content.replace(/\s+/g, ''))) {
         if (m.author.id !== author.id && (!targetMember || targetMember.id === m.author.id)) {
           if (m.content.match(/join/i)) {
+            promptingAll.delete(channel.id);
             if (targetMember && targetMember.id) prompting.delete(targetMember.id);
             return res(targetMember || m.member);
-          } else if (targetMember && m.author.id === targetMember.id && !!m.content.match(/decline/i)) {
+          } else if (!promptingAll.get(channel.id) &&
+            targetMember &&
+            m.author.id === targetMember.id &&
+            !!m.content.match(/decline/i)
+          ) {
             prompting.delete(targetMember.id);
             return res('decline');
           }
@@ -360,7 +364,7 @@ const promptInvitee = ({ send, channel, author }) => new Promise(async(res, rej)
           return false;
         }
         return res(targetMember);
-      } else if (~m.content.indexOf('none')) {
+      } else if (m.content.match(/none/i)) {
         res(null);
         return true;
       }
