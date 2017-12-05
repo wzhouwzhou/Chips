@@ -316,17 +316,14 @@ const promptPlayer = ({ author, send, prefix, channel, targetMember = null, clie
       if (m.author.id === client.user.id) return res(targetMember || m.member);
 
       if (m.author.bot) return false;
-      if ((new RegExp(`${_.escapeRegExp(prefix)}chess(join|decline)`, 'gi'))
-        .test(m.content.replace(/\s+/g, ''))) {
-        if (m.author.id !== author.id) {
-          if (!targetMember || targetMember.id === m.author.id) {
-            if (m.content.match(/join/i)) {
-              prompting.delete(targetMember.id);
-              return res(targetMember || m.member);
-            } else if (targetMember && !!m.content.match(/decline/i)) {
-              prompting.delete(targetMember.id);
-              return res('decline');
-            }
+      if ((new RegExp(`${_.escapeRegExp(prefix)}chess(join|decline)`, 'gi')).test(m.content.replace(/\s+/g, ''))) {
+        if (m.author.id !== author.id && (!targetMember || targetMember.id === m.author.id)) {
+          if (m.content.match(/join/i)) {
+            if (targetMember && targetMember.id) prompting.delete(targetMember.id);
+            return res(targetMember || m.member);
+          } else if (targetMember && m.author.id === targetMember.id && !!m.content.match(/decline/i)) {
+            prompting.delete(targetMember.id);
+            return res('decline');
           }
         }
       }
