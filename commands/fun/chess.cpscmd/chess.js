@@ -110,8 +110,9 @@ const ex = {
       promptingAll.delete(channel.id);
       prompting.delete(author.id);
 
-      if (mCol) mCol.stop();
-      return console.error(err);
+      // if (mCol) mCol.stop();
+      // return console.error(err);
+      throw err;
     }
     if (!othermember || othermember === 'decline') {
       games.delete(channel.id);

@@ -1,3 +1,4 @@
+/* eslint complexity: 'off' */
 'use strict';
 const ex = {};
 const Constants = require('../setup/Constants');
@@ -512,13 +513,13 @@ ex.updatePermission = ({ type, userid = null, guildid = null, roleid = null, cha
   });
 
 ex.checkPermission = (msg, perm) => {
-  console.log('Entering check permissions');
+  // Console.log('Entering check permissions');
   return new Promise((resolve, reject) => {
     let guild = msg.guild,
       id = msg.author.id,
       cid = msg.channel.id;
     if (guild) {
-      console.log('Check gperms');
+      // Console.log('Check gperms');
       let gp = ex.serverpermissions[guild.id];
       if (gp) {
         gp.forEach(pEntry =>
@@ -528,10 +529,10 @@ ex.checkPermission = (msg, perm) => {
     }
     let up = ex.userpermissions[id];
     if (up) {
-      console.log('Check uperms');
+      // Console.log('Check uperms');
       up.forEach(pEntry => {
         if (pEntry.name === perm) {
-          console.log('Found a pEntry: ' +pEntry);
+          // Console.log('Found a pEntry: ' +pEntry);
           if (pEntry.name.toLowerCase().startsWith('owner')) return resolve(`Bot owner perm override for ${perm}`);
           switch (pEntry.action) {
             case -1:
@@ -547,7 +548,7 @@ ex.checkPermission = (msg, perm) => {
       });
     }
     if (guild) {
-      console.log('Checking mperms');
+      // Console.log('Checking mperms');
       if (ex.memberpermissions[guild.id]) {
         let mp = ex.memberpermissions[guild.id][id];
         if (mp) {
@@ -568,7 +569,7 @@ ex.checkPermission = (msg, perm) => {
         }
       }
       if (ex.channelpermissions[cid]) {
-        console.log('Checking cperms');
+        // Console.log('Checking cperms');
         let cp = ex.channelpermissions[cid];
         if (cp) {
           cp.forEach(pEntry =>
@@ -578,24 +579,24 @@ ex.checkPermission = (msg, perm) => {
           );
         }
       }
-      console.log('Checking rperms');
+      // Console.log('Checking rperms');
       msg.member.roles.forEach(r => {
-        console.log("New role found: " + r.id + "for user "+ id);
+        // Console.log("New role found: " + r.id + "for user "+ id);
         let rid = r.id;
         if (ex.rolepermissions[rid]) {
           let found = false;
           ex.rolepermissions[rid].forEach(pEntry => {
-            console.log("new entry found: " + pEntry.name);
+            // Console.log("new entry found: " + pEntry.name);
             if (!found) {
               if (pEntry.name === perm) {
                 found = true;
                 // Console.log("We found an entry!");
                 switch (pEntry.action) {
                   case 1:
-                    console.log("Success: role");
+                    // Console.log("Success: role");
                     return resolve('This action is approved (by member role)');
                   case -1:
-                    console.log("Denial: role");
+                    // Console.log("Denial: role");
                     return reject(`I'm sorry but you do not have access to ${perm} (Denied by member role :${r.name})`);
                   default:
                 }
@@ -603,16 +604,16 @@ ex.checkPermission = (msg, perm) => {
             }
           });
         }
-        console.log("Role: " + rid + "for user "+ id + "did not have any perm overwrites for " + perm);
+        // Console.log("Role: " + rid + "for user "+ id + "did not have any perm overwrites for " + perm);
       });
     }
     let registered = ex.defaultperms.has(perm);
     if (!registered) {
-      console.log('Someone just tried to use a cmd with an unregistered perm '+ perm);
+      // Console.log('Someone just tried to use a cmd with an unregistered perm '+ perm);
       return reject('Sorry, you just tried to use an unregistered command. Please report this to my developers.');
     }
 
-    console.log(`Now checking the default perms.: ${perm}\nIs the perm registered list? : ${registered}`);
+    // Console.log(`Now checking the default perms.: ${perm}\nIs the perm registered list? : ${registered}`);
     let value = registered ? ex.defaultperms.get(perm) : true;
     // Console.log("The default for that perm is: " + value);
     if (!value) return resolve('This perm is denied by default.');
@@ -623,18 +624,18 @@ ex.checkPermission = (msg, perm) => {
 };
 
 ex.checkMulti = async(msg, permArr) => {
-  console.log('[PERMISSIONS][checkMulti] Received perm check request');
+  // Console.log('[PERMISSIONS][checkMulti] Received perm check request');
   let checkDefault = false;
   for (let permEl of permArr) {
-    console.log(`[PERMISSIONS][checkMulti] Perm element: ${permEl}`);
+    // Console.log(`[PERMISSIONS][checkMulti] Perm element: ${permEl}`);
     let permSpecifics = permEl.split('.');
-    console.log(`[PERMISSIONS][checkMulti] Perm breakdown: ${permSpecifics}`);
+    // Console.log(`[PERMISSIONS][checkMulti] Perm breakdown: ${permSpecifics}`);
     let currentPerm = permSpecifics[0];
     if (permSpecifics.length > 1) {
       for (let i = 1; i < permSpecifics.length; i++) {
-        console.log(`[PERMISSIONS][checkMulti] Looping through perms [${i}]:${currentPerm}`);
+        // Console.log(`[PERMISSIONS][checkMulti] Looping through perms [${i}]:${currentPerm}`);
         let status = await ex.checkPermission(msg, `${currentPerm}.*`);
-        console.log(`Status: ${status}`);
+        // Console.log(`Status: ${status}`);
         if (status === 'This perm is accepted by default.') {
           checkDefault = true;
           currentPerm += `.${permSpecifics[i]}`;
@@ -648,7 +649,7 @@ ex.checkMulti = async(msg, permArr) => {
         return `Positive perm override for ${currentPerm}`;
       }
     }
-    console.log(`[PERMISSIONS][checkMulti] Now checking original perm ${permEl}`);
+    // Console.log(`[PERMISSIONS][checkMulti] Now checking original perm ${permEl}`);
     let status = await ex.checkPermission(msg, permEl);
     if (status === 'This perm is accepted by default.') checkDefault = true;
     else if (status === 'This perm is denied by default.') checkDefault = false;
