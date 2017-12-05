@@ -242,7 +242,7 @@ const ex = {
     });
 
     mCol.once('end', collected => {
-      if (collected.size === 0) if (!silentQuit) reply('Timed out, game was not saved to memory');
+      if (collected.size === 0) /* if (!silentQuit) */ reply('Timed out, game was not saved to memory');
 
       prompting.delete(othermember.id);
       games.delete(channel.id);
