@@ -182,7 +182,7 @@ const ex = {
       let result;
       try {
         result = currentGame.go(move);
-        console.log(`Pre-auto: ${move}`);
+        // console.log(`Pre-auto: ${move}`);
         // Console.log('Game: '+result);
         if (result === 'Woah too fast!') return send('Too fast...');
 
@@ -317,18 +317,17 @@ const promptPlayer = ({ author, send, prefix, channel, targetMember = null, clie
 
       if (m.author.bot) return false;
       if ((new RegExp(`${_.escapeRegExp(prefix)}chess(join|decline)`, 'gi'))
-        .test(m.content.toLowerCase().replace(/\s+/g, ''))) {
+        .test(m.content.replace(/\s+/g, ''))) {
         if (m.author.id !== author.id) {
           if (!targetMember || targetMember.id === m.author.id) {
-            if (~m.content.toLowerCase().indexOf('join')) {
+            if (m.content.match(/join/i)) {
               prompting.delete(targetMember.id);
               return res(targetMember || m.member);
-            } else if (targetMember && !!~m.content.toLowerCase().indexOf('decline')) {
+            } else if (targetMember && !!m.content.match(/decline/i)) {
               prompting.delete(targetMember.id);
               return res('decline');
             }
           }
-          return false;
         }
       }
 
