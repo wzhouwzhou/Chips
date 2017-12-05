@@ -309,6 +309,7 @@ const promptDifficulty = (msg, { author, reply, Discord }) => new Promise(async 
 });
 
 const promptPlayer = ({ author, send, prefix, channel, targetMember, client }) => {
+  console.log(`TM ${targetMember}`);
   if (targetMember !== null && targetMember.id !== undefined) prompting.set(targetMember.id, true);
   if (!targetMember) promptingAll.set(channel.id, true);
   return new Promise(async(res, rej) => {
@@ -318,6 +319,7 @@ const promptPlayer = ({ author, send, prefix, channel, targetMember, client }) =
       if (m.author.bot) return false;
       if ((new RegExp(`${_.escapeRegExp(prefix)}chess(join|decline)`, 'gi')).test(m.content.replace(/\s+/g, ''))) {
         if (m.author.id !== author.id && (!targetMember || targetMember.id === m.author.id)) {
+          console.log(`MC ${m.author.tag}|${m.content}`);
           if (m.content.match(/join/i)) {
             promptingAll.delete(channel.id);
             if (targetMember && targetMember.id) prompting.delete(targetMember.id);
@@ -342,7 +344,7 @@ const promptPlayer = ({ author, send, prefix, channel, targetMember, client }) =
     try {
       let str = `${targetMember || ''} Please type __${_.escapeRegExp(prefix)}chess join__ to join the game`;
       if (targetMember) str += ` or __${_.escapeRegExp(prefix)}chess decline__.`;
-      send(str);
+      await send(str);
       startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
     } catch (err) {
       // Console.error(err);
