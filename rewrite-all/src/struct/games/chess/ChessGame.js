@@ -204,7 +204,9 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
           return null;
         }
       }
-    } else { setTimeout(() => this.aiMove(0, options), delay); }
+    } else {
+      return setTimeout(() => this.aiMove(0, options), delay);
+    }
   }
 
   aiRandomMove(delay, options) {

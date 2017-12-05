@@ -171,9 +171,8 @@ const ex = {
       // Console.log(m.content);
       if (/quit/i.test(m.content) || (currentGame.isOver() || currentGame.ended)) {
         // CurrentGame.game.end();
-        const other = [member.user, othermember.user].filter(e => e.id !== m.author.id)[0];
-        send(new Discord.MessageEmbed().setTitle(`${m.author.tag} forfeited!`,
-          `**${_.escapeRegExp(other.tag).replace(/([_`])/g, '\\$1')} wins!**`));
+        // const other = [member.user, othermember.user].filter(e => e.id !== m.author.id)[0];
+        send(new Discord.MessageEmbed().setTitle(`${m.author.tag} forfeited!`));
         currentGame.updateAll(currentGame.game.fen().split(/\s+/)[0], true);
         currentGame.emit('ended', currentGame);
         return mCol.stop();
@@ -185,7 +184,7 @@ const ex = {
       let result;
       try {
         result = currentGame.go(move);
-        // console.log(`Pre-auto: ${move}`);
+        // Console.log(`Pre-auto: ${move}`);
         // Console.log('Game: '+result);
         if (result === 'Woah too fast!') return send('Too fast...');
 
