@@ -82,7 +82,7 @@ const ex = {
     }
 
     let mCol, silentQuit = false;
-    if (args[0] && args[0].toLowerCase() === 'join') return !0;
+    if (args[0] && args[0].match(/^(join|decline)$/i)) return !0;
 
     if (prompting.get(author.id)) return true;
     if (promptingAll.get(channel.id)) return true;
@@ -320,8 +320,13 @@ const promptPlayer = ({ author, send, prefix, channel, targetMember = null, clie
         .test(m.content.toLowerCase().replace(/\s+/g, ''))) {
         if (m.author.id !== author.id) {
           if (!targetMember || targetMember.id === m.author.id) {
-            if (~m.content.toLowerCase().indexOf('join')) return res(targetMember || m.member);
-            else if (targetMember && !!~m.content.toLowerCase().indexOf('decline')) return res('decline');
+            if (~m.content.toLowerCase().indexOf('join')) {
+              prompting.delete(targetMember.id);
+              return res(targetMember || m.member);
+            } else if (targetMember && !!~m.content.toLowerCase().indexOf('decline')) {
+              prompting.delete(targetMember.id);
+              return res('decline');
+            }
           }
           return false;
         }
@@ -333,7 +338,7 @@ const promptPlayer = ({ author, send, prefix, channel, targetMember = null, clie
     let startCol;
     try {
       let str = `${targetMember || ''} Please type __${_.escapeRegExp(prefix)}chess join__ to join the game`;
-      if (targetMember) str += ` or __${_.escapeRegExp(prefix)}chess decline__`;
+      if (targetMember) str += ` or __${_.escapeRegExp(prefix)}chess decline__.`;
       await send(str);
       startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
     } catch (err) {
