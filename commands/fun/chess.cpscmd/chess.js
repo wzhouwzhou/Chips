@@ -314,7 +314,8 @@ const promptPlayer = ({ author, send, prefix, channel, targetMember, client }) =
   if (!targetMember) promptingAll.set(channel.id, true);
   return new Promise(async(res, rej) => {
     const startFilter = m => {
-      if (m.author.id === client.user.id) return res(targetMember || m.member);
+      if (m.author.id === author.id) return false;
+      // if (m.author.id === client.user.id) return res(targetMember || m.member);
 
       if (m.author.bot) return false;
       if ((new RegExp(`${_.escapeRegExp(prefix)}chess(join|decline)`, 'gi')).test(m.content.replace(/\s+/g, ''))) {
