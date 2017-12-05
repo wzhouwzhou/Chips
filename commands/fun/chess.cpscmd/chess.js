@@ -171,7 +171,7 @@ const ex = {
       // Console.log(m.content);
       if (/quit/i.test(m.content) || (currentGame.isOver() || currentGame.ended)) {
         // CurrentGame.game.end();
-        const other = [member.user, othermember.user].some(e => e.id !== m.author.id)[0];
+        const other = [member.user, othermember.user].filter(e => e.id !== m.author.id)[0];
         send(new Discord.MessageEmbed().setTitle(`${m.author.tag} forfeited!`,
           `**${_.escapeRegExp(other.tag).replace(/([_`])/g, '\\$1')} wins!**`));
         currentGame.updateAll(currentGame.game.fen().split(/\s+/)[0], true);
