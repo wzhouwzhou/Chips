@@ -1,4 +1,4 @@
-let sl = require('./stafflogs');
+/* Let sl = require('./stafflogs');
 
 console.log('[CPSCMD][MODERATION][stafflogs] Building objects...');
 sl.metadata = {
@@ -15,4 +15,4 @@ console.log('[CPSCMD][MODERATION][stafflogs] Build objects complete!');
 module.exports = [
   [sl.name, sl],
   ['stafflogs', sl],
-];
+]; beta */
