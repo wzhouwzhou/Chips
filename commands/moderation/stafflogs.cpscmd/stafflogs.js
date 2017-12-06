@@ -1,6 +1,6 @@
 module.exports = {
   name: 'stafflogs',
-  async func(msg, {guild, send, member }) {
+  async func(msg, { guild, send, member }) {
     if (!guild) return;
 
     let stafflogs = guild.channels.find('name', 'staff-logs');
