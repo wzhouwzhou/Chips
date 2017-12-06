@@ -2,14 +2,7 @@ const { URL } = require('url');
 
 const ex = {
   name: 'quote',
-  async func(msg, {
-    send,
-    member,
-    channel,
-    args,
-    Discord,
-    reply,
-  }) {
+  async func(msg, { send, member, channel, args, Discord, reply }) {
     if (!args[0]) {
       return reply('No message ID provided to quote.');
     }
@@ -17,19 +10,20 @@ const ex = {
     const color = member.displayColor;
 
     return channel.messages.fetch({ around: args[0], limit: 3 }).then(messages => {
-      const quotee = messages.get(args[0]);
+      const quote = messages.get(args[0]);
 
       const embed = new Discord.MessageEmbed()
-        .setDescription(quotee.content || '\u200B')
-        .setAuthor(`${quotee.author.username}#${quotee.author.discriminator}`, quotee.author.displayAvatarURL({ format: 'png', size: 2048 }))
-        .setFooter(quotee.id)
-        .setTimestamp(quotee.createdAt)
+        .setDescription(quote.content || '\u200B')
+        .setAuthor(`${quote.author.username}#${quote.author.discriminator}`, quote.author.displayAvatarURL({ format: 'png', size: 2048 }))
+        .setFooter(quote.id)
+        .setTimestamp(quote.createdAt)
         .setColor(color);
-      if (quotee.attachments.size) {
+
+      if (quote.attachments.size) {
         try {
-          const url = new URL(quotee.attachments.first().url);
+          const url = new URL(quote.attachments.first().url);
           const ext = path.extname(url.pathname);
-          if (['.png', '.jpg', '.jpeg', '.gif', '.webp'].includes(ext)) embed.setImage(quotee.attachments.first().url);
+          if (['.png', '.jpg', '.jpeg', '.gif', '.webp'].includes(ext)) embed.setImage(quote.attachments.first().url);
         } catch (err) {
           if (err.message !== 'Invalid URL') throw err;
         }
