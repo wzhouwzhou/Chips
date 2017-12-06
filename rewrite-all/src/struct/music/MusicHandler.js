@@ -72,7 +72,7 @@ const GuildMusicHandler = class MusicHandler {
     return NCSBroadcast;
   }
 
-  async startLMBroadcast() {
+  startLMBroadcast() {
     Logger.debug('Starting LM');
     if (LM) {
       LM.removeAllListeners();
@@ -82,7 +82,7 @@ const GuildMusicHandler = class MusicHandler {
     if (!LM) LM = this._client.createVoiceBroadcast();
     const LMS = new Song('https://listen.moe/fallback', this._client.user);
     this._client.musicBroadcasts.lm = LM;
-    LM.once('end', this.startLMBroadcast.bind(this));
+    LM.once('end', () => setTimeout(() => this.startLMBroadcast(), 1000));
     LM.on('error', Logger.error.bind(Logger));
     LM.on('warn', Logger.error.bind(Logger));
     LM.playStream(LMS.url, this.broadcastOpts);

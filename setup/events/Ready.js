@@ -38,11 +38,13 @@ module.exports = send => {
     client.mh = new MH(0, client);
     client.mh.startNCSBroadcast().then(() => client.mh.playAllNCS());
     client.mh.startMonstercatBroadcast().then(() => client.mh.playAllMonstercat());
-    client.mh.startLMBroadcast().then(() => client.mh.playAllLM());
+    client.mh.startLMBroadcast();
+    client.mh.playAllLM();
     client.musicCheck = setInterval(() => {
       client.mh.startNCSBroadcast().then(() => client.mh.playAllNCS());
       client.mh.startMonstercatBroadcast().then(() => client.mh.playAllMonstercat());
-      client.mh.startLMBroadcast().then(() => client.mh.playAllLM());
+      client.mh.startLMBroadcast();
+      client.mh.playAllLM();
     }, 30 * 60 * 1000);
     // Console events
     if (client.shard.id === 0) {

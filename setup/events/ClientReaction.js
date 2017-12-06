@@ -3,7 +3,7 @@ module.exports = function() {
     if(user.id === '305776092822765568') return;
     if (user.id == client.user.id) return;
 
-    console.log('Reaction detected');
+    // console.log('Reaction detected');
     if (react.message.channel.type == 'text') {
       // Console.log("Not in DM (->Starboard)");
       if (client.disableSelfStar[react.message.guild.id] && react.message.author.id == user.id) {
