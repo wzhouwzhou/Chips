@@ -5,7 +5,7 @@ module.exports = {
   name: 'google',
   async func(msg, { send, args, author, Discord, member }) {
     if (!args[0]) return send('You must enter something to search for!');
-    request.get('http://google.com/search?client=chrome&rls=en&ie=UTF-8&oe=UTF-8&q=' + args.join('+'), (err, res, body) => {
+    request.get('http://google.com/search?client=ubuntu&rls=en&ie=UTF-8&oe=UTF-8&q=' + args.join('+'), (err, res, body) => {
       if (!err && res.statusCode === 200) {
         let $$ = honeynut.load(body);
         let brackets = [];
