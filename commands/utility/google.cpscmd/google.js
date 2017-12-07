@@ -32,7 +32,10 @@ module.exports = {
             .addField('Search results for  `' + `${args.join(' ')}` + '`', ebrackets.map(r => r.link + '\n\t' + r.description + '\n').join('\n'))
             .setFooter(`Requested by ${author.tag}`);
           send(embed);
-        } else { send(`Error! (${res.statusCode}): ${res.statusMessage}`); }
+        } else { 
+          send(`Error! (${res.statusCode}): ${res.statusMessage}`); 
+          console.log(`Error! (${res.statusCode}): ${res.statusMessage}`);
+        }
       }
     }
   );}
