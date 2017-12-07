@@ -1,6 +1,6 @@
 /* eslint no-unused-vars: "off" */
 Object.defineProperty(exports, '__esModule', { value: true });
-// require('long-stack-traces');
+// Require('long-stack-traces');
 
 global._ = require('lodash');
 const OL1 = console.log;
@@ -62,7 +62,11 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
     '250801092143611905': 'Welcome to Diep Colony! Please wait for online staff to verify you!',
     '384976959500845057': 'Welcome to Anxiety🔞! Please enjoy your stay!',
     '359801125882298378': 'Welcome! Please wait to be verified.',
-    '291558782755012610': 'Welcome to SickMania <@&385865868417957888>, make SURE to read the <#366505552752148481> and <#312224217967886336>! Please come so staff can verify you with __`-vs ok @ mention__!',
+    '291558782755012610': `Welcome to SickMania <@&385865868417957888>, make sure to read the <#366505552752148481> and <#312224217967886336>!
+    **1) How did you get here?
+    2) Why did you join?
+    3) What is your favorite tank in Diep.io? (Say "skip" if you don't have one!)
+    4) Do you promise to read rules & information?**`,
   },
   captcha: {
     '302983444009451541': true,
@@ -71,7 +75,7 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
     '329024870887456768': true,
     '359801125882298378': true,
     '295601523050676226': true,
-    '384976959500845057': false, //Anxiety🔞
+    '384976959500845057': false, // Anxiety🔞
     '339930093042532363': true,
     '300727201119076352': true,
   },
