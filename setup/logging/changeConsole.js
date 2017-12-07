@@ -15,7 +15,7 @@ function editConsole(isMng, shardIDObj) {
     !!`${args[0] + []}`.match(/\[COMMAND LOADER\](?!\[Err\])\s*(?:(?:File)|(?:Load(?:ing|ed)\s(?!\d+)))/i)) {
       return undefined;
     }
-    args.unshift(`${colors.bgYellow.bold(isMng ? `[MNG]` : `[S${!shardIDObj.id ? '?' : shardIDObj.id}]`)} `);
+    args.unshift(`${colors.bgYellow.bold(isMng ? `[MNG]` : `[S${'id' in shardIDObj ? shardIDObj.id : '?'}]`)} `);
     let logdif = colors.bold.bgBlue(` +${new Date - timers.log} ms`);
     timers.log = new Date;
     return console.oldLog.apply({}, [time, ...args, logdif]);
