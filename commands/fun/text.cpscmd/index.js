@@ -1,4 +1,4 @@
-oh  const spooky = require('./spooky');
+const spooky = require('./spooky');
 const reverse = require('./reverse');
 const rotate = require('./rotate');
 const randomCaps = require('./randomCaps');
