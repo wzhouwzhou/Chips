@@ -78,6 +78,7 @@ ex.permsList = [
   ['global.fun.triggers.lenny', true],
   ['global.fun.triggers.rekt', true],
   ['global.fun.triggers.everyone', true],
+  ['global.fun.triggers.googleit', true],
   ['global.info.*', true],
   ['global.info.discordstatus.*', true],
   ['global.info.discordstatus.discordstatus', true],
