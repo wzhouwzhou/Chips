@@ -1,14 +1,15 @@
-let spooky = require('./spooky');
-let reverse = require('./reverse');
-let rotate = require('./rotate');
-let randomCaps = require('./randomCaps');
-let big = require('./big');
-let threed = require('./3d');
-let threed2 = require('./3d2');
-let ascii = require('./ascii');
-let derp = require('./derp');
-let haiku = require('./haiku');
+const spooky = require('./spooky');
+const reverse = require('./reverse');
+const rotate = require('./rotate');
+const randomCaps = require('./randomCaps');
+const big = require('./big');
+const threed = require('./3d');
+const threed2 = require('./3d2');
+const ascii = require('./ascii');
+const derp = require('./derp');
+const haiku = require('./haiku');
 const bify = require('./bify');
+const excl = require('!');
 
 console.log('[CPSCMD][INFO][text] Building objects...');
 
@@ -89,8 +90,15 @@ bify.metadata = {
   example: 'bify testing one two three',
   perm: [['global.fun.text.bify']],
 };
+excl.metadata = {
+  category: require('../').category,
+  description: '!?!¡@!?!!!1¡!@!!!?@@??',
+  usage: '! <no args>',
+  example: '!',
+  perm: [['global.fun.text.!']],
+};
 
-console.log('[CPSCMD][INFO][text] Build objects complete!');
+console.log('[CPSCMD][INFO][text] Build objects compconste!');
 module.exports = [
   [spooky.name, spooky],
   [reverse.name, reverse],
@@ -103,4 +111,5 @@ module.exports = [
   [derp.name, derp],
   [haiku.name, haiku],
   [bify.name, bify],
+  [excl.name, excl],
 ];
