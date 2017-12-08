@@ -6,12 +6,13 @@ module.exports = {
   name: 'permissionsin',
   func(msg, { args, send, channel, guild, suffix, Discord, member, Constants }) {
     const theMember = args[0] ?
+      msg.mentions.members.first() ||
       guild.members.get(args[0] || '0') ||
       Array.from(guild.members.values())
         .filter(m => m.user.tag.match(new RegExp(_.escapeRegExp(suffix), 'i')))[0] :
       member;
 
-    if (!theMember) return send('You must provide a valid userid or Discord tag.');
+    if (!theMember) return send('You must mention someone, or provide a valid userid or Discord tag.');
 
     let beautified = [], deny = [];
     beautified.push(start);
