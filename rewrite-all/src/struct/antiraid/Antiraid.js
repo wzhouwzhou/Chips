@@ -35,10 +35,13 @@ const AR = class ChipsAntiraid {
     if (typeof opts === 'object') {
       if (!opts.avatar) return false;
 
-      if (opts.action == null) this.blacklistedAvatars.add(opts.avatar);
-
-      if (opts.action === 'remove') this.blacklistedAvatars.delete(opts.avatar);
-    } else if (typeof opts === 'string') { this.blacklistedAvatars.add(opts); } else { return false; }
+      if (!('action' in opts) || opts.action === 'ADD') this.blacklistedAvatars.add(opts.avatar);
+      else if (opts.action === 'REMOVE') this.blacklistedAvatars.delete(opts.avatar);
+    } else if (typeof opts === 'string') {
+      this.blacklistedAvatars.add(opts);
+    } else {
+      return false;
+    }
 
     return true;
   }

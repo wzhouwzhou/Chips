@@ -80,7 +80,7 @@ const ex = {
         throw err;
       }
     }
-
+    if (args[0] && !args[0].match(/c(reate)?/i)) return true;
     let mCol, silentQuit = false;
     if (args[0] && args[0].match(/^(join|decline)$/i)) return !0;
 
@@ -110,9 +110,9 @@ const ex = {
       promptingAll.delete(channel.id);
       prompting.delete(author.id);
 
-      // if (mCol) mCol.stop();
+      // If (mCol) mCol.stop();
       // return console.error(err);
-      if (err === 'Timed out') {
+      if (err && err.message === 'Timed out') {
         return send('Timed out');
       } else {
         throw err;
@@ -136,17 +136,17 @@ const ex = {
 
     send('Creating a chess game... Type __`quit`__ when it is your move to forfeit.');
 
-    console.log(`Creating a chess game for channel ${channel.id}...`);
+    // Console.log(`Creating a chess game for channel ${channel.id}...`);
 
     const currentGame = await CG.factory({
       client,
       channel,
       players: _.shuffle([member.user, othermember.user]),
       aiOptions: botting ?
-                  CHESS.difficulties[+difficulty] !== null && CHESS.difficulties[+difficulty] !== undefined ?
-                    CHESS.difficulties[+difficulty] :
-                    CHESS.difficulties[0] || 0 :
-                    null,
+        CHESS.difficulties[+difficulty] !== null && CHESS.difficulties[+difficulty] !== undefined ?
+          CHESS.difficulties[+difficulty] :
+          CHESS.difficulties[0] || 0 :
+        null,
     });
 
     currentGame.game.header(
@@ -246,7 +246,8 @@ const ex = {
     });
 
     mCol.once('end', collected => {
-      if (collected.size === 0) /* if (!silentQuit) */ reply('Timed out, game was not saved to memory');
+    /* If (!silentQuit) */
+      if (collected.size === 0) reply('Timed out, game was not saved to memory');
 
       prompting.delete(othermember.id);
       games.delete(channel.id);
@@ -273,7 +274,7 @@ const ex = {
       silentQuit = true;
       mCol.stop();
     });
-    currentGame.updateAll();
+    return currentGame.updateAll();
     // Send('[Debug] Chess game setup complete');
   },
 };
@@ -314,19 +315,19 @@ const promptDifficulty = (msg, { author, reply, Discord }) => new Promise(async 
   }
 });
 
-const promptPlayer = ({ author, send, prefix, channel, targetMember, client }) => {
-  console.log(`TM ${targetMember}`);
+const promptPlayer = ({ author, send, prefix, channel, targetMember }) => {
+  // Console.log(`TM ${targetMember}`);
   if (targetMember !== null && targetMember.id !== undefined) prompting.set(targetMember.id, true);
   if (!targetMember) promptingAll.set(channel.id, true);
   return new Promise(async(res, rej) => {
     const startFilter = m => {
       if (m.author.id === author.id) return false;
-      // if (m.author.id === client.user.id) return res(targetMember || m.member);
+      // If (m.author.id === client.user.id) return res(targetMember || m.member);
 
       if (m.author.bot) return false;
       if ((new RegExp(`${_.escapeRegExp(prefix)}chess(join|decline)`, 'gi')).test(m.content.replace(/\s+/g, ''))) {
         if (m.author.id !== author.id && (!targetMember || targetMember.id === m.author.id)) {
-          console.log(`MC ${m.author.tag}|${m.content}`);
+          // Console.log(`MC ${m.author.tag}|${m.content}`);
           if (m.content.match(/join/i)) {
             promptingAll.delete(channel.id);
             if (targetMember && targetMember.id) prompting.delete(targetMember.id);
@@ -355,7 +356,7 @@ const promptPlayer = ({ author, send, prefix, channel, targetMember, client }) =
       startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
     } catch (err) {
       // Console.error(err);
-      return rej('Timed out');
+      return rej(new Error('Timed out'));
     }
 
     if (!startCol.first()) return rej(null);
@@ -393,7 +394,7 @@ const promptInvitee = ({ send, channel, author }) => new Promise(async(res, rej)
     startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
   } catch (err) {
     // Console.error(err);
-    return rej('Timed out');
+    return rej(new Error('Timed out'));
   }
 
   if (!startCol.first()) return rej(null);
