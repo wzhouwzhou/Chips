@@ -7,7 +7,7 @@ let lenny = require('./lenny');
 let rekt = require('./rekt');
 let triggered = require('./triggered');
 let everyone = require('./everyone');
-let googleit = require('./googelit');
+let googleit = require('./googleit');
 
 console.log('[CPSCMD][FUN][triggers] Building objects...');
 aboosed.metadata = {
