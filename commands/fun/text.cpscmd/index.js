@@ -1,4 +1,4 @@
-const spooky = require('./spooky');
+oh  const spooky = require('./spooky');
 const reverse = require('./reverse');
 const rotate = require('./rotate');
 const randomCaps = require('./randomCaps');
@@ -9,7 +9,7 @@ const ascii = require('./ascii');
 const derp = require('./derp');
 const haiku = require('./haiku');
 const bify = require('./bify');
-const excl = require('!');
+const excl = require('./!');
 
 console.log('[CPSCMD][INFO][text] Building objects...');
 
