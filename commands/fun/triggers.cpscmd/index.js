@@ -80,6 +80,7 @@ googleit.metadata = {
   usage: 'googelit',
   example: 'googleit',
   perm: [['global.fun.triggers.googleit']],
+
 };
 
 console.log('[CPSCMD][FUN][triggers] Build objects complete!');
