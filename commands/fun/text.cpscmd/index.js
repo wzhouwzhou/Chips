@@ -10,6 +10,7 @@ const derp = require('./derp');
 const haiku = require('./haiku');
 const bify = require('./bify');
 const excl = require('./!');
+const mock = require('./mock');
 
 console.log('[CPSCMD][INFO][text] Building objects...');
 
@@ -97,6 +98,13 @@ excl.metadata = {
   example: '!',
   perm: [['global.fun.text.!']],
 };
+mock.metadata = {
+  category: require('../').category,
+  description: '!?!¡@!?!!!1¡!@!!!?@@??',
+  usage: 'mock <text>',
+  example: 'mock abc',
+  perm: [['global.fun.text.*']],
+};
 
 console.log('[CPSCMD][INFO][text] Build objects compconste!');
 module.exports = [
@@ -112,4 +120,5 @@ module.exports = [
   [haiku.name, haiku],
   [bify.name, bify],
   [excl.name, excl],
+  [mock.name, mock],
 ];

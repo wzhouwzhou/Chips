@@ -26,9 +26,12 @@ const fails = [
   'https://tenor.com/view/fail-catch-gif-10252500', */
 ];
 
+const a = require('nodecpp-test').arrays;
+
 module.exports = {
   name: 'fail',
   async func(msg, { send }) {
-    return send(fails[_.random(0, fails.length - 1)]);
+    return send(a.sample(fails));
   },
 };
+

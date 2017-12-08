@@ -7,6 +7,7 @@ let lenny = require('./lenny');
 let rekt = require('./rekt');
 let triggered = require('./triggered');
 let everyone = require('./everyone');
+let googleit = require('./googleit');
 
 console.log('[CPSCMD][FUN][triggers] Building objects...');
 aboosed.metadata = {
@@ -73,6 +74,15 @@ fail.metadata = {
   perm: [['global.fun.triggers.fail']],
 };
 
+googleit.metadata = {
+  category: require('../').category,
+  description: 'GOOGLE IT!',
+  usage: 'googelit',
+  example: 'googleit',
+  perm: [['global.fun.triggers.googleit']],
+
+};
+
 console.log('[CPSCMD][FUN][triggers] Build objects complete!');
 module.exports = [
   [aboosed.name, aboosed],
@@ -87,4 +97,5 @@ module.exports = [
   [rekt.name, rekt],
   [triggered.name, triggered],
   [everyone.name, everyone],
+  [googleit.name, googleit],
 ];
