@@ -62,7 +62,7 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
     '250801092143611905': 'Welcome to Diep Colony! Please wait for online staff to verify you!',
     '384976959500845057': 'Welcome to Anxiety🔞! Please enjoy your stay!',
     '359801125882298378': 'Welcome! Please wait to be verified.',
-    '291558782755012610': `Welcome to SickMania <@&385865868417957888>, make sure to read the <#366505552752148481> and <#312224217967886336>!
+    '291558782755012610': `<@&382955220478722058> Welcome to SickMania <@&385865868417957888>, make sure to read the <#366505552752148481> and <#312224217967886336>!
     **1) How did you get here?
     2) Why did you join?
     3) What is your favorite tank in Diep.io? (Say "skip" if you don't have one!)
