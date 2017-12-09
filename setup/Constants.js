@@ -124,4 +124,36 @@ ex.playlists = [
 
   ],
 ];
+
+ex.permissions_details = new Map()
+  .set('CREATE_INSTANT_INVITE', 'create their own invite link')
+  .set('KICK_MEMBERS', 'kick members from here')
+  .set('BAN_MEMBERS', 'ban members here')
+  .set('ADMINISTRATOR', 'perform administrative actions here')
+  .set('MANAGE_CHANNELS', 'edit channel settings')
+  .set('MANAGE_GUILD', 'edit server settings')
+  .set('ADD_REACTIONS', 'react to messages')
+  .set('VIEW_CHANNEL', 'See this channel in the sidebar')
+  .set('VIEW_AUDIT_LOG', 'see the audit logs')
+  .set('READ_MESSAGES', 'read messages in this server')
+  .set('SEND_MESSAGES', 'send messages here')
+  .set('SEND_TTS_MESSAGES', 'send text-to-speech messages')
+  .set('MANAGE_MESSAGES', 'delete messages and reactions')
+  .set('EMBED_LINKS', 'send embedded content')
+  .set('ATTACH_FILES', 'upload files and photos')
+  .set('READ_MESSAGE_HISTORY', 'read message history')
+  .set('MENTION_EVERYONE', 'mention everyone')
+  .set('USE_EXTERNAL_EMOJIS', 'use emojis from other servers')
+  .set('CONNECT', 'connect to a voice channel')
+  .set('SPEAK', 'talk in voice channels')
+  .set('MUTE_MEMBERS', 'mute members in voice channels')
+  .set('DEAFEN_MEMBERS', 'deafen members in voice channels')
+  .set('MOVE_MEMBERS', 'move members to other voice channels')
+  .set('USE_VAD', 'use voice activity detection')
+  .set('CHANGE_NICKNAME', 'change their nickname')
+  .set('MANAGE_NICKNAMES', "change someone else's nickname")
+  .set('MANAGE_ROLES', 'modify role settings')
+  .set('MANAGE_WEBHOOKS', 'manage webhooks')
+  .set('MANAGE_EMOJIS', 'manage server-wide emotes');
+
 module.exports = ex;
