@@ -66,7 +66,8 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
     **1) How did you get here?
     2) Why did you join?
     3) What is your favorite tank in Diep.io? (Say "skip" if you don't have one!)
-    4) Do you promise to read rules & information?**`,
+    4) Do you promise to read rules & information?**
+    __Staff can verify you using \`vs ok [mention]!__`,
   },
   captcha: {
     '302983444009451541': true,
