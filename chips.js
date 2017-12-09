@@ -78,7 +78,7 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
     '384976959500845057': false, // Anxiety🔞
     '339930093042532363': true,
     '300727201119076352': true,
-    '291558782755012610': false, //SickMania
+    '291558782755012610': true, // SickMania
   },
   panics: {
     0: false,
