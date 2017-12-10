@@ -2,16 +2,16 @@ const google = require('google');
 
 module.exports = {
   name: 'google',
-  async func(msg, { send, args, author, Discord, member }) {
+  async func(msg, { send, suffix, author, Discord, member }) {
     google.resultsPerPage = 5;
     google.protocol = 'http';
 
-    google(args, (err, res) => {
+    google(suffix, (err, res) => {
       if (err) throw err;
 
       const embed = new Discord.MessageEmbed()
         .setColor(member ? member.displayColor : `#${((1 << 24) * Math.random() | 0).toString(16)}`)
-        .setTitle(`Search Result for: ${args.join(' ')}`)
+        .setTitle(`Search Result for: ${suffix}`)
         .setFooter(`Requested by: ${author.tag}`);
 
       for (const link of res.links) {
