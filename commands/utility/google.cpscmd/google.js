@@ -5,7 +5,7 @@ module.exports = {
   func(msg, { send, args, author, Discord, member }) {
     google.resultsPerPage = 1;
     google.protocol = 'http';
-    const nextCounter = 0;
+    let nextCounter = 0;
     google(args, (err, res) => {
       if (err) send(err);
       for (let i = 0; i < res.links.length; ++i) {
@@ -16,6 +16,10 @@ module.exports = {
           .addField(`**Title:** ${link.title}`, `**Link Description** ${link.description}\n**Link:** ${link.link}`)
           .setFooter(`Requested by: ${author.tag}`);
         send(embed);
+      }
+      if (nextCounter < 4) {
+        nextCounter += 1;
+        if (res.next) res.next();
       }
     });
   },
