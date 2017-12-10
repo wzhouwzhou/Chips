@@ -120,11 +120,13 @@ const msghandle = async message => {
     '306244855493951489': 'ban',
     '259209114268336129': '259209114268336129|willy',
     '250815960250974209': '250815960250974209|edp|evildeathpro',
+    '205608598233939970': '205608598233939970|lucas|lsg|lucaslsg',
   };
   const notify = {
     '306244855493951489': false,
     '259209114268336129': true,
     '250815960250974209': true,
+    '205608598233939970': true,
   };
   if (message.guild && message.guild.id == Constants.servers.SURSKIT) {
     if (message.content.replace(/[\s.,|/]+/g, '').match(new RegExp(`${'despac'.split('').join('+')}i+?t+?o+?`, 'i'))) return message.delete();
