@@ -11,7 +11,7 @@
     "url": "https://github.com/wzhouwzhou/Chips/issues"
   },
   "main": "start.js",
-  "homepage": "http://chipsbot.tk/",
+  "homepage": "http://chipsbot.me/",
   "keywords": [
     "discord",
     "bot",
@@ -25,7 +25,8 @@
     "pm2monit": "pm2 monit",
     "pm2logs": "pm2 log",
     "test": "npm --version",
-    "test2": "eslint . --ext .js"
+    "test2": "eslint . --ext .js",
+    "eslint": "LIST=`git diff-index --name-only HEAD | grep .*\\.js | grep -v json`; if [ \"$LIST\" ]; then eslint $LIST; fi"
   },
   "dependencies": {
     "@newrelic/native-metrics": "^2.1.1",
@@ -52,6 +53,7 @@
     "discordblacklist": "^2.0.0-rc",
     "ejs": "^2.5.7",
     "erlpack": "github:discordapp/erlpack",
+    "eslint": "^4.12.1",
     "express": "^4.16.2",
     "express-brute": "^1.0.1",
     "express-ejs-extend": "0.0.1",
