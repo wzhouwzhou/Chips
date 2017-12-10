@@ -7,7 +7,7 @@ module.exports = {
     google.protocol = 'http';
     const nextCounter = 0;
     google(args, (err, res) => {
-      if (err) console.log(err);
+      if (err) send(err);
       for (let i = 0; i < res.links.length; ++i) {
         const link = res.links[i];
         const embed = new Discord.MessageEmbed()
