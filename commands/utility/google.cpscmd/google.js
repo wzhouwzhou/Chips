@@ -4,10 +4,10 @@ module.exports = {
   name: 'google',
   async func(msg, { send, suffix, author, Discord, member }) {
     google.resultsPerPage = 5;
-    google.protocol = 'http';
+    google.protocol = 'https';
 
-    google(suffix, (err, res) => {
-      if (err) throw err;
+    return google(suffix, (err, res) => {
+      if (err) return console.error(err);
 
       const embed = new Discord.MessageEmbed()
         .setColor(member ? member.displayColor : `#${((1 << 24) * Math.random() | 0).toString(16)}`)
