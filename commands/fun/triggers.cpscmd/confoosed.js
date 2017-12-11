@@ -1,6 +1,6 @@
 module.exports = {
   name: 'confoosed',
-  async func(msg, { send }) {
-    send(`*Conf${'o'.repeat(_.random(2, 15 - 4))}sed!*`);
+  func(msg, { send }) {
+    return send(`*Conf${'o'.repeat(_.random(2, 15 - 4))}sed!*`);
   },
 };
