@@ -10,6 +10,7 @@ const derp = require('./derp');
 const haiku = require('./haiku');
 const bify = require('./bify');
 const excl = require('./!');
+const eh = require('./eh');
 
 console.log('[CPSCMD][INFO][text] Building objects...');
 
@@ -97,6 +98,7 @@ excl.metadata = {
   example: '!',
   perm: [['global.fun.text.!']],
 };
+eh.metadata = excl.metadata;
 
 console.log('[CPSCMD][INFO][text] Build objects compconste!');
 module.exports = [
@@ -112,4 +114,5 @@ module.exports = [
   [haiku.name, haiku],
   [bify.name, bify],
   [excl.name, excl],
+  [eh.name, eh],
 ];
