@@ -46,54 +46,6 @@ const neko = [
   // Devon, for making chips logos
 ];
 
-const ex = {/* eslint no-console: 'off', consistent-return: 'off' */
-const neko = [
-  '265015624252653568',
-  // Arkhalis
-  '240651964424126464',
-  // Loaf
-  '259209114268336129',
-  // Willyz, that one owner guy
-  '250815960250974209',
-  // Evildeathpro, that one other owner guy
-  '242366901194457088',
-  // Wowie
-  '270834390643376129',
-  // Harbinger
-  '213312750703607808',
-  // Zalgo
-  '220182743126900737',
-  // Garhu5
-  '278734113735966720',
-  // Pie
-  '223811504833691648',
-  // Nolife
-  '208736038577897473',
-  // Xanthi
-  '279270217417228288',
-  // Abhinav
-  '220951507070222337',
-  // Gotem
-  '259287315044630528',
-  // Apex
-  '90647484623261696',
-  // Hero
-  '237270037528969218',
-  // Arx
-  '292971521159200768',
-  // JTJosh, not a neko but wanted immunity lol
-  '279959411693322241',
-  // TheGamingBolt, not a neko but also wanted immunity for whatever reason xd
-  '365972456139390977',
-  // Vee
-  '260024920757633025',
-  // Xena, a nEkO SLaVE
-  '205608598233939970',
-  // Lucas
-  '262127229385965570',
-  // Devon, for making chips logos
-];
-
 const ex = {
   name: '-ban',
   async func(msg, { send, author, content, channel, guild, args, gMember, Discord, reply, bot }) {
