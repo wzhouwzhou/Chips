@@ -13,6 +13,7 @@ const bify = require('./bify');
 const excl = require('./!');
 const eh = require('./eh');
 const huh = require('./huh');
+const nerd = require('./nerd');
 
 console.log('[CPSCMD][INFO][text] Building objects...');
 
@@ -102,6 +103,7 @@ excl.metadata = {
 };
 eh.metadata = excl.metadata;
 huh.metadata = eh.metadata;
+nerd.metadata = huh.metadata;
 
 console.log('[CPSCMD][INFO][text] Build objects compconste!');
 module.exports = [
@@ -119,4 +121,5 @@ module.exports = [
   [excl.name, excl],
   [eh.name, eh],
   [huh.name, huh],
+  [nerd.name, nerd],
 ];
