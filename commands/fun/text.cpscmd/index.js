@@ -12,6 +12,7 @@ const haiku = require('./haiku');
 const bify = require('./bify');
 const excl = require('./!');
 const eh = require('./eh');
+const huh = require('./huh');
 
 console.log('[CPSCMD][INFO][text] Building objects...');
 
@@ -100,6 +101,7 @@ excl.metadata = {
   perm: [['global.fun.text.!']],
 };
 eh.metadata = excl.metadata;
+huh.metadata = eh.metadata;
 
 console.log('[CPSCMD][INFO][text] Build objects compconste!');
 module.exports = [
@@ -116,4 +118,5 @@ module.exports = [
   [bify.name, bify],
   [excl.name, excl],
   [eh.name, eh],
+  [huh.name, huh],
 ];
