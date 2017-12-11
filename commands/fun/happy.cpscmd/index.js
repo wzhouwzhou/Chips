@@ -1,3 +1,4 @@
+/* eslint no-console: 'off' */
 let happy = require('./happy');
 
 console.log('[CPSCMD][FUN][happy] Building objects...');
