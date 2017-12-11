@@ -1,3 +1,4 @@
+/* eslint no-console: 'off'*/
 let ball = require('./8ball');
 
 console.log('[CPSCMD][INFO][ball] Building objects...');
