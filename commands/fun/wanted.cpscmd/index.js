@@ -1,3 +1,4 @@
+/* eslint no-console: 'off' */
 let wanted = require('./wanted');
 
 console.log('[CPSCMD][FUN][wanted] Building objects...');
