@@ -1,3 +1,4 @@
+/* eslint no-console: 'off', no-undef: 'off' */
 const cb = '```';
 const asciify = require('asciify');
 
@@ -13,7 +14,7 @@ module.exports = {
   name: 'ascii',
   async func(msg, { reply, send, prefix, content, guild, args }) {
     if (!args[0]) return reply('No action specified');
-    if (args[0] === 'help') return reply('Usage: \`ascii font text to asciifi\`. View fonts with \`ascii listfonts\`');
+    if (args[0] === 'help') return reply('Usage: `ascii font text to asciifi`. View fonts with `ascii listfonts`');
 
     if (args[0] === 'listfonts') {
       if (!fontlistCooldown.get(guild.id)) {
@@ -21,17 +22,23 @@ module.exports = {
         setTimeout(() => fontlistCooldown.set(guild.id, false), COOLDOWN);
         return send(`Fonts:\n${cb}${await fetchFonts()}${cb}`);
       }
-      return send('Woah there this command has a 1 minute cooldown please wait before trying that again!').then(mm => mm.delete({ timeout: 3000 }));
+      return send('Woah there this command has a 1 minute cooldown please wait before trying that again!')
+        .then(mm => mm.delete({ timeout: 3000 }));
     }
 
     (!fontlist || fontlist.length == 0) && await fetchFonts();
     console.log(`Font to use: ${args[0]}`);
-    if (fontlist.join('').indexOf(args[0]) < 0) return reply('Invalid font given!').then(mm => mm.delete({ timeout: 3000 }));
+    if (fontlist.join('').indexOf(args[0]) < 0) return reply('Invalid font given!')
+      .then(mm => mm.delete({ timeout: 3000 }));
     font = args[0];
     const actionReg = new RegExp(`${_.escapeRegExp(prefix)}ascii\\s+${_.escapeRegExp(font)}\\s*`, 'i');
 
     const split = content.replace(actionReg, '').split(/\s+/);
-    if (split.length <= 0 || !split.every(w => w.length > 0 && !w.match(/\s+/g))) { return send('You must provide at least one word to 3dtext!').then(mm => mm.delete({ timeout: 3000 })); } else if (split.length <= 5) {
+    if (split.length <= 0 || !split.every(w => w.length > 0 &&
+       !w.match(/\s+/g))) {
+      return send('You must provide at least one word to 3dtext!')
+        .then(mm => mm.delete({ timeout: 3000 }));
+    } else if (split.length <= 5) {
       if (!asciiCooldown.get(guild.id)) {
         asciiCooldown.set(guild.id, true);
         setTimeout(() => asciiCooldown.set(guild.id, false), COOLDOWN);
@@ -41,7 +48,10 @@ module.exports = {
           if (split.indexOf(word) === 0) return reply(str);
           return send(str);
         }));
-      } else { return send('Woah there this command has a 1 minute cooldown please wait before trying that again!').then(mm => mm.delete({ timeout: 3000 })); }
+      } else {
+        return send('Woah there this command has a 1 minute cooldown please wait before trying that again!')
+          .then(mm => mm.delete({ timeout: 3000 }));
+      }
     } else { return send('Too many words to asciify (>5)!').then(mm => mm.delete({ timeout: 3000 })); }
   },
 };
