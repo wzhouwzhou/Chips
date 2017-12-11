@@ -1,3 +1,4 @@
+/* eslint no-console: 'off', consistent-return: 'off' */
 const neko = [
   '265015624252653568',
   // Arkhalis
@@ -35,10 +36,8 @@ const neko = [
   // JTJosh, not a neko but wanted immunity lol
   '279959411693322241',
   // TheGamingBolt, not a neko but also wanted immunity for whatever reason xd
-  '324364368752148481',
-  // Vy, that one person who is like <3 willy
   '365972456139390977',
-  // Vy alt
+  // Vee
   '260024920757633025',
   // Xena, a nEkO SLaVE
   '205608598233939970',
@@ -57,9 +56,9 @@ const ex = {
     const target = args[0].match(Constants.patterns.MENTION)[1];
     const split = content.replace(/\s+/g, ' ').trim().split(' ');
     let reason = split.slice(2, split.length).join(' ');
-    if (reason == '') reason = 'None';
+    if (reason === '') reason = 'None';
     const user = gMember(target).user;
-    if (user.id == bot.user.id) return send(`NO!!`);
+    if (user.id === bot.user.id) return send(`NO!!`);
     /* If(!used.hasPermission("BAN_MEMBERS")){
       switch (used.id) {
         case Constants.users.WILLYZ:
@@ -79,8 +78,9 @@ const ex = {
     }*/
     // console.log("Target: "+target);
     if (neko.indexOf(user.id) >= 0) {
-      if (author.id != '324364368752148481' && author.id != Constants.users.WILLYZ &&
-      author.id != Constants.users.EVILDEATHPRO && author.id != '365972456139390977') {
+      if (author.id !== '259209114268336129' && author.id !== '250815960250974209' &&
+       author.id !== '365972456139390977') {
+        // Something Willy Edp Vee
         setTimeout(() => { reply('go ban yourself!!!'); }, 50);
         return;
       }
@@ -100,7 +100,8 @@ const ex = {
 
     // Const stafflogs = guild.channels.find('name', 'staff-logs');
     // if(stafflogs)
-    //   stafflogs.send({embed: emb.setTitle('Fake Ban').setAuthor('Action Log').setDescription(`**${user+[]} was ~~fake~~ banned by ${author+[]}!**`)});
+    /* stafflogs.send({embed: emb.setTitle('Fake Ban').setAuthor('Action Log')
+    .setDescription(`**${user+[]} was ~~fake~~ banned by ${author+[]}!**`)});*/
 
     /* if(!stafflogs)
      return send('Creating a staff-logs channel.')
