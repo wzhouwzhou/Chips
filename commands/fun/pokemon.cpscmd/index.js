@@ -1,3 +1,4 @@
+/* eslint no-console: 'off' */
 let pokemon = require('./pokemon');
 let pokemontest = require('./pokemontest');
 console.log('[CPSCMD][FUN][pokemon] Building objects...');
