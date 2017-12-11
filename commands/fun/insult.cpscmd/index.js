@@ -1,3 +1,4 @@
+/* eslint no-console: 'off' */
 let insult = require('./insult');
 let kill = require('./kill');
 
