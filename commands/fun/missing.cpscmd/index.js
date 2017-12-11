@@ -1,3 +1,4 @@
+/* eslint no-console: 'off' */
 let missing = require('./missing');
 
 console.log('[CPSCMD][FUN][missing] Building objects...');
