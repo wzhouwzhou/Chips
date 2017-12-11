@@ -1,3 +1,4 @@
+/* eslint no-console: 'off'*/
 let chess = require('./chess');
 
 console.log('[CPSCMD][FUN][chess] Building objects...');

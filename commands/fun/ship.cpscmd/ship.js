@@ -18,7 +18,7 @@ shipJoin.set(lukat, '<:blobkiss:372739966100439042>');
 const veedp = '250815960250974209,365972456139390977';
 ships.set(veedp, 9001);
 shipComments.set(veedp, '❤It\'s❤Over❤Nine❤Thousand❤');
-shipJoin.set(veedp, '<:blobhearteyes:376509082791575552>');
+shipJoin.set(veedp, '❤❤❤❤❤');
 
 // Evildeathpro and Vee
 

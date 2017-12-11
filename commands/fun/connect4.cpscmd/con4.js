@@ -1,3 +1,4 @@
+/* eslint no-console: 'off'*/
 const CON4 = require('connect-four');
 const EventEmitter = require('events');
 

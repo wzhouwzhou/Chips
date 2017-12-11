@@ -1,3 +1,4 @@
+/* eslint no-console: 'off' */
 const spooky = require('./spooky');
 const reverse = require('./reverse');
 const rotate = require('./rotate');

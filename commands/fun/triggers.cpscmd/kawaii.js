@@ -12,7 +12,7 @@ const kawaii = [
 ];
 module.exports = {
   name: 'kawaii',
-  async func(msg, { send }) {
+  func(msg, { send }) {
     return send(kawaii[_.random(0, kawaii.length - 1)]);
   },
 };

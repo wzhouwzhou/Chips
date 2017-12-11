@@ -8,7 +8,7 @@ const randomCaps = str => {
 
 module.exports = {
   name: 'randomcaps',
-  async func(msg, { reply, content, prefix }) {
+  func(msg, { reply, content, prefix }) {
     reply(randomCaps(content.substring(`${prefix}randomcaps `.length)));
   },
 };

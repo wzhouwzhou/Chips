@@ -1,3 +1,4 @@
+/* eslint no-console: 'off' */
 let ship = require('./ship');
 
 console.log('[CPSCMD][MODERATION][ship] Building objects...');

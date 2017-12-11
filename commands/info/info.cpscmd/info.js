@@ -20,7 +20,8 @@ const ex = {
     console.log(`[Info] Creating new searcher for guild ${guild.id}`);
     let options = { guild: guild };
     searchers[guild.id] = new Searcher(options.guild);
-    let infobad = new Discord.MessageEmbed().setColor(member.displayColor).setFooter(new Date());
+    let infobad = new Discord.MessageEmbed().setColor(member ? member.displayColor : `#${((1 << 24) * Math.random() | 0).toString(16)}`
+    ).setFooter(new Date());
 
     if (action == 'server') {
       try {
@@ -144,7 +145,7 @@ const ex = {
       // /await reply(`Server info`, {embed: infobad});
     } else if (action == 'user') {
       const waitingE = new Discord.MessageEmbed().attachFiles(['loading.gif']).setAuthor('Loading...', 'attachment://loading.gif', 'http://chipsbot.tk')
-        .setColor(msg.member.displayColor);
+        .setColor(msg.member ? msg.member.displayColor : `#${((1 << 24) * Math.random() | 0).toString(16)}`);
       const waiting = await send(' ', { embed: waitingE });
 
       let member = used;
@@ -501,7 +502,7 @@ const userData = (member, infobad, convertTime, times, name) => new Promise(asyn
   infobad.addField(`Permissions number:`, member.permissions.bitfield);
   // Infobad.addField(`Avatar URL`, `[Click Here](${member.user.avatarURL})`);
   // infobad.setThumbnail(member.user.avatarURL);
-  infobad.setColor(member.displayColor);
+  infobad.setColor(member ? member.displayColor : `#${((1 << 24) * Math.random() | 0).toString(16)}`);
 
   pfp.write(name, async() => {
     infobad.attachFiles([name]).setThumbnail(`attachment://${name}`);

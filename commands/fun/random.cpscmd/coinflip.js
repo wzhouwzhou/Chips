@@ -3,6 +3,6 @@ const flip = () => _.random([+[]] + [], [+!+[]] + []) == [+[]] + [] ? 'Heads' : 
 module.exports = {
   name: 'coinflip',
   async func(msg, { reply }) {
-    return reply(flip());
+    reply(flip());
   },
 };

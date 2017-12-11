@@ -1,10 +1,11 @@
 module.exports = {
   name: 'roll',
-  async func(msg, { reply, content, author, channel }) {
+  func(msg, { reply, content, author, channel }) {
     let par = content.split(' ');
     let atx = content.slice(par[0].length + 1);
     let expr = atx;
-    let cind = '#'; // Comment indicator
+    let cind = '#';
+    // Comment indicator
     let ns = author.toString();
     let sdx = atx.indexOf(cind);
     if (sdx >= 0) {

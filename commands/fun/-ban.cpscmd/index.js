@@ -1,3 +1,4 @@
+/* eslint no-console: 'off'*/
 let fakeban = require('./-ban');
 
 console.log('[CPSCMD][FUN][fakeban] Building objects...');
