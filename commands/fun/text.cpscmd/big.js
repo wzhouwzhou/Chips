@@ -1,3 +1,4 @@
+/* eslint no-console: 'off' */
 const snekfetch = require('snekfetch');
 const twe = require('twemoji');
 const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Paginator;
