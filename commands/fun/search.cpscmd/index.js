@@ -1,3 +1,4 @@
+/* eslint no-console: 'off' */
 let lmgtfy = require('./lmgtfy');
 console.log('[CPSCMD][FUN][lmgtfy] Building objects...');
 
