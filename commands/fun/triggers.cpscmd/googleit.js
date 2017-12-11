@@ -6,7 +6,7 @@ const urls = [
 
 module.exports = {
   name: 'googleit',
-  async func(msg, { send }) {
+  func(msg, { send }) {
     return send(a.sample(urls));
   },
 };
