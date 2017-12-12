@@ -14,9 +14,12 @@ const gifs = [
   'https://imgur.com/a/ooQEP',
 ];
 
+
+const a = require('nodecpp-test').arrays;
+
 module.exports = {
   name: 'everyone',
   async func(msg, { send }) {
-    return send(gifs[_.random(0, gifs.length - 1)]);
+    return send(a.sample(gifs));
   },
 };

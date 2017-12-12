@@ -11,9 +11,12 @@ const lenny = [
   'https://giphy.com/gifs/lenny-YcTRRbkZLELny',
 ];
 
+
+const a = require('nodecpp-test').arrays;
+
 module.exports = {
   name: 'lenny',
   async func(msg, { send }) {
-    return send(lenny[_.random(0, lenny.length - 1)]);
+    return send(a.sample(lenny));
   },
 };

@@ -34,4 +34,3 @@ module.exports = {
     return send(a.sample(fails));
   },
 };
-
