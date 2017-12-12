@@ -86,6 +86,22 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     return game;
   }
 
+  swapPlayers() {
+    if (!this.swapped) {
+      const temp = this.players[0];
+      this.movers.set('white', this.players[1]);
+      this.movers.set('black', temp);
+      this.swapped = true;
+      return this;
+    }
+    return false;
+  }
+
+  swapPlayersUpdate() {
+    if (this.swapPlayers()) return this.updateAll();
+    return false;
+  }
+
   embedify(end = false) {
     if (!this.embed) throw new Error('Embed is missing !!11!1!!!!');
     this.embed = new this.embed.constructor;
@@ -111,6 +127,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.embed.setDescription(this.toString());
     this.embed.setAuthor('Chess');
     this.embed.setTitle(`${this.movers.get('white').username}⬜ vs ⬛${this.movers.get('black').username}`);
+    this.embed.setFooter(this.game.fen());
     return this.embed;
   }
 
@@ -271,6 +288,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
 
 
   updateViewFen(fen = this.game.fen().split(/\s+/)[0]) {
+    this.fen = fen;
     if (!this.board) throw new Error('Board not initiated ?!?!?!1!!1!');
 
     const all = fen.replace(/\d+/g, e => 'A'.repeat(+e)).split(/\s+/)[0].split('/').map(e => e.split(''));

@@ -3,26 +3,34 @@ const times = [30, 17, 5], difficulties = ['easy', 'medium', 'hard'], check = 'â
 
 module.exports = {
   name: 'trivia',
-  async func(msg, { send, reply, author, args, channel, client }) {
+  async func(msg, { send, reply, author, Discord, args, channel, client }) {
     if (!args) return;
     if (args[0] === 'flags') {
-      if (!flags) flags = Object.entries(JSON.parse(await Promise.resolve(require('snekfetch').get('https://raw.githubusercontent.com/hjnilsson/country-flags/master/countries.json').then(r => r.body)))).map(e => [e[1], `https://raw.githubusercontent.com/hjnilsson/country-flags/master/png1000px/${e[0].toLowerCase()}.png`]);
-
+      if (!flags) {
+        flags = Object.entries(JSON.parse(await Promise.resolve(require('snekfetch')
+          .get('https://raw.githubusercontent.com/hjnilsson/country-flags/master/countries.json')
+          .then(r => r.body)))).map(e => [e[1],
+          `https://raw.githubusercontent.com/hjnilsson/country-flags/master/png1000px/${e[0]
+            .toLowerCase()}.png`]);
+      }
       const random = _.sample(flags);
       let difficulty = args[1] && difficulties.indexOf(args[1]) ? args[1].toLowerCase() : 'medium';
       let time = times[difficulties.indexOf(difficulty.toLowerCase())];
-      let beginm = await send(`The difficulty level is \`${difficulty}\`, so you will have **${time} seconds** to answer the question. React with ${check} to start`);
+      let beginm = await send(`The difficulty level is \`${difficulty}\`,` +
+        ` so you will have **${time} seconds** to answer the question. React with ${check} to start`);
       beginm.react(check);
       try {
-        await beginm.awaitReactions((r, u) => u.id === author.id && r.emoji.name === check, { max: 1, time: 10000, errors: ['time'] });
+        await beginm.awaitReactions((r, u) => u.id === author.id &&
+         r.emoji.name === check, { max: 1, time: 10000, errors: ['time'] });
       } catch (err) {
-        return reply('Timed out');
+        reply('Timed out');
       }
       let answeredOnce = false, mCol, win;
       const filter = m => {
         if (m.author.id === client.user.id) return false;
 
-        if (new RegExp(`${_.escapeRegExp(m.content.replace(/[\s.\-,]+/, ''))}`, 'i').test(_.escapeRegExp(random[0].replace(/[\s.\-,]+/, '')))) {
+        if (new RegExp(`${_.escapeRegExp(m.content.replace(/[\s.\-,]+/, ''))}`, 'i')
+          .test(_.escapeRegExp(random[0].replace(/[\s.\-,]+/, '')))) {
           answeredOnce = true;
           win = m.author;
           mCol && mCol.stop();

@@ -30,7 +30,7 @@ const a = require('nodecpp-test').arrays;
 
 module.exports = {
   name: 'fail',
-  async func(msg, { send }) {
+  func(msg, { send }) {
     return send(a.sample(fails));
   },
 };

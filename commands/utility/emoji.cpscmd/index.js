@@ -8,7 +8,7 @@ ae.metadata = {
   description: 'Adds emojis',
   usage: '-addemoji <name> <link>',
   example: '-addemoji waitwhat https://cdn.discordapp.com/emojis/356568603488681985.png',
-  perm: [['global.info.info']],
+  perm: [['global.utility.emoji.add']],
   customperm: ['MANAGE_EMOJIS'],
 };
 
@@ -17,7 +17,7 @@ re.metadata = {
   description: 'Removes emojis',
   usage: '-removeemoji <name>',
   example: '-removeemoji waitwhat',
-  perm: [['global.info.info']],
+  perm: [['global.utility.emoji.remove']],
   customperm: ['MANAGE_EMOJIS'],
 };
 
@@ -26,7 +26,7 @@ console.log('[CPSCMD][MODERATION][emoji] Build objects complete!');
 module.exports = [
   [ae.name, ae],
   ['addemoji', ae],
-  ['createemoji', ae]
+  ['createemoji', ae],
   [re.name, re],
   ['removeemoji', re],
   ['deleteemoji', re],

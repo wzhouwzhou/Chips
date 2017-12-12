@@ -1,3 +1,4 @@
+/* eslint no-console: 'off'*/
 let cat = require('./cat');
 let dog = require('./dog');
 let lizard = require('./lizard');

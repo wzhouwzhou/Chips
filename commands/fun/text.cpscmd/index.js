@@ -1,3 +1,4 @@
+/* eslint no-console: 'off' */
 const spooky = require('./spooky');
 const reverse = require('./reverse');
 const rotate = require('./rotate');
@@ -10,6 +11,9 @@ const derp = require('./derp');
 const haiku = require('./haiku');
 const bify = require('./bify');
 const excl = require('./!');
+const eh = require('./eh');
+const huh = require('./huh');
+const nerd = require('./nerd');
 
 console.log('[CPSCMD][INFO][text] Building objects...');
 
@@ -97,6 +101,9 @@ excl.metadata = {
   example: '!',
   perm: [['global.fun.text.!']],
 };
+eh.metadata = excl.metadata;
+huh.metadata = eh.metadata;
+nerd.metadata = huh.metadata;
 
 console.log('[CPSCMD][INFO][text] Build objects compconste!');
 module.exports = [
@@ -112,4 +119,7 @@ module.exports = [
   [haiku.name, haiku],
   [bify.name, bify],
   [excl.name, excl],
+  [eh.name, eh],
+  [huh.name, huh],
+  [nerd.name, nerd],
 ];

@@ -16,7 +16,12 @@ const a = require('nodecpp-test').arrays;
 
 module.exports = {
   name: 'lenny',
+<<<<<<< HEAD
   async func(msg, { send }) {
     return send(a.sample(lenny));
+=======
+  func(msg, { send }) {
+    return send(lenny[_.random(0, lenny.length - 1)]);
+>>>>>>> 8076382a697988f4dd673f076b012c54c11f2f74
   },
 };

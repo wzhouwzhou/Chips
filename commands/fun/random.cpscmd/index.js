@@ -1,3 +1,4 @@
+/* eslint no-console: 'off' */
 let dice = require('./roll');
 let coin = require('./coinflip');
 let randombuild = require('./randombuild');

@@ -5,7 +5,7 @@ const gifs = [
 
 module.exports = {
   name: 'eat',
-  async func(msg, { send }) {
+  func(msg, { send }) {
     return send(gifs[Math.floor(gifs.length * Math.random())]);
   },
 };

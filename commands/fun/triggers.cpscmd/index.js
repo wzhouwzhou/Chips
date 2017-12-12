@@ -1,3 +1,4 @@
+/* eslint no-console: 'off' */
 let aboosed = require('./aboose');
 let confoosed = require('./confoosed');
 let exposed = require('./exposed');

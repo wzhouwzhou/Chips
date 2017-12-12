@@ -18,7 +18,7 @@ shipJoin.set(lukat, '<:blobkiss:372739966100439042>');
 const veedp = '250815960250974209,365972456139390977';
 ships.set(veedp, 9001);
 shipComments.set(veedp, '❤It\'s❤Over❤Nine❤Thousand❤');
-shipJoin.set(veedp, '<:blobhearteyes:376509082791575552>');
+shipJoin.set(veedp, '❤❤❤❤❤');
 
 // Evildeathpro and Vee
 
@@ -26,6 +26,11 @@ const sorachino = '277969198401978379,296934568068513793';
 ships.set(sorachino, 100);
 shipComments.set(sorachino, 'OwO You guys are perfect for each other');
 shipJoin.set(sorachino, '🌹❤');
+
+const cursedwilly = '259209114268336129,374022684519956480';
+ships.set(cursedwilly, 100);
+shipComments.set(cursedwilly, '美神 🌹 We were meant to be together!');
+shipJoin.set(cursedwilly, '❤');
 
 module.exports = {
   name: 'ship',

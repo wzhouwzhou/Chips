@@ -19,7 +19,12 @@ const a = require('nodecpp-test').arrays;
 
 module.exports = {
   name: 'everyone',
+<<<<<<< HEAD
   async func(msg, { send }) {
     return send(a.sample(gifs));
+=======
+  func(msg, { send }) {
+    return send(gifs[_.random(0, gifs.length - 1)]);
+>>>>>>> 8076382a697988f4dd673f076b012c54c11f2f74
   },
 };

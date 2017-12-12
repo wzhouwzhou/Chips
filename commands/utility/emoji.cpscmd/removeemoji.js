@@ -4,8 +4,10 @@ module.exports = {
     if (!args[0]) return send('No emoji name given :(');
 
     let name = args[0];
+    let emote = guild.emojis.find('name', args[0]) ||
+      (args[0].match(/<:\w+:(\d+)>/) || [,])[1];
 
-    let emote = guild.emojis.find('name', `${name}`);
+    if (!emote) return send('no')
 
     let emoji;
     try {
