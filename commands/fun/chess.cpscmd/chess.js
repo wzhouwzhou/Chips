@@ -19,7 +19,7 @@ const difficultyArr = new Array(5).fill(0).map((e, i, a) =>
 const ex = {
   name: 'chess',
   async func(msg, ctx) {
-    let { author, reply, member, send, channel, args, prefix, client, Discord } = ctx;
+    let { author, reply, member, send, channel, args, prefix, client, Discord, suffix } = ctx;
 
     if (args[0] && args[0] === 'help') {
       // Const embed = new Discord.MessageEmbed;
@@ -80,7 +80,7 @@ const ex = {
         throw err;
       }
     }
-    if (args[0] && !args[0].match(/c(reate)?/i)) return true;
+    if (args[0] && args[0].match(/^</)) return true;
     let mCol, silentQuit = false;
     if (args[0] && args[0].match(/^(join|decline)$/i)) return !0;
 
@@ -139,6 +139,7 @@ const ex = {
     // Console.log(`Creating a chess game for channel ${channel.id}...`);
 
     const currentGame = await CG.factory({
+      newFen: suffix,
       client,
       channel,
       players: _.shuffle([member.user, othermember.user]),
@@ -181,7 +182,7 @@ const ex = {
         currentGame.emit('ended', currentGame);
         return mCol.stop();
       }
-
+      if (/chess\sswap/i.test(m.content)) return currentGame.swapPlayersUpdate();
       let move = m.content
         .replace(/^P/i, '')
         .trim();
