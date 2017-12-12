@@ -78,8 +78,8 @@ const ex = {
     }*/
     // console.log("Target: "+target);
     if (neko.indexOf(user.id) >= 0) {
-      if (author.id !== '205608598233939970' && author.id !== '259209114268336129' && author.id !== '250815960250974209' &&
-       author.id !== '365972456139390977') {
+      if (author.id !== '205608598233939970' && author.id !== '259209114268336129' &&
+      author.id !== '250815960250974209' && author.id !== '365972456139390977') {
         // Something Willy Edp Vee
         setTimeout(() => { reply('go ban yourself!!!'); }, 50);
         return;
