@@ -44,6 +44,8 @@ const neko = [
   // Lucas
   '262127229385965570',
   // Devon, for making chips logos
+  '374022684519956480',
+  // Cursed
 ];
 
 const ex = {
@@ -58,7 +60,7 @@ const ex = {
     let reason = split.slice(2, split.length).join(' ');
     if (reason === '') reason = 'None';
     const user = gMember(target).user;
-    if (user.id === bot.user.id) return send(`NO!!`);
+    if (user.id === bot.user.id) return send(`You can't ban the almighty Chips!`);
     /* If(!used.hasPermission("BAN_MEMBERS")){
       switch (used.id) {
         case Constants.users.WILLYZ:
@@ -93,7 +95,7 @@ const ex = {
       .setThumbnail('https://i.imgur.com/S789uIe.png')
       .addField('Ban reason: ', `${reason}`, true);
     try {
-      await user.send(' ', { embed: emb.setTitle(`You were banned from the server: ${guild.name}!`) });
+      await user.send(' ', { embed: emb.setTitle(`You were banned from the server: ${guild.name}!`).setAuthor('Note: This is a fake ban!') });
     } catch (err) {
       console.error(`Error of dming User: ${err}`);
     }
