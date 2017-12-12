@@ -11,7 +11,7 @@ const gifs = [
 ];
 
 module.exports = {
-  name: 'triggered',
+  name: 'triggered2',
   func(msg, { send }) {
     return send(gifs[_.random(0, gifs.length - 1)]);
   },
