@@ -6,7 +6,7 @@ let fail = require('./fail');
 let kawaii = require('./kawaii');
 let lenny = require('./lenny');
 let rekt = require('./rekt');
-let triggered2 = require('./triggered2');
+let triggergif = require('./triggergif');
 let everyone = require('./everyone');
 let googleit = require('./googleit');
 
@@ -60,11 +60,11 @@ rekt.metadata = {
   example: 'rekt',
   perm: [['global.fun.triggers.rekt']],
 };
-triggered2.metadata = {
+triggergif.metadata = {
   category: require('../').category,
   description: 'TRIGGERED!',
-  usage: 'triggered2',
-  example: 'triggered2',
+  usage: 'triggergif',
+  example: 'triggergif',
   perm: [['global.fun.triggers.rekt']],
 };
 fail.metadata = {
@@ -96,7 +96,7 @@ module.exports = [
   [kawaii.name, kawaii],
   [lenny.name, lenny],
   [rekt.name, rekt],
-  [triggered2.name, triggered2],
+  [triggergif.name, triggergif],
   [everyone.name, everyone],
   [googleit.name, googleit],
 ];
