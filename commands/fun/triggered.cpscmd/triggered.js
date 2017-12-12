@@ -1,6 +1,6 @@
 module.exports = {
   name: 'triggered',
-  func(msg, { send, author, member, Discord}) {
+  async func(msg, { send, author, member, Discord}) {
   const result = await require('snekfetch').get('http://localhost:51001/api/triggered')
     .set('src', (msg.mentions.users.first() || author).displayAvatarURL({ format: 'png', size: 2048 })); 
   return send(new Discord.MessageEmbed()
