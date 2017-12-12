@@ -6,7 +6,7 @@ let fail = require('./fail');
 let kawaii = require('./kawaii');
 let lenny = require('./lenny');
 let rekt = require('./rekt');
-let triggered = require('./triggered');
+let triggered = require('./triggered2');
 let everyone = require('./everyone');
 let googleit = require('./googleit');
 
