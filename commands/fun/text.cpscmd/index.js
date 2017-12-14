@@ -14,6 +14,7 @@ const excl = require('./!');
 const eh = require('./eh');
 const huh = require('./huh');
 const nerd = require('./nerd');
+const oof = require('.oof');
 
 console.log('[CPSCMD][INFO][text] Building objects...');
 
@@ -104,6 +105,7 @@ excl.metadata = {
 eh.metadata = excl.metadata;
 huh.metadata = eh.metadata;
 nerd.metadata = huh.metadata;
+oof.metadata = excl.metadata;
 
 console.log('[CPSCMD][INFO][text] Build objects compconste!');
 module.exports = [
