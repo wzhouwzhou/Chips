@@ -11,6 +11,6 @@ const s1 = [
 module.exports = {
   name: '!',
   func(msg, { send, suffix }) {
-    return send(`!${suffix} ${[...new Array(20)].map(() => a.sample(s1)).join('') + a.sample(['!', '?'])}`);
+    return send(`${suffix} !${[...new Array(20)].map(() => a.sample(s1)).join('') + a.sample(['!', '?'])}`);
   },
 };
