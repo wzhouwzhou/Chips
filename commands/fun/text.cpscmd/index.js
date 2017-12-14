@@ -14,7 +14,7 @@ const excl = require('./!');
 const eh = require('./eh');
 const huh = require('./huh');
 const nerd = require('./nerd');
-const oof = require('.oof');
+const oof = require('./oof');
 
 console.log('[CPSCMD][INFO][text] Building objects...');
 
