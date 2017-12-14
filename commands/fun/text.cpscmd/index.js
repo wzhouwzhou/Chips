@@ -124,4 +124,5 @@ module.exports = [
   [eh.name, eh],
   [huh.name, huh],
   [nerd.name, nerd],
+  [oof.name, oof],
 ];
