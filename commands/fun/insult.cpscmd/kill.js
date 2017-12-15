@@ -42,8 +42,8 @@ const killerMan = [
     'a watermelon onto the ground from the top of a multiple story building.'].join(' '),
 
   [
-    '{{second}} is killed instantly as the top half of his head is blown off by a Red Army sniper armed with a',
-    "Mosin Nagant, {{second}}'s brains splatter everywhere in a horrific fashion"].join(' '),
+    '{{second}} is killed instantly as the top half of his head is blown off by a rogue sniper armed with a',
+    "bolt action rifle, {{second}}'s brains splatter everywhere in a horrific fashion"].join(' '),
 ];
 
 module.exports = {
