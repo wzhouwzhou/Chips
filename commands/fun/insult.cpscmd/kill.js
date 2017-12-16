@@ -20,6 +20,7 @@ const killerMan = [
     "{{second}}'s spinal cord, which is still attached to the dismembered head, is used by the creature as a makeshift",
     "sword to slice a perfect asymmetrical line down {{second}}'s body, causing organs to spill out as the two halves",
     'fall to their respective sides.'].join(' '),
+
   [
     "{{first}} grabs {{second}}'s head and tears it off with superhuman speed and efficiency.",
     "Using {{second}}'s head as a makeshift basketball, {{first}} expertly slam dunks it into the basketball hoop,",
@@ -44,6 +45,39 @@ const killerMan = [
   [
     '{{second}} is killed instantly as the top half of his head is blown off by a rogue sniper armed with a',
     "bolt action rifle, {{second}}'s brains splatter everywhere in a horrific fashion"].join(' '),
+
+  // Next 5 by 聖なる人#0663
+  [
+    '{{first}} made {{second}} love {{first}} by stalking him/her for a long time to find out what {{second}} likes.',
+    'A month later {{first}} is breaking up with {{second}} and broke their heart.',
+    'Back at home {{second}} cut themselves to death.'].join(' '),
+
+  [
+    '{{first}} invited {{second}} to join in for a sightseeing-tour in Japan.',
+    "At the end of the trip, watching the sunset from the tokyo-skytree, {{first}} grabs {{second}}'s feet and",
+    'throws them over the railing.'].join(' '),
+
+  [
+    "{{first}} grabs a candy cane and uses {{second}}'s confusion to grab the knife hidden in the cane.",
+    "as {{first}} is slowly cutting {{second}}'s stomach open and filling it with all kinds of chocolate-santas",
+    'that once were chocolate easter bunnys, {{second}} is screaming in pain trying to stop {{first}},',
+    'but is unable to move properly due to the pain.'].join(' '),
+
+  [
+    '{{second}} wakes up bound to a chair, not able to move and the mouth kept open by some sort of device.',
+    'soon {{second}} noticed that he/she got captured by {{first}}.',
+    "{{first}} is slowly coming closer and starts pouring something in {{second}} 's mouth.",
+    "{{second}} is feeling an awful strong pain running through his/her body as he/she's",
+    'able to see how the skin is turning black from the toes slowly up to the head.',
+    "That's where everything got black... and never came back."].join(' '),
+
+  [
+    'Not knowing where they are or what they did, {{second}} finds themselves locked in a room with some sort of gun',
+    `on the ground. there's a note on the gun: "interdimensional gun. your only chance to escape is what I already put`,
+    `in as location. You won't be able to see through it so just try to stick your head in there.   ~{{first}}"`,
+    '{{second}} takes the gun and shoots at a wall. A green sort of portal opens up but nothing can be seen on the',
+    'other side. {{second}} takes a deep breath and jumps into the portal, leaving the gun behind.',
+    '"blender dimension" is written on the back of the note.'].join(' '),
 ];
 
 module.exports = {
