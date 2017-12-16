@@ -1,7 +1,7 @@
 const moment = require('moment');
 module.exports = {
   name: 'botpanic',
-  func(msg, { reply, author, client, Discord, member, Constants }) {
+  async func(msg, { reply, author, client, Discord, member, Constants }) {
     switch (author.id) {
       case Constants.users.WILLYZ:
       case Constants.users.PGSUPER:
@@ -11,20 +11,19 @@ module.exports = {
       default:
         return reply(`No!`);
     }
-    
-    client.database._sheets.botlog
-      .addRow({
-        time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`,
-        action: 'PANIC',
-        mainvalue: 'SIGTERM',
-      }, err => { console.log(`Error : ${err}`); });
-    
-    await client.user.setGame("Restarting!");
+
+    client.database._sheets.botlog.addRow({
+      time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`,
+      action: 'PANIC',
+      mainvalue: 'SIGTERM',
+    }, err => { console.log(`Error : ${err}`) });
+
+    await client.user.setGame('Restarting!');
     return reply(new Discord.MessageEmbed()
       .setDescription('Bot restarting!')
       .setColor(member ? member.displayColor : 0x1213EE))
 
       .then(() => process.exit(-100));
-    // Await client.user.setStatus("invisible");
+    // Await client.user.setStatus('invisible');
   },
 };
