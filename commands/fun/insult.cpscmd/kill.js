@@ -46,7 +46,7 @@ const killerMan = [
     '{{second}} is killed instantly as the top half of his head is blown off by a rogue sniper armed with a',
     "bolt action rifle, {{second}}'s brains splatter everywhere in a horrific fashion"].join(' '),
 
-  // Next 5 by 聖なる人#0663
+  // Next 6 by 聖なる人#0663
   [
     '{{first}} made {{second}} love {{first}} by stalking him/her for a long time to find out what {{second}} likes.',
     'A month later {{first}} is breaking up with {{second}} and broke their heart.',
@@ -78,6 +78,13 @@ const killerMan = [
     '{{second}} takes the gun and shoots at a wall. A green sort of portal opens up but nothing can be seen on the',
     'other side. {{second}} takes a deep breath and jumps into the portal, leaving the gun behind.',
     '"blender dimension" is written on the back of the note.'].join(' '),
+
+  [
+    '{{second}} is visiting an old pizzeria with {{first}}. After eating some pizza that actually tasted pretty good,',
+    '{{second}} wanted to take a look at the things on the stage. But as soon as {{second}} came close to them, one of',
+    'them suddenly started to run in his direction. It looked like a pure red fox with a hook, but, in the moment,',
+    '{{second}} noticed that their head was already inside the mouth of the fox as it got tighter and tighter.',
+  ].join(' '),
 ];
 
 module.exports = {
