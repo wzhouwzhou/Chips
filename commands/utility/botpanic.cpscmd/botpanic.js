@@ -16,7 +16,7 @@ module.exports = {
       time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`,
       action: 'PANIC',
       mainvalue: 'SIGTERM',
-    }, err => { console.log(`Error : ${err}`) });
+    }, err => console.log(`Error : ${err}`));
 
     await client.user.setGame('Restarting!');
     return reply(new Discord.MessageEmbed()
