@@ -74,7 +74,7 @@ const ex = {
       }, Discord
       );
       try {
-        return await p.sendFirstGetMsg();
+        return await p.sendFirst();
       } catch (err) {
         send('Something went wrong...');
         throw err;
