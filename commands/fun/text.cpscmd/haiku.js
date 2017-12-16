@@ -8,7 +8,7 @@ const lastF = require('../../../rewrite-all/src/deps/functions/lastF').default({
 
 module.exports = {
   name: 'haiku',
-  async func(msg, { send, prefix, content, args }) {
+  async func(msg, { send, prefix, content, args, channel }) {
     if (!args[0]) return send('Nothing to generate a haiku from');
     const sentence = content.substring(`${prefix}${this.name} `.length);
     const syllables = _.flatten(nlp.term(sentence).syllables());
@@ -18,6 +18,8 @@ module.exports = {
     let str = `${firstF(first17, 5).join('')}\n${lastF(firstF(first17, 5 + 7), 7).join('')}\n${lastF(firstF(first17, 5 + 7 + 5), 5).join('')}`;
     const regs = sentence.split(/\s+/).map(e => new RegExp(`${_.escapeRegExp(e)}`, 'gi'));
     regs.forEach(e => str = str.replace(e, s => `${s} `));
+    channel.startTyping();
     send(str);
+    channel.stopTyping();
   },
 };

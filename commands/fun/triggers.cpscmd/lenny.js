@@ -16,7 +16,9 @@ const a = require('nodecpp-test').arrays;
 
 module.exports = {
   name: 'lenny',
-  async func(msg, { send }) {
-    return send(a.sample(lenny));
+  async func(msg, { send, channel }) {
+    channel.startTyping();
+    send(a.sample(lenny));
+    channel.stopTyping();
   },
 };

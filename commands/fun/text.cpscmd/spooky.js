@@ -1,6 +1,6 @@
 module.exports = {
   name: 'spooky',
-  func(msg, { author, member, guild, content, prefix, Discord, send }) {
+  func(msg, { author, member, guild, content, prefix, Discord, send, channel }) {
     let truecontent = content.substring(`${prefix}spooky `.length);
     let spookymsg = truecontent;
     let toMatch = /(\s*?(?:num(?:ber)?):?\s*((?:sp(?:ace)?)((?:s)?)?\s*:?(\s*))?)/i.exec(truecontent);
@@ -25,6 +25,8 @@ module.exports = {
     bad.setColor(guild ? member.displayColor : 15152469);
     bad.setAuthor(author.tag, author.displayAvatarURL({ format: 'png', size: 2048 }));
     bad.setDescription(converted);
-    return send({ embed: bad });
+    channel.startTyping();
+    send({ embed: bad });
+    channel.stopTyping();
   },
 };

@@ -48,7 +48,7 @@ const killerMan = [
 
 module.exports = {
   name: 'kill',
-  func(msg, { send, author, args, guild }) {
+  func(msg, { send, author, args, guild, channel }) {
     if (!guild) return send('This command can only be used in a server');
 
     if (!args) return msg.reply('Please mention someone to kill!');
@@ -58,9 +58,11 @@ module.exports = {
     if (!second) return msg.reply('Please mention a user to murder!');
     second += [];
     const comment = _.sample(killerMan);
-    return send(comment
+    channel.startTyping();
+    send(comment
       .replace(new RegExp(_.escapeRegExp('{{first}}'), 'gi'), first)
       .replace(new RegExp(_.escapeRegExp('{{second}}'), 'gi'), second)
     );
+    channel.stopTyping();
   },
 };

@@ -6,7 +6,7 @@ const COOLDOWN = 60 * 1000;
 
 module.exports = {
   name: '3d',
-  func(msg, { reply, send, prefix, content, guild }) {
+  func(msg, { reply, send, prefix, content, guild, channel }) {
     const split = content.substring(`${prefix}3d `.length).split(/\s+/);
     if (split.length <= 0 || !split.every(w => w.length > 0 && !w.match(/\s+/g))) {
       return send('You must provide at least one word to 3dtext!').then(mm => mm.delete({ timeout: 3000 }));

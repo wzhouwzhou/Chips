@@ -19,7 +19,9 @@ const a = require('nodecpp-test').arrays;
 
 module.exports = {
   name: 'everyone',
-  func(msg, { send }) {
-    return send(a.sample(gifs));
+  func(msg, { send, channel }) {
+    channel.startTyping();
+    send(a.sample(gifs));
+    channel.stopTyping();
   },
 };

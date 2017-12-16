@@ -5,7 +5,7 @@ const reg = new RegExp(`${choices.map(e => _.escapeRegExp(e)).join('|')}`, 'i');
 
 module.exports = {
   name: 'rockpaperscissors',
-  async func(msg, { send, channel, author, Discord }) {
+  async func(msg, { send, channel, author, Discord, channel }) {
     let user, computer = _.sample(choices);
     let mCol;
     const filter = m => {
