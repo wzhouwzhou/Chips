@@ -21,7 +21,10 @@ const get_query = async(...tags) => {
   for (let tries = 0; tries < 5; tries++) {
     const posts = r.posts.post;
     if (!posts || posts.length === 0) return null;
-    const temp = posts[_.random(0, Math.min(99, r.posts.$.count))].$.file_url;
+    const item = posts[_.random(0, Math.min(99, r.posts.$.count))].$;
+    if (item.tags.match(/(loli)|(shota)|(gore)/i)) continue;
+    const temp = item.file_url;
+
     if (!temp.match(/(webm)|(mp)/)) {
       url = temp;
       break;
@@ -38,7 +41,7 @@ module.exports = {
     try {
       const tags = suffix.split(',');
       const url = await get_query(...tags);
-      if (!url) return send('No results found');
+      if (!url) return send('No results found after 5 tries after filtering');
       const ext = url.substr(url.lastIndexOf('.'));
       const embed = new Discord.MessageEmbed()
         .setTitle(`Rule34 Search: ${suffix}`)
