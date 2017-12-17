@@ -8,7 +8,7 @@ module.exports = (Discord, client) => {
       message: msg,
       channel: msg.channel,
       content: msg.content,
-      suffix: msg.noprefix.split(/\s+/).length > 1 ? msg.content.substring(msg.content.indexOf(' ') + 1).trim() : '',
+      suffix: noprefix.split(/\s+/).length > 1 ? msg.content.substring(msg.content.indexOf(' ') + 1).trim() : '',
       guild: msg.guild,
       send: msg.channel.send.bind(msg.channel),
       reply: msg.reply.bind(msg),
