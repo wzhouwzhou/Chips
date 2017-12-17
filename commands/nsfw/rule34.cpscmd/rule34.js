@@ -11,14 +11,17 @@ const _default_ = {
 };
 
 const get_query = async(...tags) => {
-  const search = qs.stringify(Object.assign({}, _default_, { tags: tags.map(tag => qs.escape(tag)).join('') }));
+  const search = `${qs.stringify(_default_)}&tags=${tags.map(tag => qs.escape(tag)).join('+')}`;
+
   const resp = await get(`${base}?${search}`);
   if (resp.status !== 200) throw new Error(`Status ${resp.status}`);
 
   const r = await parse(resp.body);
   let url;
   for (let tries = 0; tries < 5; tries++) {
-    const temp = r.posts.post[_.random(0, Math.min(99, r.posts.$.count))].$.file_url;
+    const posts = r.posts.post;
+    if (!posts || posts.length === 0) return null;
+    const temp = posts[_.random(0, Math.min(99, r.posts.$.count))].$.file_url;
     if (!temp.match(/(webm)|(mp)/)) {
       url = temp;
       break;
