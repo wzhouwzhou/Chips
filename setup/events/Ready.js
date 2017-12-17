@@ -152,7 +152,7 @@ module.exports = send => {
           });
         } catch (err) {
           const full = path.join(__dirname, '../..', filename);
-          const back = new RegExp(_.escapeRegExp(path.join(__dirname, '..')), 'gi');
+          const backreg = new RegExp(_.escapeRegExp(path.join(__dirname, '..')), 'gi');
           const item = full.replace(backreg, '%');
           const error = err.stack.replace(backreg, '%');
           errstr = `[COMMAND LOADER][ERR] Could not load: ${item}\n${error}`;
