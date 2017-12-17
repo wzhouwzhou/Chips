@@ -22,7 +22,9 @@ const get_query = async(i, ...tags) => {
     if (!r || !r.posts) return null;
     const posts = r.posts.post;
     if (!posts || posts.length === 0) return null;
-    const item = posts[_.random(0, Math.min(99, r.posts.$.count))].$;
+    const preitem = posts[_.random(0, Math.min(99, r.posts.$.count))];
+    if (!preitem) continue;
+    const item = preitem.$;
     if (i && item.tags.match(/(loli)|(shota)|(gore)|(pettanko)/i)) continue;
     const temp = item.file_url;
 
@@ -48,7 +50,9 @@ module.exports = {
         .setTitle(`Rule34 Search: ${suffix}`)
         .attachFiles([{ attachment: `http:${url}`, name: `file${ext}` }])
         .setImage(`attachment://file${ext}`)
-        .setColor(member ? member.displayColor : 407394);
+        .setColor(member ? member.displayColor : 407394)
+        .setFooter(`Requested by ${author.tag}`)
+        .setTimestamp();
       return send(embed);
     } catch (err) {
       send('An error occurred... perhaps no results were found');
