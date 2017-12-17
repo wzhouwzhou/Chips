@@ -11,7 +11,7 @@ const _default_ = {
 };
 
 const get_query = async(...tags) => {
-  const search = `${qs.stringify(_default_)}&tags=${tags.map(tag => qs.escape(tag)).join('+')}`;
+  const search = `${qs.stringify(_default_)}&tags=${tags.map(tag => qs.escape(tag.trim())).join('+')}`;
 
   const resp = await get(`${base}?${search}`);
   if (resp.status !== 200) throw new Error(`Status ${resp.status}`);
