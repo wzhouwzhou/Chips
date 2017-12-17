@@ -129,6 +129,7 @@ module.exports = send => {
   // h2client.on('debug', console.log);
   // h3client.on('debug', console.log);
   let numCmds = 0;
+  client.loadErrors = new Map;
   const load = startPath => {
     let subset = [];
     if (!fs.existsSync(startPath)) return;
@@ -150,7 +151,13 @@ module.exports = send => {
             console.log(`[COMMAND LOADER] loaded: ${cmdpath}`);
           });
         } catch (err) {
-          console.error('[COMMAND LOADER][ERR] Could not load: ', path.join(__dirname, '../../', filename), err);
+          const full = path.join(__dirname, '../..', filename);
+          const back = new RegExp(_.escapeRegExp(path.join(__dirname, '..')), 'gi');
+          const item = full.replace(backreg, '%');
+          const error = err.stack.replace(backreg, '%');
+          errstr = `[COMMAND LOADER][ERR] Could not load: ${item}\n${error}`;
+          console.log(errstr);
+          client.loadErrors.set(filename, errstr);
         }
       }
     });

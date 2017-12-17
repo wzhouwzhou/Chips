@@ -18,7 +18,8 @@ global.fs = require('fs');
 const request = require('request');
 
 // Const favicon = require('serve-favicon');
-global.Discord = require('discord.js');
+const Discord = require('discord.js');
+global.Discord = Discord;
 global.client = new Discord.Client({
   fetchAllMembers: true,
   messageCacheMaxSize: 20,
