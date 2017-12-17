@@ -8,7 +8,7 @@ r34.metadata = {
   description: 'Searches rule34.',
   usage: 'r34 <query>',
   example: 'r34 ass',
-  perm: [['global.nsfw.*']],
+  perm: [['global.nsfw.rule34.search']],
 };
 
 console.log('[CPSCMD][NSFW][r34] Build objects complete!');
