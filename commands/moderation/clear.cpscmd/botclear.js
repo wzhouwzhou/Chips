@@ -57,7 +57,7 @@ const botPrefixes = [
   'a-',
   'b-',
   'c-',
-  '$'
+  '$',
 ];
 
 module.exports = {
