@@ -5,10 +5,8 @@ module.exports = {
       author.id === Constants.users.EVILDEATHPRO ||
       author.id === Constants.users.LUCAS
     ) {
-      channel.startTyping();
       msg.delete().catch(_ => _);
       send(suffix);
-      channel.stopTyping();
     }
     return true;
   },
