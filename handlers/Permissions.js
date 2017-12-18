@@ -171,6 +171,8 @@ ex.permsList = [
   ['global.nsfw.boobs.boobs', true],
   ['global.nsfw.nsfw.*', false], // To be added/renamed
   ['global.nsfw.nsfw.info', true], // To be added/renamed
+  ['global.nsfw.rule34.*', false],
+  ['global.nsfw.rule34.search', true],
   ['global.utility.*', true],
   ['global.utility.calc.*', true],
   ['global.utility.calc.-calc', true],
