@@ -18,7 +18,7 @@ module.exports = {
       mainvalue: 'SIGTERM',
     }, err => console.log(`Error : ${err}`));
 
-    await client.user.setGame('Restarting!');
+    // Await client.user.setGame('Restarting!');
     return reply(new Discord.MessageEmbed()
       .setDescription('Bot restarting!')
       .setColor(member ? member.displayColor : 0x1213EE))
