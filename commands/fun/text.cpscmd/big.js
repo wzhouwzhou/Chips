@@ -11,9 +11,10 @@ module.exports = {
       content,
       reply,
       prefix,
+      Discord,
     }) {
-    if (content.replace(new RegExp(`${prefix}big\\s*`), '').length != 0) {
-      customR = /<:[\w\d_]+:\d+>/g;
+    if (content.replace(new RegExp(`${prefix}big\\s*`), '').length !== 0) {
+      let customR = /<:[\w\d_]+:\d+>/g;
       let str = content.match(customR);
       const emojis = new Set();
       if (str && str[0]) {
@@ -34,7 +35,7 @@ module.exports = {
       }
       const entries = Array.from(emojis);
       if (emojis.size === 1) {
-        fetched = await snekfetch.get(entries[0]);
+        const fetched = await snekfetch.get(entries[0]);
         if (!fetched || !fetched.body) return reply('No emoji image found');
         return send(' ', { files: [{ attachment: fetched.body }] });
       }
@@ -45,8 +46,7 @@ module.exports = {
           embedding: true,
           image: entries,
           lockToggle: !0,
-        }, Discord
-        );
+        }, Discord);
         try {
           return await p.sendFirst();
         } catch (err) {
