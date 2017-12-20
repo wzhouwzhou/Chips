@@ -43,14 +43,17 @@ global.memberjoin = {
   autoname: {},
   antiraidEnabled: {},
   antiraidWelcome: {
-    '257889450850254848': `<@&305302877641900052> Welcome to Sinbadx Knights! **You must answer these questions to be verified and be able to speak in the other channels!**
-      1. How did you hear about this server?
-      2. If you got our invite link online (e.g. on youtube), please provide **a url** (something that looks like https://youtu.be/something) to where you got it. (We don't want a discord.gg link)
-      \tIf you got it from a friend, please tell us who like so: **SomebodyHere#1234**.
-      3. Why did you join this server?
-      4. Did you read <#348082661060771841> and <#359141257051635713>? Will you follow the rules and agree to the bot TOS?
-      5. What is your favorite diep.io tank?
-You can answer these in this channel (don't dm them!) with just a sentence or two for each, no need to write an essay!)`,
+    '257889450850254848': [
+      '**<@&305302877641900052>  Welcome to SBK, please answer these here and wait to be verified:**',
+      '1. If you got our invite online send link to webpage (not invite link) or show us a photo where' +
+        'you got our discord invite.\nIf you got it from a friend, please tell us who like so: ' +
+        '**SomebodyHere#1234**.',
+
+      '2. Please read <#348082661060771841> and <#359141257051635713>; will you follow the rules and' +
+        'agree to the bot TOS?',
+
+      '3. What is your favourite diep.io tank?',
+    ].join('\n'),
 
     '274260111415836675': `**Hello There! If you want access to other text channels, you must be verified in the process. If there are no staff online, please wait.**
       __**Here are the questions:**__
