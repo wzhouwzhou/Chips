@@ -45,11 +45,11 @@ global.memberjoin = {
   antiraidWelcome: {
     '257889450850254848': [
       '**<@&305302877641900052>  Welcome to SBK, please answer these here and wait to be verified:**',
-      '1. If you got our invite online send link to webpage (not invite link) or show us a photo where' +
+      '1. If you got our invite online send link to webpage (not invite link) or show us a photo where ' +
         'you got our discord invite.\nIf you got it from a friend, please tell us who like so: ' +
         '**SomebodyHere#1234**.',
 
-      '2. Please read <#348082661060771841> and <#359141257051635713>; will you follow the rules and' +
+      '2. Please read <#348082661060771841> and <#359141257051635713>; will you follow the rules and ' +
         'agree to the bot TOS?',
 
       '3. What is your favourite diep.io tank?',
