@@ -9,6 +9,7 @@ module.exports = {
         `tdl`,
         `wendy`,
         `masontcg`,
+        `quantiom`,
       ].map(e => `**${_.escapeRegExp(prefix)}${e}**`).join('\n'))
       .setTimestamp(new Date)
       .setColor(guild ? member.displayColor : 1)
