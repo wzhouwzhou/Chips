@@ -38,7 +38,8 @@ const get_query = async(i, ...tags) => {
 
 module.exports = {
   name: 'rule34',
-  async func(msg, { send, suffix, author, member, args, Discord }) {
+  async func(msg, { send, suffix, author, member, args, Discord, channel }) {
+    if (member && !channel.nsfw) return true;
     if (!args[0]) return send('Nothing given to search');
 
     try {
