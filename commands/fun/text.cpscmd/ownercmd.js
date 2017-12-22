@@ -5,7 +5,7 @@ const fish = [
 
 module.exports = {
   name: 'ownercmd',
-  func(msg, { send, channel, args, member, Discord }) {
+  func(msg, { send, args, member, Discord }) {
     if (args[0].match(/start/)) {
       msg.delete().catch(_ => _);
     }
@@ -14,6 +14,8 @@ module.exports = {
       send(new Discord.MessageEmbed()
         .setDescription(fish)
         .setColor(member.displayColor));
+    }
+ send(template)
     }
   },
 };
