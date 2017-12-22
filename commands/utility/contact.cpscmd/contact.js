@@ -11,6 +11,6 @@ module.exports = {
     }
   },
 }; */ 
-    send('You can contact us in Chips\'s Official Server! `-invite`');
+    send('You can contact us in Chips\'s Official Server! You can use `-support` in your Direct Messages to get a link to our server!');
   },
 };
