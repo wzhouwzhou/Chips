@@ -44,8 +44,6 @@ const neko = [
   // Lucas
   '262127229385965570',
   // Devon, for making chips logos
-  '374022684519956480',
-  // Cursed
 ];
 
 const ex = {
@@ -54,6 +52,7 @@ const ex = {
     // Send, Member, author
     // Const used = member || author;
     if (!guild) return send('You must use this command in a server.');
+    if (user.id === '374022684519956480') return send('nArBs cAnT uSe cHiPs cOmMaNds');
     if (!args[0]) return send('No user given :(');
     const target = args[0].match(/^[^]*<@!?(\d+)>[^]*$/)[1];
     const split = content.replace(/\s+/g, ' ').trim().split(' ');
