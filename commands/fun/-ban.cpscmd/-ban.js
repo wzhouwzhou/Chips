@@ -44,6 +44,8 @@ const neko = [
   // Lucas
   '262127229385965570',
   // Devon, for making chips logos
+  '389830992329703434',
+  // Katy
 ];
 
 const ex = {
@@ -81,8 +83,8 @@ const ex = {
     if (neko.indexOf(user.id) >= 0) {
       if (author.id !== '205608598233939970' && author.id !== '259209114268336129' &&
       author.id !== '250815960250974209' && author.id !== '365972456139390977') {
-        // Something Willy Edp Vee
-        setTimeout(() => { reply('go ban yourself!!!'); }, 50);
+        // Something Willy Edp Vee Lucas
+        setTimeout(() => { reply('go ban yourself!!!'); }, 200);
         return;
       }
       /* Else
