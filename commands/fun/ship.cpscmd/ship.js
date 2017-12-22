@@ -32,6 +32,11 @@ ships.set(cursedwilly, 100);
 shipComments.set(cursedwilly, '美神 🌹 We were meant to be together!');
 shipJoin.set(cursedwilly, '❤');
 
+const katywilly = '259209114268336129,389830992329703434';
+ships.set(katywilly, 200);
+shipComments.set(katywilly, 'The perfect match for each other!!');
+shipJoin.set(katywilly, '<:HUGS:393574057175547917>');
+
 module.exports = {
   name: 'ship',
   async func(msg, { send, Discord, client, suffix, member, guild }) {
