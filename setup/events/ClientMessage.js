@@ -289,7 +289,7 @@ const handleAntiDiepLink = message => new Promise(res => {
   const gid = message.guild.id;
   if (!client.antiDiepLink[gid]) return res(false);
 
-  if (message.content.replace(/\s+/g, '').match(/((?:http(?:s)?\:\/\/)?diep(?:\.)?io)?\/(?:#)?((?:(?:[0-9a-f]){2,2}){10,})(?:\/)?/i)) {
+  if (message.content.replace(/\s+/g, '').match(/(?:(?:http(?:s)?\:\/\/)?diep(?:\.)?io)?\/(?:#)?((?:(?:[0-9a-f]){2,2}){7,})(?:\/)?/i)) {
     message.reply('You are not allowed to post your diep links here!').then(mm => mm.delete({ timeout: 5000 }));
     res(message.delete());
   }
