@@ -20,6 +20,9 @@ module.exports = {
         let targetUser = msg.mentions.members.first();
         let targetRole = content.substring(content.indexOf(args[1]));
         let targetRoleSend = guild.roles.find('name', `${targetRole}`);
+        if (!targetUser) {
+          return send('Mention?');
+        }
         if (member.highestRole.position > targetRoleSend.position) {
           await targetUser.removeRole(guild.roles.find('name', `${targetRole}`));
           return send(new Discord.MessageEmbed()
