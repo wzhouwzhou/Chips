@@ -1,7 +1,7 @@
 module.exports = {
   name: 'addrole',
   async func(msg, { send, guild, args, content, member, Discord, author }) {
-    if (author.id === '166630166825664512' && guild.id === '291558782755012610') {
+    if (!author.id === 'reee' && guild.id === 'ree') {
       if (!guild) {
         return send('You cannot use this command in Direct Messages.');
       }
