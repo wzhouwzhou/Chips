@@ -115,8 +115,8 @@ const GuildMusicHandler = class MusicHandler {
     if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
     if (!ChillHopBroadcast) ChillHopBroadcast = this._client.createVoiceBroadcast();
     const ChillHop = await new Song('https://www.youtube.com/watch?v=AQBh9soLSkI', this._client.user).loadInfo();
-    this._client.musicBroadcasts.monstercat = ChillHopBroadcast;
-    ChillHopBroadcast.once('end', this.startMonstercatBroadcast.bind(this));
+    this._client.musicBroadcasts.Chillhop = ChillHopBroadcast;
+    ChillHopBroadcast.once('end', this.startChillHopBroadcast.bind(this));
     ChillHopBroadcast.on('error', Logger.error.bind(Logger));
     ChillHopBroadcast.on('warn', Logger.error.bind(Logger));
     ChillHopBroadcast.playStream(ChillHop.stream, this.broadcastOpts);
