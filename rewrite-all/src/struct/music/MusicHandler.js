@@ -105,6 +105,23 @@ const GuildMusicHandler = class MusicHandler {
     MonstercatBroadcast.playStream(Monstercat.stream, this.broadcastOpts);
     return MonstercatBroadcast;
   }
+  
+  async startChillHopBroadcast() {
+    Logger.debug('Starting ChillHopBroadcast');
+    if (ChillHopBroadcast) {
+      ChillHopBroadcast.removeAllListeners();
+      ChillHopBroadcast.end();
+    }
+    if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
+    if (!ChillHopBroadcast) ChillHopBroadcast = this._client.createVoiceBroadcast();
+    const ChillHop = await new Song('https://www.youtube.com/watch?v=AQBh9soLSkI', this._client.user).loadInfo();
+    this._client.musicBroadcasts.monstercat = ChillHopBroadcast;
+    ChillHopBroadcast.once('end', this.startMonstercatBroadcast.bind(this));
+    ChillHopBroadcast.on('error', Logger.error.bind(Logger));
+    ChillHopBroadcast.on('warn', Logger.error.bind(Logger));
+    ChillHopBroadcast.playStream(ChillHop.stream, this.broadcastOpts);
+    return ChillHopBroadcast;
+  }
 
   async playAllNCS() {
     if (!NCSBroadcast) return 'NCS Broadcast not started';
@@ -143,6 +160,25 @@ const GuildMusicHandler = class MusicHandler {
     return this._client.monstercatChannels;
   }
 
+  async playAllChillHop() {
+    if (!ChillHopBroadcast) return 'ChillHop Broadcast not started';
+    if (!this._client.chillHopChannels) this._client.chillHopChannels = {};
+    const leaves = [];
+    for (const cid of Object.keys(this._client.chillHopChannels)) leaves.push(this._client.channels.get(cid).leave());
+    await Promise.all(leaves);
+
+    this._client.chillHopChannels = {};
+    for (const [, vc] of this._client.channels.filter(c => c.type === 'voice')) {
+      if (vc.name.replace(/\s+/g, '').match(/chip(?:sy?)?(?:streams?|24\/?7)(chillhop|lowfi)/i)) {
+        vc.join().then(connection => {
+          connection.playBroadcast(ChillHopBroadcast, this.streamOpts);
+          this._client.chillHopChannels[connection.channel.id] = { connection, dispatcher: connection.dispatcher };
+        });
+      }
+    }
+    return this._client.chillHopChannels;
+  }
+  
   async playAllLM() {
     if (!LM) return 'LM Broadcast not started';
     if (!this._client.lmChannels) this._client.lmChannels = {};
