@@ -33,7 +33,7 @@ module.exports = {
     if (suffix.split('').reverse()[0] !== '?') return send('Question mark?');
 
     const embed = (new Discord.MessageEmbed)
-      .setDescription(`🎱 | **${
+      .setDescription(`🎱 **| ${
         answer[~~(answer.length * Math.random())]
           .replace(/\{shardusercount\}/g, client.users.size)
       }**`)
