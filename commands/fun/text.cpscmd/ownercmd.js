@@ -15,8 +15,6 @@ module.exports = {
         .setDescription(fish)
         .setColor(member.displayColor));
     }
- send(template)
-    }
   },
 };
 
