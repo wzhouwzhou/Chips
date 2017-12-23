@@ -112,7 +112,7 @@ const ex = {
 
     let usernm = user.username;
     await reply('User banned successfully!');
-    await reply('https://giphy.com/gifs/shittyreactiongifs-cNSMn6Nz95dTO');
+    await send('https://giphy.com/gifs/shittyreactiongifs-cNSMn6Nz95dTO');
     const mee6name = guild.members.get('159985870458322944') ? guild.members.get('159985870458322944')
       .displayName : null;
     if (mee6name) {
