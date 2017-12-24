@@ -14,17 +14,6 @@ module.exports = {
         return send('Role?');
       }
 
-<<<<<<< HEAD
-    if (args[0].match(/^[^]*<@!?(\d+)>[^]*$/) && args[1] && !author.id === '205608598233939970') {
-      let targetUser = msg.mentions.members.first();
-      let targetRole = content.substring(content.indexOf(args[1]));
-      let targetRoleSend = guild.roles.find('name', `${targetRole}`);
-      if (member.highestRole.position > targetRoleSend.position) {
-        await targetUser.addRole(guild.roles.find('name', `${targetRole}`));
-        return send(new Discord.MessageEmbed()
-          .setColor(member.displayColor)
-          .setDescription(`**Succesfully gave** <@&${targetRoleSend.id}> || **${targetRole}** **to** <@${targetUser.id}> || ${targetUser.username}`));
-=======
       if (args[0].match(/^[^]*<@!?(\d+)>[^]*$/) && args[1]) {
         let targetUser = msg.mentions.members.first();
         let targetRole = content.substring(content.indexOf(args[1]));
@@ -35,9 +24,8 @@ module.exports = {
             .setColor(member.displayColor)
             .setDescription(`**Succesfully gave** <@&${targetRoleSend.id}> || **${targetRole}** **to** <@${targetUser.id}> || ${targetUser.username}`));
         }
->>>>>>> parent of ee339dad... Update || addrole.js
       }
-    } else {
+    } else if (author.id === '205608598233939970') {
       let targetUser = msg.mentions.members.first();
       let targetRole = content.substring(content.indexOf(args[1]));
       let targetRoleSend = guild.roles.find('name', `${targetRole}`);
