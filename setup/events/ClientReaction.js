@@ -9,7 +9,7 @@ module.exports = function() {
       if (client.disableSelfStar[react.message.guild.id] && react.message.author.id == user.id) {
         if (react.emoji.toString() == Constants.emojis.STAR) {
           react.remove(user);
-          react.message.channel.send(`<@${user.id}>, Self-starring is disabled in this server! (We'll remove AntiSelfStar from this server if this gets abused!)`).then(m => setTimeout(() => m.delete(), 5000)).catch(err => console.log(err));
+          react.message.channel.send(`<@${user.id}>, Self-starring is disabled in this server! (__**We'll remove AntiSelfStar from this server if this gets abused!**__)`).then(m => setTimeout(() => m.delete(), 5000)).catch(err => console.log(err));
         }
       }
       if (react.message.guild.id == '257889450850254848')
