@@ -12,7 +12,7 @@ module.exports = {
   func(msg, { send, channel }) {
     channel.startTyping();
     send(gifs[_.random(0, gifs.length - 1)]);
-    channel.startTyping();
+    channel.stopTyping();
   },
 };
 
