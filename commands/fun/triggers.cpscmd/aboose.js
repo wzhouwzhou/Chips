@@ -1,3 +1,4 @@
+const _ = require('lodash');
 module.exports = {
   name: 'aboosed',
   func(msg, { send }) {

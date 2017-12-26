@@ -26,10 +26,12 @@ module.exports = {
         .then(mm => mm.delete({ timeout: 3000 }));
     }
 
-    (!fontlist || fontlist.length == 0) && await fetchFonts();
-    console.log(`Font to use: ${args[0]}`);
-    if (fontlist.join('').indexOf(args[0]) < 0) return reply('Invalid font given!')
-      .then(mm => mm.delete({ timeout: 3000 }));
+    if (!fontlist || fontlist.length === 0) await fetchFonts();
+    // Console.log(`Font to use: ${args[0]}`);
+    if (fontlist.join('').indexOf(args[0]) < 0) {
+      return reply('Invalid font given!')
+        .then(mm => mm.delete({ timeout: 3000 }));
+    }
     font = args[0];
     const actionReg = new RegExp(`${_.escapeRegExp(prefix)}ascii\\s+${_.escapeRegExp(font)}\\s*`, 'i');
 
@@ -43,8 +45,9 @@ module.exports = {
         asciiCooldown.set(guild.id, true);
         setTimeout(() => asciiCooldown.set(guild.id, false), COOLDOWN);
         return split.forEach(word => (word && !word.match(/\s+/)) && asciify(word, { font }, (e, r) => {
-          (r.match(/\s+/) || [''])[0].length == r.length;
-          const str = `${cb}${r && r.length < 1900 ? r : word.length < 1800 ? `too long to asciify:\n${word}` : 'something too long'}${cb}`;
+          // (r.match(/\s+/) || [''])[0].length == r.length;
+          const str = `${cb}${r && r.length < 1900 ? r : word.length < 1800 ? `too long to asciify:\n${word}` :
+            'something too long'}${cb}`;
           if (split.indexOf(word) === 0) return reply(str);
           return send(str);
         }));
@@ -58,10 +61,10 @@ module.exports = {
 
 const fetchFonts = () => new Promise((res, rej) => {
   let list = [], overflowOnce = false;
-  asciify.getFonts((err, fonts) => {
-    err && rej(err);
-    fonts.forEach(font => {
-      list.push((font + ' '.repeat(20)).substring(0, 18));
+  return asciify.getFonts((err, fonts) => {
+    if (err) return rej(err);
+    fonts.forEach(fnt => {
+      list.push((fnt + ' '.repeat(20)).substring(0, 18));
       if (list.length % 5 === 5)list.push('\n');
 
       if (list.join('').length > 1900) {
@@ -70,7 +73,7 @@ const fetchFonts = () => new Promise((res, rej) => {
         overflowOnce = true;
       }
     });
-    !overflowOnce && fontlist.push(list.join(''));
-    res(fontlist);
+    if (!overflowOnce) fontlist.push(list.join(''));
+    return res(fontlist);
   });
 });

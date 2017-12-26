@@ -3,7 +3,7 @@ const rsw = s => { let rw = ''; s.split(/\s+/).forEach(word => rw += `${rs(word)
 const cb = '```';
 ex = {
   name: 'reverse',
-  async func(msg, { reply, prefix, content }) {
+  func(msg, { reply, prefix, content }) {
     let reversed = '';
     if (~content.toLowerCase().indexOf('--keepwordorder')) {
       content = content.substring(`${prefix}reverse `.length).replace(/\s+--keepwordorder/, '');

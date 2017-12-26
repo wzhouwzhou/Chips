@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const gifs = [
   'https://i.imgur.com/th1RDAK.gif',
   'https://i.imgur.com/BvVEdP0.gif',

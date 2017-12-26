@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const gifs = [
   'https://www.tenor.co/Qpfx.gif',
   'https://www.tenor.co/JcPe.gif',
@@ -9,10 +10,7 @@ const gifs = [
 
 module.exports = {
   name: 'ree',
-  func(msg, { send, channel }) {
-    channel.startTyping();
-    send(gifs[_.random(0, gifs.length - 1)]);
-    channel.stopTyping();
+  func(msg, { send }) {
+    return send(gifs[_.random(0, gifs.length - 1)]);
   },
 };
-
