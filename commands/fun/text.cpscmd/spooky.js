@@ -21,12 +21,12 @@ module.exports = {
     let s = '';
     for (let i = 0; i < numSpaces; i++) s += ' ';
     let converted = spookymsg.split(/\s*/).join(s);
-    let bad = new Discord.MessageEmbed();
-    bad.setColor(guild ? member.displayColor : 15152469);
-    bad.setAuthor(author.tag, author.displayAvatarURL({ format: 'png', size: 2048 }));
-    bad.setDescription(converted);
+    let embed = new Discord.MessageEmbed();
+    embed.setColor(guild ? member.displayColor : 15152469);
+    embed.setAuthor(author.tag, author.displayAvatarURL({ format: 'png', size: 2048 }));
+    embed.setDescription(converted);
     channel.startTyping();
-    send({ embed: bad });
+    send(embed);
     channel.stopTyping();
   },
 };

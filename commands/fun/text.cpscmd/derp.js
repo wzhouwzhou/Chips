@@ -5,10 +5,8 @@ module.exports = {
   name: 'derp',
   async func(msg, { suffix, send, channel }) {
     if (suffix[0]) {
-      channel.startTyping();
       send(suffix.replace(/[^\s]{1,2}/g, m => `${m[0]
         .toUpperCase()}${m[1] ? m[1].toLowerCase() : ''}`));
-      return channel.stopTyping();
     } else {
       return send('', { files: [{ attachment: (await snekfetch.get(DERP)).body }] });
     }
