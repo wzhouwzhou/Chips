@@ -15,11 +15,12 @@ module.exports = {
       let desc = content.substring(content.indexOf(args[3]));
       return send(new Discord.MessageEmbed()
         .setTitle('Report', ` Sent by ${author.tag}!`)
-        .addField('Tag', `${tag}`, false)
+        .addField('Tag', `${tag}`, true)
         .addField('ID', `${id}`, true)
-        .addField('ScreenshotLink | Proof', `${link}`, false)
+        .addField('ScreenshotLink | Proof', `${link}`, true)
         .addField('Description | Information', `${desc}`, true)
-        .setColor(member.displayColor));
+        .setColor(member.displayColor)
+        .setImage(`${link}`));
     }
   },
 };
