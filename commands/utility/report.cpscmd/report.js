@@ -15,10 +15,10 @@ module.exports = {
       let desc = content.substring(content.indexOf(args[3]));
       return send(new Discord.MessageEmbed()
         .setTitle('Report', ` Sent by ${author.tag}!`)
-        .addField('Tag', `${tag}`, true)
+        .addField('Tag', `${tag}`, false)
         .addField('ID', `${id}`, true)
-        .addField('ScreenshotLink | Proof', `${link}`)
-        .addField('Description | Information', `${desc}`)
+        .addField('ScreenshotLink | Proof', `${link}`, false)
+        .addField('Description | Information', `${desc}`, true)
         .setColor(member.displayColor));
     }
   },
