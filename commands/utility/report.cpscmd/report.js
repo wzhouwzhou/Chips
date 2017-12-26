@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'git',
+  name: 'report',
   async func(msg, { guild, send, args, member, Discord, content, author }) {
     if (!guild.id === '394821147029536770') {
       return send('No access!');
