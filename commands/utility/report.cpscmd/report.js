@@ -15,7 +15,7 @@ module.exports = {
       let desc = content.substring(content.indexOf(args[3]));
       return send(new Discord.MessageEmbed()
         .setTitle('Report', ` Sent by ${author.tag}!`)
-        .addField('', '')
+        .addField(' ', ' ')
         .addField('Tag', `${tag}`)
         .addField('ID', `${id}`)
         .addField('ScreenshotLink | Proof', `${link}`)
