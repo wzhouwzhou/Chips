@@ -3,9 +3,9 @@ const snekfetch = require('snekfetch');
 
 module.exports = {
   name: 'derp',
-  async func(msg, { suffix, send, channel }) {
-    if (suffix[0]) {
-      send(suffix.replace(/[^\s]{1,2}/g, m => `${m[0]
+  async func(msg, { args, send }) {
+    if (args[0]) {
+      return send(args.join(' ').replace(/[^\s]{1,2}/g, m => `${m[0]
         .toUpperCase()}${m[1] ? m[1].toLowerCase() : ''}`));
     } else {
       return send('', { files: [{ attachment: (await snekfetch.get(DERP)).body }] });

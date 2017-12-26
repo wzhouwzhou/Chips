@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const engines = new Map([
   ['google', null],
   ['bing', 'b'],
@@ -17,18 +18,17 @@ const lmgtfy = (searchQ, engine = 'google') => {
 const grammarJoin = require('../../../rewrite-all/src/deps/functions/grammarJoinF').default({ _ });
 module.exports = {
   name: 'lmgtfy',
-  func(msg, { reply, prefix, args, suffix, channel }) {
+  func(msg, { reply, prefix, args, suffix }) {
     if (!args[0]) {
-      channel.startTyping();
-      reply(
+      return reply(
         [
           'Heres how you can use this command:',
           '{} [search engine] [query]',
           'Where [search engine] can be:',
           grammarJoin('google, bing, yahoo, aol, ask, duck (duckduckgo)'.split(/,\s*/g)),
         ].join('\n').replace(/{}/g, `${_.escapeRegExp(prefix)}${this.name}`));
-      channel.stopTyping();
     }
+    let query;
     if (args[0].match(reg) && args[1]) {
       query = suffix.substring(suffix.indexOf(args[1]));
     } else {

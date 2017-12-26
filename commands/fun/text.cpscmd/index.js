@@ -15,7 +15,6 @@ const eh = require('./eh');
 const huh = require('./huh');
 const nerd = require('./nerd');
 const oof = require('./oof');
-const ocmd = require('./ownercmd');
 
 console.log('[CPSCMD][INFO][text] Building objects...');
 
@@ -108,11 +107,6 @@ huh.metadata = eh.metadata;
 nerd.metadata = huh.metadata;
 oof.metadata = excl.metadata;
 
-ocmd.metadata = {
-  category: require('../').category,
-  perm: [['OWNER.*']],
-};
-
 console.log('[CPSCMD][INFO][text] Build objects compconste!');
 module.exports = [
   [spooky.name, spooky],
@@ -131,5 +125,4 @@ module.exports = [
   [huh.name, huh],
   [nerd.name, nerd],
   [oof.name, oof],
-  [ocmd.name, ocmd],
 ];

@@ -30,9 +30,7 @@ const a = require('nodecpp-test').arrays;
 
 module.exports = {
   name: 'fail',
-  func(msg, { send, channel }) {
-    channel.startTyping();
-    send(a.sample(fails));
-    channel.stopTyping();
+  func(msg, { send }) {
+    return send(a.sample(fails));
   },
 };

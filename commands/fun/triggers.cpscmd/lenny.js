@@ -16,9 +16,14 @@ const a = require('nodecpp-test').arrays;
 
 module.exports = {
   name: 'lenny',
+<<<<<<< HEAD
   async func(msg, { send, channel }) {
     channel.startTyping();
     await send(a.sample(lenny));
     return channel.stopTyping();
+=======
+  async func(msg, { send }) {
+    return send(a.sample(lenny));
+>>>>>>> parent of 1798b875... MASSIVE UPDATE || 25 COMMANDS HAVE .startTYPING! || FIXED TYPOS! || MADE SOME COMMANDS!! ||
   },
 };
