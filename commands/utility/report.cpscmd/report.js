@@ -14,13 +14,12 @@ module.exports = {
       let link = args[2];
       let desc = content.substring(content.indexOf(args[3]));
       return send(new Discord.MessageEmbed()
-        .setAuthor('Report', ` Sent by ${author.tag}!`)
+        .setAuthor('Report', `Sent by ${author.tag}!`)
         .addField('Tag', `${tag}`)
         .addField('ID', `${id}`)
         .addField('ScreenshotLink | Proof', `${link}`)
         .addField('Description | Information', `${desc}`)
-        .setColor(member.displayColor)
-        .setImage(`${link}`));
+        .setColor(member.displayColor));
     }
   },
 };
