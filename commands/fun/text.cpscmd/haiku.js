@@ -8,8 +8,12 @@ const lastF = require('../../../rewrite-all/src/deps/functions/lastF').default({
 
 module.exports = {
   name: 'haiku',
+<<<<<<< HEAD
   async func(msg, { send, prefix, content, args, channel }) {
     channel.startTyping();
+=======
+  async func(msg, { send, prefix, content, args }) {
+>>>>>>> parent of 1798b875... MASSIVE UPDATE || 25 COMMANDS HAVE .startTYPING! || FIXED TYPOS! || MADE SOME COMMANDS!! ||
     if (!args[0]) return send('Nothing to generate a haiku from');
     const sentence = content.substring(`${prefix}${this.name} `.length);
     const syllables = _.flatten(nlp.term(sentence).syllables());
@@ -20,6 +24,5 @@ module.exports = {
     const regs = sentence.split(/\s+/).map(e => new RegExp(`${_.escapeRegExp(e)}`, 'gi'));
     regs.forEach(e => str = str.replace(e, s => `${s} `));
     send(str);
-    channel.stopTyping();
   },
 };

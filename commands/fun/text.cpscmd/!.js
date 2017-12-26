@@ -10,9 +10,7 @@ const s1 = [
 
 module.exports = {
   name: '!',
-  func(msg, { send, suffix, channel }) {
-    channel.startTyping();
-    send(`${suffix} !${[...new Array(20)].map(() => a.sample(s1)).join('') + a.sample(['!', '?'])}`);
-    channel.stopTyping();
+  func(msg, { send, suffix }) {
+    return send(`${suffix} !${[...new Array(20)].map(() => a.sample(s1)).join('') + a.sample(['!', '?'])}`);
   },
 };

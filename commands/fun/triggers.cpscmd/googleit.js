@@ -6,9 +6,7 @@ const urls = [
 
 module.exports = {
   name: 'googleit',
-  func(msg, { send, channel }) {
-    channel.startTyping();
-    send(a.sample(urls));
-    channel.stopTyping();
+  func(msg, { send }) {
+    return send(a.sample(urls));
   },
 };

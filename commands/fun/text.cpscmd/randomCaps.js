@@ -8,9 +8,7 @@ const randomCaps = str => {
 
 module.exports = {
   name: 'randomcaps',
-  func(msg, { reply, content, prefix, channel }) {
-    channel.startTyping();
+  func(msg, { reply, content, prefix }) {
     reply(randomCaps(content.substring(`${prefix}randomcaps `.length)));
-    channel.stopTyping();
   },
 };

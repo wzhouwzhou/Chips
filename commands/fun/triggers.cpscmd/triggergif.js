@@ -12,9 +12,7 @@ const gifs = [
 
 module.exports = {
   name: 'triggergif',
-  func(msg, { send, channel }) {
-    channel.startTyping();
-    send(gifs[_.random(0, gifs.length - 1)]);
-    channel.startTyping();
+  func(msg, { send }) {
+    return send(gifs[_.random(0, gifs.length - 1)]);
   },
 };

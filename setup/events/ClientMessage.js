@@ -273,7 +273,7 @@ const handleAntiLink = message => new Promise(res => {
         return res(false);
       }
       if (invite.guild.id !== message.guild.id) {
-        message.reply('Invites are disabled in this server! You have been warned...');
+        message.reply('Invites are disabled.in this server! You have been warned...');
         message.delete().catch(() => console.log(`g${message.guild.id}: Could not delete msg (antilink)`));
         return res(true);
       }
