@@ -1,6 +1,6 @@
 let addrole = require('./addrole');
 let removerole = require('./removerole');
-let src = require('./setrolecolor')
+let src = require('./setrolecolor');
 
 console.log('[CPSCMD][MODERATION][addrole] Building objects...');
 addrole.metadata = {
@@ -8,7 +8,7 @@ addrole.metadata = {
   description: 'Work in progress!',
   usage: '-addrole',
   example: '-addrole',
-  perm: [['global.moderation.role.add']],
+  perm: [['OWNER.*']],
   customperm: ['MANAGE_ROLES'],
 };
 
@@ -18,7 +18,7 @@ removerole.metadata = {
   description: 'Work in progress!',
   usage: '-removerole',
   example: '-removerole',
-  perm: [['global.moderation.role.remove']],
+  perm: [['OWNER.*']],
   customperm: ['MANAGE_ROLES'],
 };
 
@@ -28,7 +28,7 @@ src.metadata = {
   description: 'Work in progress!',
   usage: '-setrolecolor',
   example: '-setrolecolor',
-  perm: [['global.moderation.role.setcolor']],
+  perm: [['OWNER.*']],
   customperm: ['MANAGE_ROLES'],
 };
 
