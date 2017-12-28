@@ -12,11 +12,11 @@ module.exports = {
         return send('Did you mention someone?');
       } else if (!targetRoleSend) {
         return send('Role doesn\'t exist!');
-      } else if (member.highestRole.position > targetRoleSend.position) {
+      } else if (member.highestRole.position < targetRoleSend.position) {
         return send(`${targetRoleSend} is above your highest role!`);
       } else {
         await targetUser.removeRole(guild.roles.find('name', `${targetRole}`));
-        return send(`**Succesfully gave ${targetRoleSend} to ${targetUser + []}!**`);
+        return send(`**Succesfully removed ${targetRoleSend} to ${targetUser + []}!**`);
       }
     }
   },
