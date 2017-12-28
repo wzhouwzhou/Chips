@@ -1,6 +1,6 @@
 module.exports = {
   name: 'removerole',
-  async func(msg, { send, guild, args, content }) {
+  async func(msg, { send, guild, args, content, author }) {
     if (!guild) {
       return send('You cannot use this command in Direct Messages.');
     }
@@ -12,7 +12,7 @@ module.exports = {
         return send('Did you mention someone?');
       } else if (!targetRoleSend) {
         return send('Role doesn\'t exist!');
-      } else if (targetUser.highestRole.position > targetRoleSend.position) {
+      } else if (author.highestRole.position > targetRoleSend.position) {
         return send(`${targetRoleSend} is above your highest role!`);
       } else {
         await targetUser.removeRole(guild.roles.find('name', `${targetRole}`));

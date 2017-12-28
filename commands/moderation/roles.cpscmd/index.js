@@ -8,7 +8,7 @@ addrole.metadata = {
   description: 'Work in progress!',
   usage: '-addrole',
   example: '-addrole',
-  perm: [['OWNER.*']],
+  perm: [['global.moderation.role.add']],
   customperm: ['MANAGE_ROLES'],
 };
 
@@ -18,7 +18,7 @@ removerole.metadata = {
   description: 'Work in progress!',
   usage: '-removerole',
   example: '-removerole',
-  perm: [['OWNER.*']],
+  perm: [['global.moderation.role.remove']],
   customperm: ['MANAGE_ROLES'],
 };
 
@@ -28,7 +28,7 @@ src.metadata = {
   description: 'Work in progress!',
   usage: '-setrolecolor',
   example: '-setrolecolor',
-  perm: [['OWNER.*']],
+  perm: [['global.moderation.role.setcolor']],
   customperm: ['MANAGE_ROLES'],
 };
 
