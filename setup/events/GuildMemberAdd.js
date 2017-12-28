@@ -13,7 +13,7 @@ module.exports = () => {
       if (client.memberjoin.captcha[memberguild.id]) {
         try {
           // _.random(0,1);
-          let choose = true;
+          let choose = false;
           let results;
           if (!choose) results = await antiraidCaptcha(member);
           else results = await antiraidCaptcha2(member);

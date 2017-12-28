@@ -83,7 +83,8 @@ global.memberjoin = {
     '384976959500845057': false, // Anxiety🔞
     '339930093042532363': true,
     '300727201119076352': true,
-    '291558782755012610': true, // SickMania
+    '291558782755012610': false, // SickMania
+    '295415817414377474': true,
   },
   panics: {
     0: false,
