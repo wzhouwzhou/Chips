@@ -21,7 +21,7 @@ module.exports = {
     if (args[0].match(reg) && content.substring(content.indexOf(args[1]))) {
       let role = guild.roles.find('name', `${content.substring(content.indexOf(args[1]))}`);
       let hexcolor = args[0];
-      if (role && (member.highestRole.position > role.position)) {
+      if (role && (member.highestRole.position < role.position)) {
         await role.setColor(`${hexcolor}`);
         return send(`Role color set to ${hexcolor}!`);
       } else if (!role) {
