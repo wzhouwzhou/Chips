@@ -16,7 +16,7 @@ module.exports = {
         return send(`${targetRoleSend} is above your highest role!`);
       } else {
         await targetUser.addRole(guild.roles.find('name', `${targetRole}`));
-        return send(`**Succesfully gave ${targetRoleSend} to ${targetUser + []}!**`);
+        return send(`**Succesfully gave ${targetRole} to ${targetUser + []}!**`);
       }
     }
   },

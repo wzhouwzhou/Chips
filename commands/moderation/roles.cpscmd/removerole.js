@@ -16,7 +16,7 @@ module.exports = {
         return send(`${targetRoleSend} is above your highest role!`);
       } else {
         await targetUser.removeRole(guild.roles.find('name', `${targetRole}`));
-        return send(`**Succesfully removed ${targetRoleSend} to ${targetUser + []}!**`);
+        return send(`**Succesfully removed ${targetRole} to ${targetUser + []}!**`);
       }
     }
   },
