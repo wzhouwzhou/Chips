@@ -13,4 +13,5 @@ emojis.metadata = {
 console.log('[CPSCMD][INFO][emojis] Build objects complete!');
 module.exports = [
   [emojis.name, emojis],
+  ['emotes', emojis],
 ];
