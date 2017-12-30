@@ -12,4 +12,6 @@ console.log('[CPSCMD][UTILITY][perm] Build objects complete!');
 module.exports = [
   [permsin.name, permsin],
   ['permsin', permsin],
+  ['permissions', permsin],
+  ['chperms', permsin],
 ];
