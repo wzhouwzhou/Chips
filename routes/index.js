@@ -8,9 +8,9 @@ router.get('/', (req, res) => {
     snek.get('http://localhost:8880/api/membercount').then(mc => {
       res.render('index', {
         timestamp: new Date().toString(),
-        servercount: gc.body ? gc.body.count : 500,
-        // Fallback on Nov 1 14:48 PM stats
-        membercount: mc.body ? mc.body.count > 106000 ? mc.body.count : 106422 : null,
+        servercount: gc.body ? gc.body.count : 1064,
+        // Fallback on Dec 30 15:52:32.653 EST stats
+        membercount: mc.body ? mc.body.count > 179000 ? mc.body.count : 179907 : null,
       });
     });
   });
