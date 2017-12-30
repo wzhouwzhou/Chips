@@ -45,7 +45,7 @@ global.memberjoin = {
   antiraidWelcome: {
     '257889450850254848': [
       '**<@&305302877641900052>  Welcome to SBK, please answer these here and wait to be verified:**',
-      '1. If you got our invite online send link to webpage (not invite link) or show us a photo where ' +
+      '1. If you got our invite online **send link** to webpage (not invite link) or **show us a photo** where ' +
         'you got our discord invite.\nIf you got it from a friend, please tell us who like so: ' +
         '**SomebodyHere#1234**.',
 

@@ -36,7 +36,7 @@ module.exports = () => {
             if (SBKWC) {
               const embed = new Discord.MessageEmbed();
               embed.setDescription([
-                '1. If you got our invite online send link to webpage (not invite link) or show us a photo where ' +
+                '1. If you got our invite online **send link** to webpage (not invite link) or **show us a photo** where ' +
                   'you got our discord invite.\nIf you got it from a friend, please tell us who like so: ' +
                   '**SomebodyHere#1234**.',
 
