@@ -1,6 +1,9 @@
+/* eslint complexity: 'off' */
+const path = require('path');
+const _ = require('lodash');
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
 
-ex = {};
+const ex = {};
 
 ex.name = '-vs';
 ex.func = async(msg, {
@@ -13,12 +16,14 @@ ex.func = async(msg, {
   reply,
   Discord,
   client,
+  Constants,
 }) => {
   if (!guild) return reply('You must use this in a server!');
   if (!args[0]) return reply('No action given :(');
 
   let action = args[0].toLowerCase();
   switch (action) {
+    case 'user':
     case 'ok': {
       if (!args[1]) return reply('No user given :<');
       let targetMember;
@@ -26,15 +31,20 @@ ex.func = async(msg, {
         const target = args[1].match(Constants.patterns.MENTION)[1];
         const user = gMember(target).user;
         targetMember = guild.members.get(user.id);
-        console.log(`[VS](ok) Target: ${target}`);
+        // Console.log(`[VS](ok) Target: ${target}`);
       } catch (err) {
         return reply(`Invalid user specified`);
       }
 
-      if (targetMember.roles.get('305302877641900052') == null && targetMember.roles.find('name', 'unverified') == null && targetMember.roles.find('name', 'Unverified') == null && targetMember.roles.find('name', 'Unverified-Personel') == null) return reply(`User does not have the unverified role!`);
+      if (!targetMember.roles.get('305302877641900052') && !targetMember.roles.find('name', 'unverified') &&
+        !targetMember.roles.find('name', 'Unverified') && !targetMember.roles.find('name', 'Unverified-Personel')) {
+        return reply(`User does not have the unverified role!`);
+      }
       try {
-        let therole = targetMember.roles.find('name', 'unverified') || targetMember.roles.find('name', 'Unverified') || targetMember.roles.find('name', 'Unverified-Personel');
-        await targetMember.removeRole(guild.roles.get('305302877641900052') || therole, `${author.nickname} verified ${targetMember.nickname}!`);
+        let therole = targetMember.roles.find('name', 'unverified') || targetMember.roles.find('name', 'Unverified') ||
+          targetMember.roles.find('name', 'Unverified-Personel');
+        await targetMember.removeRole(guild.roles.get('305302877641900052') || therole, `${author.nickname} verified ${
+          targetMember.nickname}!`);
         if (client.memberjoin.verifyLogC[guild.id]) {
           let embed = new Discord.MessageEmbed();
           embed.setTitle('Member Verification').setColor(_.random(1, 16777215));

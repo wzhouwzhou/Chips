@@ -13,4 +13,6 @@ vs.metadata = {
 console.log('[CPSCMD][MODERATION][mutes] Build objects complete!');
 module.exports = [
   [vs.name, vs],
+  ['verify', vs],
+  ['verification', vs],
 ];
