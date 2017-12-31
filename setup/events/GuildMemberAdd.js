@@ -3,8 +3,8 @@ global.SBKWC = true;
 const algebra = require('../../handlers/algebra-0.2.6.min');
 const fs = require('fs');
 const _ = require('lodash');
-module.exports = (client = client) => {
-  client.on('guildMemberAdd', async member => {
+module.exports = () => {
+  global.client.on('guildMemberAdd', async member => {
     let memberguild = member.guild;
     let userid = member.user.id;
 
