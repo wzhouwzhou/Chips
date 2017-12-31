@@ -1,8 +1,9 @@
 const Jimp = require('jimp');
 global.SBKWC = true;
 const algebra = require('../../handlers/algebra-0.2.6.min');
-
-module.exports = () => {
+const fs = require('fs');
+const _ = require('lodash');
+module.exports = (client = client) => {
   client.on('guildMemberAdd', async member => {
     let memberguild = member.guild;
     let userid = member.user.id;
@@ -146,13 +147,19 @@ const handleAutoRole = (gid, mem) => {
   if (client.memberjoin.autorole[gid] && mem.guild.roles.get(client.memberjoin.autorole[gid])) mem.addRole(mem.guild.roles.get(client.memberjoin.autorole[gid]));
 };
 
+const noconfusion = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J',
+  'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'X', 'Y', 'Z'];
+
 const antiraidCaptcha = mem => new Promise((res, rej) => {
   mem.died = false;
   let guild = mem.guild;
   let timestamp = process.hrtime();
   let captchaText = Math.random().toString(36).replace(/[^a-z,\d]+/g, '')
     .substring(1, 8)
-    .toUpperCase();
+    .toUpperCase()
+    .replace(/I/g, 'L')
+    .replace(/U/g, 'V')
+    .replace(/[O0]/g, () => _.sample(noconfusion));
 
   let image = new Jimp(256, 256);
   let filepath = `${mem.id}.captcha.${timestamp}.${image.getExtension()}`;
@@ -162,8 +169,10 @@ const antiraidCaptcha = mem => new Promise((res, rej) => {
     image.blur(2);
 
     image.write(filepath, async() => {
-      let sentmsg = await mem.user.send(`${mem}, Hello! You just joined the server \`\`${guild.name}\`\` which has an antiraid enabled.
-          **To start the verification process, please respond with the letters and numbers you see in this image (not case sensitive):** `,
+      let sentmsg = await mem.user.send(
+        [`${mem}, Hello! You just joined the server \`\`${guild.name}\`\` which has an antiraid enabled.`,
+          '**To start the verification process, please respond with the letters and numbers you see',
+          'in this image (not case sensitive):**'].join``,
         { files: [filepath] });
       fs.unlinkSync(filepath);
 
@@ -171,15 +180,15 @@ const antiraidCaptcha = mem => new Promise((res, rej) => {
 
       let memIsBlind = 0;
       const filter = m => {
-        if (m.author.id != mem.id) return false;
+        if (m.author.id !== mem.id) return false;
 
-        if (m.content.toUpperCase() == captchaText) {
-          console.log(m.content);
+        if (m.content.toUpperCase() === captchaText) {
           return true;
         } else {
-          if (mem.died == false) {
+          if (mem.died === false) {
             memIsBlind++;
-            thisDmC.send(`Incorrect! (${3 - memIsBlind > 0 ? `${3 - memIsBlind} tries left, please try again!` : 'Sorry, you have failed the captcha too many times'})`);
+            thisDmC.send(`Incorrect! (${3 - memIsBlind > 0 ? `${3 - memIsBlind} tries left, please try again!` :
+              'Sorry, you have failed the captcha too many times'})`);
             if (memIsBlind >= 3) {
               mem.died = true;
               rej([mem, 'failed captcha']);
@@ -189,7 +198,7 @@ const antiraidCaptcha = mem => new Promise((res, rej) => {
           return false;
         }
       };
-      thisDmC.awaitMessages(filter, { max: 1, time: 5 * 60 * 1000, errors: ['time'] })
+      thisDmC.awaitMessages(filter, { max: 1, time: 60 * 1000, errors: ['time'] })
         .then(collected => {
           if (!mem.died) {
             console.log(collected.size);
@@ -199,6 +208,7 @@ const antiraidCaptcha = mem => new Promise((res, rej) => {
           }
         }).catch(collected => {
           if (collected.size == 0 && mem.died == false) {
+            thisDmC.send('You did not respond in time! You can join back and solve a new captcha to be verified.');
             console.log(`After 5 minutes, the user did not respond.`);
             mem.died = true;
             rej([mem, 'timeout']);
