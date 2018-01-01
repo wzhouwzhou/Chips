@@ -8,13 +8,16 @@ module.exports = {
     console.log(chalk.bold.bgBlue.green(`${author.tag} `) + chalk.bgWhite.red(`${author.id} `) + chalk.black.bgWhite(guild.id) + chalk.cyan(' [Avatar] '));
     let targetmember = msg.mentions.members;
     if (!targetmember || targetmember.size < 1) {
+      let AvatarImage = author.displayAvatarURL();
+      let AvatarRegex = /^((?:https?:\/\/)cdn\.discordapp\.com\/avatars\/\d+\/\w+\.(?:jpe?g|png|gif|webp))\?size=\d+$/;
+      const AvatarImageSelection = AvatarRegex .test(AvatarImage ) ? AvatarImage .match(AvatarRegex )[1] : AvatarImage;
       let hrTime = process.hrtime(start);
 
       const selftar = new Discord.MessageEmbed()
         .setTitle(`Avatar Image of ${author.tag} `, ``, true)
         .setColor(guild ? msg.member.displayColor : 71340)
-        .addField('Avatar Link: ', `[Click Here](${author.avatarURL({ format: 'png', size: 2048 }) || author.displayAvatarURL({ format: 'png', size: 2048 })})`)
-        .setImage(author.avatarURL({ format: 'png', size: 2048 }));
+        .addField('Avatar Link: ', `[Click Here](${AvatarImageSelection})`)
+        .setImage(AvatarImageSelection );
 
       let µs = false;
       let end = hrTime[0] * 1000 + hrTime[1] / 1000000;
@@ -28,12 +31,14 @@ module.exports = {
       return send({ embed: selftar });
     } else {
       const memberList = new Map();
-
+      let AvatarImage = member.user.displayAvatarURL();
+      let AvatarRegex = /^((?:https?:\/\/)cdn\.discordapp\.com\/avatars\/\d+\/\w+\.(?:jpe?g|png|gif|webp))\?size=\d+$/;
+      const AvatarImageSelection = AvatarRegex .test(AvatarImage ) ? AvatarImage .match(AvatarRegex )[1] : AvatarImage;
       targetmember.forEach(member => {
         memberList.set(member.id, {
           title: `Avatar Image of ${member.user.tag} `,
-          page: ['Avatar Link: ', `[Click Here](${member.user.avatarURL({ format: 'png', size: 2048 }) || member.user.displayAvatarURL({ format: 'png', size: 2048 })})`],
-          image: member.user.displayAvatarURL({ format: 'png', size: 2048 }),
+          page: ['Avatar Link: ', `[Click Here](${AvatarImageSelection})`],
+          image: AvatarImageSelection,
         });
       });
       const pages = [], title = [], image = [];
