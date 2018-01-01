@@ -171,7 +171,7 @@ const antiraidCaptcha = mem => new Promise((res, rej) => {
     image.write(filepath, async() => {
       let sentmsg = await mem.user.send(
         [`${mem}, Hello! You just joined the server \`\`${guild.name}\`\` which has an antiraid enabled.`,
-          '**To start the verification process, please respond with the letters and numbers you see',
+          '**To start the verification process, please respond with the letters and numbers you see ',
           'in this image (not case sensitive):**'].join``,
         { files: [filepath] });
       fs.unlinkSync(filepath);
