@@ -3,7 +3,7 @@ const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Pa
 
 module.exports = {
   name: 'avatar',
-  async func(msg, { send, Discord, author, guild, reply }) {
+  async func(msg, { send, Discord, author, member, guild, reply }) {
     let start = process.hrtime();
     console.log(chalk.bold.bgBlue.green(`${author.tag} `) + chalk.bgWhite.red(`${author.id} `) + chalk.black.bgWhite(guild.id) + chalk.cyan(' [Avatar] '));
     let targetmember = msg.mentions.members;
@@ -31,10 +31,10 @@ module.exports = {
       return send({ embed: selftar });
     } else {
       const memberList = new Map();
-      let AvatarImage = member.user.displayAvatarURL();
-      let AvatarRegex = /^((?:https?:\/\/)cdn\.discordapp\.com\/avatars\/\d+\/\w+\.(?:jpe?g|png|gif|webp))\?size=\d+$/;
-      const AvatarImageSelection = AvatarRegex .test(AvatarImage ) ? AvatarImage .match(AvatarRegex )[1] : AvatarImage;
       targetmember.forEach(member => {
+        let AvatarImage = member.user.displayAvatarURL();
+        let AvatarRegex = /^((?:https?:\/\/)cdn\.discordapp\.com\/avatars\/\d+\/\w+\.(?:jpe?g|png|gif|webp))\?size=\d+$/;
+        const AvatarImageSelection = AvatarRegex .test(AvatarImage ) ? AvatarImage .match(AvatarRegex )[1] : AvatarImage;
         memberList.set(member.id, {
           title: `Avatar Image of ${member.user.tag} `,
           page: ['Avatar Link: ', `[Click Here](${AvatarImageSelection})`],
