@@ -41,7 +41,7 @@ const cmds = [
   ],
 ];
 
-let NCSBroadcast, MonstercatBroadcast, LM;
+let NCSBroadcast, MonstercatBroadcast, LM, ChillHopBroadcast;
 
 const GuildMusicHandler = class MusicHandler {
   constructor(guildid, client) {
@@ -106,7 +106,7 @@ const GuildMusicHandler = class MusicHandler {
     return MonstercatBroadcast;
   }
   
-  /*async startChillHopBroadcast() {
+  async startChillHopBroadcast() {
     Logger.debug('Starting ChillHopBroadcast');
     if (ChillHopBroadcast) {
       ChillHopBroadcast.removeAllListeners();
@@ -121,7 +121,7 @@ const GuildMusicHandler = class MusicHandler {
     ChillHopBroadcast.on('warn', Logger.error.bind(Logger));
     ChillHopBroadcast.playStream(ChillHop.stream, this.broadcastOpts);
     return ChillHopBroadcast;
-  }*/
+  }
 
   async playAllNCS() {
     if (!NCSBroadcast) return 'NCS Broadcast not started';
@@ -160,7 +160,7 @@ const GuildMusicHandler = class MusicHandler {
     return this._client.monstercatChannels;
   }
 
-  /*async playAllChillHop() {
+  async playAllChillHop() {
     if (!ChillHopBroadcast) return 'ChillHop Broadcast not started';
     if (!this._client.chillHopChannels) this._client.chillHopChannels = {};
     const leaves = [];
@@ -177,7 +177,7 @@ const GuildMusicHandler = class MusicHandler {
       }
     }
     return this._client.chillHopChannels;
-  }*/
+  }
   
   async playAllLM() {
     if (!LM) return 'LM Broadcast not started';
