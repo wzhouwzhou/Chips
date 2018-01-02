@@ -65,6 +65,7 @@ router.use('/api/guildcount', (req, res) => {
 
 router.use('/api/usage', (req, res) => {
   Manager.broadcastEval(`{ ram: (~~(100*process.memoryUsage().heapUsed / 1024 / 1024))/100 }`).then(results => {
+    console.log(results);
     if (!req.query.callback) {
       res.json({ ram: results.reduce((p, v) => p.ram + v, 0) })
     } else res.send(`${req.query.callback}(${JSON.stringify({ ram: results.reduce((p, v) => p.ram + v, 0) })})`);
