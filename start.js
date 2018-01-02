@@ -61,7 +61,6 @@ const posting = async() => {
     .send({ shards });
 };
 setInterval(posting, 30 * 60 * 1000);
-posting();
 
 router.use('/api/ram', (req, res) => {
   Manager.broadcastEval(`(~~(100*process.memoryUsage().rss / 1024 / 1024))/100`).then(results => {
