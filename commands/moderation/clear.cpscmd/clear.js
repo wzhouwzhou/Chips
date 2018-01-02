@@ -22,7 +22,7 @@ module.exports = {
     }
 
     let nmsgs = parseInt(args[0]);
-    if (nmsgs.toString() != args[0]) return reply(`Please enter a valid number of messages to clear.`);
+    if (nmsgs.toString() !== args[0]) return reply(`Please enter a valid number of messages to clear.`);
 
     let result;
     try {
