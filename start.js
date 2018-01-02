@@ -68,7 +68,7 @@ router.use('/api/ram', (req, res) => {
 });
 
 router.use('/api/cpu', (req, res) => {
-  Manager.broadcastEval(`Math.ceil(require('os').loadavg()[0] * 1000) / 10`).then(results => {
+  Manager.broadcastEval(`Math.ceil(require('os').loadavg()[0] * 100) / 100`).then(results => {
     if (!req.query.callback) {
       res.json({ p: results.reduce((p, v) => p + v, 0) });
     } else {
