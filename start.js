@@ -43,20 +43,11 @@ router.use((req, res, next) => {
 
 router.use('/api/guildcount', (req, res) => {
   Manager.broadcastEval(`this.guilds.size`).then(results => {
-    if (!req.query.callback)
-      res.json({ count: results.reduce((p, v) => p + v, 0) })
-    else res.send(`${req.query.callback}(${JSON.stringify({ count: results.reduce((p, v) => p + v, 0) })})`);
-  }).catch(err => {
-    console.error(err);
-    return res.json({ error: err });
-  });
-});
-
-router.use('/api/guildcount', (req, res) => {
-  Manager.broadcastEval(`this.guilds.size`).then(results => {
     if (!req.query.callback) {
-      res.json({ count: results.reduce((p, v) => p + v, 0) })
-    } else res.send(`${req.query.callback}(${JSON.stringify({ count: results.reduce((p, v) => p + v, 0) })})`);
+      res.json({ count: results.reduce((p, v) => p + v, 0) });
+    } else {
+      res.send(`${req.query.callback}(${JSON.stringify({ count: results.reduce((p, v) => p + v, 0) })})`);
+    }
   }).catch(err => {
     console.error(err);
     return res.json({ error: err });
@@ -64,22 +55,40 @@ router.use('/api/guildcount', (req, res) => {
 });
 
 router.use('/api/ram', (req, res) => {
-  Manager.broadcastEval(`(~~(100*process.memoryUsage().heapUsed / 1024 / 1024))/100`).then(results => {
-    console.log(results);
+  Manager.broadcastEval(`(~~(100*process.memoryUsage().rss / 1024 / 1024))/100`).then(results => {
     if (!req.query.callback) {
-      res.json({ mb: results.reduce((p, v) => p + v, 0) })
-    } else res.send(`${req.query.callback}(${JSON.stringify({ mb: results.reduce((p, v) => p + v, 0) })})`);
+      res.json({ mb: results.reduce((p, v) => p + v, 0) });
+    } else {
+      res.send(`${req.query.callback}(${JSON.stringify({ mb: results.reduce((p, v) => p + v, 0) })})`);
+    }
   }).catch(err => {
     console.error(err);
     return res.json({ error: err });
   });
-})
+});
+
+router.use('/api/cpu', (req, res) => {
+  Manager.broadcastEval(`Math.ceil(require('os').loadavg()[0] * 1000) / 10`).then(results => {
+    if (!req.query.callback) {
+      res.json({ p: results.reduce((p, v) => p + v, 0) });
+    } else {
+      res.send(`${req.query.callback}(${JSON.stringify({ p: results.reduce((p, v) => p + v, 0) })})`);
+    }
+  }).catch(err => {
+    console.error(err);
+    return res.json({ error: err });
+  });
+});
 
 router.use('/api/membercount', (req, res) => {
   Manager.broadcastEval(`let m = 0; this.guilds.forEach(g=>m+=g.members.size); m`)
-    .then(results =>
-      res.json({ count: results.reduce((p, v) => p + v, 0) })
-    ).catch(err => {
+    .then(results => {
+      if (!req.query.callback) {
+        res.json({ count: results.reduce((p, v) => p + v, 0) })
+      } else {
+        res.send(`${req.query.callback}(${JSON.stringify({ count: results.reduce((p, v) => p + v, 0) })})`);
+      }
+    }).catch(err => {
       console.error(err);
       return res.json({ error: err });
     });
