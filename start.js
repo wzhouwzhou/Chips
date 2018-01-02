@@ -57,9 +57,9 @@ router.use('/api/guildcount', (req, res) => {
 router.use('/api/ram', (req, res) => {
   Manager.broadcastEval(`(~~(100*process.memoryUsage().rss / 1024 / 1024))/100`).then(results => {
     if (!req.query.callback) {
-      res.json({ mb: results.reduce((p, v) => p + v, 0) });
+      res.json({ mb: results.reduce((p, v) => p + v, 0).toFixed(2) });
     } else {
-      res.send(`${req.query.callback}(${JSON.stringify({ mb: results.reduce((p, v) => p + v, 0) })})`);
+      res.send(`${req.query.callback}(${JSON.stringify({ mb: results.reduce((p, v) => p + v, 0).toFixed(2) })})`);
     }
   }).catch(err => {
     console.error(err);
@@ -70,9 +70,9 @@ router.use('/api/ram', (req, res) => {
 router.use('/api/cpu', (req, res) => {
   Manager.broadcastEval(`Math.ceil(require('os').loadavg()[0] * 100) / 100`).then(results => {
     if (!req.query.callback) {
-      res.json({ p: results.reduce((p, v) => p + v, 0) });
+      res.json({ p: results.reduce((p, v) => p + v, 0).toFixed(2) });
     } else {
-      res.send(`${req.query.callback}(${JSON.stringify({ p: results.reduce((p, v) => p + v, 0) })})`);
+      res.send(`${req.query.callback}(${JSON.stringify({ p: results.reduce((p, v) => p + v, 0).toFixed(2) })})`);
     }
   }).catch(err => {
     console.error(err);
