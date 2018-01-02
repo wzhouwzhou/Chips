@@ -55,10 +55,14 @@ router.use('/api/guildcount', (req, res) => {
 });
 const snek = require('snekfetch');
 const posting = async() => {
-  const shards = await Manager.broadcastEval(`this.guilds.size`);
-  snek.post('https://discordbots.org/api/bots/296855425255473154/stats')
-    .set('Authorization', process.env.DBLTOKEN)
-    .send({ shards });
+  try {
+    const shards = await Manager.broadcastEval(`this.guilds.size`);
+    await snek.post('https://discordbots.org/api/bots/296855425255473154/stats')
+      .set('Authorization', process.env.DBLTOKEN)
+      .send({ shards });
+  } catch (err) {
+    //
+  }
 };
 setInterval(posting, 30 * 60 * 1000);
 
