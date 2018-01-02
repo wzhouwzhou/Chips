@@ -53,6 +53,15 @@ router.use('/api/guildcount', (req, res) => {
     return res.json({ error: err });
   });
 });
+const snek = require('snekfetch');
+const posting = async() => {
+  const shards = await Manager.broadcastEval(`this.guilds.size`);
+  snek.post('https://discordbots.org/api/bots/296855425255473154/stats')
+    .set('Authorization', process.env.DBLTOKEN)
+    .send({ shards });
+};
+setInterval(posting, 30 * 60 * 1000);
+posting();
 
 router.use('/api/ram', (req, res) => {
   Manager.broadcastEval(`(~~(100*process.memoryUsage().rss / 1024 / 1024))/100`).then(results => {
