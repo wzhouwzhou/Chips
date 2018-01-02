@@ -56,10 +56,10 @@ router.use('/api/guildcount', (req, res) => {
 const snek = require('snekfetch');
 const posting = async() => {
   try {
-    const shards = await Manager.broadcastEval(`this.guilds.size`);
+    const shardarr = await Manager.broadcastEval(`this.guilds.size`);
     await snek.post('https://discordbots.org/api/bots/296855425255473154/stats')
       .set('Authorization', process.env.DBLTOKEN)
-      .send({ shards });
+      .send({ shards: shardarr });
   } catch (err) {
     //
   }
