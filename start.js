@@ -42,9 +42,11 @@ router.use((req, res, next) => {
 });
 
 router.use('/api/guildcount', (req, res) => {
-  Manager.broadcastEval(`this.guilds.size`).then(results =>
-    res.json({ count: results.reduce((p, v) => p + v, 0) })
-  ).catch(err => {
+  Manager.broadcastEval(`this.guilds.size`).then(results => {
+    if (!req.query.callback)
+      res.json({ count: results.reduce((p, v) => p + v, 0) })
+    else res.send(`${req.query.callback}(${JSON.stringify({ count: results.reduce((p, v) => p + v, 0) })})`);
+  }).catch(err => {
     console.error(err);
     return res.json({ error: err });
   });
