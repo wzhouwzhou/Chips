@@ -8,13 +8,13 @@ A public version of this bot can be added with https://invite.chipsbot.me/ but t
 </a>
 
 ## Useful Links
- [Homepage](https://chipsbot.me)
+ • [Homepage](https://chipsbot.me)
  
- [Invite](https://invite.chipsbot.me)
+ • [Invite](https://invite.chipsbot.me)
  
- [Support Server](https://support.chipsbot.me)
+ • [Support Server](https://support.chipsbot.me)
  
- [Donate](https://paypal.me/wzhouwzhou)
+ • [Donate](https://paypal.me/wzhouwzhou)
 
 ## Innovative yet easy-to-use features
   • Board games like Chess with AI and connect four with customisable board size
