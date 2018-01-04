@@ -81,7 +81,7 @@ global.memberjoin = {
     '359801125882298378': true,
     '295601523050676226': true,
     '384976959500845057': false, // Anxiety🔞
-    '339930093042532363': false,
+    '339930093042532363': true,
     '300727201119076352': true,
     '291558782755012610': false, // SickMania
     '295415817414377474': false,
@@ -210,7 +210,7 @@ function selfping() {
     results.forEach(shardStat => {
       memtotals += shardStat;
     });
-    if (memtotals > 700) clientutil.broadcastEval('process.exit(100)');
+    if (memtotals > 1700) clientutil.broadcastEval('process.exit(100)');
   });
 }
 
