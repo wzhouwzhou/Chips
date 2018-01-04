@@ -7,14 +7,18 @@ module.exports = {
       return send('You need to use this command in a guild!');
     }
 
+<<<<<<< HEAD
+    if (!args[0] || !args[0].match(reg) || !args[0].match(reset)) {
+=======
     // Args[0] === hex color
     // Content == Role
 
-    if (!args[0].match(reg)) {
+    if (!args[0] || !args[0].match(reg)) {
+>>>>>>> parent of b0dff72d... Update || setrolecolor.js "resets rolecolor"
       return send('Hex color?');
     }
 
-    if (args[0].match(reg) && !content.substring(content.indexOf(args[1]))) {
+    if ((args[0].match(reg) || args[0].match(reset)) && !content.substring(content.indexOf(args[1]))) {
       return send('Role?');
     }
 
@@ -32,4 +36,3 @@ module.exports = {
     }
   },
 };
-
