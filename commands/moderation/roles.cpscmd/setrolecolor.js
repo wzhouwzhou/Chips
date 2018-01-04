@@ -8,11 +8,11 @@ module.exports = {
       return send('You need to use this command in a guild!');
     }
 
-    if (!args[0] || !args[0].match(reg)) {
+    if (!args[0] || !args[0].match(reg) || !args[0].match(reset)) {
       return send('Hex color?');
     }
 
-    if (args[0].match(reg) && !content.substring(content.indexOf(args[1]))) {
+    if ((args[0].match(reg) || args[0].match(reset)) && !content.substring(content.indexOf(args[1]))) {
       return send('Role?');
     }
 
