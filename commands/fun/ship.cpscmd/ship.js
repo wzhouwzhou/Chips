@@ -42,6 +42,11 @@ ships.set(xenaincy, 100);
 shipComments.set(xenaincy, 'Nerd confirmed!!!!!');
 shipJoin.set(xenaincy, '<:xenablob:393827310769537037>❤');
 
+const xenrjt = '192060404501839872,260024920757633025';
+ships.set(xenrjt, 500);
+shipComments.set(xenaincy, 'o-o');
+shipJoin.set(xenaincy, '<:xenablob:393827310769537037>❤');
+
 module.exports = {
   name: 'ship',
   async func(msg, { send, Discord, client, suffix, member, guild }) {
