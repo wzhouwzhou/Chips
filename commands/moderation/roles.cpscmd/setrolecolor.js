@@ -10,7 +10,7 @@ module.exports = {
     // Args[0] === hex color
     // Content == Role
 
-    if (!args[0].match(reg)) {
+    if (!args[0] || !args[0].match(reg)) {
       return send('Hex color?');
     }
 
@@ -32,4 +32,3 @@ module.exports = {
     }
   },
 };
-
