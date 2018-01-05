@@ -93,7 +93,7 @@ const msghandle = async message => {
     if ((m.member.permissions.bitfield & 8192) === 8192) return true;
     if (/^[AQSC]:/i.test(m.content)) return true;
     m.delete().catch(__ => __);
-    m.send([
+    m.channel.send([
       `C: <:pins:398946003434340362> **${_.escapeRegExp(m.author.tag).replace(/@/g, '(at)')}**`,
       ', you **must** follow the format in pins to chat in here to not get muted!',
     ].join``).then(__ => __.delete({ timeout: 9000 }));
