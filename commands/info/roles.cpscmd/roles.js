@@ -26,7 +26,7 @@ module.exports = {
         .get('http://api.localhost:51001/table')
         .set('X-Data', pack([['|-- Role name --|', 'Count'], ...list]).toString('base64'))
         .set('X-Data-Transform', 'ERLPACK64')
-        .then(r => Discord.Util.splitMessage(r.body.data, { size: 900 }));
+        .then(r => Discord.Util.splitMessage(r.body.data, { maxLength: 900 }));
 
       if (Array.isArray(eached)) {
         const temp = [];
