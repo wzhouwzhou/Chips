@@ -37,9 +37,9 @@ module.exports = {
         }
         fields.push(temp);
       } else {
-        fields.push(['\u200B',
+        fields.push([['\u200B',
           `${'\x60'.repeat(3)}css\n${eached.replace(new RegExp('\x60', 'g'),
-            () => '\x60\u200B')}${'\x60'.repeat(3)}`]);
+            () => '\x60\u200B')}${'\x60'.repeat(3)}`]]);
       }
     }
 
