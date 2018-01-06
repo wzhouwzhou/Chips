@@ -32,7 +32,7 @@ module.exports = {
         .set('X-Data-ID', i);
     });
 
-    for (const eached of await Promise.all(data3)
+    for (const eached of (await Promise.all(data3))
       .sort((a, b) => b.body.id - a.body.id)
       .map(r => Discord.Util.splitMessage(r.body.data, { maxLength: 975 }))
     ) {
