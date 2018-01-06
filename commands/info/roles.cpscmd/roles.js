@@ -24,13 +24,18 @@ module.exports = {
 
     const data2 = split(data, { clone: true, size: 10 });
     const fields = [];
-    for (const list of data2) {
-      const eached = await require('snekfetch')
+    const data3 = data2.map((list, i) => {
+      return require('snekfetch')
         .get('http://api.localhost:51001/table')
         .set('X-Data', pack([['|-- Role name --|', 'Count'], ...list]).toString('base64'))
         .set('X-Data-Transform', 'ERLPACK64')
-        .then(r => Discord.Util.splitMessage(r.body.data, { maxLength: 975 }));
+        .set('X-Data-ID', i);
+    });
 
+    for (const eached of await Promise.all(data3)
+      .sort((a, b) => b.body.id - a.body.id)
+      .map(r => Discord.Util.splitMessage(r.body.data, { maxLength: 975 }))
+    ) {
       if (Array.isArray(eached)) {
         const temp = [];
         for (const mytext of eached) {
@@ -55,8 +60,8 @@ module.exports = {
       [
         ...fields,
       ],
-    }, Discord
-    );
+    }, Discord);
+
     try {
       return await p.sendFirst();
     } catch (err) {
