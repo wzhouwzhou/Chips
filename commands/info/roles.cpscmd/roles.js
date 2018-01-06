@@ -1,5 +1,6 @@
 /* eslint no-await-in-loop: 'off' */
 const _ = require('lodash');
+const snek = require('snekfetch');
 const split = require('../../../rewrite-all/src/deps/functions/splitChunkF').default({ _ });
 const { Paginator } = require('../../../rewrite-all/src/struct/client/Paginator');
 const { pack } = require('erlpack');
@@ -23,16 +24,18 @@ module.exports = {
       });
 
     const data2 = split(data, { clone: true, size: 10 });
-    const fields = [];
-    const data3 = data2.map((list, i) => {
-      return require('snekfetch')
-        .get('http://api.localhost:51001/table')
+    const fields = [], chunks = [];
+    const data2chunked = split(data2, { clone: true, size: 10 });
+    for (const chunk of data2chunked) {
+      chunks.push(await Promise.all(chunk.map((list, i) => snek.get('http://api.localhost:51001/table')
         .set('X-Data', pack([['|-- Role name --|', 'Count'], ...list]).toString('base64'))
         .set('X-Data-Transform', 'ERLPACK64')
-        .set('X-Data-ID', i);
-    });
+        .set('X-Data-ID', i)
+      )));
+    }
+    const data3 = _.flatten(chunks);
 
-    for (const eached of (await Promise.all(data3))
+    for (const eached of data3
       .sort((a, b) => b.body.id - a.body.id)
       .map(r => Discord.Util.splitMessage(r.body.data, { maxLength: 975 }))
     ) {
