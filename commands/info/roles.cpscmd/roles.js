@@ -25,7 +25,7 @@ module.exports = {
 
     const data2 = split(data, { clone: true, size: 10 });
     const fields = [], chunks = [];
-    const data2chunked = split(data2, { clone: true, size: 10 });
+    const data2chunked = split(data2, { clone: true, size: 5 });
     for (const chunk of data2chunked) {
       chunks.push(await Promise.all(chunk.map((list, i) => snek.get('http://api.localhost:51001/table')
         .set('X-Data', pack([['|-- Role name --|', 'Count'], ...list]).toString('base64'))
