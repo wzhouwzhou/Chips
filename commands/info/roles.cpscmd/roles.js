@@ -25,20 +25,17 @@ module.exports = {
 
     const data2 = split(data, { clone: true, size: 10 });
     const fields = [], chunks = [];
-    const data2chunked = split(data2, { clone: true, size: 5 });
+    const data2chunked = split(data2, { clone: true, size: 3 });
     for (const chunk of data2chunked) {
-      chunks.push(await Promise.all(chunk.map((list, i) => snek.get('http://api.localhost:51001/table')
+      chunks.push((await Promise.all(chunk.map((list, i) => snek.get('http://api.localhost:51001/table')
         .set('X-Data', pack([['|-- Role name --|', 'Count'], ...list]).toString('base64'))
         .set('X-Data-Transform', 'ERLPACK64')
         .set('X-Data-ID', i)
-      )));
+      ))).sort((a, b) => b.body.id - a.body.id));
     }
     const data3 = _.flatten(chunks);
 
-    for (const eached of data3
-      .sort((a, b) => b.body.id - a.body.id)
-      .map(r => Discord.Util.splitMessage(r.body.data, { maxLength: 975 }))
-    ) {
+    for (const eached of data3.map(r => Discord.Util.splitMessage(r.body.data, { maxLength: 975 }))) {
       if (Array.isArray(eached)) {
         const temp = [];
         for (const mytext of eached) {
