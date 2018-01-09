@@ -12,7 +12,6 @@ addrole.metadata = {
   customperm: ['MANAGE_ROLES'],
 };
 
-console.log('[CPSCMD][MODERATION][removerole] Building objects...');
 removerole.metadata = {
   category: require('../').category,
   description: 'Work in progress!',
@@ -22,7 +21,6 @@ removerole.metadata = {
   customperm: ['MANAGE_ROLES'],
 };
 
-console.log('[CPSCMD][MODERATION][setrolecolor] Building objects...');
 src.metadata = {
   category: require('../').category,
   description: 'Work in progress!',
