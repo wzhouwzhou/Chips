@@ -21,8 +21,9 @@ module.exports = {
     } else if (member.highestRole.position < targetRoleSend.position) {
       return send(`${targetRoleSend.name.replace(/@/, '(at)')} is above your highest role!`);
     } else {
-      await targetUser.removeRole(guild.roles.find('name', `${targetRole}`));
-      return send(`**Succesfully removed ${targetRole.name.replace(/@/, '(at)')} from ${targetUser + []}!**`);
+      const toRemove = guild.roles.find('name', `${targetRole}`);
+      await targetUser.removeRole(toRemove);
+      return send(`**Succesfully removed ${toRemove.name.replace(/@/, '(at)')} from ${targetUser + []}!**`);
     }
   },
 };

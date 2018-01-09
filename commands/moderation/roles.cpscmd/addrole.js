@@ -21,8 +21,9 @@ module.exports = {
     } else if (member.highestRole.position < targetRoleSend.position) {
       return send(`${targetRoleSend.name.replace(/@/, '(at)')} is above your highest role!`);
     } else {
-      await targetUser.addRole(guild.roles.find('name', `${targetRole}`));
-      return send(`**Succesfully gave ${targetRole.name.replace(/@/, '(at)')} to ${targetUser + []}!**`);
+      const toAdd = guild.roles.find('name', `${targetRole}`);
+      await targetUser.addRole(toAdd);
+      return send(`**Succesfully gave ${toAdd.name.replace(/@/, '(at)')} to ${targetUser + []}!**`);
     }
   },
 };
