@@ -91,7 +91,7 @@ const msghandle = async message => {
   const handleSupportFormat = m => {
     if (m.channel.id !== '286208220974940161' || !m.member) return true;
     if ((m.member.permissions.bitfield & 8192) === 8192) return true;
-    if (/^[AQSC]:[^]*$/i.test(m.content)) return true;
+    if (/^[AQSCR]:[^]*$/i.test(m.content)) return true;
     m.delete().catch(__ => __);
     m.channel.send([
       `C: <:pins:398946003434340362> **${_.escapeRegExp(m.author.tag).replace(/@/g, '(at)')}**`,
