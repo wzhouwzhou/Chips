@@ -1,4 +1,4 @@
-/* eslint complexity: 'off' */
+/* eslint complexity: 'off', max-depth: 'off' */
 const path = require('path');
 const _ = require('lodash');
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
@@ -8,6 +8,7 @@ const ex = {};
 ex.name = '-vs';
 ex.func = async(msg, {
   send,
+  member,
   channel,
   author,
   guild,
@@ -43,10 +44,13 @@ ex.func = async(msg, {
       try {
         let therole = targetMember.roles.find('name', 'unverified') || targetMember.roles.find('name', 'Unverified') ||
           targetMember.roles.find('name', 'Unverified-Personel');
-        await send(`${targetMember + []
-        }, you are now verified and will soon have access to the other chats in the server!`);
-        await targetMember.removeRole(guild.roles.get('305302877641900052') || therole, `${author.nickname} verified ${
-          targetMember.nickname}!`);
+        const ver = new Discord.MessageEmbed()
+          .setTitle(`${targetMember.user.tag
+          }, you are now verified and will soon have access to the other chats in the server!`);
+
+        await send(targetMember + [], { embed: ver });
+        await targetMember.removeRole(guild.roles.get('305302877641900052') || therole,
+          `${member.displayName} verified ${targetMember.nickname}!`);
         if (client.memberjoin.verifyLogC[guild.id]) {
           let embed = new Discord.MessageEmbed();
           embed.setTitle('Member Verification').setColor(_.random(1, 16777215));
@@ -259,18 +263,22 @@ ex.func = async(msg, {
       const unverChan = guild.channels.find('name', 'unverified');
       if (!unverRole || !unverChan) return reply('Uh oh! Antiraid role and channel names are not set properly');
       const channels = guild.channels.filter(c => c.type === 'text');
-      for (const channel of channels.values()) {
-        await channel.overwritePermissions(unverRole, {
+      const cproms = [];
+      send('Regenerating permissions...');
+      for (const c of channels.values()) {
+        cproms.push(c.overwritePermissions(unverRole, {
           SEND_MESSAGES: false,
-        });
+        }));
       }
+
+      await Promise.all(cproms);
 
       await unverChan.overwritePermissions(unverRole, {
         SEND_MESSAGES: true,
         READ_MESSAGES: true,
       });
 
-      return reply('Done!');
+      return send('Done!');
     }
   }
 };
