@@ -43,6 +43,8 @@ ex.func = async(msg, {
       try {
         let therole = targetMember.roles.find('name', 'unverified') || targetMember.roles.find('name', 'Unverified') ||
           targetMember.roles.find('name', 'Unverified-Personel');
+        await send(`${targetMember + []
+        }, you are now verified and will soon have access to the other chats in the server!`);
         await targetMember.removeRole(guild.roles.get('305302877641900052') || therole, `${author.nickname} verified ${
           targetMember.nickname}!`);
         if (client.memberjoin.verifyLogC[guild.id]) {
