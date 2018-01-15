@@ -7,7 +7,7 @@ triggered.metadata = {
   description: 'This command lets you make a triggered pfp through Chips!',
   usage: 'triggered <mention user>',
   example: 'triggered @Evildeathpro#4442',
-  perm: [['global.fun.triggered.triggered']],
+  perm: [['global.fun.image.triggered']],
 };
 
 console.log('[CPSCMD][FUN][triggered] Build objects complete!');
