@@ -7,7 +7,7 @@ const { pack } = require('erlpack');
 
 module.exports = {
   name: 'roles',
-  async func(msg, { send, guild, member, args, Discord, prefix }) {
+  async func(msg, { send, guild, member, args, Discord, prefix, Constants }) {
     if (!guild) return send('You must be in a server to use this!');
     if (args[0] && args[0].toLowerCase() === 'all') {
       return send(new Discord.MessageEmbed().setColor(member.displayColor).setTitle(`Role List (${guild.roles.size})`)
@@ -27,7 +27,7 @@ module.exports = {
     const fields = [], chunks = [];
     const data2chunked = split(data2, { clone: true, size: 3 });
     for (const chunk of data2chunked) {
-      chunks.push((await Promise.all(chunk.map((list, i) => snek.get('http://api.localhost:51001/table')
+      chunks.push((await Promise.all(chunk.map((list, i) => snek.get(`${Constants.APIURL}table`)
         .set('X-Data', pack([['|-- Role name --|', 'Count'], ...list]).toString('base64'))
         .set('X-Data-Transform', 'ERLPACK64')
         .set('X-Data-ID', i)
