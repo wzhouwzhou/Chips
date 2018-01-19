@@ -1,5 +1,6 @@
 /* eslint complexity: 'off' */
 // Client Message Events
+const _ = require('lodash');
 let slSwitcher = false, helper3 = false;
 global.testC, global.nLogs, global.sLogs, global.sxLogs, global.stLogs, global.snLogs;
 global.sLogs2;
@@ -86,6 +87,19 @@ const msghandle = async message => {
       message.reply('**LANGUAGE!!**').then(mm=>mm.delete({timeout: 2000}));
       message.delete();
     }*/
+
+  const handleSupportFormat = m => {
+    if (m.channel.id !== '286208220974940161' || !m.member) return true;
+    if ((m.member.permissions.bitfield & 8192) === 8192) return true;
+    if (/^[AQSCR]:[^]*$/i.test(m.content)) return true;
+    m.delete().catch(__ => __);
+    m.channel.send([
+      `C: <:pins:398946003434340362> **${_.escapeRegExp(m.author.tag).replace(/@/g, '(at)')}**`,
+      ', you **must** follow the format in pins to chat in here to not get muted!',
+    ].join``).then(__ => __.delete({ timeout: 9000 }));
+    return false;
+  };
+  handleSupportFormat(message);
 
 
   // prefix!

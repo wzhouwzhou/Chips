@@ -1,34 +1,37 @@
-const reg = /#([\da-fA-F]{2})([\da-fA-F]{2})([\da-fA-F]{2})/;
+const reset = /reset/i;
+const reg = /#((?:[0-9a-f]{2}){3})/i;
 
 module.exports = {
   name: 'setrolecolor',
-  async func(msg, { send, guild, args, member, content }) {
+  async func(msg, { send, guild, args, member, suffix, Discord, prefix }) {
     if (!guild) {
       return send('You need to use this command in a guild!');
     }
-
-    if (!args[0] || !args[0].match(reg) || !args[0].match(reset)) {
-    // Args[0] === hex color
-    // Content == Role
-
-    if (!args[0] || !args[0].match(reg)) {
-      return send('Hex color?');
+    if (!args[0]) {
+      const embed = new Discord.MessageEmbed()
+        .setTitle('Invalid usage')
+        .setDescription(`${prefix}${this.name} [color] [Role name]`);
+      return send(embed);
     }
 
-    if ((args[0].match(reg) || args[0].match(reset)) && !content.substring(content.indexOf(args[1]))) {
-      return send('Role?');
+    if (!args[0].match(reg) || !args[0].match(reset)) {
+      return send('Invalid hex color provided');
     }
 
-    if (args[0].match(reg) && content.substring(content.indexOf(args[1]))) {
-      let role = guild.roles.find('name', `${content.substring(content.indexOf(args[1]))}`);
+    if (!args[1]) {
+      return send('No role provided');
+    }
+
+    if (args[0].match(reg) && suffix.substring(args[1].length + 1)) {
+      let role = guild.roles.find('name', `${suffix.substring(args[0].length + 1).trim()}`);
       let hexcolor = args[0];
       if (role && (member.highestRole.position > role.position)) {
         await role.setColor(`${hexcolor}`);
         return send(`Role color set to ${hexcolor}!`);
       } else if (!role) {
-        return send(`${role} not found!`);
+        return send(`Role not found!`);
       } else {
-        return send('Not enoguh permissions!');
+        return send('Not enough permissions!');
       }
     }
   },

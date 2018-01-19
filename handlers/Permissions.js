@@ -71,8 +71,9 @@ ex.permsList = [
   ['global.fun.text.ascii', true],
   ['global.fun.text.derp', true],
   ['global.fun.text.haiku', true],
-  ['global.fun.triggered.*', true],
-  ['global.fun.triggered.triggered', true],
+  ['global.fun.image.*', true],
+  ['global.fun.image.triggered', true],
+  ['global.fun.image.invert', true],
   ['global.fun.triggers.*', true],
   ['global.fun.triggers.aboose', true], // 6
   ['global.fun.triggers.confoosed', true],
@@ -675,6 +676,5 @@ ex.rebuildDefaults = () => {
   ex.userpermissions[Constants.users.WILLYZ] = n;
   ex.userpermissions[Constants.users.EVILDEATHPRO] = n;
 };
-
-module.exports = ex;
 ex.rebuildDefaults();
+module.exports = ex;

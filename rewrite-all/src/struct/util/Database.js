@@ -243,6 +243,40 @@ const Database = class Database extends EventEmitter {
     });
     return result;
   }
+
+  attachChanges_EachCB(tablename, eachcallback) {
+    this.rethink
+      .table(tablename)
+      .changes()
+      .run(eachcallback);
+  }
+
+  attachChanges_GeneralCB(tablename, callback) {
+    this.rethink
+      .table(tablename)
+      .changes()
+      .run(callback);
+  }
+
+  attachChanges_FilterGT(tablename, itemname = 'id', callback) {
+    this.rethink
+      .table(tablename)
+      .changes()
+      .filter(
+        this.rethink.row('new_val')(itemname).gt(this.rethink.row('old_val')(itemname))
+      )
+      .run(callback);
+  }
+
+  attachChanges_FilterGT_onlyNew(tablename, itemname = 'id', callback) {
+    this.rethink
+      .table(tablename)
+      .changes()
+      .filter(
+        this.rethink.row('new_val')(itemname).gt(this.rethink.row('old_val')(itemname))
+      )('new_val')
+      .run(callback);
+  }
 };
 
 /**

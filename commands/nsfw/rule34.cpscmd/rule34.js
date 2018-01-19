@@ -49,7 +49,7 @@ module.exports = {
       const ext = url.substr(url.lastIndexOf('.'));
       const embed = new Discord.MessageEmbed()
         .setTitle(`Rule34 Search: ${suffix}`)
-        .attachFiles([{ attachment: `http:${url}`, name: `file${ext}` }])
+        .attachFiles([{ attachment: url, name: `file${ext}` }])
         .setImage(`attachment://file${ext}`)
         .setColor(member ? member.displayColor : 407394)
         .setFooter(`Requested by ${author.tag}`)
