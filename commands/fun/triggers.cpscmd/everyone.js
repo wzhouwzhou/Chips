@@ -12,6 +12,7 @@ const gifs = [
   'https://cdn.discordapp.com/attachments/360171866964623361/373629631074664448/FTB2stB.gif',
   'https://imgur.com/a/bvmVK',
   'https://imgur.com/a/ooQEP',
+  'https://imgur.com/a/6ycgs',
 ];
 
 
