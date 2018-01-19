@@ -53,6 +53,19 @@ router.use('/api/guildcount', (req, res) => {
     return res.json({ error: err });
   });
 });
+
+router.use('/api/channelcount', (req, res) => {
+  Manager.broadcastEval(`this.channels.size`).then(results => {
+    if (!req.query.callback) {
+      res.json({ count: results.reduce((p, v) => p + v, 0) });
+    } else {
+      res.send(`${req.query.callback}(${JSON.stringify({ count: results.reduce((p, v) => p + v, 0) })})`);
+    }
+  }).catch(err => {
+    console.error(err);
+    return res.json({ error: err });
+  });
+});
 const snek = require('snekfetch');
 const posting = async() => {
   try {
