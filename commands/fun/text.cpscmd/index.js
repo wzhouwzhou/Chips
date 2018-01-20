@@ -1,4 +1,5 @@
 /* eslint no-console: 'off' */
+const achievement = require('./achievement');
 const spooky = require('./spooky');
 const reverse = require('./reverse');
 const rotate = require('./rotate');
@@ -125,4 +126,5 @@ module.exports = [
   [huh.name, huh],
   [nerd.name, nerd],
   [oof.name, oof],
+  [achievement.name, achievement],
 ];
