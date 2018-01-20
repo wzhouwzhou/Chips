@@ -9,7 +9,8 @@ const default_options = {
 
 module.exports = {
   name: 'achievement',
-  async func(msg, { suffix, send, Discord }) {
+  async func(msg, { suffix, send, Discord, args }) {
+    if (!args[0]) return send('No achievement text given.');
     const opts = Object.assign({}, default_options, {
       t: suffix,
     });
@@ -17,7 +18,7 @@ module.exports = {
     const url = `${base}${qs.stringify(opts)}`;
 
     const result = await snek.get(url);
-    send(new Discord.MessageAttachment(result.body, 'file.png'));
+    return send(new Discord.MessageAttachment(result.body, 'file.png'));
   },
   metadata: {
     category: require('../').category,
