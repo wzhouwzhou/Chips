@@ -10,6 +10,7 @@ let triggergif = require('./triggergif');
 let everyone = require('./everyone');
 let googleit = require('./googleit');
 let ree = require('./ree');
+let hug = require('./hug');
 
 console.log('[CPSCMD][FUN][triggers] Building objects...');
 aboosed.metadata = {
@@ -94,6 +95,16 @@ ree.metadata = {
 
 };
 
+hug.metadata = {
+  category: require('../').category,
+  description: 'Hug!',
+  usage: 'hug',
+  example: 'hug',
+  perm: [['global.fun.triggers.*']],
+
+};
+
+
 console.log('[CPSCMD][FUN][triggers] Build objects complete!');
 module.exports = [
   [aboosed.name, aboosed],
@@ -110,4 +121,5 @@ module.exports = [
   [everyone.name, everyone],
   [googleit.name, googleit],
   [ree.name, ree],
+  [hug.name, hug],
 ];
