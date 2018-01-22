@@ -4,15 +4,14 @@ const ONLINE = 'https://i.imgur.com/Yj3vYDB.png';
 const IDLE = 'https://i.imgur.com/IYAtFOU.png';
 const DND = 'https://i.imgur.com/Hij38VX.png';
 const INVIS = 'https://i.imgur.com/dQZuSIR.png';
-
+const fs = require('fs');
 const m6r = require('../../../rewrite-all/src/deps/functions/mee6rankF').default({ needle: require('needle') });
 
 const ex = {
   name: 'mee6rank',
   async func(msg, { send, author, guild, args, gMember, reply, content, prefix, Discord }) {
-    send('Mee6rank is currently disabled due to issues interacting with mee6 api, apologies');
-    /*
-    Removing for now
+    // send('Mee6rank is currently disabled due to issues interacting with mee6 api, apologies');
+
     let member = msg.member;
     const waitingE = new Discord.MessageEmbed().attachFiles(['loading.gif']).setAuthor('Loading...', 'attachment://loading.gif', 'http://chipsbot.tk')
       .setColor(msg.member.displayColor);
@@ -101,7 +100,6 @@ const ex = {
       await send('', { embed });
       return fs.unlinkSync(name);
     }
-    */
   },
 };
 
