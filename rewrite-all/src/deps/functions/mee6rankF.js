@@ -3,7 +3,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 exports.default = ({ needle = require('needle') } = {}) => {
   const m6api = 'https://api.mee6.xyz/plugins/levels/leaderboard/';
-  const m6apiSuffix = '?page=';
+  const m6apiSuffix = '?limit=1000&page=';
   const mee6Rank = (sid, uid, page = 0) => new Promise((res, rej) => {
     if (!sid) rej(new Error('No server id'));
     if (!uid) rej(new Error('No user id'));
