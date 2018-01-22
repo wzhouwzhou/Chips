@@ -25,7 +25,7 @@ exports.default = ({ needle = require('needle') } = {}) => {
       }
       const filter = user => user.id === uid;
       const userI = members.findIndex(filter);
-      if (userI === undefined || userI === null || userI < 0) return res(exports.default(sid, uid, page + 1));
+      if (userI === undefined || userI === null || userI < 0) return res(mee6Rank(sid, uid, page + 1));
       const userO = members[userI];
       const data = Object.assign({}, userO,
         {
