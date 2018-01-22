@@ -9,6 +9,7 @@ module.exports = {
 
       if (!cache.has(target.id)) {
         const result = await require('snekfetch').get(`${Constants.APIURL}triggered`)
+          .set('Authorization', process.env.RETHINKPSWD)
           .set('src', target.displayAvatarURL({ format: 'png', size: 2048 }));
         const buffer = result.body instanceof Buffer ? result.body : Buffer.from(result.body, 'base64');
         cache.set(target.id, buffer);
