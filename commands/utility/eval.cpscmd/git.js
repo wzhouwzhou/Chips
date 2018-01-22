@@ -18,7 +18,7 @@ module.exports = {
     if (whitelist.indexOf(author.id) < 0) return true;
     // Console.log(`Prohibited access to git to user ${author.id}`);
     let result = null;
-    if (~'p pull pool puel pael peul pol pu pul pol pae'.split(/\s+/).indexOf(args[0])) {
+    if (~'p pull pool puel pael peul pol pu pul pol pae gud'.split(/\s+/).indexOf(args[0])) {
       result = await exec('git pull');
       await send(new Discord.MessageEmbed().setColor(member ? member.displayColor : 0x1213EE).setDescription(result.substring(0, 1800)));
     }
