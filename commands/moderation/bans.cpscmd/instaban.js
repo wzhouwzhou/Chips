@@ -42,5 +42,6 @@ module.exports = {
         msg.reply('Could not dm the user, but banning anyway!');
         return memberToUse.ban({ reason: `[BAN]: [Author]: ${msg.author.tag} [Reason]: ${reason}` });
       }));
+    }
   },
 };
