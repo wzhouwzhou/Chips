@@ -117,6 +117,7 @@ global.memberjoin = {
     '257889450850254848': '260864259330801674',
     '250801092143611905': '329719279132082176',
     '274260111415836675': '320220288195493890',
+    '350750159988064256': '404608646174081025',
   },
 };
 
@@ -131,6 +132,7 @@ client.disableSelfStar = {
   '302600674846310401': true,
   '323867107840229376': true,
   '274260111415836675': true,
+  '350750159988064256': true,
 };
 const { BotDatabase } = require('./rewrite-all/src/struct/util/BotDatabase');
 client.database = new BotDatabase(client);// Require(path.join(__dirname, './setup/db/DatabaseLoader'));
