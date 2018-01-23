@@ -22,7 +22,7 @@ module.exports = {
       () => r(send(new Discord.MessageEmbed()
         .attachFiles([f])
         .setImage(`attachment://${f}`)
-        .setTitle(`${(msg.mentions.users.first() || author).tag} wanted dead or alive`)
+        .setTitle(`${(msg.mentions.users.first() || author).tag} is wanted dead or alive`)
         .setColor(member ? member.displayColor : 1349842)
       ).then(() => fs.unlinkSync(f)))
     ));
