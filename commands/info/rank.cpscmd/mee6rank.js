@@ -93,7 +93,7 @@ const ex = {
         console.log(`[Mee6Rank] ${info}`);
       } catch (err) {
         if (!member.hasPermission(this.metadata.customperm[0])) {
-          console.log(`Rejected mee6rank self to ${used.id}`);
+          // Console.log(`Rejected mee6rank self to ${used.id}`);
           return reply(err);
         }
       }
@@ -168,7 +168,7 @@ const userData = (member, infobad, name) => new Promise(async res => {
     infobad.setDescription('User is not ranked!');
   } else {
     infobad.addField(`Ranked ${data.rank}/${data.lb_length}`, `Level ${data.lvl} with ${data.total_xp} total xp!`);
-    infobad.addField(`Level xp: ${data.xp}/${data.lvl_xp}`, `${data.xp_percent}% (${data.lvl_xp - data.xp} xp) there to level ${data.lvl + 1}!`);
+    infobad.addField(`Level xp: ${data.xp}/${data.lvl_xp}`, `${data.xp_percent}% (${data.remaining_xp} xp) there to level ${data.lvl + 1}!`);
   }
   infobad.setColor(member.displayColor);
   pfp.write(name, () => {
