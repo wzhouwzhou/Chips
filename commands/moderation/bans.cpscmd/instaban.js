@@ -8,9 +8,6 @@ module.exports = {
       let chipstarget = (args[0].match(Constants.users.CHIPS) || [0, null])[1];
       if (!target) return reply('Please specify a valid user to ban!');
       memberToUse = gMember(target);
-      let mMember = message.mentions.members.first();
-      if (mMember.highestRole.position >= author.highestRole.position) {
-        return reply("That member's highest role is higher or equal in position to yours!");
       if (chipstarget) return send('You can\'t ban me!');
       if (!memberToUse) return reply('Invalid member!');
       if (member.id === memberToUse.id) return reply("I can't let you ban yourself >.>");
@@ -42,6 +39,5 @@ module.exports = {
         msg.reply('Could not dm the user, but banning anyway!');
         return memberToUse.ban({ reason: `[BAN]: [Author]: ${msg.author.tag} [Reason]: ${reason}` });
       }));
-    }
   },
 };
