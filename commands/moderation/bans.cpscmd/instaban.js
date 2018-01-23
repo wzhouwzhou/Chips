@@ -11,6 +11,7 @@ module.exports = {
       if (chipstarget) return send('You can\'t ban me!');
       if (!memberToUse) return reply('Invalid member!');
       if (member.id === memberToUse.id) return reply("I can't let you ban yourself >.>");
+      if (memberToUse.highestRole.position >= member.highestRole.position) return reply("That member's highest role is higher or equal in position to yours!");
     } catch (err) {
       send('Could not ban...');
       throw err;
