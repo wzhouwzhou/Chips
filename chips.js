@@ -55,6 +55,18 @@ global.memberjoin = {
       '3. What is your favourite diep.io tank?',
     ].join('\n'),
 
+    '350750159988064256': [
+      '**<@&404611847124156417>  Welcome to SinxSquad, please answer these here and wait to be verified:**',
+      '1. If you got our invite online **send link** to webpage (not invite link) or **show us a photo** where ' +
+        'you got our discord invite.\nIf you got it from a friend, please tell us who like so: ' +
+        '**SomebodyHere#1234**.',
+
+      '2. Please read <#350836867006201866>; will you follow the rules and ' +
+        'agree to the bot TOS?',
+
+      '3. What is your favourite diep.io tank?',
+    ].join('\n'),
+
     '274260111415836675': `**Hello There! If you want access to other text channels, you must be verified in the process. If there are no staff online, please wait.**
       __**Here are the questions:**__
       **1.** __How did you get here?__
