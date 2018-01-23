@@ -5,7 +5,10 @@ const IDLE = 'https://i.imgur.com/IYAtFOU.png';
 const DND = 'https://i.imgur.com/Hij38VX.png';
 const INVIS = 'https://i.imgur.com/dQZuSIR.png';
 const fs = require('fs');
-const m6r = require('../../../rewrite-all/src/deps/functions/mee6rankF').default({ needle: require('needle') });
+// Const m6r = require('../../../rewrite-all/src/deps/functions/mee6rankF').default({ needle: require('needle') });
+
+const m6r = async(gid, uid) => (await require('snekfetch')
+  .get(`https://api.chipsbot.me:2087/mee6?gid=${gid}&uid=${uid}`)).body;
 
 const ex = {
   name: 'mee6rank',
