@@ -9,7 +9,6 @@ module.exports = {
     if (!member) return reply('Please mention a valid member of this server');
 
     if (!member.voiceChannel) return reply('Member is not in a voice channel!');
-    if (member.highestRole.position >= author.highestRole.position) return reply("That member's highest role is higher than or equal to the position to yours!");
     if (member.serverMute) { return send(`${member} is already server silenced!`); } else {
       member.setMute(true);
       return send(`${member} was silenced successfully!`);
