@@ -1,12 +1,15 @@
 /* eslint complexity: 'off', no-console: 'off', max-len: 'off' */
+const path = require('path');
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
 const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Paginator;
 const Jimp = require('jimp');
-
+const _ = require('lodash');
 const ONLINE = 'https://i.imgur.com/Yj3vYDB.png';
 const IDLE = 'https://i.imgur.com/IYAtFOU.png';
 const DND = 'https://i.imgur.com/Hij38VX.png';
 const INVIS = 'https://i.imgur.com/dQZuSIR.png';
+
+let helpembed = null;
 
 const ex = {
   name: 'info',
@@ -14,19 +17,34 @@ const ex = {
     let start = process.hrtime();
     const used = member || author;
     let action;
-    if (!args[0]) return send('No action given :(');
+    if (!helpembed) {
+      helpembed = new Discord.MessageEmbed();
+      helpembed.setTitle('The Info Command');
+      helpembed.setDescription([
+        'This command must be used with a given "action":',
+        '**{} user [@ mention or fuzzy search]** returns info about a member in a server\\*',
+        '**{} channel [#channel or fuzzy search]** returns info about a particular channel\\*',
+        '**{} guild** returns info about the server you are in\\*',
+        '**{} role [@ mention or fuzzy search] returns info about a role\\*',
+        '**{} bot** shows some basic info about me!',
+        'Any subcommands with a \\* following their usage must be used in a server',
+      ].join('\n').replace(/\{\}/g, `${_.escapeRegExp(prefix)}${this.name}`));
+    }
+    if (!args[0]) return send(helpembed);
     else action = args[0];
 
-    console.log(`[Info] Action: ${action}`);
-    console.log(`[Info] Creating new searcher for guild ${guild.id}`);
-    let options = { guild: guild };
-    global.searchers[guild.id] = new Searcher(options.guild);
+    // Console.log(`[Info] Action: ${action}`);
+    // Console.log(`[Info] Creating new searcher for guild ${guild.id}`);
+    if (guild) {
+      let options = { guild: guild };
+      global.searchers[guild.id] = new Searcher(options.guild);
+    }
     let infobad = new Discord.MessageEmbed().setColor(member ? member.displayColor : `#${((1 << 24) * Math.random() | 0).toString(16)}`
     ).setFooter(new Date());
 
     if (action === 'bot') {
       try {
-        let info = await permissions.checkMulti(msg, ['public.info.*']);
+        await global.permissions.checkMulti(msg, ['public.info.*']);
       } catch (err) {
         return msg.reply(err);
       }
@@ -36,12 +54,14 @@ const ex = {
         'I am here to make your life a little bit more exciting! Fun and games, music, utilies, quick and easy moderation, as well as informational commands, I have it all!',
         `Do **${_.escapeRegExp(prefix)}help** to see a list of my commands, or **${_.escapeRegExp(prefix)}stats** to see my real-time statistics!`,
         'Read more about me on my [website](https://chipsbot.me:2087/) or join the [support server](https://support.chipsbot.me/)!',
-        'To add me to your server, click [here](https://invite.chipsbot.me)'
+        'To add me to your server, click [here](https://invite.chipsbot.me)',
       ].join('\n'));
-      return send(infobad)
-    } else if (action == 'server') {
+      return send(infobad);
+    }
+    if (!guild) return send(helpembed);
+    if (action === 'server') {
       try {
-        let info = await permissions.checkMulti(msg, ['global.info.info.server']);
+        let info = await global.permissions.checkMulti(msg, ['global.info.info.server']);
         console.log(`[Command] ${info}`);
       } catch (err) {
         if (!member.hasPermission('global.info.info.server')) {
