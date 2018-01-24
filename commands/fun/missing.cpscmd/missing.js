@@ -1,30 +1,32 @@
-const JR = require('util').promisify(require('jimp').read);
-const fs = require('fs');
-const [a_, b_, c_, d_, e_, f_] = [600, 613, 225, 115, 320, 2048];
-
-let mm;
+const snek = require('snekfetch');
+const cache = new Map;
 
 module.exports = {
   name: 'missing',
-  async func(msg, { member, send, channel, author, Discord }) {
-    if (!mm) {
-      mm = (await JR('https://cdn.discordapp.com/attachments/307493997184679937/384574611104333825/missing.jpg'))
-        .resize(a_, b_);
-    }
-    const ava = (await JR(
-      (msg.mentions.users.first() || author)
-        .displayAvatarURL({ format: 'jpg', size: f_ }))
-    ).resize(c_, c_);
+  async func(msg, { member, send, channel, author, Discord, Constants }) {
+    channel.startTyping();
+    try {
+      const target = msg.mentions.users.first() || author;
+      const hash = target.avatar || target.id;
+      if (!cache.has(hash)) {
+        const result = await snek.get(`${Constants.APIURL}missing`)
+          .set('Authorization', process.env.RETHINKPSWD)
+          .set('src', target.displayAvatarURL({ format: 'png', size: 2048 }));
+        const buffer = result.body instanceof Buffer ? result.body : Buffer.from(result.body, 'base64');
+        cache.set(hash, buffer);
+      }
 
-    const photo = await mm.clone().blit(ava, d_, e_);
-    const f = `${author.id}.${channel.id}.${Date.now()}.missing.png`;
-    return new Promise(r => photo.write(f,
-      () => r(send(new Discord.MessageEmbed()
-        .attachFiles([f])
-        .setImage(`attachment://${f}`)
+      send(new Discord.MessageEmbed()
+        .setColor(member ? member.displayColor : 134984)
+        .attachFiles([{ attachment: cache.get(hash), name: 'image.png' }])
+        .setImage('attachment://image.png')
         .setTitle(`Have you seen ${(msg.mentions.users.first() || author).tag}?`)
-        .setColor(member ? member.displayColor : 1349842)
-      ).then(() => fs.unlinkSync(f)))
-    ));
+        .setFooter(`Requested by: ${author.tag}`));
+      return channel.stopTyping();
+    } catch (err) {
+      send('Inverted avatar generation failed...');
+      channel.stopTyping();
+      throw err;
+    }
   },
 };
