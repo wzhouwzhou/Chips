@@ -23,6 +23,12 @@ module.exports = send => {
 
   if (process.env.C3TOKEN != null && process.env.C3TOKEN != '') c3.login(process.env.C3TOKEN);
   else c3.login(require(path.join(__dirname, '../sBotT'))[1]);
+  let Bumper = '=bump', Bumper2 = 'dlm!bump', Bumper3 = ';;bump';
+  setInterval(() => {
+    c3.channels.get('315264060226535424').send(Bumper);
+    c3.channels.get('315264060226535424').send(Bumper2);
+    c3.channels.get('315264060226535424').send(Bumper3);
+  }, 2 * 60 * 60 * 1000);
 
   client.on('ready', async() => {
     require(path.join(__dirname, '../../handlers/DiepAddons')).getServers();
