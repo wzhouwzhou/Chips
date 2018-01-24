@@ -68,7 +68,7 @@ const GuildMusicHandler = class MusicHandler {
     WQXRBroadcast.once('end', this.startNCSBroadcast.bind(this));
     WQXRBroadcast.on('error', Logger.error.bind(Logger));
     WQXRBroadcast.on('warn', Logger.error.bind(Logger));
-    WQXRBroadcast.playStream(WQXR.stream, this.broadcastOpts);
+    WQXRBroadcast.playStream(WQXR.url, this.broadcastOpts);
     return WQXRBroadcast;
   }
 
