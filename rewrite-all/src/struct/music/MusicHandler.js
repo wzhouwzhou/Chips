@@ -41,7 +41,7 @@ const cmds = [
   ],
 ];
 
-let NCSBroadcast, MonstercatBroadcast, LM, ChillHopBroadcast;
+let NCSBroadcast, MonstercatBroadcast, LM, WQXRBroadcast, ChillHopBroadcast;
 
 const GuildMusicHandler = class MusicHandler {
   constructor(guildid, client) {
@@ -53,6 +53,23 @@ const GuildMusicHandler = class MusicHandler {
       this.streamOpts = { passes: 3, volume: 0.5, bitrate: 96000 };
       this.broadcastOpts = { passes: 2, volume: 0.6, bitrate: 96000 };
     }
+  }
+
+  async startWQXRBroadcast() {
+    Logger.debug('Starting WQXRBroadcast');
+    if (WQXRBroadcast) {
+      WQXRBroadcast.removeAllListeners();
+      WQXRBroadcast.end();
+    }
+    if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
+    if (!WQXRBroadcast) WQXRBroadcast = this._client.createVoiceBroadcast();
+    const WQXR = await new Song('http://stream.wqxr.org/wqxr', this._client.user);
+    this._client.musicBroadcasts.wqxr = WQXRBroadcast;
+    WQXRBroadcast.once('end', this.startNCSBroadcast.bind(this));
+    WQXRBroadcast.on('error', Logger.error.bind(Logger));
+    WQXRBroadcast.on('warn', Logger.error.bind(Logger));
+    WQXRBroadcast.playStream(WQXR.stream, this.broadcastOpts);
+    return WQXRBroadcast;
   }
 
   async startNCSBroadcast() {
@@ -72,7 +89,7 @@ const GuildMusicHandler = class MusicHandler {
     return NCSBroadcast;
   }
 
-  startLMBroadcast() {
+  async startLMBroadcast() {
     Logger.debug('Starting LM');
     if (LM) {
       LM.removeAllListeners();
@@ -105,7 +122,7 @@ const GuildMusicHandler = class MusicHandler {
     MonstercatBroadcast.playStream(Monstercat.stream, this.broadcastOpts);
     return MonstercatBroadcast;
   }
-  
+
   async startChillHopBroadcast() {
     Logger.debug('Starting ChillHopBroadcast');
     if (ChillHopBroadcast) {
@@ -178,7 +195,7 @@ const GuildMusicHandler = class MusicHandler {
     }
     return this._client.chillHopChannels;
   }
-  
+
   async playAllLM() {
     if (!LM) return 'LM Broadcast not started';
     if (!this._client.lmChannels) this._client.lmChannels = {};
@@ -196,6 +213,24 @@ const GuildMusicHandler = class MusicHandler {
       }
     }
     return this._client.lmChannels;
+  }
+
+  async playAllWQXR() {
+    if (!WQXRBroadcast) return 'WQXR Broadcast not started';
+    if (!this._client.wqxrChannels) this._client.wqxrChannels = {};
+    const leaves = [];
+    for (const cid of Object.keys(this._client.wqxrChannels)) leaves.push(this._client.channels.get(cid).leave());
+    await Promise.all(leaves);
+    this._client.wqxrChannels = {};
+    for (const [, vc] of this._client.channels.filter(c => c.type === 'voice')) {
+      if (vc.name.replace(/\s+/g, '').match(/chip(?:sy?)?(?:streams?|24\/?7)(wqxr|classical?)/i)) {
+        vc.join().then(connection => {
+          connection.playBroadcast(WQXRBroadcast, this.streamOpts);
+          this._client.wqxrChannels[connection.channel.id] = { connection, dispatcher: connection.dispatcher };
+        });
+      }
+    }
+    return this._client.wqxrChannels;
   }
 
   spawnPlayer(vc, tc) {

@@ -42,16 +42,21 @@ module.exports = send => {
 
     const MH = require('../../rewrite-all/src/struct/music/MusicHandler').default;
     client.mh = new MH(0, client);
-    client.mh.startNCSBroadcast().then(() => client.mh.playAllNCS());
-    client.mh.startMonstercatBroadcast().then(() => client.mh.playAllMonstercat());
-    client.mh.startLMBroadcast();
-    client.mh.playAllLM();
-    client.musicCheck = setInterval(() => {
-      client.mh.startNCSBroadcast().then(() => client.mh.playAllNCS());
-      client.mh.startMonstercatBroadcast().then(() => client.mh.playAllMonstercat());
-      client.mh.startLMBroadcast();
-      client.mh.playAllLM();
-    }, 30 * 60 * 1000);
+
+    client.mhfunc = async() => {
+      await client.mh.startNCSBroadcast()
+        .then(() => client.mh.playAllNCS());
+      await client.mh.startMonstercatBroadcast()
+        .then(() => client.mh.playAllMonstercat());
+      await client.mh.startLMBroadcast()
+        .then(() => client.mh.playAllLM());
+      await client.mh.startChillHopBroadcast()
+        .then(() => client.mh.playAllChillHop());
+      await client.mh.startWQXRBroadcast()
+        .then(() => client.my.playAllWQXR());
+    };
+    client.mhfunc();
+    client.musicCheck = setInterval(client.mhfunc, 30 * 60 * 1000);
     // Console events
     if (client.shard.id === 0) {
       rl.on('line', line => {
