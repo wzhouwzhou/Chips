@@ -1,3 +1,4 @@
+/* eslint complexity: 'off', no-console: 'off', max-len: 'off' */
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
 const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Paginator;
 const Jimp = require('jimp');
@@ -9,7 +10,7 @@ const INVIS = 'https://i.imgur.com/dQZuSIR.png';
 
 const ex = {
   name: 'info',
-  async func(msg, { send, member, author, guild, args, gMember, reply, content, prefix, Discord, times, convertTime, getUser }) {
+  async func(msg, { send, member, author, guild, args, gMember, reply, content, prefix, Discord, times, convertTime, getUser, prefix }) {
     let start = process.hrtime();
     const used = member || author;
     let action;
@@ -19,11 +20,26 @@ const ex = {
     console.log(`[Info] Action: ${action}`);
     console.log(`[Info] Creating new searcher for guild ${guild.id}`);
     let options = { guild: guild };
-    searchers[guild.id] = new Searcher(options.guild);
+    global.searchers[guild.id] = new Searcher(options.guild);
     let infobad = new Discord.MessageEmbed().setColor(member ? member.displayColor : `#${((1 << 24) * Math.random() | 0).toString(16)}`
     ).setFooter(new Date());
 
-    if (action == 'server') {
+    if (action === 'bot') {
+      try {
+        let info = await permissions.checkMulti(msg, ['public.info.*']);
+      } catch (err) {
+        return msg.reply(err);
+      }
+
+      infobad.setTitle('Hello, I am Chips!');
+      infobad.setDescription([
+        'I am here to make your life a little bit more exciting! Fun and games, music, utilies, quick and easy moderation, as well as informational commands, I have it all!',
+        `Do **${_.escapeRegExp(prefix)}help** to see a list of my commands, or **${_.escapeRegExp(prefix)}stats** to see my real-time statistics!`,
+        'Read more about me on my [website](https://chipsbot.me:2087/) or join the [support server](https://support.chipsbot.me/)!',
+        'To add me to your server, click [here](https://invite.chipsbot.me)'
+      ].join('\n'));
+      return send(infobad)
+    } else if (action == 'server') {
       try {
         let info = await permissions.checkMulti(msg, ['global.info.info.server']);
         console.log(`[Command] ${info}`);
