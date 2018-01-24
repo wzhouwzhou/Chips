@@ -10,7 +10,7 @@ const INVIS = 'https://i.imgur.com/dQZuSIR.png';
 
 const ex = {
   name: 'info',
-  async func(msg, { send, member, author, guild, args, gMember, reply, content, prefix, Discord, times, convertTime, getUser, prefix }) {
+  async func(msg, { send, member, author, guild, args, gMember, reply, content, prefix, Discord, times, convertTime, getUser }) {
     let start = process.hrtime();
     const used = member || author;
     let action;
