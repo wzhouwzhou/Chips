@@ -100,6 +100,19 @@ module.exports = () => {
             let welcomeC = client.channels.get('385851855084978176') || memberguild.channels.find('name', 'unverified');
             if (welcomeC) welcomeC.send(`${member.user + []}, Welcome to ${memberguild.name}! Make SURE to read the <#366505552752148481> and <#312224217967886336>!\nPlease wait for staff to verify you with __\`-vs ok ${member.user + []}__!`);
           }, 1500);
+        } else if (memberguild.id === '373481656134270986') {
+          setTimeout(() => {
+            const embed = new Discord.MessageEmbed();
+            embed.setTitle('Welcome to Baka World!');
+            embed.setImage('https://cdn.discordapp.com/attachments/378182532459397121/378632645187338250/Baka-World.png');
+            embed.addField('Hello! I am Chips Bot, and welcome to Baka World!',
+              [
+                'Baka World is your one-stop haven for everything anime!',
+                'Check out <#385987386804404224> for more info, and if you have any questions, staff are always ready to answer them!',
+                '', 'If you want to check out more about me click on [this link](https://chipsbot.me:2087/)',
+              ].join`\n`);
+            member.send(embed);
+          }, 1500);
         }
       } catch (err) {
         console.log('could not add unverified role or set nick');
