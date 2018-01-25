@@ -38,7 +38,12 @@ const port = 2469;
 
 router.use((req, res, next) => {
   console.log(req.url);
-  next();
+  if (req.hostname.match(/^invite/i)) {
+    return res.redirect('https://discordapp.com/oauth2/authorize?client_id=296855425255473154&scope=bot&permissions=2146958591');
+  } else if (req.hostname.match(/^support/i)) {
+    return res.redirect('https://discord.gg/jj5FzF7');
+  }
+  return next();
 });
 
 router.use('/api/guildcount', (req, res) => {
