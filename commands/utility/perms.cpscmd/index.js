@@ -4,14 +4,18 @@ console.log('[CPSCMD][UTILITY][perm] Building objects...');
 
 upermsin.metadata = {
   category: require('../').category,
-  description: "This command gets a member's permissions in a specific channel.",
+  description: "This command gets a member's permissions in this, or a specified channel.",
+  usage: 'permissionsin [fuzzy search]',
+  example: 'permissionsin William Zhou',
   perm: [['global.utility.perms.permissionsin']],
   customperm: ['MANAGE_ROLES'],
 };
 rperms.metadata = {
   category: require('../').category,
   description: "This command gets a role's permissions server-wide.",
-  perm: [['global.utility.perms.permissions']],
+  usage: 'rolepermissions [fuzzy search]',
+  example: 'rolepermissions Staff',
+  perm: [['global.utility.perms.permissionsin']],
   customperm: ['MANAGE_ROLES'],
 };
 
