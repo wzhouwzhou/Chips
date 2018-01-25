@@ -49,8 +49,7 @@ global.memberjoin = {
         'you got our discord invite.\nIf you got it from a friend, please tell us who like so: ' +
         '**SomebodyHere#1234**.',
 
-      '2. Please read <#348082661060771841> and <#359141257051635713>; will you follow the rules and ' +
-        'agree to the bot TOS?',
+      '2. Please read <#404992099478405122>; will you follow the rules and agree to the bot TOS?',
 
       '3. What is your favourite diep.io tank?',
     ].join('\n'),
