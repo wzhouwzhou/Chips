@@ -6,7 +6,7 @@ module.exports = {
   name: 'permissionsin',
   func(msg, { args, send, channel, guild, suffix, Discord, member, Constants }) {
     const theChannel = msg.mentions.channels.first() || channel;
-    const tomatch = _.escapeRegExp(suffix.replace(theChannel + [], ''));
+    const tomatch = _.escapeRegExp(suffix.replace(theChannel + [], '').trim());
     const theMember = args[0] ?
       msg.mentions.members.first() ||
       guild.members.get(tomatch.replace(/\s+/g, '') || '0') ||

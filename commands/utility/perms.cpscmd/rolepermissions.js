@@ -6,7 +6,7 @@ module.exports = {
   name: 'rolepermissions',
   func(msg, { send, channel, guild, suffix, Discord, Constants }) {
     const theChannel = msg.mentions.channels.first() || channel;
-    const tomatch = _.escapeRegExp(suffix.replace(theChannel + [], ''));
+    const tomatch = _.escapeRegExp(suffix.replace(theChannel + [], '').trim());
     const theRole = msg.mentions.roles.first() ||
       guild.roles.get(tomatch.replace(/\s+/g, '') || '0') ||
       Array.from(guild.roles.values())
