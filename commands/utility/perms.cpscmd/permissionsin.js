@@ -51,6 +51,6 @@ module.exports = {
         beautified.join('\n'));
     if (!adminuser) embed.addField('cannot...', deny.join('\n'));
 
-    return send('Channel specific permissions:', { embed });
+    return send(`Channel specific user permissions for ${theChannel + []}`, { embed });
   },
 };
