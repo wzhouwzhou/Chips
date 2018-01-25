@@ -17,8 +17,8 @@ module.exports = {
       return send(new Discord.MessageEmbed().setTitle('Chips radio (Beta™)').setDescription([
         '**Introducing Chips 24/7 radio!**\n',
         'Step 1: Have a voice channel with **`Chips Streams [Stream Name]`** in the name',
-        'Valid streams to replace "[Stream name]" with are `Monstercat`, `NCS`, `Listen.moe`, `Chillhop`, or `Classical` each' +
-        'the different genres/channels',
+        'Valid streams to replace "[Stream name]" with are `Monstercat`, `NCS`, `Listen.moe`, `Chillhop`, or `Classical` each ' +
+        'of the different genres/channels',
         'Step 2: Chips will check every 30 minutes and join that voice channel and stream 24/7 ncs or monstercat music',
       ].join('\n'))
         .setFooter(`🔈🎵 ${Object.keys(client.monstercatChannels).length + Object.keys(client.ncsChannels).length} servers tuned in!`)
