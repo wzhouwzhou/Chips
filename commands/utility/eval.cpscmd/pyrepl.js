@@ -27,10 +27,13 @@ module.exports = {
       inrepl.delete(channel.id);
       return send(`Exit code: ${cb}${`${code}`.substr(0, 1950)}${cb}`);
     };
-    sp.stdout.on('data', data => send(`${cb}py\n${`${data}`.substr(0, 1950)}${cb}`));
+    sp.stdout.on('data', data => {
+      console.log(data.toString());
+      return send(`${cb}py\n${`${data}`.substr(0, 1950)}${cb}`);
+    });
     sp.stderr.on('data', data => {
-      if (data.toString().match(/^>>>/)) return true;
-      // Send(`${cb}py\n${`${data}`.substr(0, 1950)}${cb}`);
+      console.error(data.toString());
+      if (data.toString().match(/^>>>/)) return send(`${cb}py\n${`${data}`.substr(0, 1950)}${cb}`);
       else return send(`stderr: ${cb}py\n${`${data}`.substr(0, 1950)}${cb}`);
     });
     sp.on('close', handleExit);
