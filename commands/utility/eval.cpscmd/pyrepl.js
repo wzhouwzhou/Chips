@@ -4,7 +4,7 @@ const cb = '```';
 const inrepl = new Map;
 module.exports = {
   name: 'pyrepl',
-  func(msg, { send, author, channel }) {
+  async func(msg, { send, author, channel }) {
     const sp = spawn('python3 -i ./test.py');
     let mcol;
     if (inrepl.has(channel.id)) return send('A pyrepl session is in progress');
@@ -24,12 +24,12 @@ module.exports = {
     const handleExit = code => {
       mcol.stop();
       inrepl.delete(channel.id);
-      return send(`Exit code: ${cb}${code.substr(0, 1950)}${cb}`);
+      return send(`Exit code: ${cb}${`${code}`.substr(0, 1950)}${cb}`);
     };
-    sp.stdout.on('data', data => send(`stdout: ${cb}py\n${data.substr(0, 1950)}${cb}`));
-    sp.stderr.on('data', data => send(`stderr: ${cb}py\n${data.substr(0, 1950)}${cb}`));
+    sp.stdout.on('data', data => send(`stdout: ${cb}py\n${`${data}`.substr(0, 1950)}${cb}`));
+    sp.stderr.on('data', data => send(`stderr: ${cb}py\n${`${data}`.substr(0, 1950)}${cb}`));
     sp.on('close', handleExit);
-    sp.on('error', err => send(`Process Error: ${cb}\n${err.substr(0, 1950)}${cb}`));
+    sp.on('error', err => send(`Process Error: ${cb}\n${`${err}`.substr(0, 1950)}${cb}`));
     sp.on('disconnect', handleExit);
     send('Starting repl...');
 
