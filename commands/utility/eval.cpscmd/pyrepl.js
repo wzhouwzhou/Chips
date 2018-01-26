@@ -14,8 +14,8 @@ module.exports = {
     const mcol_filter = m => {
       if (m.author.id === author.id && m.content.startsWith(cb) && m.content.endsWith(cb)) {
         const input = m.content.substr(0, 1950).replace(new RegExp(`^${cb}(py)?`), '').replace(new RegExp(`${cb}$`), '');
-        console.log(`PyREPL Input \n${input}`);
-        send(`PyREPL Input ${cb}\n${input}${cb}\r\n`);
+        // Console.log(`PyREPL Input \n${input}`);
+        // send(`PyREPL Input ${cb}\n${input}${cb}\r\n`);
         StringStream(`${input}\n`).pipe(sp.stdin, { end: !1 });
         return true;
       }
@@ -27,9 +27,9 @@ module.exports = {
       inrepl.delete(channel.id);
       return send(`Exit code: ${cb}${`${code}`.substr(0, 1950)}${cb}`);
     };
-    sp.stdout.on('data', data => send(`stdout: ${cb}py\n${`${data}`.substr(0, 1950)}${cb}`));
+    sp.stdout.on('data', data => send(`${cb}py\n${`${data}`.substr(0, 1950)}${cb}`));
     sp.stderr.on('data', data => {
-      if (data.toString() === '>>>') send(`${cb}py\n${`${data}`.substr(0, 1950)}${cb}`);
+      if (data.toString().match(/^>>>/)) send(`${cb}py\n${`${data}`.substr(0, 1950)}${cb}`);
       else send(`stderr: ${cb}py\n${`${data}`.substr(0, 1950)}${cb}`);
     });
     sp.on('close', handleExit);
