@@ -2,10 +2,11 @@ const childProcess = require('child_process');
 const { spawn } = childProcess;
 const cb = '```';
 const inrepl = new Map;
+const path = require('path');
 module.exports = {
   name: 'pyrepl',
   async func(msg, { send, author, channel }) {
-    const sp = spawn('python3 -i ./test.py');
+    const sp = spawn(`python3 -i ${path.join(process.cwd(), 'test.py')}`);
     let mcol;
     if (inrepl.has(channel.id)) return send('A pyrepl session is in progress');
     inrepl.set(channel.id, true);
