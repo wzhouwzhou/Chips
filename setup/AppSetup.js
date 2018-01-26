@@ -1,3 +1,4 @@
+/* eslint consistent-return: 'off', no-console: 'off' */
 const Constants = require('./Constants');
 const path = require('path');
 const fs = require('fs');
@@ -33,7 +34,7 @@ const ssloptions = {
 module.exports = () => {
   let botScopes = ['identify', 'guilds'];
   let logDirectory = path.join(__dirname, 'log');
-  fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
+  if (!fs.existsSync(logDirectory)) fs.mkdirSync(logDirectory);
   let accessLogStream = rfs('access.log', {
     interval: '1d',
     path: logDirectory,
@@ -60,6 +61,8 @@ module.exports = () => {
       return res.redirect('https://discordapp.com/oauth2/authorize?client_id=296855425255473154&scope=bot&permissions=2146958591');
     } else if (req.hostname.match(/^support/i)) {
       return res.redirect('https://guilds.chipsbot.me:2087/official');
+    } else if (req.hostname.match(/^guilds/i)) {
+      return res.redirect(`https://guilds.chipsbot.me:2087${req.url}`);
     }
     next();
   });
@@ -70,7 +73,7 @@ module.exports = () => {
     done(null, obj);
   });
 
-  if (process.env.BETA && process.env.BETA == 'true') {
+  if (process.env.BETA && `${process.env.BETA}` === 'true') {
     passport.use(new Strategy({
       clientID: process.env.ID || '296855425255473154',
       clientSecret: process.env.SECRET || 'secret',
