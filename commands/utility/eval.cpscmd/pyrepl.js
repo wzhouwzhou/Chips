@@ -13,7 +13,7 @@ module.exports = {
       if (m.author.id === author.id && m.content.startsWith(cb) && m.content.endsWith(cb)) {
         const input = m.content.substr(0, 1950).replace(new RegExp(`^${cb}`), '').replace(new RegExp(`${cb}$`), '');
         console.log(`PyREPL Input ${cb}\n${input}${cb}`);
-        send(`PyREPL Input ${cb}\n${input}${cb}\n`);
+        send(`PyREPL Input ${cb}\n${input}${cb}\r\n`);
         sp.stdin.write(input);
         return true;
       }
