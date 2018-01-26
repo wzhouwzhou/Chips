@@ -29,8 +29,9 @@ module.exports = {
     };
     sp.stdout.on('data', data => send(`${cb}py\n${`${data}`.substr(0, 1950)}${cb}`));
     sp.stderr.on('data', data => {
-      if (data.toString().match(/^>>>/)) send(`${cb}py\n${`${data}`.substr(0, 1950)}${cb}`);
-      else send(`stderr: ${cb}py\n${`${data}`.substr(0, 1950)}${cb}`);
+      if (data.toString().match(/^>>>/)) return true;
+      // Send(`${cb}py\n${`${data}`.substr(0, 1950)}${cb}`);
+      else return send(`stderr: ${cb}py\n${`${data}`.substr(0, 1950)}${cb}`);
     });
     sp.on('close', handleExit);
     sp.on('error', err => send(`Process Error: ${cb}\n${`${err}`.substr(0, 1950)}${cb}`));
