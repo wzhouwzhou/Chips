@@ -2,7 +2,7 @@ const childProcess = require('child_process');
 const { spawn } = childProcess;
 const cb = '```';
 const inrepl = new Map;
-const path = require('path');
+
 module.exports = {
   name: 'pyrepl',
   async func(msg, { send, author, channel }) {
@@ -28,7 +28,10 @@ module.exports = {
       return send(`Exit code: ${cb}${`${code}`.substr(0, 1950)}${cb}`);
     };
     sp.stdout.on('data', data => send(`stdout: ${cb}py\n${`${data}`.substr(0, 1950)}${cb}`));
-    sp.stderr.on('data', data => send(`stderr: ${cb}py\n${`${data}`.substr(0, 1950)}${cb}`));
+    sp.stderr.on('data', data => {
+      if (data.toString() === '>>>') send(`${cb}py\n${`${data}`.substr(0, 1950)}${cb}`);
+      else send(`stderr: ${cb}py\n${`${data}`.substr(0, 1950)}${cb}`);
+    });
     sp.on('close', handleExit);
     sp.on('error', err => send(`Process Error: ${cb}\n${`${err}`.substr(0, 1950)}${cb}`));
     sp.on('disconnect', handleExit);
@@ -43,24 +46,23 @@ module.exports = {
   },
 };
 
-var inherits = require('util').inherits
-var stream = require('readable-stream')
+const inherits = require('util').inherits;
+const stream = require('readable-stream');
 
-inherits(StringStream, stream.Readable)
+inherits(StringStream, stream.Readable);
 
-function StringStream (str) {
-  if (!(this instanceof StringStream)) return new StringStream(str)
-  stream.Readable.call(this)
-  this._str = str
+function StringStream(str) {
+  if (!(this instanceof StringStream)) return new StringStream(str);
+  stream.Readable.call(this);
+  this._str = str;
 }
 
-StringStream.prototype._read = function () {
+StringStream.prototype._read = function _read() {
   if (!this.ended) {
-    var self = this
-    process.nextTick(function () {
-      self.push(new Buffer(self._str))
-      self.push(null)
-    })
-    this.ended = true
+    process.nextTick(() => {
+      this.push(new Buffer(this._str));
+      this.push(null);
+    });
+    this.ended = true;
   }
-}
+};
