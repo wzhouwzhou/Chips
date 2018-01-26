@@ -8,8 +8,9 @@ module.exports = {
     let mcol;
     const mcol_filter = m => {
       if (m.author.id === author.id && m.content.startsWith(cb) && m.content.endsWith(cb)) {
-        send(`PyREPL Input ${cb}\n${m.content.substr(0, 1950)}${cb}`);
-        sp.stdin.write(m.content(0, 1950));
+        const input = m.content(0, 1950).replace(new RegExp(`(^${cb})|(${cb})$`), '');
+        send(`PyREPL Input ${cb}\n${input}${cb}`);
+        sp.stdin.write(input);
         return true;
       }
       return false;
