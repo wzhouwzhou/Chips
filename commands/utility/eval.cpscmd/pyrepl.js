@@ -5,7 +5,7 @@ const inrepl = new Map;
 module.exports = {
   name: 'pyrepl',
   func(msg, { send, author, channel }) {
-    const sp = spawn('python3');
+    const sp = spawn('python3 -i ./test.py');
     let mcol;
     if (inrepl.has(channel.id)) return send('A pyrepl session is in progress');
     inrepl.set(channel.id, true);
