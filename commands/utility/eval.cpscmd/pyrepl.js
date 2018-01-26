@@ -13,9 +13,9 @@ module.exports = {
     const mcol_filter = m => {
       if (m.author.id === author.id && m.content.startsWith(cb) && m.content.endsWith(cb)) {
         const input = m.content.substr(0, 1950).replace(new RegExp(`^${cb}`), '').replace(new RegExp(`${cb}$`), '');
-        console.log(`PyREPL Input ${cb}\n${input}${cb}`);
+        console.log(`PyREPL Input \n${input}`);
         send(`PyREPL Input ${cb}\n${input}${cb}\r\n`);
-        sp.stdin.write(`${input}\r\n`);
+        StringStream(`${input}\n`).pipe(sp.stdin, { end: !1 });
         return true;
       }
       return false;
@@ -41,3 +41,25 @@ module.exports = {
     return mcol;
   },
 };
+
+var inherits = require('util').inherits
+var stream = require('readable-stream')
+
+inherits(StringStream, stream.Readable)
+
+function StringStream (str) {
+  if (!(this instanceof StringStream)) return new StringStream(str)
+  stream.Readable.call(this)
+  this._str = str
+}
+
+StringStream.prototype._read = function () {
+  if (!this.ended) {
+    var self = this
+    process.nextTick(function () {
+      self.push(new Buffer(self._str))
+      self.push(null)
+    })
+    this.ended = true
+  }
+}
