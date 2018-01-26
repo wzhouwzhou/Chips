@@ -2,7 +2,7 @@ const childProcess = require('child_process');
 const { spawn } = childProcess;
 const cb = '```';
 module.exports = {
-  name: 'python',
+  name: 'pyrepl',
   func(msg, { send, author, channel }) {
     const sp = spawn('python3', []);
     let mcol;

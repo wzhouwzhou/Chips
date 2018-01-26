@@ -13,6 +13,7 @@ module.exports = {
         Constants.users.EVILDEATHPRO,
         Constants.users.LUCAS,
         '302252773427249163',
+        '286246724270555136',
       ];
     }
     if (whitelist.indexOf(author.id) < 0) return true;
