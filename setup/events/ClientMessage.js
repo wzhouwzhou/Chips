@@ -51,7 +51,7 @@ client.mcounterI = setInterval(() => {
     width: 600,
   });
 }, 2000);
-const ignoreid = ['304338588588441601', '305776092822765568', '300633021701423106'];
+const ignoreid = ['304338588588441601', '305776092822765568', '300633021701423106', '233243685276352512'];
 const msghandle = async message => {
   if (~ignoreid.indexOf(message.author.id)) return true;
   client.shard.broadcastEval(`client.thismcounter++`);
