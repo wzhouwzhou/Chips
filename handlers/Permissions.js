@@ -76,6 +76,7 @@ ex.permsList = [
   ['global.fun.image.triggered', true],
   ['global.fun.image.invert', true],
   ['global.fun.image.neko', true],
+  ['global.fun.weeb.hug', true],
   ['global.fun.triggers.*', true],
   ['global.fun.triggers.aboose', true], // 6
   ['global.fun.triggers.confoosed', true],
