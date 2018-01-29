@@ -13,4 +13,5 @@ mee6.metadata = {
 console.log('[CPSCMD][INFO][rank] Build objects complete!');
 module.exports = [
   [mee6.name, mee6],
+  ['m6r', mee6],
 ];
