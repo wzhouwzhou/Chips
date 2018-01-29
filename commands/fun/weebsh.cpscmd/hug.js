@@ -16,7 +16,7 @@ module.exports = {
         .setColor(member ? member.displayColor : 134984)
         .attachFiles([{ attachment: buffer, name: 'image.gif' }])
         .setImage('attachment://image.gif')
-        .setTitle(`${target.tag} was hugged by ${target.id === author.id ? author.tag : 'Chips'}`));
+        .setTitle(`${target.tag} was hugged by ${target.id === author.id ? 'Chips' : author.tag}`));
       return channel.stopTyping();
     } catch (err) {
       send('No hugs were given ;-; ...');
