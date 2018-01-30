@@ -108,8 +108,9 @@ module.exports = () => {
               [
                 'Baka World is a community for gamers, youtubers, streamers, and everything anime!',
                 'Check out <#385987386804404224> for more info, and if you have any questions, staff are always ready to answer them!',
-                'Our invite is https://discord.gg/8ZtDDhK if you want to invite your friends! We might be getting global emotes soon!', '',
-                'If you want to check out more about me click on [this link](https://chipsbot.me:2087/)',
+                'Use https://guilds.chipsbot.me/baka_world if you want to invite your friends! We might be getting global emotes soon!',
+                '', 'When you have time you should check out more about me! Just visit [my website](https://chipsbot.me:2087/)',
+                'To add me to your server, click on [this invite link](https://invite.chipsbot.me/) and select your server in the dropdown',
               ].join`\n`);
             member.send(embed);
           }, 1500);
