@@ -2,6 +2,7 @@
 const hug = require('./hug');
 const kiss = require('./kiss');
 const slap = require('./slap');
+const tickle = require('./tickle');
 console.log('[CPSCMD][FUN][weeb] Building objects...');
 hug.metadata = {
   category: require('../').category,
@@ -30,7 +31,7 @@ tickle.metadata = {
   usage: 'tickle (@ mention)',
   example: 'slap @William Zhou',
   perm: [['global.fun.weeb.tickle']],
-}
+};
 console.log('[CPSCMD][FUN][weeb] Build objects complete!');
 module.exports = [
   [hug.name, hug],
