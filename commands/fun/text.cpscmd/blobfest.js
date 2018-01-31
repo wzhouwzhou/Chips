@@ -12,9 +12,11 @@ module.exports = {
   name: 'blobfest',
   func(msg, { send, author, guild, member, Discord }) {
     if (cooldowns.has(guild ? guild.id : author.id)) return send('This command has a 30 second cooldown');
-    cooldowns.set(guild.id, new Date);
-    send(new Discord.MessageEmbed.setColor(member ? member.displayColor : _.random(1, 0xffffff))
-      .setDescription(blobparty()).setFooter(`Requested by ${author.tag}`));
+    cooldowns.set(guild ? guild.id : author.id, new Date);
+    send(new Discord.MessageEmbed()
+      .setColor(member ? member.displayColor : _.random(1, 0xffffff))
+      .setDescription(blobparty())
+      .setFooter(`Requested by ${author.tag}`));
     return setTimeout(() => cooldowns.delete(guild ? guild.id : author.id), 30 * 1000);
   },
 };
