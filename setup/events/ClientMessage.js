@@ -19,6 +19,7 @@ client.antilink = {
   '340162857155035148': true,
   '257889450850254848': true,
   '339930093042532363': true,
+  '307623291479130132': true,
 };
 
 client.antiDiepLink = {
@@ -101,8 +102,10 @@ const msghandle = async message => {
   };
   handleSupportFormat(message);
 
-
-  // prefix!
+  if (!global.client.CBLOCKOFF && message.author.id === '398601531525562369' && message.guild.id === '307623291479130132') {
+    return message.delete();
+  }
+  // Prefix!
   if (message.content.toLowerCase() == '<@296855425255473154> prefix' || message.content.toLowerCase() == '<@!296855425255473154> prefix') {
     if (message.guild) message.reply(`My prefix in this server is ${client.customprefix[message.guild.id] ? _.escapeRegExp(client.customprefix[message.guild.id]) : _.escapeRegExp(prefix)}${!client.customprefix[message.guild.id] || client.customprefix[message.guild.id] == prefix ? `\nYou can set a custom prefix for me with \`${_.escapeRegExp(prefix)}chipsprefix on\`` : ''}`);
     else message.reply(`My default prefix is \`${_.escapeRegExp(prefix)}\``);

@@ -16,6 +16,7 @@ const eh = require('./eh');
 const huh = require('./huh');
 const nerd = require('./nerd');
 const oof = require('./oof');
+const blobfest = require('./blobfest');
 
 console.log('[CPSCMD][INFO][text] Building objects...');
 
@@ -107,6 +108,7 @@ eh.metadata = excl.metadata;
 huh.metadata = eh.metadata;
 nerd.metadata = huh.metadata;
 oof.metadata = excl.metadata;
+blobfest.metadata = oof.metadata;
 
 console.log('[CPSCMD][INFO][text] Build objects compconste!');
 module.exports = [
@@ -127,4 +129,6 @@ module.exports = [
   [nerd.name, nerd],
   [oof.name, oof],
   [achievement.name, achievement],
+  [blobfest.name, blobfest],
+  ['blobparty', blobfest],
 ];
