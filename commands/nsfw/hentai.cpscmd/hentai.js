@@ -19,6 +19,8 @@ const getHentai = () => {
 module.exports = {
   name: 'hentai',
   async func(msg, { send, member, Discord, channel }) {
+    return send('This command is under maintenance due to TOS/regulation requirements');
+    /*
     if (!channel.nsfw) return;
 
     try {
@@ -29,5 +31,6 @@ module.exports = {
       if (err.startsWith('Status ')) return send('Hentai servers are down right now...');
       send('Something went wrong..');
     }
+    */
   },
 };
