@@ -1,7 +1,11 @@
 exports.name = 'lewdme';
 exports.func = async(msg, ctx) => {
-  const { send, reply, guild, member, author, channel, Discord, Constants } = ctx;
+  const { prefix, send, reply, guild, member, author, channel, Discord, Constants } = ctx;
   if (!guild || guild.id !== '373481656134270986') return true;
+  const role = guild.roles.get('386024134695583744') || guild.roles.find('name', 'NSFW');
+  if (member.roles.has(role.id)) {
+    return send(`You already have access to the NSFW chats here! Remove the NSFW role with ${prefix}unlewdme`);
+  }
   const question = [`${author.tag}, are you at least 18 or older?`, 'Reply with __y__es or __n__o in 10 seconds.'];
   const embed = new Discord.MessageEmbed()
     .setTitle('Age Verification')
@@ -27,7 +31,6 @@ exports.func = async(msg, ctx) => {
       let m = collected.first();
       if (m.author.id !== author.id) return false;
       if (agreed) {
-        const role = guild.roles.get('386024134695583744') || guild.roles.find('name', 'NSFW');
         await member.addRole(role);
         return send('You now have access to the NSFW chats here!');
       } else {
