@@ -122,7 +122,7 @@ router.use('/api/membercount', (req, res) => {
 
 router.use('/api/guildstats', (req, res) => {
   if (!req.headers.guildid) return res.json({ error: 'guildid missing from header' });
-  Manager.broadcastEval(`this.guilds.get(${req.params.id})`)
+  Manager.broadcastEval(`this.guilds.get(${req.headers.guildid})`)
     .then(results => {
       const gs = results.filter(_ => _);
       if (!gs || !gs[0]) return res.status(404).json({ error: 'no guild' });
