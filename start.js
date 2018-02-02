@@ -122,12 +122,11 @@ router.use('/api/membercount', (req, res) => {
 
 router.use('/api/guildstats', (req, res) => {
   if (!req.headers.guildid) return res.json({ error: 'guildid missing from header' });
-  Manager.broadcastEval(`this.guilds.get(${req.headers.guildid})`)
-    .then(results => {
-      const gs = results.filter(_ => _);
-      if (!gs || !gs[0]) return res.status(404).json({ error: 'no guild' });
-      const guild = gs[0];
+  Manager.broadcastEval(`(() => {
+      let guild = this.guilds.get('${req.headers.guildid}');
+      if (!guild) return null;
       let members_online = [], members_idle = [], members_dnd = [], members_on = [];
+
       guild.members.filter(member => {
         const presence = member.presence;
         switch (presence.status) {
@@ -146,20 +145,27 @@ router.use('/api/guildstats', (req, res) => {
         }
         return true;
       });
+
       const member_count = guild.members.size;
       const offline = member_count - members_on;
+
       const object = {
         id: guild.id,
         name: guild.name,
-        channels: Array.from(guild.channels.values()).map(c => ({
-          id: c.id,
-          name: c.name,
-          topic: c.topic || '',
-          nsfw: c.nsfw,
-          parent_id: c.parentID,
-          members: Array.from(c.members.filter(m => m.id).values()),
-          type: c.type,
-        })),
+        channels: Array.from(guild.channels.values()).map(c => {
+          const obj = {
+            id: c.id,
+            name: c.name,
+            topic: c.topic || '',
+            nsfw: c.nsfw,
+            parent_id: c.parentID,
+            type: c.type,
+          };
+          if (c.members) {
+            obj.members = Array.from(c.members.values()).map(m => m.id);
+          }
+          return obj;
+        }),
         roles: Array.from(guild.roles.values()).map(r => ({
           id: r.id,
           name: r.name,
@@ -179,6 +185,13 @@ router.use('/api/guildstats', (req, res) => {
         splash: guild.splash,
         verif_lvl: guild.verificationLevel,
       };
+      return object;
+    })();
+    `)
+    .then(results => {
+      const gs = results.filter(_ => _);
+      if (!gs || !gs[0]) return res.status(404).json({ error: 'no guild' });
+      const object = gs[0];
       if (!req.query.callback) {
         res.json(object);
       } else {

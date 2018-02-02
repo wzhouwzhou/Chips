@@ -1,4 +1,4 @@
-/* eslint complexity: 'off' */
+/* eslint complexity: 'off', no-console: 'off', no-undef: 'off' */
 // Client Message Events
 const _ = require('lodash');
 let slSwitcher = false, helper3 = false;
@@ -53,9 +53,43 @@ client.mcounterI = setInterval(() => {
   });
 }, 2000);
 const ignoreid = ['304338588588441601', '305776092822765568', '300633021701423106', '233243685276352512'];
+const guild_mps = {};
+setInterval(() => {
+  for (const gid in guild_mps) {
+    const mps = guild_mps[gid];
+    const mps2 = _.clone(mps).reverse();
+    if (mps2.length > 10) mps2.length = 10;
+    r.table('guild_mps').insert({
+      id: gid,
+      mps: mps2,
+    }, {
+      conflict: 'replace'
+    }).run(_ => _).then(thing=>{
+      if (thing.inserted || thing.replaced || thing.unchanged) {
+        console.log(`New mps saved for guild ${gid}`);
+      }
+    });
+  }
+}, 7000);
+const guild_mps_ct = {};
+setInterval(() => {
+  for (const gid in guild_mps_ct) {
+    const g_count = guild_mps_ct[gid];
+    guild_mps_ct[gid] = 0;
+    guild_mps[gid].push((g_count / 3).toFixed(2));
+  }
+}, 3000);
+
 const msghandle = async message => {
   if (~ignoreid.indexOf(message.author.id)) return true;
   client.shard.broadcastEval(`client.thismcounter++`);
+  if (message.guild) {
+    if (!guild_mps[message.guild.id]) {
+      guild_mps[message.guild.id] = [];
+      guild_mps_ct[message.guild.id] = 0;
+    }
+    guild_mps_ct[message.guild.id]++;
+  }
   /* Try{
     r.table('lastMessage').insert( {
       id: message.author.id,
