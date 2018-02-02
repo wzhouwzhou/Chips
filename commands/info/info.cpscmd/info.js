@@ -1,5 +1,6 @@
 /* eslint complexity: 'off', no-console: 'off', max-len: 'off' */
 const path = require('path');
+const moment = require('moment');
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
 const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Paginator;
 const Jimp = require('jimp');
@@ -13,7 +14,7 @@ let helpembed = null;
 
 const ex = {
   name: 'info',
-  async func(msg, { send, member, author, guild, args, gMember, reply, content, prefix, Discord, times, convertTime, getUser }) {
+  async func(msg, { client, send, member, author, guild, args, gMember, reply, content, prefix, Discord, times, convertTime, getUser }) {
     let start = process.hrtime();
     const used = member || author;
     let action;

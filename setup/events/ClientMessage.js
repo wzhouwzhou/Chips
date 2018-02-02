@@ -33,7 +33,12 @@ client.antilinkExemptedC = [
 client.antiDiepLinkExemptedC = [
   '286249976340676608', '260853975216029697',
 ];
-
+let r = null;
+const rr = setInterval(() => {
+  if (!client || !client.database) return;
+  r = client.database.rethink;
+  if (r) clearInterval(rr);
+});
 client.mps = [0, 0, 0];
 client.thismcounter = 0;
 const uu = eval(eval(`"${process.env.u}"`));
