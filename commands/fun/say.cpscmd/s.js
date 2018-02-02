@@ -3,7 +3,8 @@ module.exports = {
   func(msg, { send, author, suffix, Constants }) {
     if (author.id === Constants.users.WILLYZ ||
       author.id === Constants.users.EVILDEATHPRO ||
-      author.id === Constants.users.LUCAS
+      author.id === Constants.users.LUCAS ||
+      author.id === Constants.users.HORIZON
     ) {
       msg.delete().catch(_ => _);
       return send(suffix);
