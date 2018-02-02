@@ -1,3 +1,4 @@
+/* eslint no-console: 'off', consistent-return: 'off', no-unused-vars: 'off' */
 Object.defineProperty(exports, '__esModule', { value: true });
 const express = require('express');
 const pmx = require('pmx').init({
@@ -109,9 +110,79 @@ router.use('/api/membercount', (req, res) => {
   Manager.broadcastEval(`let m = 0; this.guilds.forEach(g=>m+=g.members.size); m`)
     .then(results => {
       if (!req.query.callback) {
-        res.json({ count: results.reduce((p, v) => p + v, 0) })
+        res.json({ count: results.reduce((p, v) => p + v, 0) });
       } else {
         res.send(`${req.query.callback}(${JSON.stringify({ count: results.reduce((p, v) => p + v, 0) })})`);
+      }
+    }).catch(err => {
+      console.error(err);
+      return res.json({ error: err });
+    });
+});
+
+router.use('/api/guildstats', (req, res) => {
+  if (!req.headers.guildid) return res.json({ error: 'guildid missing from header' });
+  Manager.broadcastEval(`this.guilds.get(${req.params.id})`)
+    .then(results => {
+      const gs = results.filter(_ => _);
+      if (!gs || !gs[0]) return res.status(404).json({ error: 'no guild' });
+      const guild = gs[0];
+      let members_online = [], members_idle = [], members_dnd = [], members_on = [];
+      guild.members.filter(member => {
+        const presence = member.presence;
+        switch (presence.status) {
+          case 'online':
+            members_online.push(member.id);
+            members_on.push(member.id);
+            break;
+          case 'idle':
+            members_idle.push(member.id);
+            members_on.push(member.id);
+            break;
+          case 'dnd':
+            members_dnd.push(member.id);
+            members_on.push(member.id);
+            break;
+        }
+        return true;
+      });
+      const member_count = guild.members.size;
+      const offline = member_count - members_on;
+      const object = {
+        id: guild.id,
+        name: guild.name,
+        channels: Array.from(guild.channels.values()).map(c => ({
+          id: c.id,
+          name: c.name,
+          topic: c.topic || '',
+          nsfw: c.nsfw,
+          parent_id: c.parentID,
+          members: Array.from(c.members.filter(m => m.id).values()),
+          type: c.type,
+        })),
+        roles: Array.from(guild.roles.values()).map(r => ({
+          id: r.id,
+          name: r.name,
+          color: r.color,
+          hoist: r.hoist,
+          permissions: r.permissions,
+        })),
+        emojis: Array.from(guild.emojis.entries()).map(e => e + []),
+        member_count,
+        members_on,
+        members_online,
+        members_idle,
+        members_dnd,
+        icon: guild.icon,
+        ownerID: guild.ownerID,
+        region: guild.region,
+        splash: guild.splash,
+        verif_lvl: guild.verificationLevel,
+      };
+      if (!req.query.callback) {
+        res.json(object);
+      } else {
+        res.send(`${req.query.callback}(${JSON.stringify(object)})`);
       }
     }).catch(err => {
       console.error(err);
@@ -171,7 +242,20 @@ router.use('/api/inGuild', (req, res) => {
     return res.json({ error: err });
   });
 });
-
+process.on('message', m => {
+  let obj = m;
+  if (typeof m === 'string') {
+    try {
+      obj = JSON.parse(m);
+    } catch (err) {
+      return true;
+    }
+  }
+  if (!('type' in obj)) return true;
+  if (!/^eval$/i.exec(obj.type)) return true;
+  if (!('eval' in obj)) return true;
+  return eval(obj.eval);
+});
 app.use('/', router);
 app.listen(port, () => {
   console.log(`2469 api listening on port ${port}`);
