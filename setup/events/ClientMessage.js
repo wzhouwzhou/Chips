@@ -62,7 +62,10 @@ const guild_mps = {};
 setInterval(() => {
   for (const gid in guild_mps) {
     const mps = guild_mps[gid];
-    if (!mps.some(e => e !== 0)) return delete guild_mps[gid];
+    if (!mps.some(e => e !== 0)) {
+      delete guild_mps_ct[gid];
+      return delete guild_mps[gid];
+    }
     const mps2 = _.clone(mps).reverse();
     if (mps2.length > 10) mps2.length = 10;
     r.table('guild_mps').insert({
@@ -82,7 +85,7 @@ setInterval(() => {
 const guild_mps_ct = {};
 setInterval(() => {
   for (const gid in guild_mps_ct) {
-    const g_count = guild_mps_ct[gid];
+    let g_count = guild_mps_ct[gid];
     guild_mps_ct[gid] = 0;
     guild_mps[gid].push((g_count / 3).toFixed(4));
   }
