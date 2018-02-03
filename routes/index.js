@@ -4,6 +4,8 @@ const router = express.Router();
 const snek = require('snekfetch');
 
 router.get('/', (req, res) => {
+  // Return res.redirect('https://chipsbot.me:2087/');
+
   snek.get('http://localhost:8880/api/guildcount').then(gc => {
     snek.get('http://localhost:8880/api/membercount').then(mc => {
       res.render('index', {
@@ -14,6 +16,7 @@ router.get('/', (req, res) => {
       });
     });
   });
+
 });
 
 module.exports = router;

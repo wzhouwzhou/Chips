@@ -23,6 +23,12 @@ module.exports = send => {
 
   if (process.env.C3TOKEN != null && process.env.C3TOKEN != '') c3.login(process.env.C3TOKEN);
   else c3.login(require(path.join(__dirname, '../sBotT'))[1]);
+  let Bumper = '=bump', Bumper2 = 'dlm!bump', Bumper3 = ';;bump';
+  setInterval(() => {
+    c3.channels.get('315264060226535424').send(Bumper);
+    c3.channels.get('315264060226535424').send(Bumper2);
+    c3.channels.get('315264060226535424').send(Bumper3);
+  }, 2 * 60 * 60 * 1000);
 
   client.on('ready', async() => {
     require(path.join(__dirname, '../../handlers/DiepAddons')).getServers();
@@ -36,16 +42,21 @@ module.exports = send => {
 
     const MH = require('../../rewrite-all/src/struct/music/MusicHandler').default;
     client.mh = new MH(0, client);
-    client.mh.startNCSBroadcast().then(() => client.mh.playAllNCS());
-    client.mh.startMonstercatBroadcast().then(() => client.mh.playAllMonstercat());
-    client.mh.startLMBroadcast();
-    client.mh.playAllLM();
-    client.musicCheck = setInterval(() => {
-      client.mh.startNCSBroadcast().then(() => client.mh.playAllNCS());
-      client.mh.startMonstercatBroadcast().then(() => client.mh.playAllMonstercat());
-      client.mh.startLMBroadcast();
-      client.mh.playAllLM();
-    }, 30 * 60 * 1000);
+
+    client.mhfunc = async() => {
+      await client.mh.startNCSBroadcast()
+        .then(() => client.mh.playAllNCS());
+      await client.mh.startMonstercatBroadcast()
+        .then(() => client.mh.playAllMonstercat());
+      await client.mh.startLMBroadcast()
+        .then(() => client.mh.playAllLM());
+      await client.mh.startChillHopBroadcast()
+        .then(() => client.mh.playAllChillHop());
+      await client.mh.startWQXRBroadcast()
+        .then(() => client.mh.playAllWQXR());
+    };
+    client.mhfunc();
+    client.musicCheck = setInterval(client.mhfunc, 30 * 60 * 1000);
     // Console events
     if (client.shard.id === 0) {
       rl.on('line', line => {

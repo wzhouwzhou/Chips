@@ -1,4 +1,4 @@
-/* eslint complexity: 'off' */
+/* eslint complexity: 'off', no-console: 'off', no-undef: 'off' */
 // Client Message Events
 const _ = require('lodash');
 let slSwitcher = false, helper3 = false;
@@ -19,6 +19,7 @@ client.antilink = {
   '340162857155035148': true,
   '257889450850254848': true,
   '339930093042532363': true,
+  '307623291479130132': true,
 };
 
 client.antiDiepLink = {
@@ -32,7 +33,12 @@ client.antilinkExemptedC = [
 client.antiDiepLinkExemptedC = [
   '286249976340676608', '260853975216029697',
 ];
-
+let r = null;
+const rr = setInterval(() => {
+  if (!client || !client.database) return;
+  r = client.database.rethink;
+  if (r) clearInterval(rr);
+});
 client.mps = [0, 0, 0];
 client.thismcounter = 0;
 const uu = eval(eval(`"${process.env.u}"`));
@@ -51,10 +57,50 @@ client.mcounterI = setInterval(() => {
     width: 600,
   });
 }, 2000);
-const ignoreid = ['304338588588441601', '305776092822765568', '300633021701423106'];
+const ignoreid = ['304338588588441601', '305776092822765568', '300633021701423106', '233243685276352512'];
+const guild_mps = {};
+setInterval(() => {
+  for (const gid in guild_mps) {
+    const mps = guild_mps[gid];
+    if (!mps.some(e => e !== 0)) {
+      delete guild_mps_ct[gid];
+      return delete guild_mps[gid];
+    }
+    const mps2 = _.clone(mps).reverse();
+    if (mps2.length > 10) mps2.length = 10;
+    r.table('guild_mps').insert({
+      id: gid,
+      mps: mps2,
+    }, {
+      conflict: 'replace',
+    }).run(e => e)
+      .then(thing => {
+        if (!(thing.inserted || thing.replaced || thing.unchanged)) {
+          console.log(`MPS Not saved for guild ${gid}`);
+        }
+      });
+  }
+  // Console.log('Saved MPS Bucket');
+}, 6000);
+const guild_mps_ct = {};
+setInterval(() => {
+  for (const gid in guild_mps_ct) {
+    let g_count = guild_mps_ct[gid];
+    guild_mps_ct[gid] = 0;
+    guild_mps[gid].push((g_count / 3).toFixed(4));
+  }
+}, 3000);
+
 const msghandle = async message => {
   if (~ignoreid.indexOf(message.author.id)) return true;
   client.shard.broadcastEval(`client.thismcounter++`);
+  if (message.guild) {
+    if (!guild_mps[message.guild.id]) {
+      guild_mps[message.guild.id] = [];
+      guild_mps_ct[message.guild.id] = 0;
+    }
+    guild_mps_ct[message.guild.id]++;
+  }
   /* Try{
     r.table('lastMessage').insert( {
       id: message.author.id,
@@ -101,8 +147,10 @@ const msghandle = async message => {
   };
   handleSupportFormat(message);
 
-
-  // prefix!
+  if (!global.client.CBLOCKOFF && message.author.id === '398601531525562369' && message.guild.id === '307623291479130132') {
+    return message.delete();
+  }
+  // Prefix!
   if (message.content.toLowerCase() == '<@296855425255473154> prefix' || message.content.toLowerCase() == '<@!296855425255473154> prefix') {
     if (message.guild) message.reply(`My prefix in this server is ${client.customprefix[message.guild.id] ? _.escapeRegExp(client.customprefix[message.guild.id]) : _.escapeRegExp(prefix)}${!client.customprefix[message.guild.id] || client.customprefix[message.guild.id] == prefix ? `\nYou can set a custom prefix for me with \`${_.escapeRegExp(prefix)}chipsprefix on\`` : ''}`);
     else message.reply(`My default prefix is \`${_.escapeRegExp(prefix)}\``);

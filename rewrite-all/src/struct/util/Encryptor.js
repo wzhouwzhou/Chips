@@ -15,18 +15,20 @@ const Encryptor = class Encryptor {
     _keys.set(this, client.token);
   }
 
-  encrypt(item) {
+  encrypt(item, i = 0) {
     const buffer = erlpack.pack(item);
     const cipher = crypto.createCipher(algorithm, _keys.get(this));
     const final = Buffer.concat([cipher.update(buffer), cipher.final()]).toString('base64');
-    return final;
+    if (i <= 0) return final;
+    else return this.encrypt(final, i - 1);
   }
 
-  decrypt(str) {
+  decrypt(str, i = 0) {
     const buffer = new Buffer(str, 'base64');
     const decipher = crypto.createDecipher(algorithm, _keys.get(this));
     const final = erlpack.unpack(Buffer.concat([decipher.update(buffer), decipher.final()]));
-    return final;
+    if (i <= 0) return final;
+    else return this.decrypt(final, i - 1);
   }
 
   setKey(newKey, oldKey) {

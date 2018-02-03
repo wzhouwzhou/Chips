@@ -22,7 +22,7 @@ module.exports = {
     }
 
     let nmsgs = parseInt(args[0]);
-    if (nmsgs.toString() !== args[0]) return reply(`Please enter a valid number of messages to clear.`);
+    if (nmsgs.toString() !== args[0]) return reply(`Please enter a valid number of messages to clear (1-99).`);
 
     let result;
     try {
@@ -38,6 +38,7 @@ module.exports = {
     } catch (err) {
       result = await send(`Could not delete ${args[0]} message(s)..`);
     }
-    return result.delete({ timeout: 9500 }).catch(_ => _);
+    result.delete({ timeout: 9500 }).catch(_ => _);
+    return true;
   },
 };

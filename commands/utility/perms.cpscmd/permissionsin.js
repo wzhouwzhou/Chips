@@ -5,11 +5,13 @@ const cb = '`'.repeat(3), start = `${cb}diff`;
 module.exports = {
   name: 'permissionsin',
   func(msg, { args, send, channel, guild, suffix, Discord, member, Constants }) {
+    const theChannel = msg.mentions.channels.first() || channel;
+    const tomatch = _.escapeRegExp(suffix.replace(theChannel + [], '').trim());
     const theMember = args[0] ?
       msg.mentions.members.first() ||
-      guild.members.get(args[0] || '0') ||
+      guild.members.get(tomatch.replace(/\s+/g, '') || '0') ||
       Array.from(guild.members.values())
-        .filter(m => m.user.tag.match(new RegExp(_.escapeRegExp(suffix), 'i')))[0] :
+        .filter(m => m.user.tag.match(new RegExp(tomatch, 'i')))[0] :
       member;
 
     if (!theMember) return send('You must mention someone, or provide a valid userid or Discord tag.');
@@ -17,7 +19,7 @@ module.exports = {
     let beautified = [], deny = [];
     beautified.push(start);
     deny.push(start);
-    let pobj = channel.permissionsFor(theMember).serialize();
+    let pobj = theChannel.permissionsFor(theMember).serialize();
     let adminuser = false;
     const { permissions_details } = Constants;
     for (const p in pobj) {
@@ -49,6 +51,6 @@ module.exports = {
         beautified.join('\n'));
     if (!adminuser) embed.addField('cannot...', deny.join('\n'));
 
-    return send('Channel specific permissions:', { embed });
+    return send(`Channel specific user permissions for ${theChannel + []}`, { embed });
   },
 };

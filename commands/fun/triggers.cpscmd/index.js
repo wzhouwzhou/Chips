@@ -10,7 +10,7 @@ let triggergif = require('./triggergif');
 let everyone = require('./everyone');
 let googleit = require('./googleit');
 let ree = require('./ree');
-let hug = require('./hug');
+let hug = require('./hug2');
 
 console.log('[CPSCMD][FUN][triggers] Building objects...');
 aboosed.metadata = {

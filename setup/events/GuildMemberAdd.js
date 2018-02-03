@@ -41,8 +41,7 @@ module.exports = () => {
                   'you got our discord invite.\nIf you got it from a friend, please tell us who like so: ' +
                   '**SomebodyHere#1234**.',
 
-                '2. Please read <#348082661060771841> and <#359141257051635713>; will you follow the rules and ' +
-                  'agree to the bot TOS?',
+                '2. Please read <#404992099478405122>; will you follow the rules and agree to the bot TOS?',
 
                 '3. What is your favourite diep.io tank?',
               ].join('\n')).setTitle('Please answer these here and wait for staff to verify you.');
@@ -99,6 +98,21 @@ module.exports = () => {
             member.addRole(memberguild.roles.get('385865868417957888') || memberguild.roles.find('name', 'Unverified'));
             let welcomeC = client.channels.get('385851855084978176') || memberguild.channels.find('name', 'unverified');
             if (welcomeC) welcomeC.send(`${member.user + []}, Welcome to ${memberguild.name}! Make SURE to read the <#366505552752148481> and <#312224217967886336>!\nPlease wait for staff to verify you with __\`-vs ok ${member.user + []}__!`);
+          }, 1500);
+        } else if (memberguild.id === '373481656134270986') {
+          setTimeout(() => {
+            const embed = new Discord.MessageEmbed();
+            embed.setTitle('Woah, Hi there!');
+            embed.setImage('https://cdn.discordapp.com/attachments/378182532459397121/378632645187338250/Baka-World.png');
+            embed.addField('I am Chips Bot, and Welcome to Baka World!!',
+              [
+                'Baka World is a community for gamers, youtubers, streamers, and everything anime!',
+                'Check out <#385987386804404224> for more info, and if you have any questions, staff are always ready to answer them!',
+                'Use https://guilds.chipsbot.me/baka_world if you want to invite your friends! We might be getting global emotes soon!',
+                '', 'When you have time you should check out more about me! Just visit [my website](https://chipsbot.me:2087/)',
+                'To add me to your server, click on [this invite link](https://invite.chipsbot.me/) and select your server in the dropdown',
+              ].join`\n`);
+            member.send(embed);
           }, 1500);
         }
       } catch (err) {

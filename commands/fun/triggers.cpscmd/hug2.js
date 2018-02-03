@@ -9,7 +9,7 @@ const gifs = [
 ];
 
 module.exports = {
-  name: 'hug',
+  name: 'hug2',
   func(msg, { send }) {
     return send(a.sample(gifs));
   },
