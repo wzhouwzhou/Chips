@@ -2,6 +2,8 @@ const a = require('nodecpp-test').arrays;
 const memes = [
   'https://i.imgur.com/ahpEz6W.png',
   'https://i.imgur.com/ivrL0YT.png',
+  'https://i.imgur.com/FKRiLXA.png',
+  'https://i.imgur.com/TEnYCPW.png',
 ];
 
 module.exports = {
