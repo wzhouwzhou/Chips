@@ -62,21 +62,23 @@ const guild_mps = {};
 setInterval(() => {
   for (const gid in guild_mps) {
     const mps = guild_mps[gid];
+    if (!mps.some(e => e !== 0)) return delete guild_mps[gid];
     const mps2 = _.clone(mps).reverse();
     if (mps2.length > 10) mps2.length = 10;
     r.table('guild_mps').insert({
       id: gid,
       mps: mps2,
     }, {
-      conflict: 'replace'
-    }).run(_ => _).then(thing=>{
-      if (!(thing.inserted || thing.replaced || thing.unchanged)) {
-        console.log(`MPS Not saved for guild ${gid}`);
-      }
-    });
+      conflict: 'replace',
+    }).run(e => e)
+      .then(thing => {
+        if (!(thing.inserted || thing.replaced || thing.unchanged)) {
+          console.log(`MPS Not saved for guild ${gid}`);
+        }
+      });
   }
-  console.log('Saved MPS Bucket');
-}, 30000);
+  // Console.log('Saved MPS Bucket');
+}, 6000);
 const guild_mps_ct = {};
 setInterval(() => {
   for (const gid in guild_mps_ct) {
