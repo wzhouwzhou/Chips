@@ -70,18 +70,19 @@ setInterval(() => {
     }, {
       conflict: 'replace'
     }).run(_ => _).then(thing=>{
-      if (thing.inserted || thing.replaced || thing.unchanged) {
-        console.log(`New mps saved for guild ${gid}`);
+      if (!(thing.inserted || thing.replaced || thing.unchanged)) {
+        console.log(`MPS Not saved for guild ${gid}`);
       }
     });
   }
-}, 7000);
+  console.log('Saved MPS Bucket');
+}, 30000);
 const guild_mps_ct = {};
 setInterval(() => {
   for (const gid in guild_mps_ct) {
     const g_count = guild_mps_ct[gid];
     guild_mps_ct[gid] = 0;
-    guild_mps[gid].push((g_count / 3).toFixed(2));
+    guild_mps[gid].push((g_count / 3).toFixed(4));
   }
 }, 3000);
 
