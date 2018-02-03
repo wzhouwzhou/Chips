@@ -120,6 +120,50 @@ router.use('/api/membercount', (req, res) => {
     });
 });
 
+router.use('/api/simpleguildstats', (req, res) => {
+  if (!req.headers.guildid) return res.json({ error: 'guildid missing from header' });
+  Manager.broadcastEval(`(() => {
+    let guild = this.guilds.get('${req.headers.guildid}');
+    if (!guild) return null;
+
+    let members_on guild.members.filter(member => {
+      const presence = member.presence;
+      switch (presence.status) {
+        case 'online':
+        case 'idle':
+        case 'dnd':
+          return true;
+        default:
+          return false;
+      }
+    });
+    const member_count = guild.members.size;
+    const offline = member_count - members_on;
+
+    const object = {
+      id: guild.id,
+      name: guild.name,
+      member_count,
+      offline,
+      members_on,
+    };
+    return object;
+  })()`)
+    .then(results => {
+      const gs = results.filter(_ => _);
+      if (!gs || !gs[0]) return res.status(404).json({ error: 'no guild' });
+      const object = gs[0];
+      if (!req.query.callback) {
+        res.json(object);
+      } else {
+        res.send(`${req.query.callback}(${JSON.stringify(object)})`);
+      }
+    }).catch(err => {
+      console.error(err);
+      return res.json({ error: err });
+    });
+});
+
 router.use('/api/guildstats', (req, res) => {
   if (!req.headers.guildid) return res.json({ error: 'guildid missing from header' });
   Manager.broadcastEval(`(() => {
