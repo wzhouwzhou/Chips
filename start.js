@@ -126,7 +126,7 @@ router.use('/api/simpleguildstats', (req, res) => {
     let guild = this.guilds.get('${req.headers.guildid}');
     if (!guild) return null;
 
-    let members_on guild.members.filter(member => {
+    let members_on = guild.members.filter(member => {
       const presence = member.presence;
       switch (presence.status) {
         case 'online':
@@ -136,7 +136,7 @@ router.use('/api/simpleguildstats', (req, res) => {
         default:
           return false;
       }
-    });
+    }).size;
     const member_count = guild.members.size;
     const offline = member_count - members_on;
 
