@@ -114,7 +114,7 @@ const GuildMusicHandler = class MusicHandler {
     }
     if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
     if (!MonstercatBroadcast) MonstercatBroadcast = this._client.createVoiceBroadcast();
-    const Monstercat = await new Song('https://api.chipsbot.me:2087/music1?id=3', this._client.user).loadInfo();
+    const Monstercat = await new Song('https://api.chipsbot.me:2087/music1?id=3', this._client.user);
     this._client.musicBroadcasts.monstercat = MonstercatBroadcast;
     MonstercatBroadcast.once('end', this.startMonstercatBroadcast.bind(this));
     MonstercatBroadcast.on('error', Logger.error.bind(Logger));
