@@ -63,7 +63,7 @@ const GuildMusicHandler = class MusicHandler {
     }
     if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
     if (!WQXRBroadcast) WQXRBroadcast = this._client.createVoiceBroadcast();
-    const WQXR = await new Song('http://stream.wqxr.org/wqxr', this._client.user);
+    const WQXR = await new Song('https://api.chipsbot.me:2087/music2?id=1', this._client.user);
     this._client.musicBroadcasts.wqxr = WQXRBroadcast;
     WQXRBroadcast.once('end', this.startNCSBroadcast.bind(this));
     WQXRBroadcast.on('error', Logger.error.bind(Logger));
@@ -97,7 +97,7 @@ const GuildMusicHandler = class MusicHandler {
     }
     if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
     if (!LM) LM = this._client.createVoiceBroadcast();
-    const LMS = new Song('https://listen.moe/fallback', this._client.user);
+    const LMS = new Song('https://api.chipsbot.me:2087/music2?id=0', this._client.user);
     this._client.musicBroadcasts.lm = LM;
     LM.once('end', () => setTimeout(() => this.startLMBroadcast(), 1000));
     LM.on('error', Logger.error.bind(Logger));
@@ -114,12 +114,12 @@ const GuildMusicHandler = class MusicHandler {
     }
     if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
     if (!MonstercatBroadcast) MonstercatBroadcast = this._client.createVoiceBroadcast();
-    const Monstercat = await new Song('https://www.youtube.com/watch?v=ueupsBPNkSc', this._client.user).loadInfo();
+    const Monstercat = await new Song('https://api.chipsbot.me:2087/music1?id=3', this._client.user).loadInfo();
     this._client.musicBroadcasts.monstercat = MonstercatBroadcast;
     MonstercatBroadcast.once('end', this.startMonstercatBroadcast.bind(this));
     MonstercatBroadcast.on('error', Logger.error.bind(Logger));
     MonstercatBroadcast.on('warn', Logger.error.bind(Logger));
-    MonstercatBroadcast.playStream(Monstercat.stream, this.broadcastOpts);
+    MonstercatBroadcast.playStream(Monstercat.url, this.broadcastOpts);
     return MonstercatBroadcast;
   }
 
