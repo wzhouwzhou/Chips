@@ -65,7 +65,7 @@ const GuildMusicHandler = class MusicHandler {
     if (!WQXRBroadcast) WQXRBroadcast = this._client.createVoiceBroadcast();
     const WQXR = await new Song('https://api.chipsbot.me:2087/music2?id=1', this._client.user);
     this._client.musicBroadcasts.wqxr = WQXRBroadcast;
-    WQXRBroadcast.once('end', this.startNCSBroadcast.bind(this));
+    WQXRBroadcast.once('end', () => setTimeout(() => this.startWQXRBroadcast(), 4000));
     WQXRBroadcast.on('error', Logger.error.bind(Logger));
     WQXRBroadcast.on('warn', Logger.error.bind(Logger));
     WQXRBroadcast.playStream(WQXR.url, this.broadcastOpts);
@@ -82,7 +82,7 @@ const GuildMusicHandler = class MusicHandler {
     if (!NCSBroadcast) NCSBroadcast = this._client.createVoiceBroadcast();
     const NCS = await new Song('https://youtube.com/watch?v=4rdaGSlLyDE', this._client.user).loadInfo();
     this._client.musicBroadcasts.ncs = NCSBroadcast;
-    NCSBroadcast.once('end', this.startNCSBroadcast.bind(this));
+    NCSBroadcast.once('end', () => setTimeout(() => this.startNCSBroadcast(), 5000));
     NCSBroadcast.on('error', Logger.error.bind(Logger));
     NCSBroadcast.on('warn', Logger.error.bind(Logger));
     NCSBroadcast.playStream(NCS.stream, this.broadcastOpts);
@@ -116,7 +116,7 @@ const GuildMusicHandler = class MusicHandler {
     if (!MonstercatBroadcast) MonstercatBroadcast = this._client.createVoiceBroadcast();
     const Monstercat = await new Song('https://api.chipsbot.me:2087/music1?id=3', this._client.user);
     this._client.musicBroadcasts.monstercat = MonstercatBroadcast;
-    MonstercatBroadcast.once('end', this.startMonstercatBroadcast.bind(this));
+    MonstercatBroadcast.once('end', () => setTimeout(() => this.startMonstercatBroadcast(), 2000));
     MonstercatBroadcast.on('error', Logger.error.bind(Logger));
     MonstercatBroadcast.on('warn', Logger.error.bind(Logger));
     MonstercatBroadcast.playStream(Monstercat.url, this.broadcastOpts);
