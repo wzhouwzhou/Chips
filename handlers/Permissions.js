@@ -33,6 +33,7 @@ ex.permsList = [
   ['global.custom.points.self', true],
   ['global.custom.points.other', true],
   ['global.custom.lewdme.*', true],
+  ['global.custom.newfag.*', false],
   ['global.chipsmusic.*', true],
   ['global.chipsmusic.music.*', true],
   ['global.chipsmusic.music.play', true],

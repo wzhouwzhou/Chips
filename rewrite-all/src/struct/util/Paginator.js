@@ -32,7 +32,7 @@ const Paginator = class Paginator {
     if (!this.title) this.title = new Array(this.pages.length > 1 ? this.pages.length : 1).fill(' ');
     if (!this.text) this.text = new Array(this.pages.length > 1 ? this.pages.length : 1).fill(' ');
     this.thumbnail = data.thumbnail;
-    this.buttons = data.buttons || PAGEBTNS;
+    this.buttons = this.pages.length === 1 ? ['⏏'] : (data.buttons || PAGEBTNS);
     this.help = data.help;
     this.locked = data.locked != null ? data.locked : !0;
     this.lockToggle = !!data.lockToggle;
