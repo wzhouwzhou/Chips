@@ -7,7 +7,7 @@ exports.func = async(msg, { prefix, guild, content, args }) => {
   if (!guild || guild.id !== '136176078199717888') return true;
   if (content.match(new RegExp(`${_.escapeRegExp(prefix)}r`, 'i')) && args[0] !== 'n') return true;
   const list = (guild.roles.get('304364013524090891') || guild.roles.find('name', 'newfag'))
-    .members.filter(m => m.id !== '257574409852813315');
+    .members.filter(m => m.id !== '257574409852813315'));
   const p = new Paginator(msg, {
     type: 'paged',
     embedding: true,
