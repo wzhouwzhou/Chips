@@ -14,7 +14,7 @@ exports.func = async(msg, { prefix, guild, content, args }) => {
     title: `Total: ${(guild.roles.get('304364013524090891') || guild.roles.find('name', 'newfag')).members.size}`,
     pages:
     [
-      ...split((guild.roles.get('304364013524090891') || guild.roles.find('name', 'newfag')).members.array().map(e=>e+[]), { clone: true, size: 10 }).map(e=>e.join('\n')),
+      ...(split((guild.roles.get('304364013524090891') || guild.roles.find('name', 'newfag')).members.array().map(e=>e+[]), { clone: true, size: 10 }) || ['None!']).map(e=>e.join('\n'),
     ],
   }, Discord
   );
