@@ -10,7 +10,6 @@ exports.func = async(msg, { guild }) => {
     embedding: true,
     fielding: false,
     title: 'Members with the Newfag role',
-    text: `Testing`,
     pages:
     [
       ...split((guild.roles.get('304364013524090891') || guild.roles.find('name', 'newfag')).members.array().map(e=>e+[]), { clone: true, size: 10 }).map(e=>e.join('\n')),
