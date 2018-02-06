@@ -3,8 +3,9 @@ const _ = require('lodash');
 const split = require('../../../rewrite-all/src/deps/functions/splitChunkF').default({ _ });
 const { Paginator } = require('../../../rewrite-all/src/struct/client/Paginator');
 exports.name = 'newfag';
-exports.func = async(msg, { guild }) => {
+exports.func = async(msg, { prefix, guild, content, args }) => {
   if (guild.id !== '136176078199717888') return true;
+  if (message.content.match(new RegExp(`${_.escapeRegExp(prefix)}r`, 'i')) && args[0] !== 'n') return true;
   const p = new Paginator(msg, {
     type: 'paged',
     embedding: true,
