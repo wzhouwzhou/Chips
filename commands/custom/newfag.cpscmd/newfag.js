@@ -31,5 +31,5 @@ exports.metadata = {
   usage: 'newfag <no args>',
   example: 'newfag',
   perms: [['global.custom.newfag.*']],
-  customperm: 'MANAGE_ROLES',
+  customperm: ['MANAGE_ROLES'],
 };
