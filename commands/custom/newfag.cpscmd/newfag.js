@@ -9,7 +9,8 @@ exports.func = async(msg, { guild }) => {
     type: 'paged',
     embedding: true,
     fielding: false,
-    title: 'Members with the Newfag role',
+    text: 'New members with autorole',
+    title: `Total: ${(guild.roles.get('304364013524090891') || guild.roles.find('name', 'newfag')).members.size}`,
     pages:
     [
       ...split((guild.roles.get('304364013524090891') || guild.roles.find('name', 'newfag')).members.array().map(e=>e+[]), { clone: true, size: 10 }).map(e=>e.join('\n')),
