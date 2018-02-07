@@ -46,6 +46,16 @@ const neko = [
   // Devon, for making chips logos
   '374022684519956480',
   // Cursed
+  '278867114792845312',
+  // Tidepod
+];
+
+const l2 = [
+  '205608598233939970',
+  '259209114268336129',
+  '250815960250974209',
+  '365972456139390977',
+  '278867114792845312',
 ];
 
 const ex = {
@@ -80,12 +90,7 @@ const ex = {
     }*/
     // console.log("Target: "+target);
     if (neko.indexOf(user.id) >= 0) {
-      if (author.id !== '205608598233939970' && author.id !== '259209114268336129' &&
-      author.id !== '250815960250974209' && author.id !== '365972456139390977') {
-        // Something Willy Edp Vee
-        setTimeout(() => { reply('go ban yourself!!!'); }, 50);
-        return;
-      }
+      if (!l2.includes(author.id)) return setTimeout(() => { reply('go ban yourself!!!'); }, 50);
       /* Else
         console.log("-ban immunity override");*/
     }
@@ -95,7 +100,7 @@ const ex = {
       .setThumbnail('https://i.imgur.com/S789uIe.png')
       .addField('Ban reason: ', `${reason}`, true);
     try {
-      await user.send(' ', { embed: emb.setTitle(`You were banned from the server: ${guild.name}!`).setAuthor('Note: This is a fake ban!') });
+      await user.send(emb.setTitle(`You were banned from the server: ${guild.name}!`).setAuthor('Note: This is a fake ban!'));
     } catch (err) {
       console.error(`Error of dming User: ${err}`);
     }
