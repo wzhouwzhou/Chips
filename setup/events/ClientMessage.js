@@ -162,7 +162,7 @@ const msghandle = async message => {
     const result = await snek.get(`${Constants.APIURL}cleverbot`)
       .set('Authorization', process.env.RETHINKPSWD)
       .set('X-Data-Src', new Buffer(message.content.replace(/^<@!?(296855425255473154)>\s+/, '')).toString('base64'));
-    message.stopTyping();
+    message.channel.stopTyping();
     return message.reply(result.body.message);
   }
   // Rekt
