@@ -152,9 +152,16 @@ const msghandle = async message => {
     return message.delete();
   }
   // Prefix!
-  if (message.content.toLowerCase() == '<@296855425255473154> prefix' || message.content.toLowerCase() == '<@!296855425255473154> prefix') {
-    if (message.guild) return message.reply(`My prefix in this server is ${client.customprefix[message.guild.id] ? _.escapeRegExp(client.customprefix[message.guild.id]) : _.escapeRegExp(prefix)}${!client.customprefix[message.guild.id] || client.customprefix[message.guild.id] == prefix ? `\nType __${_.escapeRegExp(prefix)}help__ or set a custom prefix for me with \`${_.escapeRegExp(prefix)}chipsprefix on\`` : ''}`);
-    else return message.reply(`My default prefix is \`${_.escapeRegExp(prefix)}\`, type ${_.escapeRegExp(prefix)}help to show the help menu!`);
+  if (message.content.match(/<@!?296855425255473154>\s*prefix/i)) {
+    if (message.guild) {
+      return message.reply(`My prefix in this server is ${client.customprefix[message.guild.id] ?
+        _.escapeRegExp(client.customprefix[message.guild.id]) : _.escapeRegExp(prefix)
+      }${!client.customprefix[message.guild.id] || client.customprefix[message.guild.id] === prefix ?
+        `\nType __${_.escapeRegExp(prefix)}help__ or set a custom prefix for me with \`${_.escapeRegExp(prefix)}chipsprefix on\`` :
+        `Type __${_.escapeRegExp(client.customprefix[message.guild.id])}help__`}`);
+    } else {
+      return message.reply(`My default prefix is \`${_.escapeRegExp(prefix)}\`, type ${_.escapeRegExp(prefix)}help to show the help menu!`);
+    }
   }
 
   if (message.content.match(/^<@!?(296855425255473154)>[^]+$/)) {
