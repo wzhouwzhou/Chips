@@ -159,7 +159,7 @@ const msghandle = async message => {
 
   if (message.content.match(/^<@!?(296855425255473154)>[^]+$/)) {
     const result = await snek.get(`${Constants.APIURL}cleverbot`)
-      .set('Authorization', Constants.RETHINKPSWD)
+      .set('Authorization', process.env.RETHINKPSWD)
       .set('X-Data-Src', new Buffer(message.content.replace(/^<@!?(296855425255473154)>\s+/, '')).toString('base64'));
     return message.reply(result.message);
   }
