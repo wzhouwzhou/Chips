@@ -65,7 +65,8 @@ const ex = {
     // Const used = member || author;
     if (!guild) return send('You must use this command in a server.');
     if (!args[0]) return send('No user given :(');
-    const target = args[0].match(/^[^]*<@!?(\d+)>[^]*$/)[1];
+    const target = (args[0].match(/^[^]*<@!?(\d+)>[^]*$/) || [])[1];
+    if (!target) return send('Invalid user mentioned');
     const split = content.replace(/\s+/g, ' ').trim().split(' ');
     let reason = split.slice(2, split.length).join(' ');
     if (reason === '') reason = 'None';

@@ -80,6 +80,7 @@ ex.permsList = [
   ['global.fun.image.neko', true],
   ['global.fun.image.warp', true],
   ['global.fun.image.magik', true],
+  ['global.fun.image.pinged', true],
   ['global.fun.weeb.*', true],
   ['global.fun.weeb.hug', true],
   ['global.fun.weeb.kiss', true],
