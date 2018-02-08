@@ -155,6 +155,11 @@ const msghandle = async message => {
     if (message.guild) message.reply(`My prefix in this server is ${client.customprefix[message.guild.id] ? _.escapeRegExp(client.customprefix[message.guild.id]) : _.escapeRegExp(prefix)}${!client.customprefix[message.guild.id] || client.customprefix[message.guild.id] == prefix ? `\nYou can set a custom prefix for me with \`${_.escapeRegExp(prefix)}chipsprefix on\`` : ''}`);
     else message.reply(`My default prefix is \`${_.escapeRegExp(prefix)}\``);
   }
+
+  if (message.content.match(/^<@!?(296855425255473154)>[^]+$/)) {
+    const result = await snek.get(`${Constants.APIURL}cleverbot`).set('X-Data-Src', new Buffer(message.content.replace(/^<@!?(296855425255473154)>\s+/, '')).toString('base64'));
+    return message.reply(result.message);
+  }
   // Rekt
   if (muteTrigger && (message.author.id == '244533925408538624' && (message.content.toLowerCase().indexOf('user muted successfully') > -1 || message.content.toLowerCase().indexOf('user banned successfully') > -1))) return message.channel.send('Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE');
   if (message.guild && (message.guild.id == '257889450850254848') && (message.author.id == '304322292769488906') && (/^[^]*(commandnotfound)[^]*$/).test(message.content.toLowerCase().replace(/\s+/g, ''))) return await message.delete();
