@@ -1,6 +1,7 @@
 /* eslint complexity: 'off', no-console: 'off', no-undef: 'off' */
 // Client Message Events
 const _ = require('lodash');
+const snek = require('snekfetch');
 let slSwitcher = false, helper3 = false;
 global.testC, global.nLogs, global.sLogs, global.sxLogs, global.stLogs, global.snLogs;
 global.sLogs2;
@@ -157,7 +158,9 @@ const msghandle = async message => {
   }
 
   if (message.content.match(/^<@!?(296855425255473154)>[^]+$/)) {
-    const result = await snek.get(`${Constants.APIURL}cleverbot`).set('X-Data-Src', new Buffer(message.content.replace(/^<@!?(296855425255473154)>\s+/, '')).toString('base64'));
+    const result = await snek.get(`${Constants.APIURL}cleverbot`)
+      .set('Authorization', Constants.RETHINKPSWD)
+      .set('X-Data-Src', new Buffer(message.content.replace(/^<@!?(296855425255473154)>\s+/, '')).toString('base64'));
     return message.reply(result.message);
   }
   // Rekt
