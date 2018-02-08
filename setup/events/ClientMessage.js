@@ -158,10 +158,12 @@ const msghandle = async message => {
   }
 
   if (message.content.match(/^<@!?(296855425255473154)>[^]+$/)) {
+    message.channel.startTyping();
     const result = await snek.get(`${Constants.APIURL}cleverbot`)
       .set('Authorization', process.env.RETHINKPSWD)
       .set('X-Data-Src', new Buffer(message.content.replace(/^<@!?(296855425255473154)>\s+/, '')).toString('base64'));
-    return message.reply(result.message);
+    message.stopTyping();
+    return message.reply(result.body.message);
   }
   // Rekt
   if (muteTrigger && (message.author.id == '244533925408538624' && (message.content.toLowerCase().indexOf('user muted successfully') > -1 || message.content.toLowerCase().indexOf('user banned successfully') > -1))) return message.channel.send('Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE');
