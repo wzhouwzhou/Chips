@@ -87,7 +87,7 @@ module.exports = send => {
     client.user.setPresence({
       status: 'online',
       activity: {
-        name: `${process.env.BETA}` === 'true' ? 'Chips PTB' : '-help | And, when you want something, all the universe conspires in helping you to achieve it.',
+        name: `${process.env.BETA}` === 'true' ? 'Chips PTB' : '-info bot | support.chipsbot.me | And, when you want something, all the universe conspires in helping you to achieve it.',
         type: 'STREAMING',
         url: 'https://twitch.tv/twitch',
       },

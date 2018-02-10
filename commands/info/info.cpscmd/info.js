@@ -25,7 +25,7 @@ const ex = {
         'This command must be used with a given "action":',
         '**{} user [@ mention or fuzzy search]** returns info about a member in a server\\*',
         '**{} channel [#channel or fuzzy search]** returns info about a particular channel\\*',
-        '**{} guild** returns info about the server you are in\\*',
+        '**{} guild** or **{} server** returns info about the server you are in\\*',
         '**{} role [@ mention or fuzzy search]** returns info about a role\\*',
         '**{} bot** shows some basic info about me!',
         'Any subcommands with a \\* following their usage must be used in a server',
@@ -60,7 +60,7 @@ const ex = {
       return send(infobad);
     }
     if (!guild) return send(helpembed);
-    if (action === 'server') {
+    if (action === 'server' || action === 'guild') {
       try {
         let info = await global.permissions.checkMulti(msg, ['global.info.info.server']);
         console.log(`[Command] ${info}`);
