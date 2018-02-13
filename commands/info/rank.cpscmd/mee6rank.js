@@ -114,7 +114,10 @@ const userData = ({ member, infobad, name, Constants }) => new Promise(async res
     }
   })();
 
-  const rp = snekfetch.get(`${Constants.APIURL}avaround`).set('Authorization',process.env.RETHINKPSWD).set('Status','online').set('X-Data-Src', client.users.get(author.id).avatarURL({ format: 'png', size: 2048 })).then(r=>send(new Discord.MessageAttachment(r.body, 'hi.png')))
+  const rp = snekfetch.get(`${Constants.APIURL}avaround`)
+    .set('Authorization',process.env.RETHINKPSWD)
+    .set('Status', status)
+    .set('X-Data-Src',  avatarURL);
   const datap = m6r(member.guild.id, member.id);
   let r, data;
   [r, data] = await Promise.all([rp, datap]);
