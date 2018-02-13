@@ -242,8 +242,7 @@ const ex = {
         const name = `${member.id}${process.hrtime().join('')}profileEdited.png`;
         const embed = await userData({ Constants, member, infobad, convertTime, times, name });
         waiting.delete();
-        await send(`${multiple ? '(multiple users were found, using the first one)' : ''}`, { embed });
-        return fs.unlinkSync(name);
+        return send(`${multiple ? '(multiple users were found, using the first one)' : ''}`, { embed });
       } else {
         try {
           let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
@@ -254,11 +253,9 @@ const ex = {
             return msg.reply(err);
           }
         }
-        const name = `${member.id}${process.hrtime().join('')}profileEdited.png`;
-        const embed = await userData({ Constants, member, infobad, convertTime, times, name });
+        const embed = await userData({ Constants, member, infobad, convertTime, times });
         waiting.delete();
-        await send('', { embed });
-        return fs.unlinkSync(name);
+        return send('', { embed });
       }
     } else if (action == 'role') {
       try {
@@ -439,7 +436,7 @@ const ex = {
   },
 };
 
-const userData = ({ Constants, member, infobad, convertTime, times, name }) => new Promise(async res => {
+const userData = ({ Constants, member, infobad, convertTime, times }) => new Promise(async res => {
   const avatarURL = member.user.displayAvatarURL({ format: 'png', size: 2048 });
 
   const status = (() => {
