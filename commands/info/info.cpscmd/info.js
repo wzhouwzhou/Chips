@@ -3,7 +3,7 @@ const path = require('path');
 const moment = require('moment');
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
 const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Paginator;
-const snek = require('snekfetch');
+const snekfetch = require('snekfetch');
 const _ = require('lodash');
 let helpembed = null;
 

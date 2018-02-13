@@ -3,8 +3,7 @@ const snekfetch = require('snekfetch')
 const fs = require('fs');
 // Const m6r = require('../../../rewrite-all/src/deps/functions/mee6rankF').default({ needle: require('needle') });
 
-const m6r = async(gid, uid) => (await snekfetch
-  .get(`https://api.chipsbot.me:2087/mee6?gid=${gid}&uid=${uid}`)).body;
+const m6r = (gid, uid) => snekfetch.get(`https://api.chipsbot.me:2087/mee6?gid=${gid}&uid=${uid}`);
 
 const ex = {
   name: 'mee6rank',
@@ -121,7 +120,7 @@ const userData = ({ member, infobad, name, Constants }) => new Promise(async res
   const datap = m6r(member.guild.id, member.id);
   let r, data;
   [r, data] = await Promise.all([rp, datap]);
-
+  data = data.body;
   const membername = member.displayName.replace('@', '(at)');
 
   infobad.addField(`${member.user.tag} AKA ${membername}`, `${member.id}`);
@@ -129,7 +128,7 @@ const userData = ({ member, infobad, name, Constants }) => new Promise(async res
     infobad.setDescription('User is not ranked!');
   } else {
     infobad.addField(`Ranked ${data.rank}/${data.lb_length}`, `Level ${data.lvl} with ${data.total_xp} total xp!`);
-    infobad.addField(`Level xp: ${data.curr_xp}/${data.lvl_xp} (${data.xp_percent}%)`,
+    infobad.addField(`Level xp: ${data.curr_xp}/${member.guild.members.size}/*${data.lvl_xp}*/ (${data.xp_percent}%)`,
       `About ${data.estimated_msgs} msg(s) (${data.remaining_xp} xp) there to level ${data.lvl + 1}!`);
   }
   infobad.setColor(member.displayColor)
