@@ -440,7 +440,7 @@ const ex = {
 };
 
 const userData = ({ Constants, member, infobad, convertTime, times, name }) => new Promise(async res => {
-  const avatarURL = member.user.displayAvatarURL({ format: 'png', size: 2048 }));
+  const avatarURL = member.user.displayAvatarURL({ format: 'png', size: 2048 });
 
   const status = (() => {
     switch (member.presence.status) {

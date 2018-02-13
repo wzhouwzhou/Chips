@@ -103,7 +103,7 @@ const ex = {
 };
 
 const userData = ({ member, infobad, name, Constants }) => new Promise(async res => {
-  const avatarURL = member.user.displayAvatarURL({ format: 'png', size: 2048 }));
+  const avatarURL = member.user.displayAvatarURL({ format: 'png', size: 2048 });
 
   const status = (() => {
     switch (member.presence.status) {
