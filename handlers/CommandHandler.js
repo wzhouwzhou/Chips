@@ -93,12 +93,12 @@ module.exports = (Discord, client) => {
               console.log(chalk.bold.bgBlue(`[${msg.author.tag}]`), chalk.bgBlack(`:${msg.content}`));
               try {
                 return Promise.resolve(cmd.run(msg, context).then(() => true).catch(err => {
-                  msg.channel.send(`An error occurred, please contact someone who knows what this means.\n${err}`);
+                  msg.channel.send(`An error occurred, please report this in the support server: https://support.chipsbot.me/ \n${err}`);
                   console.error(err);
                   return false;
                 }));
               } catch (err) {
-                msg.channel.send(`An error occurred, please contact someone who knows what this means.\n${err}`);
+                msg.channel.send(`An error occurred, please report this in the support server: https://support.chipsbot.me/ \n${err}`);
                 console.error(err);
                 return false;
               }
@@ -113,12 +113,12 @@ module.exports = (Discord, client) => {
                   console.log(chalk.bold.bgBlue(`[${msg.author.tag}]`), chalk.bgBlack(`:${msg.content}`));
                   try {
                     return Promise.resolve(cmd.run(msg, context).then(() => true).catch(err => {
-                      msg.channel.send(`An error occurred, please contact someone who knows what this means.\n${err}`);
+                      msg.channel.send(`An error occurred, please report this in the support server: https://support.chipsbot.me/ \n${err}`);
                       console.error(err);
                       return false;
                     }));
                   } catch (err) {
-                    msg.channel.send(`An error occurred, please contact someone who knows what this means.\n${err}`);
+                    msg.channel.send(`An error occurred, please report this in the support server: https://support.chipsbot.me/ \n${err}`);
                     console.error(err);
                     return false;
                   }
@@ -132,13 +132,13 @@ module.exports = (Discord, client) => {
             // Console.log(`meta perm not found! ${meta?JSON.stringify(meta):''}`);
             try {
               return Promise.resolve(cmd.run(msg, context).then(() => true).catch(err => {
-                msg.channel.send(`An error occurred, please contact someone who knows what this means.\n${err}`);
+                msg.channel.send(`An error occurred, please report this in the support server: https://support.chipsbot.me/ \n${err}`);
                 console.error(err);
                 return false;
               }));
             } catch (err) {
               console.error(err);
-              msg.channel.send(`An error occurred, please contact someone who knows what this means.\n${err}`);
+              msg.channel.send(`An error occurred, please report this in the support server: https://support.chipsbot.me/ \n${err}`);
               return false;
             }
           }
@@ -146,7 +146,7 @@ module.exports = (Discord, client) => {
       }
     } catch (errp) {
       console.error(errp);
-      msg.channel.send(`An error occurred, please contact someone who knows what this means.\n${errp}`);
+      msg.channel.send(`An error occurred, please report this in the support server: https://support.chipsbot.me/ \n${errp}`);
       return false;
     }
   };
