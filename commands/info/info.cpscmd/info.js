@@ -451,13 +451,10 @@ const userData = ({ Constants, member, infobad, convertTime, times, name }) => n
     }
   })();
 
-  const rp = snekfetch.get(`${Constants.APIURL}avaround`)
+  const r = await snekfetch.get(`${Constants.APIURL}avaround`)
     .set('Authorization',process.env.RETHINKPSWD)
     .set('Status', status)
     .set('X-Data-Src',  avatarURL);
-  const datap = m6r(member.guild.id, member.id);
-  let r, data;
-  [r, data] = await Promise.all([rp, datap]);
 
   const membername = member.displayName.replace('@', '(at)');
   let highest = 'years';
