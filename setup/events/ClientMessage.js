@@ -168,7 +168,13 @@ const msghandle = async message => {
     message.channel.startTyping();
     const result = await snek.get(`${Constants.APIURL}cleverbot`)
       .set('Authorization', process.env.RETHINKPSWD)
-      .set('X-Data-Src', new Buffer(message.content.replace(/^<@!?(296855425255473154)>\s+/, '')).toString('base64'));
+      .set('X-Data-Src',
+        new Buffer(message.content
+          .replace(/^<@!?(296855425255473154)>\s+/, '')
+          .replace(/\s+<@!?(296855425255473154)>$/, '')
+          .trim()
+        ).toString('base64'))
+      .set('X-Data-ID', message.author.id);
     message.channel.stopTyping(true);
     return message.reply(result.body.message);
   }
