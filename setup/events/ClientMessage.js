@@ -166,21 +166,26 @@ const msghandle = async message => {
 
   if (message.content.match(/^<@!?(296855425255473154)>[^]+$/)) {
     message.channel.startTyping();
-    const result = await snek.get(`${Constants.APIURL}cleverbot`)
-      .set('Authorization', process.env.RETHINKPSWD)
-      .set('X-Data-Src',
-        new Buffer(message.content
-          .replace(/^<@!?(296855425255473154)>\s+/, '')
-          .replace(/\s+<@!?(296855425255473154)>$/, '')
-          .trim()
-        ).toString('base64'))
-      .set('X-Data-ID', message.author.id);
-    message.channel.stopTyping(true);
-    return message.reply(result.body.message);
+    try {
+      const result = await snek.get(`${Constants.APIURL}cleverbot`)
+        .set('Authorization', process.env.RETHINKPSWD)
+        .set('X-Data-Src',
+          new Buffer(message.content
+            .replace(/^<@!?(296855425255473154)>\s+/, '')
+            .replace(/\s+<@!?(296855425255473154)>$/, '')
+            .trim()
+          ).toString('base64'))
+        .set('X-Data-ID', message.author.id);
+      message.channel.stopTyping(true);
+      return message.reply(result.body.message);
+    } catch (err) {
+      message.channel.stopTyping(true);
+      return message.reply(_.sample(['What?', 'Can you repeat that?', 'Please elaborate']));
+    }
   }
   // Rekt
-  if (muteTrigger && (message.author.id == '244533925408538624' && (message.content.toLowerCase().indexOf('user muted successfully') > -1 || message.content.toLowerCase().indexOf('user banned successfully') > -1))) return message.channel.send('Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE');
-  if (message.guild && (message.guild.id == '257889450850254848') && (message.author.id == '304322292769488906') && (/^[^]*(commandnotfound)[^]*$/).test(message.content.toLowerCase().replace(/\s+/g, ''))) return await message.delete();
+  if (muteTrigger && (message.author.id === '244533925408538624' && (message.content.toLowerCase().indexOf('user muted successfully') > -1 || message.content.toLowerCase().indexOf('user banned successfully') > -1))) return message.channel.send('Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE');
+  if (message.guild && (message.guild.id === '257889450850254848') && (message.author.id === '304322292769488906') && (/^[^]*(commandnotfound)[^]*$/).test(message.content.toLowerCase().replace(/\s+/g, ''))) return await message.delete();
   if (message.author.bot) return;
   if (!!~message.content.replace(/\s+/g, '').indexOf(uu) || !!~message.content.replace(/\s+/g, '').indexOf(uu.slice(-5))) message.delete().catch(_ => _);
   if (await handleAntiLink(message)) return true;
