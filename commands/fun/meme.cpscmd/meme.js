@@ -8,6 +8,7 @@ const memes = [
   'https://i.imgur.com/gMLQvNM.png',
   'https://i.imgur.com/lQHKeLw.png',
   'https://i.imgur.com/kDWraAV.png',
+  'https://i.imgur.com/SFXOmjR.png',
 ];
 
 module.exports = {

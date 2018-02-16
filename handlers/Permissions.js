@@ -277,6 +277,10 @@ ex.userpermissions = {
   [
     { name: ex.permsList[4][0], action: 1 },
   ],
+  '166630166825664512':
+  [
+    { name: 'global.fun.say.*', action: 1 },
+  ],
 };
 
 ex.rolepermissions = {
