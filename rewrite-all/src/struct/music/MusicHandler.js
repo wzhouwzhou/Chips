@@ -41,7 +41,7 @@ const cmds = [
   ],
 ];
 
-let NCSBroadcast, MonstercatBroadcast, LM, WQXRBroadcast, ChillHopBroadcast;
+let NCSBroadcast, MonstercatBroadcast, LM, WQXRBroadcast, ChillHopBroadcast, TGLBroadcast;
 
 const GuildMusicHandler = class MusicHandler {
   constructor(guildid, client) {
@@ -87,6 +87,23 @@ const GuildMusicHandler = class MusicHandler {
     NCSBroadcast.on('warn', Logger.error.bind(Logger));
     NCSBroadcast.playStream(NCS.stream, this.broadcastOpts);
     return NCSBroadcast;
+  }
+
+  async startTGLBroadcast() {
+    Logger.debug('Starting startTGLBroadcast');
+    if (TGLBroadcast) {
+      TGLBroadcast.removeAllListeners();
+      TGLBroadcast.end();
+    }
+    if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
+    if (!TGLBroadcast) TGLBroadcast = this._client.createVoiceBroadcast();
+    const TGL = await new Song('https://www.youtube.com/watch?v=ftJYyevC6Us', this._client.user).loadInfo();
+    this._client.musicBroadcasts.tgl = TGLBroadcast;
+    TGLBroadcast.once('end', () => setTimeout(() => this.startTGLBroadcast(), 5000));
+    TGLBroadcast.on('error', Logger.error.bind(Logger));
+    TGLBroadcast.on('warn', Logger.error.bind(Logger));
+    TGLBroadcast.playStream(TGL.stream, this.broadcastOpts);
+    return TGLBroadcast;
   }
 
   async startLMBroadcast() {
@@ -156,6 +173,24 @@ const GuildMusicHandler = class MusicHandler {
       }
     }
     return this._client.ncsChannels;
+  }
+
+  async playAllTGL() {
+    if (!TGLBroadcast) return 'TGL Broadcast not started';
+    if (!this._client.tglChannels) this._client.tglChannels = {};
+    const leaves = [];
+    for (const cid of Object.keys(this._client.tglChannels)) leaves.push(this._client.channels.get(cid).leave());
+    await Promise.all(leaves);
+    this._client.tglChannels = {};
+    for (const [, vc] of this._client.channels.filter(c => c.type === 'voice')) {
+      if (vc.name.replace(/\s+/g, '').match(/chip(?:sy?)?(?:streams?|24\/?7)(tgl|thegoodlife?)/i)) {
+        vc.join().then(connection => {
+          connection.playBroadcast(TGLBroadcast, this.streamOpts);
+          this._client.tglChannels[connection.channel.id] = { connection, dispatcher: connection.dispatcher };
+        });
+      }
+    }
+    return this._client.tglChannels;
   }
 
   async playAllMonstercat() {

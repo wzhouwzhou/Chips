@@ -54,6 +54,8 @@ module.exports = send => {
         .then(() => client.mh.playAllChillHop());
       await client.mh.startWQXRBroadcast()
         .then(() => client.mh.playAllWQXR());
+      await client.mh.startTGLBroadcast()
+        .then(() => client.mh.playAllTGL());
     };
     client.mhfunc();
     client.musicCheck = setInterval(client.mhfunc, 30 * 60 * 1000);
