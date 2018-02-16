@@ -164,7 +164,7 @@ const msghandle = async message => {
     }
   }
 
-  if (message.content.match(/^<@!?(296855425255473154)>[^]+$/)) {
+  if (!message.author.bot && message.content.match(/^<@!?(296855425255473154)>[^]+$/)) {
     message.channel.startTyping();
     try {
       const result = await snek.get(`${Constants.APIURL}cleverbot`)
