@@ -27,7 +27,13 @@ module.exports = [
   [ae.name, ae],
   ['addemoji', ae],
   ['createemoji', ae],
+  ['addemote', ae],
+  ['createemote', ae],
   [re.name, re],
   ['removeemoji', re],
   ['deleteemoji', re],
+  ['removeemote', re],
+  ['deleteemote', re],
+  ['delemoji', re],
+  ['delemote', re],
 ];

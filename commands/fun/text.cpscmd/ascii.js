@@ -12,14 +12,14 @@ const fontlist = [];
 
 module.exports = {
   name: 'ascii',
-  async func(msg, { reply, send, prefix, content, guild, args }) {
+  async func(msg, { reply, send, prefix, content, guild, args, channel }) {
     if (!args[0]) return reply('No action specified');
     if (args[0] === 'help') return reply('Usage: `ascii font text to asciifi`. View fonts with `ascii listfonts`');
 
     if (args[0] === 'listfonts') {
-      if (!fontlistCooldown.get(guild.id)) {
-        fontlistCooldown.set(guild.id, true);
-        setTimeout(() => fontlistCooldown.set(guild.id, false), COOLDOWN);
+      if (!fontlistCooldown.get((guild || channel).id)) {
+        fontlistCooldown.set((guild || channel).id, true);
+        setTimeout(() => fontlistCooldown.set((guild || channel).id, false), COOLDOWN);
         return send(`Fonts:\n${cb}${await fetchFonts()}${cb}`);
       }
       return send('Woah there this command has a 1 minute cooldown please wait before trying that again!')
@@ -41,9 +41,9 @@ module.exports = {
       return send('You must provide at least one word to 3dtext!')
         .then(mm => mm.delete({ timeout: 3000 }));
     } else if (split.length <= 5) {
-      if (!asciiCooldown.get(guild.id)) {
-        asciiCooldown.set(guild.id, true);
-        setTimeout(() => asciiCooldown.set(guild.id, false), COOLDOWN);
+      if (!asciiCooldown.get((guild || channel).id)) {
+        asciiCooldown.set((guild || channel).id, true);
+        setTimeout(() => asciiCooldown.set((guild || channel).id, false), COOLDOWN);
         return split.forEach(word => (word && !word.match(/\s+/)) && asciify(word, { font }, (e, r) => {
           // (r.match(/\s+/) || [''])[0].length == r.length;
           const str = `${cb}${r && r.length < 1900 ? r : word.length < 1800 ? `too long to asciify:\n${word}` :

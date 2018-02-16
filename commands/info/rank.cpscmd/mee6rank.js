@@ -1,14 +1,9 @@
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
-const Jimp = require('jimp');
-const ONLINE = 'https://i.imgur.com/Yj3vYDB.png';
-const IDLE = 'https://i.imgur.com/IYAtFOU.png';
-const DND = 'https://i.imgur.com/Hij38VX.png';
-const INVIS = 'https://i.imgur.com/dQZuSIR.png';
+const snekfetch = require('snekfetch')
 const fs = require('fs');
 // Const m6r = require('../../../rewrite-all/src/deps/functions/mee6rankF').default({ needle: require('needle') });
 
-const m6r = async(gid, uid) => (await require('snekfetch')
-  .get(`https://api.chipsbot.me:2087/mee6?gid=${gid}&uid=${uid}`)).body;
+const m6r = (gid, uid) => snekfetch.get(`https://api.chipsbot.me:2087/mee6?gid=${gid}&uid=${uid}`);
 
 const ex = {
   name: 'mee6rank',
@@ -83,7 +78,7 @@ const ex = {
         }
       }
       const name = `${member.id}${process.hrtime().join('')}statProfileEdited.png`;
-      const embed = await userData(member, infobad, name);
+      const embed = await userData({ member, infobad, name, Constants });
       waiting.delete();
       await send(`${multiple ? '(multiple users were found, using the first one)' : ''}`, { embed });
       return fs.unlinkSync(name);
@@ -98,7 +93,7 @@ const ex = {
         }
       }
       const name = `${member.id}${process.hrtime().join('')}statProfileEdited.png`;
-      const embed = await userData(member, infobad, name);
+      const embed = await userData({ member, infobad, name, Constants });
       waiting.delete();
       await send('', { embed });
       return fs.unlinkSync(name);
@@ -106,61 +101,26 @@ const ex = {
   },
 };
 
-const userData = (member, infobad, name) => new Promise(async res => {
-  let pfp = await Jimp.read(member.user.displayAvatarURL({ format: 'png', size: 2048 }));
-  let pfp2 = (await Jimp.read(member.user.displayAvatarURL({ format: 'png', size: 2048 }))).clone();
-  pfp = pfp.resize(1024, 1024, Jimp.RESIZE_BEZIER);
-  pfp2 = pfp2.resize(1024, 1024, Jimp.RESIZE_BEZIER);
+const userData = ({ member, infobad, name, Constants }) => new Promise(async res => {
+  const avatarURL = member.user.displayAvatarURL({ format: 'png', size: 2048 });
+
   const status = (() => {
     switch (member.presence.status) {
-      case 'online': return ONLINE;
-      case 'idle': return IDLE;
-      case 'dnd': return DND;
-      default: return INVIS;
+      case 'online': return 'online';
+      case 'idle': return 'idle';
+      case 'dnd': return 'dnd';
+      default: return 'invis';
     }
   })();
-  let stat = await Jimp.read(status);
-  stat = stat.resize(640, 640, Jimp.RESIZE_BEZIER);
 
-
-  for (let x = 0; x < 1024; x++) {
-    for (let y = 0; y < 1024; y++) {
-      if ((x - 512) ** 2 + (y - 512) ** 2 > 511 ** 2) {
-        pfp.setPixelColor(0x00, x, y);
-        pfp2.setPixelColor(0x00, x, y);
-      }
-    }
-  }
-  pfp = pfp.blit(stat, 550, 550);
-
-  const thex = 864, they = 864, r1 = 180, r2 = 126, r3 = 98;
-
-  for (let x = 0; x < 1024; x++) {
-    for (let y = 0; y < 1024; y++) {
-      if (((x - thex) ** 2 + (y - they) ** 2 >= r3 ** 2) && ((x - thex) ** 2 + (y - they) ** 2 <= r2 ** 2)) {
-        let { r, g, b, a } = Jimp.intToRGBA(pfp.getPixelColor(x, y));
-        a = a > 172 ? 160 : a;
-        pfp.setPixelColor(Jimp.rgbaToInt(r, g, b, a), x, y);
-      }
-    }
-  }
-
-  for (let x = 0; x < 1024; x++) {
-    for (let y = 0; y < 1024; y++) {
-      if (((x - thex) ** 2 + (y - they) ** 2 >= r2 ** 2) && ((x - thex) ** 2 + (y - they) ** 2 <= r1 ** 2)) pfp.setPixelColor(0x000000, x, y);
-    }
-  }
-
-  for (let x = 0; x < 1024; x++) {
-    for (let y = 0; y < 1024; y++) {
-      if ((x - thex) ** 2 + (y - they) ** 2 >= r1 ** 2) pfp.setPixelColor(pfp2.getPixelColor(x, y), x, y);
-    }
-  }
-
-  pfp = pfp.resize(512, 512, Jimp.RESIZE_BEZIER);
-
-  const data = await m6r(member.guild.id, member.id);
-
+  const rp = snekfetch.get(`${Constants.APIURL}avaround`)
+    .set('Authorization',process.env.RETHINKPSWD)
+    .set('Status', status)
+    .set('X-Data-Src',  avatarURL);
+  const datap = m6r(member.guild.id, member.id);
+  let r, data;
+  [r, data] = await Promise.all([rp, datap]);
+  data = data.body;
   const membername = member.displayName.replace('@', '(at)');
 
   infobad.addField(`${member.user.tag} AKA ${membername}`, `${member.id}`);
@@ -168,14 +128,13 @@ const userData = (member, infobad, name) => new Promise(async res => {
     infobad.setDescription('User is not ranked!');
   } else {
     infobad.addField(`Ranked ${data.rank}/${data.lb_length}`, `Level ${data.lvl} with ${data.total_xp} total xp!`);
-    infobad.addField(`Level xp: ${data.curr_xp}/${data.lvl_xp} (${data.xp_percent}%)`,
+    infobad.addField(`Level xp: ${data.curr_xp}/${member.guild.members.size}/*${data.lvl_xp}*/ (${data.xp_percent}%)`,
       `About ${data.estimated_msgs} msg(s) (${data.remaining_xp} xp) there to level ${data.lvl + 1}!`);
   }
-  infobad.setColor(member.displayColor);
-  pfp.write(name, () => {
-    infobad.attachFiles([name]).setThumbnail(`attachment://${name}`);
-    return res(infobad);
-  });
+  infobad.setColor(member.displayColor)
+    .attachFiles([new Discord.MessageAttachment(r.body, 'image.png')])
+    .setThumbnail('attachment://image.png');
+  return res(infobad);
 });
 
 module.exports = ex;

@@ -1,6 +1,7 @@
 /* eslint complexity: 'off', no-console: 'off', no-undef: 'off' */
 // Client Message Events
 const _ = require('lodash');
+const snek = require('snekfetch');
 let slSwitcher = false, helper3 = false;
 global.testC, global.nLogs, global.sLogs, global.sxLogs, global.stLogs, global.snLogs;
 global.sLogs2;
@@ -151,13 +152,40 @@ const msghandle = async message => {
     return message.delete();
   }
   // Prefix!
-  if (message.content.toLowerCase() == '<@296855425255473154> prefix' || message.content.toLowerCase() == '<@!296855425255473154> prefix') {
-    if (message.guild) message.reply(`My prefix in this server is ${client.customprefix[message.guild.id] ? _.escapeRegExp(client.customprefix[message.guild.id]) : _.escapeRegExp(prefix)}${!client.customprefix[message.guild.id] || client.customprefix[message.guild.id] == prefix ? `\nYou can set a custom prefix for me with \`${_.escapeRegExp(prefix)}chipsprefix on\`` : ''}`);
-    else message.reply(`My default prefix is \`${_.escapeRegExp(prefix)}\``);
+  if (message.content.match(/<@!?296855425255473154>\s*prefix/i)) {
+    if (message.guild) {
+      return message.reply(`My prefix in this server is ${client.customprefix[message.guild.id] ?
+        _.escapeRegExp(client.customprefix[message.guild.id]) : _.escapeRegExp(prefix)
+      }${!client.customprefix[message.guild.id] || client.customprefix[message.guild.id] === prefix ?
+        `\nType __${_.escapeRegExp(prefix)}help__ or set a custom prefix for me with \`${_.escapeRegExp(prefix)}chipsprefix on\`` :
+        `Type __${_.escapeRegExp(client.customprefix[message.guild.id])}help__`}`);
+    } else {
+      return message.reply(`My default prefix is \`${_.escapeRegExp(prefix)}\`, type ${_.escapeRegExp(prefix)}help to show the help menu!`);
+    }
+  }
+
+  if (!message.author.bot && message.content.match(/^<@!?(296855425255473154)>[^]+$/)) {
+    message.channel.startTyping();
+    try {
+      const result = await snek.get(`${Constants.APIURL}cleverbot`)
+        .set('Authorization', process.env.RETHINKPSWD)
+        .set('X-Data-Src',
+          new Buffer(message.content
+            .replace(/^<@!?(296855425255473154)>\s+/, '')
+            .replace(/\s+<@!?(296855425255473154)>$/, '')
+            .trim()
+          ).toString('base64'))
+        .set('X-Data-ID', message.author.id);
+      message.channel.stopTyping(true);
+      return message.reply(result.body.message);
+    } catch (err) {
+      message.channel.stopTyping(true);
+      return message.reply(_.sample(['What?', 'Can you repeat that?', 'Please elaborate']));
+    }
   }
   // Rekt
-  if (muteTrigger && (message.author.id == '244533925408538624' && (message.content.toLowerCase().indexOf('user muted successfully') > -1 || message.content.toLowerCase().indexOf('user banned successfully') > -1))) return message.channel.send('Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE');
-  if (message.guild && (message.guild.id == '257889450850254848') && (message.author.id == '304322292769488906') && (/^[^]*(commandnotfound)[^]*$/).test(message.content.toLowerCase().replace(/\s+/g, ''))) return await message.delete();
+  if (muteTrigger && (message.author.id === '244533925408538624' && (message.content.toLowerCase().indexOf('user muted successfully') > -1 || message.content.toLowerCase().indexOf('user banned successfully') > -1))) return message.channel.send('Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE');
+  if (message.guild && (message.guild.id === '257889450850254848') && (message.author.id === '304322292769488906') && (/^[^]*(commandnotfound)[^]*$/).test(message.content.toLowerCase().replace(/\s+/g, ''))) return await message.delete();
   if (message.author.bot) return;
   if (!!~message.content.replace(/\s+/g, '').indexOf(uu) || !!~message.content.replace(/\s+/g, '').indexOf(uu.slice(-5))) message.delete().catch(_ => _);
   if (await handleAntiLink(message)) return true;
