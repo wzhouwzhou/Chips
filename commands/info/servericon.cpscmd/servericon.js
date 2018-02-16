@@ -4,7 +4,7 @@ module.exports = {
     if (!guild) {
       return send();
     } else {
-      send(guild.iconURL({ format: 'png', size: 2048 }));
+      send(new Discord.Attachment(guild.iconURL, 'file.png'));
     }
   },
 };
