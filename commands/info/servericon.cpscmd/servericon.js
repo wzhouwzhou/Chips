@@ -4,7 +4,7 @@ module.exports = {
     if (!guild) {
       return send();
     } else {
-      send(`${guild.iconURL}`);
+      send(guild.iconURL({ format: 'png', size: 2048 }));
     }
   },
 };
