@@ -1,4 +1,4 @@
-let servericon = require('./roles');
+let servericon = require('./servericon');
 
 console.log('[CPSCMD][INFO][servericon] Building objects...');
 
