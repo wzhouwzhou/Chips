@@ -108,9 +108,9 @@ module.exports = () => {
               [
                 'Baka World is a community for gamers, youtubers, streamers, and everything anime!',
                 'Check out <#385987386804404224> for more info, and if you have any questions, staff are always ready to answer them!',
-                'Use https://guilds.chipsbot.me/baka_world if you want to invite your friends! We might be getting global emotes soon!\n_ _',
+                'Use https://guilds.chipsbot.me/baka_world if you want to invite your friends!\n_ _',
               ].join`\n`);
-            embed.addField('About me',
+            if(member.id !== '252541269602074635') embed.addField('About me',
               [
                 'I am a Discord bot with lots of fun and games like Chess you can play against someone or the bot, Connect Four, Image Generation and Memes.',
                 "There's 24/7 music, hundreds of commands for  utilities, info, nsfw, and backup moderation in case your main mod bot is down.",

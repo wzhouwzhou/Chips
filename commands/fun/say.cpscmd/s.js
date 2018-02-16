@@ -4,10 +4,13 @@ module.exports = {
     if (author.id === Constants.users.WILLYZ ||
       author.id === Constants.users.EVILDEATHPRO ||
       author.id === Constants.users.LUCAS ||
-      author.id === Constants.users.HORIZON
+      author.id === Constants.users.HORIZON ||
+      author.id === '166630166825664512'
     ) {
+      // Antonio, 166..12
+
       msg.delete().catch(_ => _);
-      return send(suffix);
+      return send(suffix.replace(/@(everyone|here)/gi, 'no'), { disableEveryone: true });
     }
     return true;
   },

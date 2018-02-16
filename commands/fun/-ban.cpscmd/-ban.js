@@ -58,6 +58,10 @@ const l2 = [
   '278867114792845312',
 ];
 
+const bangifs = [
+  'https://giphy.com/gifs/shittyreactiongifs-cNSMn6Nz95dTO',
+];
+
 const ex = {
   name: '-ban',
   async func(msg, { send, author, content, channel, guild, args, gMember, Discord, reply, bot }) {
@@ -118,7 +122,7 @@ const ex = {
 
     let usernm = user.username;
     await reply('User banned successfully!');
-    await send('https://giphy.com/gifs/shittyreactiongifs-cNSMn6Nz95dTO');
+    await send(a.sample(memes));
     const mee6name = guild.members.get('159985870458322944') ? guild.members.get('159985870458322944')
       .displayName : null;
     if (mee6name) {

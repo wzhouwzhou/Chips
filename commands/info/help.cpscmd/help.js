@@ -32,19 +32,15 @@ const _InfoMenu = [
   "**{}support** for chips' support server.",
   '**{}invite** for my invite link',
   '**{}info** for some information!',
-  '\t**channel [channel link, name or id]** to get information on the channel that you request!',
-  '\t**role [role mention, name or id]** to get information on the role that you request!',
-  '\t**server** to get information on the server!',
-  '\t**user [user mention, name or id]** to get information on the user that you request!',
   '**{}quote [msgid]** to quote what someone said in the channel you use the command in.',
-  "**{}avatar [user mention]** to get someone's avatar",
-].join('\n');
-
-const _InfoMenu2 = [
   '**{}discordstatus** to get the current status of discord.',
   '**{}memberstatus/{}ms help** to see how you can use it.',
   '**{}lastmessageid/{}lmid** to get last sent message ID.',
   '**{}channelid/{}cid** to get the channel\'s ID',
+  "**{}avatar [user mention]** to get someone's avatar",
+].join('\n');
+
+const _InfoMenu2 = [
   '**{}serverid/{}sid/{}gid** to get the server\'s ID.',
   '**{}channeltopic/{}ct** to get the channel topic.',
   '**{}membercount/{}mc** to get amount of people in the server.',

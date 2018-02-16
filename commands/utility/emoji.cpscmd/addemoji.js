@@ -3,7 +3,7 @@ const reg = /^(https?:\/\/[^.]+\.[^]+)$/;
 module.exports = {
   name: 'addemoji',
   async func(msg, { send, args, guild }) {
-    if (guild.emojis.size >= 50) return send(`Maximum number of emojis reached (${guild.emojis.size})`);
+    if (guild.emojis.size >= 100) return send(`Maximum number of emojis reached (${guild.emojis.size})`);
 
     if (!args[0]) return send('No emoji name given :(');
 

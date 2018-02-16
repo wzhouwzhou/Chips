@@ -264,6 +264,11 @@ ex.userpermissions = {
     { name: ex.permsList[1][0], action: 1 },
     { name: ex.permsList[2][0], action: 1 },
   ],
+  // Hoz
+  '286246724270555136':
+  [
+    { name: 'global.fun.*', action: 1 },
+  ],
   // Chips beta
   '309504998864060416':
   [
@@ -278,6 +283,11 @@ ex.userpermissions = {
   '226769318736691201':
   [
     { name: ex.permsList[4][0], action: 1 },
+  ],
+  // Antonio
+  '166630166825664512':
+  [
+    { name: 'global.fun.say.*', action: 1 },
   ],
 };
 
