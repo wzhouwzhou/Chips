@@ -61,6 +61,7 @@ const l2 = [
 const bangifs = [
   'https://giphy.com/gifs/shittyreactiongifs-cNSMn6Nz95dTO',
 ];
+const a = require('nodecpp-test').arrays;
 
 const ex = {
   name: '-ban',
@@ -122,7 +123,7 @@ const ex = {
 
     let usernm = user.username;
     await reply('User banned successfully!');
-    await send(a.sample(memes));
+    await send(a.sample(bangifs));
     const mee6name = guild.members.get('159985870458322944') ? guild.members.get('159985870458322944')
       .displayName : null;
     if (mee6name) {
