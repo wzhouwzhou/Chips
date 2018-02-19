@@ -9,7 +9,6 @@ exports.func = async(msg, ctx) => {
     await member.addRole(role);
       return send('You now have access to the Updates Channel!');
   }
-  });
 };
 
 exports.metadata = {
