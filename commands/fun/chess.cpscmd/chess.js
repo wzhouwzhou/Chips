@@ -323,9 +323,10 @@ const promptPlayer = ({ author, send, prefix, channel, targetMember }) => {
   return new Promise(async(res, rej) => {
     const startFilter = m => {
       if (m.author.id === author.id) {
-        if (m.content.includes('cancel')) {
+        if (m.content.match(/cancel/i)) {
           prompting.delete(targetMember.id);
-          return res('decline');
+          res('decline');
+          return true;
         }
         return false;
       }
