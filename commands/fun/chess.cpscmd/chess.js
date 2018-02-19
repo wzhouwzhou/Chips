@@ -324,9 +324,10 @@ const promptPlayer = ({ author, send, prefix, channel, targetMember }) => {
     const startFilter = m => {
       if (m.author.id === author.id) {
         if (m.content.match(/cancel/i)) {
-          prompting.delete(targetMember.id);
-          res('decline');
-          return true;
+          console.log('Cancelling invite...');
+          promptingAll.delete(channel.id);
+          if (targetMember && targetMember.id) prompting.delete(targetMember.id);
+          return res('decline');
         }
         return false;
       }
