@@ -13,7 +13,7 @@ exports.func = async(msg, ctx) => {
 
 exports.metadata = {
   category: require('../').category,
-  description: 'This custom command allows you to gain access to Chips' Support Server Updates Channel!',
+  description: 'This custom command allows you to gain access to Chips\' Support Server Updates Channel!',
   usage: 'iwantupdates <no args>',
   example: 'iwantupdates',
   perms: [['global.custom.chipsSupport.*']],
