@@ -125,7 +125,7 @@ const ex = {
       prompting.delete(author.id);
       silentQuit = true;
       if (mCol) mCol.stop();
-      return reply('Game was declined!');
+      return reply('Game was cancelled!');
     } else if (othermember && othermember.id) {
       setTimeout(() => {
         prompting.delete(othermember.id);
@@ -139,7 +139,7 @@ const ex = {
     // Console.log(`Creating a chess game for channel ${channel.id}...`);
 
     const currentGame = await CG.factory({
-      newFen: suffix,
+      /* NewFen: suffix, */
       client,
       channel,
       players: _.shuffle([member.user, othermember.user]),
@@ -322,7 +322,13 @@ const promptPlayer = ({ author, send, prefix, channel, targetMember }) => {
   if (!targetMember) promptingAll.set(channel.id, true);
   return new Promise(async(res, rej) => {
     const startFilter = m => {
-      if (m.author.id === author.id) return false;
+      if (m.author.id === author.id) {
+        if (m.content.includes('cancel')) {
+          prompting.delete(targetMember.id);
+          return res('decline');
+        }
+        return false;
+      }
       // If (m.author.id === client.user.id) return res(targetMember || m.member);
 
       if (m.author.bot) return false;
@@ -351,7 +357,7 @@ const promptPlayer = ({ author, send, prefix, channel, targetMember }) => {
 
     let startCol;
     try {
-      let str = `${targetMember || ''} Please type __${_.escapeRegExp(prefix)}chess join__ to join the game`;
+      let str = `${author + []}, type \`cancel\` to cancel this game creation. ${targetMember || 'Anyone else'}, please type __${_.escapeRegExp(prefix)}chess join__ to join the game`;
       if (targetMember) str += ` or __${_.escapeRegExp(prefix)}chess decline__.`;
       await send(str);
       startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });

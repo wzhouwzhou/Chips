@@ -1,7 +1,4 @@
 /* eslint no-undef: 'off', no-console: 'off' */
-let d = '', consoleTyping = false;
-global.statusC;
-const readline = require('readline');
 const GW = require('../../rewrite-all/src/struct/client/GatewayClient').GatewayClient;
 
 module.exports = send => {
@@ -18,17 +15,13 @@ module.exports = send => {
   }
   h3client.login(process.env.H3TOKEN);
 
-  if (process.env.C2TOKEN != null && process.env.C2TOKEN != '') c2.login(process.env.C2TOKEN);
+  if (process.env.C2TOKEN && process.env.C2TOKEN !== '') c2.login(process.env.C2TOKEN);
   else c2.login(require(path.join(__dirname, '../sBotT'))[0]);
 
-  if (process.env.C3TOKEN != null && process.env.C3TOKEN != '') c3.login(process.env.C3TOKEN);
+  if (process.env.C3TOKEN && process.env.C3TOKEN !== '') c3.login(process.env.C3TOKEN);
   else c3.login(require(path.join(__dirname, '../sBotT'))[1]);
-  let Bumper = '=bump', Bumper2 = 'dlm!bump', Bumper3 = ';;bump';
-  setInterval(() => {
-    c3.channels.get('315264060226535424').send(Bumper);
-    c3.channels.get('315264060226535424').send(Bumper2);
-    c3.channels.get('315264060226535424').send(Bumper3);
-  }, 2 * 60 * 60 * 1000);
+  let bumps = ['dbump', '=bump', 'dlm!bump', ';;bump'];
+  setInterval(() => bumps.forEach(e => c3.channels.get('315264060226535424').send(e)), 2 * 60 * 60 * 1000);
 
   client.on('ready', async() => {
     require(path.join(__dirname, '../../handlers/DiepAddons')).getServers();
