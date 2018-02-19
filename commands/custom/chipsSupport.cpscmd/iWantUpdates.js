@@ -4,7 +4,7 @@ exports.func = async(msg, ctx) => {
   if (!guild || guild.id !== '307623291479130132') return true;
   const role = guild.roles.get('413803807248613380') || guild.roles.find('name', 'Update-Notify');
   if (member.roles.has(role.id)) {
-    return send(`You already have access to the Update channel here! Remove the Updates role with ${prefix}unupdateme`);
+    return send(`You already have access to the Update Channel here! Remove the Updates role with ${prefix}idontwantupdates`);
   } else {
     await member.addRole(role);
       return send('You now have access to the Updates Channel!');
