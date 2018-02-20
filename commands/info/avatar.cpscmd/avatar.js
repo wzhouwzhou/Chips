@@ -3,38 +3,29 @@ const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Pa
 
 module.exports = {
   name: 'avatar',
-  async func(msg, { send, Discord, author, member, guild, reply }) {
-    let start = process.hrtime();
+  async func(msg, { send, Discord, author, guild, reply }) {
     console.log(chalk.bold.bgBlue.green(`${author.tag} `) + chalk.bgWhite.red(`${author.id} `) + chalk.black.bgWhite(guild.id) + chalk.cyan(' [Avatar] '));
     let targetmember = msg.mentions.members;
     if (!targetmember || targetmember.size < 1) {
-      let AvatarImage = author.displayAvatarURL();
+      let AvatarImage = author.displayAvatarURL({ size: 2048 });
       let AvatarRegex = /^((?:https?:\/\/)cdn\.discordapp\.com\/avatars\/\d+\/\w+\.(?:jpe?g|png|gif|webp))\?size=\d+$/;
-      const AvatarImageSelection = AvatarRegex .test(AvatarImage ) ? AvatarImage .match(AvatarRegex )[1] : AvatarImage;
-      let hrTime = process.hrtime(start);
+      const AvatarImageSelection = AvatarRegex.test(AvatarImage) ? AvatarImage.match(AvatarRegex)[1] : AvatarImage;
 
       const selftar = new Discord.MessageEmbed()
         .setTitle(`Avatar Image of ${author.tag} `, ``, true)
         .setColor(guild ? msg.member.displayColor : 71340)
         .addField('Avatar Link: ', `[Click Here](${AvatarImageSelection})`)
-        .setImage(AvatarImageSelection );
+        .setImage(AvatarImageSelection);
 
-      let µs = false;
-      let end = hrTime[0] * 1000 + hrTime[1] / 1000000;
-      if (end < 1) {
-        µs = true;
-        end = hrTime[0] * 1000000 + hrTime[1] / 1000;
-      }
-      µs ? end += 'µs' : end += 'ms';
-      selftar.setFooter(`--User Avatar lookup and calculations took ${(end)}.--`, ``, true);
+      selftar.setFooter(`Requested by ${author.tag}`);
 
       return send({ embed: selftar });
     } else {
       const memberList = new Map();
       targetmember.forEach(member => {
-        let AvatarImage = member.user.displayAvatarURL();
+        let AvatarImage = member.user.displayAvatarURL({ size: 2048 });
         let AvatarRegex = /^((?:https?:\/\/)cdn\.discordapp\.com\/avatars\/\d+\/\w+\.(?:jpe?g|png|gif|webp))\?size=\d+$/;
-        const AvatarImageSelection = AvatarRegex .test(AvatarImage ) ? AvatarImage .match(AvatarRegex )[1] : AvatarImage;
+        const AvatarImageSelection = AvatarRegex.test(AvatarImage) ? AvatarImage.match(AvatarRegex)[1] : AvatarImage;
         memberList.set(member.id, {
           title: `Avatar Image of ${member.user.tag} `,
           page: ['Avatar Link: ', `[Click Here](${AvatarImageSelection})`],
@@ -55,26 +46,9 @@ module.exports = {
           .addField(...pages[0][0])
           .setImage(image[0]);
 
-        let hrTime = process.hrtime(start);
-        let µs = false;
-        let end = hrTime[0] * 1000 + hrTime[1] / 1000000;
-        if (end < 1) {
-          µs = true;
-          end = hrTime[0] * 1000000 + hrTime[1] / 1000;
-        }
-        µs ? end += 'µs' : end += 'ms';
-        avator.setFooter(`--User Avatar lookup took ${(end)}.--`, ``, true);
+        avator.setFooter(`Requested by ${author.tag}`);
         return send('', { embed: avator });
       }
-
-      let hrTime = process.hrtime(start);
-      let µs = false;
-      let end = hrTime[0] * 1000 + hrTime[1] / 1000000;
-      if (end < 1) {
-        µs = true;
-        end = hrTime[0] * 1000000 + hrTime[1] / 1000;
-      }
-      µs ? end += 'µs' : end += 'ms';
 
       const p = new Paginator(msg, {
         type: 'paged',
@@ -83,14 +57,14 @@ module.exports = {
         title,
         pages,
         image,
-        text: `Avatar lookup took ${(end)}.`,
+        footer: `Requested by ${author.tag}.`,
       }, Discord
       );
       try {
         return await p.sendFirst();
       } catch (err) {
-        console.error(err);
-        return reply('Something went wrong...');
+        reply('Something went wrong...');
+        throw err;
       }
     }
   },
