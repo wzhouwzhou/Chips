@@ -9,7 +9,7 @@ module.exports = {
     if (!targetmember || targetmember.size < 1) {
       let AvatarImage = author.displayAvatarURL({ size: 2048 });
       let AvatarRegex = /^((?:https?:\/\/)cdn\.discordapp\.com\/avatars\/\d+\/\w+\.(?:jpe?g|png|gif|webp))\?size=\d+$/;
-      const AvatarImageSelection = AvatarRegex.test(AvatarImage) ? AvatarImage.match(AvatarRegex)[1] : AvatarImage;
+      const AvatarImageSelection = AvatarImage; // AvatarRegex.test(AvatarImage) ? AvatarImage.match(AvatarRegex)[1] : AvatarImage;
 
       const selftar = new Discord.MessageEmbed()
         .setTitle(`Avatar Image of ${author.tag} `, ``, true)
@@ -25,7 +25,7 @@ module.exports = {
       targetmember.forEach(member => {
         let AvatarImage = member.user.displayAvatarURL({ size: 2048 });
         let AvatarRegex = /^((?:https?:\/\/)cdn\.discordapp\.com\/avatars\/\d+\/\w+\.(?:jpe?g|png|gif|webp))\?size=\d+$/;
-        const AvatarImageSelection = AvatarRegex.test(AvatarImage) ? AvatarImage.match(AvatarRegex)[1] : AvatarImage;
+        const AvatarImageSelection = AvatarImage; // AvatarRegex.test(AvatarImage) ? AvatarImage.match(AvatarRegex)[1] : AvatarImage;
         memberList.set(member.id, {
           title: `Avatar Image of ${member.user.tag} `,
           page: ['Avatar Link: ', `[Click Here](${AvatarImageSelection})`],
