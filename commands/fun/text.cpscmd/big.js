@@ -23,8 +23,15 @@ module.exports = {
           emojis.add(`https://cdn.discordapp.com/emojis/${id}.png`);
         });
       }
-
-      str = content.replace(customR, '');
+      let customRA = /<a:[\w_]+:\d+>/g;
+      let astr = content.match(customRA);
+      if (astr && astr[0]) {
+        astr.forEach(e => {
+          let id = e.substr(1 + e.lastIndexOf(':'), e.length - 1);
+          emojis.add(`https://cdn.discordapp.com/emojis/${id}.gif`);
+        });
+      }
+      str = content.replace(customR, '');
       if (str && str[0]) {
         let parsed = twe.parse(str).toString().match(/src="([\w|\d|:|/|.]+")/gi);
         if (parsed && parsed[0]) {
