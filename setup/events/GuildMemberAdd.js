@@ -102,22 +102,22 @@ module.exports = () => {
         } else if (memberguild.id === '373481656134270986') {
           setTimeout(() => {
             const embed = new Discord.MessageEmbed();
-            embed.setTitle('Woah, Hi there!');
+            // embed.setTitle('Woah, Hi there!');
             embed.setImage('https://cdn.discordapp.com/attachments/378182532459397121/378632645187338250/Baka-World.png');
-            embed.addField('I am Chips Bot, and Welcome to Baka World!!',
+            embed.addField('Welcome to Baka World!!',
               [
                 'Baka World is a community for gamers, youtubers, streamers, and everything anime!',
                 'Check out <#385987386804404224> for more info, and if you have any questions, staff are always ready to answer them!',
                 'Use https://guilds.chipsbot.me/baka_world if you want to invite your friends!\n_ _',
               ].join`\n`);
-            if(member.id !== '252541269602074635') embed.addField('About me',
+            /*if(member.id !== '252541269602074635') embed.addField('About me',
               [
                 'I am a Discord bot with lots of fun and games like Chess you can play against someone or the bot, Connect Four, Image Generation and Memes.',
                 "There's 24/7 music, hundreds of commands for  utilities, info, nsfw, and backup moderation in case your main mod bot is down.",
                 "Work is being done on a cleverbot as well as a webpanel right now that's pretty cool: https://i.imgur.com/Rtj9G1P.png",
                 'We encourage you to visit [my website](https://chipsbot.me:2087/) or join the support server https://discord.gg/jj5FzF7 !',
-                '\nAlmost 1.7 thousand servers use Chips! To add me to your server, click on [this invite link](https://invite.chipsbot.me/) and select your server in the dropdown',
-              ].join`\n`);
+                '\nOver 1.8 thousand servers use Chips! To add me to your server, click on [this invite link](https://invite.chipsbot.me/) and select your server in the dropdown',
+              ].join`\n`);*/
 
             member.send(embed);
           }, 1500);
