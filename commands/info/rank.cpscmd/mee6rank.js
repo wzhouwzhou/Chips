@@ -7,7 +7,7 @@ const m6r = (gid, uid) => snekfetch.get(`https://api.chipsbot.me:2087/mee6?gid=$
 
 const ex = {
   name: 'mee6rank',
-  async func(msg, { send, author, guild, args, gMember, reply, content, prefix, Discord }) {
+  async func(msg, { Constants, send, author, guild, args, gMember, reply, content, prefix, Discord }) {
     // send('Mee6rank is currently disabled due to issues interacting with mee6 api, apologies');
 
     let member = msg.member;
@@ -77,11 +77,10 @@ const ex = {
           }
         }
       }
-      const name = `${member.id}${process.hrtime().join('')}statProfileEdited.png`;
-      const embed = await userData({ member, infobad, name, Constants });
+      const embed = await userData({ member, infobad, Constants });
       waiting.delete();
       await send(`${multiple ? '(multiple users were found, using the first one)' : ''}`, { embed });
-      return fs.unlinkSync(name);
+      return true;
     } else {
       try {
         let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
@@ -92,16 +91,15 @@ const ex = {
           return reply(err);
         }
       }
-      const name = `${member.id}${process.hrtime().join('')}statProfileEdited.png`;
-      const embed = await userData({ member, infobad, name, Constants });
+      const embed = await userData({ member, infobad, Constants });
       waiting.delete();
       await send('', { embed });
-      return fs.unlinkSync(name);
+      return true;
     }
   },
 };
 
-const userData = ({ member, infobad, name, Constants }) => new Promise(async res => {
+const userData = ({ member, infobad, Constants }) => new Promise(async res => {
   const avatarURL = member.user.displayAvatarURL({ format: 'png', size: 2048 });
 
   const status = (() => {
