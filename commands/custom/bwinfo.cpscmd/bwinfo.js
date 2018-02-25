@@ -26,28 +26,28 @@ const img_bwroles = 'https://cdn.discordapp.com/attachments/385987386804404224/4
 
   embed_info = new Discord.MessageEmbed()
     .attachFiles([new Discord.MessageAttachment(img_bwinfo, 'bw_info.png')])
-    .setImage('attachment://img_bwinfo.png')
+    // .setImage('attachment://img_bwinfo.png')
     .setTitle(title_bwinfo)
     .setDescription(desc_bwinfo),
 
   embed_online_support = new Discord.MessageEmbed()
     .setColor('FF3344')
     .attachFiles([new Discord.MessageAttachment(img_bwsupport, 'bw_online_support.png')])
-    .setImage('attachment://bw_online_support.png')
+    // .setImage('attachment://bw_online_support.png')
     .setTitle(title_bwsupport)
     .setDescription(desc_bwsupport),
 
   embed_staff = new Discord.MessageEmbed()
     .setColor('2469FF')
     .attachFiles([new Discord.MessageAttachment(img_bwstaff, 'bw_staff.png')])
-    .setImage('attachment://bw_staff.png')
+    // .setImage('attachment://bw_staff.png')
     .setTitle(title_bwstaff)
     .setDescription(desc_bwstaff),
 
   embed_roles = new Discord.MessageEmbed()
     .setColor('24FF33')
     .attachFiles([new Discord.MessageAttachment(img_bwroles, 'bw_roles.png')])
-    .setImage('attachment://bw_roles.png')
+    // .setImage('attachment://bw_roles.png')
     .setTitle(title_bwroles)
     .setDescription(desc_bwroles);
 
