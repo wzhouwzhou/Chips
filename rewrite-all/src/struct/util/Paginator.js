@@ -34,7 +34,7 @@ const Paginator = class Paginator {
     if (!this.title) this.title = new Array(this.pages.length > 1 ? this.pages.length : 1).fill(' ');
     if (!this.text) this.text = new Array(this.pages.length > 1 ? this.pages.length : 1).fill(' ');
     this.thumbnail = data.thumbnail;
-    this.buttons = data.pages.length === 1 ? ['⏏'] : (data.buttons || PAGEBTNS);
+    this.buttons = this.pages.length === 1 ? ['⏏'] : data.buttons || PAGEBTNS;
     this.prebuttons = data.prebuttons || [];
     this.help = data.help;
     this.locked = 'locked' in data ? data.locked : !0;
