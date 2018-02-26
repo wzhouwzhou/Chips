@@ -14,6 +14,7 @@ const gifs = [
   'https://imgur.com/a/ooQEP',
   'https://imgur.com/a/6ycgs',
   'https://i.imgur.com/ZozhckF.png',
+  'https://i.imgur.com/iYVav74.png',
 ];
 
 
