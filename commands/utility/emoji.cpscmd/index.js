@@ -8,7 +8,7 @@ ae.metadata = {
   description: 'Adds emojis',
   usage: '-addemoji <name> <link>',
   example: '-addemoji waitwhat https://cdn.discordapp.com/emojis/356568603488681985.png',
-  perm: [['global.utility.emoji.*']],
+  perm: [['global.utility.emoji.remove']],
   customperm: ['MANAGE_EMOJIS'],
 };
 
@@ -17,7 +17,7 @@ re.metadata = {
   description: 'Removes emojis',
   usage: '-removeemoji <name>',
   example: '-removeemoji waitwhat',
-  perm: [['global.utility.emoji.*']],
+  perm: [['global.utility.emoji.add']],
   customperm: ['MANAGE_EMOJIS'],
 };
 
