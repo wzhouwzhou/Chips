@@ -1,5 +1,5 @@
-let ae = require('./addemoji');
-let re = require('./removeemoji');
+/* Let ae = require('./addemoji');
+let re = require('./removeemoji'); */
 
 console.log('[CPSCMD][MODERATION][emoji] Building objects...');
 
