@@ -196,6 +196,7 @@ ex.permsList = [
   ['global.utility.applyforstaff.apply', true],
   ['global.utility.dictionary.*', false],
   ['global.utility.dictionary.urban', true],
+  ['global.utility.emoji.*', false],
   ['global.utility.nR.*', false],
   ['global.utility.nR.nR', false],
   ['global.utility.perm.*', false], // To be added/renamed
