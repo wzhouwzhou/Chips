@@ -17,6 +17,7 @@ const huh = require('./huh');
 const nerd = require('./nerd');
 const oof = require('./oof');
 const blobfest = require('./blobfest');
+const boi = require('./boi');
 
 console.log('[CPSCMD][INFO][text] Building objects...');
 
@@ -109,6 +110,7 @@ huh.metadata = eh.metadata;
 nerd.metadata = huh.metadata;
 oof.metadata = excl.metadata;
 blobfest.metadata = oof.metadata;
+boi.metadata = eh.metadata;
 
 console.log('[CPSCMD][INFO][text] Build objects compconste!');
 module.exports = [
