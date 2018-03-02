@@ -7,7 +7,7 @@ module.exports = {
     let emote = guild.emojis.find('name', args[0]) ||
       (args[0].match(/<:\w+:(\d+)>/) || [,])[1];
 
-    if (!emote) return send('no')
+    if (!emote) return send('no');
 
     let emoji;
     try {

@@ -402,13 +402,18 @@ ex.channelpermissions = {
     { name: 'global.utility.*', action: -1 },
     { name: 'global.fun.*', action: -1 },
   ],
-   // Diepcord lounge
+  // Diepcord lounge
   '214925415440056322':
   [
     { name: 'global.info.*', action: -1 },
     { name: 'global.games.*', action: 1 },
     { name: 'global.utility.*', action: -1 },
     { name: 'global.fun.*', action: 1 },
+  ],
+  // Baka World, 373481656134270986: 419150964512129024 or general
+  '419150964512129024':
+  [
+    { name: 'global.moderation.mutes.pmute', action: -1 },
   ],
 };
 
