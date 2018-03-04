@@ -20,7 +20,7 @@ module.exports = {
         .setDescription(desc)
         .setTitle(`${guild.emojis.size} emojis.`)
         .setColor(member.displayColor);
-      for (const field of fields) embed.addField('\u200B', field);
+      for (const field of fields.filter(f => f.length > 0)) embed.addField('\u200B', field);
       return send(embed);
     } else if (guild.emojis.size < '1') {
       return send('The server doesn\'t have any emojis!');
