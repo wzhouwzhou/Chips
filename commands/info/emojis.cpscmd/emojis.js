@@ -1,9 +1,11 @@
 module.exports = {
   name: 'emojis',
   func(msg, { send, guild, member, Discord }) {
-    if (guild && guild.emojis.size >= '1') {
+    if (!guild) return send('You need to be in a server to use this!');
+    if (guild.emojis.size >= 1) {
       let desc = '', fields = [''], cur = fields.length - 1;
-      for (const emoji of guild.emojis.array()) {
+      const emojis = [...guild.emojis.filter(e => !e.animated).array(), ...guild.emojis.filter(e => e.animated).array()];
+      for (const emoji of emojis) {
         if (`${desc} ${emoji + []}`.length < 2000) {
           desc += emoji + [];
         } else {
@@ -20,12 +22,9 @@ module.exports = {
         .setDescription(desc)
         .setTitle(`${guild.emojis.size} emojis.`)
         .setColor(member.displayColor);
-      for (const field of fields.filter(f => f.length > 0)) embed.addField('\u200B', field);
+      for (const field of fields.filter(f => f && f.length > 0)) embed.addField('\u200B', field);
       return send(embed);
-    } else if (guild.emojis.size < '1') {
-      return send('The server doesn\'t have any emojis!');
-    } else {
-      return send('You need to be in a server to use this!');
     }
+    return send('The server doesn\'t have any emojis!');
   },
 };
