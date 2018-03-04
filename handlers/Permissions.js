@@ -108,9 +108,7 @@ ex.permsList = [
   ['global.info.count.emojicount', true],
   ['global.info.count.membercount', true],
   ['global.info.count.rolecount', true],
-  ['global.info.emojis.*', true],
-  ['global.utility.emoji.remove', false],
-  ['global.utility.emoji.add', false],
+  ['global.info.emojis', true],
   ['global.info.help.*', true],
   ['global.info.help.help', true],
   ['global.info.id.*', true],
@@ -189,8 +187,8 @@ ex.permsList = [
   ['global.nsfw.nsfw.info', true], // To be added/renamed
   ['global.nsfw.rule34.*', false],
   ['global.nsfw.rule34.search', true],
-  ['global.utility.*', true],
-  ['global.utility.calc.*', true],
+  ['global.utility.*', false],
+  ['global.utility.calc.*', false],
   ['global.utility.calc.-calc', true],
   ['global.utility.applyforpartnership', false], // To be added/renamed
   ['global.utility.applyforpartnership.applyforpartnership', false], // To be added/renamed

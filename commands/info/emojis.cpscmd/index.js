@@ -6,7 +6,7 @@ emojis.metadata = {
   description: 'Shows all emojis',
   usage: 'emojis',
   example: ['emojis'],
-  perm: ['global.info.emojis'],
+  perm: [['global.info.emojis']],
   customperm: ['SEND_MESSAGES'],
 };
 
