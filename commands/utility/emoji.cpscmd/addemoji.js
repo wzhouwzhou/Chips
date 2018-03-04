@@ -18,7 +18,7 @@ module.exports = {
     let emoji;
     try {
       emoji = await guild.createEmoji(emojiurl, name);
-      send(`Created new emoji with name ${emoji.name}!`);
+      return send(`Created new emoji with name ${emoji.name}!`);
     } catch (err) {
       send('The emoji could not be created…');
       throw err;
