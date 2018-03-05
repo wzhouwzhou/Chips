@@ -58,7 +58,12 @@ client.mcounterI = setInterval(() => {
     width: 600,
   });
 }, 2000);
-const ignoreid = ['304338588588441601', '305776092822765568', '300633021701423106', '233243685276352512', '409353746355847168'];
+client.ignoreid = [
+  // Waterfox
+  '287379388004302848',
+  // One One O One#1101 claims to be "hacked"
+  '419949972293812244',
+  '304338588588441601', '305776092822765568', '300633021701423106', '233243685276352512', '409353746355847168'];
 const guild_mps = {};
 setInterval(() => {
   for (const gid in guild_mps) {
@@ -93,7 +98,7 @@ setInterval(() => {
 }, 3000);
 
 const msghandle = async message => {
-  if (~ignoreid.indexOf(message.author.id)) return true;
+  if (~client.ignoreid.indexOf(message.author.id)) return true;
   client.shard.broadcastEval(`client.thismcounter++`);
   if (message.guild) {
     if (!guild_mps[message.guild.id]) {
