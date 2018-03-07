@@ -204,6 +204,7 @@ ex.permsList = [
   ['global.utility.perm.*', false], // To be added/renamed
   ['global.utility.perm.perms.*', false], // To be added/renamed
   ['global.utility.perm.perms.set', false], // To be added/renamed
+  ['global.utility.perm.permissionsin', true],
   ['global.utility.setchannel.*', false],
   ['global.utility.setchannel.name', false],
   ['global.utility.setchannel.topic', false],
