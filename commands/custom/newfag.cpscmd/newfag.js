@@ -4,8 +4,12 @@ const split = require('../../../rewrite-all/src/deps/functions/splitChunkF').def
 const { Paginator } = require('../../../rewrite-all/src/struct/client/Paginator');
 exports.name = 'newfag';
 //136176078199717888
+const guildwhitelist = [
+  '413871119733489677',
+  '396575145302556672',
+];
 exports.func = async(msg, { prefix, guild, content, args }) => {
-  if (!guild || guild.id !== '396575145302556672') return true;
+  if (!guild || !guildwhitelist.includes(guild.id)) return true;
   if (content.match(new RegExp(`${_.escapeRegExp(prefix)}r`, 'i')) && args[0] !== 'n') return true;
   const list = (guild.roles.get('408801791900385290') || guild.roles.find('name', 'new person')).members.filter(m => m.id !== '257574409852813315');
   const p = new Paginator(msg, {
