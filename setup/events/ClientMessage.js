@@ -406,7 +406,9 @@ const handleThumbsReact = message => new Promise(res => {
   const gid = message.guild.id;
   if (!client.ThumbsReact[gid]) return res(false);
 
-  channel.messages.fetch({ limit: 10 }).then(message.react(':thumbsup:' ).then(message.react(':thumbsdown:')));
+  if (message.content = 'Evildeathshit') {
+    message.channel.messages.fetch({ limit: 10 }).then(message.react(':thumbsup:' ).then(message.react(':thumbsdown:')));
+  }
   res(false);
 });
 
