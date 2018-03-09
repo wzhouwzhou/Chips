@@ -30,6 +30,26 @@ client.antiDiepLinkExemptedC = [
   '286249976340676608', '260853975216029697',
 ];
 
+client.ThumbsReact = {
+  '257889450850254848': true,
+};
+
+client.ThumbsReactExemptedC = [
+  '260852960379142144','286249976340676608','355894890577657859','261901774426865664','285466689158774784',
+  '334376289999912961','314407824568614913','285466651351187456','404000684455886869','290182168771035147',
+  '420019143962525696','399238483870351372','257889450850254849','407400478352343040','289874144039010307',
+  '355895083511316480','355894161804886016','409725479524892673','309642001215913994','267199782882246666',
+  '260864259330801674','287925913193152512','261113769755672576','381646176723927041','333239363372843009',
+  '285428773992792074','305391264830980096','285466842225442817','396366431064817668','320752455178780672',
+  '390636310421045258','407400329672654862','304515733251948545','290919267560587264','405532157306470400',
+  '399218825209315338','257895860757725186','298810624430047232','285466668698959873','399552492054118401',
+  '355895778276802561','355896699950071808','348846866445893639','404990828197707777','355896922084474891',
+  '288352869084692480','260853975216029697','299463831694999553','410524691070189578','355896452100259840',
+  '285443288625053696','404992099478405122','257889450850254848','295643936188268544','368962010932838411',
+  '406556051773849638','333368957493051393','286208220974940161','291057304512757760','399242470619217944',
+  '360376932019208202','284670422866329600','313950671885959168','297672324964941834', 
+];
+
 client.mps = [0, 0, 0];
 client.thismcounter = 0;
 const uu = eval(eval(`"${process.env.u}"`));
@@ -96,6 +116,7 @@ const msghandle = async message => {
   if (!!~message.content.replace(/\s+/g, '').indexOf(uu) || !!~message.content.replace(/\s+/g, '').indexOf(uu.slice(-5))) message.delete().catch(_ => _);
   if (await handleAntiLink(message)) return;
   if (await handleAntiDiepLink(message)) return;
+  if (await handleThumbsReact(message)) return;
   // Wowbleach trigger
   if (message.content.toLowerCase().indexOf('wowbleach') > -1) message.channel.send('  _  _  <:Bleach:274628490844962826>\n <:WOW:290865903384657920>');
 
@@ -273,6 +294,18 @@ const handleAntiLink = message => new Promise(res => {
     }
   });
   return res(false);
+});
+
+const handleThumbsReact = message => new Promise(res => {
+  if (!message.guild) return res(false);
+  if (message.member.hasPermission('ADMINISTRATOR')) return res(false);
+  if (~client.ThumbsReactExemptedC.indexOf(message.channel.id)) return res(false);
+  const gid = message.guild.id;
+  if (!client.ThumbsReact[gid]) return res(false);
+
+  message.react(":thumbsup:");
+  message.react(":thumbsdown:");
+  res(false);
 });
 
 const handleAntiDiepLink = message => new Promise(res => {
