@@ -406,7 +406,8 @@ const handleThumbsReact = message => new Promise(res => {
   const gid = message.guild.id;
   if (!client.ThumbsReact[gid]) return res(false);
 
-  res(message.react(':thumbsup:').then(message.react(':thumbsdown:')));
+  message.react(':thumbsup:').then(message.react(':thumbsdown:'));
+  
   res(false);
 });
 
