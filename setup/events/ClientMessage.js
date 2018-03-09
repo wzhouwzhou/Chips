@@ -406,10 +406,7 @@ const handleThumbsReact = message => new Promise(res => {
   const gid = message.guild.id;
   if (!client.ThumbsReact[gid]) return res(false);
 
-  if (message.content.replace(/\s+/g, '').match('evildeathshit')) {
-    res(message.react(':thumbsup:'));
-    res(message.react(':thumbsdown:'));
-  }
+  res(message.react(':thumbsup:').then(message.react(':thumbsdown:')));
   res(false);
 });
 
