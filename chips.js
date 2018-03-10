@@ -133,6 +133,7 @@ client.disableSelfStar = {
   '274260111415836675': true,
   '350750159988064256': true,
   '359801125882298378': true, //NSFW EMPIRE
+  '195278167181754369': true, //Diep Cord
 };
 const { BotDatabase } = require('./rewrite-all/src/struct/util/BotDatabase');
 client.database = new BotDatabase(client);// Require(path.join(__dirname, './setup/db/DatabaseLoader'));
