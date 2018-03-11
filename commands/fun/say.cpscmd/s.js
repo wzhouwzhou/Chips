@@ -10,7 +10,7 @@ module.exports = {
       // Antonio, 166..12
 
       msg.delete().catch(_ => _);
-      return send(suffix.replace(/@(everyone|here)/gi, 'no'), { disableEveryone: true });
+      return send(suffix.replace(/@(everyone|here)/gi, '(at)everyone'), { disableEveryone: true });
     }
     return true;
   },
