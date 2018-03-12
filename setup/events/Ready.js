@@ -174,9 +174,12 @@ module.exports = send => {
   // Const music = require('discord.js-music-v11');
   // music(client, { prefix: '-', anyoneCanSkip: true });
   client.on('guildCreate', g => {
-    const scpt = `try { client.channels.get('307624059984674816')
-.send('I just joined a new server! Its name is ${g.name.replace('@', '(at)')} and it has ${g.members.size} members! It is owned by <@${g.ownerID}> (${g.ownerID})');} catch(err){}`;
-    clientutil.broadcastEval(scpt);
+    require('snekfetch').get(`${Constants.APIURL}bothooks`)
+      .set('Authorization', process.env.RETHINKPSWD)
+      .set('X-Data-Src', require('erlpack').pack({
+        content: `I just joined a new server, it's name is ${g.name.replace(/@/g, '(at)')} and it has ${g.members.size} members!`,
+      }).toString('base64'));
+
     console.log(`I just joined a new server! Its name is ${g.name.replace('@', '(at)')} and it has ${g.members.size} members!`);
   });
 
