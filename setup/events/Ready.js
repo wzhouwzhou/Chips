@@ -178,7 +178,7 @@ module.exports = send => {
       .set('Authorization', process.env.RETHINKPSWD)
       .set('X-Data-Src', require('erlpack').pack({
         content: `I just joined a new server, its name is ${g.name.replace(/@/g, '(at)')} and it has ${g.members.size} members!`,
-      }).toString('base64'));
+      }).toString('base64')).then(r=>console.log(r.body));
 
     console.log(`I just joined a new server! Its name is ${g.name.replace('@', '(at)')} and it has ${g.members.size} members!`);
   });
@@ -189,7 +189,7 @@ module.exports = send => {
       .set('X-Data-Src', require('erlpack').pack({
         content: `I just left a new server, its name was ${g.name.replace(/@/g, '(at)')
         } and it had ${g.members.size} members! It was owned by <@${g.ownerID}>, ${g.owner.user.tag}`,
-      }).toString('base64'));
+      }).toString('base64')).then(r=>console.log(r.body));
 
       console.log(`I just left a new server, its name was ${g.name.replace(/@/g, '(at)')} and it had ${g.members.size} members! It was owned by <@${g.ownerID}>, ${g.owner.user.tag}`,);
   });
