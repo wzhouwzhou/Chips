@@ -177,17 +177,18 @@ module.exports = send => {
     require('snekfetch').get(`${Constants.APIURL}bothooks`)
       .set('Authorization', process.env.RETHINKPSWD)
       .set('X-Data-Src', require('erlpack').pack({
-        content: ' '
+        content: ' ',
         embeds: [{
-          title: 'Guild Join'
+          title: 'Guild Join',
           description: [
             `**ID:** ${g.id}`,
             `**Name:** ${g.name}`,
             `**${g.members.size}** members`,
-            `**Owner:** ${g.owner+[]}, ${g.owner.user.tag}`,
-          ].map(e=>_.escapeRegExp(e)).join('\n')
-        }]
-      }).toString('base64')).then(r=>console.log(r.body));
+            `**Owner:** ${g.owner + []}, ${g.owner.user.tag}`,
+          ].map(e => _.escapeRegExp(e)).join('\n'),
+        }],
+      }).toString('base64'))
+      .then(r => console.log(r.body));
 
     console.log(`I just joined a new server ${g.id}! Its name is ${g.name.replace('@', '(at)')} and it has ${g.members.size} members! It id owned by <@${g.ownerID}>, ${g.owner.user.tag}`);
   });
@@ -196,17 +197,18 @@ module.exports = send => {
     require('snekfetch').get(`${Constants.APIURL}bothooks`)
       .set('Authorization', process.env.RETHINKPSWD)
       .set('X-Data-Src', require('erlpack').pack({
-        content: ' '
+        content: ' ',
         embeds: [{
-          title: 'Guild Leave'
+          title: 'Guild Leave',
           description: [
             `**ID:** ${g.id}`,
             `**Name:** ${g.name}`,
             `**${g.members.size}** members`,
-            `**Owner:** ${g.owner+[]}, ${g.owner.user.tag}`,
-          ].map(e=>_.escapeRegExp(e)).join('\n')
-        }]
-      }).toString('base64')).then(r=>console.log(r.body));
+            `**Owner:** ${g.owner + []}, ${g.owner.user.tag}`,
+          ].map(e => _.escapeRegExp(e)).join('\n'),
+        }],
+      }).toString('base64'))
+      .then(r => console.log(r.body));
 
       console.log(`I just left a server ${g.id}, its name was ${g.name.replace(/@/g, '(at)')} and it had ${g.members.size} members! It was owned by <@${g.ownerID}>, ${g.owner.user.tag}`);
   });
