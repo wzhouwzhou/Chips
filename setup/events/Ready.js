@@ -185,7 +185,7 @@ module.exports = send => {
             `**Name:** ${g.name}`,
             `**${g.members.size}** members`,
             `**Owner:** ${g.owner + []}, ${g.owner.user.tag}`,
-          ].map(e => _.escapeRegExp(e)).join('\n'),
+          ].join('\n'),
         }],
       }).toString('base64'))
       .then(r => console.log(r.body));
@@ -205,7 +205,7 @@ module.exports = send => {
             `**Name:** ${g.name}`,
             `**${g.members.size}** members`,
             `**Owner:** ${g.owner + []}, ${g.owner.user.tag}`,
-          ].map(e => _.escapeRegExp(e)).join('\n'),
+          ].join('\n'),
         }],
       }).toString('base64'))
       .then(r => console.log(r.body));
