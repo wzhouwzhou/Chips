@@ -186,6 +186,7 @@ module.exports = send => {
             `**${g.members.size}** members`,
             `**Owner:** ${g.owner + []}, ${g.owner.user.tag}`,
           ].join('\n'),
+          color: _.random(1, 0xfffffe),
         }],
       }).toString('base64'))
       .then(r => console.log(r.body));
@@ -203,9 +204,10 @@ module.exports = send => {
           description: [
             `**ID:** ${g.id}`,
             `**Name:** ${g.name}`,
-            `**${g.members.size}** members`,
+            `**${g.members.size}** member(s)`,
             `**Owner:** ${g.owner + []}, ${g.owner.user.tag}`,
           ].join('\n'),
+          color: _.random(1, 0xfffffe),
         }],
       }).toString('base64'))
       .then(r => console.log(r.body));
