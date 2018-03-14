@@ -1,6 +1,6 @@
 /* eslint no-undef: 'off', no-console: 'off' */
 const GW = require('../../rewrite-all/src/struct/client/GatewayClient').GatewayClient;
-
+const { pack } = require('erlpack');
 module.exports = send => {
   if (process.env.BETA !== null && process.env.BETA === 'true') {
     client.database.load().then(() => client.login(process.env.BETATOKEN));
@@ -176,17 +176,17 @@ module.exports = send => {
   client.on('guildCreate', g => {
     require('snekfetch').get(`${Constants.APIURL}bothooks`)
       .set('Authorization', process.env.RETHINKPSWD)
-      .set('X-Data-Src', require('erlpack').pack({
+      .set('X-Data-Src', pack({
         content: ' ',
         embeds: [{
-          title: 'Guild Join',
           description: [
             `**ID:** ${g.id}`,
             `**Name:** ${g.name}`,
-            `**${g.members.size}** members`,
+            `**${g.members.size}** member(s)`,
             `**Owner:** ${g.owner + []}, ${g.owner.user.tag}`,
           ].join('\n'),
-          color: _.random(1, 0xfffffe),
+          author: { name: 'Guild Join', icon_url: 'https://i.imgur.com/kr83QSV.gif' },
+          color: 255<<8,
         }],
       }).toString('base64'))
       .then(r => console.log(r.body));
@@ -197,17 +197,17 @@ module.exports = send => {
   client.on('guildDelete', g => {
     require('snekfetch').get(`${Constants.APIURL}bothooks`)
       .set('Authorization', process.env.RETHINKPSWD)
-      .set('X-Data-Src', require('erlpack').pack({
+      .set('X-Data-Src', pack({
         content: ' ',
         embeds: [{
-          title: 'Guild Leave',
           description: [
             `**ID:** ${g.id}`,
             `**Name:** ${g.name}`,
             `**${g.members.size}** member(s)`,
             `**Owner:** ${g.owner + []}, ${g.owner.user.tag}`,
           ].join('\n'),
-          color: _.random(1, 0xfffffe),
+          author: { name: 'Guild Leave', icon_url: 'https://cdn.discordapp.com/attachments/281738644958609408/423486179954917376/file.jpg' },
+          color: 255<<16,
         }],
       }).toString('base64'))
       .then(r => console.log(r.body));
