@@ -19,7 +19,9 @@ module.exports = {
     } else if (!targetRoleSend) {
       return send("Role doesn't exist!");
     } else if (member.highestRole.position < targetRoleSend.position) {
-      return send(`${targetRoleSend.name.replace(/@/, '(at)')} is above your highest role!`);
+      return send(`${targetRoleSend.name.replace(/@/g, '(at)')} is above your highest role!`);
+    } else if (member.highestRole.position === targetRoleSend.position) {
+      return send(`${targetRoleSend.name.replace(/@/g, '(at)')} is equal to your highest role!`);
     } else {
       const toAdd = guild.roles.find('name', `${targetRole}`);
       await targetUser.addRole(toAdd);
