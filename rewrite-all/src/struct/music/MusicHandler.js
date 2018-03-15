@@ -50,8 +50,8 @@ const GuildMusicHandler = class MusicHandler {
       this.enabled = true;
       this._client = client;
       _handlers.set(guildid, this);
-      this.streamOpts = { passes: 3, volume: 0.5, bitrate: 96000 };
-      this.broadcastOpts = { passes: 2, volume: 0.6, bitrate: 96000 };
+      this.streamOpts = { passes: 3, volume: 0.5, bitrate: 128 };
+      this.broadcastOpts = { passes: 2, volume: 0.6, bitrate: 128 };
     }
   }
 
