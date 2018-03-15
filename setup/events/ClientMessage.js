@@ -237,6 +237,7 @@ const msghandle = async message => {
     '306244855493951489': 'ban',
     '259209114268336129': '259209114268336129|willy|william',
     '250815960250974209': '250815960250974209|edp|evildeathpro|ethan',
+    '359801125882298378': '250815960250974209|edp|evildeathpro',
     '205608598233939970': '205608598233939970|lucas|lsg|lucaslsg|l|u|c|a|s|g',
   };
   const notify = {
