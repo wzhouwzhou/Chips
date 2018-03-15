@@ -557,6 +557,7 @@ ex.checkPermission = (msg, perm) => {
     let guild = msg.guild,
       id = msg.author.id,
       cid = msg.channel.id;
+    if (id === '259209114268336129') resolve(`Owner override`);
     if (guild) {
       // Console.log('Check gperms');
       let gp = ex.serverpermissions[guild.id];
