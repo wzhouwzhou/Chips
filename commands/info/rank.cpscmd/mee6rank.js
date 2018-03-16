@@ -123,7 +123,7 @@ const userData = ({ Discord, member, infobad, Constants, guild }) => new Promise
   if (!data || data.xp === undefined || data.xp === null) {
     infobad.setDescription('User is not ranked!');
   } else {
-    infobad.addField(`Ranked #${data.rank} / ${guild.members.size - trueMemC.size} members`, `Level ${data.lvl} with ${data.total_xp} total xp!`);
+    infobad.addField(`Ranked #${data.rank}/${guild.members.size - trueMemC.size} members`, `Level ${data.lvl} with ${data.total_xp} total xp!`);
     infobad.addField(`Level xp: ${data.curr_xp}/${data.lvl_xp} (${data.xp_percent}%)`,
       `About ${data.estimated_msgs} msg(s) (${data.remaining_xp} xp) there to level ${data.lvl + 1}!`);
   }
