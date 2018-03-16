@@ -110,7 +110,7 @@ const userData = ({ member, infobad, Constants }) => new Promise(async res => {
       default: return 'invis';
     }
   })();
-  let trueMemC = guild.members.filter(member => member.user.bot);
+  let trueMemC = member.guild.members.filter(member => member.user.bot);
   const rp = snekfetch.get(`${Constants.APIURL}avaround`)
     .set('Authorization',process.env.RETHINKPSWD)
     .set('Status', status)
@@ -126,7 +126,7 @@ const userData = ({ member, infobad, Constants }) => new Promise(async res => {
     infobad.setDescription('User is not ranked!');
   } else {
     infobad.addField(`Ranked #${data.rank}`, `Level ${data.lvl} with ${data.total_xp} total xp!`);
-    infobad.addField(`Level xp: ${data.curr_xp}/${data.lvl_xp} (${data.xp_percent}%) / ${guild.members.size - trueMemC.size} members`,
+    infobad.addField(`Level xp: ${data.curr_xp}/${data.lvl_xp} (${data.xp_percent}%) / ${member.guild.members.size - trueMemC.size} members`,
       `About ${data.estimated_msgs} msg(s) (${data.remaining_xp} xp) there to level ${data.lvl + 1}!`);
   }
   infobad.setColor(member.displayColor)
