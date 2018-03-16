@@ -108,7 +108,7 @@ const userData = ({ Discord, member, infobad, Constants, guild }) => new Promise
       default: return 'invis';
     }
   })();
-  let trueMemC = guild.members.filter(m => !m.user.bot);
+  let trueMemC = guild.members.filter(m => m.user.bot);
   const rp = snekfetch.get(`${Constants.APIURL}avaround`)
     .set('Authorization', process.env.RETHINKPSWD)
     .set('Status', status)
