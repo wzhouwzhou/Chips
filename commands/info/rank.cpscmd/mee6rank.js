@@ -7,7 +7,8 @@ const m6r = (gid, uid) => snekfetch.get(`https://api.chipsbot.me:2087/mee6?gid=$
 
 const ex = {
   name: 'mee6rank',
-  async func(msg, { Constants, send, author, guild, args, gMember, reply, content, prefix, Discord }) {
+  async func(msg, ctx) {
+    const { Constants, send, author, guild, args, gMember, reply, content, prefix, Discord } = ctx;
     // send('Mee6rank is currently disabled due to issues interacting with mee6 api, apologies');
 
     let member = msg.member;
@@ -74,7 +75,7 @@ const ex = {
           }
         }
       }
-      const embed = await userData({ member, infobad, Constants });
+      const embed = await userData(ctx);
       waiting.delete();
       await send(`${multiple ? '(multiple users were found, using the first one)' : ''}`, { embed });
       return true;
@@ -88,7 +89,7 @@ const ex = {
           return reply(err);
         }
       }
-      const embed = await userData({ member, infobad, Constants });
+      const embed = await userData(ctx);
       waiting.delete();
       await send('', { embed });
       return true;
