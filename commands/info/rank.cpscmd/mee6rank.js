@@ -126,7 +126,7 @@ const userData = ({ member, infobad, Constants }) => new Promise(async res => {
     infobad.setDescription('User is not ranked!');
   } else {
     infobad.addField(`Ranked ${data.rank}`, `Level ${data.lvl} with ${data.total_xp} total xp!`);
-    infobad.addField(`Level xp: ${data.curr_xp}/${data.lvl_xp}/${member.guild.members.size} members/ (${data.xp_percent}%)`,
+    infobad.addField(`Level xp: ${data.curr_xp}/${data.lvl_xp} (${data.xp_percent}%) / ${member.guild.members.size} members`,
       `About ${data.estimated_msgs} msg(s) (${data.remaining_xp} xp) there to level ${data.lvl + 1}!`);
   }
   infobad.setColor(member.displayColor)
