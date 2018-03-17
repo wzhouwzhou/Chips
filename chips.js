@@ -22,7 +22,7 @@ const Discord = require('discord.js');
 global.Discord = Discord;
 global.client = new Discord.Client({
   fetchAllMembers: true,
-  messageCacheMaxSize: 35,
+  messageCacheMaxSize: 12,
   // MessageCacheLifetime:(30*60),
   // messageSweepInterval:(60*60*1)
 });
@@ -225,7 +225,7 @@ function selfping() {
     results.forEach(shardStat => {
       memtotals += shardStat;
     });
-    if (memtotals > 1700) clientutil.broadcastEval('process.exit(100)');
+    if (memtotals > 1200) clientutil.broadcastEval('process.exit(100)');
   });
 }
 

@@ -75,7 +75,7 @@ const ex = {
           }
         }
       }
-      const embed = await userData(Object.assign({ infobad }, ctx));
+      const embed = await userData(Object.assign({ infobad }, ctx, { member }));
       waiting.delete();
       await send(`${multiple ? '(multiple users were found, using the first one)' : ''}`, { embed });
       return true;
@@ -89,7 +89,7 @@ const ex = {
           return reply(err);
         }
       }
-      const embed = await userData(Object.assign({ infobad }, ctx));
+      const embed = await userData(Object.assign({ infobad }, ctx, { member }));
       waiting.delete();
       await send('', { embed });
       return true;
