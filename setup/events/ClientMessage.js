@@ -35,7 +35,7 @@ client.antiDiepLinkExemptedC = [
   '286249976340676608', '260853975216029697',
 ];
 
-client.ThumbsReact = {
+/*client.ThumbsReact = {
   '257889450850254848': true,
 };
 
@@ -53,7 +53,7 @@ client.ThumbsReactExemptedC = [
   '285443288625053696','404992099478405122','257889450850254848','295643936188268544','368962010932838411',
   '406556051773849638','333368957493051393','286208220974940161','291057304512757760','399242470619217944',
   '360376932019208202','284670422866329600','313950671885959168','297672324964941834','281738644958609408',
-];
+];*/
 
 let r = null;
 const rr = setInterval(() => {
@@ -216,7 +216,7 @@ const msghandle = async message => {
   if (!!~message.content.replace(/\s+/g, '').indexOf(uu) || !!~message.content.replace(/\s+/g, '').indexOf(uu.slice(-5))) message.delete().catch(_ => _);
   if (await handleAntiLink(message)) return true;
   if (await handleAntiDiepLink(message)) return true;
-  if (await handleThumbsReact(message)) return true;
+  // if (await handleThumbsReact(message)) return true;
   // Wowbleach trigger
   if (message.content.toLowerCase().indexOf('wowbleach') > -1) message.channel.send('  _  _  <:Bleach:274628490844962826>\n <:WOW:290865903384657920>');
 
@@ -400,7 +400,7 @@ const handleAntiLink = message => new Promise(res => {
   return res(false);
 });
 
-const handleThumbsReact = message => new Promise(res => {
+/*const handleThumbsReact = message => new Promise(res => {
   if (!message.guild) return res(false);
   if (message.member.hasPermission('ADMINISTRATOR')) return res(false);
   if (~client.ThumbsReactExemptedC.indexOf(message.channel.id)) return res(false);
@@ -411,7 +411,7 @@ const handleThumbsReact = message => new Promise(res => {
   message.react('👎');
   
   res(false);
-});
+});*/
 
 const handleAntiDiepLink = message => new Promise(res => {
   if (!message.guild) return res(false);
