@@ -14,7 +14,7 @@ const MusicPlayer = class MusicPlayer {
     this.Discord = Discord;
     this.volume = 0.5;
     this.streamOpts = streamOpts;
-    this.streamOpts.bitrate = 96000;
+    this.streamOpts.bitrate = 128;
     // Math.max(+vc.bitrate, +streamOpts.bitrate);
     this.dispatcher = {};
   }

@@ -1034,6 +1034,5 @@ module.exports = {
       }
     }
     // End of eggs brackets
-    return send('Uh-oh. Contact Evildeathpro#4442 because there was an error!');
   },
 };

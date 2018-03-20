@@ -7,14 +7,19 @@ const { pack } = require('erlpack');
 
 module.exports = {
   name: 'roles',
-  async func(msg, { send, guild, member, args, Discord, prefix, Constants }) {
+  async func(msg, { channel, send, guild, member, args, Discord, prefix, Constants }) {
     if (!guild) return send('You must be in a server to use this!');
     if (args[0] && args[0].toLowerCase() === 'all') {
       return send(new Discord.MessageEmbed().setColor(member.displayColor).setTitle(`Role List (${guild.roles.size})`)
-        .setDescription(guild._sortedRoles().map(e => _.escapeRegExp(`<@&${e.id}>`)).reverse()
-          .join(', ')));
+        .setDescription(guild
+          ._sortedRoles()
+          .map(e => _.escapeRegExp(`<@&${e.id}>`))
+          .reverse()
+          .join(', ')
+          .substr(0, 1900)
+        ));
     }
-
+    channel.startTyping();
     const data = guild.roles.array()
       .sort((b, a) => b.position - a.position)
       .map(r => {
@@ -55,7 +60,7 @@ module.exports = {
       type: 'paged',
       embedding: true,
       fielding: true,
-      text: `Type __${_.escapeRegExp(prefix)}${this.name} all__  to see the whole list`,
+      text: `Role Count: __${guild.roles.size}__`,
       pages:
       [
         ...fields,
@@ -63,10 +68,12 @@ module.exports = {
     }, Discord);
 
     try {
-      return await p.sendFirst();
+      await p.sendFirst();
+      channel.stopTyping(true);
     } catch (err) {
-      console.error(err);
-      return send('Something went wrong...');
+      channel.stopTyping(true);
+      send('Something went wrong...');
+      throw err;
     }
   },
 };

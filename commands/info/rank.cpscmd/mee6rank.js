@@ -7,7 +7,8 @@ const m6r = (gid, uid) => snekfetch.get(`https://api.chipsbot.me:2087/mee6?gid=$
 
 const ex = {
   name: 'mee6rank',
-  async func(msg, { Constants, send, author, guild, args, gMember, reply, content, prefix, Discord }) {
+  async func(msg, ctx) {
+    const { Constants, send, author, guild, args, gMember, reply, content, prefix, Discord } = ctx;
     // send('Mee6rank is currently disabled due to issues interacting with mee6 api, apologies');
 
     let member = msg.member;
@@ -47,28 +48,25 @@ const ex = {
             }
           }
         }
-        if (member == null) throw 'NotMemberMention';
-      } catch (err) { // GMember failed:
-        console.log('Finding by mention failed...');
+        if (!member) throw new Error('NotMemberMention');
+      } catch (err) {
         member = content.substring(`${prefix}mee6rank `.length);
-        let list = searchers[guild.id].searchMember(member);
+        let list = global.searchers[guild.id].searchMember(member);
         if (list.length > 1) multiple = true;
-        else if (list.length < 1) return await send(`User [${member}] not found!`);
+        else if (list.length < 1) return send(`User [${member}] not found!`);
         member = list[0];
-        if (member.id != author.id) {
+        if (member.id !== author.id) {
           try {
             let info = await permissions.checkMulti(msg, ['global.info.info.user.other']);
-            console.log(`[Mee6Rank] ${info}`);
-          } catch (err) {
+          } catch (err2) {
             if (!member.hasPermission(this.metadata.customperm[0])) {
               console.log(`Rejected mee6rank other to ${used.id}`);
-              return reply(err);
+              return reply(err2);
             }
           }
         } else {
           try {
             let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
-            console.log(`[Mee6Rank] ${info}`);
           } catch (err) {
             if (!member.hasPermission(this.metadata.customperm[0])) {
               console.log(`Rejected mee6rank self to ${used.id}`);
@@ -77,7 +75,7 @@ const ex = {
           }
         }
       }
-      const embed = await userData({ member, infobad, Constants });
+      const embed = await userData(Object.assign({ infobad }, ctx, { member }));
       waiting.delete();
       await send(`${multiple ? '(multiple users were found, using the first one)' : ''}`, { embed });
       return true;
@@ -91,7 +89,7 @@ const ex = {
           return reply(err);
         }
       }
-      const embed = await userData({ member, infobad, Constants });
+      const embed = await userData(Object.assign({ infobad }, ctx, { member }));
       waiting.delete();
       await send('', { embed });
       return true;
@@ -99,7 +97,7 @@ const ex = {
   },
 };
 
-const userData = ({ member, infobad, Constants }) => new Promise(async res => {
+const userData = ({ Discord, member, infobad, Constants, guild }) => new Promise(async res => {
   const avatarURL = member.user.displayAvatarURL({ format: 'png', size: 2048 });
 
   const status = (() => {
@@ -110,11 +108,11 @@ const userData = ({ member, infobad, Constants }) => new Promise(async res => {
       default: return 'invis';
     }
   })();
-
+  let trueMemC = guild.members.filter(m => m.user.bot);
   const rp = snekfetch.get(`${Constants.APIURL}avaround`)
-    .set('Authorization',process.env.RETHINKPSWD)
+    .set('Authorization', process.env.RETHINKPSWD)
     .set('Status', status)
-    .set('X-Data-Src',  avatarURL);
+    .set('X-Data-Src', avatarURL);
   const datap = m6r(member.guild.id, member.id);
   let r, data;
   [r, data] = await Promise.all([rp, datap]);
@@ -125,8 +123,8 @@ const userData = ({ member, infobad, Constants }) => new Promise(async res => {
   if (!data || data.xp === undefined || data.xp === null) {
     infobad.setDescription('User is not ranked!');
   } else {
-    infobad.addField(`Ranked ${data.rank}/${data.lb_length}`, `Level ${data.lvl} with ${data.total_xp} total xp!`);
-    infobad.addField(`Level xp: ${data.curr_xp}/${member.guild.members.size}/*${data.lvl_xp}*/ (${data.xp_percent}%)`,
+    infobad.addField(`Ranked #${data.rank}/${guild.members.size - trueMemC.size} members`, `Level ${data.lvl} with ${data.total_xp} total xp!`);
+    infobad.addField(`Level xp: ${data.curr_xp}/${data.lvl_xp} (${data.xp_percent}%)`,
       `About ${data.estimated_msgs} msg(s) (${data.remaining_xp} xp) there to level ${data.lvl + 1}!`);
   }
   infobad.setColor(member.displayColor)

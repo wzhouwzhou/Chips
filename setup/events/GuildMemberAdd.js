@@ -107,8 +107,8 @@ module.exports = () => {
             embed.addField('Welcome to Baka World!!',
               [
                 'Baka World is a community for gamers, youtubers, streamers, and everything anime!',
-                'Check out <#417040949466628135> for more info, and if you have any questions, staff are always ready to answer them!',
-                'Use https://guilds.chipsbot.me/baka_world if you want to invite your friends!\n_ _',
+                'Check out <#419161057144209408> for more info, and if you have any questions, staff are always ready to answer them!',
+                'Use https://discord.gg/Qb5R5hB if you want to invite your friends!\n_ _',
               ].join`\n`);
             /*if(member.id !== '252541269602074635') embed.addField('About me',
               [

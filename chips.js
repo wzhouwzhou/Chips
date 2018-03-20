@@ -22,7 +22,7 @@ const Discord = require('discord.js');
 global.Discord = Discord;
 global.client = new Discord.Client({
   fetchAllMembers: true,
-  messageCacheMaxSize: 35,
+  messageCacheMaxSize: 12,
   // MessageCacheLifetime:(30*60),
   // messageSweepInterval:(60*60*1)
 });
@@ -133,6 +133,7 @@ client.disableSelfStar = {
   '274260111415836675': true,
   '350750159988064256': true,
   '359801125882298378': true, //NSFW EMPIRE
+  '195278167181754369': true, //Diep Cord
 };
 const { BotDatabase } = require('./rewrite-all/src/struct/util/BotDatabase');
 client.database = new BotDatabase(client);// Require(path.join(__dirname, './setup/db/DatabaseLoader'));
@@ -224,7 +225,7 @@ function selfping() {
     results.forEach(shardStat => {
       memtotals += shardStat;
     });
-    if (memtotals > 1700) clientutil.broadcastEval('process.exit(100)');
+    if (memtotals > 1200) clientutil.broadcastEval('process.exit(100)');
   });
 }
 

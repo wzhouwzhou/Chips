@@ -7,7 +7,7 @@ const pmx = require('pmx').init({
 });
 const startprobe = pmx.probe();
 
-const SHARDCOUNT = 1;
+const SHARDCOUNT = 2;
 
 const Discord = require('discord.js');
 let nodefile = ['./chips.js'];

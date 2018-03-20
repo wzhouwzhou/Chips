@@ -1,6 +1,6 @@
 /* eslint no-undef: 'off', no-console: 'off' */
 const GW = require('../../rewrite-all/src/struct/client/GatewayClient').GatewayClient;
-
+const { pack } = require('erlpack');
 module.exports = send => {
   if (process.env.BETA !== null && process.env.BETA === 'true') {
     client.database.load().then(() => client.login(process.env.BETATOKEN));
@@ -174,20 +174,45 @@ module.exports = send => {
   // Const music = require('discord.js-music-v11');
   // music(client, { prefix: '-', anyoneCanSkip: true });
   client.on('guildCreate', g => {
-    const scpt = `try { client.channels.get('307624059984674816')
-.send('I just joined a new server! Its name is ${g.name.replace('@', '(at)')} and it has ${g.members.size} members! It is owned by <@${g.ownerID}> (${g.ownerID})');} catch(err){}`;
-    clientutil.broadcastEval(scpt);
-    console.log(`I just joined a new server! Its name is ${g.name.replace('@', '(at)')} and it has ${g.members.size} members!`);
+    require('snekfetch').get(`${Constants.APIURL}bothooks`)
+      .set('Authorization', process.env.RETHINKPSWD)
+      .set('X-Data-Src', pack({
+        content: ' ',
+        embeds: [{
+          description: [
+            `**ID:** ${g.id}`,
+            `**Name:** ${g.name}`,
+            `**${g.members.size}** member(s)`,
+            `**Owner:** ${g.owner + []}, ${g.owner.user.tag}`,
+          ].join('\n'),
+          author: { name: 'Guild Join', icon_url: 'https://i.imgur.com/kr83QSV.gif' },
+          color: 255<<8,
+        }],
+      }).toString('base64'))
+      .then(r => console.log(r.body));
+
+    console.log(`I just joined a new server ${g.id}! Its name is ${g.name.replace('@', '(at)')} and it has ${g.members.size} members! It id owned by <@${g.ownerID}>, ${g.owner.user.tag}`);
   });
 
-  client.on('guildDelete', gu => {
-    try {
-      const scpt = `try { client.channels.get('307624059984674816').send('I just left a server! Its name was ${gu.name.replace('@', '(at)')} and it had ${gu.members.size} members! It was owned by <@${gu.ownerID}> (${gu.ownerID})');} catch(err){}`;
-      clientutil.broadcastEval(scpt);
-      console.log(`I just left a server! Its name was ${gu.name.replace('@', '(at)')} and it had ${gu.members.size} members!`);
-    } catch (err) {
-      console.error(err);
-    }
+  client.on('guildDelete', g => {
+    require('snekfetch').get(`${Constants.APIURL}bothooks`)
+      .set('Authorization', process.env.RETHINKPSWD)
+      .set('X-Data-Src', pack({
+        content: ' ',
+        embeds: [{
+          description: [
+            `**ID:** ${g.id}`,
+            `**Name:** ${g.name}`,
+            `**${g.members.size}** member(s)`,
+            `**Owner:** ${g.owner + []}, ${g.owner.user.tag}`,
+          ].join('\n'),
+          author: { name: 'Guild Leave', icon_url: 'https://cdn.discordapp.com/attachments/281738644958609408/423486179954917376/file.jpg' },
+          color: 255<<16,
+        }],
+      }).toString('base64'))
+      .then(r => console.log(r.body));
+
+      console.log(`I just left a server ${g.id}, its name was ${g.name.replace(/@/g, '(at)')} and it had ${g.members.size} members! It was owned by <@${g.ownerID}>, ${g.owner.user.tag}`);
   });
   require('./GuildMemberAdd')();
 };

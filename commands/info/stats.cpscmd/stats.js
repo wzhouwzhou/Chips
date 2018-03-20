@@ -39,7 +39,7 @@ module.exports = {
     let ping = bot.ping;
     let textChannels = bot.channels.filter(c => c.type === 'text').size;
     let voiceChannels = bot.channels.filter(c => c.type === 'voice').size;
-    let cpuAverage = Math.ceil(require('os').loadavg()[1] * 1000) / 10;
+    let cpuAverage = Math.ceil(require('os').loadavg()[1] * 1000) / 10 / 8;
     let memAverage = ~~(2e-1 + process.memoryUsage().heapUsed / 1024 / 1024);
 
     // Create the embed
@@ -64,7 +64,7 @@ module.exports = {
       ['Total Text Channel Count: ', textCountG],
       ['Total Voice Channel Count: ', voiceCountG],
       ['Average Client Ping: ', `${~~(2e-1 + 100 * averagePingG) / 100} ms`],
-      ['Total CPU Usage: ', `${cpuAveG}%`],
+      ['Total CPU Usage: ', `${cpuAveG / 8}%`],
       ['Memory Usage: ', `Used ${memAveG} of ${totalMemG} mb allocated`],
       [`Node **${process.version}**\nLib  **v${Discord.version}**`, ' '],
     ].map(e => `**${e[0]}**\n\t\t${e[1]}`).join('\n'), true);

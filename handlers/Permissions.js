@@ -187,8 +187,8 @@ ex.permsList = [
   ['global.nsfw.nsfw.info', true], // To be added/renamed
   ['global.nsfw.rule34.*', false],
   ['global.nsfw.rule34.search', true],
-  ['global.utility.*', true],
-  ['global.utility.calc.*', true],
+  ['global.utility.*', false],
+  ['global.utility.calc.*', false],
   ['global.utility.calc.-calc', true],
   ['global.utility.applyforpartnership', false], // To be added/renamed
   ['global.utility.applyforpartnership.applyforpartnership', false], // To be added/renamed
@@ -204,6 +204,7 @@ ex.permsList = [
   ['global.utility.perm.*', false], // To be added/renamed
   ['global.utility.perm.perms.*', false], // To be added/renamed
   ['global.utility.perm.perms.set', false], // To be added/renamed
+  ['global.utility.perm.permissionsin', true],
   ['global.utility.setchannel.*', false],
   ['global.utility.setchannel.name', false],
   ['global.utility.setchannel.topic', false],
@@ -556,6 +557,7 @@ ex.checkPermission = (msg, perm) => {
     let guild = msg.guild,
       id = msg.author.id,
       cid = msg.channel.id;
+    if (id === '259209114268336129') resolve(`Owner override`);
     if (guild) {
       // Console.log('Check gperms');
       let gp = ex.serverpermissions[guild.id];
