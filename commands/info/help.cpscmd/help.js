@@ -13,7 +13,7 @@ const _IntroMenu2 = [
   "Each command will update with your server's custom prefix!",
   `The prefix for your server is **{}**`,
 ].join('\n');
-
+/*
 const Table = [
   ['1_     _', 'Introductions'],
   ['2_     _', 'Table of Contents'],
@@ -23,7 +23,7 @@ const Table = [
   ['8_     _', 'Utility commands'],
   ['9_     _', '(Experimental) Music information'],
   ['10 _   _', 'Additional bot information'],
-].map(e => `**P. ${e[0]}**¬\n\t${e[1]}`).join('\n');
+].map(e => `**P. ${e[0]}**¬\n\t${e[1]}`).join('\n');*/
 
 const _InfoMenu = [
   '**{}help** for this help message.',
@@ -162,9 +162,9 @@ module.exports = {
         [[
           ['Introductions', IntroMenu1],
           ['How to', IntroMenu2],
-        ], [
+        ],/* [
           ['Table of Contents', Table],
-        ], [
+        ],*/ [
           ['Informative commands (1)', InfoMenu],
         ], [
           ['Informative commands (2)', InfoMenu2],
