@@ -67,7 +67,7 @@ const ex = {
     games.set(channel.id, channel);
     try {
       othermember = await promptInvitee(ctx);
-      if (othermember && othermember.user.bot) {
+      if (othermember && othermember.user.bot && othermember.id !== '393043996320071681') {
         send('You cannot invite a bot!');
         throw new Error('Bot invitee');
       }
