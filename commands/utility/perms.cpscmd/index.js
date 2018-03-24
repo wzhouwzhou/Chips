@@ -7,7 +7,7 @@ upermsin.metadata = {
   description: "This command gets a member's permissions in this, or a specified channel.",
   usage: 'permissionsin [fuzzy search]',
   example: 'permissionsin William Zhou',
-  perm: [['global.utility.perms.permissionsin']],
+  perm: [['global.utility.perm.permissionsin']],
   customperm: ['MANAGE_ROLES'],
 };
 rperms.metadata = {
@@ -15,7 +15,7 @@ rperms.metadata = {
   description: "This command gets a role's permissions server-wide.",
   usage: 'rolepermissions [fuzzy search]',
   example: 'rolepermissions Staff',
-  perm: [['global.utility.perms.permissionsin']],
+  perm: [['global.utility.perm.permissionsin']],
   customperm: ['MANAGE_ROLES'],
 };
 
