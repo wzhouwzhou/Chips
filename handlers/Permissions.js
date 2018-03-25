@@ -199,6 +199,8 @@ ex.permsList = [
   ['global.utility.emoji.*', false],
   ['global.utility.emoji.add', false],
   ['global.utility.emoji.remove', false],
+  ['global.utility.mention.*', false],
+  ['global.utility.mention.select', false],
   ['global.utility.nR.*', false],
   ['global.utility.nR.nR', false],
   ['global.utility.perm.*', false], // To be added/renamed
