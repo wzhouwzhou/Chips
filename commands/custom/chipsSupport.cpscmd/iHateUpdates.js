@@ -1,11 +1,11 @@
 exports.name = 'idontwantupdates';
 exports.func = async(msg, ctx) => {
-  const { prefix, send, reply, guild, member, author, channel, Discord, Constants } = ctx;
+  const { send, guild, member } = ctx;
   if (!guild || guild.id !== '307623291479130132') return true;
   const role = guild.roles.get('413803807248613380') || guild.roles.find('name', 'Update-Notify');
   if (member.roles.has(role.id)) {
     await member.removeRole(role);
-      return send('You are no longer pinged in the Update Channel!');
+    return send('You are no longer pinged in the Update Channel!');
   } else {
     return send(`You dont have the role yet!`);
   }
