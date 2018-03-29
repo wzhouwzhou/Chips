@@ -71,7 +71,7 @@ module.exports = {
       ['Total CPU Usage: ', `${cpuAveG / 8}%`],
       ['Memory Usage: ', `Used ${memAveG} of ${totalMemG} mb allocated`],
       ['Node', process.version],
-      ['Lib', `v${Discord.version}`],
+      ['Library (Discord.js)', `v${Discord.version}`],
     ].map(e => `**${e[0]}**\n\t\t${e[1]}`).join('\n'), true);
 
     embed.setFooter(`Chips stats lookup and calculations took ${(new Date).getTime() - start}ms.`);
