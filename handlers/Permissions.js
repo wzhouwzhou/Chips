@@ -192,8 +192,6 @@ ex.permsList = [
   ['global.utility.calc.-calc', true],
   ['global.utility.applyforpartnership', false], // To be added/renamed
   ['global.utility.applyforpartnership.applyforpartnership', false], // To be added/renamed
-  ['global.utility.applyforstaff', false],
-  ['global.utility.applyforstaff.apply', true],
   ['global.utility.dictionary.*', false],
   ['global.utility.dictionary.urban', true],
   ['global.utility.emoji.*', false],
