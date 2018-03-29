@@ -7,7 +7,7 @@ staffapp.metadata = {
   description: 'This command guides you through applying for a staff role in the support server!',
   usage: 'applyforstaff',
   example: 'applyforstaff',
-  perm: [['global.utility.applyforstaff.apply']],
+  perm: [['global.custom.chipsSupport.*']],
 };
 
 module.exports = [
