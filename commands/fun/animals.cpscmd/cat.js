@@ -1,6 +1,6 @@
 const snekfetch = require('snekfetch');
 
-const getCat = () => new Promise((resolve, rej) => snekfetch.get('http://aws.random.cat/meow').then(async res => {
+/*const getCat = () => new Promise((resolve, rej) => snekfetch.get('http://aws.random.cat/meow').then(async res => {
   try {
     if (res.status !== 200) return rej(new Error(`Status ${res.status}`));
 
@@ -12,14 +12,14 @@ const getCat = () => new Promise((resolve, rej) => snekfetch.get('http://aws.ran
   } catch (err) {
     return rej(err);
   }
-}).catch(rej));
+}).catch(rej));*/
 
 module.exports = {
   name: 'cat',
   async func(msg, { send, channel, Discord }) {
     channel.startTyping();
     try {
-      await send(new Discord.MessageAttachment((await getCat()).file, 'cat.png'));
+      snekfetch.get('http://thecatapi.com/api/images/get?format=src&type=gif').then(r=>send(new Discord.MessageAttachment(r.body, 'hi.gif')));
       return channel.stopTyping();
     } catch (err) {
       channel.stopTyping();
