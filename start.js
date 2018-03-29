@@ -25,7 +25,7 @@ const start = () => {
   Manager = new Discord.ShardingManager(nodefile[0], {
     totalShards: SHARDCOUNT,
   });
-  Manager.spawn(SHARDCOUNT, 11000).then(shards => {
+  Manager.spawn(SHARDCOUNT, 11000, false).then(shards => {
     exports.shards = shards;
     console.log('Spawned', colors.cyan(shards.size.toString()), 'shards!');
   });
