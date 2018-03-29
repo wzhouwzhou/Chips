@@ -1,6 +1,6 @@
 const snekfetch = require('snekfetch');
 
-const getCat = () => new Promise((resolve, rej) => snekfetch.get('http://www.random.cat/meow').then(async res => {
+const getCat = () => new Promise((resolve, rej) => snekfetch.get('http://aws.random.cat/meow').then(async res => {
   try {
     if (res.status !== 200) return rej(new Error(`Status ${res.status}`));
 
