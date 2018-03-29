@@ -19,7 +19,7 @@ module.exports = {
   async func(msg, { send, channel, Discord }) {
     channel.startTyping();
     try {
-      snekfetch.get('http://thecatapi.com/api/images/get?format=src&type=gif').then(r=>send(new Discord.MessageAttachment(r.body, 'hi.gif')));
+      snekfetch.get('https://thecatapi.com/api/images/get?format=src&type=gif,png,jpg').then(r=>send(new Discord.MessageAttachment(r.body, 'hi.gif')));
       return channel.stopTyping();
     } catch (err) {
       channel.stopTyping();
