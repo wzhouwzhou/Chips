@@ -6,7 +6,8 @@ module.exports = send => {
     client.database.load().then(() => client.login(process.env.BETATOKEN));
   } else {
     console.log('Logging in…');
-    client.database.load().then(() => client.login(process.env.TOKEN));
+    client.database.load();
+    client.login(process.env.TOKEN);
     console.log('Chips login called');
   }
   if (client.id !== '309504998864060416') {
