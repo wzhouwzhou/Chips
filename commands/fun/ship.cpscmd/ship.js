@@ -6,12 +6,12 @@ ships.set(ducheps, 1234);
 shipComments.set(ducheps, `Marriage when?!`);
 shipJoin.set(ducheps, '<:blobkiss:372739966100439042>');
 
-const veedp = '250815960250974209,296855425255473154';
+const veedp = '250815960250974209,365972456139390977';
 ships.set(veedp, 9001);
 shipComments.set(veedp, '❤It\'s❤Over❤Nine❤Thousand❤');
 shipJoin.set(veedp, '❤❤❤❤❤');
 
-const edchips = '250815960250974209,365972456139390977';
+const edchips = '250815960250974209,296855425255473154';
 ships.set(edchips, 101);
 shipComments.set(edchips, 'OMG OwNeR *moans*');
 shipJoin.set(edchips, '❤❤❤❤❤');
