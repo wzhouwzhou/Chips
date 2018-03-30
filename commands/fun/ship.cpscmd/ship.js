@@ -1,8 +1,8 @@
 const _ = require('lodash');
 const ships = new Map, shipComments = new Map, shipJoin = new Map;
 
-const lucheps = '205608598233939970,296855425255473154';
-ships.set(lucheps, 420);
+const lucheps = '409776199297007617,296855425255473154';
+ships.set(lucheps, 9999);
 shipComments.set(lucheps, `Marriage when?!`);
 shipJoin.set(lucheps, '<:blobkiss:372739966100439042>');
 
