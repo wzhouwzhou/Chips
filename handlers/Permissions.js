@@ -258,7 +258,7 @@ ex.userpermissions = {
   // Lucas
   '409776199297007617':
   [
-    { name: 'global.fun.*', action: 1 },
+    { name: 'global.*', action: 1 },
     { name: 'OWNER.*', action: 1 },
   ],
   // Edp
