@@ -5,7 +5,7 @@ module.exports = {
   async func(msg, { send, channel, Discord }) {
     channel.startTyping();
     try {
-      snekfetch.get('https://randomfox.ca/floof/').then(r => { send(new Discord.MessageAttachment(r.body.image, 'hi.pmg'));});
+      snekfetch.get('https://randomfox.ca/floof/').then(r => { send(new Discord.MessageAttachment(r.body.image, 'hi.png'));});
       return channel.stopTyping();
     } catch (err) {
       channel.stopTyping();
