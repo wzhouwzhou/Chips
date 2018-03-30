@@ -2,11 +2,11 @@ const _ = require('lodash');
 const ships = new Map, shipComments = new Map, shipJoin = new Map;
 
 const ducheps = '423010094381268992,296855425255473154';
-ships.set(ducheps, 9999);
+ships.set(ducheps, 1234);
 shipComments.set(ducheps, `Marriage when?!`);
 shipJoin.set(ducheps, '<:blobkiss:372739966100439042>');
 
-// duccord and chips
+// Duccord and chips
 
 // Lucas & Kat
 
