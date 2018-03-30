@@ -6,16 +6,10 @@ ships.set(ducheps, 1234);
 shipComments.set(ducheps, `Marriage when?!`);
 shipJoin.set(ducheps, '<:blobkiss:372739966100439042>');
 
-// Duccord and chips
-
-// Lucas & Kat
-
 const veedp = '250815960250974209,365972456139390977';
 ships.set(veedp, 9001);
 shipComments.set(veedp, '❤It\'s❤Over❤Nine❤Thousand❤');
 shipJoin.set(veedp, '❤❤❤❤❤');
-
-// Evildeathpro and Vee
 
 const sorachino = '277969198401978379,296934568068513793';
 ships.set(sorachino, 100);
