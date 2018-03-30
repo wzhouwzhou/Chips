@@ -258,9 +258,8 @@ ex.userpermissions = {
   // Lucas
   '409776199297007617':
   [
-    { name: ex.permsList[0][0], action: 1 },
-    { name: ex.permsList[1][0], action: 1 },
-    { name: ex.permsList[2][0], action: 1 },
+    { name: 'global.fun.*', action: 1 },
+    { name: 'OWNER.*', action: 1 },
   ],
   // Edp
   '250815960250974209':
