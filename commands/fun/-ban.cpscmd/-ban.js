@@ -62,10 +62,9 @@ const l2 = [
 ];
 
 const bangifs = [
-  'https://giphy.com/gifs/shittyreactiongifs-cNSMn6Nz95dTO',
+  'https://media.giphy.com/media/cNSMn6Nz95dTO/giphy.gif',
 ];
 const a = require('nodecpp-test').arrays;
-
 const ex = {
   name: '-ban',
   async func(msg, { send, author, content, channel, guild, args, gMember, Discord, reply, bot }) {
@@ -113,20 +112,17 @@ const ex = {
     } catch (err) {
       console.error(`Error of dming User: ${err}`);
     }
-
     // Const stafflogs = guild.channels.find('name', 'staff-logs');
     // if(stafflogs)
     /* stafflogs.send({embed: emb.setTitle('Fake Ban').setAuthor('Action Log')
     .setDescription(`**${user+[]} was ~~fake~~ banned by ${author+[]}!**`)});*/
-
     /* if(!stafflogs)
      return send('Creating a staff-logs channel.')
       .then (channel => channel.create('staff-logs'))
       .then (embed => embed.send(' ', {embed: emb}));*/
-
     let usernm = user.username;
     await reply('User banned successfully!');
-    await send(a.sample(bangifs));
+    await send(new Discord.MessageAttachment(a.sample(bangifs), 'hi.gif'));
     const mee6name = guild.members.get('159985870458322944') ? guild.members.get('159985870458322944')
       .displayName : null;
     if (mee6name) {
@@ -140,5 +136,4 @@ const ex = {
     }
   },
 };
-
 module.exports = ex;
