@@ -1,17 +1,12 @@
 const _ = require('lodash');
 const ships = new Map, shipComments = new Map, shipJoin = new Map;
 
-const lucheps = '409776199297007617,296855425255473154';
-ships.set(lucheps, 9999);
-shipComments.set(lucheps, `Marriage when?!`);
-shipJoin.set(lucheps, '<:blobkiss:372739966100439042>');
+const ducheps = '423010094381268992,296855425255473154';
+ships.set(ducheps, 9999);
+shipComments.set(ducheps, `Marriage when?!`);
+shipJoin.set(ducheps, '<:blobkiss:372739966100439042>');
 
-// Lucas and chips
-
-const lukat = '205608598233939970,214234647947771907';
-ships.set(lukat, 6969);
-shipComments.set(lukat, '❤ real di-love when ❤ ');
-shipJoin.set(lukat, '<:blobkiss:372739966100439042>');
+// duccord and chips
 
 // Lucas & Kat
 
