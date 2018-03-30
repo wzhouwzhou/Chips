@@ -6,10 +6,15 @@ ships.set(ducheps, 1234);
 shipComments.set(ducheps, `Marriage when?!`);
 shipJoin.set(ducheps, '<:blobkiss:372739966100439042>');
 
-const veedp = '250815960250974209,365972456139390977';
+const veedp = '250815960250974209,296855425255473154';
 ships.set(veedp, 9001);
 shipComments.set(veedp, '❤It\'s❤Over❤Nine❤Thousand❤');
 shipJoin.set(veedp, '❤❤❤❤❤');
+
+const edchips = '250815960250974209,365972456139390977';
+ships.set(edchips, 101);
+shipComments.set(edchips, 'OMG OwNeR *moans*');
+shipJoin.set(edchips, '❤❤❤❤❤');
 
 const sorachino = '277969198401978379,296934568068513793';
 ships.set(sorachino, 100);
@@ -30,11 +35,6 @@ const xenaincy = '237250114693890048,260024920757633025';
 ships.set(xenaincy, 100);
 shipComments.set(xenaincy, 'Nerd confirmed!!!!!');
 shipJoin.set(xenaincy, '<:xenablob:393827310769537037>❤');
-
-const xenrjt = '192060404501839872,260024920757633025';
-ships.set(xenrjt, 500);
-shipComments.set(xenrjt, 'o-o');
-shipJoin.set(xenrjt, '<:xenablob:393827310769537037>❤');
 
 const rosewilly = '259209114268336129,336962062544666624';
 ships.set(rosewilly, 200);
