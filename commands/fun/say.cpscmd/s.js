@@ -9,6 +9,9 @@ const fails = [
   'You shouldn\'t play hide and seek, no one would look for you.',
   'If I wanted to kill myself I\'d climb your ego and jump to your IQ.',
   'We all sprang from apes, but you didn\'t spring far enough.',
+  'If you were on fire and I had water, I\'d drink it.',
+  'If I had a face like yours I\'d wish I was blind.',
+  'Calling you an idiot would be an insult to all stupid people.',
 ];
 
 const a = require('nodecpp-test').arrays;
