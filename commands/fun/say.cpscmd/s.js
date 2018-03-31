@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const fails = [
   'You so dumb, you think Cheerios are doughnut seeds.',
   'If you really spoke your mind, you\'d be speechless.',
@@ -21,11 +20,6 @@ const a = require('nodecpp-test').arrays;
 module.exports = {
   name: 's',
   func(msg, { send, author, suffix, Constants, args, client, content }) {
-=======
-module.exports = {
-  name: 's',
-  func(msg, { send, author, suffix, Constants }) {
->>>>>>> parent of e87619dc... idk
     if (author.id === Constants.users.WILLYZ ||
       author.id === Constants.users.EVILDEATHPRO ||
       author.id === Constants.users.LUCAS ||
@@ -33,7 +27,6 @@ module.exports = {
       author.id === '166630166825664512'
     ) {
       // Antonio, 166..12
-<<<<<<< HEAD
       if (args[0] === 'roast') {
         msg.delete().catch(_ => _);
         return send(`${msg.mentions.members.first()}, ${a.sample(fails)}`);
@@ -45,12 +38,6 @@ module.exports = {
         return send(suffix, { disableEveryone: true });
       }
       return true;
-=======
-
-      msg.delete().catch(_ => _);
-      return send(suffix, { disableEveryone: true });
->>>>>>> parent of e87619dc... idk
     }
-    return true;
   },
 };
