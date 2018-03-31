@@ -4,6 +4,11 @@ const fails = [
   'You\'re the reason the gene pool needs a lifeguard.',
   'There is no vaccine against stupidity.',
   'If being ugly were a crime, you\'d get a life sentence.',
+  'I\'d ban you, but that would be animal abuse.',
+  'You bring everyone a lot of joy, when you leave the server.',
+  'You shouldn\'t play hide and seek, no one would look for you.',
+  'If I wanted to kill myself I\'d climb your ego and jump to your IQ.',
+  'We all sprang from apes, but you didn\'t spring far enough.',
 ];
 
 const a = require('nodecpp-test').arrays;
