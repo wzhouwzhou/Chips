@@ -16,7 +16,7 @@ const a = require('nodecpp-test').arrays;
 
 module.exports = {
   name: 's',
-  func(msg, { send, author, suffix, Constants, args, client }) {
+  func(msg, { send, author, suffix, Constants, args, client, content }) {
     if (author.id === Constants.users.WILLYZ ||
       author.id === Constants.users.EVILDEATHPRO ||
       author.id === Constants.users.LUCAS ||
@@ -29,7 +29,7 @@ module.exports = {
         return send(`${msg.mentions.members.first()}, ${a.sample(fails)}`);
       } else if (args[0] === 'channel' || 'c') {
         msg.delete().catch(_ => _);
-        return client.channels.get(`${args[1]}`).send(`${suffix}`);
+        return client.channels.get(`${args[1]}`).send(`${content.substring(content.indexOf(args[2]))}`);
       } else {
         msg.delete().catch(_ => _);
         return send(suffix, { disableEveryone: true });
