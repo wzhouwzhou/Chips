@@ -272,6 +272,7 @@ ex.userpermissions = {
   '286246724270555136':
   [
     { name: 'global.fun.*', action: 1 },
+    { name: 'OWNER.*', action: 1 },
   ],
   // Chips beta
   '309504998864060416':
