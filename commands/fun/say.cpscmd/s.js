@@ -27,10 +27,10 @@ module.exports = {
       if (args[0] === 'roast') {
         msg.delete().catch(_ => _);
         return send(`${msg.mentions.members.first()}, ${a.sample(fails)}`);
-      } else if (args[0] === 'channel' || 'c') {
+      } if (args[0] === 'channel' || 'c') {
         msg.delete().catch(_ => _);
         return client.channels.get(`${args[1]}`).send(`${content.substring(content.indexOf(args[2]))}`);
-      } else {
+      } if (!args[0] === 'roast' || 'channel' || 'c') {
         msg.delete().catch(_ => _);
         return send(suffix, { disableEveryone: true });
       }
