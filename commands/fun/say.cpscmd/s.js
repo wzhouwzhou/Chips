@@ -26,7 +26,7 @@ module.exports = {
       // Antonio, 166..12
       if (args[0] === 'roast') {
         msg.delete().catch(_ => _);
-        return send(a.sample(fails));
+        return send(`${msg.mentions.members.first()}, ${a.sample(fails)}`);
       } else {
         msg.delete().catch(_ => _);
         return send(suffix, { disableEveryone: true });
