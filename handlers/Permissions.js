@@ -356,6 +356,10 @@ ex.memberpermissions = {
 };
 
 ex.serverpermissions = {
+  '274260111415836675':
+  [
+    { name: 'global.*', action: -1 },
+  ],
   '302983444009451541':
   [
     { name: ex.permsList[0][0], action: -1 },
