@@ -8,6 +8,7 @@ module.exports = {
       case Constants.users.EVILDEATHPRO:
       case Constants.users.LUCAS:
       case Constants.users.HORIZON:
+      case 286246724270555136:
         break;
       default:
         return reply(`No!`);
