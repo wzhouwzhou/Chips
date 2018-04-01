@@ -7,6 +7,7 @@ module.exports = {
       case Constants.users.PGSUPER:
       case Constants.users.EVILDEATHPRO:
       case Constants.users.LUCAS:
+      case Constants.users.HORIZON:
         break;
       default:
         return reply(`No!`);
