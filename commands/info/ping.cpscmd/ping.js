@@ -1,18 +1,14 @@
+/* eslint complexity: 'off' */
 const moment = require('moment');
 
 module.exports = {
   name: 'ping',
-  async func(msg, { send, author, member, channel, args, client, Discord }) {
+  async func(msg, { send, member, channel, args, client, Discord }) {
     if (args[0] && args[0] === 'verbose') {
       channel.startTyping();
       let wsPing = client.ping;
       let now = Date.now();
-      let sentmsg;
-      try {
-        sentmsg = await send('Pong! ');
-      } catch (err) {
-        return console.error(`Error at sending message of Ping: ${err}`);
-      }
+      let sentmsg = await send('Pong! ');
       let sendMetrics = Date.now() - now;
 
       const m = await sentmsg.edit(`Pong!`);
@@ -57,7 +53,13 @@ module.exports = {
 
       client.database._sheets.botlog.addRow({ time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: 'Crowd report: ping', mainvalue: wsPing, label: 'ms' }, err => { console.log(err); });
       const dbo = Date.now();
-      await client.database.rethink ? client.database.rethink.js('0').run() : null;
+      let item;
+      if (client.database.rethink) {
+        item = await new Promise(res => {
+          setTimeout(() => res(null), 5000);
+          client.database.rethink(new Date).run().then(res);
+        });
+      }
       const dbping = Date.now() - dbo;
       let bad = new Discord.MessageEmbed().setColor(member ? member.color : 1).setTitle('**Ping Metrics**');
       bad.setDescription('All metrics are measured in milliseconds it takes to perform an action.');
@@ -69,23 +71,29 @@ module.exports = {
         typeof creactMetrics !== 'string' ? creactMetrics.toFixed(2) : creactMetrics);
       bad.addField('Deleting a msg: ', delMetrics.toFixed(2));
       const gateway = client.gatewayc ? client.gatewayc.getPingAvg() : null;
-      bad.addField('Gateway: ', gateway || 'unknown');
-      bad.addField('Database write latency: ', dbping || 'unknown');
+      bad.addField('Gateway: ', gateway || 'Gateway disconnected (shard is running in autonomous fallback mode)');
+      bad.addField('Database write latency: ', item ? dbping : 'Database disconnected (shard is running with last-cached storage)');
       channel.stopTyping();
       return send(`🏓\u2000Pong! My weighted/overall ping is ${weighted.toFixed(2)}ms! ${scale}`, { embed: bad });
     } else {
-      let sentMetric = new Date, sentmsg, dbping, dbo;
+      let sentMetric = Date.now(), sentmsg, dbping, dbo, item;
       try {
         sentmsg = await send('Pong');
-        sentMetric -= new Date;
+        sentMetric = Date.now() - sentMetric;
         dbo = Date.now();
-        dbping = client.database.rethink ? await client.database.rethink(new Date).run() : null;
+        if (client.database.rethink) {
+          item = await new Promise(res => {
+            setTimeout(() => res(null), 5000);
+            client.database.rethink(new Date).run().then(res);
+          });
+        }
       } catch (err) {
         sentMetric = '???';
       }
-      dbping = Date.now() - dbo;
+      dbping = item ? Date.now() - dbo : 'Database Disconnected';
       const gateway = client.gatewayc ? client.gatewayc.getPingAvg() : null;
-      await sentmsg.edit(`🏓\u2000Pong! (times in ms)\nWebsocket: **${~~client.ping}**\nApi: **${~~(-sentMetric * 100) / 100}**\nGateway: **${gateway || 'unknown'}**\nDatabase writes: **${dbping || 'unknown'}**`);
+      return sentmsg.edit(`🏓\u2000Pong! (times in ms)\nWebsocket: **${~~client.ping}**\nApi: **${
+        ~~(sentMetric * 100) / 100}**\nGateway: **${gateway || 'Gateway disconnected'}**\nDatabase writes: **${dbping || 'DB disconnected'}**`);
     }
   },
 };
