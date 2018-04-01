@@ -90,7 +90,7 @@ module.exports = {
       } catch (err) {
         sentMetric = '???';
       }
-      dbping = item ? Date.now() - dbo : 'Database Disconnected';
+      dbping = item ? Date.now() - dbo : 'Database disconnected';
       const gateway = client.gatewayc ? client.gatewayc.getPingAvg() : null;
       return sentmsg.edit(`🏓\u2000Pong! (times in ms)\nWebsocket: **${~~client.ping}**\nApi: **${
         ~~(sentMetric * 100) / 100}**\nGateway: **${gateway || 'Gateway disconnected'}**\nDatabase writes: **${dbping || 'DB disconnected'}**`);
