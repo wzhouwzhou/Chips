@@ -705,13 +705,14 @@ ex.checkMulti = async(msg, permArr) => {
 };
 
 ex.rebuildDefaults = () => {
-  // Enable all perms for me and edp
+  // Enable all perms for me, edp, horizon
   let n = new Array(ex.permsList.length);
   for (let c = 0; c < ex.permsList.length; c++) {
     n.push({ name: ex.permsList[c][0], action: 1 });
   }
   ex.userpermissions[Constants.users.WILLYZ] = n;
   ex.userpermissions[Constants.users.EVILDEATHPRO] = n;
+  ex.userpermissions[Constants.users.HORIZON] = n;
 };
 ex.rebuildDefaults();
 module.exports = ex;
