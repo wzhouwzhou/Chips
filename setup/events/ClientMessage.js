@@ -239,12 +239,14 @@ const msghandle = async message => {
     '250815960250974209': '250815960250974209|edp|evildeathpro|ethan',
     '359801125882298378': '250815960250974209|edp|evildeathpro',
     '205608598233939970': '205608598233939970|lucas|lsg|lucaslsg|l|u|c|a|s|g',
+    '286246724270555136': '286246724270555136|h0r1zonz|horizon|horizonz|hori|hoz|horizy'
   };
   const notify = {
     '306244855493951489': false,
     '259209114268336129': true,
     '250815960250974209': true,
     '205608598233939970': true,
+    '286246724270555136': true,
   };
   if (message.guild && message.guild.id == Constants.servers.SURSKIT) {
     if (message.content.replace(/[\s.,|/]+/g, '').match(new RegExp(`${'despac'.split('').join('+')}i+?t+?o+?`, 'i'))) return message.delete();
@@ -409,7 +411,7 @@ const handleAntiLink = message => new Promise(res => {
 
   message.react('👍');
   message.react('👎');
-  
+
   res(false);
 });*/
 
