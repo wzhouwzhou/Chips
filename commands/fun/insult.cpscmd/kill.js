@@ -12,7 +12,7 @@ const killerMan = [
 
   '{{first}} takes a machette and starts hacking away at {{second}}, chopping {{second}} into dozens of pieces.',
 
-  `{{first}} pours acid over {{second}}. *"Well well well, don't you look pretty right now?`,
+  `{{first}} pours acid over {{second}}. *"Well well well, don't you look pretty right now?"*`,
 
   [
     "{{second}} screams in terror as a giant creature with huge muscular arms grabs {{second}}'s head;",
