@@ -23,6 +23,8 @@ const a = require('nodecpp-test').arrays;
 module.exports = {
   name: 'everyone',
   func(msg, { send }) {
-    return send(a.sample(gifs));
+    //return send(a.sample(gifs));
+    let everyoneGif = a.sample(gifs);
+    send(new Discord.MessageAttachment(everyoneGif, 'hi.gif'));
   },
 };
