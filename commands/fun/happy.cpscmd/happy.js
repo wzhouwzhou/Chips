@@ -21,7 +21,6 @@ module.exports = {
   name: 'happy',
   func(msg, { send }) {
     //return send(gifs[_.random(0, gifs.length - 1)]);
-    const happygifs = gifs[_.random(0, gifs.length - 1)];
-    return send(new Discord.MessageAttachment(happygifs, 'hi.gif'));
+    return send(new Discord.MessageAttachment(gifs[_.random(0, gifs.length - 1)], 'hi.gif'));
   },
 };
