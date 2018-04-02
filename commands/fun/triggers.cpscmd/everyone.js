@@ -24,7 +24,6 @@ module.exports = {
   name: 'everyone',
   func(msg, { send }) {
     //return send(a.sample(gifs));
-    let everyoneGif = a.sample(gifs);
-    send(new Discord.MessageAttachment(everyoneGif, 'hi.gif'));
+    send(new Discord.MessageAttachment(a.sample(gifs), 'hi.gif'));
   },
 };
