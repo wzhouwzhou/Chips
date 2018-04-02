@@ -19,6 +19,6 @@ const a = require('nodecpp-test').arrays;
 module.exports = {
   name: 'lenny',
   func(msg, { send }) {
-    return send(a.sample(lenny), new Discord.MessageAttachment(a.sample(lennyTwo), 'hi.gif');
+    return send(a.sample(lenny), new Discord.MessageAttachment(a.sample(lennyTwo), 'hi.gif'));
   },
 };
