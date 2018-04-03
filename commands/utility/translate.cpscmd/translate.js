@@ -17,6 +17,10 @@ const ex = {
       stuffToTranslate = inputContent.replace(langMatcher && targetlang ? langMatcher + targetlang : '', '');
       console.log(`[TRANSLATE] stuffToTranslate: ${stuffToTranslate}`);
     }
+    
+    if(stuffToTranslate.length>256)
+      return send(`Too many characters (${stuffToTranslate.length})! `)
+
     translate(stuffToTranslate, { to: targetlang ? targetlang : 'en' }).then(res => {
       let bad = new Discord.MessageEmbed();
       bad.setTitle('Translation Results')

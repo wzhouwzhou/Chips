@@ -14,7 +14,7 @@ module.exports = class Command extends EventEmitter {
     let result;
     try {
       result = await this.func.apply(this, args);
-      if (result instanceof Error) throw error;
+      if (result instanceof Error) throw new Error(result);
       if (result instanceof Promise) result.catch(e => { throw e; });
       this.emit('run', true);
     } catch (err) {

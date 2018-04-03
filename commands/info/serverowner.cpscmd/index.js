@@ -1,6 +1,6 @@
 let so = require('./serverowner');
 
-console.log('[CPSCMD][INFO][roles] Building objects...');
+console.log('[CPSCMD][INFO][serverowner] Building objects...');
 
 so.metadata = {
   category: require('../').category,
@@ -11,7 +11,7 @@ so.metadata = {
   cusomperm: ['SEND_MESSAGES'],
 };
 
-console.log('[CPSCMD][INFO][roles] Build objects complete!');
+console.log('[CPSCMD][INFO][serverowner] Build objects complete!');
 module.exports = [
   [so.name, so],
   ['serverowner', so],

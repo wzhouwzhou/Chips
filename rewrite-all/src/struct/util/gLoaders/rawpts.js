@@ -16,8 +16,8 @@ exports.default = class SBKPointsLoader extends GLoader {
         delete database.sinxUsers;
         database.sinxUsers = new Map;
         for (const row of rows) {
-          if (!row.uid) {
-            console.error('No uid specified!');
+          if (!row.uid || !+row.rnk) {
+            // Console.error('Invalid user!');
             continue;
           }
           database.sinxUsers.set(row.uid, row);

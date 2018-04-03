@@ -7,6 +7,7 @@ const reql = require('rethinkdbdash');
 const Logger = require('../client/Logger').create('Database', 'Main');
 const PermissionsHandler = require('../../../../handlers/Permissions');
 
+const EventEmitter = require('events');
 /**
  * Database
  * A utiliy class that represents a generic Database that uses both Google spreadsheet and Reql storage.
@@ -14,7 +15,7 @@ const PermissionsHandler = require('../../../../handlers/Permissions');
  * @class
  * @type {GLoader}
  */
-const Database = class Database {
+const Database = class Database extends EventEmitter {
   /**
    * Constructs a database object
    *
@@ -22,6 +23,8 @@ const Database = class Database {
    * @param  {Discord.Client}    client The bot client this database belongs to.
    */
   constructor(client) {
+    super();
+
     /**
      * The client this database belongs to.
      * @member
@@ -74,6 +77,7 @@ const Database = class Database {
       user: 'admin',
       password: process.env.RETHINKPSWD,
     });
+    this.rtables = {};
     return this;
   }
 
@@ -145,7 +149,7 @@ const Database = class Database {
     this._sheets[gsheet.title] = gsheet;
     const toLoad = [];
     for (const preF in this.loadFunctions) {
-      Logger.debug(`Seeing preF: ${preF}`);
+      // Logger.debug(`Seeing preF: ${preF}`);
       if (gsheet.title === preF) {
         Logger.info(`Loading preF: ${preF}`);
         toLoad.push(this.loadFunctions[preF].load({
@@ -154,6 +158,7 @@ const Database = class Database {
           database: this,
           Permissions: PermissionsHandler,
         }));
+        break;
       }
     }
     await Promise.all(toLoad);
@@ -166,12 +171,31 @@ const Database = class Database {
    * @param {string}  tablename    The name of the table to fetch
    * @param {boolean} [cache=true] Whether to internally cache the table contents into this.rtables
    * @async
-   * @returns {Object} Table entries, where keys are ids.
+   * @returns {Promise.<Array>} Table entries, where keys are ids.
    */
   async getTable(tablename, cache = true) {
     this.ensureRethink();
 
     const table = await this.rethink.table(tablename).run();
+    if (cache) {
+      if (!this.rtables) this.rtables = {};
+      this.rtables[tablename] = table;
+    }
+    return table;
+  }
+  /**
+   * Same of getTable except array is sorted by id (in ascending order)
+   *
+   * @param {string}  tablename    The name of the table to fetch
+   * @param {boolean} [cache=true] Whether to internally cache the table contents into this.rtables
+   * @async
+   * @returns {Promise.<Array>} Table entries, where keys are ids.
+   */
+
+  async getTableIDSorted(tablename, cache = true) {
+    this.ensureRethink();
+
+    const table = (await this.rethink.table(tablename).run()).sort((a, b) => b.id - a.id);
     if (cache) {
       if (!this.rtables) this.rtables = {};
       this.rtables[tablename] = table;
@@ -200,6 +224,58 @@ const Database = class Database {
     }).run(_ => _);
     if (entry.inserted === 1 || entry.replaced === 1) return entry;
     throw new Error(`Data id [${id}] was not inserted: ${JSON.stringify(data)}`);
+  }
+
+  deleteFromTable(...args) {
+    return this.removeFromTable(...args);
+  }
+
+  async removeFromTable(tablename, id) {
+    const result = await new Promise((res, rej) => {
+      this.rethink
+        .table(tablename)
+        .get(id)
+        .delete({ returnChanges: !0 })
+        .run((e, data) => {
+          if (e) return rej(e);
+          return res(data);
+        });
+    });
+    return result;
+  }
+
+  attachChanges_EachCB(tablename, eachcallback) {
+    this.rethink
+      .table(tablename)
+      .changes()
+      .run(eachcallback);
+  }
+
+  attachChanges_GeneralCB(tablename, callback) {
+    this.rethink
+      .table(tablename)
+      .changes()
+      .run(callback);
+  }
+
+  attachChanges_FilterGT(tablename, itemname = 'id', callback) {
+    this.rethink
+      .table(tablename)
+      .changes()
+      .filter(
+        this.rethink.row('new_val')(itemname).gt(this.rethink.row('old_val')(itemname))
+      )
+      .run(callback);
+  }
+
+  attachChanges_FilterGT_onlyNew(tablename, itemname = 'id', callback) {
+    this.rethink
+      .table(tablename)
+      .changes()
+      .filter(
+        this.rethink.row('new_val')(itemname).gt(this.rethink.row('old_val')(itemname))
+      )('new_val')
+      .run(callback);
   }
 };
 

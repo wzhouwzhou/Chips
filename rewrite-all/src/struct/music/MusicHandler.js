@@ -41,7 +41,7 @@ const cmds = [
   ],
 ];
 
-let NCSBroadcast, MonstercatBroadcast;
+let NCSBroadcast, MonstercatBroadcast, LM, WQXRBroadcast, ChillHopBroadcast, TGLBroadcast;
 
 const GuildMusicHandler = class MusicHandler {
   constructor(guildid, client) {
@@ -50,32 +50,115 @@ const GuildMusicHandler = class MusicHandler {
       this.enabled = true;
       this._client = client;
       _handlers.set(guildid, this);
-      this.streamOpts = { passes: 3, volume: 0.6, bitrate: 96000 };
+      this.streamOpts = { passes: 3, volume: 0.5, bitrate: 128 };
+      this.broadcastOpts = { passes: 2, volume: 0.6, bitrate: 128 };
     }
   }
 
+  async startWQXRBroadcast() {
+    Logger.debug('Starting WQXRBroadcast');
+    if (WQXRBroadcast) {
+      WQXRBroadcast.removeAllListeners();
+      WQXRBroadcast.end();
+    }
+    if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
+    if (!WQXRBroadcast) WQXRBroadcast = this._client.createVoiceBroadcast();
+    const WQXR = await new Song('https://api.chipsbot.me:2087/music2?id=1', this._client.user);
+    this._client.musicBroadcasts.wqxr = WQXRBroadcast;
+    WQXRBroadcast.once('end', () => setTimeout(() => this.startWQXRBroadcast(), 4000));
+    WQXRBroadcast.on('error', Logger.error.bind(Logger));
+    WQXRBroadcast.on('warn', Logger.error.bind(Logger));
+    WQXRBroadcast.playStream(WQXR.url, this.broadcastOpts);
+    return WQXRBroadcast;
+  }
+
   async startNCSBroadcast() {
-    if (NCSBroadcast) NCSBroadcast.end();
+    Logger.debug('Starting NCSBroadcast');
+    if (NCSBroadcast) {
+      NCSBroadcast.removeAllListeners();
+      NCSBroadcast.end();
+    }
     if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
     if (!NCSBroadcast) NCSBroadcast = this._client.createVoiceBroadcast();
     const NCS = await new Song('https://youtube.com/watch?v=4rdaGSlLyDE', this._client.user).loadInfo();
     this._client.musicBroadcasts.ncs = NCSBroadcast;
-    NCSBroadcast.playStream(NCS.stream, this.streamOpts);
+    NCSBroadcast.once('end', () => setTimeout(() => this.startNCSBroadcast(), 5000));
+    NCSBroadcast.on('error', Logger.error.bind(Logger));
+    NCSBroadcast.on('warn', Logger.error.bind(Logger));
+    NCSBroadcast.playStream(NCS.stream, this.broadcastOpts);
     return NCSBroadcast;
   }
 
+  async startTGLBroadcast() {
+    Logger.debug('Starting startTGLBroadcast');
+    if (TGLBroadcast) {
+      TGLBroadcast.removeAllListeners();
+      TGLBroadcast.end();
+    }
+    if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
+    if (!TGLBroadcast) TGLBroadcast = this._client.createVoiceBroadcast();
+    const TGL = await new Song('https://www.youtube.com/watch?v=ftJYyevC6Us', this._client.user).loadInfo();
+    this._client.musicBroadcasts.tgl = TGLBroadcast;
+    TGLBroadcast.once('end', () => setTimeout(() => this.startTGLBroadcast(), 5000));
+    TGLBroadcast.on('error', Logger.error.bind(Logger));
+    TGLBroadcast.on('warn', Logger.error.bind(Logger));
+    TGLBroadcast.playStream(TGL.stream, this.broadcastOpts);
+    return TGLBroadcast;
+  }
+
+  async startLMBroadcast() {
+    Logger.debug('Starting LM');
+    if (LM) {
+      LM.removeAllListeners();
+      LM.end();
+    }
+    if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
+    if (!LM) LM = this._client.createVoiceBroadcast();
+    const LMS = new Song('https://api.chipsbot.me:2087/music2?id=0', this._client.user);
+    this._client.musicBroadcasts.lm = LM;
+    LM.once('end', () => setTimeout(() => this.startLMBroadcast(), 1000));
+    LM.on('error', Logger.error.bind(Logger));
+    LM.on('warn', Logger.error.bind(Logger));
+    LM.playStream(LMS.url, this.broadcastOpts);
+    return LM;
+  }
+
   async startMonstercatBroadcast() {
-    if (MonstercatBroadcast) MonstercatBroadcast.end();
+    Logger.debug('Starting MonstercatBroadcast');
+    if (MonstercatBroadcast) {
+      MonstercatBroadcast.removeAllListeners();
+      MonstercatBroadcast.end();
+    }
     if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
     if (!MonstercatBroadcast) MonstercatBroadcast = this._client.createVoiceBroadcast();
-    const Monstercat = await new Song('https://www.youtube.com/watch?v=ueupsBPNkSc', this._client.user).loadInfo();
+    const Monstercat = await new Song('https://api.chipsbot.me:2087/music1?id=3', this._client.user);
     this._client.musicBroadcasts.monstercat = MonstercatBroadcast;
-    MonstercatBroadcast.playStream(Monstercat.stream, this.streamOpts);
+    MonstercatBroadcast.once('end', () => setTimeout(() => this.startMonstercatBroadcast(), 2000));
+    MonstercatBroadcast.on('error', Logger.error.bind(Logger));
+    MonstercatBroadcast.on('warn', Logger.error.bind(Logger));
+    MonstercatBroadcast.playStream(Monstercat.url, this.broadcastOpts);
     return MonstercatBroadcast;
   }
 
+  async startChillHopBroadcast() {
+    Logger.debug('Starting ChillHopBroadcast');
+    if (ChillHopBroadcast) {
+      ChillHopBroadcast.removeAllListeners();
+      ChillHopBroadcast.end();
+    }
+    if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
+    if (!ChillHopBroadcast) ChillHopBroadcast = this._client.createVoiceBroadcast();
+    const ChillHop = await new Song('https://www.youtube.com/watch?v=6rReMbO42uE', this._client.user).loadInfo();
+    this._client.musicBroadcasts.Chillhop = ChillHopBroadcast;
+    ChillHopBroadcast.once('end', this.startChillHopBroadcast.bind(this));
+    ChillHopBroadcast.on('error', Logger.error.bind(Logger));
+    ChillHopBroadcast.on('warn', Logger.error.bind(Logger));
+    ChillHopBroadcast.playStream(ChillHop.stream, this.broadcastOpts);
+    return ChillHopBroadcast;
+  }
+
   async playAllNCS() {
-    if (!MonstercatBroadcast) return 'NCS Broadcast not started';
+    if (!NCSBroadcast) return 'NCS Broadcast not started';
     if (!this._client.ncsChannels) this._client.ncsChannels = {};
     const leaves = [];
     for (const cid of Object.keys(this._client.ncsChannels)) leaves.push(this._client.channels.get(cid).leave());
@@ -90,6 +173,24 @@ const GuildMusicHandler = class MusicHandler {
       }
     }
     return this._client.ncsChannels;
+  }
+
+  async playAllTGL() {
+    if (!TGLBroadcast) return 'TGL Broadcast not started';
+    if (!this._client.tglChannels) this._client.tglChannels = {};
+    const leaves = [];
+    for (const cid of Object.keys(this._client.tglChannels)) leaves.push(this._client.channels.get(cid).leave());
+    await Promise.all(leaves);
+    this._client.tglChannels = {};
+    for (const [, vc] of this._client.channels.filter(c => c.type === 'voice')) {
+      if (vc.name.replace(/\s+/g, '').match(/chip(?:sy?)?(?:streams?|24\/?7)(tgl|thegoodlife?)/i)) {
+        vc.join().then(connection => {
+          connection.playBroadcast(TGLBroadcast, this.streamOpts);
+          this._client.tglChannels[connection.channel.id] = { connection, dispatcher: connection.dispatcher };
+        });
+      }
+    }
+    return this._client.tglChannels;
   }
 
   async playAllMonstercat() {
@@ -111,9 +212,64 @@ const GuildMusicHandler = class MusicHandler {
     return this._client.monstercatChannels;
   }
 
+  async playAllChillHop() {
+    if (!ChillHopBroadcast) return 'ChillHop Broadcast not started';
+    if (!this._client.chillHopChannels) this._client.chillHopChannels = {};
+    const leaves = [];
+    for (const cid of Object.keys(this._client.chillHopChannels)) leaves.push(this._client.channels.get(cid).leave());
+    await Promise.all(leaves);
+
+    this._client.chillHopChannels = {};
+    for (const [, vc] of this._client.channels.filter(c => c.type === 'voice')) {
+      if (vc.name.replace(/\s+/g, '').match(/chip(?:sy?)?(?:streams?|24\/?7)(chillhop|lowfi)/i)) {
+        vc.join().then(connection => {
+          connection.playBroadcast(ChillHopBroadcast, this.streamOpts);
+          this._client.chillHopChannels[connection.channel.id] = { connection, dispatcher: connection.dispatcher };
+        });
+      }
+    }
+    return this._client.chillHopChannels;
+  }
+
+  async playAllLM() {
+    if (!LM) return 'LM Broadcast not started';
+    if (!this._client.lmChannels) this._client.lmChannels = {};
+    const leaves = [];
+    for (const cid of Object.keys(this._client.lmChannels)) leaves.push(this._client.channels.get(cid).leave());
+    await Promise.all(leaves);
+
+    this._client.lmChannels = {};
+    for (const [, vc] of this._client.channels.filter(c => c.type === 'voice')) {
+      if (vc.name.replace(/\s+/g, '').match(/chip(?:sy?)?(?:streams?|24\/?7)(listen\.moe)/i)) {
+        vc.join().then(connection => {
+          connection.playBroadcast(LM, this.streamOpts);
+          this._client.lmChannels[connection.channel.id] = { connection, dispatcher: connection.dispatcher };
+        });
+      }
+    }
+    return this._client.lmChannels;
+  }
+
+  async playAllWQXR() {
+    if (!WQXRBroadcast) return 'WQXR Broadcast not started';
+    if (!this._client.wqxrChannels) this._client.wqxrChannels = {};
+    const leaves = [];
+    for (const cid of Object.keys(this._client.wqxrChannels)) leaves.push(this._client.channels.get(cid).leave());
+    await Promise.all(leaves);
+    this._client.wqxrChannels = {};
+    for (const [, vc] of this._client.channels.filter(c => c.type === 'voice')) {
+      if (vc.name.replace(/\s+/g, '').match(/chip(?:sy?)?(?:streams?|24\/?7)(wqxr|classical?)/i)) {
+        vc.join().then(connection => {
+          connection.playBroadcast(WQXRBroadcast, this.streamOpts);
+          this._client.wqxrChannels[connection.channel.id] = { connection, dispatcher: connection.dispatcher };
+        });
+      }
+    }
+    return this._client.wqxrChannels;
+  }
 
   spawnPlayer(vc, tc) {
-    this.player = new MusicPlayer(vc, tc);
+    this.player = new MusicPlayer(vc, tc, this.streamOpts);
     return this;
   }
 
@@ -152,7 +308,9 @@ const GuildMusicHandler = class MusicHandler {
         if (ind > -1) {
           handler.player.queue.splice(ind, 1);
           await tc.send(`Removed \`${searchQ}\` from the queue`);
-        } else { await tc.send(`Could not find \`${url}\` in the queue`); }
+        } else {
+          await tc.send(`Could not find \`${m.content.replace(/@/g, '(at)')}\` in the queue`);
+        }
       } else if (m.content.match(/^<@!?296855425255473154>\s*v(?:ol(?:ume)?)?\s*/i)) {
         const vol = m.content.match(/v(?:ol(?:ume)?)?\s*\d+/i)[0].match(/\d+/);
         if (!vol) return m.reply('You must provide a volume to set!');
@@ -160,7 +318,8 @@ const GuildMusicHandler = class MusicHandler {
         handler.player.setVolume(+vol, m.author.id === Constants.users.WILLYZ);
       } else if (m.content.match(/^<@!?296855425255473154>\s*music\s*help/i)) {
         let embed = new Discord.MessageEmbed().setTitle('Chips music help').setColor(12305);
-        cmds.map(cmd => cmd.map(text => text = text.replace(/\{\}/g, handler.prefix || '<@296855425255473154> '))).forEach(cmd => embed.addField(...cmd));
+        cmds.map(cmd => cmd.map(text => text.replace(/\{\}/g, handler.prefix || '<@296855425255473154> ')))
+          .forEach(cmd => embed.addField(...cmd));
         tc.send('', { embed });
       } else if (m.content.match(/^<@!?296855425255473154>\s*now\s*playing/i)) {
         tc.send(`Currently playing ${handler.player.lastPlayed.name}`);
@@ -219,6 +378,7 @@ const GuildMusicHandler = class MusicHandler {
     if (!this.player) return null;
     this.player.shutDown();
     this.player = null;
+    return true;
   }
 };
 

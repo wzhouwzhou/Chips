@@ -1,11 +1,16 @@
+/* eslint no-console: 'off' */
 let aboosed = require('./aboose');
 let confoosed = require('./confoosed');
 let exposed = require('./exposed');
+let fail = require('./fail');
 let kawaii = require('./kawaii');
 let lenny = require('./lenny');
 let rekt = require('./rekt');
-let triggered = require('./triggered');
+let triggergif = require('./triggergif');
 let everyone = require('./everyone');
+let googleit = require('./googleit');
+let ree = require('./ree');
+let hug = require('./hug2');
 
 console.log('[CPSCMD][FUN][triggers] Building objects...');
 aboosed.metadata = {
@@ -57,13 +62,48 @@ rekt.metadata = {
   example: 'rekt',
   perm: [['global.fun.triggers.rekt']],
 };
-triggered.metadata = {
+triggergif.metadata = {
   category: require('../').category,
   description: 'TRIGGERED!',
-  usage: 'triggered',
-  example: 'triggered',
+  usage: 'triggergif',
+  example: 'triggergif',
   perm: [['global.fun.triggers.rekt']],
 };
+fail.metadata = {
+  category: require('../').category,
+  description: 'FAIL!!',
+  usage: 'fail',
+  example: 'fail',
+  perm: [['global.fun.triggers.fail']],
+};
+
+googleit.metadata = {
+  category: require('../').category,
+  description: 'GOOGLE IT!',
+  usage: 'googelit',
+  example: 'googleit',
+  perm: [['global.fun.triggers.googleit']],
+
+};
+
+ree.metadata = {
+  category: require('../').category,
+  description: 'REE',
+  usage: 'ree',
+  example: 'ree',
+  perm: [['global.fun.triggers.*']],
+
+};
+
+hug.metadata = {
+  category: require('../').category,
+  description: 'Hug!',
+  usage: 'hug',
+  example: 'hug',
+  perm: [['global.fun.triggers.*']],
+
+};
+
 
 console.log('[CPSCMD][FUN][triggers] Build objects complete!');
 module.exports = [
@@ -71,9 +111,15 @@ module.exports = [
   ['aboose', aboosed],
   [confoosed.name, confoosed],
   [exposed.name, exposed],
+  [fail.name, fail],
+  ['wasted', fail],
+  ['failed', fail],
   [kawaii.name, kawaii],
   [lenny.name, lenny],
   [rekt.name, rekt],
-  [triggered.name, triggered],
+  [triggergif.name, triggergif],
   [everyone.name, everyone],
+  [googleit.name, googleit],
+  [ree.name, ree],
+  [hug.name, hug],
 ];

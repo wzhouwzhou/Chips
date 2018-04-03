@@ -1,14 +1,14 @@
+/* eslint complexity: 'off' */
+const moment = require('moment');
+
 module.exports = {
   name: 'ping',
-  async func(msg, { send, author, member, channel, args, client }) {
+  async func(msg, { send, member, channel, args, client, Discord }) {
     if (args[0] && args[0] === 'verbose') {
       channel.startTyping();
       let wsPing = client.ping;
       let now = Date.now();
-      let sentmsg;
-      try {
-        sentmsg = await send('Pong! ');
-      } catch (err) { return console.error(`Error at sending message of Ping: ${err}`); }
+      let sentmsg = await send('Pong! ');
       let sendMetrics = Date.now() - now;
 
       const m = await sentmsg.edit(`Pong!`);
@@ -43,36 +43,57 @@ module.exports = {
       else if (weighted < 400) scale = "That's about average!";
       else if (weighted < 500) scale = "That's slightly below average!";
       else if (weighted < 600) scale = 'I might be lagging a bit!';
-      else if (weighted < 700) scale = "I think I am lagging a fair amount! Try doing -discordstatus to see if it's a problem on Discord's end!";
-      else if (weighted < 800) scale = "Perhaps I am having issues with the internet! Try doing -discordstatus to see if it's a problem on Discord's end!";
-      else if (weighted < 900) scale = "That's pretty bad! Try doing -discordstatus to see if it's a problem on Discord's end!";
-      else if (weighted < 1000)scale = "That's poor! Perhaps I just restarted? Try doing -discordstatus to see if it's a problem on Discord's end!";
-      else if (weighted > 1000)scale = "Help! Something must be wrong with me or Discord! Perhaps I just restarted? Try doing -discordstatus to see if it's a problem on Discord's end!";
+      else if (weighted < 700) scale = "I think I am lagging a fair amount!";
+      else if (weighted < 800) scale = "Perhaps I am having issues with the internet! Try doing discordstatus to see if it's a problem on Discord's end!";
+      else if (weighted < 900) scale = "That's pretty bad! Try doing discordstatus to see if it's a problem on Discord's end!";
+      else if (weighted < 1000)scale = "That's poor! Perhaps I just restarted? Try doing discordstatus to see if it's a problem on Discord's end!";
+      else if (weighted > 1000)scale = "Help! Something must be wrong with me or Discord! Perhaps I just restarted? Try doing discordstatus to see if it's a problem on Discord's end!";
 
-      console.log(`ping pong! ${author.username}'s ping was ${wsPing}ms!`);
+      // Console.log(`ping pong! ${author.username}'s ping was ${wsPing}ms!`);
 
       client.database._sheets.botlog.addRow({ time: `${moment().format('ddd, Do of MMM @ HH:mm:ss')}`, action: 'Crowd report: ping', mainvalue: wsPing, label: 'ms' }, err => { console.log(err); });
-
+      const dbo = Date.now();
+      let item;
+      if (client.database.rethink) {
+        item = await new Promise(res => {
+          setTimeout(() => res(null), 5000);
+          client.database.rethink(new Date).run().then(res);
+        });
+      }
+      const dbping = Date.now() - dbo;
       let bad = new Discord.MessageEmbed().setColor(member ? member.color : 1).setTitle('**Ping Metrics**');
       bad.setDescription('All metrics are measured in milliseconds it takes to perform an action.');
       bad.addField('Connecting to Discord: ', wsPing.toFixed(2));
       bad.addField('Sending a msg: ', sendMetrics.toFixed(2));
       bad.addField('Editing a msg: ', editMetrics.toFixed(2));
       bad.addField('Reacting to a msg (rate limit): ', reactMetrics.toFixed(2));
-      bad.addField('Clearing message reactions: ', typeof creactMetrics !== 'string' ? creactMetrics.toFixed(2) : creactMetrics);
+      bad.addField('Clearing message reactions: ',
+        typeof creactMetrics !== 'string' ? creactMetrics.toFixed(2) : creactMetrics);
       bad.addField('Deleting a msg: ', delMetrics.toFixed(2));
+      const gateway = client.gatewayc ? client.gatewayc.getPingAvg() : null;
+      bad.addField('Gateway: ', gateway || 'Gateway disconnected (shard is running in autonomous fallback mode)');
+      bad.addField('Database write latency: ', item ? dbping : 'Database disconnected (shard is running with last-cached storage)');
       channel.stopTyping();
       return send(`🏓\u2000Pong! My weighted/overall ping is ${weighted.toFixed(2)}ms! ${scale}`, { embed: bad });
     } else {
-      let sentMetric = new Date, sentmsg;
+      let sentMetric = Date.now(), sentmsg, dbping, dbo, item;
       try {
         sentmsg = await send('Pong');
-        sentMetric -= new Date;
+        sentMetric = Date.now() - sentMetric;
+        dbo = Date.now();
+        if (client.database.rethink) {
+          item = await new Promise(res => {
+            setTimeout(() => res(null), 5000);
+            client.database.rethink(new Date).run().then(res);
+          });
+        }
       } catch (err) {
         sentMetric = '???';
       }
-
-      await sentmsg.edit(`🏓\u2000Pong! \nWebsocket: **${~~client.ping} ms**\nApi: **${~~(-sentMetric * 100) / 100}** ms`);
+      dbping = item ? Date.now() - dbo : 'Database disconnected';
+      const gateway = client.gatewayc ? client.gatewayc.getPingAvg() : null;
+      return sentmsg.edit(`🏓\u2000Pong! (times in ms)\nWebsocket: **${~~client.ping}**\nApi: **${
+        ~~(sentMetric * 100) / 100}**\nGateway: **${gateway || 'Gateway disconnected'}**\nDatabase writes: **${dbping || 'DB disconnected'}**`);
     }
   },
 };

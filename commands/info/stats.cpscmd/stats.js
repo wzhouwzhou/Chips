@@ -35,11 +35,12 @@ module.exports = {
     let currentTime = moment().format('ddd, Do of MMM @ HH:mm:ss.SSS');
     let guilds = bot.guilds.size;
     let channels = bot.channels.size;
+    let totalCategories = bot.channels.filter(c => c.type === 'category').size;
     let users = bot.users.size;
     let ping = bot.ping;
     let textChannels = bot.channels.filter(c => c.type === 'text').size;
     let voiceChannels = bot.channels.filter(c => c.type === 'voice').size;
-    let cpuAverage = Math.ceil(require('os').loadavg()[1] * 1000) / 10;
+    let cpuAverage = Math.ceil(require('os').loadavg()[1] * 1000) / 10 / 8;
     let memAverage = ~~(2e-1 + process.memoryUsage().heapUsed / 1024 / 1024);
 
     // Create the embed
@@ -54,19 +55,23 @@ module.exports = {
       ['Shard Server count: ', guilds],
       ['Shard Memory usage: ', `${memAverage} MB`],
       ['CPU usage (%): ', cpuAverage],
-      [`Shard channel count: \n\t\t**${channels}**\nText Channel Count:\n\t\t**${textChannels}**\nVoice Channel Count:\n\t\t**${voiceChannels}**`, ' '],
+      ['Shard channel count:', channels],
+      ['Text Channel Count:', textChannels],
+      ['Voice Channel Count:', voiceChannels],
+      ['Category Count:', totalCategories],
     ].map(e => `**${e[0]}**\n\t\t${e[1]}`).join('\n'), true);
 
-    embed.addField('Chips 0.3.4 stats across all shards:', [
+    embed.addField('Chips 0.4.0 stats across all shards:', [
       ['Total Member Count: ', userCountG],
       ['Total Server Count: ', guildCountG],
       ['Total Channel Count: ', channelCountG],
       ['Total Text Channel Count: ', textCountG],
       ['Total Voice Channel Count: ', voiceCountG],
       ['Average Client Ping: ', `${~~(2e-1 + 100 * averagePingG) / 100} ms`],
-      ['Total CPU Usage: ', `${cpuAveG}%`],
+      ['Total CPU Usage: ', `${cpuAveG / 8}%`],
       ['Memory Usage: ', `Used ${memAveG} of ${totalMemG} mb allocated`],
-      [`Node **${process.version}**\nLib  **v${Discord.version}**`, ' '],
+      ['Node', process.version],
+      ['Library (Discord.js)', `v${Discord.version}`],
     ].map(e => `**${e[0]}**\n\t\t${e[1]}`).join('\n'), true);
 
     embed.setFooter(`Chips stats lookup and calculations took ${(new Date).getTime() - start}ms.`);

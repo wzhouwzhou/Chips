@@ -7,4 +7,4 @@ dependencies:
     - sudo apt-get install libcairo2-dev libjpeg8-dev libpango1.0-dev libgif-dev build-essential g++
     - npm install -g npm@4.2.0
     - npm install -g eslint
-    - npm install ytsearcher discordblacklist
+    - npm install ytsearcher discordblacklist@2.0.0-rc https://github.com/wzhouwzhou/nodecpp-test

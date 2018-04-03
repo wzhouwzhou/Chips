@@ -1,4 +1,5 @@
 const cb = '```';
+const _ = require('lodash');
 
 const randomCaps = str => {
   let str2 = [];
@@ -8,7 +9,7 @@ const randomCaps = str => {
 
 module.exports = {
   name: 'randomcaps',
-  async func(msg, { reply, content, prefix }) {
-    reply(randomCaps(content.substring(`${prefix}randomcaps `.length)));
+  func(msg, { send, suffix }) {
+    send(randomCaps(suffix));
   },
 };

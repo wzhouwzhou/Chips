@@ -1,9 +1,10 @@
 const Jimp = require('jimp');
 global.SBKWC = true;
 const algebra = require('../../handlers/algebra-0.2.6.min');
-
-module.exports = function() {
-  client.on('guildMemberAdd', async member => {
+const fs = require('fs');
+const _ = require('lodash');
+module.exports = () => {
+  global.client.on('guildMemberAdd', async member => {
     let memberguild = member.guild;
     let userid = member.user.id;
 
@@ -12,7 +13,8 @@ module.exports = function() {
 
       if (client.memberjoin.captcha[memberguild.id]) {
         try {
-          let choose = true;// _.random(0,1);
+          // _.random(0,1);
+          let choose = false;
           let results;
           if (!choose) results = await antiraidCaptcha(member);
           else results = await antiraidCaptcha2(member);
@@ -26,22 +28,26 @@ module.exports = function() {
       }
       try {
         if (memberguild.id == '257889450850254848') {
-          setTimeout(() => {
-            console.log('[SURSKIT] adding role...');
-            member.addRole(memberguild.roles.get('305302877641900052') || memberguild.roles.find('name', 'Unverified'));
-            console.log('[SURSKIT] sending welcome msg...');
+          setTimeout(async () => {
+
+            await member.addRole(memberguild.roles.get('305302877641900052') ||
+              memberguild.roles.find('name', 'Unverified'));
+
             let welcomeC = memberguild.channels.get('314407824568614913') || memberguild.channels.find('name', 'unverified');
             if (SBKWC) {
-              welcomeC.send(`${member.user}, Welcome to Sinbadx Knights! **You must answer these questions to be verified and be able to speak in the other channels!**
-                1. How did you hear about this server?
-                2. If you got our invite link online (e.g. on youtube), please provide **a url** (something that looks like https://youtu.be/something) to where you got it. (We don't want a discord.gg link)
-                \tIf you got it from a friend, please tell us who like so: **SomebodyHere#1234**.
-                3. Why did you join this server?
-                4. Did you read <#348082661060771841>? You must promise to follow the rules and agree to the bot TOS.
-                5. What is your favorite diep.io tank?
-You can answer these in this channel (don't dm them!) with just a sentence or two for each, no need to write an essay!`).then(console.log('[SURSKIT] Welcome msg sent')).catch(err => console.log(`welcome msg err:[sinx] ${err}`));
+              const embed = new Discord.MessageEmbed();
+              embed.setDescription([
+                '1. If you got our invite online **send link** to webpage (not invite link) or **show us a photo** where ' +
+                  'you got our discord invite.\nIf you got it from a friend, please tell us who like so: ' +
+                  '**SomebodyHere#1234**.',
+
+                '2. Please read <#404992099478405122>; will you follow the rules and agree to the bot TOS?',
+
+                '3. What is your favourite diep.io tank?',
+              ].join('\n')).setTitle('Please answer these here and wait for staff to verify you.');
+              welcomeC.send(`${member.user}, Welcome to Sinbadx Knights!`, { embed });
             }
-          }, 500);
+          }, 1700);
         } else if (memberguild.id == '250801092143611905') {
           setTimeout(() => {
             console.log('[DColony] adding role...');
@@ -52,6 +58,12 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
             console.log('[DColony] sending welcome msg...');
             let welcomeC = memberguild.channels.get('329717427707576320') || memberguild.channels.find('name', 'unverified');
             welcomeC.send(`<@${userid}>, Welcome! Please read <#250801092143611905> and wait for a staff member to verify you to be able to speak in other channels!`);
+          }, 1000);
+        }else if (memberguild.id == '384976959500845057') {
+          setTimeout(() => {
+            console.log('[Anxiety🔞] sending welcome msg...');
+            let welcomeC = memberguild.channels.get('384976960138248193') || memberguild.channels.find('name', 'public');
+            welcomeC.send(`<@${userid}>, Welcome to Anxiety🔞! Have a great time here!`);
           }, 1000);
         } else if (memberguild.id == '315891125825044482') {
           setTimeout(() => {
@@ -70,7 +82,45 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
           setTimeout(() => {
             console.log('Changing nick...');
             member.setNickname(`(♤)${member.user.username}`.substring(0, Math.min(member.user.username + `(♤)`.length, 32)));
-          });
+          }, 500);
+        } else if (memberguild.id === '339930093042532363') {
+          setTimeout(() => {
+            //console.log('[HH] adding role...');
+            //member.addRole(memberguild.roles.get('378216052351565834') || memberguild.roles.find('name', 'unverified'));
+            console.log('[HH] sending welcome msg...');
+            let welcomeC = client.channels.get('378216458314055710') || memberguild.channels.find('name', 'unverified');
+            if (welcomeC) welcomeC.send(`<@${userid}>, Welcome to ${memberguild.name}! Please check your dms!`);
+          }, 500);
+        } else if (memberguild.id == '291558782755012610') {
+          setTimeout(() => {
+            console.log('Changing nick for sm...');
+            member.setNickname(`[SM] ${member.user.username}`.substring(0, 32));
+            member.addRole(memberguild.roles.get('385865868417957888') || memberguild.roles.find('name', 'Unverified'));
+            let welcomeC = client.channels.get('385851855084978176') || memberguild.channels.find('name', 'unverified');
+            if (welcomeC) welcomeC.send(`${member.user + []}, Welcome to ${memberguild.name}! Make SURE to read the <#366505552752148481> and <#312224217967886336>!\nPlease wait for staff to verify you with __\`-vs ok ${member.user + []}__!`);
+          }, 1500);
+        } else if (memberguild.id === '373481656134270986') {
+          setTimeout(() => {
+            const embed = new Discord.MessageEmbed();
+            // embed.setTitle('Woah, Hi there!');
+            embed.setImage('https://cdn.discordapp.com/attachments/378182532459397121/378632645187338250/Baka-World.png');
+            embed.addField('Welcome to Baka World!!',
+              [
+                'Baka World is a community for gamers, youtubers, streamers, and everything anime!',
+                'Check out <#419161057144209408> for more info, and if you have any questions, staff are always ready to answer them!',
+                'Use https://discord.gg/Qb5R5hB if you want to invite your friends!\n_ _',
+              ].join`\n`);
+            /*if(member.id !== '252541269602074635') embed.addField('About me',
+              [
+                'I am a Discord bot with lots of fun and games like Chess you can play against someone or the bot, Connect Four, Image Generation and Memes.',
+                "There's 24/7 music, hundreds of commands for  utilities, info, nsfw, and backup moderation in case your main mod bot is down.",
+                "Work is being done on a cleverbot as well as a webpanel right now that's pretty cool: https://i.imgur.com/Rtj9G1P.png",
+                'We encourage you to visit [my website](https://chipsbot.me:2087/) or join the support server https://discord.gg/jj5FzF7 !',
+                '\nOver 1.8 thousand servers use Chips! To add me to your server, click on [this invite link](https://invite.chipsbot.me/) and select your server in the dropdown',
+              ].join`\n`);*/
+
+            member.send(embed);
+          }, 1500);
         }
       } catch (err) {
         console.log('could not add unverified role or set nick');
@@ -86,7 +136,7 @@ const handleAutoKickOrBan = (gid, mem) => {
     setTimeout(async() => {
       let oldmem = await mem.kick();
 
-      while (mem.guild.members.get(oldmem.id) != null) {
+      while (mem.guild.members.get(oldmem.id)) {
         try {
           oldmem = await oldmem.kick();
         } catch (err) {
@@ -118,13 +168,19 @@ const handleAutoRole = (gid, mem) => {
   if (client.memberjoin.autorole[gid] && mem.guild.roles.get(client.memberjoin.autorole[gid])) mem.addRole(mem.guild.roles.get(client.memberjoin.autorole[gid]));
 };
 
+const noconfusion = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J',
+  'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'X', 'Y', 'Z'];
+
 const antiraidCaptcha = mem => new Promise((res, rej) => {
   mem.died = false;
   let guild = mem.guild;
   let timestamp = process.hrtime();
   let captchaText = Math.random().toString(36).replace(/[^a-z,\d]+/g, '')
     .substring(1, 8)
-    .toUpperCase();
+    .toUpperCase()
+    .replace(/I/g, 'L')
+    .replace(/U/g, 'V')
+    .replace(/[O0]/g, () => _.sample(noconfusion));
 
   let image = new Jimp(256, 256);
   let filepath = `${mem.id}.captcha.${timestamp}.${image.getExtension()}`;
@@ -134,8 +190,10 @@ const antiraidCaptcha = mem => new Promise((res, rej) => {
     image.blur(2);
 
     image.write(filepath, async() => {
-      let sentmsg = await mem.user.send(`${mem}, Hello! You just joined the server \`\`${guild.name}\`\` which has an antiraid enabled.
-          **To start the verification process, please respond with the letters and numbers you see in this image (not case sensitive):** `,
+      let sentmsg = await mem.user.send(
+        [`${mem}, Hello! You just joined the server \`\`${guild.name}\`\` which has an antiraid enabled.`,
+          '**To start the verification process, please respond with the letters and numbers you see ',
+          'in this image (not case sensitive):**'].join``,
         { files: [filepath] });
       fs.unlinkSync(filepath);
 
@@ -143,15 +201,15 @@ const antiraidCaptcha = mem => new Promise((res, rej) => {
 
       let memIsBlind = 0;
       const filter = m => {
-        if (m.author.id != mem.id) return false;
+        if (m.author.id !== mem.id) return false;
 
-        if (m.content.toUpperCase() == captchaText) {
-          console.log(m.content);
+        if (m.content.toUpperCase() === captchaText) {
           return true;
         } else {
-          if (mem.died == false) {
+          if (mem.died === false) {
             memIsBlind++;
-            thisDmC.send(`Incorrect! (${3 - memIsBlind > 0 ? `${3 - memIsBlind} tries left, please try again!` : 'Sorry, you have failed the captcha too many times'})`);
+            thisDmC.send(`Incorrect! (${3 - memIsBlind > 0 ? `${3 - memIsBlind} tries left, please try again!` :
+              'Sorry, you have failed the captcha too many times'})`);
             if (memIsBlind >= 3) {
               mem.died = true;
               rej([mem, 'failed captcha']);
@@ -161,7 +219,7 @@ const antiraidCaptcha = mem => new Promise((res, rej) => {
           return false;
         }
       };
-      thisDmC.awaitMessages(filter, { max: 1, time: 5 * 60 * 1000, errors: ['time'] })
+      thisDmC.awaitMessages(filter, { max: 1, time: 60 * 1000, errors: ['time'] })
         .then(collected => {
           if (!mem.died) {
             console.log(collected.size);
@@ -171,9 +229,10 @@ const antiraidCaptcha = mem => new Promise((res, rej) => {
           }
         }).catch(collected => {
           if (collected.size == 0 && mem.died == false) {
+            thisDmC.send('You did not respond in time! You can join back and solve a new captcha to be verified.');
             console.log(`After 5 minutes, the user did not respond.`);
             mem.died = true;
-            res([mem, 'timeout']);
+            rej([mem, 'timeout']);
           } else {
             thisDmC.send('Uh oh, something went wrong with your verification!');
           }

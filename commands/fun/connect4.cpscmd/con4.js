@@ -1,3 +1,4 @@
+/* eslint no-console: 'off'*/
 const CON4 = require('connect-four');
 const EventEmitter = require('events');
 
@@ -66,7 +67,7 @@ const ex = {
     games.set(channel.id, channel);
     try {
       othermember = await promptInvitee(ctx);
-      if (othermember && othermember.user.bot) {
+      if (othermember && othermember.user.bot && othermember.id !== '393043996320071681') {
         send('You cannot invite a bot!');
         throw new Error('Bot invitee');
       }
@@ -239,7 +240,8 @@ const C4Game = class C4Game extends EventEmitter {
       .setColor(this.player == 'red' ? 16711680 : 255)
       .setAuthor(`${this.player1 ? this.player1.tag : ''}${RED} vs ${BLUE}${this.player2 ? this.player2.tag : ''}`)
       .setDescription(this.toString())
-      .addField(`${this.player && this.player == 'red' ? 'Blue' : 'Red'} to move.`, '\u200B');
+      .addField(`${this.player && this.player == 'red' ? 'Blue' : 'Red'} to move.`, '\u200B')
+      .setFooter('Type the column number to move');
   }
 
   send() {

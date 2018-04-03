@@ -1,10 +1,14 @@
+/* eslint complexity: 'off', max-depth: 'off' */
+const path = require('path');
+const _ = require('lodash');
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
 
-ex = {};
+const ex = {};
 
 ex.name = '-vs';
 ex.func = async(msg, {
   send,
+  member,
   channel,
   author,
   guild,
@@ -13,12 +17,14 @@ ex.func = async(msg, {
   reply,
   Discord,
   client,
+  Constants,
 }) => {
   if (!guild) return reply('You must use this in a server!');
   if (!args[0]) return reply('No action given :(');
 
   let action = args[0].toLowerCase();
   switch (action) {
+    case 'user':
     case 'ok': {
       if (!args[1]) return reply('No user given :<');
       let targetMember;
@@ -26,17 +32,25 @@ ex.func = async(msg, {
         const target = args[1].match(Constants.patterns.MENTION)[1];
         const user = gMember(target).user;
         targetMember = guild.members.get(user.id);
-        console.log(`[VS](ok) Target: ${target}`);
+        // Console.log(`[VS](ok) Target: ${target}`);
       } catch (err) {
         return reply(`Invalid user specified`);
       }
 
-      if (targetMember.roles.get('305302877641900052') == null && targetMember.roles.find('name', 'unverified') == null && targetMember.roles.find('name', 'Unverified') == null && targetMember.roles.find('name', 'Unverified-Personel') == null) return reply(`User does not have the unverified role!`);
+      if (!targetMember.roles.get('305302877641900052') && !targetMember.roles.find('name', 'unverified') &&
+        !targetMember.roles.find('name', 'Unverified') && !targetMember.roles.find('name', 'Unverified-Personel')) {
+        return reply(`User does not have the unverified role!`);
+      }
       try {
-        let therole = targetMember.roles.find('name', 'unverified') || targetMember.roles.find('name', 'Unverified') || targetMember.roles.find('name', 'Unverified-Personel');
-        let fan = guild.roles.find('name', 'Fan');
-        await targetMember.removeRole(guild.roles.get('305302877641900052') || therole);
-        fan && await targetMember.addRole(fan);
+        let therole = targetMember.roles.find('name', 'unverified') || targetMember.roles.find('name', 'Unverified') ||
+          targetMember.roles.find('name', 'Unverified-Personel');
+        const ver = new Discord.MessageEmbed()
+          .setTitle(`${targetMember.user.tag
+          }, you are now verified and will soon have access to the other chats in the server!`);
+
+        await send(targetMember + [], { embed: ver });
+        await targetMember.removeRole(guild.roles.get('305302877641900052') || therole,
+          `${member.displayName} verified ${targetMember.nickname}!`);
         if (client.memberjoin.verifyLogC[guild.id]) {
           let embed = new Discord.MessageEmbed();
           embed.setTitle('Member Verification').setColor(_.random(1, 16777215));
@@ -249,18 +263,22 @@ ex.func = async(msg, {
       const unverChan = guild.channels.find('name', 'unverified');
       if (!unverRole || !unverChan) return reply('Uh oh! Antiraid role and channel names are not set properly');
       const channels = guild.channels.filter(c => c.type === 'text');
-      for (const channel of channels.values()) {
-        await channel.overwritePermissions(unverRole, {
+      const cproms = [];
+      send('Regenerating permissions...');
+      for (const c of channels.values()) {
+        cproms.push(c.overwritePermissions(unverRole, {
           SEND_MESSAGES: false,
-        });
+        }));
       }
+
+      await Promise.all(cproms);
 
       await unverChan.overwritePermissions(unverRole, {
         SEND_MESSAGES: true,
         READ_MESSAGES: true,
       });
 
-      return reply('Done!');
+      return send('Done!');
     }
   }
 };

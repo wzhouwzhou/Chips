@@ -28,8 +28,6 @@ class Logger {
 
     msgmodule = chalk.bgBlack.bold(`[${msgmodule}]`);
 
-    let time = chalk.cyan(`[${moment().format('YYYY-MM-DD HH:mm:ss.SSS')}]:`);
-
     logcategory = chalk.underline.blue(`[${logcategory}]`);
 
     switch (type.toLowerCase()) {
@@ -41,8 +39,7 @@ class Logger {
         type = chalk.bold.bgBlue(`[${type}]`);
     }
 
-    time = (this.prefix || '') + time;
-    console.log(time, type, msgmodule, logcategory, msg);
+    console.log(this.prefix || '', type, msgmodule, logcategory, msg);
   }
 
   error(logstuff) {

@@ -68,6 +68,8 @@ module.exports = [
   [ban.name, ban],
   [hackban.name, hackban],
   ['hban', hackban],
+  ['forceban', hackban],
+  ['fban', hackban],
   [instaban.name, instaban],
   ['iban', instaban],
   [unban.name, unban],

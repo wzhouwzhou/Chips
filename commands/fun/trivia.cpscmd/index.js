@@ -1,3 +1,4 @@
+/* eslint no-console: 'off' */
 let trivia = require('./trivia');
 
 console.log('[CPSCMD][FUN][trivia] Building objects...');

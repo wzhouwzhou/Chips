@@ -5,7 +5,8 @@ const gifs = [
 
 module.exports = {
   name: 'eat',
-  async func(msg, { send }) {
-    return send(gifs[Math.floor(gifs.length * Math.random())]);
+  func(msg, { send }) {
+    //return send(gifs[Math.floor(gifs.length * Math.random())]);
+    return send(new Discord.MessageAttachment(gifs[Math.floor(gifs.length * Math.random())], 'hi.gif'));
   },
 };

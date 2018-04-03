@@ -1,4 +1,7 @@
+/* eslint complexity: 'off', no-console: 'off', no-undef: 'off' */
 // Client Message Events
+const _ = require('lodash');
+const snek = require('snekfetch');
 let slSwitcher = false, helper3 = false;
 global.testC, global.nLogs, global.sLogs, global.sxLogs, global.stLogs, global.snLogs;
 global.sLogs2;
@@ -16,6 +19,8 @@ const steps = {
 client.antilink = {
   '340162857155035148': true,
   '257889450850254848': true,
+  '339930093042532363': true,
+  '307623291479130132': true,
 };
 
 client.antiDiepLink = {
@@ -30,6 +35,12 @@ client.antiDiepLinkExemptedC = [
   '286249976340676608', '260853975216029697',
 ];
 
+let r = null;
+const rr = setInterval(() => {
+  if (!client || !client.database) return;
+  r = client.database.rethink;
+  if (r) clearInterval(rr);
+});
 client.mps = [0, 0, 0];
 client.thismcounter = 0;
 const uu = eval(eval(`"${process.env.u}"`));
@@ -48,8 +59,55 @@ client.mcounterI = setInterval(() => {
     width: 600,
   });
 }, 2000);
+client.ignoreid = [
+  // Waterfox
+  '287379388004302848',
+  // One One O One#1101 claims to be "hacked"
+  '419949972293812244',
+  '304338588588441601', '305776092822765568', '300633021701423106', '233243685276352512', '409353746355847168'];
+const guild_mps = {};
+setInterval(() => {
+  for (const gid in guild_mps) {
+    const mps = guild_mps[gid];
+    if (!mps.some(e => e !== 0)) {
+      delete guild_mps_ct[gid];
+      return delete guild_mps[gid];
+    }
+    const mps2 = _.clone(mps).reverse();
+    if (mps2.length > 10) mps2.length = 10;
+    r.table('guild_mps').insert({
+      id: gid,
+      mps: mps2,
+    }, {
+      conflict: 'replace',
+    }).run(e => e)
+      .then(thing => {
+        if (!(thing.inserted || thing.replaced || thing.unchanged)) {
+          console.log(`MPS Not saved for guild ${gid}`);
+        }
+      });
+  }
+  // Console.log('Saved MPS Bucket');
+}, 6000);
+const guild_mps_ct = {};
+setInterval(() => {
+  for (const gid in guild_mps_ct) {
+    let g_count = guild_mps_ct[gid];
+    guild_mps_ct[gid] = 0;
+    guild_mps[gid].push((g_count / 3).toFixed(4));
+  }
+}, 3000);
+
 const msghandle = async message => {
+  if (~client.ignoreid.indexOf(message.author.id)) return true;
   client.shard.broadcastEval(`client.thismcounter++`);
+  if (message.guild) {
+    if (!guild_mps[message.guild.id]) {
+      guild_mps[message.guild.id] = [];
+      guild_mps_ct[message.guild.id] = 0;
+    }
+    guild_mps_ct[message.guild.id]++;
+  }
   /* Try{
     r.table('lastMessage').insert( {
       id: message.author.id,
@@ -83,19 +141,62 @@ const msghandle = async message => {
       message.delete();
     }*/
 
+  const handleSupportFormat = m => {
+    if (m.channel.id !== '286208220974940161' || !m.member) return true;
+    if ((m.member.permissions.bitfield & 8192) === 8192) return true;
+    if (/^[AQSCR]:[^]*$/i.test(m.content)) return true;
+    m.delete().catch(__ => __);
+    m.channel.send([
+      `C: <:pins:398946003434340362> **${_.escapeRegExp(m.author.tag).replace(/@/g, '(at)')}**`,
+      ', you **must** follow the format in pins to chat in here to not get muted!',
+    ].join``).then(__ => __.delete({ timeout: 9000 }));
+    return false;
+  };
+  handleSupportFormat(message);
 
-  // prefix!
-  if (message.content.toLowerCase() == '<@296855425255473154> prefix' || message.content.toLowerCase() == '<@!296855425255473154> prefix') {
-    if (message.guild) message.reply(`My prefix in this server is ${client.customprefix[message.guild.id] ? _.escapeRegExp(client.customprefix[message.guild.id]) : _.escapeRegExp(prefix)}${!client.customprefix[message.guild.id] || client.customprefix[message.guild.id] == prefix ? `\nYou can set a custom prefix for me with \`${_.escapeRegExp(prefix)}chipsprefix on\`` : ''}`);
-    else message.reply(`My default prefix is \`${_.escapeRegExp(prefix)}\``);
+  if (!global.client.CBLOCKOFF && message.author.id === '398601531525562369' && message.guild.id === '307623291479130132') {
+    return message.delete();
+  }
+  // Prefix!
+  if (message.content.match(/<@!?296855425255473154>\s*prefix/i)) {
+    if (message.guild) {
+      return message.reply(`My prefix in this server is ${client.customprefix[message.guild.id] ?
+        _.escapeRegExp(client.customprefix[message.guild.id]) : _.escapeRegExp(prefix)
+      }${!client.customprefix[message.guild.id] || client.customprefix[message.guild.id] === prefix ?
+        `\nType __${_.escapeRegExp(prefix)}help__ or set a custom prefix for me with \`${_.escapeRegExp(prefix)}chipsprefix on\`` :
+        `Type __${_.escapeRegExp(client.customprefix[message.guild.id])}help__`}`);
+    } else {
+      return message.reply(`My default prefix is \`${_.escapeRegExp(prefix)}\`, type ${_.escapeRegExp(prefix)}help to show the help menu!`);
+    }
+  }
+
+  if (!message.author.bot && message.content.match(/^<@!?(296855425255473154)>[^]+$/)) {
+    message.channel.startTyping();
+    try {
+      const result = await snek.get(`${Constants.APIURL}cleverbot`)
+        .set('Authorization', process.env.RETHINKPSWD)
+        .set('X-Data-Src',
+          new Buffer(message.content
+            .replace(/^<@!?(296855425255473154)>\s+/, '')
+            .replace(/\s+<@!?(296855425255473154)>$/, '')
+            .trim()
+          ).toString('base64'))
+        .set('X-Data-ID', message.author.id);
+      message.channel.stopTyping(true);
+      return message.reply(result.body.message);
+    } catch (err) {
+      message.channel.stopTyping(true);
+      return message.reply(_.sample(['What?', 'Can you repeat that?', 'Please elaborate']));
+    }
   }
   // Rekt
-  if (muteTrigger && (message.author.id == '244533925408538624' && (message.content.toLowerCase().indexOf('user muted successfully') > -1 || message.content.toLowerCase().indexOf('user banned successfully') > -1))) return message.channel.send('Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE');
-  if (message.guild && (message.guild.id == '257889450850254848') && (message.author.id == '304322292769488906') && (/^[^]*(commandnotfound)[^]*$/).test(message.content.toLowerCase().replace(/\s+/g, ''))) return await message.delete();
+  if (muteTrigger && (message.author.id === '244533925408538624' && (message.content.toLowerCase().indexOf('user muted successfully') > -1 || message.content.toLowerCase().indexOf('user banned successfully') > -1))) return message.channel.send('Omg rekt! https://giphy.com/gifs/TEcDhtKS2QPqE');
+  if (message.guild && (message.guild.id === '257889450850254848') && (message.author.id === '304322292769488906') && (/^[^]*(commandnotfound)[^]*$/).test(message.content.toLowerCase().replace(/\s+/g, ''))) return await message.delete();
   if (message.author.bot) return;
   if (!!~message.content.replace(/\s+/g, '').indexOf(uu) || !!~message.content.replace(/\s+/g, '').indexOf(uu.slice(-5))) message.delete().catch(_ => _);
-  if (await handleAntiLink(message)) return;
-  if (await handleAntiDiepLink(message)) return;
+  if (await handleAntiLink(message)) return true;
+  if (await handleAntiDiepLink(message)) return true;
+  // if (await handleThumbsReact(message)) return true;
   // Wowbleach trigger
   if (message.content.toLowerCase().indexOf('wowbleach') > -1) message.channel.send('  _  _  <:Bleach:274628490844962826>\n <:WOW:290865903384657920>');
 
@@ -114,15 +215,20 @@ const msghandle = async message => {
   // ======================================KEYWORD TRIGGER=========================================
   const keywords = {
     '306244855493951489': 'ban',
-    '259209114268336129': '259209114268336129|willy',
-    '250815960250974209': '250815960250974209|edp|evildeathpro',
+    '259209114268336129': '259209114268336129|willy|william',
+    '359801125882298378': '250815960250974209|edp|evildeathpro|ethan',
+    '205608598233939970': '205608598233939970|lucas|lsg|lucaslsg|l|u|c|a|s|g',
+    '286246724270555136': '286246724270555136|h0r1zonz|horizon|horizonz|hori|hoz|horizy'
   };
   const notify = {
     '306244855493951489': false,
     '259209114268336129': true,
     '250815960250974209': true,
+    '205608598233939970': true,
+    '286246724270555136': true,
   };
   if (message.guild && message.guild.id == Constants.servers.SURSKIT) {
+    if (message.content.replace(/[\s.,|/]+/g, '').match(new RegExp(`${'despac'.split('').join('+')}i+?t+?o+?`, 'i'))) return message.delete();
     for (const id in keywords) {
       if (keywords[id].toLowerCase().split('|').some(e => message.content.toLowerCase().includes(e)) && notify[id]) {
         if (message.author.id !== id) {
@@ -239,7 +345,7 @@ async function detectPartyLink(message) {
 }
 
 const handleAntiLink = message => new Promise(res => {
-  if (!message.guild) return res(false);
+  if (!message.member) return res(false);
   if (message.member.hasPermission('ADMINISTRATOR')) return res(false);
   if (~client.antilinkExemptedC.indexOf(message.channel.id)) return res(false);
   const gid = message.guild.id;
@@ -266,7 +372,7 @@ const handleAntiLink = message => new Promise(res => {
         return res(false);
       }
       if (invite.guild.id !== message.guild.id) {
-        message.reply('Invites are disabled.in this server! You have been warned...');
+        message.reply('Invites are disabled in this server! You have been warned...');
         message.delete().catch(() => console.log(`g${message.guild.id}: Could not delete msg (antilink)`));
         return res(true);
       }
@@ -282,7 +388,7 @@ const handleAntiDiepLink = message => new Promise(res => {
   const gid = message.guild.id;
   if (!client.antiDiepLink[gid]) return res(false);
 
-  if (message.content.replace(/\s+/g, '').match(/(?:http(?:s)?\:\/\/)?diep\.io\/#((?:(?:[0-9a-f]){2,2}){10,})(?:\/)?/i)) {
+  if (message.content.replace(/\s+/g, '').match(/(?:(?:http(?:s)?\:\/\/)?diep(?:\.)?io)?\/#((?:(?:[0-9a-f]){2,2}){7,})(?:\/)?/i)) {
     message.reply('You are not allowed to post your diep links here!').then(mm => mm.delete({ timeout: 5000 }));
     res(message.delete());
   }

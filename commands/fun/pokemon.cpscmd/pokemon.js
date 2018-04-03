@@ -1,3 +1,4 @@
+/* eslint no-console: 'off', no-undef: 'off', max-len: 'off', */
 const AllPokemon = ['Bulbasaur', 'Ivysaur', 'Venusaur', 'Charmander', 'Charmeleon',
   'Charizard', 'Squirtle', 'Wartortle', 'Blastoise', 'Caterpie',
   'Metapod', 'Butterfree', 'Weedle', 'Kakuna', 'Beedrill',
@@ -551,545 +552,487 @@ const UndisoveredEgg = ['Articuno', 'Zapdos', 'Moltres', 'Mewtwo', 'Mew',
   'Celesteela', 'Kartana', 'Guzzlord', 'Necrozma', 'Magearna',
   'Nidorina', 'Nidoqueen'];
 
+const COUNTONE = 1;
+const COUNTTHREE = 3;
+const COUNTSIX = 6;
+
 module.exports = {
   name: 'pokemon',
-  async func(msg, { send, args, prefix }) {
+  func(msg, { send, args, prefix }) {
     // Incase nothing is said
     if (!args[0]) {
       return send(`Please type " {}pokemon help " to continue.`.replace(/{}/g, prefix));
     }
 
     // For the help command
-    if (args[0] == 'help') {
+    if (args[0] === 'help') {
       return send(`Please type in the following secondary commands to use **${_.escapeRegExp(prefix)}**pokemon\n**${_.escapeRegExp(prefix)}**pokemon all\n**${_.escapeRegExp(prefix)}**pokemon gen1\n**${_.escapeRegExp(prefix)}**pokemon gen2\n**${_.escapeRegExp(prefix)}**pokemon gen3\n**${_.escapeRegExp(prefix)}**pokemon gen4\n**${_.escapeRegExp(prefix)}**pokemon gen5\n**${_.escapeRegExp(prefix)}**pokemon gen6\n**${_.escapeRegExp(prefix)}**pokemon gen7\n**${_.escapeRegExp(prefix)}**pokemon 3all\n**${_.escapeRegExp(prefix)}**pokemon 3gen1\n**${_.escapeRegExp(prefix)}**pokemon 3gen2\n**${_.escapeRegExp(prefix)}**pokemon 3gen3\n**${_.escapeRegExp(prefix)}**pokemon 3gen4\n**${_.escapeRegExp(prefix)}**pokemon 3gen5\n**${_.escapeRegExp(prefix)}**pokemon 3gen6\n**${_.escapeRegExp(prefix)}**pokemon 3gen7\n**${_.escapeRegExp(prefix)}**pokemon 6all\n**${_.escapeRegExp(prefix)}**pokemon 6gen1\n**${_.escapeRegExp(prefix)}**pokemon 6gen2\n**${_.escapeRegExp(prefix)}**pokemon 6gen3\n**${_.escapeRegExp(prefix)}**pokemon 6gen4\n**${_.escapeRegExp(prefix)}**pokemon 6gen5\n**${_.escapeRegExp(prefix)}**pokemon 6gen6\n**${_.escapeRegExp(prefix)}**pokemon 6gen7\n**${_.escapeRegExp(prefix)}**pokemon egg`);
     }
 
     // Start of the Generation Commands
     // All Generations (1)
-    if (args[0] == 'all') {
-      AllPokemon, COUNT = 1;
+    if (args[0] === 'all') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(AllPokemon[~~(AllPokemon.length * Math.random())]);
+      while (choices.size < COUNTONE) choices.add(AllPokemon[~~(AllPokemon.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // All Generations (3)
-    if (args[0] == '3all') {
-      AllPokemon, COUNT = 3;
+    if (args[0] === '3all') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(AllPokemon[~~(AllPokemon.length * Math.random())]);
+      while (choices.size < COUNTTHREE) choices.add(AllPokemon[~~(AllPokemon.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // All Generations (6)
-    if (args[0] == '6all') {
-      AllPokemon, COUNT = 6;
+    if (args[0] === '6all') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(AllPokemon[~~(AllPokemon.length * Math.random())]);
+      while (choices.size < COUNTSIX) choices.add(AllPokemon[~~(AllPokemon.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // Generation One (1)
-    if (args[0] == 'gen1') {
-      GenerationOne, COUNT = 1;
+    if (args[0] === 'gen1') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(GenerationOne[~~(GenerationOne.length * Math.random())]);
+      while (choices.size < COUNTONE) choices.add(GenerationOne[~~(GenerationOne.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // Generation One (3)
-    if (args[0] == '3gen1') {
-      GenerationOne, COUNT = 3;
+    if (args[0] === '3gen1') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(GenerationOne[~~(GenerationOne.length * Math.random())]);
+      while (choices.size < COUNTTHREE) choices.add(GenerationOne[~~(GenerationOne.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // Generation One (6)
-    if (args[0] == '6gen1') {
-      GenerationOne, COUNT = 6;
+    if (args[0] === '6gen1') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(GenerationOne[~~(GenerationOne.length * Math.random())]);
+      while (choices.size < COUNTSIX) choices.add(GenerationOne[~~(GenerationOne.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // Generation Two (1)
-    if (args[0] == 'gen2') {
-      GenerationTwo, COUNT = 1;
+    if (args[0] === 'gen2') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(GenerationTwo[~~(GenerationTwo.length * Math.random())]);
+      while (choices.size < COUNTONE) choices.add(GenerationTwo[~~(GenerationTwo.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // Generation Two (3)
-    if (args[0] == '3gen2') {
-      GenerationTwo, COUNT = 3;
+    if (args[0] === '3gen2') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(GenerationTwo[~~(GenerationTwo.length * Math.random())]);
+      while (choices.size < COUNTTHREE) choices.add(GenerationTwo[~~(GenerationTwo.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // Generation Two (6)
-    if (args[0] == '6gen2') {
-      GenerationTwo, COUNT = 6;
+    if (args[0] === '6gen2') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(GenerationTwo[~~(GenerationTwo.length * Math.random())]);
+      while (choices.size < COUNTSIX) choices.add(GenerationTwo[~~(GenerationTwo.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // Generation Three (1)
-    if (args[0] == 'gen3') {
-      GenerationThree, COUNT = 1;
+    if (args[0] === 'gen3') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(GenerationThree[~~(GenerationThree.length * Math.random())]);
+      while (choices.size < COUNTONE) choices.add(GenerationThree[~~(GenerationThree.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // Generation Three (3)
-    if (args[0] == '3gen3') {
-      GenerationThree, COUNT = 3;
+    if (args[0] === '3gen3') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(GenerationThree[~~(GenerationThree.length * Math.random())]);
+      while (choices.size < COUNTTHREE) choices.add(GenerationThree[~~(GenerationThree.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // Generation Three (6)
-    if (args[0] == '6gen3') {
-      GenerationThree, COUNT = 6;
+    if (args[0] === '6gen3') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(GenerationThree[~~(GenerationThree.length * Math.random())]);
+      while (choices.size < COUNTSIX) choices.add(GenerationThree[~~(GenerationThree.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // Generation Four (1)
-    if (args[0] == 'gen4') {
-      GenerationFour, COUNT = 1;
+    if (args[0] === 'gen4') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(GenerationFour[~~(GenerationFour.length * Math.random())]);
+      while (choices.size < COUNTONE) choices.add(GenerationFour[~~(GenerationFour.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // Generation Four (3)
-    if (args[0] == '3gen4') {
-      GenerationFour, COUNT = 3;
+    if (args[0] === '3gen4') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(GenerationFour[~~(GenerationFour.length * Math.random())]);
+      while (choices.size < COUNTTHREE) choices.add(GenerationFour[~~(GenerationFour.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // Generation Four (6)
-    if (args[0] == '6gen4') {
-      GenerationFour, COUNT = 6;
+    if (args[0] === '6gen4') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(GenerationFour[~~(GenerationFour.length * Math.random())]);
+      while (choices.size < COUNTSIX) choices.add(GenerationFour[~~(GenerationFour.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // Generation Five (1)
-    if (args[0] == 'gen5') {
-      GenerationFive, COUNT = 1;
+    if (args[0] === 'gen5') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(GenerationFive[~~(GenerationFive.length * Math.random())]);
+      while (choices.size < COUNTONE) choices.add(GenerationFive[~~(GenerationFive.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // Generation Five (3)
-    if (args[0] == '3gen5') {
-      GenerationFive, COUNT = 3;
+    if (args[0] === '3gen5') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(GenerationFive[~~(GenerationFive.length * Math.random())]);
+      while (choices.size < COUNTTHREE) choices.add(GenerationFive[~~(GenerationFive.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // Generation Five (6)
-    if (args[0] == '6gen5') {
-      GenerationFive, COUNT = 6;
+    if (args[0] === '6gen5') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(GenerationFive[~~(GenerationFive.length * Math.random())]);
+      while (choices.size < COUNTSIX) choices.add(GenerationFive[~~(GenerationFive.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // Generation Six (1)
-    if (args[0] == 'gen6') {
-      GenerationSix, COUNT = 1;
+    if (args[0] === 'gen6') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(GenerationSix[~~(GenerationSix.length * Math.random())]);
+      while (choices.size < COUNTONE) choices.add(GenerationSix[~~(GenerationSix.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // Generation Six (3)
-    if (args[0] == '3gen6') {
-      GenerationSix, COUNT = 3;
+    if (args[0] === '3gen6') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(GenerationSix[~~(GenerationSix.length * Math.random())]);
+      while (choices.size < COUNTTHREE) choices.add(GenerationSix[~~(GenerationSix.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // Generation Six (6)
-    if (args[0] == '6gen6') {
-      GenerationSix, COUNT = 6;
+    if (args[0] === '6gen6') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(GenerationSix[~~(GenerationSix.length * Math.random())]);
+      while (choices.size < COUNTSIX) choices.add(GenerationSix[~~(GenerationSix.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // Generation Seven (1)
-    if (args[0] == 'gen7') {
-      GenerationSeven, COUNT = 1;
+    if (args[0] === 'gen7') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(GenerationSeven[~~(GenerationSeven.length * Math.random())]);
+      while (choices.size < COUNTONE) choices.add(GenerationSeven[~~(GenerationSeven.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // Generation Seven (3)
-    if (args[0] == '3gen7') {
-      GenerationSeven, COUNT = 3;
+    if (args[0] === '3gen7') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(GenerationSeven[~~(GenerationSeven.length * Math.random())]);
+      while (choices.size < COUNTTHREE) choices.add(GenerationSeven[~~(GenerationSeven.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // Generation Seven (6)
-    if (args[0] == '6gen7') {
-      GenerationSeven, COUNT = 6;
+    if (args[0] === '6gen7') {
       const choices = new Set;
-      while (choices.size < COUNT) choices.add(GenerationSeven[~~(GenerationSeven.length * Math.random())]);
+      while (choices.size < COUNTSIX) choices.add(GenerationSeven[~~(GenerationSeven.length * Math.random())]);
       return send(`${Array.from(choices)}`);
     }
 
     // Eggs!
-    if (args[0] == 'egg') {
+    if (args[0] === 'egg') {
       // Egg Check
       if (!args[1]) {
         return send(`Please enter one of the following commands for an egg group filter\n**${_.escapeRegExp(prefix)}**pokemon egg amorph\n**${_.escapeRegExp(prefix)}**pokemon egg 3amorph\n**${_.escapeRegExp(prefix)}**pokemon egg 6amorph\n**${_.escapeRegExp(prefix)}**pokemon egg bug\n**${_.escapeRegExp(prefix)}**pokemon egg 3bug\n**${_.escapeRegExp(prefix)}**pokemon egg 6bug\n**${_.escapeRegExp(prefix)}**pokemon egg dragon\n**${_.escapeRegExp(prefix)}**pokemon egg 3dragon\n**${_.escapeRegExp(prefix)}**pokemon egg 6dragon\n**${_.escapeRegExp(prefix)}**pokemon egg fairy\n**${_.escapeRegExp(prefix)}**pokemon egg 3fairy\n**${_.escapeRegExp(prefix)}**pokemon egg 6fairy!\n**${_.escapeRegExp(prefix)}**pokemon egg field\n**${_.escapeRegExp(prefix)}**pokemon egg 3field\n**${_.escapeRegExp(prefix)}**pokemon egg 6field\n**${_.escapeRegExp(prefix)}**pokemon egg flying\n**${_.escapeRegExp(prefix)}**pokemon egg 3flying\n**${_.escapeRegExp(prefix)}**pokemon egg 6flying\n**${_.escapeRegExp(prefix)}**pokemon egg grass\n**${_.escapeRegExp(prefix)}**pokemon egg 3grass\n**${_.escapeRegExp(prefix)}**pokemon egg 6grass\n**${_.escapeRegExp(prefix)}**pokemon egg human\n**${_.escapeRegExp(prefix)}**pokemon egg 3human\n**${_.escapeRegExp(prefix)}**pokemon egg 6human\n**${_.escapeRegExp(prefix)}**pokemon egg mineral\n**${_.escapeRegExp(prefix)}**pokemon egg 3mineral\n**${_.escapeRegExp(prefix)}**pokemon egg 6mineral\n**${_.escapeRegExp(prefix)}**pokemon egg monster\n**${_.escapeRegExp(prefix)}**pokemon egg 3monster\n**${_.escapeRegExp(prefix)}**pokemon egg 6monster\n**${_.escapeRegExp(prefix)}**pokemon egg water1\n**${_.escapeRegExp(prefix)}**pokemon egg 3water1\n**${_.escapeRegExp(prefix)}**pokemon egg 6water1\n**${_.escapeRegExp(prefix)}**pokemon egg water2\n**${_.escapeRegExp(prefix)}**pokemon egg 3water2\n**${_.escapeRegExp(prefix)}**pokemon egg 6water2\n**${_.escapeRegExp(prefix)}**pokemon egg water3\n**${_.escapeRegExp(prefix)}**pokemon egg 3water3\n**${_.escapeRegExp(prefix)}**pokemon egg 6water3\n**${_.escapeRegExp(prefix)}**pokemon egg ditto\n**${_.escapeRegExp(prefix)}**pokemon egg 3ditto\n**${_.escapeRegExp(prefix)}**pokemon egg 6ditto\n**${_.escapeRegExp(prefix)}**pokemon egg undisc\n**${_.escapeRegExp(prefix)}**pokemon egg 3undisc\n**${_.escapeRegExp(prefix)}**pokemon egg 6undisc`);
       }
 
       // Amorphous Eggs (1)
-      if (args[1] == 'amorph') {
-        AmorphousEgg, COUNT = 1;
+      if (args[1] === 'amorph') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(AmorphousEgg[~~(AmorphousEgg.length * Math.random())]);
+        while (choices.size < COUNTONE) choices.add(AmorphousEgg[~~(AmorphousEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Amorphous Eggs (3)
-      if (args[1] == '3amorph') {
-        AmorphousEgg, COUNT = 3;
+      if (args[1] === '3amorph') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(AmorphousEgg[~~(AmorphousEgg.length * Math.random())]);
+        while (choices.size < COUNTTHREE) choices.add(AmorphousEgg[~~(AmorphousEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Amorphous Eggs (6)
-      if (args[1] == '6amorph') {
-        AmorphousEgg, COUNT = 6;
+      if (args[1] === '6amorph') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(AmorphousEgg[~~(AmorphousEgg.length * Math.random())]);
+        while (choices.size < COUNTSIX) choices.add(AmorphousEgg[~~(AmorphousEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Bug Eggs (1)
-      if (args[1] == 'bug') {
-        BugEgg, COUNT = 1;
+      if (args[1] === 'bug') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(BugEgg[~~(BugEgg.length * Math.random())]);
+        while (choices.size < COUNTONE) choices.add(BugEgg[~~(BugEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Bug Eggs (3)
-      if (args[1] == '3bug') {
-        BugEgg, COUNT = 3;
+      if (args[1] === '3bug') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(BugEgg[~~(BugEgg.length * Math.random())]);
+        while (choices.size < COUNTTHREE) choices.add(BugEgg[~~(BugEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Bug Eggs (6)
-      if (args[1] == '6bug') {
-        BugEgg, COUNT = 6;
+      if (args[1] === '6bug') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(BugEgg[~~(BugEgg.length * Math.random())]);
+        while (choices.size < COUNTSIX) choices.add(BugEgg[~~(BugEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Dragon Eggs (1)
-      if (args[1] == 'dragon') {
-        DragonEgg, COUNT = 1;
+      if (args[1] === 'dragon') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(DragonEgg[~~(DragonEgg.length * Math.random())]);
+        while (choices.size < COUNTONE) choices.add(DragonEgg[~~(DragonEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Dragon Eggs (3)
-      if (args[1] == '3dragon') {
-        DragonEgg, COUNT = 3;
+      if (args[1] === '3dragon') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(DragonEgg[~~(DragonEgg.length * Math.random())]);
+        while (choices.size < COUNTTHREE) choices.add(DragonEgg[~~(DragonEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Dragon Eggs (6)
-      if (args[1] == '6dragon') {
-        DragonEgg, COUNT = 6;
+      if (args[1] === '6dragon') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(DragonEgg[~~(DragonEgg.length * Math.random())]);
+        while (choices.size < COUNTSIX) choices.add(DragonEgg[~~(DragonEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Fairy Eggs (1)
-      if (args[1] == 'fairy') {
-        FairyEgg, COUNT = 1;
+      if (args[1] === 'fairy') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(FairyEgg[~~(FairyEgg.length * Math.random())]);
+        while (choices.size < COUNTONE) choices.add(FairyEgg[~~(FairyEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Fairy Eggs (3)
-      if (args[1] == '3fairy') {
-        FairyEgg, COUNT = 3;
+      if (args[1] === '3fairy') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(FairyEgg[~~(FairyEgg.length * Math.random())]);
+        while (choices.size < COUNTTHREE) choices.add(FairyEgg[~~(FairyEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Fairy Eggs (6)
-      if (args[1] == '6fairy') {
-        FairyEgg, COUNT = 6;
+      if (args[1] === '6fairy') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(FairyEgg[~~(FairyEgg.length * Math.random())]);
+        while (choices.size < COUNTSIX) choices.add(FairyEgg[~~(FairyEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Field Eggs (1)
-      if (args[1] == 'field') {
-        FieldEgg, COUNT = 1;
+      if (args[1] === 'field') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(FieldEgg[~~(FieldEgg.length * Math.random())]);
+        while (choices.size < COUNTONE) choices.add(FieldEgg[~~(FieldEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Field Eggs (3)
-      if (args[1] == '3field') {
-        FieldEgg, COUNT = 3;
+      if (args[1] === '3field') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(FieldEgg[~~(FieldEgg.length * Math.random())]);
+        while (choices.size < COUNTTHREE) choices.add(FieldEgg[~~(FieldEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Field Eggs (6)
-      if (args[1] == '6field') {
-        FieldEgg, COUNT = 6;
+      if (args[1] === '6field') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(FieldEgg[~~(FieldEgg.length * Math.random())]);
+        while (choices.size < COUNTSIX) choices.add(FieldEgg[~~(FieldEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Flying Eggs (1)
-      if (args[1] == 'flying') {
-        FlyingEgg, COUNT = 1;
+      if (args[1] === 'flying') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(FlyingEgg[~~(FlyingEgg.length * Math.random())]);
+        while (choices.size < COUNTONE) choices.add(FlyingEgg[~~(FlyingEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Flying Eggs (3)
-      if (args[1] == '3flying') {
-        FlyingEgg, COUNT = 3;
+      if (args[1] === '3flying') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(FlyingEgg[~~(FlyingEgg.length * Math.random())]);
+        while (choices.size < COUNTTHREE) choices.add(FlyingEgg[~~(FlyingEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Flying Eggs (6)
-      if (args[1] == '6flying') {
-        FlyingEgg, COUNT = 6;
+      if (args[1] === '6flying') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(FlyingEgg[~~(FlyingEgg.length * Math.random())]);
+        while (choices.size < COUNTSIX) choices.add(FlyingEgg[~~(FlyingEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Grass Eggs (1)
-      if (args[1] == 'grass') {
-        GrassEgg, COUNT = 1;
+      if (args[1] === 'grass') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(GrassEgg[~~(GrassEgg.length * Math.random())]);
+        while (choices.size < COUNTONE) choices.add(GrassEgg[~~(GrassEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Grass Eggs (3)
-      if (args[1] == '3grass') {
-        GrassEgg, COUNT = 3;
+      if (args[1] === '3grass') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(GrassEgg[~~(GrassEgg.length * Math.random())]);
+        while (choices.size < COUNTTHREE) choices.add(GrassEgg[~~(GrassEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Grass Eggs (6)
-      if (args[1] == '6grass') {
-        GrassEgg, COUNT = 6;
+      if (args[1] === '6grass') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(GrassEgg[~~(GrassEgg.length * Math.random())]);
+        while (choices.size < COUNTSIX) choices.add(GrassEgg[~~(GrassEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Human-Like Eggs (1)
-      if (args[1] == 'human') {
-        HumanLikeEgg, COUNT = 1;
+      if (args[1] === 'human') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(HumanLikeEgg[~~(HumanLikeEgg.length * Math.random())]);
+        while (choices.size < COUNTONE) choices.add(HumanLikeEgg[~~(HumanLikeEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Human-Like Eggs (3)
-      if (args[1] == '3human') {
-        HumanLikeEgg, COUNT = 3;
+      if (args[1] === '3human') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(HumanLikeEgg[~~(HumanLikeEgg.length * Math.random())]);
+        while (choices.size < COUNTTHREE) choices.add(HumanLikeEgg[~~(HumanLikeEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Human-Like Eggs (6)
-      if (args[1] == '6human') {
-        HumanLikeEgg, COUNT = 6;
+      if (args[1] === '6human') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(HumanLikeEgg[~~(HumanLikeEgg.length * Math.random())]);
+        while (choices.size < COUNTSIX) choices.add(HumanLikeEgg[~~(HumanLikeEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Mineral Eggs (1)
-      if (args[1] == 'mineral') {
-        MineralEgg, COUNT = 1;
+      if (args[1] === 'mineral') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(MineralEgg[~~(MineralEgg.length * Math.random())]);
+        while (choices.size < COUNTONE) choices.add(MineralEgg[~~(MineralEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Mineral Eggs (3)
-      if (args[1] == '3mineral') {
-        MineralEgg, COUNT = 3;
+      if (args[1] === '3mineral') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(MineralEgg[~~(MineralEgg.length * Math.random())]);
+        while (choices.size < COUNTTHREE) choices.add(MineralEgg[~~(MineralEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Mineral Eggs (3)
-      if (args[1] == '6mineral') {
-        MineralEgg, COUNT = 6;
+      if (args[1] === '6mineral') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(MineralEgg[~~(MineralEgg.length * Math.random())]);
+        while (choices.size < COUNTSIX) choices.add(MineralEgg[~~(MineralEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Monster Eggs (1)
-      if (args[1] == 'monster') {
-        MonsterEgg, COUNT = 1;
+      if (args[1] === 'monster') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(MonsterEgg[~~(MonsterEgg.length * Math.random())]);
+        while (choices.size < COUNTONE) choices.add(MonsterEgg[~~(MonsterEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Monster Eggs (3)
-      if (args[1] == '3monster') {
-        MonsterEgg, COUNT = 3;
+      if (args[1] === '3monster') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(MonsterEgg[~~(MonsterEgg.length * Math.random())]);
+        while (choices.size < COUNTTHREE) choices.add(MonsterEgg[~~(MonsterEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Monster Eggs (6)
-      if (args[1] == '6monster') {
-        MonsterEgg, COUNT = 6;
+      if (args[1] === '6monster') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(MonsterEgg[~~(MonsterEgg.length * Math.random())]);
+        while (choices.size < COUNTSIX) choices.add(MonsterEgg[~~(MonsterEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Water 1 Eggs (1)
-      if (args[1] == 'water1') {
-        Water1Egg, COUNT = 1;
+      if (args[1] === 'water1') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(Water1Egg[~~(Water1Egg.length * Math.random())]);
+        while (choices.size < COUNTONE) choices.add(Water1Egg[~~(Water1Egg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Water 1 Eggs (3)
-      if (args[1] == '3water1') {
-        Water1Egg, COUNT = 3;
+      if (args[1] === '3water1') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(Water1Egg[~~(Water1Egg.length * Math.random())]);
+        while (choices.size < COUNTTHREE) choices.add(Water1Egg[~~(Water1Egg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Water 1 Eggs (6)
-      if (args[1] == '6water1') {
-        Water1Egg, COUNT = 6;
+      if (args[1] === '6water1') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(Water1Egg[~~(Water1Egg.length * Math.random())]);
+        while (choices.size < COUNTSIX) choices.add(Water1Egg[~~(Water1Egg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Water 2 Eggs (1)
-      if (args[1] == 'water2') {
-        Water2Egg, COUNT = 1;
+      if (args[1] === 'water2') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(Water2Egg[~~(Water2Egg.length * Math.random())]);
+        while (choices.size < COUNTTHREE) choices.add(Water2Egg[~~(Water2Egg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Water 2 Eggs (3)
-      if (args[1] == '3water2') {
-        Water2Egg, COUNT = 3;
+      if (args[1] === '3water2') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(Water2Egg[~~(Water2Egg.length * Math.random())]);
+        while (choices.size < COUNTTHREE) choices.add(Water2Egg[~~(Water2Egg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Water 2 Eggs (6)
-      if (args[1] == '6water2') {
-        Water2Egg, COUNT = 6;
+      if (args[1] === '6water2') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(Water2Egg[~~(Water2Egg.length * Math.random())]);
+        while (choices.size < COUNTSIX) choices.add(Water2Egg[~~(Water2Egg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Ditto Eggs (1)
-      if (args[1] == 'ditto') {
+      if (args[1] === 'ditto') {
         return send(`${DittoEgg[Math.floor(DittoEgg.length * Math.random())]}`);
       }
 
       // Ditto Eggs (3)
-      if (args[1] == '3ditto') {
-        return send(`${DittoEgg[Math.floor(DittoEgg.length * Math.random())]}` + ',' + `${DittoEgg[Math.floor(DittoEgg.length * Math.random())]}` + ',' + `${DittoEgg[Math.floor(DittoEgg.length * Math.random())]}`);
+      if (args[1] === '3ditto') {
+        return send(`Ditto, Ditto, Ditto`);
       }
 
       // Ditto Eggs (6)
-      if (args[1] == '6ditto') {
-        return send(`${DittoEgg[Math.floor(DittoEgg.length * Math.random())]}` + ',' + `${DittoEgg[Math.floor(DittoEgg.length * Math.random())]}` + ',' + `${DittoEgg[Math.floor(DittoEgg.length * Math.random())]}` + `${DittoEgg[Math.floor(DittoEgg.length * Math.random())]}` + ',' + `${DittoEgg[Math.floor(DittoEgg.length * Math.random())]}` + ',' + `${DittoEgg[Math.floor(DittoEgg.length * Math.random())]}`);
+      if (args[1] === '6ditto') {
+        return send(`Ditto, Ditto, Ditto, Ditto, Ditto, Ditto`);
       }
 
       // Undiscovered Eggs (1)
-      if (args[1] == 'undisc') {
-        UndisoveredEgg, COUNT = 1;
+      if (args[1] === 'undisc') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(UndisoveredEgg[~~(UndisoveredEgg.length * Math.random())]);
+        while (choices.size < COUNTONE) choices.add(UndisoveredEgg[~~(UndisoveredEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Undiscovered Eggs (3)
-      if (args[1] == '3undisc') {
-        UndisoveredEgg, COUNT = 3;
+      if (args[1] === '3undisc') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(UndisoveredEgg[~~(UndisoveredEgg.length * Math.random())]);
+        while (choices.size < COUNTTHREE) choices.add(UndisoveredEgg[~~(UndisoveredEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
 
       // Undiscovered Eggs (6)
-      if (args[1] == '6undisc') {
-        UndisoveredEgg, COUNT = 6;
+      if (args[1] === '6undisc') {
         const choices = new Set;
-        while (choices.size < COUNT) choices.add(UndisoveredEgg[~~(UndisoveredEgg.length * Math.random())]);
+        while (choices.size < COUNTSIX) choices.add(UndisoveredEgg[~~(UndisoveredEgg.length * Math.random())]);
         return send(`${Array.from(choices)}`);
       }
-	 } // End of eggs brackets
-  }, // End of the command!
+    }
+    // End of eggs brackets
+  },
 };

@@ -1,3 +1,4 @@
+/* eslint no-console: 'off' */
 let rps = require('./rockpaperscissors');
 
 console.log('[CPSCMD][FUN][rps] Building objects...');

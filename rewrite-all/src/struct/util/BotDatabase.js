@@ -27,16 +27,19 @@ const BotDatabase = class BotDatabase extends Database {
   constructor(client) {
     super(client);
     this.loadGFunctions();
+    this.bw = {};
+    this.bw.inviteauthors = new Map;
   }
 
   async load() {
     try {
       await super.load();
-      this.startLog = await this.rethink.table('botStartLog').run();
+      await this.fetchStartLog(true);
       this.latestStart = this.startLog && this.startLog[0] ? this.startLog[0].status : 'Unknown';
 
       this.sinxUsers = new Map();
       await this.loadSBKGS();
+      await this.bwreferLoad();
     } catch (err) {
       this.ready = false;
       this.err = err;
@@ -47,7 +50,7 @@ const BotDatabase = class BotDatabase extends Database {
 
   async fetchStartLog(cache = false) {
     this.ensureRethink();
-    const startLog = await this.getTable('botStartLog');
+    const startLog = (await this.getTableIDSorted('botStartLog')).reverse();
     if (cache) this.startLog = startLog;
     return startLog;
   }
@@ -81,9 +84,9 @@ const BotDatabase = class BotDatabase extends Database {
    * @returns {Promise} The status of insertion for last start.
    */
   writeLastStart() {
-    let time = moment().format('ddd, Do of MMM @ HH:mm:ss');
+    let time = moment().format('ddd, Do of MMM @ HH:mm:ss.SSS');
     const status = `Shard restart on shard #${this.client.shard.id + 1}! ${time}`;
-    return this.insertInTable('botStartLog', Date.now(), { status: status, data: true });
+    return this.insertInTable('botStartLog', `${Date.now()}`, { status: status, data: true });
   }
 
   /**
@@ -99,11 +102,32 @@ const BotDatabase = class BotDatabase extends Database {
     this.loadFunctions = {};
     for (const ploader of fs.readdirSync(this.gLoaderPath)) {
       Logger.info(`Requiring ${this.gLoaderPath}/${ploader}…`);
-      const loader = new (require(`${this.gLoaderPath}/${ploader}`).default)(this);
+      const lObj = require(`${this.gLoaderPath}/${ploader}`).default;
       delete require.cache[require.resolve(`${this.gLoaderPath}/${ploader}`)];
+      const loader = new lObj(this);
       this.loadFunctions[loader.loadername] = loader;
     }
     return this.loadFunctions;
+  }
+
+  loadPlugins(ppath = path.join(__dirname, './dbPlugins')) {
+    if (!ppath) throw new Error(`Invalid plugin path specified of ${ppath}`);
+    this.pluginPath = ppath;
+    this.plugins = {};
+    for (const plugin of fs.readdirSync(this.pluginPath)) {
+      Logger.info(`Requiring ${this.pluginPath}/${plugin}…`);
+      const P = require(`${this.pluginPath}/${plugin}`).default;
+      delete require.cache[require.resolve(`${this.pluginPath}/${plugin}`)];
+      const p = new P(this);
+      this.plugins[p.name] = p;
+    }
+    return this.plugins;
+  }
+
+  emit(event, ...data) {
+    super.emit(event, ...data);
+    for (const pkey in this.plugins) this.plugins[pkey].emit(event, ...data);
+    return this;
   }
 
   /**
@@ -129,6 +153,65 @@ const BotDatabase = class BotDatabase extends Database {
         });
       });
     });
+  }
+
+  async bwreferadd(invitecode, targetUser) {
+    const bwrefer = await this.client.database.getTable('bwrefer');
+    const previous = bwrefer.filter(e => e.id === 'previous')[0];
+
+    const inviteData = bwrefer.filter(e => e.id === invitecode)[0];
+    const previousrefers = inviteData.refers;
+
+    if (previous && (!!~previous.data.indexOf(targetUser) || !!~previousrefers.indexOf(previous))) {
+      throw new Error('Already registered');
+    }
+
+    previous.data.push(targetUser);
+
+    const inviteauthor = this.bw.inviteauthors.get(invitecode);
+
+    if (!inviteauthor) throw new Error('Invite not found');
+
+    const data = {
+      invite: invitecode,
+      authorid: inviteauthor,
+      refers: [...previousrefers, targetUser],
+    };
+    await this.insertInTable('bwrefer', invitecode, { id: invitecode, data });
+    return this.insertInTable('bwrefer', 'previous', previous);
+  }
+
+  async bwrefercreate(invitecode, inviteauthor) {
+    const bwrefer = await this.client.database.getTable('bwrefer');
+    if (this.bw.inviteauthors.has(invitecode) || bwrefer.some(e => e.id === invitecode)) {
+      throw new Error('Invite already exists');
+    }
+    this.bw.inviteauthors.set(invitecode, inviteauthor);
+    this.bw.inviteauthors.set(inviteauthor, invitecode);
+    const data = {
+      invite: invitecode,
+      authorid: inviteauthor,
+      refers: [],
+    };
+
+    return this.insertInTable('bwrefer', invitecode, data);
+  }
+
+  async bwreferLoad() {
+    const bwrefer = await this.getTable('bwrefer');
+    const previous = bwrefer.filter(e => e.id === 'previous')[0];
+    if (!previous) {
+      const pdata = {
+        id: 'previous',
+        data: [],
+      };
+      await this.insertInTable('bwrefer', pdata.id, pdata);
+    }
+    for (const { invite, authorid } of bwrefer.filter(e => e.id !== 'previous').data) {
+      this.bw.inviteauthors.set(invite, authorid);
+      this.bw.inviteauthors.set(authorid, invite);
+    }
+    return this;
   }
 };
 

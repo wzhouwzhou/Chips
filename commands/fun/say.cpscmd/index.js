@@ -1,3 +1,4 @@
+/* eslint no-console: 'off' */
 let s = require('./s');
 console.log('[CPSCMD][FUN][say] Building objects...');
 
@@ -12,4 +13,5 @@ s.metadata = {
 console.log('[CPSCMD][FUN][say] Build objects complete!');
 module.exports = [
   [s.name, s],
+  ['say', s],
 ];

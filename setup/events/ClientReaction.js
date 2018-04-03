@@ -1,14 +1,15 @@
 module.exports = function() {
   client.on('messageReactionAdd', (react, user) => {
+    if(user.id === '305776092822765568') return;
     if (user.id == client.user.id) return;
 
-    console.log('Reaction detected');
+    // console.log('Reaction detected');
     if (react.message.channel.type == 'text') {
       // Console.log("Not in DM (->Starboard)");
       if (client.disableSelfStar[react.message.guild.id] && react.message.author.id == user.id) {
         if (react.emoji.toString() == Constants.emojis.STAR) {
           react.remove(user);
-          react.message.channel.send(`<@${user.id}>, Self-starring is disabled in this server!`).then(m => setTimeout(() => m.delete(), 6000)).catch(err => console.log(err));
+          react.message.channel.send(`<@${user.id}>, Self-starring is disabled in this server! (__**We'll remove AntiSelfStar from this server if this gets abused!**__)`).then(m => setTimeout(() => m.delete(), 5000)).catch(err => console.log(err));
         }
       }
       if (react.message.guild.id == '257889450850254848')

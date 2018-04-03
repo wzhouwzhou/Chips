@@ -2,7 +2,8 @@ const algebra = require('../../../handlers/algebra-0.2.6.min');
 const EXPIRE = 10000;
 module.exports = {
   name: '-calc',
-  async func(msg, { member, author, content, channel, args, Discord, reply }) {
+  async func(msg, { send, member, author, content, channel, args, Discord, reply }) {
+    if(!args[0]) return send('Nothing to calc!');
     if ((content.match(/=/g) || []).length > 1) return reply('Invalid equation entered');
     let query;
     let start = process.hrtime();
@@ -24,7 +25,7 @@ module.exports = {
     if ((content.match(/=/g) || []).length == 0) {
       if (query == '') return reply('Please enter a valid equation or expression!');
       emb = new Discord.MessageEmbed().setTimestamp(new Date());
-      emb.setAuthor(`New Expression Calculation`).setColor(member.displayColor);
+      emb.setAuthor(`New Expression Calculation`).setColor(member ? member.displayColor : 984623)
       emb.addField('Result: ', query ? `${`${query.toString()}\n` + `≈${eval(query.toString())}`}` : `Calculation could not be completed`);
       emb.setTimestamp(new Date());
       emb.setFooter(`--Expression Calculation Attempt took ${(end)}.--`);
@@ -32,7 +33,7 @@ module.exports = {
     } else if ((content.match(/=/g) || []).length == 1) { // We got an equation
       let ans;
       let emb = new Discord.MessageEmbed();
-      emb.setAuthor(`New Equation Calculation`).setColor(member.displayColor);
+      emb.setAuthor(`New Equation Calculation`).setColor(member ? member.displayColor : 984623)
       emb.setTimestamp(new Date());
 
       if ((content.match(/,\s*/g) || []).length == 1) {
@@ -104,7 +105,7 @@ module.exports = {
           ans = !ans ? 'I am not able to do this calculation!' : ans;
           console.log(`Result: ${ans.toString()}`);
           emb = new Discord.MessageEmbed();
-          emb.setAuthor(`New Equation Calculation`).setColor(member.displayColor);
+          emb.setAuthor(`New Equation Calculation`).setColor(member ? member.displayColor : 984623)
           emb.addField(query.toString(), ans ? `${variable.content} = ${ans.toString()}` : '/Calculation could not be completed');
           emb.setFooter(`--Equation Calculation Attempt took ${(end)}.--`);
           emb.setTimestamp(new Date());

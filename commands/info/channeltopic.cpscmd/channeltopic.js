@@ -1,6 +1,6 @@
 module.exports = {
   name: 'channeltopic',
-  async func(msg, { send, channel, member, guild }) {
+  async func(msg, { send, channel, member, guild, Discord }) {
     if (!guild) return send('You must be in a server!');
 
     if (!channel.topic) return send('Rip. No channel topic for you!');

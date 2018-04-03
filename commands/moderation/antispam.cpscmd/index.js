@@ -7,7 +7,7 @@ filter.metadata = {
   usage: '-blacklist <word(s)>',
   example: '-blacklist spammy content',
   perm: [['global.moderation.antispam.filter', 'global.moderation.antispam.blacklist']],
-  customperm: ['BAN_MEMBERS'],
+  customperm: ['BAN_MEMBERS', 'ADMINISTRATOR'],
 };
 
 console.log('[CPSCMD][MODERATION][antispam] Build objects complete!');

@@ -1,24 +1,45 @@
 const _ = require('lodash');
 const ships = new Map, shipComments = new Map, shipJoin = new Map;
-ships.set('259209114268336129,286522718965465090', 100);
-shipComments.set('259209114268336129,286522718965465090', 'Ily bb :3');
-shipJoin.set('259209114268336129,286522718965465090', '<:blobkiss:372739966100439042>'); // Wolf and willy
 
-ships.set('205608598233939970,296855425255473154', 420);
-shipComments.set('205608598233939970,296855425255473154', `Marriage when?!`);
-shipJoin.set('205608598233939970,296855425255473154', '<:blobkiss:372739966100439042>'); // Lucas and chips
+const ducheps = '423010094381268992,296855425255473154';
+ships.set(ducheps, 1234);
+shipComments.set(ducheps, `Marriage when?!`);
+shipJoin.set(ducheps, '<:blobkiss:372739966100439042>');
 
-ships.set('205608598233939970,333703932654125097', 420);
-shipComments.set('205608598233939970,333703932654125097', '❤');
-shipJoin.set('205608598233939970,333703932654125097', '<:blobkiss:372739966100439042>'); // Lucas & josh
+const veedp = '250815960250974209,365972456139390977';
+ships.set(veedp, 9001);
+shipComments.set(veedp, '❤It\'s❤Over❤Nine❤Thousand❤');
+shipJoin.set(veedp, '❤❤❤❤❤');
 
-ships.set('205608598233939970,365972456139390977', 100);
-shipComments.set('205608598233939970,365972456139390977', '❤');
-shipJoin.set('205608598233939970,365972456139390977', '<:blobkiss:372739966100439042>'); // Lucas and vy
+const edchips = '250815960250974209,296855425255473154';
+ships.set(edchips, 101);
+shipComments.set(edchips, 'OMG OwNeR *moans*');
+shipJoin.set(edchips, '❤❤❤❤❤');
 
-ships.set('286475753049292800,260024920757633025', 100);
-shipComments.set('286475753049292800,260024920757633025', 'uhm');
-shipJoin.set('286475753049292800,260024920757633025', '<:blobkiss:372739966100439042>'); // Ayoubelk and xena
+const sorachino = '277969198401978379,296934568068513793';
+ships.set(sorachino, 100);
+shipComments.set(sorachino, 'OwO You guys are perfect for each other');
+shipJoin.set(sorachino, '🌹❤');
+
+const cursedwilly = '259209114268336129,374022684519956480';
+ships.set(cursedwilly, 100);
+shipComments.set(cursedwilly, '美神 🌹 We were meant to be together!');
+shipJoin.set(cursedwilly, '❤');
+
+const katywilly = '259209114268336129,389830992329703434';
+ships.set(katywilly, 200);
+shipComments.set(katywilly, 'The perfect match for each other!!');
+shipJoin.set(katywilly, '<:HUGS:393574057175547917>');
+
+const xenaincy = '237250114693890048,260024920757633025';
+ships.set(xenaincy, 100);
+shipComments.set(xenaincy, 'Nerd confirmed!!!!!');
+shipJoin.set(xenaincy, '<:xenablob:393827310769537037>❤');
+
+const rosewilly = '259209114268336129,336962062544666624';
+ships.set(rosewilly, 200);
+shipComments.set(rosewilly, 'The perfect match ♡♡♡!!');
+shipJoin.set(rosewilly, '<a:bhe:415032514671804416>');
 
 module.exports = {
   name: 'ship',

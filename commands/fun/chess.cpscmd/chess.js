@@ -1,3 +1,6 @@
+/* eslint complexity: 'off' */
+const _ = require('lodash');
+
 const CHESS = require('../../../rewrite-all/src/struct/games/chess/ChessGame.js');
 const CG = CHESS.ChessGame;
 const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Paginator;
@@ -16,21 +19,31 @@ const difficultyArr = new Array(5).fill(0).map((e, i, a) =>
 const ex = {
   name: 'chess',
   async func(msg, ctx) {
-    let { author, reply, member, send, channel, args, prefix, client } = ctx;
+    let { author, reply, member, send, channel, args, prefix, client, Discord, suffix } = ctx;
 
     if (args[0] && args[0] === 'help') {
       // Const embed = new Discord.MessageEmbed;
-      new CG({ newFen: 'r1bqkb1r/pppp1ppp/2n2n2/4p3/4P3/3B1N2/PPPP1PPP/RNBQK2R w KQkq - 0 1', channel: msg.channel, players: [author, client.user] }).updateAll();
+      new CG({
+        newFen: 'r1bqkb1r/pppp1ppp/2n2n2/4p3/4P3/3B1N2/PPPP1PPP/RNBQK2R w KQkq - 0 1',
+        channel: msg.channel,
+        players: [author, client.user],
+      }).updateAll();
 
       const pages = [
+        ['Chess help!', [
+          'The above board shown is an example!',
+          'We will be referencing it in this tutorial.',
+          'Click ➡ to continue',
+        ].join('\n')],
         ['Moving pawns: ', [
           'To move a pawn forward simply type the target square.',
           'To move a pawn from e7 to e5 just type `e5`',
-          'To take another piece with a pawn type the previous file (letter) followed by `x` and the square you are taking.',
+          'To take another piece with a pawn type the previous file (letter) followed by `x`' +
+            'and the square you are taking.',
           'In this board for white to take d5 with a pawn, white would type `exd5`',
         ].join('\n')],
         ['Non-pawn pieces: ', [
-          'To move another piece like the knight in this example from f6 to g2 then Nf6g4 or simply Ng4',
+          'To move another piece like the knight in this example from f6 to g4 then Nf6g4 or simply Ng4',
           'If there is another piece at where you want to move that you want to take:',
           '\tNxe4, Nf6e4 Nf6-e4 would work',
           'In this example, to take e4 with the knight, black would type `Nxe4`',
@@ -40,17 +53,18 @@ const ex = {
           'Promotions are always from pawn to queen',
         ].join('\n')],
         ['"Sloppy moves": ', [
-          "When in doubt with FEN notation or if something doesn't work you can try just specifying the \"before\" and \"after\" squares.",
+          "When in doubt with FEN notation or if something doesn't work you can try just specifying the" +
+            '"before" and "after" squares.',
           'In this example, instead of typing `Nxe4`, black could move `f6e4` to achieve the same result',
         ].join('\n')],
         ['Usage:', [
           'Click on 🔄 when it is your turn to rotate the board while in game.',
-          'Type __quit__ to forfeit the game when it is your turn.',
+          'Type __quit__ to resign when it is your turn.',
           `Type __${_.escapeRegExp(prefix)}${this.name}__ to start a new game.`,
           '\tWhen prompted mention someone to challenge, or me to play against my AI.',
         ].join('\n')],
-      ].map(e => [e]);// .forEach(f=>embed.addField(...f));
-      // send(embed);
+      ].map(e => [e]);
+
       const p = new Paginator(msg, {
         type: 'paged',
         embedding: true,
@@ -60,19 +74,18 @@ const ex = {
       }, Discord
       );
       try {
-        await p.sendFirst();
+        return await p.sendFirst();
       } catch (err) {
-        console.error(err);
-        return send('Something went wrong...');
+        send('Something went wrong...');
+        throw err;
       }
-      return;
     }
-
+    if (args[0] && args[0].match(/^</)) return true;
     let mCol, silentQuit = false;
-    if (args[0] && args[0].toLowerCase() === 'join') return !0;
+    if (args[0] && args[0].match(/^(join|decline)$/i)) return !0;
 
-    if (prompting.get(author.id)) return;
-    if (promptingAll.get(channel.id)) return;
+    if (prompting.get(author.id)) return true;
+    if (promptingAll.get(channel.id)) return true;
     if (games.get(channel.id)) return send('There is already a game going on.');
 
     let othermember, difficulty, botting = false;
@@ -84,7 +97,9 @@ const ex = {
         send('You cannot invite that bot!');
         throw new Error('Bot invitee');
       }
-      if (!othermember || !othermember.user || othermember.user.id !== client.user.id) { othermember = await promptPlayer(ctx); } else if (othermember && othermember.user && othermember.user.id === client.user.id) {
+      if (!othermember || !othermember.user || othermember.user.id !== client.user.id) {
+        othermember = await promptPlayer(Object.assign({}, ctx, { targetMember: othermember || null }));
+      } else if (othermember && othermember.user && othermember.user.id === client.user.id) {
         difficulty = await promptDifficulty(msg, ctx);
         await send(`Difficulty set to ${+difficulty + 1}`);
         botting = true;
@@ -94,20 +109,24 @@ const ex = {
       prompting.delete(othermember ? othermember.id : 0);
       promptingAll.delete(channel.id);
       prompting.delete(author.id);
-      silentQuit = true;
-      mCol && mCol.stop();
-      return console.error(err);
+
+      // If (mCol) mCol.stop();
+      // return console.error(err);
+      if (err && err.message === 'Timed out') {
+        return send('Timed out');
+      } else {
+        throw err;
+      }
     }
-    if (othermember == 'decline') {
+    if (!othermember || othermember === 'decline') {
       games.delete(channel.id);
       prompting.delete(othermember.id);
       promptingAll.delete(channel.id);
       prompting.delete(author.id);
       silentQuit = true;
-      mCol && mCol.stop();
-      return reply('Game was declined!');
-    }
-    if (othermember && othermember.id) {
+      if (mCol) mCol.stop();
+      return reply('Game was cancelled!');
+    } else if (othermember && othermember.id) {
       setTimeout(() => {
         prompting.delete(othermember.id);
         prompting.delete(author.id);
@@ -117,9 +136,19 @@ const ex = {
 
     send('Creating a chess game... Type __`quit`__ when it is your move to forfeit.');
 
-    console.log(`Creating a chess game for channel ${channel.id}...`);
+    // Console.log(`Creating a chess game for channel ${channel.id}...`);
 
-    const currentGame = await CG.factory({ client, channel, players: _.shuffle([member.user, othermember.user]), aiOptions: botting ? CHESS.difficulties[difficulty] != null ? CHESS.difficulties[difficulty] : Chess.difficulties[2] || 1 << 3 : null });
+    const currentGame = await CG.factory({
+      /* NewFen: suffix, */
+      client,
+      channel,
+      players: _.shuffle([member.user, othermember.user]),
+      aiOptions: botting ?
+        CHESS.difficulties[+difficulty] !== null && CHESS.difficulties[+difficulty] !== undefined ?
+          CHESS.difficulties[+difficulty] :
+          CHESS.difficulties[0] || 0 :
+        null,
+    });
 
     currentGame.game.header(
       'white',
@@ -134,74 +163,104 @@ const ex = {
       game.updateAll(currentGame.game.fen().split(/\s+/)[0], true);
     });
     games.set(channel.id, currentGame);
-    console.log('Creating collector...');
+    // Console.log('Creating collector...');
     mCol = channel.createMessageCollector(
       q => [member.user, othermember.user].some(e => q.author.id === e.id),
       { time: TIME, errors: ['time'] }
     );
-    console.log('Adding on-collect...');
-    mCol.on('collect', async m => {
-      if (m.author.id !== currentGame.movers.get(currentGame.turn.toLowerCase()).id) return;
+    // Console.log('Adding on-collect...');
+    mCol.on('collect', m => {
+      if (m.author.id !== currentGame.movers.get(currentGame.turn.toLowerCase()).id) return false;
 
-      if (!m.content) return;
+      if (!m.content) return false;
       // Console.log(m.content);
-      if (/quit/i.test(m.content) || (currentGame.isOver() && !currentGame.ended)) {
+      if (/quit/i.test(m.content) || (currentGame.isOver() || currentGame.ended)) {
         // CurrentGame.game.end();
-        send('Ending…');
+        // const other = [member.user, othermember.user].filter(e => e.id !== m.author.id)[0];
+        send(new Discord.MessageEmbed().setTitle(`${m.author.tag} resigned!`));
+        currentGame.updateAll(currentGame.game.fen().split(/\s+/)[0], true);
         currentGame.emit('ended', currentGame);
-        mCol.stop();
+        return mCol.stop();
       }
-
+      if (/chess\sswap/i.test(m.content)) return currentGame.swapPlayersUpdate();
       let move = m.content
+        .replace(/^P/i, '')
         .trim();
       let result;
       try {
         result = currentGame.go(move);
-        console.log(`Pre-auto: ${move}`);
+        // Console.log(`Pre-auto: ${move}`);
         // Console.log('Game: '+result);
-        if (result == 'Woah too fast!') return send('Too fast...');
+        if (result === 'Woah too fast!') return send('Too fast...');
 
-        !currentGame.isOver() && !currentGame.ended && m.delete().catch(_ => _);
-      } catch (errA) { // 'Invalid move!'
+        if (currentGame.isOver() || currentGame.ended) {
+          games.delete(channel.id);
+          mCol.stop();
+        } else {
+          return m.delete().catch(__ => __);
+        }
+      } catch (errA) {
         try {
           move = move.replace(/^([RNKQB])([a-h])(\w)/i, (match, a, b, c) => a.toUpperCase() + b.toLowerCase() + c)
             .replace(/^([a-h])(\d)/i, (match, a, b) => a.toLowerCase() + b)
             .trim();
 
           result = currentGame.go(move);
-          console.log(`Pre-auto: ${move}`);
-          if (result == 'Woah too fast!') return send('Too fast...');
-          !currentGame.isOver() && !currentGame.ended && m.delete().catch(_ => _);
+          // Console.log(`Pre-auto2: ${move}`);
+          if (result === 'Woah too fast!') return send('Too fast...');
+
+          if (currentGame.isOver() || currentGame.ended) {
+            games.delete(channel.id);
+            mCol.stop();
+          } else {
+            return m.delete().catch(__ => __);
+          }
         } catch (errB) {
           try {
             move = move.replace(/^([RNKQB])([a-hx])(\w)/i, (match, a, b, c) => a.toUpperCase() + b.toLowerCase() + c)
               .replace(/^([a-h])(\d)/i, (match, a, b) => a.toLowerCase() + b)
               .trim();
             result = currentGame.go(move);
-            if (result == 'Woah too fast!') return send('Too fast...');
-            !currentGame.isOver() && !currentGame.ended && m.delete().catch(_ => _);
+            if (result === 'Woah too fast!') return send('Too fast...');
+            if (currentGame.isOver() || currentGame.ended) {
+              games.delete(channel.id);
+              mCol.stop();
+            } else {
+              return m.delete().catch(__ => __);
+            }
           } catch (errC) {
-            if (move.length < 6) console.log(`Autocomplete: ${move}`);
-            if (move.match(/^[RNKQB][a-h0-9]{3,4}$/)) send('Ensure you have given a valid move');
-            if (!~errB.message.indexOf('Move not completed')) console.error(err);
+            // If (move.length < 6) console.log(`Autocomplete update of: ${move} failed`);
+            if (move.match(/^[RNKQB](([a-h][1-8]{1,2})|([1-8][a-h]{1,2}))$/)) {
+              send('Ensure you have given a valid move');
+            }
+            // If (!~errB.message.indexOf('Move not completed')) console.error(err);
+
+            if (currentGame.isOver() || currentGame.ended) {
+              games.delete(channel.id);
+              mCol.stop();
+            }
+            return m;
           }
         }
       }
+      return m;
     });
 
     mCol.once('end', collected => {
-      if (collected.size === 0) !silentQuit && reply('Timed out, game was not saved to memory');
+    /* If (!silentQuit) */
+      if (collected.size === 0) reply('Timed out, game was not saved to memory');
 
       prompting.delete(othermember.id);
       games.delete(channel.id);
       promptingAll.delete(channel.id);
       prompting.delete(author.id);
       currentGame.emit('ended', currentGame);
-      console.log('MCol ended');
+      // Send('[Debug] MCol ended');
     });
 
-    currentGame.once('ended', async() => { // Game=>{
-      console.log('Chess game ended');
+    currentGame.once('end', () => {
+      // Game=>{
+      send('Chess game ended!');
       // Game.updateFrontEnd('end');
       // game.embed = new Discord.MessageEmbed()
       //   .setTitle('Connect Four')
@@ -210,19 +269,18 @@ const ex = {
       //   .addField(`Game ended!`,'\u200B');
       // await send('', {embed: game.embed});
       games.delete(channel.id);
-      games.delete(channel.id);
       prompting.delete(othermember.id);
       promptingAll.delete(channel.id);
       prompting.delete(author.id);
       silentQuit = true;
       mCol.stop();
     });
-    currentGame.updateAll();
-    console.log('Chess game setup complete');
+    return currentGame.updateAll();
+    // Send('[Debug] Chess game setup complete');
   },
 };
 
-const promptDifficulty = (msg, { author, reply }) => new Promise(async res => {
+const promptDifficulty = (msg, { author, reply, Discord }) => new Promise(async res => {
   const p = new Paginator(msg, {
     type: 'paged',
     embedding: true,
@@ -231,15 +289,16 @@ const promptDifficulty = (msg, { author, reply }) => new Promise(async res => {
     text: `React with ${check} to select your difficulty when you have chosen one with the arrows.`,
     pages: difficultyArr,
     footer: 'Easy (1) >>> (5) Hard',
+    prebuttons: [check],
   }, Discord
   );
   try {
-    let sentMsg = await p.sendFirst();
+    let sentMsg = await p.sendFirstGetMsg();
     if (!sentMsg) reply('Cannot find sentmsg');
-    console.log(sentMsg.constructor.name);
+    // Console.log(sentMsg.constructor.name);
     const f = (r, u) => {
       if (!u.bot && u.id === author.id && r.emoji.name === check) {
-        r.remove(u).catch(_ => _);
+        r.remove(u).catch(__ => __);
         return true;
       }
       return false;
@@ -248,49 +307,69 @@ const promptDifficulty = (msg, { author, reply }) => new Promise(async res => {
     rCol.on('collect', () => rCol.stop());
     rCol.on('end', () => {
       p.collector.stop();
-      res(p.currentPage);
+      return res(p.currentPage);
     });
-
-    await sentMsg.react(check);
+    return p.pageButtons();
   } catch (err) {
-    console.error(err);
-    return reply('Something went wrong...');
+    reply('Something went wrong...');
+    throw err;
   }
 });
 
-const promptPlayer = ({ author, send, prefix, channel, targetMember, client }) => {
-  targetMember != null && targetMember.id != null && prompting.set(targetMember.id, true);
-  targetMember == null && promptingAll.set(channel.id, true);
+const promptPlayer = ({ author, send, prefix, channel, targetMember }) => {
+  // Console.log(`TM ${targetMember}`);
+  if (targetMember !== null && targetMember.id !== undefined) prompting.set(targetMember.id, true);
+  if (!targetMember) promptingAll.set(channel.id, true);
   return new Promise(async(res, rej) => {
     const startFilter = m => {
-      if (m.author.id === client.user.id) return res(targetMember || m.member);
+      if (m.author.id === author.id) {
+        if (m.content.match(/cancel/i)) {
+          console.log('Cancelling invite...');
+          promptingAll.delete(channel.id);
+          if (targetMember && targetMember.id) prompting.delete(targetMember.id);
+          return res('decline');
+        }
+        return false;
+      }
+      // If (m.author.id === client.user.id) return res(targetMember || m.member);
 
       if (m.author.bot) return false;
-      if ((new RegExp(`${_.escapeRegExp(prefix)}chess(join|decline)`, 'gi')).test(m.content.toLowerCase().replace(/\s+/g, ''))) {
-        if (m.author.id !== author.id) {
-          if (!targetMember || targetMember.id === m.author.id) {
-            if (~m.content.toLowerCase().indexOf('join')) return res(targetMember || m.member);
-            else if (targetMember && !!~m.content.toLowerCase().indexOf('decline')) return res('decline');
+      if ((new RegExp(`${_.escapeRegExp(prefix)}chess(join|decline)`, 'gi')).test(m.content.replace(/\s+/g, ''))) {
+        if (m.author.id !== author.id && (!targetMember || targetMember.id === m.author.id)) {
+          // Console.log(`MC ${m.author.tag}|${m.content}`);
+          if (m.content.match(/join/i)) {
+            promptingAll.delete(channel.id);
+            if (targetMember && targetMember.id) prompting.delete(targetMember.id);
+            return res(targetMember || m.member);
+          } else if (!promptingAll.get(channel.id) &&
+            targetMember &&
+            m.author.id === targetMember.id &&
+            !!m.content.match(/decline/i)
+          ) {
+            prompting.delete(targetMember.id);
+            return res('decline');
+          } else {
+            return false;
           }
-          return false;
         }
+        return false;
       }
-
       return false;
     };
 
     let startCol;
     try {
-      let str = `${targetMember || ''} Please type __${_.escapeRegExp(prefix)}chess join__ to join the game`;
-      if (targetMember) str += ` or __${_.escapeRegExp(prefix)}chess decline__`;
+      let str = `${author + []}, type \`cancel\` to cancel this game creation. ${targetMember || 'Anyone else'}, please type __${_.escapeRegExp(prefix)}chess join__ to join the game`;
+      if (targetMember) str += ` or __${_.escapeRegExp(prefix)}chess decline__.`;
       await send(str);
       startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
     } catch (err) {
-      console.error(err);
-      return rej('Timed out');
+      // Console.error(err);
+      return rej(new Error('Timed out'));
     }
 
-    !startCol.first() && rej(null);
+    if (!startCol.first()) return rej(null);
+    return false;
   });
 };
 
@@ -307,7 +386,7 @@ const promptInvitee = ({ send, channel, author }) => new Promise(async(res, rej)
           return false;
         }
         return res(targetMember);
-      } else if (~m.content.indexOf('none')) {
+      } else if (m.content.match(/none/i)) {
         res(null);
         return true;
       }
@@ -318,15 +397,17 @@ const promptInvitee = ({ send, channel, author }) => new Promise(async(res, rej)
 
   let startCol;
   try {
-    await send(`${author || ''} Please mention who you want to invite to this game, or __none__ to allow anyone to join`);
+    await send(
+      `${author || ''} Please mention who you want to invite to this game, or __none__ to allow anyone to join.`
+    );
     startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
   } catch (err) {
-    console.error(err);
-    return rej('Timed out');
+    // Console.error(err);
+    return rej(new Error('Timed out'));
   }
 
   if (!startCol.first()) return rej(null);
-  res(startCol.first().mentions.members.first() || startCol.first().content);
+  return res(startCol.first().mentions.members.first() || startCol.first().content);
 });
 
 ex._games = games;

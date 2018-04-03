@@ -1,30 +1,63 @@
+/* eslint complexity: 'off', no-console: 'off', max-len: 'off' */
+const path = require('path');
+const moment = require('moment');
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
 const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Paginator;
-const Jimp = require('jimp');
-
-const ONLINE = 'https://i.imgur.com/Yj3vYDB.png';
-const IDLE = 'https://i.imgur.com/IYAtFOU.png';
-const DND = 'https://i.imgur.com/Hij38VX.png';
-const INVIS = 'https://i.imgur.com/dQZuSIR.png';
+const snekfetch = require('snekfetch');
+const _ = require('lodash');
+let helpembed = null;
 
 const ex = {
   name: 'info',
-  async func(msg, { send, member, author, guild, args, gMember, reply, content, prefix, Discord, times, convertTime, getUser }) {
+  async func(msg, { Constants, client, send, member, author, guild, args, gMember, reply, content, prefix, Discord, times, convertTime, getUser }) {
     let start = process.hrtime();
     const used = member || author;
     let action;
-    if (!args[0]) return send('No action given :(');
+    if (!helpembed) {
+      helpembed = new Discord.MessageEmbed();
+      helpembed.setTitle('The Info Command');
+      helpembed.setDescription([
+        'This command must be used with a given "action":',
+        '**{} user [@ mention or fuzzy search]** returns info about a member in a server\\*',
+        '**{} channel [#channel or fuzzy search]** returns info about a particular channel\\*',
+        '**{} guild** or **{} server** returns info about the server you are in\\*',
+        '**{} role [@ mention or fuzzy search]** returns info about a role\\*',
+        '**{} bot** shows some basic info about me!',
+        'Any subcommands with a \\* following their usage must be used in a server',
+      ].join('\n').replace(/\{\}/g, `${_.escapeRegExp(prefix)}${this.name}`));
+    }
+    if (!args[0]) return send(helpembed);
     else action = args[0];
 
-    console.log(`[Info] Action: ${action}`);
-    console.log(`[Info] Creating new searcher for guild ${guild.id}`);
-    let options = { guild: guild };
-    searchers[guild.id] = new Searcher(options.guild);
-    let infobad = new Discord.MessageEmbed().setColor(member.displayColor).setFooter(new Date());
+    // Console.log(`[Info] Action: ${action}`);
+    // Console.log(`[Info] Creating new searcher for guild ${guild.id}`);
+    if (guild) {
+      let options = { guild: guild };
+      global.searchers[guild.id] = new Searcher(options.guild);
+    }
+    let infobad = new Discord.MessageEmbed().setColor(member ? member.displayColor : `#${((1 << 24) * Math.random() | 0).toString(16)}`
+    ).setFooter(new Date());
 
-    if (action == 'server') {
+    if (action === 'bot') {
       try {
-        let info = await permissions.checkMulti(msg, ['global.info.info.server']);
+        await global.permissions.checkMulti(msg, ['public.info.*']);
+      } catch (err) {
+        return msg.reply(err);
+      }
+
+      infobad.setTitle('Hello, I am Chips!');
+      infobad.setDescription([
+        'I am here to make your life a little bit more exciting! Fun and games, music, utilities, quick and easy moderation, as well as informational commands, I have it all!',
+        `Do **${_.escapeRegExp(prefix)}help** to see a list of my commands, or **${_.escapeRegExp(prefix)}stats** to see my real-time statistics!`,
+        'Read more about me on my [website](https://chipsbot.me:2087/) or join the [support server](https://support.chipsbot.me/)!',
+        'To add me to your server, click [here](https://invite.chipsbot.me)',
+      ].join('\n'));
+      return send(infobad);
+    }
+    if (!guild) return send(helpembed);
+    if (action === 'server' || action === 'guild') {
+      try {
+        let info = await global.permissions.checkMulti(msg, ['global.info.info.server']);
         console.log(`[Command] ${info}`);
       } catch (err) {
         if (!member.hasPermission('global.info.info.server')) {
@@ -59,8 +92,8 @@ const ex = {
 
       let textC = 0, voiceC = 0, categoryC = 0, tC = 0, nsfw = 0;
       guild.channels.filter(c => {
-        if (c.type == 'text') textC++;
-        else if (c.type == 'voice') voiceC++;
+        if (c.type === 'text') textC++;
+        else if (c.type === 'voice') voiceC++;
         else if (c.type === 'category') categoryC++;
         tC++;
         if (c.nsfw) nsfw++;
@@ -144,7 +177,7 @@ const ex = {
       // /await reply(`Server info`, {embed: infobad});
     } else if (action == 'user') {
       const waitingE = new Discord.MessageEmbed().attachFiles(['loading.gif']).setAuthor('Loading...', 'attachment://loading.gif', 'http://chipsbot.tk')
-        .setColor(msg.member.displayColor);
+        .setColor(msg.member ? msg.member.displayColor : `#${((1 << 24) * Math.random() | 0).toString(16)}`);
       const waiting = await send(' ', { embed: waitingE });
 
       let member = used;
@@ -160,7 +193,7 @@ const ex = {
               let info = await permissions.checkMulti(msg, ['global.info.info.user.other']);
               console.log(`[Info] ${info}`);
             } catch (err) {
-              if (!member.hasPermission(ex.customperm[0])) {
+              if (!member.hasPermission(this.metadata.customperm[0])) {
                 console.log(`Rejected info user other to ${used.id}`);
                 return msg.reply(err);
               }
@@ -170,7 +203,7 @@ const ex = {
               let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
               console.log(`[Info] ${info}`);
             } catch (err) {
-              if (!member.hasPermission(ex.customperm[0])) {
+              if (!member.hasPermission(this.metadata.customperm[0])) {
                 console.log(`Rejected info self other to ${used.id}`);
                 return msg.reply(err);
               }
@@ -189,7 +222,7 @@ const ex = {
               let info = await permissions.checkMulti(msg, ['global.info.info.user.other']);
               console.log(`[Info] ${info}`);
             } catch (err) {
-              if (!member.hasPermission(ex.customperm[0])) {
+              if (!member.hasPermission(this.metadata.customperm[0])) {
                 console.log(`Rejected info user other to ${used.id}`);
                 return msg.reply(err);
               }
@@ -199,7 +232,7 @@ const ex = {
               let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
               console.log(`[Info] ${info}`);
             } catch (err) {
-              if (!member.hasPermission(ex.customperm[0])) {
+              if (!member.hasPermission(this.metadata.customperm[0])) {
                 console.log(`Rejected info self other to ${used.id}`);
                 return msg.reply(err);
               }
@@ -207,32 +240,29 @@ const ex = {
           }
         }
         const name = `${member.id}${process.hrtime().join('')}profileEdited.png`;
-        const embed = await userData(member, infobad, convertTime, times, name);
+        const embed = await userData({ Constants, member, infobad, convertTime, times, name });
         waiting.delete();
-        await send(`${multiple ? '(multiple users were found, using the first one)' : ''}`, { embed });
-        return fs.unlinkSync(name);
+        return send(`${multiple ? '(multiple users were found, using the first one)' : ''}`, { embed });
       } else {
         try {
           let info = await permissions.checkMulti(msg, ['global.info.info.user.self']);
           console.log(`[Command] ${info}`);
         } catch (err) {
-          if (!member.hasPermission(ex.customperm[0])) {
+          if (!member.hasPermission(this.metadata.customperm[0])) {
             console.log(`Rejected info user (self) to ${used.id}`);
             return msg.reply(err);
           }
         }
-        const name = `${member.id}${process.hrtime().join('')}profileEdited.png`;
-        const embed = await userData(member, infobad, convertTime, times, name);
+        const embed = await userData({ Constants, member, infobad, convertTime, times });
         waiting.delete();
-        await send('', { embed });
-        return fs.unlinkSync(name);
+        return send('', { embed });
       }
     } else if (action == 'role') {
       try {
         let info = await permissions.checkMulti(msg, ['global.info.info.role']);
         console.log(`[Command] ${info}`);
       } catch (err) {
-        if (!member.hasPermission(ex.customperm[0])) {
+        if (!member.hasPermission(this.metadata.customperm[0])) {
           console.log(`Rejected info role to ${used.id}`);
           return msg.reply(err);
         }
@@ -319,7 +349,7 @@ const ex = {
         let info = await permissions.checkMulti(msg, ['global.info.info.channel']);
         console.log(`[Command] ${info}`);
       } catch (err) {
-        if (!member.hasPermission(ex.customperm[0])) {
+        if (!member.hasPermission(this.metadata.customperm[0])) {
           console.log(`Rejected info channel to ${used.id}`);
           return msg.reply(err);
         }
@@ -406,63 +436,26 @@ const ex = {
   },
 };
 
-const userData = (member, infobad, convertTime, times, name) => new Promise(async res => {
-  let pfp = await Jimp.read(member.user.displayAvatarURL({ format: 'png', size: 2048 }));
-  let pfp2 = (await Jimp.read(member.user.displayAvatarURL({ format: 'png', size: 2048 }))).clone();
-  const wl = 1024, sl = 640, bl = 550;
-  pfp = pfp.resize(wl, wl, Jimp.RESIZE_BEZIER);
-  pfp2 = pfp2.resize(wl, wl, Jimp.RESIZE_BEZIER);
+const userData = ({ Constants, member, infobad, convertTime, times }) => new Promise(async res => {
+  const avatarURL = member.user.displayAvatarURL({ format: 'png', size: 2048 });
+
   const status = (() => {
     switch (member.presence.status) {
-      case 'online': return ONLINE;
-      case 'idle': return IDLE;
-      case 'dnd': return DND;
-      default: return INVIS;
+      case 'online': return 'online';
+      case 'idle': return 'idle';
+      case 'dnd': return 'dnd';
+      default: return 'invis';
     }
   })();
-  let stat = await Jimp.read(status);
-  stat = stat.resize(sl, sl, Jimp.RESIZE_BEZIER);
 
-
-  for (let x = 0; x < wl; x++) {
-    for (let y = 0; y < wl; y++) {
-      if ((x - (wl / 2)) ** 2 + (y - (wl / 2)) ** 2 > (~~(wl / 2) - 1) ** 2) {
-        pfp.setPixelColor(0x00, x, y);
-        pfp2.setPixelColor(0x00, x, y);
-      }
-    }
-  }
-  pfp = pfp.blit(stat, bl, bl);
-
-  const thex = 864, they = 864, r1 = 180, r2 = 126, r3 = 98;
-
-  for (let x = 0; x < wl; x++) {
-    for (let y = 0; y < wl; y++) {
-      if (((x - thex) ** 2 + (y - they) ** 2 >= r3 ** 2) && ((x - thex) ** 2 + (y - they) ** 2 <= r2 ** 2)) {
-        let { r, g, b, a } = Jimp.intToRGBA(pfp.getPixelColor(x, y));
-        a = a > 172 ? 160 : a;
-        pfp.setPixelColor(Jimp.rgbaToInt(r, g, b, a), x, y);
-      }
-    }
-  }
-
-  for (let x = 0; x < wl; x++) {
-    for (let y = 0; y < wl; y++) {
-      if (((x - thex) ** 2 + (y - they) ** 2 >= r2 ** 2) && ((x - thex) ** 2 + (y - they) ** 2 <= r1 ** 2)) pfp.setPixelColor(0x000000, x, y);
-    }
-  }
-
-  for (let x = 0; x < wl; x++) {
-    for (let y = 0; y < wl; y++) {
-      if ((x - thex) ** 2 + (y - they) ** 2 >= r1 ** 2) pfp.setPixelColor(pfp2.getPixelColor(x, y), x, y);
-    }
-  }
-
-  pfp = pfp.resize(~~(wl / 2), ~~(wl / 2), Jimp.RESIZE_BEZIER);
+  const r = await snekfetch.get(`${Constants.APIURL}avaround`)
+    .set('Authorization',process.env.RETHINKPSWD)
+    .set('Status', status)
+    .set('X-Data-Src',  avatarURL);
 
   const membername = member.displayName.replace('@', '(at)');
   let highest = 'years';
-  diff = await convertTime(member.joinedAt, times.indexOf(highest));
+  let diff = await convertTime(member.joinedAt, times.indexOf(highest));
   diff = `${diff[0]} ${times[diff[1]]}`;
 
   /* Let diff2;
@@ -478,7 +471,18 @@ const userData = (member, infobad, convertTime, times, name) => new Promise(asyn
   highest = 'years';
   diff3 = await convertTime(member.user.createdAt, times.indexOf(highest));
   diff3 = `${diff3[0]} ${times[diff3[1]]}`;
-  infobad.addField(`${member.user.tag}: `, `${member.presence.game && member.presence.game.streaming ? 'Streaming' : 'Playing'} ${member.presence.game ? member.presence.game.name : 'nothing.'}`, true);
+  infobad.addField(`${member.user.tag}: `,
+    `${member.presence.activity && member.presence.activity.type ?
+        member.presence.activity.type
+        .replace(/(\w)(\w+)/,
+          (a, b, c) => b.toUpperCase() + c.toLowerCase()) :
+          'Playing'
+      } ${
+        member.presence.activity ?
+        member.presence.activity.name :
+        'nothing.'
+      }`, true
+  );
   infobad.addField('User id:', `${member.id}`, true)
     .addField(`Nickname: ${membername}`, `Colour: ${member.displayHexColor}`, true);
   infobad.addField(`Joined Discord on ${member.user.createdAt.toUTCString()}`, `That's about ${diff3} ago!`);
@@ -490,12 +494,10 @@ const userData = (member, infobad, convertTime, times, name) => new Promise(asyn
   infobad.addField(`Permissions number:`, member.permissions.bitfield);
   // Infobad.addField(`Avatar URL`, `[Click Here](${member.user.avatarURL})`);
   // infobad.setThumbnail(member.user.avatarURL);
-  infobad.setColor(member.displayColor);
-
-  pfp.write(name, async() => {
-    infobad.attachFiles([name]).setThumbnail(`attachment://${name}`);
-    return res(infobad);
-  });
+  infobad.setColor(member ? member.displayColor : `#${((1 << 24) * Math.random() | 0).toString(16)}`)
+    .attachFiles([new Discord.MessageAttachment(r.body, 'image.png')])
+    .setThumbnail('attachment://image.png');
+  return res(infobad);
 });
 
 module.exports = ex;

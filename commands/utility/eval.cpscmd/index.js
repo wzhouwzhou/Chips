@@ -2,6 +2,7 @@ let regeval = require('./eval');
 let asynceval = require('./async');
 let pythoneval = require('./python');
 let git = require('./git');
+const pyrepl = require('./pyrepl');
 
 console.log('[CPSCMD][UTILITY][eval] Building objects...');
 regeval.metadata = {
@@ -20,7 +21,7 @@ pythoneval.metadata = {
   description: 'This command evaulates some python',
   perm: [['OWNER.eval.python']],
 };
-
+pyrepl.metadata = pythoneval.metadata;
 git.metadata = {
   category: require('../').category,
   description: 'This command provides shortcut for git things',
@@ -33,4 +34,5 @@ module.exports = [
   [asynceval.name, asynceval],
   [pythoneval.name, pythoneval],
   [git.name, git],
+  [pyrepl.name, pyrepl],
 ];

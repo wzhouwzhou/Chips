@@ -8,7 +8,7 @@ sid.metadata = {
   description: 'Fetches server id',
   usage: 'serverid',
   example: ['serverid'],
-  perm: [['global.info.info']],
+  perm: [['global.info.id.serverid']],
   customperm: ['SEND_MESSAGES'],
 };
 
@@ -18,7 +18,7 @@ cid.metadata = {
   description: 'Fetches channel id',
   usage: 'channelid',
   example: ['channelid'],
-  perm: [['global.info.info']],
+  perm: [['global.info.id.channelid']],
   customperm: ['SEND_MESSAGES'],
 };
 
@@ -28,7 +28,7 @@ lastmsgid.metadata = {
   description: 'Fetches last sended message id',
   usage: 'lastmessageid',
   example: ['lastmessageid'],
-  perm: [['global.info.info']],
+  perm: [['global.info.id.lastmsgid']],
   customperm: ['SEND_MESSAGES'],
 };
 

@@ -1,5 +1,7 @@
 /* eslint no-unused-vars: "off" */
 Object.defineProperty(exports, '__esModule', { value: true });
+// Require('long-stack-traces');
+
 global._ = require('lodash');
 const OL1 = console.log;
 console.log = (...args) => OL1(...args.map(e => (e + []).replace(new RegExp(`${_.escapeRegExp(__dirname)}`, 'gi'), '$.')));
@@ -16,10 +18,11 @@ global.fs = require('fs');
 const request = require('request');
 
 // Const favicon = require('serve-favicon');
-global.Discord = require('discord.js');
+const Discord = require('discord.js');
+global.Discord = Discord;
 global.client = new Discord.Client({
   fetchAllMembers: true,
-  messageCacheMaxSize: 15,
+  messageCacheMaxSize: 12,
   // MessageCacheLifetime:(30*60),
   // messageSweepInterval:(60*60*1)
 });
@@ -40,14 +43,28 @@ global.memberjoin = {
   autoname: {},
   antiraidEnabled: {},
   antiraidWelcome: {
-    '257889450850254848': `<@&305302877641900052> Welcome to Sinbadx Knights! **You must answer these questions to be verified and be able to speak in the other channels!**
-      1. How did you hear about this server?
-      2. If you got our invite link online (e.g. on youtube), please provide **a url** (something that looks like https://youtu.be/something) to where you got it. (We don't want a discord.gg link)
-      \tIf you got it from a friend, please tell us who like so: **SomebodyHere#1234**.
-      3. Why did you join this server?
-      4. Did you read <#348082661060771841>? You must promise to follow the rules and agree to the bot TOS.
-      5. What is your favorite diep.io tank?
-You can answer these in this channel (don't dm them!) with just a sentence or two for each, no need to write an essay!)`,
+    '257889450850254848': [
+      '**<@&305302877641900052>  Welcome to SBK, please answer these here and wait to be verified:**',
+      '1. If you got our invite online **send link** to webpage (not invite link) or **show us a photo** where ' +
+        'you got our discord invite.\nIf you got it from a friend, please tell us who like so: ' +
+        '**SomebodyHere#1234**.',
+
+      '2. Please read <#404992099478405122>; will you follow the rules and agree to the bot TOS?',
+
+      '3. What is your favourite diep.io tank?',
+    ].join('\n'),
+
+    '350750159988064256': [
+      '**<@&404611847124156417>  Welcome to SinxSquad, please answer these here and wait to be verified:**',
+      '1. If you got our invite online **send link** to webpage (not invite link) or **show us a photo** where ' +
+        'you got our discord invite.\nIf you got it from a friend, please tell us who like so: ' +
+        '**SomebodyHere#1234**.',
+
+      '2. Please read <#350836867006201866>; will you follow the rules and ' +
+        'agree to the bot TOS?',
+
+      '3. What is your favourite diep.io tank?',
+    ].join('\n'),
 
     '274260111415836675': `**Hello There! If you want access to other text channels, you must be verified in the process. If there are no staff online, please wait.**
       __**Here are the questions:**__
@@ -58,15 +75,27 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
 
     '302983444009451541': `Hai hoi! I'm just testing :>`,
     '250801092143611905': 'Welcome to Diep Colony! Please wait for online staff to verify you!',
-    '359801125882298378': 'Welcome to nsfw empire. Please wait to be verified.',
+    '384976959500845057': 'Welcome to Anxiety🔞! Please enjoy your stay!',
+    '359801125882298378': 'Welcome! Please wait to be verified.',
+    '291558782755012610': `<@&382955220478722058> Welcome to SickMania <@&385865868417957888>, make sure to read the <#366505552752148481> and <#312224217967886336>!
+    **1) How did you get here?
+    2) Why did you join?
+    3) What is your favorite tank in Diep.io? (Say "skip" if you don't have one!)
+    4) Do you promise to read rules & information?**
+    __Staff can verify you using \`vs ok [mention]!__`,
   },
   captcha: {
     '302983444009451541': true,
     '257889450850254848': false,
     '250801092143611905': false,
     '329024870887456768': true,
-    '359801125882298378': true,
+    '359801125882298378': false,
     '295601523050676226': true,
+    '384976959500845057': false, // Anxiety🔞
+    '339930093042532363': true,
+    '300727201119076352': false,
+    '291558782755012610': false, // SickMania
+    '295415817414377474': false,
   },
   panics: {
     0: false,
@@ -87,6 +116,7 @@ You can answer these in this channel (don't dm them!) with just a sentence or tw
     '257889450850254848': '260864259330801674',
     '250801092143611905': '329719279132082176',
     '274260111415836675': '320220288195493890',
+    '350750159988064256': '404608646174081025',
   },
 };
 
@@ -101,6 +131,9 @@ client.disableSelfStar = {
   '302600674846310401': true,
   '323867107840229376': true,
   '274260111415836675': true,
+  '350750159988064256': true,
+  '359801125882298378': true, //NSFW EMPIRE
+  '195278167181754369': true, //Diep Cord
 };
 const { BotDatabase } = require('./rewrite-all/src/struct/util/BotDatabase');
 client.database = new BotDatabase(client);// Require(path.join(__dirname, './setup/db/DatabaseLoader'));
@@ -192,7 +225,7 @@ function selfping() {
     results.forEach(shardStat => {
       memtotals += shardStat;
     });
-    if (memtotals > 700) clientutil.broadcastEval('process.exit(100)');
+    if (memtotals > 1200) clientutil.broadcastEval('process.exit(100)');
   });
 }
 
