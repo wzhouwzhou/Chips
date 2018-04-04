@@ -44,12 +44,14 @@ const neko = [
   // Lucas
   '262127229385965570',
   // Devon, for making chips logos
-  '374022684519956480',
-  // Cursed
+  '286246724270555136',
+  // Horizon, that one owner guy
   '278867114792845312',
   // Tidepod
   '336962062544666624',
   // Phoenix
+  '409110653874208769',
+  // Lia
 ];
 
 const l2 = [
