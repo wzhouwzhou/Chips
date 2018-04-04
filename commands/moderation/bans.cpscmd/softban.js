@@ -68,17 +68,13 @@ module.exports = {
             .then(u => { u.ssend('Uh oh!', { embed: emb }); })
             .then(() => {
               m.reply('Softbanning!');
-              memberToUse
-                .ban({ reason: `[SOFTBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}` }, { days: 7 })
-                .then(guild.unban(memberToUse.toString(), { reason: `[UNBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}` }))
-                .catch(err => m.channel.send(`Something went wrong…\n${err}`));
+              memberToUse.ban({ reason: `[SOFTBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}` }, { days: 7 })
+              guild.unban(memberToUse.toString(), { reason: `[UNBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}` }),
             })
             .catch(() => {
               m.reply('Could not dm the user, but softbanning anyway!');
-              memberToUse
-                .ban({ reason: `[SOFTBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}` }, { days: 7 })
-                .then(guild.unban(memberToUse.toString(), { reason: `[UNBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}` }))
-                .catch(err => m.channel.send(`Something went wrong…\n${err}`));
+              memberToUse.ban({ reason: `[SOFTBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}` }, { days: 7 })
+              guild.unban(memberToUse.toString(), { reason: `[UNBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}` }),
             });
         } else {
           console.log('[Softban] cancelled');
