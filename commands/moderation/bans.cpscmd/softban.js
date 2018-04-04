@@ -69,12 +69,12 @@ module.exports = {
             .then(() => {
               m.reply('Banning!');
               memberToUse.ban({ reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`, days: 7 });
-              memberToUse.unban({ reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}` });
+              guild.unban(memberToUse.id, { reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}` });
             })
             .catch(() => {
               m.reply('Could not dm the user, but banning anyway!');
               memberToUse.ban({ reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`, days: 7 });
-              memberToUse.unban({ reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}` });
+              guild.unban(memberToUse.id, { reason: `[BAN]: [Author]: ${m.author.tag} [Reason]: ${reason}` });
             });
         } else {
           console.log('[Ban] cancelled');
