@@ -2,7 +2,7 @@ const EXPIRE = 10000;
 
 module.exports = {
   name: 'softban',
-  async func(msg, { reply, member, author, content, args, channel, guild, gMember }) {
+  async func(msg, { reply, member, author, content, args, channel, guild, gMember, client }) {
     let memberToUse;
     try { // Get mention:
       console.log('Trying to find user by mention..');
@@ -68,7 +68,10 @@ module.exports = {
             .then(u => { u.ssend('Uh oh!', { embed: emb }); })
             .then(() => {
               m.reply('Softbanning!');
-              memberToUse.ban({ reason: `[SOFTBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}` }, { days: 7 });
+              memberToUse
+                .ban({ reason: `[SOFTBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}` }, { days: 7 })
+                .then(guild.unban(memberToUse.toString(), { reason: `[UNBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}` }))
+                .catch(err => m.channel.send(`Something went wrong…\n${err}`));
             })
             .catch(() => {
               m.reply('Could not dm the user, but softbanning anyway!');
