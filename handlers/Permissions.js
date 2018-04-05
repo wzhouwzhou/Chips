@@ -271,7 +271,7 @@ ex.userpermissions = {
   // Hoz
   '286246724270555136':
   [
-    { name: 'global.*', action: 1 },
+    { name: 'global.fun.*', action: 1 },
     { name: 'OWNER.*', action: 1 },
   ],
   // Chips beta
