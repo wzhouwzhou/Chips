@@ -297,7 +297,7 @@ ex.userpermissions = {
   // Julius
   '214127659897061376':
   [
-    { name: 'global.fun.-ban.*', action: 1 },
+    { name: 'global.fun.-ban.-ban', action: 1 },
   ],
 };
 
