@@ -299,6 +299,11 @@ ex.userpermissions = {
   [
     { name: 'global.fun.-ban.-ban', action: 1 },
   ],
+  //!Death due to spamming this command making chips raid a server
+  '270289784348475393':
+  [
+    { name: 'global.fun.-ban.-ban', action: -1 },
+  ],
 };
 
 ex.rolepermissions = {
