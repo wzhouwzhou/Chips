@@ -294,6 +294,10 @@ ex.userpermissions = {
   [
     { name: 'global.fun.say.*', action: 1 },
   ],
+  '374022684519956480':
+  [
+    { name: 'global.fun.-ban.-ban', action: -1 },
+  ],
   // Julius
   '214127659897061376':
   [
