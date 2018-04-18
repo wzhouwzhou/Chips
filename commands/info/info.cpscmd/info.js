@@ -215,7 +215,10 @@ const ex = {
           member = content.substring(`${prefix}info ${action} `.length);
           let list = searchers[guild.id].searchMember(member);
           if (list.length > 1) multiple = true;
-          else if (list.length < 1) return await send(`User [${member}] not found!`);
+          else if (list.length < 1) {
+            waiting.delete();
+            return send(new Discord.MessageEmbed().setColor(member.displayColor).setDescription(`User [${member}] not found!`));
+          }
           member = list[0];
           if (member.id != author.id) {
             try {
@@ -278,8 +281,11 @@ const ex = {
         } catch (err) { // Failed to find by id
           role = content.substring(`${prefix}info ${action} `.length);
           let list = searchers[guild.id].searchRole(role);
-          if (list.length > 1) await send('Multiple matches found, using first one..');
-          else if (list.length < 1) return await send(`Role [${role}] not found!`);
+          if (list.length > 1) {
+            await send('Multiple matches found, using first one..');
+          } else if (list.length < 1) {
+            return send(new Discord.MessageEmbed().setColor(member.displayColor).setDescription(`Role [${role}] not found!`));
+          }
           role = list[0];
         }
         let rolename = role.name.replace('@', '(at)');
@@ -365,7 +371,11 @@ const ex = {
         } catch (err) {
           channel = content.substring(`${prefix}info ${action} `.length);
           let list = searchers[guild.id].searchChannel(channel);
-          if (list.length > 1) { await send('Multiple matches found, using first one..'); console.log(list); } else if (list.length < 1) { return await send(`Channel [${channel}] not found!`); }
+          if (list.length > 1) {
+            await send('Multiple matches found, using first one..'); 
+          } else if (list.length < 1) {
+            return send(new Discord.MessageEmbed().setColor(member.displayColor).setDescription(`Channel [${channel}] not found!`));
+          }
           channel = list[0];
         }
       }
