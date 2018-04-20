@@ -1,6 +1,8 @@
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
 const snekfetch = require('snekfetch')
 const fs = require('fs');
+const cache = new Map;
+
 // Const m6r = require('../../../rewrite-all/src/deps/functions/mee6rankF').default({ needle: require('needle') });
 
 const m6r = (gid, uid) => snekfetch.get(`https://api.chipsbot.me:2087/mee6?gid=${gid}&uid=${uid}`);
@@ -99,23 +101,29 @@ const ex = {
 
 const userData = ({ Discord, member, infobad, Constants, guild }) => new Promise(async res => {
   const avatarURL = member.user.displayAvatarURL({ format: 'png', size: 2048 });
-
-  const status = (() => {
-    switch (member.presence.status) {
-      case 'online': return 'online';
-      case 'idle': return 'idle';
-      case 'dnd': return 'dnd';
-      default: return 'invis';
-    }
-  })();
-  let trueMemC = guild.members.filter(m => m.user.bot);
-  const rp = snekfetch.get(`${Constants.APIURL}avaround`)
-    .set('Authorization', process.env.RETHINKPSWD)
-    .set('Status', status)
-    .set('X-Data-Src', avatarURL);
-  const datap = m6r(member.guild.id, member.id);
   let r, data;
-  [r, data] = await Promise.all([rp, datap]);
+  let trueMemC = guild.members.filter(m => m.user.bot);
+  if (!cache.has(avatarURL)) {
+    const status = (() => {
+      switch (member.presence.status) {
+        case 'online': return 'online';
+        case 'idle': return 'idle';
+        case 'dnd': return 'dnd';
+        default: return 'invis';
+      }
+    })();
+    const rp = snekfetch.get(`${Constants.APIURL}avaround`)
+      .set('Authorization', process.env.RETHINKPSWD)
+      .set('Status', status)
+      .set('X-Data-Src', avatarURL);
+    const datap = m6r(member.guild.id, member.id);
+    [r, data] = await Promise.all([rp, datap]);
+    cache.set(avatarURL, r.body);
+  } else {
+    const datap = m6r(member.guild.id, member.id);
+    data = await datap;
+  }
+  r = cache.get(avatarURL);
   data = data.body;
   const membername = member.displayName.replace('@', '(at)');
 
@@ -123,12 +131,13 @@ const userData = ({ Discord, member, infobad, Constants, guild }) => new Promise
   if (!data || data.xp === undefined || data.xp === null) {
     infobad.setDescription('User is not ranked!');
   } else {
-    infobad.addField(`Ranked #${data.rank}/${guild.members.size - trueMemC.size} members`, `Level ${data.lvl} with ${data.total_xp} total xp!`);
+    infobad.addField(`Ranked #${data.rank}/${guild.members.size - trueMemC.size} members`,
+      `Level ${data.lvl} with ${data.total_xp} total xp!`);
     infobad.addField(`Level xp: ${data.curr_xp}/${data.lvl_xp} (${data.xp_percent}%)`,
       `About ${data.estimated_msgs} msg(s) (${data.remaining_xp} xp) there to level ${data.lvl + 1}!`);
   }
   infobad.setColor(member.displayColor)
-    .attachFiles([new Discord.MessageAttachment(r.body, 'image.png')])
+    .attachFiles([new Discord.MessageAttachment(r, 'image.png')])
     .setThumbnail('attachment://image.png');
   return res(infobad);
 });

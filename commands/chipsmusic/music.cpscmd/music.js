@@ -6,7 +6,7 @@ const _ = require('lodash');
 module.exports = {
   _handlers,
   name: 'music',
-  func(msg, { args, guild, client, member, channel, send, prefix, Discord }) {
+  async func(msg, { args, guild, client, member, channel, send, prefix, Discord }) {
     if (!args[0] || args[0] === 'help') {
       return send(new Discord.MessageEmbed().setTitle('Available actions').setDescription([
         `**${_.escapeRegExp(prefix)}${this.name} demo** to start the main music module, more instructions will follow.`,
@@ -14,9 +14,7 @@ module.exports = {
       ].join('\n')));
     }
     if (args[0] === 'radio') {
-      const l = ['monstercat', 'ncs', 'tgl', 'chillHop', 'lm', 'wqxr']
-        .map(e => Object.keys(client[`${e}Channels`]).length)
-        .reduce((a, e) => a + e, 0);
+      const l = await client.shard.broadcastEval(`client.voiceConnections.size`).then(c => c.reduce((a, b) => a + b, 0));
 
       return send(new Discord.MessageEmbed().setTitle('Chips radio (Beta™)').setDescription([
         '**Introducing Chips 24/7 radio!**\n',

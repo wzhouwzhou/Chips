@@ -43,7 +43,7 @@ module.exports = {
       else if (weighted < 400) scale = "That's about average!";
       else if (weighted < 500) scale = "That's slightly below average!";
       else if (weighted < 600) scale = 'I might be lagging a bit!';
-      else if (weighted < 700) scale = "I think I am lagging a fair amount!";
+      else if (weighted < 700) scale = 'I think I am lagging a fair amount!';
       else if (weighted < 800) scale = "Perhaps I am having issues with the internet! Try doing discordstatus to see if it's a problem on Discord's end!";
       else if (weighted < 900) scale = "That's pretty bad! Try doing discordstatus to see if it's a problem on Discord's end!";
       else if (weighted < 1000)scale = "That's poor! Perhaps I just restarted? Try doing discordstatus to see if it's a problem on Discord's end!";
@@ -92,8 +92,8 @@ module.exports = {
       }
       dbping = item ? Date.now() - dbo : 'Database disconnected';
       const gateway = client.gatewayc ? client.gatewayc.getPingAvg() : null;
-      return sentmsg.edit(`🏓\u2000Pong! (times in ms)\nWebsocket: **${~~client.ping}**\nApi: **${
-        ~~(sentMetric * 100) / 100}**\nGateway: **${gateway || 'Gateway disconnected'}**\nDatabase writes: **${dbping || 'DB disconnected'}**`);
+      return sentmsg.edit(`🏓\u2000Pong! (times in ms)\nWebsocket: **${~~client.ping}**\nApi: **${~~(sentMetric * 100) / 100
+      }**\nGateway: **${gateway || 'Gateway disconnected'}**\nDatabase writes: **${dbping || 'DB disconnected'}**`);
     }
   },
 };
