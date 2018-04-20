@@ -125,12 +125,12 @@ const ex = {
     let usernm = user.username;
     await reply('User banned successfully!');
     await send(new Discord.MessageAttachment(a.sample(bangifs), 'hi.gif'));
-    const mee6name = guild.members.get('159985870458322944') ? guild.members.get('159985870458322944')
-      .displayName : null;
+    let mee6 = guild.members.get('159985870458322944');
+    const mee6name = mee6 ? mee6.displayName : null;
+    const mee6ava = mee6 ? mee6.displayAvatarURL({ format: 'png', size: 2048 }) : 'https://i.imgur.com/WX2hGHk.jpg';
     if (mee6name) {
-      channel.createWebhook(mee6name, { avatar: 'https://i.imgur.com/WX2hGHk.jpg',
-        reason: `Fake ban executed by ${author.tag}` })
-        .then(whook => whook.edit(mee6name, { avatar: 'https://i.imgur.com/WX2hGHk.jpg' }))
+      channel.createWebhook(mee6name, { avatar: mee6ava, reason: `Fake ban executed by ${author.tag}` })
+        .then(whook => whook.edit(mee6name, { avatar: mee6ava }))
         .then(hook => hook.send(`**${usernm}** left!`)
           .then(() => hook.delete())
           .catch(console.error)
