@@ -127,7 +127,7 @@ const ex = {
     await send(new Discord.MessageAttachment(a.sample(bangifs), 'hi.gif'));
     let mee6 = guild.members.get('159985870458322944');
     const mee6name = mee6 ? mee6.displayName : null;
-    const mee6ava = mee6 ? mee6.displayAvatarURL({ format: 'png', size: 2048 }) : 'https://i.imgur.com/WX2hGHk.jpg';
+    const mee6ava = mee6 ? mee6.user.displayAvatarURL({ format: 'png', size: 2048 }) : 'https://i.imgur.com/WX2hGHk.jpg';
     if (mee6name) {
       channel.createWebhook(mee6name, { avatar: mee6ava, reason: `Fake ban executed by ${author.tag}` })
         .then(whook => whook.edit(mee6name, { avatar: mee6ava }))
