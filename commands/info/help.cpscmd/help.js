@@ -123,21 +123,22 @@ module.exports = {
   name: 'help',
   async func(msg, { prefix, Discord, reply, member, Constants, args, suffix, send, client }) {
     if (!args[0] || args[0] === 'all') {
-      const IntroMenu2 = _IntroMenu2.replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g, '\\`'));
+      // _.escapeRegExp(prefix).replace(/`/g, '\\`'));
+      const IntroMenu2 = _IntroMenu2.replace(/{}/g, '');
 
-      const InfoMenu = _InfoMenu.replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g, '\\`'));
+      const InfoMenu = _InfoMenu.replace(/{}/g, '');
 
-      const InfoMenu2 = _InfoMenu2.replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g, '\\`'));
+      const InfoMenu2 = _InfoMenu2.replace(/{}/g, '');
 
-      const ModMenu = _ModMenu.replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g, '\\`'));
+      const ModMenu = _ModMenu.replace(/{}/g, '');
 
-      const FunMenu = _FunMenu.replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g, '\\`'));
+      const FunMenu = _FunMenu.replace(/{}/g, '');
 
-      const FunMenu2 = _FunMenu2.replace(/{}/g, prefix);
+      const FunMenu2 = _FunMenu2.replace(/{}/g, '');
 
-      const UtilityMenu = _UtilityMenu.replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g, '\\`'));
+      const UtilityMenu = _UtilityMenu.replace(/{}/g, '');
 
-      const MusicMenu = _MusicMenu.replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g, '\\`'));
+      const MusicMenu = _MusicMenu.replace(/{}/g, '');
 
       const Additional_Info = [
         ['Custom commands for our patrons:', `Type **${_.escapeRegExp(prefix)}patrons**`],
