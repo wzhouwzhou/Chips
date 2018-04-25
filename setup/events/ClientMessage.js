@@ -218,7 +218,7 @@ const msghandle = async message => {
     '259209114268336129': '259209114268336129|willy|william',
     '359801125882298378': '250815960250974209|edp|evildeathpro|ethan',
     '205608598233939970': '205608598233939970|lucas|lsg|lucaslsg|l|u|c|a|s|g',
-    '286246724270555136': '286246724270555136|h0r1zonz|horizon|horizonz|hori|tori|hoz|horizy'
+    '286246724270555136': '286246724270555136|h0r1zonz|horizon|horizonz|hori|hoz|horizy'
   };
   const notify = {
     '306244855493951489': false,
@@ -227,7 +227,7 @@ const msghandle = async message => {
     '205608598233939970': true,
     '286246724270555136': true,
   };
-  if (message.guild && message.guild.id == Constants.servers.SURSKIT){
+  if (message.guild && (message.guild.id == Constants.servers.SURSKIT) || (message.guild.id == '210535197286989826') || (message.guild.id == '359801125882298378')){
     if (message.content.replace(/[\s.,|/]+/g, '').match(new RegExp(`${'despac'.split('').join('+')}i+?t+?o+?`, 'i'))) return message.delete();
     for (const id in keywords) {
       if (keywords[id].toLowerCase().split('|').some(e => message.content.toLowerCase().includes(e)) && notify[id]) {
