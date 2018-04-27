@@ -227,13 +227,13 @@ const msghandle = async message => {
     '205608598233939970': true,
     '286246724270555136': true,
   };
-  if (message.guild && (message.guild.id == Constants.servers.SURSKIT) || (message.guild.id == '210535197286989826') || (message.guild.id == '359801125882298378')){
+  if (message.guild && (message.guild.id == '210535197286989826') || (message.guild.id == '359801125882298378')){
     if (message.content.replace(/[\s.,|/]+/g, '').match(new RegExp(`${'despac'.split('').join('+')}i+?t+?o+?`, 'i'))) return message.delete();
     for (const id in keywords) {
       if (keywords[id].toLowerCase().split('|').some(e => message.content.toLowerCase().includes(e)) && notify[id]) {
         if (message.author.id !== id) {
           client.users.fetch(id).then(user =>
-            user.send(`\`${keywords[id]}\` in server \`Sinbad Knights\`!\n${message.channel + []} (${message.channel.name})\n**${message.author.tag}:** ${message.content}`)
+            user.send(`\`${keywords[id]}\` in server \`${message.guild.name}\`!\n${message.channel + []} (${message.channel.name})\n**${message.author.tag}:** ${message.content}`)
           ).catch(err =>
             console.error(`[KEYWORD NOTIFY][err] ${err}`)
           );
