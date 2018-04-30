@@ -41,6 +41,16 @@ ships.set(rosewilly, 200);
 shipComments.set(rosewilly, 'The perfect match ♡♡♡!!');
 shipJoin.set(rosewilly, '<a:bhe:415032514671804416>');
 
+const voidsuya = '234718270106632192,426249015206739979';
+ships.set(voidsuya, 100);
+shipComments.set(voidsuya, '真実の恋!');
+shipJoin.set(voidsuya, '<:Think:437342417260249088>');
+
+const willyneko = '259209114268336129,266807550350065665';
+ships.set(willyneko, 100);
+shipComments.set(willyneko, 'Kawaii Neko Tsundere <:triggeredcat:326124632287608834>');
+shipJoin.set(willyneko, '<:nekonya:356850606909947924>');
+
 module.exports = {
   name: 'ship',
   async func(msg, { send, Discord, client, suffix, member, guild }) {
