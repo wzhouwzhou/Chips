@@ -113,10 +113,11 @@ const _UtilityMenu = [
 ].join('\n');
 
 const _MusicMenu = [
-  '`{}music demo` to begin the music demo.',
-  '__This **Beta** feature is still being heavily developed and is not necessarily stable at all times__, sorry!',
-  'Mention me once demo is activated for music commands: __@Chips music help__',
-  'Server specific prefixes do not work. The only prefix usable with Chips music is mentioning chips',
+  //'`{}music demo` to begin the music demo.',
+  //'__This **Beta** feature is still being heavily developed and is not necessarily stable at all times__, sorry!',
+  //'Mention me once demo is activated for music commands: __@Chips music help__',
+  // 'Server specific prefixes do not work. The only prefix usable with Chips music is mentioning chips',
+  'Music module is disabled/undergoing severe maintenance. Apologies for the inconvenience.'
 ].join('\n');
 
 module.exports = {

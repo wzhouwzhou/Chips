@@ -6,6 +6,10 @@ const _ = require('lodash');
 module.exports = {
   _handlers,
   name: 'music',
+  func(msg, { send }) {
+    return send('Music module is disabled/undergoing severe maintenance. Apologies for the inconvenience.');
+  }
+  /*
   async func(msg, { args, guild, client, member, channel, send, prefix, Discord }) {
     if (!args[0] || args[0] === 'help') {
       return send(new Discord.MessageEmbed().setTitle('Available actions').setDescription([
@@ -40,4 +44,5 @@ module.exports = {
     }
     return true;
   },
+  */
 };
