@@ -54,6 +54,7 @@ ex.func = async(msg, {
         // Duckio
         if (guild.id === '274260111415836675') {
           await targetMember.addRole(guild.roles.get('338625733456953344'));
+          guild.channels.get('274260111415836675').send(`${targetMember + []} is now verified! Please be sure to read <#378680507786985472> and <#378680485309710336>.`);
         }
         if (client.memberjoin.verifyLogC[guild.id]) {
           let embed = new Discord.MessageEmbed();
