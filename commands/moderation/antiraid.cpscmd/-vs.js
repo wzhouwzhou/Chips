@@ -2,7 +2,6 @@
 const path = require('path');
 const _ = require('lodash');
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
-const Fan = guild.roles.find('name', 'Fan') //duckio discord
 
 const ex = {};
 
@@ -52,13 +51,16 @@ ex.func = async(msg, {
         await send(targetMember + [], { embed: ver });
         await targetMember.removeRole(guild.roles.get('305302877641900052') || therole,
           `${member.displayName} verified ${targetMember.nickname}!`);
-        if (Fan) { await targetMember.addRole(guild.roles.get('338625733456953344')); }
+        if (guild.id === '274260111415836675') {
+          // Duckio
+          await targetMember.addRole(guild.roles.get('338625733456953344'));
+        }
         if (client.memberjoin.verifyLogC[guild.id]) {
           let embed = new Discord.MessageEmbed();
-          embed.setTitle('Member Verification').setColor(_.random(1, 16777215));
+          embed.setTitle('Member Verification').setColor(_.random(1, 16777215)).setTimestamp();
           embed.setDescription(`<@${targetMember.id}> was just verified by <@${author.id}>!`);
           if (guild.channels.get(client.memberjoin.verifyLogC[guild.id])) {
-            guild.channels.get(client.memberjoin.verifyLogC[guild.id]).send('', { embed }).catch(err => {
+            guild.channels.get(client.memberjoin.verifyLogC[guild.id]).send(embed).catch(err => {
               reply('Could not log the verification...');
               console.log(err);
             });
