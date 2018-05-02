@@ -51,8 +51,8 @@ ex.func = async(msg, {
         await send(targetMember + [], { embed: ver });
         await targetMember.removeRole(guild.roles.get('305302877641900052') || therole,
           `${member.displayName} verified ${targetMember.nickname}!`);
+        // Duckio
         if (guild.id === '274260111415836675') {
-          // Duckio
           await targetMember.addRole(guild.roles.get('338625733456953344'));
         }
         if (client.memberjoin.verifyLogC[guild.id]) {
