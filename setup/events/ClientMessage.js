@@ -21,6 +21,7 @@ client.antilink = {
   '257889450850254848': true,
   '339930093042532363': true,
   '307623291479130132': true,
+  '274260111415836675': true,
 };
 
 client.antiDiepLink = {
@@ -28,7 +29,7 @@ client.antiDiepLink = {
 };
 
 client.antilinkExemptedC = [
-  '0',
+  '0', '375022276741038081', '322627461282267136'
 ];
 
 client.antiDiepLinkExemptedC = [
