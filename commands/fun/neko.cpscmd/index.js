@@ -8,7 +8,6 @@ neko.metadata = {
   usage: 'neko <No args>',
   example: 'neko',
   perm: [['global.fun.image.neko']],
-  customperm: ['SEND_MESSAGES'],
 };
 
 console.log('[CPSCMD][FUN][Neko] Build objects complete!');
