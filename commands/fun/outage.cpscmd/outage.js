@@ -29,4 +29,12 @@ module.exports = {
       throw err;
     }
   },
+  metadata: {
+   category: require('../').category,
+   description: 'Outage!',
+   usage: 'outage',
+   example: 'outage ',
+   perm: [['global.fun.*']],
+   customperm: ['SEND_MESSAGES'],
+  },
 };
