@@ -38,9 +38,9 @@ const killerMan = [
     'dismembered torso, before the eyes roll backward into the skull.'].join(' '),
 
   [
-    '{{second}} steps on a land mine and is horrifically blown to multiple pieces as the device explodes,',
-    "the {{second}}'s entrails and body parts flying up and splattering all around as if someone had thrown",
-    'a watermelon onto the ground from the top of a multiple story building.'].join(' '),
+    "[@dead person] steps on a land mine and is horrifically blown to multiple pieces as the device explodes,",
+    "[@dead person]'s entrails and body parts flying up and splattering all around was as if someone had thrown a",
+    "watermelon onto the ground from the top of a multiple story building."].join(' '),
 
   [
     '{{second}} is killed instantly as the top half of his head is blown off by a rogue sniper armed with a',
@@ -80,11 +80,12 @@ const killerMan = [
     '"blender dimension" is written on the back of the note.'].join(' '),
 
   [
-    '{{second}} is visiting an old pizzeria with {{first}}. After eating some pizza that actually tasted pretty good,',
-    '{{second}} wanted to take a look at the things on the stage. But as soon as {{second}} came close to them, one of',
-    'them suddenly started to run in his direction. It looked like a pure red fox with a hook, but, in the moment,',
-    '{{second}} noticed that their head was already inside the mouth of the fox as it got tighter and tighter.',
-  ].join(' '),
+    '[@dead person] was visiting an old pizzeria with [@killer].',
+    'After eating some pizza that actually tasted pretty good,',
+    '[@dead person] wanted to take a look at the things on the stage.',
+    "But as soon as [@dead person] came close to them, one of them suddenly started to run in [@deadperson]'s direction.",
+    'It looked like a pure red fox with a hook, but, in the moment,',
+    '[@dead person] noticed that their head was already inside the mouth of the fox as it got tighter and tighter.'].join(' '),
 ];
 
 module.exports = {
@@ -102,6 +103,8 @@ module.exports = {
     return send(comment
       .replace(new RegExp(_.escapeRegExp('{{first}}'), 'gi'), first)
       .replace(new RegExp(_.escapeRegExp('{{second}}'), 'gi'), second)
+      .replace(new RegExp(_.escapeRegExp('[@dead person]'), 'gi'), first)
+      .replace(new RegExp(_.escapeRegExp('[@killer]'), 'gi'), second)
     );
   },
 };
