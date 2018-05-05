@@ -94,7 +94,7 @@ module.exports = {
         } else {
           return m.reply("Ok, I won't send your report!");
         }
-      }
     }
-  }),
 });
+  }
+}
