@@ -60,6 +60,7 @@ module.exports = {
   name: '8ball',
   func(msg, { send, args, suffix, Discord, member, client }) {
     if (!args[0]) return send('Do you have a question?');
+    if (!args[1]) return send('Is this even a question?');
     if (suffix.split('').reverse()[0] !== '?') return send('Question mark?');
 
     if (~suffix.indexOf('love', 'life', 'friend', 'like')) {
