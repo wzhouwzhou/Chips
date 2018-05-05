@@ -53,7 +53,7 @@ module.exports = {
       return reply('nice try lOl')
     }
 
-    if (!args[0]) {
+    if (!args[1]) {
 
     let reasonembed = new Discord.MessageEmbed()
       .setTitle('Help!')
