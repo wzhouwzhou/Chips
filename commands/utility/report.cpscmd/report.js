@@ -49,6 +49,8 @@ module.exports = {
     if(!member.roles.has(guild.roles.find('name', 'Server Member'))) {
       reply(`You are not allowed to use this command!`);
     
+    }
+    
     const reportreason = args[0];
 
     if (channel.id === '274260111415836675' || '399187352225972235') { 
