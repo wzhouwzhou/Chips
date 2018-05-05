@@ -49,7 +49,25 @@ module.exports = {
       return;
     }
 
-    if ((!args[0]) && (!~content.indexOf(reasons))) {
+    if ((!args[0]) || (!~content.indexOf(reasons)) || (args[1] === 'NSFW' ||
+    'Language' ||
+    'Commands' ||
+    'Alts' ||
+    'Spam' ||
+    'Copypasta' ||
+    'Zalgo' ||
+    'Caps' ||
+    'Flooding' ||
+    'Harassing' ||
+    'Insulting' ||
+    'Disrespecting' ||
+    'Trolling' ||
+    'Drama' ||
+    'Annoying' ||
+    'Off-topic' ||
+    'Advertising' ||
+    'Impersonation' ||
+    'XP farming')) {
 
     let reasonembed = new Discord.MessageEmbed()
       .setTitle('Invalid reason')
@@ -57,7 +75,9 @@ module.exports = {
       .setColor(member.displayColor);
     await send(reasonembed);
     
-  } if (args[1] === 'NSFW' ||
+  } 
+  
+  if (args[1] === 'NSFW' ||
   'Language' ||
   'Commands' ||
   'Alts' ||
