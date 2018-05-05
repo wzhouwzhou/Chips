@@ -1,4 +1,5 @@
 /* eslint no-undef: 'off', no-console: 'off' */
+const Discord = require('discord.js');
 const GW = require('../../rewrite-all/src/struct/client/GatewayClient').GatewayClient;
 const { pack } = require('erlpack');
 module.exports = send => {
@@ -136,7 +137,7 @@ module.exports = send => {
   // h2client.on('debug', console.log);
   // h3client.on('debug', console.log);
   let numCmds = 0;
-  client.loadErrors = new Map;
+  client.loadErrors = new Discord.Collection;
   const load = startPath => {
     let subset = [];
     if (!fs.existsSync(startPath)) return;
