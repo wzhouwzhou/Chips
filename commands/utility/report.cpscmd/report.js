@@ -96,6 +96,7 @@ module.exports = {
           report = new Discord.MessageEmbed()
             .setTitle('Report!')
             .addField(reportreason, content.substring(content.indexOf(args[0])))
+            .setColor(member.displayColor)
           await guild.channels.get('322843543532208128').send(report);
           return send('Your report has succesfully been sent!');
         } else {
