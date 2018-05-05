@@ -86,7 +86,7 @@ module.exports = {
         if (m.author.id !== author.id) return false;
         if (agreed) {
           const reportreason = args[0];
-          const embed = new Discord.MessageEmbed()
+          embed = new Discord.MessageEmbed()
             .setTitle('Report!')
             .addField(reportreason, content.substring(content.indexOf(args[1])))
           await guild.channels.get('322843543532208128').send(report);
