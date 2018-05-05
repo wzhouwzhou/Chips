@@ -68,7 +68,7 @@ module.exports = {
     await send(embed);
     
     let confirmed = false, agreed = false;
-    const collector = channel.createMessageCollector(m => {
+    let collector = channel.createMessageCollector(m => {
       if (m.author.id === author.id && /^(?:y(?:es)?)|(?:no?)$/i.test(m.content)) {
         m.channel.send('Choice accepted, one moment...');
         confirmed = true;
