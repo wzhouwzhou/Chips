@@ -46,7 +46,7 @@ module.exports = {
   name: 'report',
   async func(msg, { guild, send, args, member, Discord, content, author, suffix, channel, collector, reply }) {
     
-    if(member.roles.some(r=>["Staff Team", "Supervisor", "Server Member", "Trusted"].includes(r.name))) {
+    if(!member.roles.some(r=>["Staff Team", "Supervisor", "Server Member", "Trusted"].includes(r.name))) {
       return reply(`You are not allowed to use this command!`);
     
     }
