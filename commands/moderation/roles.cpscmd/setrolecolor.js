@@ -14,10 +14,6 @@ module.exports = {
       return send(embed);
     }
 
-    if (!args[0].match(reg) && !args[0].match(reset)) {
-      return send('Invalid hex color provided');
-    }
-
     if (!args[1]) {
       return send('No role provided');
     }
