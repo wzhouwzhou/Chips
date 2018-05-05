@@ -69,7 +69,7 @@ module.exports = {
     
     let confirmed = false, agreed = false;
     collector = channel.createMessageCollector(m => {
-      if (m.author.id === author.id && /^(?:y(?:es)?)|(?:no?)$/i.test(m.content)) {
+      if ((m.author.id === author.id && /^(?:y(?:es)?)|(?:no?)$/i.test(m.content)) && args[0]) {
         m.channel.send('Choice accepted, one moment...');
         confirmed = true;
         agreed = /^(?:y(?:es)?)$/i.test(m.content);
