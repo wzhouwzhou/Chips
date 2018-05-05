@@ -1,4 +1,4 @@
-const reset = /reset/i;
+const reset = '#000000'
 const reg = /#((?:[0-9a-f]{2}){3})/i;
 
 module.exports = {
@@ -33,6 +33,18 @@ module.exports = {
       } else {
         return send('Not enough permissions!');
       }
+    if (args[0].match(reg) && suffix.substring(args[1].length + 1)) {
+      let role = guild.roles.find('name', `${suffix.substring(args[0].length + 1).trim()}`);
+      if (role && (member.highestRole.position > role.position)) {
+        await role.setColor(`${reset}`);
+        return send(`Role color set to ${reset}!`);
+      } else if (!role) {
+        return send(`Role not found!`);
+      } else {
+        return send('Not enough permissions!');
+      }
+      
+    }
     }
   },
 };
