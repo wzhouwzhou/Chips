@@ -60,7 +60,7 @@ module.exports = {
   }
 
     const question = [`${author.tag}, are you sure that you want to report?`, 'Reply with __y__es or __n__o in 10 seconds.'];
-    const embed = new Discord.MessageEmbed()
+    embed = new Discord.MessageEmbed()
       .setTitle('Report Verification')
       .addField(...question)
       .setThumbnail(Constants.images.WARNING)
@@ -86,7 +86,7 @@ module.exports = {
         if (m.author.id !== author.id) return false;
         if (agreed) {
           const reportreason = args[0];
-          embed = new Discord.MessageEmbed()
+          report = new Discord.MessageEmbed()
             .setTitle('Report!')
             .addField(reportreason, content.substring(content.indexOf(args[1])))
           await guild.channels.get('322843543532208128').send(report);
