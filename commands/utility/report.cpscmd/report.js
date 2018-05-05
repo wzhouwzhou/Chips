@@ -91,7 +91,7 @@ module.exports = {
       .setThumbnail(Constants.images.WARNING)
       .setColor(member.displayColor);
     await send(embed).then(sentmsg =>
-      setTimeout(() => { sentmsg.delete(); }, 5000));
+      setTimeout(() => { sentmsg.delete(); }, 15000));
     
     let confirmed = false, agreed = false;
     collector = channel.createMessageCollector(m => {
