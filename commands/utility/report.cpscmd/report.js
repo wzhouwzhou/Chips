@@ -46,17 +46,23 @@ module.exports = {
   name: 'report',
   async func(msg, { guild, send, args, member, Discord, content, author, suffix, channel, collector, reply }) {
     
-    if(!member.roles.has(guild.roles.find('name', 'Server Member'))) {
+    if(member.roles.some(r=>["Staff Team", "Supervisor", "Server Member", "Trusted"].includes(r.name))) {
       return reply(`You are not allowed to use this command!`);
     
     }
     
     const reportreason = args[0];
 
-    if (channel.id === '274260111415836675' || '399187352225972235') { 
+    if (channel.id === '274260111415836675') { 
       //Main and Games
       return reply('No big commands here!');
     }
+    
+    if (channel.id === '274260111415836675') { 
+      //Main and Games
+      return reply('No big commands here!');
+    }
+    
     
     if (!guild.id === '274260111415836675') {
       //DD
