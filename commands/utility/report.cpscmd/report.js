@@ -47,7 +47,7 @@ module.exports = {
   async func(msg, { guild, send, args, member, Discord, content, author, suffix, channel, collector, reply }) {
     
     if(!member.roles.has(guild.roles.find('name', 'Server Member'))) {
-      reply(`You are not allowed to use this command!`);
+      return reply(`You are not allowed to use this command!`);
     
     }
     
