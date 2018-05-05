@@ -69,7 +69,7 @@ module.exports = {
       return;
     }
 
-    if (!~'Language Commands Alts Spam Copypasta Zalgo Caps Flooding Harassing Insulting Disrespecting Trolling Drama Annoying Off-topic Advertising Impersonation Farming'.split(/\s+/).indexOf(args[0]) || !args[1]) {
+    if (!~'Language Commands Alts Spam Copypasta Zalgo Caps Flooding Harassing Insulting Disrespecting Trolling Drama Annoying Off-topic Advertising Impersonation Farming language commands alts spam copypasta zalgo caps flooding harassing insulting disrespecting trolling drama annoying off-topic advertising impersonation farming'.split(/\s+/).indexOf(args[0]) || !args[1]) {
 
     let reasonembed = new Discord.MessageEmbed()
       .setTitle('Help!')
@@ -80,7 +80,7 @@ module.exports = {
     
   } 
   
-  if (~'Language Commands Alts Spam Copypasta Zalgo Caps Flooding Harassing Insulting Disrespecting Trolling Drama Annoying Off-topic Advertising Impersonation Farming'.split(/\s+/).indexOf(args[0]) && args[1]) {
+  if (~'Language Commands Alts Spam Copypasta Zalgo Caps Flooding Harassing Insulting Disrespecting Trolling Drama Annoying Off-topic Advertising Impersonation Farming language commands alts spam copypasta zalgo caps flooding harassing insulting disrespecting trolling drama annoying off-topic advertising impersonation farming'.split(/\s+/).indexOf(args[0]) && args[1]) {
 
     const question = [`${author.tag}, are you sure that you want to report?`, 'Reply with __y__es or __n__o in 10 seconds.'];
     embed = new Discord.MessageEmbed()
