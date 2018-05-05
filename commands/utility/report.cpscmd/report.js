@@ -47,6 +47,10 @@ module.exports = {
   async func(msg, { guild, send, args, member, Discord, content, author, suffix, channel, collector, reply }) {
     
     const reportreason = args[0];
+
+    if (channel.id === '274260111415836675') {
+      return reply('No big commands here!');
+    }
     
     if (!guild.id === '274260111415836675') {
       return;
