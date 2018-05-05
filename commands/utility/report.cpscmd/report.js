@@ -51,11 +51,13 @@ module.exports = {
     
     const reportreason = args[0];
 
-    if (channel.id === '274260111415836675') {
+    if (channel.id === '274260111415836675' || '399187352225972235') { 
+      //Main and Games
       return reply('No big commands here!');
     }
     
     if (!guild.id === '274260111415836675') {
+      //DD
       return;
     }
 
