@@ -1,11 +1,104 @@
+const reasons = [
+  'NSFW',
+  'Language',
+  'Commands',
+  'Alts',
+  'Spam',
+  'Copypasta',
+  'Zalgo',
+  'Caps',
+  'Flooding',
+  'Harassing',
+  'Insulting',
+  'Disrespecting',
+  'Trolling',
+  'Drama',
+  'Annoying',
+  'Off-topic',
+  'Advertising',
+  'Impersonation',
+  'XP farming'
+]
+
+const reasonsembed = [
+  'NSFW',
+  'Language',
+  'Commands',
+  'Alts',
+  'Spam',
+  'Copypasta',
+  'Zalgo',
+  'Caps',
+  'Flooding',
+  'Harassing',
+  'Insulting',
+  'Disrespecting',
+  'Trolling',
+  'Drama',
+  'Annoying',
+  'Off-topic',
+  'Advertising',
+  'Impersonation',
+  'XP farming'
+].join(', ');
+
 module.exports = {
   name: 'report',
-  async func(msg, { guild, send, args, member, Discord, content, author }) {
-    if (!guild.id === '394821147029536770') {
-      return send('No access!');
+  async func(msg, { guild, send, args, member, Discord, content, author, suffix }) {
+    if (!guild.id === '274260111415836675') {
+      return;
     }
+    
+    if (!~content.indexOf(reasons)) {
+      let reasonembed = new Discord.MessageEmbed()
+      .setTitle('Invalid reason')
+      .addField('All valid reasons', `${reasonsembed}`)
+      .setColor(member.displayColor);
+    await send(embed);
+   }
 
-    if (!args[3]) {
+    const question = [`${author.tag}, are you sure that you want to report?`, 'Reply with __y__es or __n__o in 10 seconds.'];
+    const embed = new Discord.MessageEmbed()
+      .setTitle('Report Verification')
+      .addField(...question)
+      .setThumbnail(Constants.images.WARNING)
+      .setColor(member.displayColor);
+    await send(embed);
+    
+    let confirmed = false, agreed = false;
+    const collector = channel.createMessageCollector(m => {
+      if (m.author.id === author.id && /^(?:y(?:es)?)|(?:no?)$/i.test(m.content)) {
+        m.channel.send('Choice accepted, one moment...');
+        confirmed = true;
+        agreed = /^(?:y(?:es)?)$/i.test(m.content);
+        setTimeout(() => collector.stop(), 500);
+        return true;
+      }
+      return false;
+    }, { time: 10000 });
+    return collector.on('end', async collected => {
+      if (!confirmed) {
+        return reply('Report Verification timed out');
+      } else {
+        let m = collected.first();
+        if (m.author.id !== author.id) return false;
+        if (agreed) {
+          const reportreason = args[0];
+          const embed = new Discord.MessageEmbed()
+            .setTitle('Report!')
+            .addField(reportreason, content.substring(content.indexOf(args[1])))
+          await guild.channels.get('322843543532208128').send(report);
+          return send('Your report has succesfully been sent!');
+        } else {
+          return m.reply("Ok, I won't send your report!");
+        }
+      }
+    });
+
+
+
+
+/*    if (!args[3]) {
       return send('`TAG ID SCREENSHOTLINK DESCRIPTION`');
     }
     if (args[3]) {
@@ -24,7 +117,7 @@ module.exports = {
   },
 };
 
-/* 1) Tag, LucasLSG#0260 args0
+ 1) Tag, LucasLSG#0260 args0
 2) Id, 205608598233939970 1
 3) Screenshot (If taken) 2
 4) Description (DM Advertising, etc.) 3 */

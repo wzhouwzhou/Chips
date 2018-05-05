@@ -27,5 +27,4 @@ module.exports = [
   [insult.name, insult],
   [kill.name, kill],
   ['kill', kill],
-  ['omar', kill],
 ];
