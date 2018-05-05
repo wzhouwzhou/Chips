@@ -68,7 +68,8 @@ module.exports = {
     const question = [`${author.tag}, are you sure that you want to report?`, 'Reply with __y__es or __n__o in 10 seconds.'];
     embed = new Discord.MessageEmbed()
       .setTitle('Report Verification')
-      .addField(...question, `${reportreason + content.substring(content.indexOf(args[0]))}`)
+      .addField(...question)
+      .addField(`${reportreason + content.substring(content.indexOf(args[0]))}`)
       .setThumbnail(Constants.images.WARNING)
       .setColor(member.displayColor);
     await send(embed);
