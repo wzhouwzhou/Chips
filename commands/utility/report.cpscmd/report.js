@@ -49,6 +49,10 @@ module.exports = {
       return;
     }
 
+    if (!author.id === '409776199297007617') {
+      return reply('nice try lOl')
+    }
+
     if ((!args[0]) || (!~content.indexOf(reasons)) || (~'Language Commands Alts Spam Copypasta Zalgo Caps Flooding Harassing Insulting Disrespecting Trolling Drama Annoying Off-topic Advertising Impersonation Farming'.split(/\s+/).indexOf(args[0]))) {
 
     let reasonembed = new Discord.MessageEmbed()
