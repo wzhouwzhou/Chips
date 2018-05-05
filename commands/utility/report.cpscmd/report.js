@@ -52,7 +52,7 @@ module.exports = {
       return;
     }
 
-    if (!~'Language Commands Alts Spam Copypasta Zalgo Caps Flooding Harassing Insulting Disrespecting Trolling Drama Annoying Off-topic Advertising Impersonation Farming'.split(/\s+/).indexOf(args[0])) {
+    if (!~'Language Commands Alts Spam Copypasta Zalgo Caps Flooding Harassing Insulting Disrespecting Trolling Drama Annoying Off-topic Advertising Impersonation Farming'.split(/\s+/).indexOf(args[0]) || !args[1]) {
 
     let reasonembed = new Discord.MessageEmbed()
       .setTitle('Help!')
@@ -69,7 +69,7 @@ module.exports = {
     embed = new Discord.MessageEmbed()
       .setTitle('Report Verification')
       .addField(...question)
-      .addField(`${'Reason: ' + reportreason}`, `${'Extra comments:' + content.substring(content.indexOf(args[1]))}`)
+      .addField(`${'Reason: ' + reportreason}`, `${'Extra comments: ' + content.substring(content.indexOf(args[1]))}`)
       .setFooter(`Abusing this may result in a punishement.`)
       .setThumbnail(Constants.images.WARNING)
       .setColor(member.displayColor);
