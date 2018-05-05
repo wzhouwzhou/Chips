@@ -44,18 +44,20 @@ const reasonsembed = [
 
 module.exports = {
   name: 'report',
-  async func(msg, { guild, send, args, member, Discord, content, author, suffix }) {
+  async func(msg, { guild, send, args, member, Discord, content, author, suffix, channel, collector, reply, }) {
     if (!guild.id === '274260111415836675') {
       return;
     }
-    
-    if (!~content.indexOf(reasons)) {
-      let reasonembed = new Discord.MessageEmbed()
+
+    if (!args[0]) {
+
+    let reasonembed = new Discord.MessageEmbed()
       .setTitle('Invalid reason')
       .addField('All valid reasons', `${reasonsembed}`)
       .setColor(member.displayColor);
     await send(embed);
-   }
+    
+  }
 
     const question = [`${author.tag}, are you sure that you want to report?`, 'Reply with __y__es or __n__o in 10 seconds.'];
     const embed = new Discord.MessageEmbed()
