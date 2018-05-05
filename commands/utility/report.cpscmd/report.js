@@ -44,7 +44,7 @@ const reasonsembed = [
 
 module.exports = {
   name: 'report',
-  async func(msg, { guild, send, args, member, Discord, content, author, suffix, channel, collector, reply, }) {
+  async func(msg, { guild, send, args, member, Discord, content, author, suffix, channel, collector, reply }) {
     if (!guild.id === '274260111415836675') {
       return;
     }
@@ -55,7 +55,7 @@ module.exports = {
       .setTitle('Invalid reason')
       .addField('All valid reasons', `${reasonsembed}`)
       .setColor(member.displayColor);
-    await send(embed);
+    await send(reasonembed);
     
   }
 
