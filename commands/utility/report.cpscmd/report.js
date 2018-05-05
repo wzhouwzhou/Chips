@@ -49,7 +49,7 @@ module.exports = {
       return;
     }
 
-    if ((!args[0]) || (!~content.indexOf(reasons)) || (args[1] === 'NSFW' ||
+    if ((!args[0]) || (!~content.indexOf(reasons)) || (!args[0] === 'NSFW' ||
     'Language' ||
     'Commands' ||
     'Alts' ||
@@ -77,7 +77,7 @@ module.exports = {
     
   } 
   
-  if (args[1] === 'NSFW' ||
+  if (args[0] === 'NSFW' ||
   'Language' ||
   'Commands' ||
   'Alts' ||
