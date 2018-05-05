@@ -56,7 +56,7 @@ module.exports = {
 
     let reasonembed = new Discord.MessageEmbed()
       .setTitle('Help!')
-      .addField('All valid reasons', `${reasonsembed}`)
+      .addField('All valid reasons', `${reasonsembed}`, true)
       .addField('Comments', 'Tell more about your report: Mention the user, include his ID, what is he spamming, and so on.')
       .setColor(member.displayColor);
     await send(reasonembed);
