@@ -69,7 +69,8 @@ module.exports = {
     embed = new Discord.MessageEmbed()
       .setTitle('Report Verification')
       .addField(...question)
-      .addField(`${reportreason}`, `${content.substring(content.indexOf(args[1]))}`)
+      .addField(`${'Reason: ' + reportreason}`, `${'Extra comments:' + content.substring(content.indexOf(args[1]))}`)
+      .setFooter(`Abusing this may result in a punishement.`)
       .setThumbnail(Constants.images.WARNING)
       .setColor(member.displayColor);
     await send(embed);
