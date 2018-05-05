@@ -57,7 +57,7 @@ module.exports = {
       .setColor(member.displayColor);
     await send(reasonembed);
     
-  } if (args[0]) {
+  } if (args[1] && (~content.indexOf(reasons))) {
 
     const question = [`${author.tag}, are you sure that you want to report?`, 'Reply with __y__es or __n__o in 10 seconds.'];
     embed = new Discord.MessageEmbed()
