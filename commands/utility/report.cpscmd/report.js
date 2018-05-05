@@ -49,10 +49,6 @@ module.exports = {
       return;
     }
 
-    if (!author.id === '409776199297007617') {
-      return reply('nice try lOl')
-    }
-
     if (!~'Language Commands Alts Spam Copypasta Zalgo Caps Flooding Harassing Insulting Disrespecting Trolling Drama Annoying Off-topic Advertising Impersonation Farming'.split(/\s+/).indexOf(args[0])) {
 
     let reasonembed = new Discord.MessageEmbed()
@@ -69,7 +65,7 @@ module.exports = {
     const question = [`${author.tag}, are you sure that you want to report?`, 'Reply with __y__es or __n__o in 10 seconds.'];
     embed = new Discord.MessageEmbed()
       .setTitle('Report Verification')
-      .addField(...question)
+      .addField(...question, `${reportreason + content.substring(content.indexOf(args[0]))}`)
       .setThumbnail(Constants.images.WARNING)
       .setColor(member.displayColor);
     await send(embed);
