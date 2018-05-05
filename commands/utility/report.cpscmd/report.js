@@ -76,7 +76,7 @@ module.exports = {
       .addField('All valid reasons', `${reasonsembed}`, true)
       .addField('Comments', 'Tell more about your report: Mention the user, include his ID, what is he spamming, and so on.')
       .setColor(member.displayColor);
-    await send(reasonembed);
+    await member.send(reasonembed);
     
   } 
   
@@ -90,7 +90,8 @@ module.exports = {
       .setFooter(`Abusing this may result in a punishement.`)
       .setThumbnail(Constants.images.WARNING)
       .setColor(member.displayColor);
-    await send(embed);
+    await send(embed).then(sentmsg =>
+      setTimeout(() => { sentmsg.delete(); }, 5000));
     
     let confirmed = false, agreed = false;
     collector = channel.createMessageCollector(m => {
