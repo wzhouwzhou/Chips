@@ -49,25 +49,7 @@ module.exports = {
       return;
     }
 
-    if ((!args[0]) || (!~content.indexOf(reasons)) || (!args[0] === 'NSFW' ||
-    'Language' ||
-    'Commands' ||
-    'Alts' ||
-    'Spam' ||
-    'Copypasta' ||
-    'Zalgo' ||
-    'Caps' ||
-    'Flooding' ||
-    'Harassing' ||
-    'Insulting' ||
-    'Disrespecting' ||
-    'Trolling' ||
-    'Drama' ||
-    'Annoying' ||
-    'Off-topic' ||
-    'Advertising' ||
-    'Impersonation' ||
-    'XP farming')) {
+    if ((!args[0]) || (!~content.indexOf(reasons)) || (~'Language Commands Alts Spam Copypasta Zalgo Caps Flooding Harassing Insulting Disrespecting Trolling Drama Annoying Off-topic Advertising Impersonation Farming'.split(/\s+/).indexOf(args[0]))) {
 
     let reasonembed = new Discord.MessageEmbed()
       .setTitle('Invalid reason')
@@ -77,25 +59,7 @@ module.exports = {
     
   } 
   
-  if (args[0] === 'NSFW' ||
-  'Language' ||
-  'Commands' ||
-  'Alts' ||
-  'Spam' ||
-  'Copypasta' ||
-  'Zalgo' ||
-  'Caps' ||
-  'Flooding' ||
-  'Harassing' ||
-  'Insulting' ||
-  'Disrespecting' ||
-  'Trolling' ||
-  'Drama' ||
-  'Annoying' ||
-  'Off-topic' ||
-  'Advertising' ||
-  'Impersonation' ||
-  'XP farming') {
+  if (~'Language Commands Alts Spam Copypasta Zalgo Caps Flooding Harassing Insulting Disrespecting Trolling Drama Annoying Off-topic Advertising Impersonation Farming'.split(/\s+/).indexOf(args[0])) {
 
     const question = [`${author.tag}, are you sure that you want to report?`, 'Reply with __y__es or __n__o in 10 seconds.'];
     embed = new Discord.MessageEmbed()
