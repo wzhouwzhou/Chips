@@ -53,7 +53,7 @@ module.exports = {
       return reply('nice try lOl')
     }
 
-    if (~'Language Commands Alts Spam Copypasta Zalgo Caps Flooding Harassing Insulting Disrespecting Trolling Drama Annoying Off-topic Advertising Impersonation Farming'.split(/\s+/).indexOf(args[0])) {
+    if (!~'Language Commands Alts Spam Copypasta Zalgo Caps Flooding Harassing Insulting Disrespecting Trolling Drama Annoying Off-topic Advertising Impersonation Farming'.split(/\s+/).indexOf(args[0])) {
 
     let reasonembed = new Discord.MessageEmbed()
       .setTitle('Help!')
