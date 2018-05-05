@@ -17,7 +17,7 @@ const reasons = [
   'Off-topic',
   'Advertising',
   'Impersonation',
-  'XP farming'
+  'Farming'
 ]
 
 const reasonsembed = [
@@ -39,7 +39,7 @@ const reasonsembed = [
   'Off-topic',
   'Advertising',
   'Impersonation',
-  'XP farming'
+  'Farming'
 ].join(', ');
 
 module.exports = {
@@ -52,8 +52,9 @@ module.exports = {
     if ((!args[0]) || (!~content.indexOf(reasons)) || (~'Language Commands Alts Spam Copypasta Zalgo Caps Flooding Harassing Insulting Disrespecting Trolling Drama Annoying Off-topic Advertising Impersonation Farming'.split(/\s+/).indexOf(args[0]))) {
 
     let reasonembed = new Discord.MessageEmbed()
-      .setTitle('Invalid reason')
+      .setTitle('Help!')
       .addField('All valid reasons', `${reasonsembed}`)
+      .addField('Comments', 'Tell more about your report: Mention the user, include his ID, what is he spamming, ...')
       .setColor(member.displayColor);
     await send(reasonembed);
     
