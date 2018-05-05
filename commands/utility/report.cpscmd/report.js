@@ -90,8 +90,8 @@ module.exports = {
       .setFooter(`Abusing this may result in a punishement.`)
       .setThumbnail(Constants.images.WARNING)
       .setColor(member.displayColor);
-    await send(embed).then(sentmsg =>
-      setTimeout(() => { sentmsg.delete(); }, 15000));
+    await send(embed) //.then(sentmsg =>
+      //setTimeout(() => { sentmsg.delete(); }, 15000));
     
     let confirmed = false, agreed = false;
     collector = channel.createMessageCollector(m => {
