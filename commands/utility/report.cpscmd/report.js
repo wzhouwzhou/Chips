@@ -57,7 +57,25 @@ module.exports = {
       .setColor(member.displayColor);
     await send(reasonembed);
     
-  } if (args[1] && (~content.indexOf(reasons))) {
+  } if (args[1] === 'NSFW' ||
+  'Language' ||
+  'Commands' ||
+  'Alts' ||
+  'Spam' ||
+  'Copypasta' ||
+  'Zalgo' ||
+  'Caps' ||
+  'Flooding' ||
+  'Harassing' ||
+  'Insulting' ||
+  'Disrespecting' ||
+  'Trolling' ||
+  'Drama' ||
+  'Annoying' ||
+  'Off-topic' ||
+  'Advertising' ||
+  'Impersonation' ||
+  'XP farming') {
 
     const question = [`${author.tag}, are you sure that you want to report?`, 'Reply with __y__es or __n__o in 10 seconds.'];
     embed = new Discord.MessageEmbed()
