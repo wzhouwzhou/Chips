@@ -33,6 +33,7 @@ module.exports = {
       } else {
         return send('Not enough permissions!');
       }
+    }
     if (args[0].match(reg) && suffix.substring(args[1].length + 1)) {
       let role = guild.roles.find('name', `${suffix.substring(args[0].length + 1).trim()}`);
       if (role && (member.highestRole.position > role.position)) {
@@ -44,7 +45,6 @@ module.exports = {
         return send('Not enough permissions!');
       }
       
-    }
     }
   },
 };
