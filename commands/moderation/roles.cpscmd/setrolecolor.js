@@ -14,7 +14,7 @@ module.exports = {
       return send(embed);
     }
 
-    if (!args[0].match(reg) || !args[0].match(reset)) {
+    if (!args[0].match(reg) && !args[0].match(reset)) {
       return send('Invalid hex color provided');
     }
 
