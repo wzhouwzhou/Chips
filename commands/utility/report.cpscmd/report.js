@@ -46,7 +46,7 @@ module.exports = {
   name: 'report',
   async func(msg, { guild, send, args, member, Discord, content, author, suffix, channel, collector, reply }) {
     
-    if(!message.member.roles.has(guild.roles.find('name', 'Server Member'))) {
+    if(!member.roles.has(guild.roles.find('name', 'Server Member'))) {
       reply(`You are not allowed to use this command!`);
     
     const reportreason = args[0];
