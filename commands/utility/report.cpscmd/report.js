@@ -45,6 +45,9 @@ const reasonsembed = [
 module.exports = {
   name: 'report',
   async func(msg, { guild, send, args, member, Discord, content, author, suffix, channel, collector, reply }) {
+    
+    const reportreason = args[0];
+    
     if (!guild.id === '274260111415836675') {
       return;
     }
@@ -88,7 +91,6 @@ module.exports = {
         let m = collected.first();
         if (m.author.id !== author.id) return false;
         if (agreed) {
-          const reportreason = args[0];
           report = new Discord.MessageEmbed()
             .setTitle('Report!')
             .addField(reportreason, content.substring(content.indexOf(args[0])))
