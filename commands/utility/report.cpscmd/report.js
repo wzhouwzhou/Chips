@@ -112,7 +112,7 @@ module.exports = {
         if (m.author.id !== author.id) return false;
         if (agreed) {
           report = new Discord.MessageEmbed()
-            .setTitle('Report!')
+            .setTitle(`Report from ${member.tag}!`)
             .addField(reportreason, content.substring(content.indexOf(args[1])))
             .setColor(member.displayColor)
           await guild.channels.get('322843543532208128').send(report);
