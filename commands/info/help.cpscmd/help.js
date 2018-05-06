@@ -49,7 +49,8 @@ const _InfoMenu2 = [
 ].join('\n');
 
 const _ModMenu = [
-  '`{}ban [mention user]` to ban someone.',
+  'ban',
+  // '`{}ban [mention user]` to ban someone.',
   '`{}clear [amount]` to clear some messages. (up to 99)',
   '`{}botclear/{}bc [amount]` to delete bot-related messages. (up to the last 100 messages are checked)',
   '`{}hackban [user id]` to ban someone by their ID',
@@ -64,7 +65,7 @@ const _ModMenu = [
   '`{}rmute [mention user]` to give someone a muted role! ',
   '\t(Disclaimer: this does not create a Muted role, manually remove the mute role to unmute)',
   '`{}chipsprefix on` to begin custom prefix setup, use `{}chipsprefix off` to turn off custom prefix',
-].join('\n');
+];
 
 const _FunMenu = [
   '`{}con4 length width` to play connect four.',
@@ -131,7 +132,11 @@ module.exports = {
 
       const InfoMenu2 = _InfoMenu2.replace(/{}/g, '');
 
-      const ModMenu = _ModMenu.replace(/{}/g, '');
+      const ModMenu = _ModMenu.map(e => {
+        if (e.includes('{}')) return e;
+        const cmdm = client.commands[e].metadata;
+        return `\`${cmdm.usage}\` ${cmdm.description}`;
+      }).join('\n').replace(/{}/g, '');
 
       const FunMenu = _FunMenu.replace(/{}/g, '');
 
