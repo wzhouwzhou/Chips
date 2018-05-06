@@ -51,7 +51,7 @@ const _InfoMenu2 = [
 const _ModMenu = [
   'ban',
   // '`{}ban [mention user]` to ban someone.',
-  '`{}clear [amount]` to clear some messages. (up to 99)',
+  'clear',
   '`{}botclear/{}bc [amount]` to delete bot-related messages. (up to the last 100 messages are checked)',
   '`{}hackban [user id]` to ban someone by their ID',
   '`{}softban [mention user]` to kick someone and clear their messages.',
@@ -133,7 +133,7 @@ module.exports = {
       const InfoMenu2 = _InfoMenu2.replace(/{}/g, '');
 
       const ModMenu = _ModMenu.map(e => {
-        if (e.includes('{}')) return e;
+        if (e.includes('{}') || e.includes('\t')) return e;
         const cmdm = client.commands[e].metadata;
         return `\`${cmdm.usage}\` ${cmdm.description}`;
       }).join('\n').replace(/{}/g, '');
