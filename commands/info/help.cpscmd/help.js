@@ -26,9 +26,9 @@ const Table = [
 ].map(e => `**P. ${e[0]}**¬\n\t${e[1]}`).join('\n');*/
 
 const _InfoMenu = [
-  `\`{}help\` ${client.commands.help.metadata.description}.`,
-  `\`{}ping\` ${client.commands.ping.metadata.description}`,
-  `\`{}stats\` ${client.commands.stats.metadata.description}`,
+  `\`{}help\` Gives this menu`,
+  `\`{}ping\` Gives ping for various actions with chips, and also rates a weighted average!`,
+  `\`{}stats\` Gives stats for chips including guild/user count, cpu usage, and more!`,
   "`{}support` for chips' support server.",
   '`{}invite` for my invite link',
   '`{}info` for some information!',
