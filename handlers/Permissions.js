@@ -255,13 +255,13 @@ ex.userpermissions = {
     { name: ex.permsList[1][0], action: 1 },
     { name: ex.permsList[2][0], action: 1 },
   ],
-  // Lucas
+  // Lucas Alt
   '409776199297007617':
   [
     { name: 'global.*', action: 1 },
     { name: 'OWNER.*', action: 1 },
   ],
-  // Lucas
+  // Lucas Main
   '205608598233939970':
   [
     { name: 'global.*', action: 1 },
