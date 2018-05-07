@@ -10,7 +10,7 @@ cmds.forEach(cmd => {
 });
 
 clear.metadata.description = 'This command clears chat messages!';
-bc.metadata.description = 'This command clears bot-related msgs';
+bc.metadata.description = 'This command clears bot-related msgs!';
 
 clear.metadata.usage = 'clear <number 1-99>';
 bc.metadata.usage = 'botclear <number 1-99>';
