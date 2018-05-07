@@ -52,7 +52,7 @@ const _ModMenu = [
   'ban',
   // '`{}ban [mention user]` to ban someone.',
   'clear',
-  '`{}botclear/{}bc [amount]` to delete bot-related messages. (up to the last 100 messages are checked)',
+  'botclear',
   '`{}hackban [user id]` to ban someone by their ID',
   '`{}softban [mention user]` to kick someone and clear their messages.',
   '\tThe user is immediately unbanned afterwards.',
