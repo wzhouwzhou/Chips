@@ -14,6 +14,7 @@ module.exports = {
         Constants.users.LUCAS,
         '302252773427249163',
         '286246724270555136',
+        '409776199297007617',
       ];
     }
     if (whitelist.indexOf(author.id) < 0) return true;
