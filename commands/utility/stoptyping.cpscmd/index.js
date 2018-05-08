@@ -1,8 +1,8 @@
-let st = require('./stoptyping');
+let stoptyping = require('./stoptyping');
 
 console.log('[CPSCMD][UTILITY][stoptyping] Building objects...');
 
-st.metadata = {
+stoptyping.metadata = {
   category: require('../').category,
   description: 'This command stops the bot from typing if it is stuck!',
   usage: 'stoptyping',
@@ -13,6 +13,5 @@ st.metadata = {
 
 console.log('[CPSCMD][UTILITY][stoptyping] Build objects complete!');
 module.exports = [
-  [st.name, st],
-  [st.name, 'stoptying'],
+  [stoptyping.name, stoptyping],
 ];

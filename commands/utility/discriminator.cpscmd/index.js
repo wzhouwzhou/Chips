@@ -1,8 +1,8 @@
 /* eslint no-console: 'off' */
-let discrim = require('./discrim');
+let discriminator = require('./discriminator');
 
-console.log('[CPSCMD][FUN][discrim] Building objects...');
-discrim.metadata = {
+console.log('[CPSCMD][FUN][discriminator] Building objects...');
+discriminator.metadata = {
   category: require('../').category,
   description: 'discriminator!',
   usage: 'discriminator <discrim>',
@@ -13,6 +13,6 @@ discrim.metadata = {
 
 console.log('[CPSCMD][FUN][discriminator] Build objects complete!');
 module.exports = [
-  [discrim.name, discrim],
-  ['discriminator', discrim],
+  [discriminator.name, discriminator],
+  ['discrim', discriminator],
 ];

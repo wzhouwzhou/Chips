@@ -1,8 +1,8 @@
-let prefix = require('./chipsprefix');
+let chipsprefix = require('./chipsprefix');
 
-console.log('[CPSCMD][UTILITY][prefix] Building objects...');
+console.log('[CPSCMD][UTILITY][chipsprefix] Building objects...');
 
-prefix.metadata = {
+chipsprefix.metadata = {
   category: require('../').category,
   description: 'This command lets you set Chips\' prefix!',
   usage: 'chipsprefix set <new prefix>',
@@ -11,8 +11,7 @@ prefix.metadata = {
   customperm: ['ADMINISTRATOR'],
 };
 
-console.log('[CPSCMD][UTILITY][prefix] Build objects complete!');
+console.log('[CPSCMD][UTILITY][chipsprefix] Build objects complete!');
 module.exports = [
-  [prefix.name, prefix],
-  [prefix.name, 'chipsprefix'],
+  [chipsprefix.name, chipsprefix],
 ];
