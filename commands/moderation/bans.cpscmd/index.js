@@ -10,7 +10,7 @@ let cmds = [ban, hackban, instaban, reactban, unban, softban];
 cmds.forEach(cmd => {
   cmd.metadata = {};
   cmd.metadata.category = require('../').category;
-  cmd.metadata.customperm = ['MANAGE_MESSAGES'];
+  cmd.metadata.customperm = ['BAN_MEMBERS'];
 });
 
 ban.metadata.description = 'This command lets you ban server members!';
