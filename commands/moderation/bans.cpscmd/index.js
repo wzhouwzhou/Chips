@@ -20,7 +20,6 @@ reactban.metadata.description = 'This command lets you ban people from adding re
 unban.metadata.description = 'This command lets you unban server members';
 softban.metadata.description = 'This command lets you ban people and instanly unban them!';
 
-
 ban.metadata.usage = 'ban <User> <Optional Reason>';
 hackban.metadata.usage = 'hackban <ID> <Optional Reason>';
 instaban.metadata.usage = 'instaban <User> <Optional Reason>';
