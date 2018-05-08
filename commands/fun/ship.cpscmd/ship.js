@@ -92,7 +92,7 @@ module.exports = {
       else return send(`Is ${userTwo.tag.replace(/@/g, '(at)')} really that alone?`);
     }
     const assembled = `${[userOne.id, userTwo.id].sort((a, b) => a - b).join(',')}`;
-    const shipValue = ships.get(assembled) || ~~(100 * Math.random());
+    const shipValue = ships.has(assembled) ? ships.get(assembled) : ~~(100 * Math.random());
     ships.set(assembled, shipValue);
     const outlookN = ~~(shipValue / 10);
     const progressbar = '█'.repeat(outlookN);
