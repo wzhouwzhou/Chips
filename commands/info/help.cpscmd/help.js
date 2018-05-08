@@ -57,7 +57,6 @@ const _ModMenu = [
   'softban',
   'instaban',
   'unban',
-  'reactban',
   '`{}kick [mention user]` to kick someone.',
   '`{}botnick/{}bn [text]` to change Chips\' nick.',
   '`{}silence [mention user]` to server-mute someone.',
