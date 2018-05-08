@@ -51,6 +51,16 @@ ships.set(willyneko, 100);
 shipComments.set(willyneko, 'Kawaii Neko Tsundere <:triggeredcat:326124632287608834>');
 shipJoin.set(willyneko, '<:nekonya:356850606909947924>');
 
+const jessfuzzy = '267138861254049794,315938916437983233';
+ships.set(jessfuzzy, 0);
+shipComments.set(jessfuzzy, 'Fuzzy you horrible person');
+shipJoin.set(jessfuzzy, '<:__:394541754793197578>');
+
+const jesswilly = '259209114268336129,267138861254049794';
+ships.set(jesswilly, 100);
+shipComments.set(jesswilly, 'This was meant to be!!');
+shipJoin.set(jesswilly, '<:HUGS:419703031077011456>');
+
 module.exports = {
   name: 'ship',
   async func(msg, { send, Discord, client, suffix, member, guild }) {
