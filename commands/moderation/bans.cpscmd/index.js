@@ -4,65 +4,44 @@ let instaban = require('./instaban');
 let reactban = require('./reactban');
 let unban = require('./unban');
 let softban = require('./softban');
-let roleban = {};
-console.log('[CPSCMD][MODERATION][ban] Building objects...');
 
-ban.metadata = {
-  category: require('../').category,
-  description: 'This command lets you ban server members!',
-  usage: 'ban <User> <Optional Reason>',
-  example: 'ban @周珺 • WillyZ#6686 Being dumb.',
-  perm: [['global.moderation.bans.ban']],
-  customperm: ['BAN_MEMBERS'],
-};
-hackban.metadata = {
-  category: require('../').category,
-  description: 'This command lets you ban people by ID, so they don\'t have to be server members!',
-  usage: 'hackban <UserID> <Optional Reason>',
-  example: 'hackban 1234567890 Being a skrub!',
-  perm: [['global.moderation.bans.hackban']],
-  customperm: ['BAN_MEMBERS'],
-};
-instaban.metadata = {
-  category: require('../').category,
-  description: 'This command lets you instanly ban server members!',
-  usage: 'instaban <User> <Optional Reason>',
-  example: 'instaban @周珺 • WillyZ#6686 Being dumb.',
-  perm: [['global.moderation.bans.instaban']],
-  customperm: ['BAN_MEMBERS'],
-};
-reactban.metadata = {
-  category: require('../').category,
-  description: 'This command lets you ban people from adding reactions!',
-  usage: 'reactban <User>',
-  example: 'reactban @JohnSmith#0000',
-  perm: [['global.moderation.bans.reactban']],
-  customperm: ['BAN_MEMBERS'],
-};
-unban.metadata = {
-  category: require('../').category,
-  description: 'This command lets you unban server members!',
-  usage: 'unban <User> <Optional Reason>',
-  example: 'unban @周珺 • WillyZ#6686 Being dumb.',
-  perm: [['global.moderation.bans.unban']],
-  customperm: ['BAN_MEMBERS'],
-};
-roleban.metadata = {
-  category: require('../').category,
-  description: 'This command lets you ban people from having a certain role!',
-  usage: 'roleban <User> <Role Name, ID, or Mention>',
-  example: 'role @JohnSmith#0000 SomeRole',
-  perm: [['global.moderation.bans.roleban']],
-  customperm: ['BAN_MEMBERS'],
-};
-softban.metadata = {
-  category: require('../').category,
-  description: 'This command lets you ban people and instantly unban members!',
-  usage: 'softban <User> <Optional reason>',
-  example: 'softban @JohnSmith#0000 You got banned!',
-  perm: [['global.moderation.bans.ban']],
-  customperm: ['BAN_MEMBERS'],
-};
+console.log('[CPSCMD][MODERATION][ban] Building objects...');
+let cmds = [ban, hackban, instaban, reactban, unban, softban];
+cmds.forEach(cmd => {
+  cmd.metadata = {};
+  cmd.metadata.category = require('../').category;
+  cmd.metadata.customperm = ['MANAGE_MESSAGES'];
+});
+
+ban.metadata.description = 'This command lets you ban server members!';
+hackban.metadata.description = 'This command lets you ban people by ID, so they don\'t have to be server members!';
+instaban.metadata.description = 'This command lets you instanly ban server members!';
+reactban.metadata.description = 'This command lets you ban people from adding reactions!';
+unban.metadata.description = 'This command lets you unban server members';
+softban.metadata.description = 'This command lets you ban people and instanly unban them!';
+
+
+ban.metadata.usage = 'ban <User> <Optional Reason>';
+hackban.metadata.usage = 'hackban <ID> <Optional Reason>';
+instaban.metadata.usage = 'instaban <User> <Optional Reason>';
+reactban.metadata.usage = 'reactban <User> <Optional Reason>';
+unban.metadata.usage = 'unban <User> <Optional Reason>';
+softban.metadata.usage = 'softban <User> <Optional Reason>';
+
+ban.metadata.example = 'ban @LucasLSG#0260 Raiding';
+hackban.metadata.example = 'hackban 205608598233939970 Raiding';
+instaban.metadata.example = 'instaban @LucasLSG#0260 Raiding';
+reactban.metadata.example = 'reactban @LucasLSG#0260 Raiding';
+unban.metadata.example = "unban @LucasLSG#0260 Didn't raid!";
+softban.metadata.example = 'softban @LucasLSG#0260 Raiding';
+
+ban.metadata.perm = [['global.moderation.bans.ban']];
+hackban.metadata.perm = [['global.moderation.bans.hackban']];
+instaban.metadata.perm = [['global.moderation.bans.instaban']];
+reactban.metadata.perm = [['global.moderation.bans.reactban']];
+unbanban.metadata.perm = [['global.moderation.bans.unban']];
+softban.metadata.perm = [['global.moderation.bans.softban']];
+
 console.log('[CPSCMD][MODERATION][ban] Build objects complete!');
 module.exports = [
   [ban.name, ban],
