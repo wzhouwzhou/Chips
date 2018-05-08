@@ -1,8 +1,8 @@
-let stc = require('./setchanneltopic');
+let sct = require('./setchanneltopic');
 
 console.log('[CPSCMD][UTILITY][setchanneltopic] Building objects...');
 
-stc.metadata = {
+sct.metadata = {
   category: require('../').category,
   description: 'Changes to channel topic.',
   usage: 'settopic \"topic\"',
@@ -13,9 +13,10 @@ stc.metadata = {
 
 console.log('[CPSCMD][UTILITY][setchanneltopic] Build objects complete!');
 module.exports = [
-  [stc.name, stc],
-  ['st', stc],
-  ['sct', stc],
-  ['settopic', stc],
-  ['setchanneltopic', stc],
+  [sct.name, sct],
+  ['st', sct],
+  ['sct', sct],cfègujkp;
+  
+  ['settopic', sct],
+  ['setchanneltopic', sct],
 ];
