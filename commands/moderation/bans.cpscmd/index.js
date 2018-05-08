@@ -38,7 +38,7 @@ ban.metadata.perm = [['global.moderation.bans.ban']];
 hackban.metadata.perm = [['global.moderation.bans.hackban']];
 instaban.metadata.perm = [['global.moderation.bans.instaban']];
 reactban.metadata.perm = [['global.moderation.bans.reactban']];
-unbanban.metadata.perm = [['global.moderation.bans.unban']];
+unban.metadata.perm = [['global.moderation.bans.unban']];
 softban.metadata.perm = [['global.moderation.bans.softban']];
 
 console.log('[CPSCMD][MODERATION][ban] Build objects complete!');
