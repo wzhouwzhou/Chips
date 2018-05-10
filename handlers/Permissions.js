@@ -38,6 +38,7 @@ ex.permsList = [
   ['global.chipsmusic.*', true],
   ['global.chipsmusic.music.*', true],
   ['global.chipsmusic.music.play', true],
+  ['global.custom.selfrole', true],
   ['global.fun.*', false],
   ['global.games.*', true],
   ['global.games.chess.*', true],

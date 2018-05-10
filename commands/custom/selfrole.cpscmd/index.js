@@ -7,7 +7,7 @@ selfrole.metadata = {
   description: 'This custom gives an user a selfrole in Duckio Discord!',
   usage: 'selfrole <role>',
   example: 'selfrole Straight',
-  perm: [['global.custom.*']],
+  perm: [['global.custom.selfrole']],
 };
 
 console.log('[CPSCMD][UTILITY][selfrole] Build objects complete!');
