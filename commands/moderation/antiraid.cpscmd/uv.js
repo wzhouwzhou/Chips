@@ -25,7 +25,7 @@ module.exports = {
           }, you are now unverified and won\'t have access to the other chats in the server!`);
 
         await send(targetMember + [], { embed: ver });
-        await targetMember.removeRole(guild.roles.get(therole)
+        await targetMember.removeRole(guild.roles.find('name', `${therole}`)
           `${member.displayName} unverified ${targetMember.nickname}!`);
         // Duckio
         if (guild.id === '274260111415836675') {
