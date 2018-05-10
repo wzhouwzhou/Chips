@@ -3,7 +3,7 @@
     name: 'selfrole',
     func(msg, { send, args, member, client, guild, content }) {
     const targetR = content.substring(content.indexOf(args[0]));
-    targetRole = guild.roles.find('name', `${targetRole}`);
+    const targetRole = guild.roles.find('name', `${targetRole}`);
     
       if(!targetRole) {
         return send('Nope.')
