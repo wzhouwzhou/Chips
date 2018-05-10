@@ -19,10 +19,12 @@ module.exports = {
       const emojis = new Set();
       let customRA = /<a:[\w_]+:\d+>/g;
       let astr = content.match(customRA);
+      let anim = false;
       if (astr && astr[0]) {
         astr.forEach(e => {
           let id = e.match(/<a:[\w_]+:(\d+)>/)[1];
           emojis.add(`https://cdn.discordapp.com/emojis/${id}.gif`);
+          anim = true;
         });
       }
       if (str && str[0]) {
@@ -44,7 +46,7 @@ module.exports = {
       if (emojis.size === 1) {
         const fetched = await snekfetch.get(entries[0]);
         if (!fetched || !fetched.body) return reply('No emoji image found');
-        return send(' ', { files: [{ attachment: fetched.body }] });
+        return send(new Discord.MessageAttachment(fetched.body, anim ? 'emoji.gif' : 'emoji.png'));
       }
 
       if (emojis.size > 0) {
