@@ -127,11 +127,11 @@ module.exports = {
   async func(msg, { prefix, Discord, reply, member, Constants, args, suffix, send, client }) {
     if (!args[0] || args[0] === 'all') {
       // _.escapeRegExp(prefix).replace(/`/g, '\\`'));
-      const IntroMenu2 = _IntroMenu2.replace(/{}/g, '');
+      const IntroMenu2 = _IntroMenu2.replace(/{}/g, _.escapRegExp(prefix).replace(/`/g, '\\`'));
 
-      const InfoMenu = _InfoMenu.replace(/{}/g, '');
+      const InfoMenu = _InfoMenu.replace(/{}/g, _.escapRegExp(prefix).replace(/`/g, '\\`'));
 
-      const InfoMenu2 = _InfoMenu2.replace(/{}/g, '');
+      const InfoMenu2 = _InfoMenu2.replace(/{}/g, _.escapRegExp(prefix).replace(/`/g, '\\`'));
 
       const ModMenu = _ModMenu.map(e => {
         if (e.includes('{}') || e.includes('\t')) return e;
