@@ -1,7 +1,7 @@
 
   module.exports = {
     name: 'selfrole',
-    func(msg, { send, args, suffix, Discord, member, client }) {
+    func(msg, { send, args, member, client, guild, content }) {
     const targetR = content.substring(content.indexOf(args[0]));
     targetRole = guild.roles.find('name', `${targetRole}`);
     
