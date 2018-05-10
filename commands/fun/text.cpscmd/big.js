@@ -17,18 +17,18 @@ module.exports = {
       let customR = /<:[\w\d_]+:\d+>/g;
       let str = content.match(customR);
       const emojis = new Set();
-      if (str && str[0]) {
-        str.forEach(e => {
-          let id = e.substring(1 + e.lastIndexOf(':'), e.length - 1);
-          emojis.add(`https://cdn.discordapp.com/emojis/${id}.png`);
-        });
-      }
       let customRA = /<a:[\w_]+:\d+>/g;
       let astr = content.match(customRA);
       if (astr && astr[0]) {
         astr.forEach(e => {
           let id = e.match(/<a:[\w_]+:(\d+)>/)[1];
           emojis.add(`https://cdn.discordapp.com/emojis/${id}.gif`);
+        });
+      }
+      if (str && str[0]) {
+        str.forEach(e => {
+          let id = e.substring(1 + e.lastIndexOf(':'), e.length - 1);
+          emojis.add(`https://cdn.discordapp.com/emojis/${id}.png`);
         });
       }
       str = content.replace(customR, '');

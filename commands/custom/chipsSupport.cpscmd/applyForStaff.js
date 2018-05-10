@@ -1,4 +1,4 @@
-const EXPIRE = 10000;
+const EXPIRE = 20000;
 const STEP1EXPIRE = 60 * 60 * 1000;
 const STEP2EXPIRE = 60 * 60 * 1000;
 const STEP3EXPIRE = 60 * 60 * 1000;
