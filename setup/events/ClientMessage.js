@@ -76,18 +76,16 @@ setInterval(() => {
     }
     const mps2 = _.clone(mps).reverse();
     if (mps2.length > 10) mps2.length = 10;
-    r.table('guild_mps').insert({
-      id: gid,
-      mps: mps2,
-    }, {
-      conflict: 'replace',
-    }).run(e => e)
+    r.table('guild_mps').insert({ id: gid, mps: mps2 }, { conflict: 'replace' })
+      .run($ => $)
       .then(thing => {
         if (!(thing.inserted || thing.replaced || thing.unchanged)) {
           console.log(`MPS Not saved for guild ${gid}`);
         }
-      });
+      })
+      .catch($ => $);
   }
+  return true;
   // Console.log('Saved MPS Bucket');
 }, 6000);
 const guild_mps_ct = {};
