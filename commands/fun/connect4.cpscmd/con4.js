@@ -2,7 +2,7 @@
 const CON4 = require('connect-four');
 const EventEmitter = require('events');
 const snekfetch = require('snekfetch');
-
+const _ = require('lodash');
 const EMPTY = '⚫', BLUE = '🔵', RED = '🔴';
 const ctitles = [
   ...[
@@ -35,18 +35,20 @@ const STARTWAIT = 10 * 60 * 10e3;
 const games = new Map();
 const prompting = new Map();
 const promptingAll = new Map();
-const get_ai_move = async (movestr) => {
+const get_ai_move = async movestr => {
   const json = (await snekfetch.get(`http://connect4.gamesolver.org/solve?pos=${movestr}`)).body.score;
-  const go = [0, -100];
-  for(const i in json) {
+  let valid_indexes = [[0, -100]];
+  for (const i in json) {
     let value = +json[i];
     if (+value === 100) value = -100;
-    if (+value > +go[1]) {
-      go[0] = +i;
-      go[1] = +value;
+
+    if (valid_indexes.every(move => (+value > +move[1]))) {
+      valid_indexes = [[+i, +value]];
+    } else {
+      valid_indexes.push([+i, +value]);
     }
   }
-  return +go[0] + 1;
+  return _.sample(valid_indexes)[0] + 1;
 };
 const ex = {
   name: 'con4',
