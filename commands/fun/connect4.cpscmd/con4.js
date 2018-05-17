@@ -194,6 +194,10 @@ const C4Game = class C4Game extends EventEmitter {
     this.ai = [player1, player2].find(player => player.id === '296855425255473154') || {};
     console.log(`Connect4 game created with AI ${this.ai.id}`);
     this.nowPlaying = player1;
+    this.reverse_player = {
+      Red: player1.tag,
+      Blue: player2.tag,
+    };
     this.game = new CON4({
       rows: row,
       cols: col,
@@ -245,6 +249,7 @@ const C4Game = class C4Game extends EventEmitter {
     this.nowPlaying = this.nowPlaying.id === this.player1.id ? this.player2 : this.player1;
     this.game.play(this.player, col - 1);
     this.playCol(col, this.player);
+    this.last_move = col;
     if (!this.checkEnded()) {
       return this.send().then(() => {
         this.updatable = true;
@@ -277,7 +282,7 @@ const C4Game = class C4Game extends EventEmitter {
       .setColor(this.player == 'red' ? 16711680 : 255)
       .setAuthor(`${this.player1 ? this.player1.tag : ''}${RED} vs ${BLUE}${this.player2 ? this.player2.tag : ''}`)
       .setDescription(this.toString())
-      .addField(`${this.player && this.player == 'red' ? 'Blue' : 'Red'} to move.`, '\u200B')
+      .addField(`${this.player && this.player === 'red' ? reverse_player['Blue'] : reverse_player['Red']} to move.`, `Last Move: ${this.last_move || 'None'}`)
       .setFooter('Type the column number to move');
   }
 
