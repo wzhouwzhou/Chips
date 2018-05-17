@@ -189,7 +189,8 @@ const C4Game = class C4Game extends EventEmitter {
     this.tc = tc;
     this.player1 = player1;
     this.player2 = player2;
-    this.ai = [player1, player2].find(player => player.id === '296855425255473154');
+    this.ai = [player1, player2].find(player => player.id === '296855425255473154') || {};
+    console.log(`Connect4 game created with AI ${this.ai.id}`);
     this.nowPlaying = player1;
     this.game = new CON4({
       rows: row,
@@ -239,7 +240,7 @@ const C4Game = class C4Game extends EventEmitter {
     this.game.play(this.player, col - 1);
     this.playCol(col, this.player);
     if (!this.checkEnded()) {
-      if (this.ai.id === this.nowPlaying.id) {
+      if (this.ai.id !== this.nowPlaying.id) {
         return this.send().then(() => {
           this.updatable = true;
         });
