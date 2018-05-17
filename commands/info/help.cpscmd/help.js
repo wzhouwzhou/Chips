@@ -50,22 +50,21 @@ const _InfoMenu2 = [
 
 const _ModMenu = [
   'ban',
-  // '`{}ban [mention user]` to ban someone.',
   'clear',
   'botclear',
   'hackban',
   'softban',
   'instaban',
   'unban',
-  '`{}kick [mention user]` to kick someone.',
-  '`{}botnick/{}bn [text]` to change Chips\' nick.',
-  '`{}silence [mention user]` to server-mute someone.',
-  '`{}deafen [mention user]` to deafen someone.',
-  '`{}unsilence [mention user]` to unserver-mute someone.',
-  '`{}undeafen [mention user]` to undeafen someone.',
-  '`{}rmute [mention user]` to give someone a muted role! ',
+  'kick',
+  'botnick',
+  'silence',
+  'deafen',
+  'unsilence',
+  'undeafen',
+  'rmute',
   '\t(Disclaimer: this does not create a Muted role, manually remove the mute role to unmute)',
-  '`{}chipsprefix on` to begin custom prefix setup, use `{}chipsprefix off` to turn off custom prefix',
+  'chipsprefix',
 ];
 
 const _FunMenu = [
