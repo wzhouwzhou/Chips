@@ -198,10 +198,11 @@ const C4Game = class C4Game extends EventEmitter {
     });
     this.cols = col;
     this.board = this.createBoard(col, row);
-    this.send();
-    if (this.ai.id === this.nowPlaying.id) {
-      setTimeout(() => get_ai_move(this.movestr).then(move => this.playGame(move)), 1250);
-    }
+    this.send().then(() => {
+      if (this.ai.id === this.nowPlaying.id) {
+        setTimeout(() => get_ai_move(this.movestr).then(move => this.playGame(move)), 1250);
+      }
+    });
   }
 
   createBoard(c = 7, r = 6) {
@@ -243,14 +244,12 @@ const C4Game = class C4Game extends EventEmitter {
     this.game.play(this.player, col - 1);
     this.playCol(col, this.player);
     if (!this.checkEnded()) {
-      if (this.ai.id !== this.nowPlaying.id) {
-        return this.send().then(() => {
-          this.updatable = true;
-        });
-      } else {
+      return this.send().then(() => {
         this.updatable = true;
-        return this.playGame(await get_ai_move(this.movestr));
-      }
+        if (this.ai.id === this.nowPlaying.id) {
+          setTimeout(() => get_ai_move(this.movestr).then(move => this.playGame(move)), 1250);
+        }
+      });
     } else {
       this.updatable = true;
       return true;
