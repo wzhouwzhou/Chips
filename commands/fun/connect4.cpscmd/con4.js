@@ -239,7 +239,7 @@ const C4Game = class C4Game extends EventEmitter {
     this.game.play(this.player, col - 1);
     this.playCol(col, this.player);
     if (!this.checkEnded()) {
-      if (this.ai !== this.nowPlaying.id) {
+      if (this.ai.id === this.nowPlaying.id) {
         return this.send().then(() => {
           this.updatable = true;
         });
