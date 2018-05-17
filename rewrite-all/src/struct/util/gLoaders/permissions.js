@@ -21,6 +21,7 @@ exports.default = class PermisionsLoader extends GLoader {
             let roleid = row.roleid.toString();
             let perm = row.perm.toString();
             let action = parseInt(row.action);
+            if (type === 'role') console.log(`[Permissions][Loader] Roleid ${roleid} for guild ${guildid}: ${action} for ${perm}`);
             Permissions.updatePermission({ type: type, userid: userid, guildid: guildid, roleid: roleid, perm: perm, action: action })
               .catch(rej);
           }
