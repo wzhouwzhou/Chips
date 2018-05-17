@@ -174,7 +174,7 @@ const ex = {
         .setColor(game.player == 'red' ? 16711680 : 255)
         .setAuthor(`${game.player1 ? game.player1.tag : ''}${RED} vs ${BLUE}${game.player2 ? game.player2.tag : ''}`)
         .setDescription(game.toString())
-        .addField(`Game ended!`, '\u200B');
+        .addField(`Game ended`, `${game.reverse_player[game.player]} won!`);
       await send('', { embed: game.embed });
       games.delete(channel.id);
       mCol && mCol.stop();
@@ -196,7 +196,9 @@ const C4Game = class C4Game extends EventEmitter {
     this.nowPlaying = player1;
     this.reverse_player = {
       Red: player1.tag,
+      red: player1.tag,
       Blue: player2.tag,
+      blue: player2.tag,
     };
     this.game = new CON4({
       rows: row,
