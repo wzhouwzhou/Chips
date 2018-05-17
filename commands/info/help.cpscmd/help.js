@@ -26,9 +26,9 @@ const Table = [
 ].map(e => `**P. ${e[0]}**¬\n\t${e[1]}`).join('\n');*/
 
 const _InfoMenu = [
-  `\`{}help\` Gives this menu`,
-  `\`{}ping\` Gives ping for various actions with chips, and also rates a weighted average!`,
-  `\`{}stats\` Gives stats for chips including guild/user count, cpu usage, and more!`,
+  'help',
+  'ping',
+  'stats',
   "`{}support` for chips' support server.",
   '`{}invite` for my invite link',
   '`{}info` for some information!',
@@ -38,7 +38,7 @@ const _InfoMenu = [
   '`{}lastmessageid/{}lmid` to get last sent message ID.',
   '`{}channelid/{}cid` to get the channel\'s ID',
   "`{}avatar [user mention]` to get someone's avatar",
-].join('\n');
+];
 
 const _InfoMenu2 = [
   '`{}serverid/{}sid/{}gid` to get the server\'s ID.',
@@ -46,7 +46,7 @@ const _InfoMenu2 = [
   '`{}membercount/{}mc` to get amount of people in the server.',
   '`{}rolecount/{}rc` to get the amount of roles in the server.',
   '`{}channelcount/{}cc` to get the amount of channels in the server.',
-].join('\n');
+];
 
 const _ModMenu = [
   'ban',
@@ -129,9 +129,17 @@ module.exports = {
       // _.escapeRegExp(prefix).replace(/`/g, '\\`'));
       const IntroMenu2 = _IntroMenu2.replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g, '\\`'));
 
-      const InfoMenu = _InfoMenu.replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g, '\\`'));
+      const InfoMenu = _InfoMenu.map(e => {
+        if (e.includes('{}') || e.includes('\t')) return e;
+        const cmdm = client.commands[e].metadata;
+        return `\`${cmdm.usage}\` ${cmdm.description}`;
+      }).join('\n').replace(/{}/g, '');
 
-      const InfoMenu2 = _InfoMenu2.replace(/{}/g, _.escapeRegExp(prefix).replace(/`/g, '\\`'));
+      const InfoMenu2 = _InfoMenu2.map(e => {
+        if (e.includes('{}') || e.includes('\t')) return e;
+        const cmdm = client.commands[e].metadata;
+        return `\`${cmdm.usage}\` ${cmdm.description}`;
+      }).join('\n').replace(/{}/g, '');
 
       const ModMenu = _ModMenu.map(e => {
         if (e.includes('{}') || e.includes('\t')) return e;
