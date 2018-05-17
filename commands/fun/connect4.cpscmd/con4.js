@@ -199,9 +199,9 @@ const C4Game = class C4Game extends EventEmitter {
     this.cols = col;
     this.board = this.createBoard(col, row);
     if (this.ai.id === this.nowPlaying.id) {
-      return get_ai_move(this.movestr).then(move => this.playGame(move));
+      get_ai_move(this.movestr).then(move => this.playGame(move));
     } else {
-      return this.send();
+      this.send();
     }
   }
 
