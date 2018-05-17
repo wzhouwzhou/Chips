@@ -42,9 +42,9 @@ const get_ai_move = async movestr => {
     let value = +json[i];
     if (+value === 100) value = -100;
 
-    if (valid_indexes.every(move => (+value > +move[1]))) {
+    if (valid_indexes.every(move => +value > +move[1])) {
       valid_indexes = [[+i, +value]];
-    } else {
+    } else if (valid_indexes.every(move => +value === +move[1])) {
       valid_indexes.push([+i, +value]);
     }
   }
