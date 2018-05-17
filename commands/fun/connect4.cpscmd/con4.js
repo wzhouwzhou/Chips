@@ -132,6 +132,7 @@ const ex = {
       if (!m.content) return false;
       console.log(m.content);
       if (/quit/i.test(m.content.toLowerCase())) {
+        m.channel.send(new Discord.MessageEmbed().setTitle(`${m.author.tag} forfeit!`).setColor(0xFF0000));
         currentGame.game.end();
         currentGame.emit('ended', currentGame);
         return mCol && mCol.stop();
