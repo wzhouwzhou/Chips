@@ -111,7 +111,7 @@ const ex = {
         promptingAll.delete(channel.id);
       }, 1000);
     }
-
+    if (othermember.id === '296855425255473154' && col !== 7 && row !== 6) return send('You may only play against me on a 7x6 board');
     send(`Creating a ${col} x ${row} con4 game...`);
 
     console.log(`Creating a ${col} x ${row} con4 game for channel ${channel.id}...`);
@@ -198,10 +198,9 @@ const C4Game = class C4Game extends EventEmitter {
     });
     this.cols = col;
     this.board = this.createBoard(col, row);
+    this.send();
     if (this.ai.id === this.nowPlaying.id) {
-      get_ai_move(this.movestr).then(move => this.playGame(move));
-    } else {
-      this.send();
+      setTimeout(() => get_ai_move(this.movestr).then(move => this.playGame(move)), 1250);
     }
   }
 
