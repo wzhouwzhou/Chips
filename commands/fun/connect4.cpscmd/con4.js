@@ -84,7 +84,7 @@ const ex = {
     try {
       othermember = await promptInvitee(ctx);
       if (othermember && othermember.user.bot && othermember.id !== '393043996320071681' && othermember.id !== '296855425255473154') {
-        send('You cannot invite a bot!');
+        send('You cannot invite that bot!');
         throw new Error('Bot invitee');
       }
       othermember = await promptPlayer(author, send, prefix, channel, othermember);
