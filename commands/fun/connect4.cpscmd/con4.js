@@ -174,7 +174,7 @@ const ex = {
         .setColor(game.player == 'red' ? 16711680 : 255)
         .setAuthor(`${game.player1 ? game.player1.tag : ''}${RED} vs ${BLUE}${game.player2 ? game.player2.tag : ''}`)
         .setDescription(game.toString())
-        .addField(`Game ended`, game.ended && !game.winner ?  'It was a tie!' : (game.reverse_player[game.player] || game.player1.tag) + ' won!');
+        .addField(`Game ended`, game.movestr === '' ? game.player1.tag + ' won!' : game.ended && !game.winner ?  'It was a tie!' : (game.reverse_player[game.player] || game.player1.tag) + ' won!');
       await send('', { embed: game.embed });
       games.delete(channel.id);
       mCol && mCol.stop();
