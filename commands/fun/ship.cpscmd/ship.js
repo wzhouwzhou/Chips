@@ -6,6 +6,11 @@ ships.set(ducheps, 1234);
 shipComments.set(ducheps, `Marriage when?!`);
 shipJoin.set(ducheps, '<:blobkiss:372739966100439042>');
 
+const luchepsscam = '205608598233939970,236400016875323393';
+ships.set(luchepsscam, 9999);
+shipComments.set(luchepsscam, `Marriage when?!`);
+shipJoin.set(luchepsscam, '<:blobkiss:372739966100439042>');
+
 const veedp = '250815960250974209,365972456139390977';
 ships.set(veedp, 9001);
 shipComments.set(veedp, '❤It\'s❤Over❤Nine❤Thousand❤');
