@@ -299,10 +299,10 @@ const Con4Player = class Con4Player {
 };
 
 const promptPlayer = (author, send, prefix, channel, targetMember) => {
-  if (targetMember.id === '296855425255473154') return res(targetMember);
   targetMember != null && targetMember.id != null && prompting.set(targetMember.id, true);
   targetMember == null && promptingAll.set(channel.id, true);
   return new Promise(async(res, rej) => {
+    if (targetMember.id === '296855425255473154') return res(targetMember);
     const startFilter = m => {
       if (m.author.bot) return false;
       if ((new RegExp(`${_.escapeRegExp(prefix)}con4(join|decline)`, 'gi')).test(m.content.toLowerCase().replace(/\s+/g, ''))) {
