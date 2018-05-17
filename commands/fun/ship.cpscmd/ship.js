@@ -7,7 +7,7 @@ shipComments.set(ducheps, `Marriage when?!`);
 shipJoin.set(ducheps, '<:blobkiss:372739966100439042>');
 
 const luchepsscam = '205608598233939970,236400016875323393';
-ships.set(luchepsscam, 1234);
+ships.set(luchepsscam, 9999);
 shipComments.set(luchepsscam, `Marriage when?!`);
 shipJoin.set(luchepsscam, '<:blobkiss:372739966100439042>');
 
