@@ -439,7 +439,7 @@ ex.channelpermissions = {
   ],
 };
 
-ex.updatePermission = ({ type, userid = null, guildid = null, roleid = null, channelid = null, perm, action }) =>
+ex.updatePermission = async ({ type, userid = null, guildid = null, roleid = null, channelid = null, perm, action }) =>
   new Promise((resolve, reject) => {
     let checked = false;
     if (!ex.defaultperms.has(perm)) return reject('Invalid Permission');

@@ -58,6 +58,9 @@ const _ModMenu = [
   'unban',
   'kick',
   'botnick',
+];
+
+const _ModMenu2 = [
   'silence',
   'deafen',
   'unsilence',
@@ -65,7 +68,7 @@ const _ModMenu = [
   'rmute',
   '\t(Disclaimer: this does not create a Muted role, manually remove the mute role to unmute)',
   'chipsprefix',
-];
+]
 
 const _FunMenu = [
   '`{}con4 length width` to play connect four.',
@@ -146,6 +149,12 @@ module.exports = {
         return `\`${cmdm.usage}\` ${cmdm.description}`;
       }).join('\n').replace(/{}/g, '');
 
+      const ModMenu2 = _ModMenu2.map(e => {
+        if (e.includes('{}') || e.includes('\t')) return e;
+        const cmdm = client.commands[e].metadata;
+        return `\`${cmdm.usage}\` ${cmdm.description}`;
+      }).join('\n').replace(/{}/g, '');
+
       const FunMenu = _FunMenu.replace(/{}/g, '');
 
       const FunMenu2 = _FunMenu2.replace(/{}/g, '');
@@ -183,7 +192,9 @@ module.exports = {
         ], [
           ['Informative commands (2)', InfoMenu2],
         ], [
-          ['Moderation commands', ModMenu],
+          ['Moderation commands (1)', ModMenu],
+        ], [
+          ['Moderation commands (2)', ModMenu2],
         ], [
           ['Fun commands (1)', FunMenu],
         ], [
