@@ -92,10 +92,10 @@ const ex = {
       promptingAll.delete(channel.id);
       prompting.delete(author.id);
       silentQuit = true;
-      mCol && mCol.stop();
+      if (mCol) mCol.stop();
       return console.error(err);
     }
-    if (othermember == 'decline') {
+    if (othermember === 'decline') {
       games.delete(channel.id);
       prompting.delete(othermember.id);
       promptingAll.delete(channel.id);
@@ -125,37 +125,37 @@ const ex = {
     );
     console.log('Adding on-collect...');
     mCol.on('collect', async m => {
-      if (m.author.id != currentGame.nowPlaying.id) return;
+      if (m.author.id !== currentGame.nowPlaying.id) return false;
 
-      if (!m.content) return;
+      if (!m.content) return false;
       console.log(m.content);
       if (/quit/i.test(m.content.toLowerCase())) {
         currentGame.game.end();
         currentGame.emit('ended', currentGame);
-        mCol && mCol.stop();
+        return mCol && mCol.stop();
       }
 
       const num = m.content.match(/\d+/) ? m.content.match(/\d+/)[0] : -1;
-      if (num === '-1' || num == -1) {
+      if (num === '-1' || num === -1) {
         console.log('Invalid num');
-        return;
+        return false;
       }
       console.log(`Num: ${num}`);
       try {
-        result = await currentGame.playGame(+num);
+        let result = await currentGame.playGame(+num);
         console.log(`Game: ${result}`);
-        if (result == 'Woah too fast!') {
+        if (result === 'Woah too fast!') {
           return send('Too fast...');
         }
-        m.delete().catch(_ => _);
-      } catch (err) { // 'Invalid move!'
-        console.error(err);
+        return m.delete().catch(_ => _);
+      } catch (err) {
+        return console.error(err);
       }
     });
 
     mCol.on('end', collected => {
       if (collected.size === 0) {
-        !silentQuit && his._msg.reply('Timed out, game was not saved to memory');
+        if (!silentQuit) this._msg.reply('Timed out, game was not saved to memory');
         prompting.delete(othermember.id);
         games.delete(channel.id);
         promptingAll.delete(channel.id);
@@ -226,25 +226,29 @@ const C4Game = class C4Game extends EventEmitter {
     this.movestr += col;
     if (!this.updatable) return 'Woah too fast!';
     this.updatable = false;
-    if (this.checkEnded()) return this.updatable = true;
+    if (this.checkEnded()) {
+      this.updatable = true;
+      return true;
+    }
     if (!this.game.validMove(col - 1)) {
       this.updatable = true;
       throw new Error('Invalid move');
     }
     this.player = !this.player || this.player === 'blue' ? 'red' : 'blue';
-    this.nowPlaying = this.nowPlaying.id == this.player1.id ? this.player2 : this.player1;
+    this.nowPlaying = this.nowPlaying.id === this.player1.id ? this.player2 : this.player1;
     this.game.play(this.player, col - 1);
     this.playCol(col, this.player);
     if (!this.checkEnded()) {
-      if(this.ai !== this.nowPlaying.id) {
-        this.send().then(() => {
-          this.updatable = true);
-        }
+      if (this.ai !== this.nowPlaying.id) {
+        return this.send().then(() => {
+          this.updatable = true;
+        });
       } else {
         return this.playGame(await get_ai_move(this.movestr));
       }
     } else {
       this.updatable = true;
+      return true;
     }
   }
 
