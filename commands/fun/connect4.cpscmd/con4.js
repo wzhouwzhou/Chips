@@ -177,10 +177,10 @@ const ex = {
         .setDescription(game.toString())
         .addField(`Game ended`,
           game.movestr === '' ?
-          `${game.player2.tag} won in ${game.movestr.length} turn(s)!` :
+          `${game.player2.tag} won in ${game.movestr.length} turn${game.movestr.length === 1 ? '' : 's'}!` :
             game.ended && !game.game.winner ?
             'It was a tie!' :
-              `${game.reverse_player[game.player] || game.player1.tag} won in ${game.movestr.length} turn(s)!`);
+              `${game.reverse_player[game.player] || game.player1.tag} won in ${game.movestr.length} turn${game.movestr.length === 1 ? '' : 's'}!`);
       await send('', { embed: game.embed });
       games.delete(channel.id);
       if(mCol) mCol.stop();
