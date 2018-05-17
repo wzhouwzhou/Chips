@@ -1,6 +1,7 @@
 /* eslint no-console: 'off'*/
 const CON4 = require('connect-four');
 const EventEmitter = require('events');
+const snekfetch = require('snekfetch');
 
 const EMPTY = '⚫', BLUE = '🔵', RED = '🔴';
 const ctitles = [
@@ -34,6 +35,19 @@ const STARTWAIT = 10 * 60 * 10e3;
 const games = new Map();
 const prompting = new Map();
 const promptingAll = new Map();
+const get_ai_move = async (movestr) => {
+  const json = (await snekfetch.get(`http://connect4.gamesolver.org/solve?pos=${movestr}`)).body.score;
+  const go = [0, -100];
+  for(const i in json) {
+    let value = +json[i];
+    if (+value === 100) value = -100;
+    if (+value > +go[1]) {
+      go[0] = +i;
+      go[1] = +value;
+    }
+  }
+  return +go[0] + 1;
+};
 const ex = {
   name: 'con4',
   async func(msg, ctx) {
@@ -128,7 +142,7 @@ const ex = {
       }
       console.log(`Num: ${num}`);
       try {
-        result = currentGame.playGame(+num);
+        result = await currentGame.playGame(+num);
         console.log(`Game: ${result}`);
         if (result == 'Woah too fast!') {
           return send('Too fast...');
@@ -171,9 +185,11 @@ const C4Game = class C4Game extends EventEmitter {
   constructor(tc, player1, player2, row = 6, col = 7) {
     super();
     this.updatable = true;
+    this.movestr = '';
     this.tc = tc;
     this.player1 = player1;
     this.player2 = player2;
+    this.ai = [player1, player2].find(player => player.id === '296855425255473154');
     this.nowPlaying = player1;
     this.game = new CON4({
       rows: row,
@@ -206,7 +222,8 @@ const C4Game = class C4Game extends EventEmitter {
     return this.setC(this._columns[col] + 1, col, color);
   }
 
-  playGame(col) {
+  async playGame(col) {
+    this.movestr += col;
     if (!this.updatable) return 'Woah too fast!';
     this.updatable = false;
     if (this.checkEnded()) return this.updatable = true;
@@ -218,7 +235,17 @@ const C4Game = class C4Game extends EventEmitter {
     this.nowPlaying = this.nowPlaying.id == this.player1.id ? this.player2 : this.player1;
     this.game.play(this.player, col - 1);
     this.playCol(col, this.player);
-    if (!this.checkEnded()) { this.send().then(() => this.updatable = true); } else { this.updatable = true; }
+    if (!this.checkEnded()) {
+      if(this.ai !== this.nowPlaying.id) {
+        this.send().then(() => {
+          this.updatable = true);
+        }
+      } else {
+        return this.playGame(await get_ai_move(this.movestr));
+      }
+    } else {
+      this.updatable = true;
+    }
   }
 
   checkEnded() {
