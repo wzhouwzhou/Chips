@@ -7,7 +7,7 @@ module.exports = {
   name: 'botguilds',
   async func(msg, { client, Discord, send }) {
     const results = await client.shard.broadcastEval('Array.from(client.guilds.values()).sort((a,b)=>b.members.size-a.members.size).map(g=>[g.name, g.members.size])');
-    let total = results.reduce((a, b) => [...a, ...b], []);
+    let total = results.reduce((a, b) => [...a, ...b], []).sort((a, b) => b - a);
     total = splitChunkF(firstF(total, 100).map(e => `__${_.escapeRegExp(e[0])}__ (${e[1]} members)`), { size: 10 });
 
     const p = new Paginator(msg, {
