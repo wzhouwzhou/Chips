@@ -179,7 +179,7 @@ const ex = {
         .setAuthor(`${game.player1 ? game.player1.tag : ''}${RED} vs ${BLUE}${game.player2 ? game.player2.tag : ''}`)
         .setDescription(game.toString())
         .addField(`Game ended`,
-          game.movestr === '' ?
+          game.movestr.length === 0 ?
             `${game.player2.tag} won in ${game.movestr.length} turn${game.movestr.length === 1 ? '' : 's'}!` :
             game.ended && !game.game.winner ?
               'It was a tie!' :
@@ -197,7 +197,7 @@ const C4Game = class C4Game extends EventEmitter {
   constructor(tc, player1, player2, row = 6, col = 7) {
     super();
     this.updatable = true;
-    this.movestr = '';
+    this.movestr = [];
     this.tc = tc;
     this.player1 = player1;
     this.player2 = player2;
@@ -218,7 +218,7 @@ const C4Game = class C4Game extends EventEmitter {
     this.board = this.createBoard(col, row);
     this.send().then(() => {
       if (this.ai.id === this.nowPlaying.id) {
-        setTimeout(() => get_ai_move(this.movestr).then(move => this.playGame(move)), 1250);
+        setTimeout(() => get_ai_move(this.movestr.join()).then(move => this.playGame(move)), 1250);
       }
     });
   }
@@ -246,7 +246,7 @@ const C4Game = class C4Game extends EventEmitter {
   }
 
   async playGame(col) {
-    this.movestr += col;
+    this.movestr.push(col);
     if (!this.updatable) return 'Woah too fast!';
     this.updatable = false;
     if (this.checkEnded()) {
@@ -266,7 +266,7 @@ const C4Game = class C4Game extends EventEmitter {
       return this.send().then(() => {
         this.updatable = true;
         if (this.ai.id === this.nowPlaying.id) {
-          setTimeout(() => get_ai_move(this.movestr).then(move => this.playGame(move)), 1250);
+          setTimeout(() => get_ai_move(this.movestr.join()).then(move => this.playGame(move)), 1250);
         }
       });
     } else {
