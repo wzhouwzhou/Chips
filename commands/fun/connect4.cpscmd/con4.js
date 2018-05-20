@@ -218,7 +218,7 @@ const C4Game = class C4Game extends EventEmitter {
     this.board = this.createBoard(col, row);
     this.send().then(() => {
       if (this.ai.id === this.nowPlaying.id) {
-        setTimeout(() => get_ai_move(this.movestr.join()).then(move => this.playGame(move)), 1250);
+        setTimeout(() => get_ai_move(this.movestr.join('')).then(move => this.playGame(move)), 1250);
       }
     });
   }
@@ -266,7 +266,7 @@ const C4Game = class C4Game extends EventEmitter {
       return this.send().then(() => {
         this.updatable = true;
         if (this.ai.id === this.nowPlaying.id) {
-          setTimeout(() => get_ai_move(this.movestr.join()).then(move => this.playGame(move)), 1250);
+          setTimeout(() => get_ai_move(this.movestr.join('')).then(move => this.playGame(move)), 1250);
         }
       });
     } else {
