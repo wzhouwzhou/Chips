@@ -77,12 +77,15 @@ const ex = {
     row = +row;
 
     if (col > 20) return send(`${col - 20} too many columns!`);
+    if (col < 4) return send(`${+col} columns is too small!`);
     if (row * col > 180) return send(`Board is too large! ${col}x${row}`);
     if (row < 4 && col < 4) return send(`Board is too small! ${col}x${row}`);
 
     games.set(channel.id, channel);
+    let potential;
     try {
       othermember = await promptInvitee(ctx);
+      potential = othermember;
       if (othermember && othermember.user.bot && othermember.id !== '393043996320071681' && othermember.id !== '296855425255473154') {
         send('You cannot invite that bot!');
         throw new Error('Bot invitee');
@@ -99,7 +102,7 @@ const ex = {
     }
     if (othermember === 'decline') {
       games.delete(channel.id);
-      prompting.delete(othermember.id);
+      prompting.delete(potential.id);
       promptingAll.delete(channel.id);
       prompting.delete(author.id);
       silentQuit = true;
@@ -177,10 +180,11 @@ const ex = {
         .setDescription(game.toString())
         .addField(`Game ended`,
           game.movestr === '' ?
-          `${game.player2.tag} won in ${game.movestr.length} turn${game.movestr.length === 1 ? '' : 's'}!` :
+            `${game.player2.tag} won in ${game.movestr.length} turn${game.movestr.length === 1 ? '' : 's'}!` :
             game.ended && !game.game.winner ?
-            'It was a tie!' :
-              `${game.reverse_player[game.player] || game.player1.tag} won in ${game.movestr.length} turn${game.movestr.length === 1 ? '' : 's'}!`);
+              'It was a tie!' :
+              `${game.reverse_player[game.player] || game.player1.tag} won in ${
+                game.movestr.length} turn${game.movestr.length === 1 ? '' : 's'}!`);
       await send('', { embed: game.embed });
       games.delete(channel.id);
       if(mCol) mCol.stop();
