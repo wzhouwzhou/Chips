@@ -62,14 +62,14 @@ const ex = {
       cleanup({ channel, author });
       let arg1, arg2;
       if (args[1]) {
-        let mention = args[1].match(/^(?:<@)?(\d+)>?$/);
+        let mention = args[1].match(/^(?:<@!?)?(\d+)>?$/);
         if (mention) {
           arg1 = mention[1];
           cleanup({ othermember: { id: arg1 }, author: { id: arg1 } });
         }
       }
       if (args[2]) {
-        let mention = args[2].match(/^(?:<@)?(\d+)>?$/);
+        let mention = args[2].match(/^(?:<@!?)?(\d+)>?$/);
         if (mention) {
           arg2 = mention[1];
           cleanup({ othermember: { id: arg2 }, author: { id: arg2 } });
@@ -111,7 +111,7 @@ const ex = {
         send('You cannot invite that bot!');
         throw new Error('Bot invitee');
       }
-      othermember = await promptPlayer({ author, send, prefix, channel, othermember });
+      othermember = await promptPlayer({ author, send, prefix, channel, targetMember: othermember });
     } catch (err) {
       cleanup({ channel, othermember, author });
       silentQuit = true;
