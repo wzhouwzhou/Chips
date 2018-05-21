@@ -1,4 +1,4 @@
-/* eslint no-console: 'off'*/
+/* eslint no-console: 'off', prefer-promise-reject-errors: 'off', complexity: 'off' */
 const CON4 = require('connect-four');
 const EventEmitter = require('events');
 const snekfetch = require('snekfetch');
@@ -56,10 +56,31 @@ const ex = {
     let { Discord, author, reply, member, send, channel, args, prefix } = ctx;
     let mCol, silentQuit = false;
     if (args[0] && args[0].toLowerCase() === 'join') return !0;
+    if (args[0] && args[0].toLowerCase() === 'cleanup') {
+      if (!member.hasPermission('MANAGE_MESSAGES')) return send("You must have manage messages permissions to cleanup someone else's game");
+      if (!args[1]) return send('You must mention the players involved.');
+      cleanup({ channel, author });
+      let arg1, arg2;
+      if (args[1]) {
+        let mention = args[1].match(/^(?:<@)?(\d+)>?$/);
+        if (mention) {
+          arg1 = mention[1];
+          cleanup({ othermember: { id: arg1 }, author: { id: arg1 } });
+        }
+      }
+      if (args[2]) {
+        let mention = args[2].match(/^(?:<@)?(\d+)>?$/);
+        if (mention) {
+          arg2 = mention[1];
+          cleanup({ othermember: { id: arg2 }, author: { id: arg2 } });
+        }
+      }
+      return send(`Cleanup performed for channel ${channel.id} and members ${author.id}, ${arg1}, and ${arg2}`);
+    }
 
-    if (prompting.has(author.id)) return;
-    if (promptingAll.has(channel.id)) return;
-    if (games.has(channel.id)) return send('There is already a game going on.');
+    if (prompting.has(author.id) || promptingAll.has(channel.id)) return true;
+
+    if (games.has(channel.id)) return reply('There is already a game going on.');
 
     let row, col, othermember;
     if (args[0]) {
@@ -90,31 +111,21 @@ const ex = {
         send('You cannot invite that bot!');
         throw new Error('Bot invitee');
       }
-      othermember = await promptPlayer(author, send, prefix, channel, othermember);
+      othermember = await promptPlayer({ author, send, prefix, channel, othermember });
     } catch (err) {
-      games.delete(channel.id);
-      prompting.delete(othermember ? othermember.id : 0);
-      promptingAll.delete(channel.id);
-      prompting.delete(author.id);
+      cleanup({ channel, othermember, author });
       silentQuit = true;
       if (mCol) mCol.stop();
       return console.error(err);
     }
     if (othermember === 'decline') {
-      games.delete(channel.id);
-      prompting.delete(potential.id);
-      promptingAll.delete(channel.id);
-      prompting.delete(author.id);
+      cleanup({ channel, potential, author })
       silentQuit = true;
-      mCol && mCol.stop();
-      return reply('Game was declined!');
+      if (mCol) mCol.stop();
+      return reply('Game was cancelled!');
     }
     if (othermember && othermember.id) {
-      setTimeout(() => {
-        prompting.delete(othermember.id);
-        prompting.delete(author.id);
-        promptingAll.delete(channel.id);
-      }, 1000);
+      setTimeout(() => cleanup({ channel, othermember, author }), 1000);
     }
     if (othermember.id === '296855425255473154' && col !== 7 && row !== 6) return send('You may only play against me on a 7x6 board');
     send(`Creating a ${col} x ${row} con4 game...`);
@@ -162,10 +173,7 @@ const ex = {
     mCol.on('end', collected => {
       if (collected.size === 0) {
         if (!silentQuit) this._msg.reply('Timed out, game was not saved to memory');
-        prompting.delete(othermember.id);
-        games.delete(channel.id);
-        promptingAll.delete(channel.id);
-        prompting.delete(author.id);
+        cleanup({ othermember, channel, author });
       }
       console.log('MCol ended');
     });
@@ -186,8 +194,8 @@ const ex = {
               `${game.reverse_player[game.player] || game.player1.tag} won in ${
                 game.movestr.length} turn${game.movestr.length === 1 ? '' : 's'}!`);
       await send('', { embed: game.embed });
-      games.delete(channel.id);
-      if(mCol) mCol.stop();
+      cleanup({ channel });
+      if (mCol) mCol.stop();
     });
     console.log('Con4 game setup complete');
   },
@@ -321,12 +329,21 @@ const Con4Player = class Con4Player {
   }
 };
 
-const promptPlayer = (author, send, prefix, channel, targetMember) => {
-  targetMember != null && targetMember.id != null && prompting.set(targetMember.id, true);
-  targetMember == null && promptingAll.set(channel.id, true);
+const promptPlayer = ({ author, send, prefix, channel, targetMember }) => {
+  if (targetMember && targetMember.id) prompting.set(targetMember.id, true);
+  if (!targetMember) promptingAll.set(channel.id, true);
   return new Promise(async(res, rej) => {
     if (targetMember && targetMember.id === '296855425255473154') return res(targetMember);
     const startFilter = m => {
+      if (m.author.id === author.id) {
+        if (m.content.match(/cancel/i)) {
+          console.log('Cancelling invite...');
+          promptingAll.delete(channel.id);
+          if (targetMember && targetMember.id) prompting.delete(targetMember.id);
+          return res('decline');
+        }
+        return false;
+      }
       if (m.author.bot) return false;
       if ((new RegExp(`${_.escapeRegExp(prefix)}con4(join|decline)`, 'gi')).test(m.content.toLowerCase().replace(/\s+/g, ''))) {
         if (m.author.id !== author.id) {
@@ -343,16 +360,17 @@ const promptPlayer = (author, send, prefix, channel, targetMember) => {
 
     let startCol;
     try {
-      let str = `${targetMember || ''} Please type __${_.escapeRegExp(prefix)}con4 join__ to join the game`;
-      if (targetMember) str += ` or __${_.escapeRegExp(prefix)}con4 decline__`;
+      let str = `${author + []}, type \`cancel\` to cancel this game creation. ${
+        targetMember || 'Anyone else'}, please type __${_.escapeRegExp(prefix)}con4 join__ to join the game`;
+      if (targetMember) str += ` or __${_.escapeRegExp(prefix)}con4 decline__.`;
       await send(str);
       startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
     } catch (err) {
       console.error(err);
-      return rej('Timed out');
+      return rej(new Error('Timed out'));
     }
 
-    !startCol.first() && rej(null);
+    return !startCol.first() && rej(null);
   });
 };
 
@@ -380,11 +398,12 @@ const promptInvitee = ({ send, channel, author }) => new Promise(async(res, rej)
 
   let startCol;
   try {
-    await send(`${author || ''} Please mention who you want to invite to this game, or __none__ to allow anyone to join`);
+    await send(`${author || ''} Please mention who you want to invite to this game, or __none__ to allow anyone to join.
+    If you want to cancel, type "none" and at then cancel at the next prompt.`);
     startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
   } catch (err) {
     console.error(err);
-    return rej('Timed out');
+    return rej(new Error('Timed out'));
   }
 
   if (!startCol.first()) return rej(null);
@@ -393,7 +412,16 @@ const promptInvitee = ({ send, channel, author }) => new Promise(async(res, rej)
 
 const validN = n => +n === n && n === (n | 0) && n > 0;
 
+const cleanup = ({ channel, potential, author, othermember }) => {
+  if (channel) {
+    games.delete(channel.id);
+    promptingAll.delete(channel.id);
+  }
+  if (potential) prompting.delete(potential.id);
+  if (othermember) prompting.delete(othermember.id)
+  if (author) prompting.delete(author.id);
+}
 ex._games = games;
 ex._prompting = prompting;
-
+ex._cleanup = cleanup;
 module.exports = ex;
