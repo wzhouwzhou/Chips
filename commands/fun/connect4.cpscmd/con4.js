@@ -35,6 +35,7 @@ const STARTWAIT = 10 * 60 * 10e3;
 const games = new Map();
 const prompting = new Map();
 const promptingAll = new Map();
+const mcols = new Map();
 const get_ai_move = async movestr => {
   const json = (await snekfetch.get(`http://connect4.gamesolver.org/solve?pos=${movestr}`)).body.score;
   let valid_indexes = [[0, -100]];
@@ -125,7 +126,7 @@ const ex = {
       return reply('Game was cancelled!');
     }
     if (othermember && othermember.id) {
-      setTimeout(() => cleanup({ channel, othermember, author }), 1000);
+      setTimeout(() => cleanup({ othermember, author }), 1000);
     }
     if (othermember.id === '296855425255473154' && col !== 7 && row !== 6) return send('You may only play against me on a 7x6 board');
     send(`Creating a ${col} x ${row} con4 game...`);
@@ -139,6 +140,7 @@ const ex = {
       query => !!query.content.match(/(quit|stop|forfeit)/i) || (!!query.content.match(/\d+/g) && query.content.match(/\d+/g)[0] && query.content.match(/\d+/g)[0].length === query.content.length),
       { time: TIME, errors: ['time'] }
     );
+    mcols.set(channel.id, mCol);
     console.log('Adding on-collect...');
     mCol.on('collect', async m => {
       if (m.author.id !== currentGame.nowPlaying.id) return false;
@@ -416,6 +418,11 @@ const cleanup = ({ channel, potential, author, othermember }) => {
   if (channel) {
     games.delete(channel.id);
     promptingAll.delete(channel.id);
+    let mcol = mcols.get(channel.id);
+    if (mcol) {
+      mcol.stop();
+      mcol.delete(channel.id);
+    }
   }
   if (potential) prompting.delete(potential.id);
   if (othermember) prompting.delete(othermember.id)
