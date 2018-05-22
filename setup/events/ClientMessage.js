@@ -180,7 +180,7 @@ const msghandle = async message => {
             .replace(/\s+<@!?(296855425255473154)>$/, '')
             .trim()
           ).toString('base64'))
-        .set('X-Data-ID', message.author.id);
+        .set('X-Data-ID', client.user.id);
       message.channel.stopTyping(true);
       return message.reply(result.body.message);
     } catch (err) {
