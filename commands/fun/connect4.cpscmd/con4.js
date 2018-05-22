@@ -131,7 +131,10 @@ const ex = {
     if (othermember && othermember.id) {
       setTimeout(() => cleanup({ othermember, author }), 1000);
     }
-    if (othermember.id === '296855425255473154' && col !== 7 && row !== 6) return send('You may only play against me on a 7x6 board');
+    if (othermember.id === '296855425255473154' && col !== 7 && row !== 6) {
+      send('You may only play against me on a 7x6 board');
+      return cleanup({ othermember, author, channel });
+    }
     send(`Creating a ${col} x ${row} con4 game...`);
 
     console.log(`Creating a ${col} x ${row} con4 game for channel ${channel.id}...`);
