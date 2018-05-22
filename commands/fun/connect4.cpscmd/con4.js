@@ -304,8 +304,9 @@ const C4Game = class C4Game extends EventEmitter {
       .setColor(this.player == 'red' ? 16711680 : 255)
       .setAuthor(`${this.player1 ? this.player1.tag : ''}${RED} vs ${BLUE}${this.player2 ? this.player2.tag : ''}`)
       .setDescription(this.toString())
-      .addField(`${this.player && this.player === 'red' ? this.reverse_player['Blue'] : this.reverse_player['Red']} to move.`, `Last Move: ${this.last_move || 'None'}`)
-      .setFooter('Type the column number to move');
+      .addField(`${this.player && this.player === 'red' ? this.reverse_player.Blue : this.reverse_player.Red} to move.`,
+        `Last Move: ${this.last_move || 'None'}`)
+      .setFooter('Type the column number to move or "quit" to stop.');
   }
 
   send() {
@@ -401,7 +402,7 @@ const promptInvitee = ({ send, channel, author }) => new Promise(async(res, rej)
 
   let startCol;
   try {
-    await send(`${author || ''} Please mention who you want to invite to this game, or __none__ to allow anyone to join.
+    await send(`${author || ''} Please mention me or who else you want to invite to this game, or __none__ to allow anyone to join.
     If you want to cancel, type "none" and at then cancel at the next prompt.`);
     startCol = await channel.awaitMessages(startFilter, { max: 1, time: STARTWAIT, errors: ['time'] });
   } catch (err) {
