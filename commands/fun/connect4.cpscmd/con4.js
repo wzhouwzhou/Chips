@@ -388,7 +388,8 @@ const promptInvitee = ({ send, channel, author }) => new Promise(async(res, rej)
           send('You can\'t really be inviting yourself?');
           return false;
         }
-        return res(targetMember);
+        res(targetMember);
+        return true;
       } else if (~m.content.indexOf('none')) {
         res(null);
         return true;
@@ -421,7 +422,7 @@ const cleanup = ({ channel, potential, author, othermember }) => {
     let mcol = mcols.get(channel.id);
     if (mcol) {
       mcol.stop();
-      mcol.delete(channel.id);
+      mcols.delete(channel.id);
     }
   }
   if (potential) prompting.delete(potential.id);
