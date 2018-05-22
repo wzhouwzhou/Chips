@@ -36,6 +36,7 @@ const games = new Map();
 const prompting = new Map();
 const promptingAll = new Map();
 const mcols = new Map();
+const cleanupe = new EventEmitter();
 const get_ai_move = async movestr => {
   const json = (await snekfetch.get(`http://connect4.gamesolver.org/solve?pos=${movestr}`)).body.score;
   let valid_indexes = [[0, -100]];
@@ -107,12 +108,14 @@ const ex = {
     let potential;
     try {
       othermember = await promptInvitee(ctx);
+      if (othermember === 'EXIT') return true;
       potential = othermember;
       if (othermember && othermember.user.bot && othermember.id !== '393043996320071681' && othermember.id !== '296855425255473154') {
         send('You cannot invite that bot!');
         throw new Error('Bot invitee');
       }
       othermember = await promptPlayer({ author, send, prefix, channel, targetMember: othermember });
+      if (othermember === 'EXIT') return true;
     } catch (err) {
       cleanup({ channel, othermember, author });
       silentQuit = true;
@@ -337,6 +340,7 @@ const promptPlayer = ({ author, send, prefix, channel, targetMember }) => {
   if (!targetMember) promptingAll.set(channel.id, true);
   return new Promise(async(res, rej) => {
     if (targetMember && targetMember.id === '296855425255473154') return res(targetMember);
+    cleanupe.once(channel.id, () => res('EXIT'));
     const startFilter = m => {
       if (m.author.id === author.id) {
         if (m.content.match(/cancel/i)) {
@@ -379,7 +383,7 @@ const promptPlayer = ({ author, send, prefix, channel, targetMember }) => {
 
 const promptInvitee = ({ send, channel, author }) => new Promise(async(res, rej) => {
   let targetMember;
-
+  cleanupe.once(channel.id, () => res('EXIT'));
   const startFilter = m => {
     if (m.author.bot) return false;
     if (m.author.id === author.id) {
@@ -425,6 +429,7 @@ const cleanup = ({ channel, potential, author, othermember }) => {
       mcol.stop();
       mcols.delete(channel.id);
     }
+    cleanupe.emit(channel.id);
   }
   if (potential) prompting.delete(potential.id);
   if (othermember) prompting.delete(othermember.id)
