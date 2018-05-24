@@ -57,7 +57,7 @@ const ex = {
   async func(msg, ctx) {
     let { Discord, author, reply, member, send, channel, args, prefix } = ctx;
     let mCol, silentQuit = false;
-    if (args[0] && args[0].toLowerCase() === 'join') return !0;
+    if (args[0] && (args[0].toLowerCase() === 'join' || args[0].toLowerCase() === 'decline')) return !0;
     if (args[0] && args[0].toLowerCase() === 'cleanup') {
       if (!member.hasPermission('MANAGE_MESSAGES')) return send("You must have manage messages permissions to cleanup someone else's game");
       if (!args[1]) return send('You must mention the players involved.');
