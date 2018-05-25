@@ -36,7 +36,7 @@ module.exports = {
       }
     }
     embed.setDescription(desc.trim());
-    for (const f of fields) embed.addField('\u200B', f.trim());
+    for (const f of fields) if (f.length !== 0) embed.addField('\u200B', f.trim());
     embed.setTitle(query === author.discriminator ?
       `Users I know of with your discriminator of ${query}` :
       `Users with the discriminator ${query}`
@@ -62,7 +62,7 @@ module.exports = {
           }
         }
         embed.addField(`${inServer.size} of those people are here!`, first.trim());
-        for (const f of fields) embed.addField('\u200B', f.trim());
+        for (const f of fields) if (f.length !== 0) embed.addField('\u200B', f.trim());
       }
     }
     return send(embed);
