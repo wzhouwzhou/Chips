@@ -160,7 +160,7 @@ const msghandle = async message => {
   if (message.content.match(/<@!?296855425255473154>\s*prefix/i)) {
     if (message.guild) {
       return message.reply(`My prefix in this server is ${client.customprefix[message.guild.id] ?
-        _.escapeRegExp(client.customprefix[message.guild.id]) : _.escapeRegExp(prefix)
+        _.escapeRegExp(client.customprefix[message.guild.id]).replace(/`/g, '`\u200B').replace(/_/g, '\_') : _.escapeRegExp(prefix).replace(/`/g, '`\u200B').replace(/_/g, '\_')
       }${!client.customprefix[message.guild.id] || client.customprefix[message.guild.id] === prefix ?
         `\nType __${_.escapeRegExp(prefix)}help__ or set a custom prefix for me with \`${_.escapeRegExp(prefix)}chipsprefix on\`` :
         `Type __${_.escapeRegExp(client.customprefix[message.guild.id])}help__`}`);
