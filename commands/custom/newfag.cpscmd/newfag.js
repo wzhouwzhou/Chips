@@ -12,7 +12,7 @@ const guildwhitelist = [
 exports.func = async(msg, { prefix, guild, content, args }) => {
   if (!guild || !guildwhitelist.includes(guild.id)) return true;
   if (content.match(new RegExp(`${_.escapeRegExp(prefix)}r`, 'i')) && args[0] !== 'n') return true;
-  const list = (guild.roles.get('408801791900385290') || guild.roles.find('name', 'new person') || guild.roles.find('name', 'newfag')).members.filter(m => m.id !== '257574409852813315');
+  const list = (guild.roles.get('408801791900385290') || guild.roles.find('name', 'new person') || guild.roles.find('name', 'newfag') ||  guild.roles.find('name', 'newfags')).members.filter(m => m.id !== '257574409852813315');
   const p = new Paginator(msg, {
     type: 'paged',
     embedding: true,
