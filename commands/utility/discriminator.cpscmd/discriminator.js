@@ -19,8 +19,24 @@ module.exports = {
         return send(embed);
       }
     }
-    const valids = Array.from(client.users.filter(u => u.discriminator === query).values());
-    embed.setDescription(valids.map(u => u.tag).join('\n'));
+    const valids = Array.from(client.users.filter(u => u.discriminator === query).values()).map(u => u.tag);
+    let desc = '', fields = [''], i = 0;
+    for (let j = 0; j < valids.length; j++) {
+      let user = valids[j];
+      if (`${desc}${user}\n`.length < 2000) {
+        desc += `${user}\n`;
+      } else {
+        if (!fields[i]) fields[i] = '';
+        if (`${fields[i]}${user}\n`.length < 1000) {
+          fields[i] += `${user}\n`;
+        } else {
+          j--;
+          i++;
+        }
+      }
+    }
+    embed.setDescription(desc);
+    for (const f of fields) embed.addField('\u200B', f);
     embed.setTitle(query === author.discriminator ?
       `Users I know of with your discriminator of ${query}` :
       `Users with the discriminator ${query}`
