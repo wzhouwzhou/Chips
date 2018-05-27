@@ -66,12 +66,17 @@ global.memberjoin = {
       '3. What is your favourite diep.io tank?',
     ].join('\n'),
 
-    '274260111415836675': `**Hello There! If you want access to other text channels, you must be verified in the process. If there are no staff online, please wait.**
-      __**Here are the questions:**__
-      **1.** __How did you get here?__
-      **2.** __Do you know anyone in this Discord?__
-      **3.** __What is your favourite hat in Starve.io?__ **(If you don't know anything about starve.io, just say __"skip"__.)**
-    **4.** __What is your favourite tank in Diep.io__ **(If you don't know anything about diep.io, just say __"skip"__.)**`,
+    '274260111415836675': [
+      "**Hi there, and welcome to Duckio's Discord <@&409728175279702029>!** We advise you to read the rules. To be able to play, talk " +
+      'with other fans, or even be able to meet Duckio, **you must send your own answers to these questions here** and wait for staff.',
+      "\n**Do not copy other people's answers:**",
+      '`[1]` Where did you receive the link to this server from? If from someone, who is the person who sent it to you?',
+      '`[2]` If you know who Duckio is, what does Duckio primarily play on his channel?',
+      '`[3]` Do you know anyone in this server? If you do, who do you know?',
+      '`[4]` Do you agree to all the rules? If you have any question about them ask a staff member after you get verified',
+      '`[5]` Why did you join this server?',
+      "`[6]` Are you dqdt? Kindly show proof. If you're not or don't know what this is, kindly say no.`",
+    ].join('\n'),
 
     '302983444009451541': `Hai hoi! I'm just testing :>`,
     '250801092143611905': 'Welcome to Diep Colony! Please wait for online staff to verify you!',
