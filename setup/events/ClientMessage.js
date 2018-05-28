@@ -227,7 +227,6 @@ const msghandle = async message => {
     '286246724270555136': true,
   };
   if (message.guild && (message.guild.id == '210535197286989826') || (message.guild.id == '359801125882298378')){
-    if (message.content.replace(/[\s.,|/]+/g, '').match(new RegExp(`${'despac'.split('').join('+')}i+?t+?o+?`, 'i'))) return message.delete();
     for (const id in keywords) {
       if (keywords[id].toLowerCase().split('|').some(e => message.content.toLowerCase().includes(e)) && notify[id]) {
         if (message.author.id !== id) {
