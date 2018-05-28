@@ -82,11 +82,11 @@ module.exports = {
             try {
               if (dm) await u.send('Uh oh!', { embed: emb });
               await m.reply('Unbanning!');
-              guild.unban(memberToUse.toString(), { reason: `[UNBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}` });
+              guild.unban(memberToUse.toString(), `[UNBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`);
             } catch (err) {
               console.log(err);
               if (dm) m.reply('Could not dm the user, but unbanning anyway!');
-              guild.unban(memberToUse.toString(), { reason: `[UNBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}` });
+              guild.unban(memberToUse.toString(), `[UNBAN]: [Author]: ${m.author.tag} [Reason]: ${reason}`);
             }
           });
         } else {
