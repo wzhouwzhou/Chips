@@ -12,10 +12,10 @@ module.exports = function() {
           react.message.channel.send(`<@${user.id}>, Self-starring is disabled in this server! (__**We'll remove AntiSelfStar from this server if this gets abused!**__)`).then(m => setTimeout(() => m.delete(), 5000)).catch(err => console.log(err));
         }
       }
-      if (react.message.guild.id == '257889450850254848')
+      if (react.message.guild.id == '274260111415836675')
       // If(react.emoji.toString()==Constants.emojis.STAR)
       {
-        react.message.guild.channels.get('320752455178780672').send(`${user.tag.replace(/@/g, '(at)')} just reacted with ${react.emoji.toString()} to a message in ${react.message.channel}`, { embed: new Discord.MessageEmbed().setDescription(react.message.content).setAuthor(react.message.author.tag)
+        react.message.guild.channels.get('451103831585980428').send(`${user.tag.replace(/@/g, '(at)')} just reacted with ${react.emoji.toString()} to a message in ${react.message.channel}`, { embed: new Discord.MessageEmbed().setDescription(react.message.content).setAuthor(react.message.author.tag)
           .setTimestamp(new Date())
           .setColor(react.message.member ? react.message.member.displayColor : _.random(0, 16777215)) });
       }
