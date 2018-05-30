@@ -75,7 +75,7 @@ global.memberjoin = {
       '`[3]` Do you know anyone in this server? If you do, who do you know?',
       '`[4]` Do you agree to all the rules? If you have any question about them ask a staff member after you get verified',
       '`[5]` Why did you join this server?',
-      "`[6]` Are you dqdt? Kindly show proof. If you're not or don't know what this is, kindly say no.`",
+      '\t__**NOTE**__\nIf you wanted to join the official DQ clan, join this server here: https://discord.gg/WSw6bu',
     ].join('\n'),
 
     '302983444009451541': `Hai hoi! I'm just testing :>`,
