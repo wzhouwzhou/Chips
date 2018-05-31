@@ -8,7 +8,7 @@ fakeban.metadata = {
   description: 'This command fake bans someone!',
   usage: '-ban <user> <reason>',
   example: '-ban @周珺 • WillyZ#6686 Letting Chips be eaten',
-  perm: [['global.fun.-ban.-ban']],
+  perm: [['global.fun.-ban.fakeban']],
   customperm: ['BAN_MEMBERS'],
 };
 

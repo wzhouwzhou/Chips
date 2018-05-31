@@ -6,7 +6,7 @@ ass.metadata = {
   description: 'The name of this command is self explanatory.',
   usage: 'ass',
   example: 'ass',
-  perm: [['global.nsfw.ass.ass']],
+  perm: [['global.nsfw.ass.image']],
 };
 
 console.log('[CPSCMD][NSFW][ass] Build objects complete!');

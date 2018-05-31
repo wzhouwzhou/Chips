@@ -6,7 +6,7 @@ support.metadata = {
   description: "Links Chips' support server!",
   usage: 'support',
   example: 'support',
-  perm: [['public.info.support.support']],
+  perm: [['public.info.support.invite']],
   customperm: ['SEND_MESSAGES'],
 };
 

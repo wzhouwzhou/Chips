@@ -7,7 +7,7 @@ s.metadata = {
   description: 'This command lets you say something through Chips!',
   usage: 's <message>',
   example: 's I will eat my creators one day!',
-  perm: [['global.fun.say.say']],
+  perm: [['global.fun.say.echo']],
 };
 
 console.log('[CPSCMD][FUN][say] Build objects complete!');

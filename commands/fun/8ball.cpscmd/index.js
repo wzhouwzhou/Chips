@@ -7,7 +7,7 @@ ball.metadata = {
   description: 'This answers your questions!',
   usage: '8ball [question]',
   example: '8ball Hello?',
-  perm: [['global.8ball.*']],
+  perm: [['global.fun.8ball.ask']],
   customperm: ['SEND_MESSAGES'],
 };
 console.log('[CPSCMD][INFO][ball] Build objects complete!');

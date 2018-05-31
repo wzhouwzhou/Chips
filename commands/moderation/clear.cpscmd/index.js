@@ -18,7 +18,7 @@ bc.metadata.usage = 'botclear <number 1-99>';
 clear.metadata.example = 'clear 22';
 bc.metadata.example = 'botclear 22';
 
-clear.metadata.perm = [['global.moderation.clear.clear']];
+clear.metadata.perm = [['global.moderation.clear.msgclear']];
 bc.metadata.perm = [['global.moderation.clear.botclear']];
 
 console.log('[CPSCMD][MODERATION][clear] Build objects complete!');

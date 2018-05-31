@@ -25,7 +25,7 @@ ex.permsList = [
   ['public.info.stats.*', true],
   ['public.info.stats.stats', true],
   ['public.info.support.*', true],
-  ['public.info.support.support', true],
+  ['public.info.support.invite', true],
   ['public.info.userid', true],
   ['global.*', false],
   ['global.custom.*', false],
@@ -46,21 +46,21 @@ ex.permsList = [
   ['global.games.con4.*', true],
   ['global.games.con4.play', true],
   ['global.fun.-ban.*', false],
-  ['global.fun.-ban.-ban', false], // 4
+  ['global.fun.-ban.fakeban', false], // 4
   ['global.fun.animals.*', true],
   ['global.fun.animals.dog', true], // 13
   ['global.fun.animals.cat', true], // 10
   ['global.fun.eat.*', true],
   ['global.fun.eat.eat', true], // 14
-  ['global.8ball.*', true],
-  ['global.8ball.8ball', true],
+  ['global.fun.8ball.*', false],
+  ['global.fun.8ball.ask', true],
   ['global.fun.happy.*', true],
   ['global.fun.happy.happy', true], // 18
   ['global.fun.random.*', true],
   ['global.fun.random.coinflip', true], // 12
   ['global.fun.random.roll', true],
   ['global.fun.say.*', false],
-  ['global.fun.say.say', false],
+  ['global.fun.say.echo', false],
   ['global.fun.search.*', true],
   ['global.fun.search.lmgtfy', true],
   ['global.fun.ship', true],
@@ -159,7 +159,7 @@ ex.permsList = [
   ['global.moderation.chipsprefix.chipsprefix', false],
   ['global.moderation.clear.*', false],
   ['global.moderation.clear.botclear', false],
-  ['global.moderation.clear.clear', false], // 11
+  ['global.moderation.clear.msgclear', false], // 11
   ['global.moderation.clear.reactclear', false], // To be added/renamed
   ['global.moderation.kicks.*', false],
   ['global.moderation.kicks.kick', false],
@@ -182,9 +182,9 @@ ex.permsList = [
   ['global.moderation.setnick.*', false],
   ['global.nsfw.*', false],
   ['global.nsfw.ass.*', false],
-  ['global.nsfw.ass.ass', true],
+  ['global.nsfw.ass.image', true],
   ['global.nsfw.boobs.*', false],
-  ['global.nsfw.boobs.boobs', true],
+  ['global.nsfw.boobs.image', true],
   ['global.nsfw.nsfw.*', false], // To be added/renamed
   ['global.nsfw.nsfw.info', true], // To be added/renamed
   ['global.nsfw.rule34.*', false],

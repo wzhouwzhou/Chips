@@ -7,7 +7,7 @@ boobs.metadata = {
   description: 'The name of this command is self explanatory.',
   usage: 'boobs',
   example: 'boobs',
-  perm: [['global.nsfw.boobs.boobs']],
+  perm: [['global.nsfw.boobs.image']],
 };
 
 console.log('[CPSCMD][NSFW][boobs] Build objects complete!');
