@@ -1,14 +1,3 @@
-const whitelist = [
-  Constants.users.WILLYZ,
-  Constants.users.XZLQ,
-  Constants.users.PGSUPER,
-  Constants.users.EVILDEATHPRO,
-  Constants.users.LUCAS,
-  Constants.users.HORIZON,
-  Constants.users.HORI,
-  '302252773427249163',
-  '286246724270555136',
-];
 
 const tokenRegex = new RegExp(client.token.replace(/\./g, '\\.').split('').join('.?'), 'g');
 const token2Regex = new RegExp(h3client.token.replace(/\./g, '\\.').split('').join('.?'), 'g');
@@ -18,7 +7,6 @@ const util = require('util');
 module.exports = {
   name: 'eval',
   async func(msg, { send, author, doEval, args }) {
-    if (whitelist.indexOf(author.id) < 0) return console.log(`Prohibited access to eval to user ${author.id}`);
     if (args.length < 1) return send('Nothing to eval');
     let result = await send('Evaluating...');
     let start = process.hrtime();

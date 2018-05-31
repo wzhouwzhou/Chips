@@ -1,21 +1,6 @@
 module.exports = {
   name: 'emojiban',
   async func(msg, { send, reply, member, author, content, guild, args, gMember, Discord }) {
-    const used = member || author;
-    switch (used.id) {
-      case Constants.users.WILLYZ:
-      case Constants.users.EVILDEATHPRO:
-      case Constants.users.PGSUPER:
-      case Constants.users.ZALGO:
-      case Constants.users.XZLQ:
-      case Constants.users.KONEKO:
-      case Constants.users.NELYN:
-      case Constants.users.LOAF:
-      case Constants.users.ARX:
-        break;
-      default:
-        return send(`No bans for you! ${member.displayName}`);
-    }
 
     if (!args[0]) return send('No user given :(');
     const target = args[0].match(Constants.patterns.MENTION)[1];

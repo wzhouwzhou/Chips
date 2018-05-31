@@ -6,11 +6,11 @@ module.exports = {
   async func(msg, { send, reply, author, args, channel, guild, client, prefix }) {
     let memberToUse;
     try {
-      if (!args[0]) return reply('Please specify a user to ban!');
+      if (!args[0]) return reply('Please specify a user to hackban!');
 
       memberToUse = (args[0].match(/^<?@?!?(\d+)>?$/) || [null, null])[1];
 
-      if (memberToUse == null || isNaN(memberToUse)) return reply('Please specify a valid user to ban!');
+      if (memberToUse == null || isNaN(memberToUse)) return reply('Please specify a valid user to hackban!');
 
       console.log(`Hackban ID received as: ${_.escapeRegExp(memberToUse)}`);
 

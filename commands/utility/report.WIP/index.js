@@ -4,7 +4,7 @@ console.log('[CPSCMD][UTILITY][setchannel] Building objects...');
 
 report.metadata = {
   category: require('../').category,
-  description: 'N/A',
+  description: 'duckio\'s discord exclusive command',
   usage: 'report',
   example: 'report',
   perm: [['global.utility.*']],

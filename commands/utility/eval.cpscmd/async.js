@@ -1,13 +1,5 @@
 /* eslint no-unused-vars: "off" */
 
-const whitelist = [
-  Constants.users.WILLYZ,
-  Constants.users.XZLQ,
-  Constants.users.PGSUPER,
-  Constants.users.EVILDEATHPRO,
-  Constants.users.LUCAS,
-  '286246724270555136',
-];
 
 const util = require('util');
 
@@ -16,7 +8,6 @@ const ex = {
   async func(msg, { args, send, reply, author, content, doEval, guild, member, prefix }) {
     let start = process.hrtime();
     let end;
-    if (whitelist.indexOf(author.id) < 0) return console.log('prohibited access to eval');
     if (args.length < 1) return send('Nothing to async eval');
     let query = args.join(' ');
 

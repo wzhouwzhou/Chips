@@ -3,7 +3,7 @@ let sn = require('./setnick');
 console.log('[CPSCMD][MODERATION][setnick] Building objects...');
 sn.metadata = {
   category: require('../').category,
-  description: 'Work in progress!',
+  description: 'Changes member\'s nicknames!',
   usage: 'setnick',
   example: 'setnick',
   perm: [['global.moderation.setnick.*']],

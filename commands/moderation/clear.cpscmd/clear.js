@@ -36,7 +36,7 @@ module.exports = {
       }
       result = await send(`${--nmsgs} message(s) deleted successfully!`);
     } catch (err) {
-      result = await send(`Could not delete ${args[0]} message(s)..`);
+      result = await send(`Could not delete ${args[0]} messages, perhaps I am missing permissions?`);
     }
     result.delete({ timeout: 9500 }).catch(_ => _);
     return true;
