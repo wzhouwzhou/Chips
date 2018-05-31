@@ -69,13 +69,13 @@ global.memberjoin = {
     '274260111415836675': [
       "**Hi there, and welcome to Duckio's Discord <@&409728175279702029>!** We advise you to read the rules. To be able to play, talk " +
       'with other fans, or even be able to meet Duckio, **you must send your own answers to these questions here** and wait for staff.',
-      "\n**Do not copy other people's answers:**",
+      "\n__**Do not copy other people's answers:**__",
       '`[1]` Where did you receive the link to this server from? If from someone, who is the person who sent it to you?',
       '`[2]` If you know who Duckio is, what does Duckio primarily play on his channel?',
       '`[3]` Do you know anyone in this server? If you do, who do you know?',
       '`[4]` Do you agree to all the rules? If you have any question about them ask a staff member after you get verified',
       '`[5]` Why did you join this server?',
-      '\t__**NOTE**__\nIf you wanted to join the official DQ clan, join this server here: https://discord.gg/WSw6bu',
+      '\n\t__**NOTE**__\nIf you wanted to join the official DQ clan, join this server here: https://discord.gg/WSw6bu',
     ].join('\n'),
 
     '302983444009451541': `Hai hoi! I'm just testing :>`,
