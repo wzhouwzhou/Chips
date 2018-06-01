@@ -349,6 +349,7 @@ async function detectPartyLink(message) {
 const handleAntiLink = message => new Promise(res => {
   if (!message.member) return res(false);
   if (message.member.hasPermission('ADMINISTRATOR')) return res(false);
+  if (message.member.id === '205608598233939970') return res(false);
   if (~client.antilinkExemptedC.indexOf(message.channel.id)) return res(false);
   const gid = message.guild.id;
   if (!client.antilink[gid]) return res(false);
