@@ -10,8 +10,6 @@ profile.metadata = {
   customperm: ['SEND_MESSAGES'],
 };
 
-profile.example = 'profile';
-
 console.log('[CPSCMD][INFO][profile] Build objects complete!');
 module.exports = [
   [profile.name, profile],
