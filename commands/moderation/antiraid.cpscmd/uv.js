@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'ban',
+    name: 'unverify',
     async func(msg, { send, reply, member, author, content, args, channel, guild, gMember }) {
     if (!guild) {
       return reply('You must use this in a server!');
