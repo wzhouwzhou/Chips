@@ -1,4 +1,5 @@
 let info = require('./info');
+let rm = require('./rm');
 
 console.log('[CPSCMD][INFO][info] Building objects...');
 info.metadata = {
@@ -10,7 +11,20 @@ info.metadata = {
   customperm: ['SEND_MESSAGES'],
 };
 
+console.log('[CPSCMD][INFO][info] Building objects...');
+rm.metadata = {
+  category: require('../').category,
+  description: 'Shows all users that have a role',
+  usage: 'rolemembers <role>',
+  example: ['rolemembers ++'],
+  perm: [['global.info.*']],
+  customperm: ['SEND_MESSAGES'],
+};
+
 console.log('[CPSCMD][INFO][info] Build objects complete!');
 module.exports = [
   [info.name, info],
+  [rm.name, rm],
+  ['rolemembers', rm],
+  ['rolemember', rm],
 ];
