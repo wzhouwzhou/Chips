@@ -1,5 +1,5 @@
 let info = require('./info');
-let rm = require('./rm');
+let rm = require('./rmembers');
 
 console.log('[CPSCMD][INFO][info] Building objects...');
 info.metadata = {
