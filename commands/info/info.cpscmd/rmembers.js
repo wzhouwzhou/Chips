@@ -1,5 +1,6 @@
 const path = require('path');
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
+const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Paginator;
 
 module.exports = {
   name: 'rmembers',
@@ -28,25 +29,28 @@ module.exports = {
       }
       if (role.members.size === 0) return send('Nobody has this role!');
 
-      let desc = '```', fields = ['\x60'.repeat(3)], i = 0;
+      let descs = ['```'], i = 0;
       for (const mem of role.members.array()) {
-        if (desc.trim().length <= 1950) {
-          desc += `${mem.user.tag} `;
-        } else if (desc.trim().length > 1950) {
-          if (!fields[i]) fields[i] = '```';
-          if (fields[i].length > 900) {
-            if (i >= 3) {
-              send('Member list is too long! Truncating results...');
-              break;
-            }
-            fields[++i] = '\x60'.repeat(3);
-          }
-          fields[i] += `${mem.user.tag} `;
+        if (!descs[i]) descs[i] = '```';
+        if (descs[i].trim().length > 1950) {
+          descs[++i] = '```';
         }
+        descs[i] += `${mem.user.tag} `;
       }
-      const embed = new Discord.MessageEmbed().setDescription(`${desc}\x60\x60\x60`);
-      for (const f of fields.filter(_ => _)) embed.addField('\u200B', `${f.trim()}\x60\x60\x60`);
-      return send(embed);
+      if (descs.length === 1) {
+        const embed = new Discord.MessageEmbed().setTitle(`Members with the role ${role.name}`).setDescription(`${descs[0]}\x60\x60\x60`);
+        return send(embed);
+      }
+
+      const p = new Paginator(msg, {
+        type: 'paged',
+        embedding: true,
+        fielding: false,
+        title: `Members with the role ${role.name}`,
+        pages: descs,
+      }, Discord);
+
+      return p.sendFirst();
     }
   },
 };
