@@ -1,6 +1,11 @@
+const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default
 module.exports = {
     name: 'rmembers',
-    func(msg, { send, channel, guild }) {
+    func(msg, { send, channel, guild, args,  }) {
+    if (guild) {
+        let options = { guild: guild };
+        global.searchers[guild.id] = new Searcher(options.guild);
+    }
     if (!args[0]) { return send('No role given :<'); 
 } else {  
     let role;
