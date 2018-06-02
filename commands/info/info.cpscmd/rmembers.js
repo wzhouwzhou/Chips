@@ -26,16 +26,27 @@ module.exports = {
         }
         role = list[0];
       }
+      if (role.members.size === 0) return send('Nobody has this role!');
 
-      let memList = '';
+      let desc = '```', fields = ['\x60'.repeat(3)], i = 0;
       for (const mem of role.members.array()) {
-        memList += `${mem.user.tag} `;
-        if (memList.trim().length > 1950) {
-          send('Member list is too long! Truncating results...');
-          break;
+        if (desc.trim().length <= 1000) {
+          desc += `${mem.user.tag} `;
+        } else if (desc.trim().length > 1000) {
+          if (!fields[i]) fields[i] = '';
+          if (fields[i].length > 1000) {
+            fields[++i] = '\x60'.repeat(3);
+          }
+          fields[i] += `${mem.user.tag} `;
+          if (i > 4) {
+            send('Member list is too long! Truncating results...');
+            break;
+          }
         }
       }
-      return send(`${memList ? memList.trim() : 'Nobody has this role!'}`);
+      const embed = new Discord.MessageEmbed().setDescription(`${desc}\x60\x60\x60`);
+      for (const f of fields) embed.addField('\u200B', `${f.trim()}\x60\x60\x60`)
+      return send(embed);
     }
   },
 };
