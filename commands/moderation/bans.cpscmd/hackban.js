@@ -16,6 +16,8 @@ module.exports = {
 
       if (memberToUse === author.id) return reply("I can't let you ban yourself >.>");
 
+      if (!memberToUse) return reply('Targer user doesn\'t exist.');
+
       let temp = guild.members.get(memberToUse);
       if (temp) return reply(`Target user is in this server! Use ${_.escapeRegExp(prefix)}ban instead.`);
 

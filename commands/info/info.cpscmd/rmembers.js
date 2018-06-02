@@ -1,4 +1,5 @@
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default
+
 module.exports = {
     name: 'rmembers',
     func(msg, { send, channel, guild, args,  }) {
