@@ -47,7 +47,7 @@ module.exports = {
         embedding: true,
         fielding: false,
         title: `Members with the role ${role.name}`,
-        pages: descs,
+        pages: descs.map(e => `${e}${'\x60'.repeat(3)}`),
       }, Discord);
 
       return p.sendFirst();
