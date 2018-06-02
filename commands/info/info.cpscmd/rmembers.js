@@ -33,8 +33,8 @@ module.exports = {
         if (desc.trim().length <= 1950) {
           desc += `${mem.user.tag} `;
         } else if (desc.trim().length > 1950) {
-          if (!fields[i]) fields[i] = '';
-          if (fields[i].length > 1000) {
+          if (!fields[i]) fields[i] = '```';
+          if (fields[i].length > 900) {
             if (i >= 3) {
               send('Member list is too long! Truncating results...');
               break;
@@ -45,7 +45,7 @@ module.exports = {
         }
       }
       const embed = new Discord.MessageEmbed().setDescription(`${desc}\x60\x60\x60`);
-      for (const f of fields) embed.addField('\u200B', `${f.trim()}\x60\x60\x60`)
+      for (const f of fields.filter(_ => _)) embed.addField('\u200B', `${f.trim()}\x60\x60\x60`);
       return send(embed);
     }
   },
