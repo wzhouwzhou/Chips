@@ -30,18 +30,18 @@ module.exports = {
 
       let desc = '```', fields = ['\x60'.repeat(3)], i = 0;
       for (const mem of role.members.array()) {
-        if (desc.trim().length <= 1000) {
+        if (desc.trim().length <= 1950) {
           desc += `${mem.user.tag} `;
-        } else if (desc.trim().length > 1000) {
+        } else if (desc.trim().length > 1950) {
           if (!fields[i]) fields[i] = '';
           if (fields[i].length > 1000) {
+            if (i >= 3) {
+              send('Member list is too long! Truncating results...');
+              break;
+            }
             fields[++i] = '\x60'.repeat(3);
           }
           fields[i] += `${mem.user.tag} `;
-          if (i > 4) {
-            send('Member list is too long! Truncating results...');
-            break;
-          }
         }
       }
       const embed = new Discord.MessageEmbed().setDescription(`${desc}\x60\x60\x60`);
