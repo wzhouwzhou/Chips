@@ -105,12 +105,48 @@ excl.metadata = {
   example: '!',
   perm: [['global.fun.text.!']],
 };
-eh.metadata = excl.metadata;
-huh.metadata = eh.metadata;
-nerd.metadata = huh.metadata;
-oof.metadata = excl.metadata;
-blobfest.metadata = oof.metadata;
-boi.metadata = eh.metadata;
+eh.metadata = {
+  category: require('../').category,
+  description: 'eHh?!',
+  usage: 'eh <no args>',
+  example: 'eh',
+  perm: [['global.fun.text.eh']],
+}
+huh.metadata = {
+  category: require('../').category,
+  description: 'HUH!?',
+  usage: 'huh <no args>',
+  example: 'huh',
+  perm: [['global.fun.text.huh']],
+}
+nerd.metadata = {
+  category: require('../').category,
+  description: 'NEErDd!!!',
+  usage: 'nerd <no args>',
+  example: 'nerd',
+  perm: [['global.fun.text.nerd']],
+}
+oof.metadata = {
+  category: require('../').category,
+  description: 'OOofFFff1!!!!1!11!',
+  usage: 'oof <no args>',
+  example: 'oof',
+  perm: [['global.fun.text.oof']],
+}
+blobfest.metadata = {
+  category: require('../').category,
+  description: 'A field of dancing blobs',
+  usage: 'blobfest <no args>',
+  example: 'blobfest',
+  perm: [['global.fun.text.blobfest']],
+}
+boi.metadata = {
+  category: require('../').category,
+  description: 'BOi!',
+  usage: 'boi <no args>',
+  example: 'boi',
+  perm: [['global.fun.text.boi']],
+}
 
 console.log('[CPSCMD][INFO][text] Build objects compconste!');
 module.exports = [
@@ -133,4 +169,5 @@ module.exports = [
   [achievement.name, achievement],
   [blobfest.name, blobfest],
   ['blobparty', blobfest],
+  [boi.name, boi]
 ];
