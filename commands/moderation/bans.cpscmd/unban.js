@@ -11,7 +11,7 @@ module.exports = {
       if (isNaN(target.match(/\d+/))) return reply('Please specify a valid user to unban!');
       memberToUse = target.match(/\d+/);
       let temp = guild.members.get(target.match(/\d+/));
-      if (temp !== null) return reply("Target user is in this server! You can't unban them!");
+      if (temp != null) return reply("Target user is in this server! You can't unban them!");
       if (memberToUse === ''|| memberToUse > 9223372036854775807) return reply('Invalid user!');
       if (memberToUse === memberToUse.id) return reply('Why would you even try this...');
     } catch (err) { // Something extremely weird has happened:
