@@ -110,6 +110,7 @@ module.exports = [
   [aboosed.name, aboosed],
   ['aboose', aboosed],
   [confoosed.name, confoosed],
+  ['confused', confoosed],
   [exposed.name, exposed],
   [fail.name, fail],
   ['wasted', fail],
