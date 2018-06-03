@@ -11,9 +11,9 @@ module.exports = {
       if (isNaN(target.match(/\d+/))) return reply('Please specify a valid user to unban!');
       memberToUse = target.match(/\d+/);
       let temp = guild.members.get(target.match(/\d+/));
-      if (temp != null) return reply("Target user is in this server! You can't unban them!");
-      if (memberToUse == '') return reply('Invalid user!');
-      if (memberToUse == memberToUse.id) return reply('Why would you even try this...');
+      if (temp !== null) return reply("Target user is in this server! You can't unban them!");
+      if (memberToUse === ''|| memberToUse > 9223372036854775807) return reply('Invalid user!');
+      if (memberToUse === memberToUse.id) return reply('Why would you even try this...');
     } catch (err) { // Something extremely weird has happened:
       console.log(err);
       return reply('I like chips.');
@@ -21,13 +21,13 @@ module.exports = {
     let dm = false;
     let reason;
     if (args[1]) {
-      if (args[2] && args[2].toLowerCase() != 'dm') {
+      if (args[2] && args[2].toLowerCase() !== 'dm') {
         reason = _.drop(args).join(' ');
         dm = true;
       } else { reason = _.drop(_.drop(args)).join(' '); }
     }
 
-    if (reason == null) reason = 'No reason provided.';
+    if (reason === null) reason = 'No reason provided.';
     let user = null, found = false;
     try {
       user = await client.users.fetch(memberToUse);
@@ -53,7 +53,7 @@ module.exports = {
 
     let collector = channel.createMessageCollector(m => {
       if (/^(?:y(?:es)?)|(?:no?)$/i.test(m.content)) {
-        if (m.author.id == author.id) {
+        if (m.author.id === author.id) {
           m.channel.send('Choice accepted. Now processing...').then(m => setTimeout(() => m.delete()), 1000);
           confirmed = true;
           agreed = /^(?:y(?:es)?)$/i.test(m.content);
@@ -69,7 +69,7 @@ module.exports = {
       if (!confirmed) { return reply('Unban timed out'); } else {
         let m = collected.first();
         console.log(`[Unban]: Collected ${m.content}`);
-        if (m.author.id != author.id) return;
+        if (m.author.id !== author.id) return;
         if (agreed) {
           console.log('[Unban] Unbanning...');
           let emb = new Discord.MessageEmbed()
