@@ -22,9 +22,9 @@ module.exports = {
     let reason;
     if (args[1]) {
       if (args[2] && args[2].toLowerCase() !== 'dm') {
-        reason = _.drop(args).join(' ');
+        reason = global._.drop(args).join(' ');
         dm = true;
-      } else { reason = _.drop(_.drop(args)).join(' '); }
+      } else { reason = global._.drop(global._.drop(args)).join(' '); }
     }
 
     if (reason === null) reason = 'No reason provided.';
