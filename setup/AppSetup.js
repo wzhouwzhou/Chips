@@ -15,10 +15,13 @@ const login = require(path.join(__dirname, '../routes/login'));
 const vy = require(path.join(__dirname, '../routes/vy'));
 const xena = require(path.join(__dirname, '../routes/xena'));
 const errp = require(path.join(__dirname, '../routes/error'));
-const updates = require(path.join(__dirname, '../routes/updates'));
+/*
+Const updates = require(path.join(__dirname, '../routes/updates'));
 const useroverview = require(path.join(__dirname, '../routes/updates'));
+*/
 const index = require(path.join(__dirname, '../routes/index'));
 const cmds = require(path.join(__dirname, '../routes/commands'));
+const privacy = require(path.join(__dirname, '../routes/privacy'));
 const morgan = require('morgan');
 const morgan2 = require('morgan');
 const rfs = require('rotating-file-stream');
@@ -168,6 +171,7 @@ module.exports = () => {
   app.use('/vy', vy);
   app.use('/xen*', xena);
   app.use('/errr', errp);
+  app.use('/privacy*', privacy);
   // App.use('/updates',updates);
 
   // error handler
