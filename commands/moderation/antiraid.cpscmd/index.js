@@ -23,9 +23,10 @@ uv.metadata = {
 console.log('[CPSCMD][MODERATION][antiraid] Build objects complete!');
 module.exports = [
   [vs.name, vs],
-  ['vs', vs],
+  ['-vs', vs],
   ['verify', vs],
   ['verification', vs],
+  ['verificationsystem', vs],
   [uv.name, uv],
   ['uv', uv],
   ['-uv', uv],

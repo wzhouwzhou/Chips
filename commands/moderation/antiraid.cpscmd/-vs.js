@@ -5,19 +5,8 @@ const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).def
 
 const ex = {};
 
-ex.name = '-vs';
-ex.func = async(msg, {
-  send,
-  channel,
-  author,
-  guild,
-  args,
-  gMember,
-  reply,
-  Discord,
-  client,
-  Constants,
-}) => {
+ex.name = 'vs';
+ex.func = async(msg, { send, channel, author, guild, args, gMember, reply, Discord, client, Constants }) => {
   if (!guild) return reply('You must use this in a server!');
   if (!args[0]) return reply('No action given :(');
 
@@ -31,9 +20,8 @@ ex.func = async(msg, {
         const target = args[1].match(Constants.patterns.MENTION)[1];
         const user = gMember(target).user;
         targetMember = guild.members.get(user.id);
-        // Console.log(`[VS](ok) Target: ${target}`);
       } catch (err) {
-        return reply(`Invalid user specified`);
+        return reply('Invalid member mentioned');
       }
 
       if (!targetMember.roles.get('305302877641900052') && !targetMember.roles.find('name', 'unverified') &&
@@ -53,46 +41,43 @@ ex.func = async(msg, {
         // Duckio
         if (guild.id === '274260111415836675') {
           await targetMember.addRole(guild.roles.get('338625733456953344'));
-          guild.channels.get('274260111415836675').send(`${targetMember + []} is now verified! Please be sure to read <#378680507786985472> and <#378680485309710336>.`);
+          guild.channels.get('274260111415836675').send(`${targetMember + []
+          } is now verified! Please be sure to read <#378680507786985472> and <#378680485309710336>.`);
         }
         if (client.memberjoin.verifyLogC[guild.id]) {
           let embed = new Discord.MessageEmbed();
           embed.setTitle('Member Verification').setColor(_.random(1, 16777215)).setTimestamp();
           embed.setDescription(`<@${targetMember.id}> was just verified by <@${author.id}>!`);
           if (guild.channels.get(client.memberjoin.verifyLogC[guild.id])) {
-            guild.channels.get(client.memberjoin.verifyLogC[guild.id]).send(embed).catch(err => {
-              reply('Could not log the verification...');
-              console.log(err);
-            });
+            guild.channels.get(client.memberjoin.verifyLogC[guild.id]).send(embed).catch(() => reply('Could not log the verification...'));
           }
         }
         return reply('User verified successfully!');
       } catch (err) {
-        console.log(`Could not remove unverified role..probably: ${err}`);
         await reply('User not unverified :< Something went wrong..');
         throw err;
       } }
 
     case 'welcome': {
-      if (!memberjoin.antiraidWelcome[guild.id]) return reply(`A welcome message has not been set for this server!`);
-      return send(memberjoin.antiraidWelcome[guild.id]); }
+      if (!client.memberjoin.antiraidWelcome[guild.id]) return reply(`A welcome message has not been set for this server!`);
+      return send(client.memberjoin.antiraidWelcome[guild.id]); }
 
     case 'panic': {
       let options = args[1] ? args[1] : 'none';
 
       switch (options) {
         case 'off': {
-          if (memberjoin.panics[guild.id] != null && memberjoin.panics[guild.id]) {
-            memberjoin.panics[guild.id] = false;
-            memberjoin.panicKick[guild.id] = false;
-            await guild.setVerificationLevel(memberjoin.antiraidOldVL[guild.id]);
+          if (client.memberjoin.panics[guild.id]) {
+            client.memberjoin.panics[guild.id] = false;
+            client.memberjoin.panicKick[guild.id] = false;
+            await guild.setVerificationLevel(client.memberjoin.antiraidOldVL[guild.id]);
             return reply(`Panic mode has been disabled! The verification level is now ${guild.verificationLevel} again.`);
           } else {
             return reply(`Panic mode was not enabled for this server!`);
           } }
         case 'lockdown': {
-          if (args[2] && args[2] == 'ban') {
-            if (args[3] && (args[3] == 'customize' || args[3] == 'customise')) {
+          if (args[2] && args[2] === 'ban') {
+            if (args[3] && ['customize', 'customise', 'c', 'set'].includes(args[3])) {
               let s = new Searcher(guild);
 
               let cancelA = false, cancelB = false, thesht;
@@ -100,10 +85,7 @@ ex.func = async(msg, {
               let errored = false;
               const WAITFORSHT = 60 * 1000;
 
-              const authorFilter = m => {
-                if (m.author.id != author.id) return false;
-                else return true;
-              };
+              const authorFilter = m => m.author.id === author.id;
 
               const cancelFilter = m => m.content.toLowerCase().indexOf('cancel') > -1;
 
@@ -144,9 +126,9 @@ ex.func = async(msg, {
                 if (~m.content.toLowerCase().indexOf('-1')) { thetimer = false; } else {
                   try {
                     thetimer = parseInt(m.content.toLowerCase());
-                    if (isNaN(thetimer)) throw 'Invalid time given. Please start over';
+                    if (isNaN(thetimer)) throw new Error('Invalid time given. Please start over');
                   } catch (err) {
-                    m.reply(err);
+                    m.reply(err.message);
                     errored = true;
                     return true;
                   }
@@ -157,7 +139,8 @@ ex.func = async(msg, {
 
               const timedprompter = [
                 '**Please enter a whole number (in minutes) that will be banned with the matcher you just set.**',
-                '\t*For example, typing `5` will set it so people who joined within 5 minutes ago whos names match the criteria you set above will be banned*',
+                '\t*For example, typing `5` will set it so people who joined within 5 minutes ago whos names match ' +
+                  'the criteria you set above will be banned*',
                 'Type __cancel__ to exit, or __-1__ to ban all matches regardless of join time',
               ].join('\n');
 
@@ -201,7 +184,8 @@ ex.func = async(msg, {
                   'This is just to confirm...',
                   '**You are about to activate panic lockdown and ban users who match this criteria:**',
                   length ? `\tUsername length is ${length}` : `\tName passes this regexp: ${theregex}`,
-                  thetimer ? `\tUser joined within the last ${thetimer} minutes` : '\tThe length of time the user has been in the server does not matter',
+                  thetimer ? `\tUser joined within the last ${thetimer} minutes` :
+                    '\tThe length of time the user has been in the server does not matter',
                   `This apples to __${membersToBan.length}__ member(s).`,
                   '**Type __y__es or __n__o.**',
                 ].join('\n');
@@ -212,25 +196,25 @@ ex.func = async(msg, {
                 send(`Banning ${membersToBan.length} member(s)`);
                 membersToBan.forEach(m => m.ban(`Antiraid rules set by ${thesht.author.tag}`));
               } catch (timed) {
-                console.log(timed);
                 return reply('Timed out');
               }
             }
-            if (memberjoin.panicKick[guild.id]) return reply('Panic lockdown is already enabled!');
+            if (client.memberjoin.panicKick[guild.id]) return reply('Panic lockdown is already enabled!');
             options = 'lockdown ';
-            if (!memberjoin.panics[guild.id]) memberjoin.antiraidOldVL[guild.id] = guild.verificationLevel;
+            if (!client.memberjoin.panics[guild.id]) client.memberjoin.antiraidOldVL[guild.id] = guild.verificationLevel;
             await guild.setVerificationLevel(4);
-            memberjoin.panics[guild.id] = true;
-            memberjoin.panicBan[guild.id] = true;
+            client.memberjoin.panics[guild.id] = true;
+            client.memberjoin.panicBan[guild.id] = true;
             return reply(`Panic lockdown ban activated, verification level is now ${guild.verificationLevel}, and autoban initiated!`);
           } else {
-            if (memberjoin.panicKick[guild.id]) return reply('Panic lockdown is already enabled!');
+            if (client.memberjoin.panicKick[guild.id]) return reply('Panic lockdown is already enabled!');
             options = 'lockdown ';
-            if (!memberjoin.panics[guild.id]) memberjoin.antiraidOldVL[guild.id] = guild.verificationLevel;
+            if (!client.memberjoin.panics[guild.id]) client.memberjoin.antiraidOldVL[guild.id] = guild.verificationLevel;
             await guild.setVerificationLevel(4);
-            memberjoin.panics[guild.id] = true;
-            memberjoin.panicKick[guild.id] = true;
-            return reply(`Panic lockdown activated, verification level is now ${guild.verificationLevel}, and new members who join during this time will get rekt!`);
+            client.memberjoin.panics[guild.id] = true;
+            client.memberjoin.panicKick[guild.id] = true;
+            return reply(`Panic lockdown activated, verification level is now ${guild.verificationLevel
+            }, and new members who join during this time will get kicked!`);
           } }
 
         case 'none': {
@@ -259,7 +243,7 @@ ex.func = async(msg, {
         const target = args[1].match(Constants.patterns.CHANNEL)[1];
         return target;
       } catch (err) {
-        return reply(`Invalid channel specified`);
+        return reply('Invalid #channel specified');
       } }
 
     case 'regenperms': {
@@ -282,8 +266,10 @@ ex.func = async(msg, {
         READ_MESSAGES: true,
       });
 
-      return send('Done!');
-    }
+      return send('Done!'); }
+
+    default: {
+      return send('Did you mean to specify an action? i.e. "verify user", "verify lockdown" etc'); }
   }
 };
 
