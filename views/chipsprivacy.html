@@ -576,6 +576,7 @@
 					}
 
 					body {
+							will-change: auto;
 							line-height: 1;
 					}
 
@@ -681,6 +682,27 @@
 					s {
 							text-decoration: line-through;
 					}
+
+					::-moz-selection {
+							background: #eeee00;
+							color: black;
+					}
+
+					::-o-selection {
+							background: #eeee00;
+							color: black;
+					}
+
+					::-webkit-selection {
+							background: #eeee00;
+							color: black;
+					}
+
+					::selection {
+							background: #eeee00;
+							color: black;
+					}
+
 
 					body:before {
 							content: '';
@@ -1644,9 +1666,10 @@
 									<div id="columns01" class="container" style="min-height: 100vh;">
 											<div class="introstart inner">
 													<div class="ava image">
-															<a><img src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="https://cdn.discordapp.com/avatars/296855425255473154/e8654705a5b5548371e10d1696a69610.jpg?size=2048" alt="&nbsp;"></a>
+															<!-- <a><img src="https://cdn.discordapp.com/avatars/296855425255473154/e8654705a5b5548371e10d1696a69610.jpg?size=2048" alt="&nbsp;"></a> -->
+															<a><img src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="https://cdn.discordapp.com/attachments/297582971488174096/451555092961820673/image04.jpg" alt="&nbsp;"></a>
 													</div>
-													<h2>&nbsp;&nbsp;Chipsbot</h1>
+													<h2>&nbsp;&nbsp;ChipsBot</h1>
 													<h1 id="name">Privacy Policy</h2>
 													<hr class="halfdivider width75">
 													<h2 id="sub">Committed to protecting your safety</h2>
@@ -1677,23 +1700,30 @@
 											<div class="inner">
 													<p class="capssection">This Notice Explains:</p>
 													<p class="innertext">
-															<span>&nbsp;&nbsp;&nbsp;&nbsp;• What information we collect and why we collect them.</span>
-															<br> <span>&nbsp;&nbsp;&nbsp;&nbsp;• How we use and share the information we collect.</span>
-															<br> <span>&nbsp;&nbsp;&nbsp;&nbsp;• The choices we offer you to protect your privacy and the rights you have.</span>
-															<br> <span>&nbsp;&nbsp;&nbsp;&nbsp;• How you can access and update your information.</span>
-															<br> <span>&nbsp;&nbsp;&nbsp;&nbsp;• How to contact us if you have any questions or concerns.</span>
+															<span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#infocollected">• What information we collect and why we collect them.</a></span>
+															<br> <span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#infostored">• How we use and store the information we collect.</a></span>
+															<br> <span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#infoshared">• How we share the information we collect.</a></span>
+															<br> <span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#requestingdeletion">• The choices offered to protect your privacy and rights, and how to access and update your information.</a></span>
+															<br> <span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#contact">• How to contact us if you have any questions or concerns.</a></span>
 													</p>
 
 													<!-- INTRODUCTION -->
 													<hr class="dotteddivider halfdivider">
+													<section id="introduction">
+
 													<h2 class="introductionbold">Introduction</h2>
 													<h2 class="capssection">Definitions</h2>
-													<p class="innertext">Chipsbot, developers, and affiliates <strong>("Chipsbot", "we", "us")</strong> care much about the privacy of visitors and users, and would like to share the steps we take to protect your personal information in compliance with data privacy laws. This Policy describes what information may be collected or used, including information you provide on www.chipsbot.me <strong>("Site")</strong> or from within Discord to the Automated Bot Account <strong>("Bot")</strong>. Any explicit invocation of a response from the Bot is referred to as a <strong>"Command"</strong>. <strong>Discord</strong> refers to both the platform as well as the company, Hammer &amp; Chisel. We use this information to deliver our services, to inform you of any changes, to enhance our services, to prevent illegal or potentially prohibited conduct, and to enforce our Terms of Use <strong>("Terms")</strong>. The Site and Bot are referred collectively as <strong>the Service</strong>.</p>
+													<p class="innertext">ChipsBot, developers, and affiliates <strong>("ChipsBot", "we", "us")</strong> care much about the privacy of visitors and users, and would like to share the steps we take to protect your personal information in compliance with data privacy laws. This Policy describes what information may be collected or used, including information you provide on www.chipsbot.me <strong>("Site")</strong> or from within Discord to the Automated Bot Account <strong>("Bot")</strong>. Any explicit invocation of a response from the Bot is referred to as a <strong>"Command"</strong>. <strong>Discord</strong> refers to both the platform as well as the company, Hammer &amp; Chisel. We use this information to deliver our services, to inform you of any changes, to enhance our services, to prevent illegal or potentially prohibited conduct, and to enforce our Terms of Use <strong>("Terms")</strong>. The Site and Bot are referred collectively as <strong>the Service</strong>.</p>
 													<h2 class="capssection">Please Read the Entire Policy</h2>
-													<p class="innertext">This Privacy Policy governs Chipsbot's information management policies, including how Chipsbot gathers, stores, or shares your information, if at all. Notwithstanding anything to the contrary, this Privacy Policy does not apply to information that is gathered or collected offline. By using the Site and Bot, and by submitting information to Chipsbot, you agree to the practices described in this Policy and to any other applicable terms. This Privacy Policy is intended to provide you with a clear explanation of your legal rights as well as how, when, and why we collect and use your personal information. Nothing in this policy is intended to override the terms of any contract you have with us or any rights you have under applicable data privacy laws.</p>
+													<p class="innertext">This Privacy Policy governs ChipsBot's information management policies, including how ChipsBot gathers, stores, or shares your information, if at all. Notwithstanding anything to the contrary, this Privacy Policy does not apply to information that is gathered or collected offline. By using the Site and Bot, and by submitting information to ChipsBot, you agree to the practices described in this Policy and to any other applicable terms. This Privacy Policy is intended to provide you with a clear explanation of your legal rights as well as how, when, and why we collect and use your personal information. Nothing in this policy is intended to override the terms of any contract you have with us or any rights you have under applicable data privacy laws.</p>
+
+													</section>
+													<!-- END INTRODUCTION -->
 
 													<!-- INFORMATION COLLECTED -->
+													<section id="infocollected">
 													<hr class="halfdivider centerdivider">
+
 													<h2 class="headerbold">Information Collected</h2>
 													<div class="secondary container">
 															<div class="inner">
@@ -1701,13 +1731,13 @@
 																	<h2 class="capssection">Information you provide to us to use the Service</h2>
 																	<p class="innertext">
 																			<span>We collect the information you provide when you explicitly invoke commands and services on the Botm communicate with us, upload content, or otherwise use the Services. </span>
-																			<br> <span>Automatic Content Moderation collects the images you post as well as data from the messages you send.</span>
+																			<br> <span>Automatic Content Moderation (automatic image content filtering of images sent in chat) collects the images you post as well as data from the messages you send in order to make a judgement on whether the image should be filtered.</span>
 																			<br> <span>We collect information explicitly called to invoke bot commands through in-Discord Chat "Messages", "Reactions", or other interactions.</span>
-																			<br> <span>Users who engage in financial transactions with Chipsbot, for example, to become a patron, are asked to provide additional information in order to complete the transaction, through 3rd party payment software such as Stripe, PayPal, and Patreon.</span>
+																			<br> <span>Users who engage in financial transactions with ChipsBot, for example, to become a patron, are asked to provide additional information in order to complete the transaction, through 3rd party payment software such as Stripe, PayPal, and Patreon.</span>
 																	</p>
 																	<h2 class="capssection">Information you provide to enhance your experience</h2>
 																	<p class="innertext">You can choose to provide us with additional information in order to obtain a better user experience when using the Service. This additional information will be processed with your consent and/or to provide you with services you request. This information includes crowd-sourced error reporting, suggestions for improvements, referrals, or any other actions on the Service.</p>
-																	<h2 class="capssection">Information we get automatically when you use Chipsbot</h2>
+																	<h2 class="capssection">Information we get automatically when you use ChipsBot</h2>
 																	<p class="innertext">
 																			<span>We automatically collect information about you and how you use the Service, including when you visit the website, invoke any commands</span>
 																			<br> <span>This information includes your public discord information, including but not limited to your user id, messages sent by you, and directly interacting with your member (such as role management or mentions), other message metadata, or voice metadata.</span>
@@ -1719,21 +1749,25 @@
 																			<br> <span>We may receive information about you from other users. For example, if another user chooses to refer the bot or website to a friend or acquaintance, we may ask that user for their friend's information and public Discord information.</span>
 																			<br> <span>We may also receive information about you from other sources, including our partners, service providers, or other third parties.</span></p>
 																	<h2 class="capssection">Information from Children</h2>
-																	<p class="innertext">Chipsbot is intended for use by children at least 13 years of age. This is also the minimum age requirement to be using Discord. If a child requests access to our website or other services, they will be assumed to be at least 13 years of age. Conflicts involving a failure to meet the minimum age requirement should be brought to Discord.</p>
+																	<p class="innertext">ChipsBot is intended for use by children at least 13 years of age. This is also the minimum age requirement to be using Discord. If a child requests access to our website or other services, they will be assumed to be at least 13 years of age. Conflicts involving a failure to meet the minimum age requirement should be brought to Discord.</p>
 																	<p class="innertext">
 																			<span>We recognise the importance of maintaining the privacy of children. We are committed to complying with all applicable laws and regulations regarding children, including the Children's Online Privacy Protection Act ("CORPA"), 15 USC § 6501, et seq.</span>
-																			<span>Except in limited circumstances allowed by CORPA, we do not and will not knowingly request, collect, store, maintain, or sare any personally identifiable information of children under the age of 13, without first obtaining the consent of a legal guardian. In those limited instances, we will only collected reasonably necessary information, and we will not share with third parties any personally identifiable information of a child under the age of 13 without the explicit consent of a legal guardian, or as permitted by CORPA or other applicable law.</span>
-																			<span>You make revoke your consent and request the removal of your child's information at any time. If you are the legal guardian of a child under the age of 13 and discover that your child has submitted their personally identifiable information without securing your consent, we will use commercially resonable efforts to remove this information. If at any point you wish to review, amend, or request removal of your child's information, please contact us in the support server and provide the name and account information for your child's Discord account.</span>
+																			<span>Except in limited circumstances allowed by CORPA, we do not and will not knowingly request, collect, store, maintain, or share any personally identifiable information of children under the age of 13, without first obtaining the consent of a legal guardian. In those limited instances, we will only collected reasonably necessary information, and we will not share with third parties any personally identifiable information of a child under the age of 13 without the explicit consent of a legal guardian, or as permitted by CORPA or other applicable law.</span>
+																			<span>You may revoke your consent and request the removal of your child's information at any time. If you are the legal guardian of a child under the age of 13 and discover that your child has submitted their personally identifiable information without securing your consent, we will use commercially resonable efforts to remove this information. If at any point you wish to review, amend, or request removal of your child's information, please contact us in the support server and provide the name and account information for your child's Discord account.</span>
 																	</p>
 															</div>
 													</div>
+													</section>
+													<!-- END INFORMATION COLLECTED -->
 
 													<!-- INFORMATION STORED -->
+													<section id="infostored">
 													<hr class="halfdivider centerdivider">
+
 													<h2 class="headerbold">Information Stored</h2>
 													<div class="secondary container">
 															<div class="inner">
-																	<p class="innertext">We collect information about you when you use the Service for a variety of reasons in order to support Chipsbot and to enable our development team to continue to create safe and satisfying experiences for our users. The information you present us is stored in various ways.</p>
+																	<p class="innertext">We collect information about you when you use the Service for a variety of reasons in order to support ChipsBot and to enable our development team to continue to create safe and satisfying experiences for our users. The information you present us is stored in various ways.</p>
 																	<h2 class="capssection">Short-Term Storage</h2>
 																	<p class="innertext">
 																			<span>Information we obtain from explicit use, such as invocation of commands, is stored in short-term storage in the form of memory (RAM).</span>
@@ -1752,16 +1786,46 @@
 																	</p>
 															</div>
 													</div>
+													</section>
+													<!-- END INFORMATION STORED -->
+
+													<!-- INFORMATION SHARED -->
+													<section id="infoshared">
+													<hr class="halfdivider centerdivider">
+
+													<h2 class="headerbold">How We Share Your Information</h2>
+													<div class="secondary container">
+															<div class="inner">
+																	<p class="innertext">We do not share your information whatsoever unless one of the following conditions applies:</p>
+																	<p class="innertext">
+																			<span>&nbsp;&nbsp;&nbsp;&nbsp;• With your consent: We will share personal information with companies, organizations or individuals outside of Quizlet when we have your consent to do so.</span>
+																			<br> <span>&nbsp;&nbsp;&nbsp;&nbsp;• To respond to legal and other requests and to prevent harm: we will share personal information with companies, organizations or individuals outside of us if we have a good-faith belief that access, use, preservation or disclosure of the information is reasonably necessary to:</span>
+																			<br> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&mdash; Respond to or meet any applicable law, regulation, legal process or other enforceable governmental request.</span>
+																			<br> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&mdash; Enforce Terms of Service, including investigation of potential violations.</span>
+																			<br> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&mdash; Detect, prevent, or otherwise address fraud, security or technical issues.</span>
+																			<br> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&mdash; Protect against and prevent harm to our rights, property or safety, our users or the public as required or permitted by law.</span>
+
+																			<br> <span>If we are involved in a merger, acquisition, or sale of all or a portion of its assets, you will be notified through the Support Server and/or a prominent notice on our website of any change in ownership or uses of your personal information, as well as any choices you may have regarding your personal information.</span>
+																	</p>
+															</div>
+													</div>
+													</section>
+													<!-- END INFORMATION SHARED -->
 
 													<!-- REQUESTING DELETION -->
+													<section id="requestingdeletion">
 													<hr class="halfdivider centerdivider">
+
 													<h2 class="headerbold">Your Rights and Requesting Deletion of Information</h2>
 													<div class="secondary container">
 															<div class="inner">
 																	<p class="innertext">Upon written request, we will provide you with information about whether we hold any of your personal information.</p>
 																	<h2 class="capssection">Data Deletion Procedures</h2>
-																	<p class="innertext">You may access, correct, or request deletion of your personal information by contacting William Zhou#0001 on Discord via the support server. We will respond to your request within a timeframe imposed by local laws or a reasonable timeframe.</p>
-																	<p class="innertext">Please note that after completing this process and removal of the Bot from your server(s) (if applicable), all data related to you and your user will be removed permanently and we will not be able to restore or retrieve your data in the future.</p>
+																	<p class="innertext">
+																			<span>You may access, correct, or request deletion of your personal information by contacting Kazuko#0180 or William Zhou#0001 on Discord via the support server. We will respond to your request within a timeframe imposed by local laws or a reasonable timeframe.</span>
+																			<br> <span>When you delete or update your account or information, we first aim to immediately remove any previously viewable data from view. We then begin the process of securely and safely deleting your personal information from our systems. </span>
+																	</p>
+																	<p class="innertext">Please note that after completing this process and removal of the Bot from your server(s) (if applicable), all data related to you and your user will be removed permanently and we will not be able to restore or retrieve your data in the future. We design our systems to protect information from accidental or malicious destruction, so to ensure a safe and thorough removal process, we may not immediately delete residual copies from our active servers and may not remove some information from our backup systems. In addition, things like routine maintenance, unexpected outages, bugs, or failures in our protocols may cause delays in our standard processes and timeframes, however we maintain systems designed to detect and remediate such issues.</p>
 																	<h2 class="capssection">European General Data Protection Regulation ("GDPR")</h2>
 																	<p class="innertext">
 																			<span>If you are located in countries that fall under the scope of the GDPR, data protection laws give you rights with respect to your personal data, subject to exemptions provided by law. These rights include:</span>
@@ -1775,10 +1839,14 @@
 																	</p>
 															</div>
 													</div>
+													</section>
+													<!-- END REQUESTING DELETION -->
 
 													<!-- NOTIFICATION OF CHANGES -->
 													<hr class="halfdivider centerdivider">
-													<h2 class="headerbold">Information Stored</h2>
+													<section id="notificationofchanges">
+
+													<h2 class="headerbold">Notification of Changes</h2>
 													<div class="secondary container">
 															<div class="inner">
 																	<p class="innertext">
@@ -1787,9 +1855,13 @@
 																	</p>
 															</div>
 													</div>
+													</section>
+													<!-- END NOTIFICATION OF CHANGES -->
 
 													<!-- CALIFORNIA USERS -->
 													<hr class="halfdivider centerdivider">
+													<section id="californiausers">
+
 													<h2 class="headerbold">California Users</h2>
 													<div class="secondary container">
 															<div class="inner">
@@ -1799,6 +1871,7 @@
 																	</p>
 															</div>
 													</div>
+													</section>
 
 											</div>
 									</div>
@@ -1806,14 +1879,17 @@
 									<!-- QUESTIONS OR SUGGESTIONS -->
 									<hr>
 									<br>
+									<section id="contact">
+
 									<div class="container">
 											<div class="inner">
 													<h2 class="aboutbold"><em>Questions or Suggestions?</em> Join the <a href="https://support.chipsbot.me/">&ldquo;Support Server&rdquo;</a></h2>
 											</div>
 									</div>
+									</section>
 
 									<ul id="buttons01" class="buttons">
-											<li><a href="https://invite.chipsbot.me/" class="button n01">Invite Chipsbot</a></li>
+											<li><a href="https://invite.chipsbot.me/" class="button n01">Invite ChipsBot</a></li>
 									</ul>
 
 									<br><hr class="halfdivider centerdivider">
@@ -1832,12 +1908,13 @@
 															</svg><span class="label">Discord</span></a>
 											</li>
 									</ul>
-									<p id="text05">© Chipsbot 2018 - present. All rights reserved.</p>
+									<p id="text05">© ChipsBot 2018 - present. All rights reserved.</p>
 							</div>
 
 
 					</div>
 			</div>
+
 			<script>
 					var on = addEventListener,
 							$ = function(q) {
@@ -2004,6 +2081,193 @@
 									c.src = 'data:image/svg+xml;charset=utf8,' + escape('<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1" viewBox="0 0 1 1"></svg>');
 							}
 					}
+					(function (global, undefined) {
+							// https://github.com/YuzuJS/setImmediate/blob/master/setImmediate.js setImmediate polyfill
+							"use strict";
+
+							if (global.setImmediate) {
+									return;
+							}
+
+							var nextHandle = 1; // Spec says greater than zero
+							var tasksByHandle = {};
+							var currentlyRunningATask = false;
+							var doc = global.document;
+							var registerImmediate;
+
+							function setImmediate(callback) {
+									// Callback can either be a function or a string
+									if (typeof callback !== "function") {
+										callback = new Function("" + callback);
+									}
+									// Copy function arguments
+									var args = new Array(arguments.length - 1);
+									for (var i = 0; i < args.length; i++) {
+											args[i] = arguments[i + 1];
+									}
+									// Store and register the task
+									var task = { callback: callback, args: args };
+									tasksByHandle[nextHandle] = task;
+									registerImmediate(nextHandle);
+									return nextHandle++;
+							}
+
+							function clearImmediate(handle) {
+									delete tasksByHandle[handle];
+							}
+
+							function run(task) {
+									var callback = task.callback;
+									var args = task.args;
+									switch (args.length) {
+									case 0:
+											callback();
+											break;
+									case 1:
+											callback(args[0]);
+											break;
+									case 2:
+											callback(args[0], args[1]);
+											break;
+									case 3:
+											callback(args[0], args[1], args[2]);
+											break;
+									default:
+											callback.apply(undefined, args);
+											break;
+									}
+							}
+
+							function runIfPresent(handle) {
+									// From the spec: "Wait until any invocations of this algorithm started before this one have completed."
+									// So if we're currently running a task, we'll need to delay this invocation.
+									if (currentlyRunningATask) {
+											// Delay by doing a setTimeout. setImmediate was tried instead, but in Firefox 7 it generated a
+											// "too much recursion" error.
+											setTimeout(runIfPresent, 0, handle);
+									} else {
+											var task = tasksByHandle[handle];
+											if (task) {
+													currentlyRunningATask = true;
+													try {
+															run(task);
+													} finally {
+															clearImmediate(handle);
+															currentlyRunningATask = false;
+													}
+											}
+									}
+							}
+
+							function installNextTickImplementation() {
+									registerImmediate = function(handle) {
+											process.nextTick(function () { runIfPresent(handle); });
+									};
+							}
+
+							function canUsePostMessage() {
+									// The test against `importScripts` prevents this implementation from being installed inside a web worker,
+									// where `global.postMessage` means something completely different and can't be used for this purpose.
+									if (global.postMessage && !global.importScripts) {
+											var postMessageIsAsynchronous = true;
+											var oldOnMessage = global.onmessage;
+											global.onmessage = function() {
+													postMessageIsAsynchronous = false;
+											};
+											global.postMessage("", "*");
+											global.onmessage = oldOnMessage;
+											return postMessageIsAsynchronous;
+									}
+							}
+
+							function installPostMessageImplementation() {
+									// Installs an event handler on `global` for the `message` event: see
+									// * https://developer.mozilla.org/en/DOM/window.postMessage
+									// * http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#crossDocumentMessages
+
+									var messagePrefix = "setImmediate$" + Math.random() + "$";
+									var onGlobalMessage = function(event) {
+											if (event.source === global &&
+													typeof event.data === "string" &&
+													event.data.indexOf(messagePrefix) === 0) {
+													runIfPresent(+event.data.slice(messagePrefix.length));
+											}
+									};
+
+									if (global.addEventListener) {
+											global.addEventListener("message", onGlobalMessage, false);
+									} else {
+											global.attachEvent("onmessage", onGlobalMessage);
+									}
+
+									registerImmediate = function(handle) {
+											global.postMessage(messagePrefix + handle, "*");
+									};
+							}
+
+							function installMessageChannelImplementation() {
+									var channel = new MessageChannel();
+									channel.port1.onmessage = function(event) {
+											var handle = event.data;
+											runIfPresent(handle);
+									};
+
+									registerImmediate = function(handle) {
+											channel.port2.postMessage(handle);
+									};
+							}
+
+							function installReadyStateChangeImplementation() {
+									var html = doc.documentElement;
+									registerImmediate = function(handle) {
+											// Create a <script> element; its readystatechange event will be fired asynchronously once it is inserted
+											// into the document. Do so, thus queuing up the task. Remember to clean up once it's been called.
+											var script = doc.createElement("script");
+											script.onreadystatechange = function () {
+													runIfPresent(handle);
+													script.onreadystatechange = null;
+													html.removeChild(script);
+													script = null;
+											};
+											html.appendChild(script);
+									};
+							}
+
+							function installSetTimeoutImplementation() {
+									registerImmediate = function(handle) {
+											setTimeout(runIfPresent, 0, handle);
+									};
+							}
+
+							// If supported, we should attach to the prototype of global, since that is where setTimeout et al. live.
+							var attachTo = Object.getPrototypeOf && Object.getPrototypeOf(global);
+							attachTo = attachTo && attachTo.setTimeout ? attachTo : global;
+
+							// Don't get fooled by e.g. browserify environments.
+							if ({}.toString.call(global.process) === "[object process]") {
+									// For Node.js before 0.9
+									installNextTickImplementation();
+
+							} else if (canUsePostMessage()) {
+									// For non-IE10 modern browsers
+									installPostMessageImplementation();
+
+							} else if (global.MessageChannel) {
+									// For web workers, where supported
+									installMessageChannelImplementation();
+
+							} else if (doc && "onreadystatechange" in doc.createElement("script")) {
+									// For IE 6–8
+									installReadyStateChangeImplementation();
+
+							} else {
+									// For older browsers
+									installSetTimeoutImplementation();
+							}
+
+							attachTo.setImmediate = setImmediate;
+							attachTo.clearImmediate = clearImmediate;
+					}(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 			</script>
 
 			<script>
@@ -2035,20 +2299,34 @@
 									}
 							});
 
-							var $el = $('body'), scroll;
-							$(window).on('scroll', function () {
+							var $el = $('body'), scroll, time = 0, delay = false;
+							on('scroll', function () {
+									if (delay) return;
+									delay = true;
+									setImmediate(function () { delay = false; });
+
 									scroll = $(document).scrollTop();
 									if (window.innerWidth <= 736 || (window.ua.os === 'ios' || window.ua.os === 'android') && !window.navigator.platform.includes('Mac'))
 											$el.css({
-													'background-position':'50% '+(-scroll/103.6).toFixed(4)+'%'
+													'background-position':'50% '+(-scroll/103.6).toFixed(0)+'%'
 											});
 									else
+											newscroll = (scroll/103.6).toFixed(0);
+											if (+newscroll == lastscroll) return;
 											$el.css({
-													'background-position':'50% '+(scroll/103.6).toFixed(4)+'%'
+													'background-position':'50% '+newscroll+'%'
 											});
+											lastscroll = newscroll;
+							}, {
+									capture: true,
+									passive: false,
 							});
 					}
 					checkReady(go);
+					if ('scrollRestoration' in history) {
+							history.scrollRestoration = 'manual';
+					}
+					window.scrollTo(0, 0);
 			</script>
 			<style>
 					body {
@@ -2068,11 +2346,11 @@
 							height: 100%;
 							padding:0px;
 					}
-					@media only screen and (max-width: 736px) {
+					@media only screen and (max-width: 980px) {
 							.body {
 							}
 					}
-					@media only screen and (min-device-width: 736px) {
+					@media only screen and (min-device-width: 980px) {
 							body {
 									-o-background-size: auto, cover;
 									-moz-background-size: auto, cover;
