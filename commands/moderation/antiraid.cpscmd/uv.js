@@ -14,7 +14,7 @@ module.exports = {
       const user = gMember(target).user;
       targetMember = guild.members.get(user.id);
     } catch (err) {
-      return reply(`Invalid user mentioned.`);
+      return reply('Invalid user mentioned.');
     }
     const urole = guild.roles.get('305302877641900052') || guild.roles.find('name', 'unverified') ||
     guild.roles.find('name', 'Unverified') || guild.roles.find('name', 'Unverified-Personel');
@@ -34,16 +34,16 @@ module.exports = {
           targetMember.roles.find('name', 'verified');
         await targetMember.removeRole(vrole);
         guild.channels.get('350625721355468800').send(`${targetMember + []
-        } is now verified! Please be sure to read <#378680507786985472> and <#378680485309710336>.`);
+        }, you are now unverified (probably for breaking the rules)! Please read <#378680507786985472> and <#378680485309710336>.`);
       }
 
       if (client.memberjoin.verifyLogC[guild.id]) {
         let embed = new Discord.MessageEmbed();
-        embed.setTitle('Member Verification').setColor(_.random(1, 16777215)).setTimestamp();
-        embed.setDescription(`${targetMember + []}> was just **unverified** by ${author + []}!`);
+        embed.setTitle('Member Unverification').setColor(_.random(1, 16777215)).setTimestamp();
+        embed.setDescription(`${targetMember + []} was just **unverified** by ${author + []}!`);
         if (guild.channels.get(client.memberjoin.verifyLogC[guild.id])) {
           guild.channels.get(client.memberjoin.verifyLogC[guild.id]).send(embed).catch(err => {
-            reply('Could not log the verification...');
+            reply('Could not log the unverification...');
             console.log(err);
           });
         }
@@ -51,7 +51,7 @@ module.exports = {
       return reply('User unverified successfully!');
     } catch (err) {
       console.log(`Could not remove verified role..probably: ${err}`);
-      await reply('User not verified :< Something went wrong..');
+      await reply('User not unverified :< Something went wrong..');
       throw err;
     }
   },
