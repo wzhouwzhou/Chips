@@ -154,7 +154,7 @@ module.exports = () => {
     res.json({ message: 'success' });
     res.end();
   });
-
+  app.use('/privacy*', privacy);
   app.use('/sinbad', sinbad, userBruteforce.prevent);
   app.post('/sinbad', globalBruteforce.prevent, userBruteforce.getMiddleware({
     key: (req, res, next) => {
@@ -171,7 +171,7 @@ module.exports = () => {
   app.use('/vy', vy);
   app.use('/xen*', xena);
   app.use('/errr', errp);
-  app.use('/privacy*', privacy);
+
   // App.use('/updates',updates);
 
   // error handler
