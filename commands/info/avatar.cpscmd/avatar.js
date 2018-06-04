@@ -1,14 +1,9 @@
 /* eslint no-console: 'off' */
-const chalk = require(`chalk`);
 const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Paginator;
 
 module.exports = {
   name: 'avatar',
   async func(msg, { send, Discord, author, member, guild, reply }) {
-    console.log(chalk.bold.bgBlue.green(`${author.tag} `) +
-      chalk.bgWhite.red(`${author.id} `) +
-      chalk.black.bgWhite(guild.id) +
-      chalk.cyan(' [Avatar] '));
     let targets = msg.mentions.users;
     if (!targets || targets.size < 1) {
       let _ava = author.displayAvatarURL({ size: 2048 });
