@@ -1,4 +1,4 @@
-/* eslint complexity: 'off', max-depth: 'off' */
+/* eslint complexity: 'off', max-depth: 'off', consistent-return: 'off' */
 const path = require('path');
 const _ = require('lodash');
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
@@ -8,7 +8,6 @@ const ex = {};
 ex.name = '-vs';
 ex.func = async(msg, {
   send,
-  member,
   channel,
   author,
   guild,
@@ -50,7 +49,7 @@ ex.func = async(msg, {
 
         await send(targetMember + [], { embed: ver });
         await targetMember.removeRole(guild.roles.get('305302877641900052') || therole,
-          `${member.displayName} verified ${targetMember.nickname}!`);
+          `[VS]: [Author]: ${author.tag} [Reason]: Verify command executed`);
         // Duckio
         if (guild.id === '274260111415836675') {
           await targetMember.addRole(guild.roles.get('338625733456953344'));

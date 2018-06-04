@@ -27,7 +27,7 @@ module.exports = {
 
       await send(targetMember + [], { embed: ver });
 
-      await targetMember.addRole(urole);
+      await targetMember.addRole(urole, `[VS]: [Author]: ${author.tag} [Reason]: Unverify command executed`);
       // Duckio
       if (guild.id === '274260111415836675') {
         let vrole = targetMember.roles.find('name', 'Verified') || targetMember.roles.find('name', 'Fan') ||
