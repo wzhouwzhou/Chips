@@ -2307,7 +2307,7 @@
 									scroll = $(document).scrollTop();
 									if (window.innerWidth <= 736 || (window.ua.os === 'ios' || window.ua.os === 'android') && !window.navigator.platform.includes('Mac'))
 											$el.css({
-													'background-position':'50% '+(-scroll/103.6).toFixed(0)+'%'
+													'background-position':'50% '+(-scroll/103.6).toFixed(3)+'%'
 											});
 									else
 											newscroll = (scroll/103.6).toFixed(0);
