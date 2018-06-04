@@ -69,7 +69,7 @@ client.ignoreid = [
   '305776092822765568',  
   '233243685276352512', 
   '409353746355847168', 
-  ];
+  '285990380820889600'];
 const guild_mps = {};
 setInterval(() => {
   for (const gid in guild_mps) {
