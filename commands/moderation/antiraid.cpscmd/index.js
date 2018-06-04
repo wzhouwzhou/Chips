@@ -27,6 +27,6 @@ module.exports = [
   ['verify', vs],
   ['verification', vs],
   [uv.name, uv],
-  ['unverify', uv],
+  ['uv', uv],
   ['-uv', uv],
 ];

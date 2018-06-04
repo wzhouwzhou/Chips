@@ -16,10 +16,10 @@ module.exports = {
     } catch (err) {
       return reply(`Invalid user mentioned.`);
     }
-    const unver = targetMember.roles.get('305302877641900052') || targetMember.roles.find('name', 'unverified') ||
-    targetMember.roles.find('name', 'Unverified') || targetMember.roles.find('name', 'Unverified-Personel');
-    if (!unver) {
-      return reply(`User does have the unverified role!`);
+    const urole = guild.roles.get('305302877641900052') || guild.roles.find('name', 'unverified') ||
+    guild.roles.find('name', 'Unverified') || guild.roles.find('name', 'Unverified-Personel');
+    if (!urole) {
+      return reply('Server does have an unverified role!');
     }
     try {
       const ver = new Discord.MessageEmbed()
@@ -27,8 +27,6 @@ module.exports = {
 
       await send(targetMember + [], { embed: ver });
 
-      const urole = guild.roles.get('305302877641900052') || guild.roles.find('name', 'unverified') ||
-      guild.roles.find('name', 'Unverified') || guild.roles.find('name', 'Unverified-Personel');
       await targetMember.addRole(urole);
       // Duckio
       if (guild.id === '274260111415836675') {
