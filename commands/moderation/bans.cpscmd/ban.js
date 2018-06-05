@@ -7,14 +7,14 @@ module.exports = {
     let memberToUse;
     try { // Get mention:
       console.log('Trying to find user by mention..');
-      if (!args[0]) return reply('Please specify a user to ban!');
+      if (!args[0]) return reply('Please specify a member menion or user id to ban!');
       let target = (args[0].match(Constants.patterns.MENTION) || [0, null])[1];
       let chipstarget = (args[0].match(Constants.users.CHIPS) || [0, null])[1];
-      if (!target) return reply('Please specify a valid user to ban!');
+      if (!target) return reply('Please specify a valid member mention or user id to ban!');
       memberToUse = gMember(target);
       if (chipstarget) return send('You can\'t ban me!');
       if (memberToUse == null) return reply('Invalid member!');
-      if (member.id == memberToUse.id) return reply("I can't let you ban yourself >.>");
+      if (member.id == memberToUse.id) return reply("I can't let you ban yourself >.>. Why would you want to anyways.");
       if (memberToUse.highestRole.position >= member.highestRole.position) return reply("That member's highest role is higher than or equal to the position to yours!");
     } catch (err) { // GMember failed perhaps:
       send('Could not ban...');
