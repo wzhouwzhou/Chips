@@ -6,9 +6,9 @@ module.exports = {
   async func(msg, { send, reply, author, args, channel, guild }) {
     let memberToUse;
     try {
-      if (!args[0]) return reply('Please specify a user to unban!');
+      if (!args[0]) return reply('Please specify a userid to unban!');
       let target = args[0];
-      if (isNaN(target.match(/\d+/))) return reply('Please specify a valid user to unban!');
+      if (isNaN(target.match(/\d+/))) return reply('Please specify a valid userid to unban!');
       memberToUse = target.match(/\d+/);
       let temp = guild.members.get(target.match(/\d+/));
       if (temp != null) return reply("Target user is in this server! You can't unban them!");
@@ -16,7 +16,7 @@ module.exports = {
       if (memberToUse === memberToUse.id) return reply('Why would you even try this...');
     } catch (err) { // Something extremely weird has happened:
       console.log(err);
-      return reply('I like chips.');
+      return reply('I like chips. (an error has occured)');
     }
     let dm = false;
     let reason;
