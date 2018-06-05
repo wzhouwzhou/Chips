@@ -7,7 +7,7 @@ module.exports = {
     let memberToUse;
     try { // Get mention:
       console.log('Trying to find user by mention..');
-      if (!args[0]) return reply('Please specify a member menion or user id to ban!');
+      if (!args[0]) return reply('Please specify a member mention or user id to ban!');
       let target = (args[0].match(Constants.patterns.MENTION) || [0, null])[1];
       let chipstarget = (args[0].match(Constants.users.CHIPS) || [0, null])[1];
       if (!target) return reply('Please specify a valid member mention or user id to ban!');
