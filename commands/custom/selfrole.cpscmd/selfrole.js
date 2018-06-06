@@ -1,7 +1,6 @@
 module.exports = {
   name: 'selfrole',
   func(msg, { send, args, member, guild, content }) {
-    
     let targetR = content.substring(content.indexOf(args[0]));
     let targetRole = guild.roles.find('name', `${targetR}`);
 
@@ -13,14 +12,22 @@ module.exports = {
       return send('Nope.');
     }
 
-    if (!targetR === 'GiveawayNotify' || 'D.E.M' || 'XP Suspended') {
+    if (!targetRole.name === 'GiveawayNotify') {
+      return send('That isn\'t a selfrole!');
+    }
+
+    if (!targetRole.name === 'XP Suspended') {
+      return send('That isn\'t a selfrole!');
+    }
+
+    if (!targetR.name === 'EventNotify') {
       return send('That isn\'t a selfrole!');
     }
 
     if (!guild.id === '274260111415836675') {
       return send();
     }
-    if (member.roles.some(r => ['GiveawayNotify', 'D.E.M', 'XP Suspended'].includes(r.name))) {
+    if (member.roles.some(r => ['GiveawayNotify', 'EventNotify', 'XP Suspended'].includes(r.name))) {
       return send('You already have this role!');
     }
 
