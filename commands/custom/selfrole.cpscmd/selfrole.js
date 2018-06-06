@@ -1,6 +1,6 @@
 module.exports = {
   name: 'selfrole',
-  func(msg, { send, args, member, guild, content }) {
+  func(msg, { send, args, member, guild, content, author }) {
     let targetR = content.substring(content.indexOf(args[0]));
     let targetRole = guild.roles.find('name', `${targetR}`);
 
@@ -16,7 +16,8 @@ module.exports = {
     }
 
     if (targetRole) {
-      member.addRole(targetRole.id);
+      send(`Succesfully gave <@!${author.id}> ${targetR}!`)
+      return member.addRole(targetRole.id);
     }
   },
 };
