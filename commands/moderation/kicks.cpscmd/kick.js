@@ -9,9 +9,9 @@ module.exports = {
     let memberToUse;
     try { // Get mention:
       console.log('Trying to find user by mention..');
-      if (!args[0]) return reply('Please specify a user to kick!');
+      if (!args[0]) return reply('Please specify a member mention to kick!');
       let target = args[0].match(Constants.patterns.MENTION)[1];
-      if (!target) return reply('Please specify a valid user to kick!');
+      if (!target) return reply('Please specify a valid member mention to kick!');
       memberToUse = gMember(target);
       if (memberToUse == null) return reply('Invalid member!');
       if (member.id == memberToUse.id) return reply("I can't let you kick yourself >.>");

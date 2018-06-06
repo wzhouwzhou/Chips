@@ -3,10 +3,10 @@ module.exports = {
   func(msg, { send, reply, member, Discord, content, args, guild, gMember, client }) {
     let memberToUse;
     try {
-      if (!args[0]) return reply('Please specify a user to instaban!');
+      if (!args[0]) return reply('Please specify a member mention to instaban!');
       let target = (args[0].match(Constants.patterns.MENTION) || [0, null])[1];
       let chipstarget = (args[0].match(Constants.users.CHIPS) || [0, null])[1];
-      if (!target) return reply('Please specify a valid user to instaban!');
+      if (!target) return reply('Please specify a valid member mention to instaban!');
       memberToUse = gMember(target);
       if (chipstarget) return send('You can\'t ban me!');
       if (!memberToUse) return reply('Invalid member!');

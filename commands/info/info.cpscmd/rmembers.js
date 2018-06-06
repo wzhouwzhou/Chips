@@ -4,7 +4,8 @@ const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Pa
 
 module.exports = {
   name: 'rmembers',
-  async func(msg, { send, suffix, member, guild, args, Discord }) {
+  async func(msg, { send, reply, suffix, member, guild, args, Discord }) {
+    if (!guild) return reply('This command can only be used in a GUILD.');
     if (guild) {
       let options = { guild: guild };
       global.searchers[guild.id] = new Searcher(options.guild);
