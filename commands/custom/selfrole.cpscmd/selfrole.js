@@ -8,7 +8,8 @@ module.exports = {
       return send();
     }
     if (member.roles.some(r => ['GiveawayNotify', 'EventNotify', 'XP Suspended'].includes(r.name))) {
-      return send('You already have this role!');
+      send(`Succesfully removed ${targetR} from <@!${author.id}>!`)µ
+      return member.removeRole(targetRole.id);
     }
 
     if (~'GiveawayNotify EventNotify XP Suspended'.split(/\s+/).indexOf(content.substring(content.indexOf(args[0])))) {
