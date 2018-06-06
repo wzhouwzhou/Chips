@@ -16,7 +16,7 @@ module.exports = {
     }
 
     if (targetRole) {
-      send(`Succesfully gave <@!${author.id}> ${targetR}!`)
+      send(`Succesfully gave <@!${author.id}> ${targetR}!`);
       return member.addRole(targetRole.id);
     }
   },
