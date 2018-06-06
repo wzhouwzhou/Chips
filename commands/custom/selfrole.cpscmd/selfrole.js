@@ -4,23 +4,7 @@ module.exports = {
     let targetR = content.substring(content.indexOf(args[0]));
     let targetRole = guild.roles.find('name', `${targetR}`);
 
-    if (!targetR) {
-      return send('Nope.');
-    }
-
-    if (!targetRole) {
-      return send('Nope.');
-    }
-
-    if (!targetRole.name === 'GiveawayNotify') {
-      return send('That isn\'t a selfrole!');
-    }
-
-    if (!targetRole.name === 'XP Suspended') {
-      return send('That isn\'t a selfrole!');
-    }
-
-    if (!targetR.name === 'EventNotify') {
+    if (!targetRole.name == 'GiveawayNotify' || 'XP Suspended' || 'EventNotify') {
       return send('That isn\'t a selfrole!');
     }
 
