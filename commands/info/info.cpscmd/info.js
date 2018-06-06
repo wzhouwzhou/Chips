@@ -48,6 +48,7 @@ const ex = {
       infobad.setTitle('Hello, I am Chips!');
       infobad.setDescription([
         'I am here to make your life a little bit more exciting! Fun and games, music, utilities, quick and easy moderation, as well as informational commands, I have it all!',
+        `I have **${Object.keys(client.commands).length}** useful commands (including aliases), con4, chess and more!`,
         `Do **${_.escapeRegExp(prefix)}help** to see a list of my commands, or **${_.escapeRegExp(prefix)}stats** to see my real-time statistics!`,
         'Read more about me on my [website](https://chipsbot.me:2087/) or join the [support server](https://support.chipsbot.me/)!',
         'To add me to your server, click [here](https://invite.chipsbot.me)',
