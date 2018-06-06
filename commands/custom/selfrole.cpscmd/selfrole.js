@@ -11,7 +11,7 @@ module.exports = {
     if (member.roles.some(r => ['GiveawayNotify', 'EventNotify', 'XP Suspended'].includes(r.name))) {
       send(`Succesfully removed ${targetR} from <@!${author.id}>!`);
       return member.removeRole(targetRole.id);
-    } else { (~'GiveawayNotify EventNotify XP Suspended'.split(/\s+/).indexOf(content.substring(content.indexOf(args[0])))) {
+    } else (~'GiveawayNotify EventNotify XP Suspended'.split(/\s+/).indexOf(content.substring(content.indexOf(args[0])))) {
       send(`Succesfully gave <@!${author.id}> ${targetR}!`);
       return member.addRole(targetRole.id);
       }
