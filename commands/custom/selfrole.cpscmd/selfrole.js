@@ -9,6 +9,10 @@ module.exports = {
       return send('Nope.');
     }
 
+    if (!targetRole) {
+      return send('Nope.');
+    }
+
     if (!targetR === 'GiveawayNotify' || 'D.E.M' || 'XP Suspended') {
       return send('That isn\'t a selfrole!');
     }
