@@ -7,7 +7,7 @@ const { pfpW, pfpY, pfpX } = Constants.profileSettings;
 
 module.exports = {
   name: 'profile',
-  async func(msg, { author, member, guild, send }) {
+  async func(msg, { author, member, guild, send, channel }) {
     if (!guild) return send('Not in a server!');
     try {
       let timestamp = process.hrtime();
@@ -15,6 +15,8 @@ module.exports = {
       let image = (await Jimp.read(path.join(__dirname, './profilebaseblank.png'))).clone();
 
       let font = path.join(__dirname, './genericafnt/font.fnt');
+
+      channel.startTyping();
 
       Jimp.loadFont(font).then(async font => {
         let avatar = await Jimp.read(author.displayAvatarURL.replace('.webp', '.png'));
@@ -26,6 +28,7 @@ module.exports = {
         image.write(filepath, async() => {
           await send('User Profile', { files: [filepath] });
           fs.unlinkSync(filepath);
+          channel.stopTyping();
         });
       });
     } catch (err) {
