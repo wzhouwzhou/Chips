@@ -65,10 +65,10 @@ client.ignoreid = [
   '287379388004302848',
   // One One O One#1101 claims to be "hacked"
   '419949972293812244',
-  '304338588588441601', 
-  '305776092822765568',  
-  '233243685276352512', 
-  '409353746355847168', 
+  '304338588588441601',
+  '305776092822765568',
+  '233243685276352512',
+  '409353746355847168',
   '285990380820889600'];
 const guild_mps = {};
 setInterval(() => {
@@ -230,7 +230,7 @@ const msghandle = async message => {
     '205608598233939970': true,
     '286246724270555136': true,
   };
-  if (message.guild && (message.guild.id == '210535197286989826') || (message.guild.id == '359801125882298378')){
+  if (message.guild && (message.guild.id === '210535197286989826' || message.guild.id === '359801125882298378')){
     for (const id in keywords) {
       if (keywords[id].toLowerCase().split('|').some(e => message.content.toLowerCase().includes(e)) && notify[id]) {
         if (message.author.id !== id) {

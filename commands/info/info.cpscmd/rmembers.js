@@ -5,7 +5,7 @@ const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Pa
 module.exports = {
   name: 'rmembers',
   async func(msg, { send, reply, suffix, member, guild, args, Discord }) {
-    if (!guild) return reply('This command can only be used in a GUILD.');
+    if (!guild) return reply('This command can only be used in a server.');
     if (guild) {
       let options = { guild: guild };
       global.searchers[guild.id] = new Searcher(options.guild);
@@ -47,7 +47,7 @@ module.exports = {
         type: 'paged',
         embedding: true,
         fielding: false,
-        title: `Members with the role ${role.name}`,
+        title: `${role.members.size} members with the role ${role.name}`,
         pages: descs.map(e => `${e}${'\x60'.repeat(3)}`),
       }, Discord);
 
