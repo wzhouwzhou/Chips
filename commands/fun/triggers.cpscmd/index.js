@@ -112,6 +112,7 @@ module.exports = [
   [confoosed.name, confoosed],
   ['confused', confoosed],
   [exposed.name, exposed],
+  ['expose', exposed],
   [fail.name, fail],
   ['wasted', fail],
   ['failed', fail],
