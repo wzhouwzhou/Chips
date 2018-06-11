@@ -54,8 +54,6 @@ ex.permsList = [
   ['global.fun.eat.eat', true], // 14
   ['global.fun.8ball.*', false],
   ['global.fun.8ball.ask', true],
-  ['global.fun.happy.*', true],
-  ['global.fun.happy.happy', true], // 18
   ['global.fun.random.*', true],
   ['global.fun.random.coinflip', true], // 12
   ['global.fun.random.roll', true],
@@ -85,6 +83,8 @@ ex.permsList = [
   ['global.fun.text.boi', true],
   ['global.fun.text.bify', true],
   ['global.fun.image.*', false],
+  ['global.fun.image.happy', true],
+  ['global.fun.image.opinion', true],
   ['global.fun.image.triggered', true],
   ['global.fun.image.invert', true],
   ['global.fun.image.neko', true],
