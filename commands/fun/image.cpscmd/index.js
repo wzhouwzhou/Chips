@@ -1,10 +1,13 @@
 /* eslint no-console: 'off' */
-const opinion = require('./opinion');
-const happy = require('./happy');
 
 console.log('[CPSCMD][FUN][image] Building objects...');
 
-const cmds = [opinion];
+let opinion, happy;
+const cmds = [
+  opinion = require('./opinion'),
+  happy = require('./happy'),
+];
+
 const cmdexport = [];
 
 cmds.forEach(cmd => {

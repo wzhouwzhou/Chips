@@ -1,7 +1,7 @@
 const Jimp = require('jimp');
 const fs = require('fs');
 const path = require('path');
-const Constants = require('./setup/Constants');
+const Constants = require(path.join(process.cwd(), './setup/Constants'));
 
 const { pfpW, pfpY, pfpX } = Constants.profileSettings;
 
@@ -14,11 +14,11 @@ module.exports = {
 
       let image = (await Jimp.read(path.join(__dirname, './profilebaseblank.png'))).clone();
 
-      let font = path.join(__dirname, './genericafnt/font.fnt');
+      let ff = path.join(__dirname, './genericafnt/font.fnt');
 
       channel.startTyping();
 
-      Jimp.loadFont(font).then(async font => {
+      return Jimp.loadFont(ff).then(async font => {
         let avatar = await Jimp.read(author.displayAvatarURL.replace('.webp', '.png'));
         await avatar.resize(pfpW, pfpW);
         await image.blit(avatar, pfpX, pfpY);
@@ -32,7 +32,8 @@ module.exports = {
         });
       });
     } catch (err) {
-      console.error(err);
+      send('Unable to fetch profile');
+      throw err;
     }
   },
 };
