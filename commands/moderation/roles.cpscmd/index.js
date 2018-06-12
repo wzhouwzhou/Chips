@@ -23,9 +23,9 @@ removerole.metadata = {
 
 src.metadata = {
   category: require('../').category,
-  description: 'Work in progress!',
-  usage: 'setrolecolor',
-  example: 'setrolecolor',
+  description:'Sets colors of a role!',
+  usage: 'setrolecolor <#color> <role>',
+  example: 'setrolecolor> #ff0000 Red',
   perm: [['global.moderation.role.setcolor']],
   customperm: ['MANAGE_ROLES'],
 };
