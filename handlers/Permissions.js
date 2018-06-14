@@ -142,10 +142,6 @@ ex.permsList = [
   ['global.info.quote.*', true],
   ['global.info.quote.quote', false],
   ['global.moderation.*', false],
-  ['global.moderation.role.*', false], // To be renamed
-  ['global.moderation.role.add', false],
-  ['global.moderation.role.remove', false],
-  ['global.moderation.role.setcolor', false],
   ['global.moderation.antiraid.*', false],
   ['global.moderation.antiraid.-vs', false], // 5
   ['global.moderation.antiselfstar.*', false],
@@ -214,6 +210,10 @@ ex.permsList = [
   ['global.utility.roles.role.create', false], // To be added/renamed
   ['global.utility.roles.role.delete', false], // To be added/renamed
   ['global.utility.roles.role.update', false], // To be added/renamed
+  ['global.utility.role.*', false], // To be renamed
+  ['global.utility.role.add', false],
+  ['global.utility.role.remove', false],
+  ['global.utility.role.setcolor', false],
   ['global.utility.setchannel.*', false],
   ['global.utility.setchannel.name', false],
   ['global.utility.setchannel.topic', false],
