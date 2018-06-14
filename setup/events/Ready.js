@@ -33,27 +33,30 @@ module.exports = send => {
     } catch (err) {
       console.error('Unable to save starts');
     }
-    setTimeout(async() => { statusC = await client.channels.get(Constants.channels.STATUS); statusC && send(`Chips restart! **${moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')}**`, statusC); }, 5000);
+    setTimeout(async() => {
+      statusC = await client.channels.get(Constants.channels.STATUS);
+      statusC && send(`Chips restart! **${moment().format('ddd, Do of MMM @ HH:mm:ss.SSS')}**`, statusC);
+    }, 5000);
 
     const MH = require('../../rewrite-all/src/struct/music/MusicHandler').default;
     client.mh = new MH(0, client);
 
-    client.mhfunc = async() => {
-      await client.mh.startNCSBroadcast()
+    client.mhfunc = () => {
+      client.mh.startNCSBroadcast()
         .then(() => client.mh.playAllNCS());
-      await client.mh.startMonstercatBroadcast()
+      client.mh.startMonstercatBroadcast()
         .then(() => client.mh.playAllMonstercat());
-      await client.mh.startLMBroadcast()
+      client.mh.startLMBroadcast()
         .then(() => client.mh.playAllLM());
-      await client.mh.startChillHopBroadcast()
+      client.mh.startChillHopBroadcast()
         .then(() => client.mh.playAllChillHop());
-      await client.mh.startWQXRBroadcast()
+      client.mh.startWQXRBroadcast()
         .then(() => client.mh.playAllWQXR());
-      await client.mh.startTGLBroadcast()
+      client.mh.startTGLBroadcast()
         .then(() => client.mh.playAllTGL());
     };
     client.mhfunc();
-    client.musicCheck = setInterval(client.mhfunc, 30 * 60 * 1000);
+    client.musicCheck = setInterval(client.mhfunc, 45 * 60 * 1000);
     // Console events
     if (client.shard.id === 0) {
       rl.on('line', line => {
