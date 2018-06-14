@@ -1,4 +1,4 @@
-/* eslint complexity: 'off' */
+/* eslint complexity: 'off', no-inline-comments: 'off', quote-props: 'off' */
 'use strict';
 const ex = {};
 const Constants = require('../setup/Constants');
@@ -142,7 +142,7 @@ ex.permsList = [
   ['global.info.quote.*', true],
   ['global.info.quote.quote', false],
   ['global.moderation.*', false],
-  ['global.moderation.role.*', false], //To be renamed
+  ['global.moderation.role.*', false], // To be renamed
   ['global.moderation.role.add', false],
   ['global.moderation.role.remove', false],
   ['global.moderation.role.setcolor', false],
@@ -179,13 +179,6 @@ ex.permsList = [
   ['global.moderation.voicemoderation.unsilence', false],
   ['global.moderation.voicemoderation.deafen', false],
   ['global.moderation.voicemoderation.undeafen', false],
-  ['global.moderation.roles.*', false], // To be added/renamed
-  ['global.moderation.roles.role.*', false], // To be added/renamed
-  ['global.moderation.roles.role.add', false], // To be added/renamed
-  ['global.moderation.roles.role.remove', false], // To be added/renamed
-  ['global.moderation.roles.role.create', false], // To be added/renamed
-  ['global.moderation.roles.role.delete', false], // To be added/renamed
-  ['global.moderation.roles.role.update', false], // To be added/renamed
   ['global.moderation.setnick.*', false],
   ['global.nsfw.*', false],
   ['global.nsfw.ass.*', false],
@@ -214,6 +207,13 @@ ex.permsList = [
   ['global.utility.perm.perms.*', false], // To be added/renamed
   ['global.utility.perm.perms.set', false], // To be added/renamed
   ['global.utility.perm.permissionsin', true],
+  ['global.utility.roles.*', false], // To be added/renamed
+  ['global.utility.roles.role.*', false], // To be added/renamed
+  ['global.utility.roles.role.add', false], // To be added/renamed
+  ['global.utility.roles.role.remove', false], // To be added/renamed
+  ['global.utility.roles.role.create', false], // To be added/renamed
+  ['global.utility.roles.role.delete', false], // To be added/renamed
+  ['global.utility.roles.role.update', false], // To be added/renamed
   ['global.utility.setchannel.*', false],
   ['global.utility.setchannel.name', false],
   ['global.utility.setchannel.topic', false],
@@ -318,7 +318,7 @@ ex.userpermissions = {
   [
     { name: 'global.fun.-ban.-ban', action: 1 },
   ],
-  //!Death due to spamming this command making chips raid a server
+  // !Death due to spamming this command making chips raid a server
   '270289784348475393':
   [
     { name: 'global.fun.-ban.-ban', action: -1 },
@@ -334,7 +334,7 @@ ex.rolepermissions = {
   [
     { name: ex.permsList[4][0], action: 1 },
   ],
-// Mute permissions:
+  // Mute permissions:
   // Sbk Leader
   '291758886971768833':
   [
@@ -447,7 +447,7 @@ ex.channelpermissions = {
   ],
 };
 
-ex.updatePermission = async ({ type, userid = null, guildid = null, roleid = null, channelid = null, perm, action }) =>
+ex.updatePermission = async({ type, userid = null, guildid = null, roleid = null, channelid = null, perm, action }) =>
   new Promise((resolve, reject) => {
     let checked = false;
     if (!ex.defaultperms.has(perm)) return reject('Invalid Permission');

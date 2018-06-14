@@ -2,13 +2,13 @@ let addrole = require('./addrole');
 let removerole = require('./removerole');
 let src = require('./setrolecolor');
 
-console.log('[CPSCMD][MODERATION][addrole] Building objects...');
+console.log('[CPSCMD][UTILITY][addrole] Building objects...');
 addrole.metadata = {
   category: require('../').category,
   description: 'Add roles to users!',
   usage: 'addrole <user> <role>',
   example: 'addrole @William Zhou Developer',
-  perm: [['global.moderation.role.add']],
+  perm: [['global.utility.role.add']],
   customperm: ['MANAGE_ROLES'],
 };
 
@@ -17,7 +17,7 @@ removerole.metadata = {
   description: 'Remove roles from users!',
   usage: 'removerole <user> <role>',
   example: 'removerole @William Zhou Developer',
-  perm: [['global.moderation.role.remove']],
+  perm: [['global.utility.role.remove']],
   customperm: ['MANAGE_ROLES'],
 };
 
@@ -26,11 +26,11 @@ src.metadata = {
   description:'Sets colors of a role!',
   usage: 'setrolecolor <#color> <role>',
   example: 'setrolecolor> #ff0000 Red',
-  perm: [['global.moderation.role.setcolor']],
+  perm: [['global.utility.role.setcolor']],
   customperm: ['MANAGE_ROLES'],
 };
 
-console.log('[CPSCMD][MODERATION][role] Build objects complete!');
+console.log('[CPSCMD][UTILITY][role] Build objects complete!');
 module.exports = [
   [addrole.name, addrole],
   ['ar', addrole],
