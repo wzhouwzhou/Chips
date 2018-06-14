@@ -8,7 +8,7 @@ mention.metadata = {
   usage: 'mention',
   example: 'mention',
   perm: [['global.utility.mention.select']],
-  customperm: ['BAN_MEMBERS'],
+  customperm: ['MANAGE_ROLES'],
 };
 
 console.log('[CPSCMD][UTILITY][mention] Build objects complete!');
