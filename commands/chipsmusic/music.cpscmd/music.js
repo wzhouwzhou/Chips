@@ -6,19 +6,15 @@ const _ = require('lodash');
 module.exports = {
   _handlers,
   name: 'music',
-  func(msg, { send }) {
-    return send('Music module is disabled/undergoing severe maintenance. Apologies for the inconvenience.');
-  }
-  /*
   async func(msg, { args, guild, client, member, channel, send, prefix, Discord }) {
     if (!args[0] || args[0] === 'help') {
       return send(new Discord.MessageEmbed().setTitle('Available actions').setDescription([
-        `**${_.escapeRegExp(prefix)}${this.name} demo** to start the main music module, more instructions will follow.`,
+        // `**${_.escapeRegExp(prefix)}${this.name} demo** to start the main music module, more instructions will follow.`,
         `**${_.escapeRegExp(prefix)}${this.name} radio** to see details about chips radio`,
       ].join('\n')));
     }
     if (args[0] === 'radio') {
-      const l = await client.shard.broadcastEval(`client.voiceConnections.size`).then(c => c.reduce((a, b) => a + b, 0));
+      const l = await client.shard.broadcastEval('client.voiceConnections.size').then(c => c.reduce((a, b) => a + b, 0));
 
       return send(new Discord.MessageEmbed().setTitle('Chips radio (Beta™)').setDescription([
         '**Introducing Chips 24/7 radio!**\n',
@@ -38,11 +34,10 @@ module.exports = {
       h = new Handler(guild.id, client, prefix);
       _handlers.set(guild.id, h);
     }
-    if (args[0] === 'demo') {
+    /*if (args[0] === 'demo') {
       if (!member.voiceChannel) return send('Please join a voice channel first');
       return h.startDemo(member.voiceChannel, channel);
-    }
+    }*/
     return true;
   },
-  */
 };
