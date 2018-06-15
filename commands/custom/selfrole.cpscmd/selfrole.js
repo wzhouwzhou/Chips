@@ -8,6 +8,11 @@ const duckioselfroles = [
   'XP Suspended',
   '344421529817186305',
 ];
+const valid = [
+  'Giveaway Notify',
+  'Event Notify',
+  'XP Suspended',
+];
 const replace = {
   'XP Suspended': '344421529817186305',
   'Giveaway Notify': '441248018688376842',
@@ -19,6 +24,14 @@ module.exports = {
 
     if (guild.id !== '274260111415836675') {
       return send("Selfroles haven't been enabled in your server");
+    }
+
+    if (!suffix || suffix === '') {
+      return send(new Discord.MessageEmbed()
+        .setColor('RANDOM')
+        .setTitle('Name the selfrole you want to add or remove from yourself.')
+        .setDescription(`Valid selfroles are: \x60\x60\x60fix\n${valid.join('\n').replace(/\x60/g, '\x60\u200B')}\x60\x60\x60`)
+      );
     }
 
     let targetR = duckioselfroles.filter(r => r.toLowerCase().includes(suffix.toLowerCase()));
