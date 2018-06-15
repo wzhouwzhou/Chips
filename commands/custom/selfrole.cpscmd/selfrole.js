@@ -3,6 +3,7 @@ const duckioselfroles = [
   'Giveaway Notify',
   '441248018688376842',
   'EventNotify',
+  'Event Notify',
   '451064283518730240',
   'XP-Suspended',
   'XP Suspended',
