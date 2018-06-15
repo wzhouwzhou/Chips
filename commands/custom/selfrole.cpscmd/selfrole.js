@@ -53,10 +53,10 @@ module.exports = {
 
     if (member.roles.has(targetRole.id)) {
       await member.removeRole(targetRole.id);
-      return send(`Succesfully removed **${targetR[0].name}** from ${member + []}!`);
+      return send(`Succesfully removed **${targetRole[0].name}** from ${member + []}!`);
     } else {
       await member.addRole(targetRole.id);
-      send(`Succesfully gave ${member + []} **${targetR[0].name}**!`);
+      send(`Succesfully gave ${member + []} **${targetRole[0].name}**!`);
     }
     return true;
   },
