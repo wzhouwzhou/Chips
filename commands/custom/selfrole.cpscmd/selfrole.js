@@ -16,6 +16,7 @@ const valid = [
 const replace = {
   'XP Suspended': '344421529817186305',
   'Giveaway Notify': '441248018688376842',
+  'XP Suspended': '344421529817186305',
 };
 module.exports = {
   name: 'selfrole',
