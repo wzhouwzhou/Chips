@@ -44,7 +44,7 @@ module.exports = {
         .setColor('RANDOM')
         .setTitle(`Ambiguous selfrole for search [${suffix}]`)
         .setDescription(`**Please use the selfrole command again for any these role names:** \x60\x60\x60fix\n${
-          targetR.map(r => r.name.replace(/\x60/g, '\x60\u200B'))
+          targetR.map(r => r.replace(/\x60/g, '\x60\u200B'))
             .join('\n')
             .substr(0, 1950)
         }\x60\x60\x60`));
@@ -53,10 +53,10 @@ module.exports = {
 
     if (member.roles.has(targetRole.id)) {
       await member.removeRole(targetRole.id);
-      return send(`Succesfully removed **${targetRole[0].name}** from ${member + []}!`);
+      return send(`Succesfully removed **${targetRole.name}** from ${member + []}!`);
     } else {
       await member.addRole(targetRole.id);
-      send(`Succesfully gave ${member + []} **${targetRole[0].name}**!`);
+      send(`Succesfully gave ${member + []} **${targetRole.name}**!`);
     }
     return true;
   },
