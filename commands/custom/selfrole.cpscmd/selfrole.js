@@ -10,11 +10,11 @@ const duckioselfroles = {
   'XP Suspended': '344421529817186305',
   '344421529817186305': '344421529817186305',
 };
-const valid = [
-  'Giveaway Notify',
-  'Event Notify',
-  'XP Suspended',
-];
+const valid = {
+  '441248018688376842': 'Giveaway Notify',
+  '451064283518730240': 'Event Notify',
+  '344421529817186305': 'XP Suspended',
+};
 module.exports = {
   name: 'selfrole',
   async func(msg, { send, member, guild, suffix, Discord }) {
@@ -28,7 +28,9 @@ module.exports = {
       return send(new Discord.MessageEmbed()
         .setColor('RANDOM')
         .setTitle('Name the selfrole you want to add or remove from yourself.')
-        .setDescription(`Valid selfroles are: \x60\x60\x60fix\n${valid.join('\n').replace(/\x60/g, '\x60\u200B')}\x60\x60\x60`)
+        .setDescription(`Valid selfroles are: \x60\x60\x60fix\n${
+          Object.values(valid).join('\n').replace(/\x60/g, '\x60\u200B')
+        }\x60\x60\x60`)
       );
     }
 
@@ -44,13 +46,15 @@ module.exports = {
         .setColor('RANDOM')
         .setTitle(`Ambiguous selfrole for search [${suffix}]`)
         .setDescription(`**Please use the selfrole command again for any these role names:** \x60\x60\x60fix\n${
-          targetR.map(r => r.replace(/\x60/g, '\x60\u200B'))
+          targetR.map(r => valid[r].replace(/\x60/g, '\x60\u200B'))
             .join('\n')
             .substr(0, 1950)
         }\x60\x60\x60`));
     }
-    let targetRole = guild.roles.find('name', `${duckioselfroles[targetR[0]]}`);
-
+    let targetRole = guild.roles.get(duckioselfroles[targetR[0]]);
+    if (!targetRole) {
+      return send('Role not found...perhaps it was deleted?');
+    }
     if (member.roles.has(targetRole.id)) {
       await member.removeRole(targetRole.id);
       return send(`Succesfully removed **${targetRole.name}** from ${member + []}!`);
