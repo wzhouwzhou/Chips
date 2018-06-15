@@ -1,24 +1,20 @@
-const duckioselfroles = [
-  'GiveawayNotify',
-  'Giveaway Notify',
-  '441248018688376842',
-  'EventNotify',
-  'Event Notify',
-  '451064283518730240',
-  'XP-Suspended',
-  'XP Suspended',
-  '344421529817186305',
-];
+/* eslint quote-props: 'off' */
+const duckioselfroles = {
+  'GiveawayNotify': '441248018688376842',
+  'Giveaway Notify': '441248018688376842',
+  '441248018688376842': '441248018688376842',
+  'EventNotify': '451064283518730240',
+  'Event Notify': '451064283518730240',
+  '451064283518730240': '451064283518730240',
+  'XP-Suspended': '344421529817186305',
+  'XP Suspended': '344421529817186305',
+  '344421529817186305': '344421529817186305',
+};
 const valid = [
   'Giveaway Notify',
   'Event Notify',
   'XP Suspended',
 ];
-const replace = {
-  'XP Suspended': '344421529817186305',
-  'Giveaway Notify': '441248018688376842',
-  'XP Suspended': '344421529817186305',
-};
 module.exports = {
   name: 'selfrole',
   async func(msg, { send, member, guild, suffix, Discord }) {
@@ -36,7 +32,10 @@ module.exports = {
       );
     }
 
-    let targetR = duckioselfroles.filter(r => r.toLowerCase().includes(suffix.toLowerCase()));
+    let targetR = Array.from(new Set(Object.keys(duckioselfroles).filter(
+      r => r.toLowerCase().includes(suffix.toLowerCase())
+    ).map(e => duckioselfroles[e])));
+
     if (!targetR || targetR.length === 0) {
       return send(new Discord.MessageEmbed().setColor('RANDOM').setDescription(`Selfrole [${suffix}] not found`));
     }
@@ -50,7 +49,7 @@ module.exports = {
             .substr(0, 1950)
         }\x60\x60\x60`));
     }
-    let targetRole = guild.roles.find('name', `${replace[targetR[0]] || targetR[0]}`);
+    let targetRole = guild.roles.find('name', `${duckioselfroles[targetR[0]]}`);
 
     if (member.roles.has(targetRole.id)) {
       await member.removeRole(targetRole.id);
