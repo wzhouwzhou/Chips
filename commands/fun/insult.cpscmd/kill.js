@@ -83,7 +83,7 @@ const killerMan = [
     '[@dead person] was visiting an old pizzeria with [@killer].',
     'After eating some pizza that actually tasted pretty good,',
     '[@dead person] wanted to take a look at the things on the stage.',
-    "But as soon as [@dead person] came close to them, one of them suddenly started to run in [@deadperson]'s direction.",
+    "But as soon as [@dead person] came close to them, one of them suddenly started to run in [@dead person]'s direction.",
     'It looked like a pure red fox with a hook, but, in the moment,',
     '[@dead person] noticed that their head was already inside the mouth of the fox as it got tighter and tighter.'].join(' '),
 ];
@@ -103,7 +103,7 @@ module.exports = {
     return send(comment
       .replace(new RegExp(_.escapeRegExp('{{first}}'), 'gi'), first)
       .replace(new RegExp(_.escapeRegExp('{{second}}'), 'gi'), second)
-      .replace(new RegExp(_.escapeRegExp('[@dead person]'), 'gi'), first)
+      .replace(/\[@dead\s*person\]/gi, first)
       .replace(new RegExp(_.escapeRegExp('[@killer]'), 'gi'), second)
     );
   },
