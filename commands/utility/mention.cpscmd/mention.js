@@ -130,7 +130,7 @@ exports.func = async(msg, { guild, member, send, author, channel, suffix, Discor
     return send('You specified no valid roles to mention');
   }
 
-  let mentStr = `${author} just mentioned `;
+  let mentStr = `\x60${author.tag.replace(/`/g, '\x60\u200B')}\x60 just mentioned `;
   let rtoment = [], mModified = [];
   for (const i of matcher) {
     let wasment = totalroles[i - 1].mentionable;
