@@ -30,13 +30,13 @@ module.exports = {
       }
       if (role.members.size === 0) return send('Nobody has this role!');
 
-      let descs = ['```'], i = 0;
+      let descs = ['```css\n'], i = 0;
       for (const mem of role.members.array()) {
         if (!descs[i]) descs[i] = '```';
         if (descs[i].trim().length > 1950) {
-          descs[++i] = '```';
+          descs[++i] = '```css\n';
         }
-        descs[i] += `${mem.user.tag} `;
+        descs[i] += `${mem.user.tag}\n`;
       }
       if (descs.length === 1) {
         const embed = new Discord.MessageEmbed().setTitle(`Members with the role ${role.name}`).setDescription(`${descs[0]}\x60\x60\x60`);
