@@ -40,10 +40,10 @@ const ex = {
       helpembed.setTitle('The Info Command');
       helpembed.setDescription([
         'This command must be used with a given "action":',
-        '**{} user [@ mention or fuzzy search]** returns info about a member in a server\\*',
-        '**{} channel [#channel or fuzzy search]** returns info about a particular channel\\*',
-        '**{} guild** or **{} server** returns info about the server you are in\\*',
-        '**{} role [@ mention or fuzzy search]** returns info about a role\\*',
+        '**{} user [@ mention or fuzzy search]** returns info about a member in a server.\\*',
+        '**{} channel [#channel or fuzzy search]** returns info about a particular channel. (Aliases: `channelinfo`, `ci`)\\*',
+        '**{} guild** or **{} server** returns info about the server you are in. (Aliases: `serverinfo`, `si`)\\*',
+        '**{} role [@ mention or fuzzy search]** returns info about a role.\\*',
         '**{} bot** shows some basic info about me!',
         'Any subcommands with a \\* following their usage must be used in a server',
       ].join('\n').replace(/\{\}/g, `${_.escapeRegExp(prefix)}${this.name}`));
