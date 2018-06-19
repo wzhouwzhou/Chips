@@ -7,7 +7,7 @@ const cnsfwimg = 'https://cdn.discordapp.com/attachments/294328677095964672/4584
 
 module.exports = {
   name: 'channelinfo',
-  async func(msg, { send, member, args, guild, author, Discord, suffix }) {
+  async func(msg, { send, member, content, args, guild, author, Discord, suffix }) {
     if (!guild) return send('You must use this command in a server');
     try {
       let info = await global.permissions.checkMulti(msg, ['global.info.info.channel']);
@@ -19,10 +19,10 @@ module.exports = {
       }
     }
     let channel;
-    if (!args[1]) channel = msg.channel;
+    if (!args[0]) channel = msg.channel;
     if (!channel) {
       try {
-        channel = args[1].substring(2, args[1].length - 1);
+        channel = content;
         console.log(`Trying to find channel from link ${channel}`);
         channel = guild.channels.get(channel);
         if (!channel) throw new Error('NotChannelId');
