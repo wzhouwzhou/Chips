@@ -12,8 +12,8 @@ info.metadata = {
   customperm: ['SEND_MESSAGES'],
 };
 
-console.log('[CPSCMD][INFO][info] Building objects...');
-si.metadata = {
+
+rm.metadata = {
   category: require('../').category,
   description: 'Shows all users that have a role',
   usage: 'rolemembers <role>',
@@ -22,8 +22,8 @@ si.metadata = {
   customperm: ['SEND_MESSAGES'],
 };
 
-console.log('[CPSCMD][INFO][info] Building objects...');
-rm.metadata = {
+
+si.metadata = {
   category: require('../').category,
   description: 'Shows server info.',
   usage: 'serverinfo',
@@ -31,6 +31,7 @@ rm.metadata = {
   perm: [['global.info.info.server']],
   customperm: ['SEND_MESSAGES'],
 };
+
 
 console.log('[CPSCMD][INFO][info] Build objects complete!');
 module.exports = [
