@@ -1,4 +1,6 @@
 /* eslint complexity: 'off', no-console: 'off' */
+const path = require('path');
+const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
 const moment = require('moment');
 const cnsfwimg = 'https://cdn.discordapp.com/attachments/294328677095964672/458495588112269312/textchannel-v2-nsfw.png',
   cvoiceimg = 'https://cdn.discordapp.com/attachments/294328677095964672/458495589454446602/voicechannel-v2.png',
@@ -17,6 +19,9 @@ module.exports = {
         console.log(`Rejected info channel to ${author.id}`);
         return msg.reply(err);
       }
+    }
+    if (guild) {
+      global.searchers[guild.id] = new Searcher(guild);
     }
     let channel;
     if (!args[0]) channel = msg.channel;
