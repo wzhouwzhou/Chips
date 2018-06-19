@@ -15,7 +15,7 @@ module.exports = {
     embed.addField(`${guild.channels.size} channels: ${guild.channels.filter(c => c.type === 'voice').size} voice and ${guild.channels.filter(c => c.type === 'category').size} categories`,
       `Voice region: ${guild.region} | Verification level: ${guild.verificationLevel}`);
     embed.setColor(guild.owner.displayColor || guild.me.displayColor || 1);
-    embed.setFooter(`Server id: ${guild.id} | Requested by ${author.tag}`);
+    embed.setFooter(`Server ID: ${guild.id} | Requested by ${author.tag}`);
     return send(embed);
   },
 };
