@@ -8,6 +8,7 @@ const cnsfwimg = 'https://cdn.discordapp.com/attachments/294328677095964672/4584
 module.exports = {
   name: 'channelinfo',
   async func(msg, { send, member, args, guild, author, Discord, suffix }) {
+    if (!guild) return send('You must use this command in a server');
     try {
       let info = await global.permissions.checkMulti(msg, ['global.info.info.channel']);
       console.log(`[Command] ${info}`);

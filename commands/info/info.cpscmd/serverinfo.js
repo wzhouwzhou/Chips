@@ -19,7 +19,17 @@ const regionreplaced = {
 
 module.exports = {
   name: 'serverinfo',
-  func(msg, { send, guild, author, Discord }) {
+  async func(msg, { send, guild, member, author, Discord }) {
+    if (!guild) return send('You must use this command in a server');
+    try {
+      let info = await global.permissions.checkMulti(msg, ['global.info.info.server']);
+      console.log(`[Command] ${info}`);
+    } catch (err) {
+      if (!member.hasPermission('global.info.info.server')) {
+        console.log(`Rejected info server to ${author.id}`);
+        return msg.reply(err);
+      }
+    }
     const diff = moment().diff(guild.createdAt, 'days'),
       botc = guild.members.filter(mm => mm.user.bot).size;
     const available = guild.presences.filter(presence => ['online', 'idle', 'dnd'].includes(presence.status)).size;
