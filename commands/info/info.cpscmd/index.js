@@ -2,6 +2,7 @@ let info = require('./info');
 let rm = require('./rmembers');
 let cm = require('./cmembers');
 let si = require('./serverinfo');
+let ci = require('./channelinfo');
 
 console.log('[CPSCMD][INFO][info] Building objects...');
 info.metadata = {
@@ -9,7 +10,8 @@ info.metadata = {
   description: 'Shows server, channel, role, and user info.',
   usage: 'info <action> <...extra detail>',
   example: ['info channel #general', 'info user @JohnSmith', 'info role Admin'],
-  perm: [['global.info.info'], 'global.info.info.server', 'global.info.channel', 'global.info.role', 'global.info.user', 'global.info.user.self'],
+  perm: [['global.info.info'], 'global.info.info.server', 'global.info.channel', 'global.info.role',
+    'global.info.user', 'global.info.user.self'],
   customperm: ['SEND_MESSAGES'],
 };
 
@@ -37,6 +39,15 @@ si.metadata = {
   usage: 'serverinfo',
   example: ['serverinfo'],
   perm: [['global.info.info.server']],
+  customperm: ['SEND_MESSAGES'],
+};
+
+ci.metadata = {
+  category: require('../').category,
+  description: 'Shows channel info.',
+  usage: 'channelinfo (optional channel name or id)',
+  example: ['channelinfo'],
+  perm: [['global.info.channel']],
   customperm: ['SEND_MESSAGES'],
 };
 
