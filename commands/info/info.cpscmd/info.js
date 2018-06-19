@@ -494,7 +494,7 @@ const ex = {
         embed.setTitle(`${channel.type[0].toUpperCase()}${channel.type.slice(1).toLowerCase()} ${channel.type === 'category' ? '' : 'Channel'} ${channel.type === 'text' ? '#' : ''}${channel.name}`);
         embed.setFooter(`Channel ID: ${channel.id} | Requested by ${author.tag}`);
         if (channel.type === 'text') {
-          embed.setDescription(`**Topic:** ${channel.topic}`);
+          embed.setDescription(`**Topic:** ${channel.topic || 'None'}`);
           embed.addField(`Created ${diff} days ago on ${channel.createdAt.toUTCString()}`,
             `${pos} channel under "${channel.parent.name}" category`);
           embed.addField(`${channel.members.filter(m => ['online', 'idle', 'dnd'].includes(m.presence.status)).size}/${channel.members.size} members with access available.`,

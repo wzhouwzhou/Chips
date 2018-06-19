@@ -27,10 +27,11 @@ module.exports = {
     if (!args[0]) channel = msg.channel;
     if (!channel) {
       try {
-        channel = content;
+        channel = content.match(/(\d+)/);
         console.log(`Trying to find channel from link ${channel}`);
-        channel = guild.channels.get(channel);
-        if (!channel) throw new Error('NotChannelId');
+        if (!channel || !channel[1]) throw new Error('No Channel ID');
+        channel = guild.channels.get(channel[1]);
+        if (!channel) throw new Error('No Channel');
       } catch (err) {
         channel = suffix;
         let list = global.searchers[guild.id].searchChannel(channel);
@@ -53,7 +54,7 @@ module.exports = {
     } ${channel.type === 'text' ? '#' : ''}${channel.name}`);
     embed.setFooter(`Channel ID: ${channel.id} | Requested by ${author.tag}`);
     if (channel.type === 'text') {
-      embed.setDescription(`**Topic:** ${channel.topic}`);
+      embed.setDescription(`**Topic:** ${channel.topic || 'None'}`);
       embed.addField(`Created ${diff} days ago on ${channel.createdAt.toUTCString()}`,
         `${pos} channel under "${channel.parent.name}" category`);
       embed.addField(`${channel.members.filter(m => ['online', 'idle', 'dnd'].includes(m.presence.status)).size}/${channel.members.size
