@@ -1,11 +1,33 @@
 /* eslint complexity: 'off', no-console: 'off', max-len: 'off' */
 const path = require('path');
-const moment = require('moment');
 const Searcher = require(path.join(__dirname, '../../../handlers/Searcher')).default;
 const Paginator = require('../../../rewrite-all/src/struct/client/Paginator').Paginator;
 const snekfetch = require('snekfetch');
 const _ = require('lodash');
 let helpembed = null;
+
+const moment = require('moment');
+const cnsfwimg = 'https://cdn.discordapp.com/attachments/294328677095964672/458495588112269312/textchannel-v2-nsfw.png',
+  cvoiceimg = 'https://cdn.discordapp.com/attachments/294328677095964672/458495589454446602/voicechannel-v2.png',
+  ctextimg = 'https://cdn.discordapp.com/attachments/294328677095964672/458495586539405315/textchannel-v2.png',
+  ccatimg = 'https://cdn.discordapp.com/attachments/294328677095964672/458495585524252682/category-v2.png';
+const regionreplaced = {
+  'eu-central': [':flag_eu:', 'Central Europe'],
+  'eu-west': [':flag_eu:', 'Western Europe'],
+  brazil: [':flag_br:', 'Brazil'],
+  hongkong: [':flag_hk:', 'Hong Kong'],
+  japan: [':flag_jp:', 'Japan'],
+  russia: [':flag_ru:', 'Russia'],
+  singapore: [':flag_sg:', 'Singapore'],
+  sydney: [':flag_au:', 'Sydney'],
+  'us-central': [':flag_us:', 'Central US'],
+  'us-east': [':flag_us:', 'Eastern US'],
+  'us-south': [':flag_us:', 'Southern US'],
+  'us-west': [':flag_us:', 'Western US'],
+  'vip-amsterdam': [':flag_nl:', 'Amsterdam (VIP)'],
+  'vip-us-east': [':flag_us:', 'Eastern US (VIP)'],
+  'vip-us-west': [':flag_us:', 'Western US (VIP)'],
+};
 
 const ex = {
   name: 'info',
@@ -182,13 +204,15 @@ const ex = {
         const embed = new Discord.MessageEmbed;
         embed.setThumbnail(guild.iconURL({ format: 'png', size: 512 }));
         embed.setTitle(guild.name);
-        embed.addField(`Server owner: ${guild.owner.user.tag}`, `Created ${diff} days ago on ${guild.createdAt.toUTCString()}`);
-        embed.addField(`${available}/${guild.members.size} members online, ${botc} bots`,
+        embed.addField(`Server owner: ${guild.owner.user.tag}`, `Created ${diff} days ago on ${guild.createdAt.toUTCString()}.`);
+        embed.addField(`${available}/${guild.members.size} members available, ${botc} bots.`,
           `${guild.emojis.size} emojis | ${guild.roles.filter(rr => rr.members.size).size}/${guild.roles.size} roles used`);
-        embed.addField(`${guild.channels.size} channels: ${guild.channels.filter(c => c.type === 'voice').size} voice and ${guild.channels.filter(c => c.type === 'category').size} categories`,
-          `Voice region: ${guild.region} | Verification level: ${guild.verificationLevel}`);
+        embed.addField(`${guild.channels.size} channels: ${guild.channels.filter(c => c.type === 'voice').size} voice and ${
+          guild.channels.filter(c => c.type === 'category').size} categories.`,
+        `Voice region: ${regionreplaced[guild.region][0]}${regionreplaced[guild.region][1]} | Verification level: ${guild.verificationLevel}`);
+
         embed.setColor(guild.owner.displayColor || guild.me.displayColor || 1);
-        embed.setFooter(`Server id: ${guild.id} | Requested by ${author.tag}`);
+        embed.setFooter(`Server ID: ${guild.id} | Requested by ${author.tag}`);
         return send(embed);
       }
       // /await reply(`Server info`, {embed: infobad});
@@ -260,7 +284,7 @@ const ex = {
           }
         }
         const name = `${member.id}${process.hrtime().join('')}profileEdited.png`;
-        const embed = await userData({ Constants, member, infobad, convertTime, times, name });
+        const embed = await userData({ Discord, Constants, member, infobad, convertTime, times, name });
         waiting.delete();
         return send(`${multiple ? '(multiple users were found, using the first one)' : ''}`, { embed });
       } else {
@@ -273,7 +297,7 @@ const ex = {
             return msg.reply(err);
           }
         }
-        const embed = await userData({ Constants, member, infobad, convertTime, times });
+        const embed = await userData({ Discord, Constants, member, infobad, convertTime, times });
         waiting.delete();
         return send('', { embed });
       }
@@ -384,86 +408,122 @@ const ex = {
           channel = args[1].substring(2, args[1].length - 1);
           console.log(`Trying to find channel from link ${channel}`);
           channel = guild.channels.get(channel);
-          if (channel == null) throw 'NotChannelId';
+          if (!channel) throw new Error('NotChannelId');
         } catch (err) {
           channel = content.substring(`${prefix}info ${action} `.length);
-          let list = searchers[guild.id].searchChannel(channel);
+          let list = global.searchers[guild.id].searchChannel(channel);
           if (list.length > 1) {
             await send('Multiple matches found, using first one..');
           } else if (list.length < 1) {
-            return send(new Discord.MessageEmbed().setColor(member.displayColor).setDescription(`Channel [${channel}] not found!`));
+            return send(new Discord.MessageEmbed().setColor(member.displayColor).setDescription(`Channel [${channel}] not found!`));
           }
           channel = list[0];
         }
       }
-      if (channel) {
-        let cname = channel.name.replace('@', '(at)');
-
-        let diff;
-        highest = 'years';
+      if (args[1] === 'legacy' || args[1] === 'verbose') {
         if (channel) {
-          diff = await convertTime(channel.createdAt, times.indexOf(highest));
-          // Send("diff2-1: " + diff2);
-          diff = `${diff[0]} ${times[diff[1]]}`;
-          // Send("diff2-2: " + diff2);
-        } else { diff = 'NAN'; }
+          let cname = channel.name.replace('@', '(at)');
 
-        let memList = '';
-        for (mem of channel.members.array()) {
-          memList += `[<@${mem.id}>] `;
-          if (memList.length > 1000) {
-            memList = 'Member list is too long!';
-            break;
+          let diff;
+          highest = 'years';
+          if (channel) {
+            diff = await convertTime(channel.createdAt, times.indexOf(highest));
+            // Send("diff2-1: " + diff2);
+            diff = `${diff[0]} ${times[diff[1]]}`;
+            // Send("diff2-2: " + diff2);
+          } else { diff = 'NAN'; }
+
+          let memList = '';
+          for (mem of channel.members.array()) {
+            memList += `[<@${mem.id}>] `;
+            if (memList.length > 1000) {
+              memList = 'Member list is too long!';
+              break;
+            }
           }
+
+          let trueMemC = channel.members.filter(member => !member.user.bot);
+          let online = 0, idle = 0, dnd = 0, available = 0;
+          trueMemC.filter(member => {
+            switch (member.presence.status) {
+              case 'online':
+                online++;
+                available++;
+                break;
+
+              case 'idle':
+                idle++;
+                available++;
+                break;
+
+              case 'dnd':
+                dnd++;
+                available++;
+                break;
+            }
+            return true;
+          });
+          infobad.setTitle(`Channel Lookup for channel [${cname}]`);
+          infobad.addField(`Channel Topic:`, `${channel.topic ? channel.topic : 'None'}`);
+          infobad.addField(`Channel ID: `, `${channel.id}`);
+          infobad.addField(`Creation date: ${channel.createdAt.toUTCString()}`, `That's about ${diff} ago!`);
+
+          memList && infobad.addField(`${channel.members.size} member(s): ${trueMemC.size} ${trueMemC.size === 1 ? 'person' : 'people'}, ${channel.members.size - trueMemC.size} ${channel.members.size - trueMemC.size === 1 ? 'bot' : 'bots'}`, [
+            `Reachable member(s) (online, idle or dnd): **${available}**\n`,
+            ...[
+              ['<:online:313956277808005120>', online],
+              ['<:away:313956277220802560>', idle],
+              ['<:dnd:313956276893646850>', dnd],
+              ['<:offline:313956277237710868>', channel.members.size - available],
+            ].map(e => `${e[0]}: **${e[1]}**`),
+          ].join(' '));
+
+          infobad.addField(`Position: ${channel.rawPosition + 1}`, `The channel is ${channel.rawPosition + 1 == 0 ? '1st' : channel.rawPosition + 1 == 1 ? '2nd' : channel.rawPosition + 1 == 2 ? '3rd' : `${channel.rawPosition + 1 + 1}th`} on the channel list in the sidebar ${channel.parent ? `and ${channel.position + 1 == 0 ? '1st' : channel.position + 1 == 1 ? '2nd' : channel.position + 1 == 2 ? '3rd' : `${channel.position + 1 + 1}th`} under the ${channel.parent.name} divider` : ''}!`);
+          // Infobad.addField(`Permission Overwrite Count: `,`${channel.permissionOverwrites.size}`);
+          channel.type === 'text' && channel.nsfw && infobad.setThumbnail('https://i.imgur.com/PU6uVhu.png');
+          memList && infobad.addField(`Members with access to this channel: `, memList);
+          return await reply(`Channel information: `, { embed: infobad });
         }
+      } else {
+        let diff = channel ? moment().diff(channel.createdAt, 'days') : '∞';
 
-        let trueMemC = channel.members.filter(member => !member.user.bot);
-        let online = 0, idle = 0, dnd = 0, available = 0;
-        trueMemC.filter(member => {
-          switch (member.presence.status) {
-            case 'online':
-              online++;
-              available++;
-              break;
-
-            case 'idle':
-              idle++;
-              available++;
-              break;
-
-            case 'dnd':
-              dnd++;
-              available++;
-              break;
+        const posn = channel.position + 1;
+        const last = posn % 10;
+        const pos = last === 1 ? '1st' : last === 1 ? '2nd' : last === 3 ? '3rd' : `${posn}th`;
+        const embed = new Discord.MessageEmbed;
+        embed.setTitle(`${channel.type[0].toUpperCase()}${channel.type.slice(1).toLowerCase()} ${channel.type === 'category' ? '' : 'Channel'} ${channel.type === 'text' ? '#' : ''}${channel.name}`);
+        embed.setFooter(`Channel ID: ${channel.id} | Requested by ${author.tag}`);
+        if (channel.type === 'text') {
+          embed.setDescription(`**Topic:** ${channel.topic}`);
+          embed.addField(`Created ${diff} days ago on ${channel.createdAt.toUTCString()}`,
+            `${pos} channel under "${channel.parent.name}" category`);
+          embed.addField(`${channel.members.filter(m => ['online', 'idle', 'dnd'].includes(m.presence.status)).size}/${channel.members.size} members with access available.`,
+            `${channel.permissionOverwrites.size} permission overwrites.`);
+          if (channel.nsfw) {
+            embed.setThumbnail(cnsfwimg);
+          } else {
+            embed.setThumbnail(ctextimg);
           }
-          return true;
-        });
-        infobad.setTitle(`Channel Lookup for channel [${cname}]`);
-        infobad.addField(`Channel Topic:`, `${channel.topic ? channel.topic : 'None'}`);
-        infobad.addField(`Channel ID: `, `${channel.id}`);
-        infobad.addField(`Creation date: ${channel.createdAt.toUTCString()}`, `That's about ${diff} ago!`);
-
-        memList && infobad.addField(`${channel.members.size} member(s): ${trueMemC.size} ${trueMemC.size === 1 ? 'person' : 'people'}, ${channel.members.size - trueMemC.size} ${channel.members.size - trueMemC.size === 1 ? 'bot' : 'bots'}`, [
-          `Reachable member(s) (online, idle or dnd): **${available}**\n`,
-          ...[
-            ['<:online:313956277808005120>', online],
-            ['<:away:313956277220802560>', idle],
-            ['<:dnd:313956276893646850>', dnd],
-            ['<:offline:313956277237710868>', channel.members.size - available],
-          ].map(e => `${e[0]}: **${e[1]}**`),
-        ].join(' '));
-
-        infobad.addField(`Position: ${channel.rawPosition + 1}`, `The channel is ${channel.rawPosition + 1 == 0 ? '1st' : channel.rawPosition + 1 == 1 ? '2nd' : channel.rawPosition + 1 == 2 ? '3rd' : `${channel.rawPosition + 1 + 1}th`} on the channel list in the sidebar ${channel.parent ? `and ${channel.position + 1 == 0 ? '1st' : channel.position + 1 == 1 ? '2nd' : channel.position + 1 == 2 ? '3rd' : `${channel.position + 1 + 1}th`} under the ${channel.parent.name} divider` : ''}!`);
-        // Infobad.addField(`Permission Overwrite Count: `,`${channel.permissionOverwrites.size}`);
-        channel.type === 'text' && channel.nsfw && infobad.setThumbnail('https://i.imgur.com/PU6uVhu.png');
-        memList && infobad.addField(`Members with access to this channel: `, memList);
-        return await reply(`Channel information: `, { embed: infobad });
+        } else if (channel.type === 'voice') {
+          embed.setThumbnail(cvoiceimg);
+          embed.addField(`Created ${diff} days ago on ${channel.createdAt.toUTCString()}`,
+            `${pos} channel under "${channel.parent.name}" category.`);
+          embed.addField(`${channel.members.size || 'No'}${channel.userLimit ? `/${channel.userLimit}` : ''} member${channel.members.size === 1 ? '' : 's'} connected.`,
+            `${channel.permissionOverwrites.size} permission overwrites.`);
+        } else if (channel.type === 'category') {
+          embed.setDescription(`Created ${diff} days ago on ${channel.createdAt.toUTCString()}`);
+          embed.addField(`${pos} category on the sidebar.`, `${channel.permissionOverwrites.size} permission overwrites.`);
+          embed.setThumbnail(ccatimg);
+          embed.setFooter(`Category ID: ${channel.id} | Requested by ${author.tag}`);
+        }
+        embed.setColor(guild.owner.displayColor || guild.me.displayColor || 1);
+        return send(embed);
       }
     }
   },
 };
 
-const userData = ({ Constants, member, infobad, convertTime, times }) => new Promise(async res => {
+const userData = ({ Constants, member, infobad, convertTime, times, Discord }) => new Promise(async res => {
   const avatarURL = member.user.displayAvatarURL({ format: 'png', size: 2048 });
 
   const status = (() => {
@@ -476,9 +536,9 @@ const userData = ({ Constants, member, infobad, convertTime, times }) => new Pro
   })();
 
   const r = await snekfetch.get(`${Constants.APIURL}avaround`)
-    .set('Authorization',process.env.RETHINKPSWD)
+    .set('Authorization', process.env.RETHINKPSWD)
     .set('Status', status)
-    .set('X-Data-Src',  avatarURL);
+    .set('X-Data-Src', avatarURL);
 
   const membername = member.displayName.replace('@', '(at)');
   let highest = 'years';
