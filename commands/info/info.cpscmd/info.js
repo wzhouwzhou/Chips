@@ -498,7 +498,7 @@ const ex = {
           embed.addField(`Created ${diff} days ago on ${channel.createdAt.toUTCString()}`,
             `${pos} channel under "${channel.parent.name}" category`);
           embed.addField(`${channel.members.filter(m => ['online', 'idle', 'dnd'].includes(m.presence.status)).size}/${channel.members.size} members with access available.`,
-            `${channel.permissionOverwrites.size} permission overwrites.`);
+            `${channel.permissionOverwrites.size} permission overwrite${channel.permissionOverwrites.size === 1 ? '' : 's'}.`);
           if (channel.nsfw) {
             embed.setThumbnail(cnsfwimg);
           } else {
@@ -509,10 +509,11 @@ const ex = {
           embed.addField(`Created ${diff} days ago on ${channel.createdAt.toUTCString()}`,
             `${pos} channel under "${channel.parent.name}" category.`);
           embed.addField(`${channel.members.size || 'No'}${channel.userLimit ? `/${channel.userLimit}` : ''} member${channel.members.size === 1 ? '' : 's'} connected.`,
-            `${channel.permissionOverwrites.size} permission overwrites.`);
+            `${channel.permissionOverwrites.size} permission overwrite${channel.permissionOverwrites.size === 1 ? '' : 's'}.`);
         } else if (channel.type === 'category') {
           embed.setDescription(`Created ${diff} days ago on ${channel.createdAt.toUTCString()}`);
-          embed.addField(`${pos} category on the sidebar.`, `${channel.permissionOverwrites.size} permission overwrites.`);
+          embed.addField(`${pos} category on the sidebar.`,
+            `${channel.permissionOverwrites.size} permission overwrite${channel.permissionOverwrites.size === 1 ? '' : 's'}.`);
           embed.setThumbnail(ccatimg);
           embed.setFooter(`Category ID: ${channel.id} | Requested by ${author.tag}`);
         }
