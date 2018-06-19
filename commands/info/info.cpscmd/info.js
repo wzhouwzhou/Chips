@@ -66,117 +66,133 @@ const ex = {
           return msg.reply(err);
         }
       }
+      if (args[1] === 'verbose') {
+        let diff = moment().diff(guild.createdAt, 'days');
 
-      let diff = moment().diff(guild.createdAt, 'days');
+        let trueMemC = guild.members.filter(member => !member.user.bot);
+        let online = 0, idle = 0, dnd = 0, available = 0;
+        guild.presences.filter(presence => {
+          switch (presence.status) {
+            case 'online':
+              online++;
+              available++;
+              break;
 
-      let trueMemC = guild.members.filter(member => !member.user.bot);
-      let online = 0, idle = 0, dnd = 0, available = 0;
-      guild.presences.filter(presence => {
-        switch (presence.status) {
-          case 'online':
-            online++;
-            available++;
-            break;
+            case 'idle':
+              idle++;
+              available++;
+              break;
 
-          case 'idle':
-            idle++;
-            available++;
-            break;
+            case 'dnd':
+              dnd++;
+              available++;
+              break;
+          }
+          return true;
+        });
 
-          case 'dnd':
-            dnd++;
-            available++;
-            break;
-        }
-        return true;
-      });
+        let textC = 0, voiceC = 0, categoryC = 0, tC = 0, nsfw = 0;
+        guild.channels.filter(c => {
+          if (c.type === 'text') textC++;
+          else if (c.type === 'voice') voiceC++;
+          else if (c.type === 'category') categoryC++;
+          tC++;
+          if (c.nsfw) nsfw++;
+          return true;
+        });
 
-      let textC = 0, voiceC = 0, categoryC = 0, tC = 0, nsfw = 0;
-      guild.channels.filter(c => {
-        if (c.type === 'text') textC++;
-        else if (c.type === 'voice') voiceC++;
-        else if (c.type === 'category') categoryC++;
-        tC++;
-        if (c.nsfw) nsfw++;
-        return true;
-      });
+        let vInfo = 'there is no verification requirement.';
+        let vLvl = guild.verificationLevel;
+        if (vLvl >= 1) vInfo = 'New users without a role must have an email linked to their account. ';
+        if (vLvl >= 2) vInfo += 'They must also be registered on Discord for more than five minutes. ';
+        if (vLvl >= 3) vInfo += 'In addition, upon joining, new members without a role must wait 10 minutes before they are able to speak. ';
+        else if (vLvl >= 4) vInfo += 'In addition, upon joining, new users without a role must verify themselves with a mobile device before they are able to speak. ';
+        let highestRole = guild._sortedRoles().last();
+        let gname = guild.name.replace('@', '(at)');
 
-      let vInfo = 'there is no verification requirement.';
-      let vLvl = guild.verificationLevel;
-      if (vLvl >= 1) vInfo = 'New users without a role must have an email linked to their account. ';
-      if (vLvl >= 2) vInfo += 'They must also be registered on Discord for more than five minutes. ';
-      if (vLvl >= 3) vInfo += 'In addition, upon joining, new members without a role must wait 10 minutes before they are able to speak. ';
-      else if (vLvl >= 4) vInfo += 'In addition, upon joining, new users without a role must verify themselves with a mobile device before they are able to speak. ';
-      let highestRole = guild._sortedRoles().last();
-      let gname = guild.name.replace('@', '(at)');
-
-      const data = {
-        type: 'paged',
-        embedding: true,
-        fielding: true,
-        title: [
-          'Server Info',
-          `Emoji List! # of emotes: ${guild.emojis.size}`,
-        ],
-        text: author + [],
-        description: [
-          '.',
-          `${guild.emojis.array().join(' ')}${guild.iconURL({ size: 2048, format: 'png' }) ? '\n\n**Server icon:**' : ''}`,
-        ],
-        pages:
-        [[
-          [`Name of this server: ${gname}`, `Guild id: ${guild.id}`],
-          [`Server created on ${guild.createdAt.toUTCString()} about ${diff} days ago!`, `Server owner: <@${guild.ownerID}> (${getUser(guild.ownerID).tag})`],
-          [`${guild.members.size} member(s): ${trueMemC.size} ${trueMemC.size === 1 ? 'person' : 'people'}, ${guild.members.size - trueMemC.size} ${guild.members.size - trueMemC.size === 1 ? 'bot' : 'bots'}`, [
-            `Reachable member(s) (online, idle or dnd): **${available}**\n`,
-            ...[
-              ['<:online:313956277808005120>', online],
-              ['<:away:313956277220802560>', idle],
-              ['<:dnd:313956276893646850>', dnd],
-              ['<:offline:313956277237710868>', guild.members.size - available],
-            ].map(e => `${e[0]}: **${e[1]}**`),
-          ].join(' ')],
-          [`Number of roles: ${guild.roles.size}`, `${highestRole.members.size} members with the highest role: ${highestRole.name} (${highestRole.id})`],
-          [
-            `Total number of channels: ${tC}`,
-            `Text: **${textC}**\nNsfw: **${nsfw}**\nVoice: **${voiceC}**\n»Categories: ${categoryC}«`,
+        const data = {
+          type: 'paged',
+          embedding: true,
+          fielding: true,
+          title: [
+            'Server Info',
+            `Emoji List! # of emotes: ${guild.emojis.size}`,
           ],
-          [`Server region (voice): ${guild.region}`, `AFK voice channel: ${guild.afkChannelID ? `#${guild.channels.get(guild.afkChannelID).name}` : ''}\n${guild.afkChannelID ? `Timeout: ${guild.afkTimeout / 60} minute(s)` : 'None'}`, true],
-          [`Verification level: ${vLvl}`, `That means ${vInfo}`],
-        ], []],
-        image: [
-          null,
-          guild.iconURL({ size: 2048, format: 'png' }) || null,
-        ],
-        thumbnail: [
-          guild.iconURL({ size: 2048, format: 'png' }) || null,
-        ],
-        author: [
-          client.user.tag,
-          'Server Emojis',
-        ],
-        color: member.displayColor,
-      };
+          text: author + [],
+          description: [
+            '.',
+            `${guild.emojis.array().join(' ')}${guild.iconURL({ size: 2048, format: 'png' }) ? '\n\n**Server icon:**' : ''}`,
+          ],
+          pages:
+          [[
+            [`Name of this server: ${gname}`, `Guild id: ${guild.id}`],
+            [`Server created on ${guild.createdAt.toUTCString()} about ${diff} days ago!`, `Server owner: <@${guild.ownerID}> (${getUser(guild.ownerID).tag})`],
+            [`${guild.members.size} member(s): ${trueMemC.size} ${trueMemC.size === 1 ? 'person' : 'people'}, ${guild.members.size - trueMemC.size} ${guild.members.size - trueMemC.size === 1 ? 'bot' : 'bots'}`, [
+              `Reachable member(s) (online, idle or dnd): **${available}**\n`,
+              ...[
+                ['<:online:313956277808005120>', online],
+                ['<:away:313956277220802560>', idle],
+                ['<:dnd:313956276893646850>', dnd],
+                ['<:offline:313956277237710868>', guild.members.size - available],
+              ].map(e => `${e[0]}: **${e[1]}**`),
+            ].join(' ')],
+            [`Number of roles: ${guild.roles.size}`, `${highestRole.members.size} members with the highest role: ${highestRole.name} (${highestRole.id})`],
+            [
+              `Total number of channels: ${tC}`,
+              `Text: **${textC}**\nNsfw: **${nsfw}**\nVoice: **${voiceC}**\n»Categories: ${categoryC}«`,
+            ],
+            [`Server region (voice): ${guild.region}`, `AFK voice channel: ${guild.afkChannelID ? `#${guild.channels.get(guild.afkChannelID).name}` : ''}\n${guild.afkChannelID ? `Timeout: ${guild.afkTimeout / 60} minute(s)` : 'None'}`, true],
+            [`Verification level: ${vLvl}`, `That means ${vInfo}`],
+          ], []],
+          image: [
+            null,
+            guild.iconURL({ size: 2048, format: 'png' }) || null,
+          ],
+          thumbnail: [
+            guild.iconURL({ size: 2048, format: 'png' }) || null,
+          ],
+          author: [
+            client.user.tag,
+            'Server Emojis',
+          ],
+          color: member.displayColor,
+        };
 
-      let hrTime = process.hrtime(start);
-      let µs = false;
-      let end = hrTime[0] * 1000 + hrTime[1] / 1000000;
-      if (end < 1) {
-        µs = true;
-        end = hrTime[0] * 1000000 + hrTime[1] / 1000;
-      }
-      µs ? end += 'µs' : end += 'ms';
-      data.footer = `--Server info lookup and calculations took ${(end)}.--`;
+        let hrTime = process.hrtime(start);
+        let µs = false;
+        let end = hrTime[0] * 1000 + hrTime[1] / 1000000;
+        if (end < 1) {
+          µs = true;
+          end = hrTime[0] * 1000000 + hrTime[1] / 1000;
+        }
+        µs ? end += 'µs' : end += 'ms';
+        data.footer = `--Server info lookup and calculations took ${(end)}.--`;
 
-      try {
-        const p = new Paginator(msg, data, Discord);
-        return await p.sendFirst();
-      } catch (err) {
-        console.error(err);
-        return reply('Something went wrong...');
+        try {
+          const p = new Paginator(msg, data, Discord);
+          return await p.sendFirst();
+        } catch (err) {
+          console.error(err);
+          return reply('Something went wrong...');
+        }
+      } else {
+        const diff = moment().diff(guild.createdAt, 'days'),
+          botc = guild.members.filter(mm => mm.user.bot).size;
+        const available = guild.presences.filter(presence => ['online', 'idle', 'dnd'].includes(presence.status)).size;
+        const embed = new Discord.MessageEmbed;
+        embed.setThumbnail(guild.iconURL({ format: 'png', size: 512 }));
+        embed.setTitle(guild.name);
+        embed.addField(`Server owner: ${guild.owner.user.tag}`, `Created ${diff} days ago on ${guild.createdAt.toUTCString()}`);
+        embed.addField(`${available}/${guild.members.size} members online, ${botc} bots`,
+          `${guild.emojis.size} emojis | ${guild.roles.filter(rr => rr.members.size).size}/${guild.roles.size} roles used`);
+        embed.addField(`${guild.channels.size} channels: ${guild.channels.filter(c => c.type === 'voice').size} voice and ${guild.channels.filter(c => c.type === 'category').size} categories`,
+          `Voice region: ${guild.region} | Verification level: ${guild.verificationLevel}`);
+        embed.setColor(guild.owner.displayColor || guild.me.displayColor || 1);
+        embed.setFooter(`Server id: ${guild.id} | Requested by ${author.tag}`);
+        return send(embed);
       }
       // /await reply(`Server info`, {embed: infobad});
-    } else if (action == 'user') {
+    } else if (action === 'user') {
       const waitingE = new Discord.MessageEmbed().attachFiles(['loading.gif']).setAuthor('Loading...', 'attachment://loading.gif', 'http://chipsbot.tk')
         .setColor(msg.member ? msg.member.displayColor : `#${((1 << 24) * Math.random() | 0).toString(16)}`);
       const waiting = await send(' ', { embed: waitingE });
@@ -373,7 +389,7 @@ const ex = {
           channel = content.substring(`${prefix}info ${action} `.length);
           let list = searchers[guild.id].searchChannel(channel);
           if (list.length > 1) {
-            await send('Multiple matches found, using first one..'); 
+            await send('Multiple matches found, using first one..');
           } else if (list.length < 1) {
             return send(new Discord.MessageEmbed().setColor(member.displayColor).setDescription(`Channel [${channel}] not found!`));
           }

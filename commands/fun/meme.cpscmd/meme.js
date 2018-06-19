@@ -9,6 +9,8 @@ const memes = [
   'https://i.imgur.com/lQHKeLw.png',
   'https://i.imgur.com/kDWraAV.png',
   'https://i.imgur.com/SFXOmjR.png',
+  'https://cdn.discordapp.com/attachments/274260111415836675/456987234885828608/Screen_Shot_2018-06-14_at_9.03.34_PM.png',
+  'https://cdn.discordapp.com/attachments/274260111415836675/456987573861220384/Screen_Shot_2018-06-14_at_9.05.12_PM.png',
 ];
 
 module.exports = {

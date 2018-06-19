@@ -93,8 +93,8 @@ module.exports = () => {
           }, 500);
         } else if (memberguild.id == '291558782755012610') {
           setTimeout(() => {
-            console.log('Changing nick for sm...');
-            member.setNickname(`[SM] ${member.user.username}`.substring(0, 32));
+            // Console.log('Changing nick for sm...');
+            // Member.setNickname(`[SM] ${member.user.username}`.substring(0, 32));
             member.addRole(memberguild.roles.get('385865868417957888') || memberguild.roles.find('name', 'Unverified'));
             let welcomeC = client.channels.get('385851855084978176') || memberguild.channels.find('name', 'unverified');
             if (welcomeC) welcomeC.send(`${member.user + []}, Welcome to ${memberguild.name}! Make SURE to read the <#366505552752148481> and <#312224217967886336>!\nPlease wait for staff to verify you with __\`-vs ok ${member.user + []}__!`);

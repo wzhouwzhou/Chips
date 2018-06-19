@@ -50,8 +50,8 @@ const GuildMusicHandler = class MusicHandler {
       this.enabled = true;
       this._client = client;
       _handlers.set(guildid, this);
-      this.streamOpts = { passes: 3, volume: 0.5, bitrate: 128 };
-      this.broadcastOpts = { passes: 2, volume: 0.6, bitrate: 128 };
+      this.streamOpts = { passes: 1, volume: 0.5, bitrate: 64 };
+      this.broadcastOpts = { passes: 1, volume: 0.6, bitrate: 64 };
     }
   }
 
@@ -80,7 +80,7 @@ const GuildMusicHandler = class MusicHandler {
     }
     if (!this._client.musicBroadcasts) this._client.musicBroadcasts = {};
     if (!NCSBroadcast) NCSBroadcast = this._client.createVoiceBroadcast();
-    const NCS = await new Song('https://youtube.com/watch?v=4rdaGSlLyDE', this._client.user).loadInfo();
+    const NCS = await new Song('https://youtube.com/watch?v=GVC5adzPpiE', this._client.user).loadInfo();
     this._client.musicBroadcasts.ncs = NCSBroadcast;
     NCSBroadcast.once('end', () => setTimeout(() => this.startNCSBroadcast(), 5000));
     NCSBroadcast.on('error', Logger.error.bind(Logger));
