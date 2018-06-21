@@ -19,8 +19,7 @@ rm.metadata = {
   category: require('../').category,
   description: 'Shows all users that have a role',
   usage: 'rolemembers <role>',
-<<<<<<< HEAD
-  example: ['rolemembers ++'],
+  example: ['rolemembers Admins'],
   perm: [['global.info.']],
   customperm: ['SEND_MESSAGES'],
 };
@@ -31,10 +30,6 @@ ci.metadata = {
   usage: 'channelinfo',
   example: ['channelinfo'],
   perm: [['global.info.channel']],
-=======
-  example: ['rolemembers Admins'],
-  perm: [['global.info.*']],
->>>>>>> 71880e581f2c707c99b9e85836f15e4036e3e013
   customperm: ['SEND_MESSAGES'],
 };
 
