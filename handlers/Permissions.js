@@ -219,6 +219,8 @@ ex.permsList = [
   ['global.utility.setchannel.*', false],
   ['global.utility.setchannel.name', false],
   ['global.utility.setchannel.topic', false],
+  ['global.utility.setguild.*', false],
+  ['global.utility.setguild.name', false],
   ['global.utility.stoptyping.*', false],
   ['global.utility.stoptyping.stoptyping', false],
   ['global.utility.translate.*', true],
