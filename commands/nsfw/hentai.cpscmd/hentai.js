@@ -19,18 +19,26 @@ const getHentai = () => {
 module.exports = {
   name: 'hentai',
   async func(msg, { send, member, Discord, channel }) {
-    return send('This command is under maintenance due to TOS/regulation requirements');
-    /*
     if (!channel.nsfw) return;
 
     try {
-      const embed = new Discord.MessageEmbed().setColor(member ? member.displayColor : 13512).setImage(await getHentai());
-      await send('', { embed });
+      let url, safe = false;
+      for (let i = 0; i < 5; i ++) {
+        url = await getHentai();
+        if (!/(loli)|(shota)|(gore)|(pettanko)/i.test(url)) {
+          safe = true;
+          break;
+        }
+      }
+      if (!safe) return send('No hentai images found after 5 tries of filtering...');
+
+      const embed = new Discord.MessageEmbed().setColor(member ? member.displayColor : 13512).setImage(url);
+      await send(embed);
     } catch (err) {
       console.error(err);
       if (err.startsWith('Status ')) return send('Hentai servers are down right now...');
-      send('Something went wrong..');
+      send('Could not fetch images...');
+      throw err;
     }
-    */
   },
 };

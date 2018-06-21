@@ -158,6 +158,8 @@ ex.permsList = [
   ['global.moderation.bans.reactban', false], // To be added/renamed
   ['global.moderation.bans.roleban', false], // To be added/renamed
   ['global.moderation.bans.instaban', false],
+  ['global.moderation.bans.unban', false],
+  ['global.moderation.bans.softban', false],
   ['global.moderation.botnick.*', false],
   ['global.moderation.botnick.change', false],
   ['global.moderation.chipsprefix.*', false],
@@ -183,6 +185,8 @@ ex.permsList = [
   ['global.nsfw.ass.image', true],
   ['global.nsfw.boobs.*', false],
   ['global.nsfw.boobs.image', true],
+  ['global.nsfw.hentai.*', false],
+  ['global.nsfw.hentai.image', true],
   ['global.nsfw.nsfw.*', false], // To be added/renamed
   ['global.nsfw.nsfw.info', true], // To be added/renamed
   ['global.nsfw.rule34.*', false],
@@ -219,6 +223,8 @@ ex.permsList = [
   ['global.utility.setchannel.*', false],
   ['global.utility.setchannel.name', false],
   ['global.utility.setchannel.topic', false],
+  ['global.utility.setguild.*', false],
+  ['global.utility.setguild.name', false],
   ['global.utility.stoptyping.*', false],
   ['global.utility.stoptyping.stoptyping', false],
   ['global.utility.translate.*', true],
@@ -681,7 +687,7 @@ ex.checkPermission = (msg, perm) => {
     let registered = ex.defaultperms.has(perm);
     if (!registered) {
       // Console.log('Someone just tried to use a cmd with an unregistered perm '+ perm);
-      return reject('Sorry, you just tried to use an unregistered command. Please report this to my developers.');
+      return reject('Sorry, you just tried to use an unregistered command. Please report this to my developers at https://support.chipsbot.me');
     }
 
     // Console.log(`Now checking the default perms.: ${perm}\nIs the perm registered list? : ${registered}`);

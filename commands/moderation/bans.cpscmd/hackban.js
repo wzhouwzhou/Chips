@@ -1,3 +1,4 @@
+/* eslint complexity: 'off' */
 // Const Searcher = require(path.join(__dirname, '../handlers/Searcher'));
 const EXPIRE = 10000;
 
@@ -6,11 +7,11 @@ module.exports = {
   async func(msg, { send, reply, author, args, channel, guild, client, prefix }) {
     let memberToUse;
     try {
-      if (!args[0]) return reply('Please specify a userid to hackban!');
+      if (!args[0]) return reply('Please specify a user ID to hackban!');
 
       memberToUse = (args[0].match(/^<?@?!?(\d+)>?$/) || [null, null])[1];
 
-      if (memberToUse == null || isNaN(memberToUse)) return reply('Please specify a valid userid to hackban!');
+      if (!memberToUse || isNaN(memberToUse)) return reply('Please specify a valid userid to hackban!');
 
       console.log(`Hackban ID received as: ${_.escapeRegExp(memberToUse)}`);
 

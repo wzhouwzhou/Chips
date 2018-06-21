@@ -6,9 +6,9 @@ console.log('[CPSCMD][NSFW][hentai] Building objects...');
 hentai.metadata = {
   category: require('../').category,
   description: 'The name of this command is self explanatory.',
-  usage: 'hentai',
+  usage: 'hentai <no arguments>',
   example: 'hentai',
-  perm: [['global.nsfw.boobs.boobs']],
+  perm: [['global.nsfw.hentai.boobs']],
 };
 
 console.log('[CPSCMD][NSFW][hentai] Build objects complete!');
