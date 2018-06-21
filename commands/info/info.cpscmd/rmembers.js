@@ -39,7 +39,7 @@ module.exports = {
         descs[i] += `${mem.user.tag}\n`;
       }
       if (descs.length === 1) {
-        const embed = new Discord.MessageEmbed().setTitle(`Members with the role ${role.name}`).setDescription(`${descs[0]}\x60\x60\x60`);
+        const embed = new Discord.MessageEmbed().setTitle(`${role.members.size} members with the role ${role.name}`).setDescription(`${descs[0]}\x60\x60\x60`);
         return send(embed);
       }
 

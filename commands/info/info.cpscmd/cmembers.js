@@ -41,7 +41,7 @@ module.exports = {
     }
     if (descs.length === 1) {
       const embed = new Discord.MessageEmbed();
-      embed.setTitle(`Members with access to the channel ${channel.name}`).setDescription(`${descs[0]}\x60\x60\x60`);
+      embed.setTitle(`${channel.members.size} members with access to the channel ${channel.name}`).setDescription(`${descs[0]}\x60\x60\x60`);
       return send(embed);
     }
 
