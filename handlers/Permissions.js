@@ -185,6 +185,8 @@ ex.permsList = [
   ['global.nsfw.ass.image', true],
   ['global.nsfw.boobs.*', false],
   ['global.nsfw.boobs.image', true],
+  ['global.nsfw.hentai.*', false],
+  ['global.nsfw.hentai.image', true],
   ['global.nsfw.nsfw.*', false], // To be added/renamed
   ['global.nsfw.nsfw.info', true], // To be added/renamed
   ['global.nsfw.rule34.*', false],
