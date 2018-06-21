@@ -158,6 +158,8 @@ ex.permsList = [
   ['global.moderation.bans.reactban', false], // To be added/renamed
   ['global.moderation.bans.roleban', false], // To be added/renamed
   ['global.moderation.bans.instaban', false],
+  ['global.moderation.bans.unban', false],
+  ['global.moderation.bans.softban', false],
   ['global.moderation.botnick.*', false],
   ['global.moderation.botnick.change', false],
   ['global.moderation.chipsprefix.*', false],
@@ -683,7 +685,7 @@ ex.checkPermission = (msg, perm) => {
     let registered = ex.defaultperms.has(perm);
     if (!registered) {
       // Console.log('Someone just tried to use a cmd with an unregistered perm '+ perm);
-      return reject('Sorry, you just tried to use an unregistered command. Please report this to my developers.');
+      return reject('Sorry, you just tried to use an unregistered command. Please report this to my developers at https://support.chipsbot.me');
     }
 
     // Console.log(`Now checking the default perms.: ${perm}\nIs the perm registered list? : ${registered}`);
