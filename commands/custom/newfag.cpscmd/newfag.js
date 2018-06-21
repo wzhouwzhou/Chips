@@ -8,6 +8,7 @@ const guildwhitelist = [
   '413871119733489677',
   '396575145302556672',
   '158264676118036481',
+  '459119374792654849',
 ];
 exports.func = async(msg, { prefix, guild, content, args }) => {
   if (!guild || !guildwhitelist.includes(guild.id)) return true;
