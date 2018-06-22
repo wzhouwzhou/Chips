@@ -2,10 +2,10 @@ const urban = require('urban');
 
 module.exports = {
   name: 'urban',
-  async func(msg, { reply, guild, member, content, prefix, Discord, client }) {
-    let query = content.substring(`${prefix}urban `.length);
-    let nsfw = false;
-    if (~content.indexOf('--allownsfw')) {
+  async func(msg, { reply, guild, member, suffix, prefix, Discord, client }) {
+    let query = suffix;
+    let nsfw = channel.type === 'dm' || channel.nsfw;
+    if (~suffix.indexOf('--allownsfw') && (channel.type === 'dm' || channel.nsfw)) {
       nsfw = true;
       query = query.replace('--allownsfw', '').split(/\s+/).join(' ');
     }
@@ -45,7 +45,7 @@ link: [click](${link})`);
         }
       } else { embed.addField('No results found', '_ _'); }
       console.log('[Urban] Sending results...');
-      return reply(`Urban dictionary results. ${somensfwdetected ? 'Some Nsfw content was censored out, add ``--allownsfw`` somewhere in your command to uncensor them.' : ''}`, { embed });
+      return reply(`Urban dictionary results. ${somensfwdetected ? 'Some Nsfw content was censored out, add ``--allownsfw`` somewhere in your command to uncensor them in a nsfw channel.' : ''}`, { embed });
     });
   },
 };

@@ -32,7 +32,7 @@ module.exports = {
       }
       if (!safe) return send('No hentai images found after 5 tries of filtering...');
 
-      const embed = new Discord.MessageEmbed().setColor(member ? member.displayColor : 13512).setImage(url);
+      const embed = new Discord.MessageEmbed().setColor(member ? member.displayColor : 13512).setImage(url).setFooter(`Requested by ${member.user.tag}`);
       await send(embed);
     } catch (err) {
       console.error(err);
