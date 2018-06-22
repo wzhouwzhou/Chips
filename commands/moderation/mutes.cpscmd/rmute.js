@@ -4,6 +4,7 @@ module.exports = {
   async func(msg, { send, member, author, content, channel, guild, args, gMember, Discord, reply }) {
     const used = member || author;
 
+    
     if (!args[0]) return send('No user given :(');
     console.log(`[Info] Creating new searcher for guild ${guild.id}`);
     let options = { guild: guild };
