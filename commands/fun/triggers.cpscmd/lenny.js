@@ -11,6 +11,7 @@ const lennyTwo = [
   'https://media.giphy.com/media/C3CUJPTRqNk88/200.gif', //'https://www.tenor.co/uhvl.gif',
   //'https://www.tenor.co/IEEk.gif',
   //'https://www.tenor.co/vb3T.gif',
+  'https://www.tenor.co/vTHE.gif',
   'https://media.giphy.com/media/YcTRRbkZLELny/giphy.gif',
 ];
 
