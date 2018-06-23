@@ -1,10 +1,10 @@
 /* eslint complexity: 'off', no-console: 'off', no-undef: 'off' */
 // Client Message Events
+// Global.testC, global.nLogs, global.sLogs, global.sxLogs, global.stLogs, global.snLogs; global.sLogs2;
 const _ = require('lodash');
 const snek = require('snekfetch');
 let slSwitcher = false, helper3 = false;
-global.testC, global.nLogs, global.sLogs, global.sxLogs, global.stLogs, global.snLogs;
-global.sLogs2;
+
 
 // User submission step stored by id
 let submStep = { id0: -1 };
@@ -29,7 +29,8 @@ client.antiDiepLink = {
 };
 
 client.antilinkExemptedC = [
-  '0', '375022276741038081', '322627461282267136'
+  '0', '375022276741038081', '322627461282267136',
+  '0', '459877128226471946', '274260111415836675',
 ];
 
 client.antiDiepLinkExemptedC = [
