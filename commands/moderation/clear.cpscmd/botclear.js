@@ -65,18 +65,21 @@ const botPrefixes = [
   '@',
 ];
 
+const _ = require('lodash');
+
 module.exports = {
   name: 'botclear',
   func(msg, { reply, channel, args }) {
     let nummsgs = 0;
     let limit = args[0] && !isNaN(args[0]) ? parseInt(args[0]) : 25;
 
-    channel.messages.fetch({ limit }).then(msgs => {
-      msgs = msgs.filter(m => {
+    channel.messages.fetch({ limit }).then(mm => {
+      const msgs = mm.filter(m => {
         if (m.author.bot) return true;
         let matched = false;
         for (const pre of botPrefixes) {
-          matched = m.content.toLowerCase().startsWith(pre) ? true : matched;
+          const reg = new RegExp(`^${_.escapeRegExp(pre)}\\w+`, 'i');
+          matched = reg.test(m.content);
           if (matched) return true;
         }
         return false;
