@@ -9,7 +9,7 @@ module.exports = {
       .split(/\s+/).includes(args[0])) {
       result = await exec('git pull');
       await send(new Discord.MessageEmbed().setColor(member ? member.displayColor : 0x1213EE).setDescription(result.substring(0, 1800)));
-      if (result && !~result.toLowerCase().replace(/(\s|-)+/g, '').indexOf('uptodate')) return process.exit(42);
+      if (result && !result.toLowerCase().replace(/(\s|-)+/g, '').includes('uptodate')) return process.exit(42);
     } else {
       result = await exec(`git ${suffix}`);
       await send(new Discord.MessageEmbed().setColor(member ? member.displayColor : 0x1213EE).setDescription(result.substring(0, 1800)));
