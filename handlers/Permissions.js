@@ -424,6 +424,14 @@ ex.serverpermissions = {
 };
 
 ex.channelpermissions = {
+  // Duckio's Discord Mainchat
+  '459860674512945174':
+  [
+    { name: 'global.info.*', action: -1 },
+    { name: 'global.games.*', action: -1 },
+    { name: 'global.utility.*', action: -1 },
+    { name: 'global.fun.*', action: -1 },
+  ],
   // Diepcord off-topic
   '195278167181754369':
   [
@@ -588,9 +596,9 @@ ex.updatePermission = async({ type, userid = null, guildid = null, roleid = null
     return reject(new Error('Unknown Error occured'));
   });
 
-ex.checkPermission = (msg, perm) => {
+ex.checkPermission = (msg, perm) => 
   // Console.log('Entering check permissions');
-  return new Promise((resolve, reject) => {
+   new Promise((resolve, reject) => {
     let guild = msg.guild,
       id = msg.author.id,
       cid = msg.channel.id;
@@ -697,8 +705,8 @@ ex.checkPermission = (msg, perm) => {
     return resolve('This perm is accepted by default');
     // Resolve("This command is enabled by default")
     // reject(`I'm sorry but you do not have permission \`\`${perm}\`\` to access this.`);
-  });
-};
+  })
+;
 
 ex.checkMulti = async(msg, permArr) => {
   // Console.log('[PERMISSIONS][checkMulti] Received perm check request');

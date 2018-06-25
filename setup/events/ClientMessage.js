@@ -200,7 +200,7 @@ const msghandle = async message => {
   if (!!~message.content.replace(/\s+/g, '').indexOf(uu) || !!~message.content.replace(/\s+/g, '').indexOf(uu.slice(-5))) message.delete().catch(_ => _);
   if (await handleAntiLink(message)) return true;
   if (await handleAntiDiepLink(message)) return true;
-  // if (await handleThumbsReact(message)) return true;
+  // If (await handleThumbsReact(message)) return true;
   // Wowbleach trigger
   if (message.content.toLowerCase().indexOf('wowbleach') > -1) message.channel.send('  _  _  <:Bleach:274628490844962826>\n <:WOW:290865903384657920>');
 
@@ -221,17 +221,17 @@ const msghandle = async message => {
     '306244855493951489': 'ban',
     '259209114268336129': '259209114268336129|willy|william',
     '359801125882298378': '250815960250974209|edp|evildeathpro|ethan',
-    '205608598233939970': '205608598233939970|lucas|lsg|lucaslsg|l|u|c|a|s|g',
-    '286246724270555136': '286246724270555136|h0r1zonz|horizon|horizonz|hori|hoz|horizy'
+    205608598233939970: '205608598233939970|lucas|lsg|lucaslsg|l|u|c|a|s|g',
+    '286246724270555136': '286246724270555136|h0r1zonz|horizon|horizonz|hori|hoz|horizy',
   };
   const notify = {
     '306244855493951489': false,
     '259209114268336129': true,
     '250815960250974209': true,
-    '205608598233939970': true,
+    205608598233939970: true,
     '286246724270555136': true,
   };
-  if (message.guild && (message.guild.id === '210535197286989826' || message.guild.id === '359801125882298378')){
+  if (message.guild && (message.guild.id === '210535197286989826' || message.guild.id === '359801125882298378')) {
     for (const id in keywords) {
       if (keywords[id].toLowerCase().split('|').some(e => message.content.toLowerCase().includes(e)) && notify[id]) {
         if (message.author.id !== id) {
@@ -260,6 +260,7 @@ module.exports = function() {
   console.log('Client message event..');
   client.on('message', msghandle);
   client.on('messageUpdate', (oM, nM) => oM.content !== nM.content && msghandle(nM));
+  
   /* C2.on('message', m => {
     try{
       if(m.guild.id==Constants.servers.SUCKX){
