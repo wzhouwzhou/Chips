@@ -6,8 +6,8 @@ console.log('[CPSCMD][MODERATION][emoji] Building objects...');
 ae.metadata = {
   category: require('../').category,
   description: 'Adds emojis',
-  usage: '-addemoji <name> <link>',
-  example: '-addemoji waitwhat https://cdn.discordapp.com/emojis/356568603488681985.png',
+  usage: 'addemoji <name> <link>',
+  example: 'addemoji waitwhat https://cdn.discordapp.com/emojis/356568603488681985.png',
   perm: [['global.utility.emoji.add']],
   customperm: ['MANAGE_EMOJIS'],
 };
@@ -15,8 +15,8 @@ ae.metadata = {
 re.metadata = {
   category: require('../').category,
   description: 'Removes emojis',
-  usage: '-removeemoji <name>',
-  example: '-removeemoji waitwhat',
+  usage: 'removeemoji <name>',
+  example: 'removeemoji waitwhat',
   perm: [['global.utility.emoji.remove']],
   customperm: ['MANAGE_EMOJIS'],
 };
