@@ -15,6 +15,7 @@ module.exports = {
     let targetRole = content.substring(content.indexOf(args[1]));
     let targetRoleSend = guild.roles.find('name', `${targetRole}`);
     let list = searchers[guild.id].searchRole(role);
+    let global.searchers[role.id] = new Searcher(options.role);
     if (!targetUser) {
       return send('Did you mention someone?');
     } else if (!targetRoleSend) {
