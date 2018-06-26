@@ -34,14 +34,15 @@ module.exports = {
     let descs = ['```css\n'], i = 0;
     for (const mem of channel.members.array()) {
       if (!descs[i]) descs[i] = '```';
-      if (descs[i].trim().length > 1950) {
+      if (descs[i].trim().length > 350) {
         descs[++i] = '```css\n';
       }
       descs[i] += `${mem.user.tag}\n`;
     }
     if (descs.length === 1) {
       const embed = new Discord.MessageEmbed();
-      embed.setTitle(`${channel.members.size} members with access to the channel ${channel.name}`).setDescription(`${descs[0]}\x60\x60\x60`);
+      embed.setTitle(`${channel.members.size} members with access to the channel ${channel.name}`)
+        .setDescription(`${descs[0]}\x60\x60\x60`);
       return send(embed);
     }
 
