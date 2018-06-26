@@ -33,7 +33,7 @@ module.exports = {
       let descs = ['```css\n'], i = 0;
       for (const mem of role.members.array()) {
         if (!descs[i]) descs[i] = '```';
-        if (descs[i].trim().length > 1950) {
+        if (descs[i].trim().length > 350) {
           descs[++i] = '```css\n';
         }
         descs[i] += `${mem.user.tag}\n`;
