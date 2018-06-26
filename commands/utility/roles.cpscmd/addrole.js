@@ -16,7 +16,6 @@ module.exports = {
     let targetUser = msg.mentions.members.first();
     let targetRole = content.substring(content.indexOf(args[1]));
     let targetRoleSend = guild.roles.find('name', `${targetRole}`);
-    let list = searchers[guild.id].searchRole(role);
     if (!targetUser) {
       return send('Did you mention someone?');
     } else if (!targetRoleSend) {
@@ -25,9 +24,7 @@ module.exports = {
       return send(`${targetRoleSend.name.replace(/@/g, '(at)')} is above your highest role!`);
     } else if (member.highestRole.position === targetRoleSend.position) {
       return send(`${targetRoleSend.name.replace(/@/g, '(at)')} is equal to your highest role!`);
-    } else if (list.length > 1) {
-      await send('Multiple matches found, using first one..');
-    } else if (list.length < 1) {
+    } else {
       const toAdd = guild.roles.find('name', `${targetRole}`);
       await targetUser.addRole(toAdd);
       return send(`**Succesfully gave ${toAdd.name.replace(/@/, '(at)')} to ${targetUser + []}!**`);
