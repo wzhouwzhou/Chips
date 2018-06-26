@@ -3,7 +3,6 @@
 module.exports = {
   name: 'addrole',
   async func(msg, { send, guild, args, content, member, searchers }) {
-    const global.searchers[guild.id] = new Searcher(options.guild);
     if (!guild) {
       return send('You cannot use this command in Direct Messages.');
     }
