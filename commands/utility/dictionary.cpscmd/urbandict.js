@@ -2,7 +2,7 @@ const urban = require('urban');
 
 module.exports = {
   name: 'urban',
-  async func(msg, { reply, guild, member, suffix, prefix, Discord, client }) {
+  async func(msg, { reply, guild, member, suffix, Discord, client, channel }) {
     let query = suffix;
     let nsfw = channel.type === 'dm' || channel.nsfw;
     if (~suffix.indexOf('--allownsfw') && (channel.type === 'dm' || channel.nsfw)) {
