@@ -10,7 +10,7 @@ const m6r = (gid, uid) => snekfetch.get(`https://api.chipsbot.me:2087/mee6?gid=$
 const ex = {
   name: 'mee6rank',
   async func(msg, ctx) {
-    return ctx.send('Mee6rank is disabled until further notice, apologies.');
+    return ctx.send('Mee6rank is disabled until further notice, apologies. Dm me -support to keep up to date with updates!');
     const { Constants, send, author, guild, args, gMember, reply, content, prefix, Discord } = ctx;
     // send('Mee6rank is currently disabled due to issues interacting with mee6 api, apologies');
 

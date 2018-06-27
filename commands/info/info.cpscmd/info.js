@@ -91,7 +91,7 @@ const ex = {
       if (args[1] === 'verbose') {
         let diff = moment().diff(guild.createdAt, 'days');
 
-        let trueMemC = guild.members.filter(member => !member.user.bot);
+        let trueMemC = guild.members.filter(mm => !mm.user.bot);
         let online = 0, idle = 0, dnd = 0, available = 0;
         guild.presences.filter(presence => {
           switch (presence.status) {
