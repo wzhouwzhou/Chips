@@ -22,7 +22,7 @@ module.exports = {
         .setColor(member ? member.displayColor : 134984)
         .attachFiles([{ attachment: cache.get(hash), name: 'image.png' }])
         .setImage('attachment://image.png')
-        .setTitle(`Mister ${mom}, I'm not feeling so good?`)
+        .setTitle(`Mister ${mom}, I'm not feeling so good...`)
         .setFooter(`Requested by: ${author.tag}`));
       return channel.stopTyping();
     } catch (err) {
