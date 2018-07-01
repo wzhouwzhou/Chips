@@ -1,12 +1,11 @@
-/* eslint no-unused-vars: "off" */
+/* eslint no-unused-vars: 'off', no-console: 'off', no-inline-comments: 'off' */
 Object.defineProperty(exports, '__esModule', { value: true });
 // Require('long-stack-traces');
 
-global._ = require('lodash');
+const _ = global._ = require('lodash');
 const OL1 = console.log;
 console.log = (...args) => OL1(...args.map(e => (e + []).replace(new RegExp(`${_.escapeRegExp(__dirname)}`, 'gi'), '$.')));
-
-global.Constants = require('./setup/Constants');
+const Constants = global.Constants = require('./setup/Constants');
 const changeConsole_1 = require('./setup/logging/changeConsole');
 let setShards = { id: null };
 // Chips constants
@@ -20,7 +19,7 @@ const request = require('request');
 // Const favicon = require('serve-favicon');
 const Discord = require('discord.js');
 global.Discord = Discord;
-global.client = new Discord.Client({
+const client = global.client = new Discord.Client({
   fetchAllMembers: true,
   messageCacheMaxSize: 5,
   // MessageCacheLifetime:(30*60),
@@ -35,7 +34,7 @@ global.c2 = new Discord.Client();
 global.c3 = new Discord.Client();
 client.commands = {};
 global.prefix = '-';
-if (process.env.BETA == 'true')prefix = '!!';
+if (process.env.BETA === 'true' || process.env.BETA === true) global.prefix = '!!';
 global.customprefix = {};
 global.memberjoin = {
   msgs: {},
@@ -125,7 +124,7 @@ global.memberjoin = {
   },
 };
 
-client.memberjoin = memberjoin;
+client.memberjoin = global.memberjoin;
 
 global.memberleave = {
   msgs: {},
@@ -147,12 +146,13 @@ client.database.connect();
 /** Other Global Constants **/
 global.moment = require('moment');
 
-global.chalk = require('chalk');
+const chalk = global.chalk = require('chalk');
 chalk.enabled = true;
-global.Messager = new (require('events'));
+const Messager = global.Messager = new (require('events'));
 global.Command = require('./handlers/Command');
-global.CommandHandler = require('./handlers/CommandHandler')(Discord, client);
-global.DMLogger;
+const permissions = global.permissions = require('./handlers/Permissions.js');
+global.CommandHandler = require('./handlers/CommandHandler')({ _, Discord, client, permissions, Constants, Messager, moment });
+
 global.rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
@@ -166,9 +166,8 @@ global.okSpamLogs = { 0: 0 };
 global.currentOkInterval = { 0: 0 };
 global.filter = require('./handlers/Filter')();
 
-global.dmC;
 global.monitorMode = false;
-global.searchers = { 0: null };
+global.client.searchers = global.searchers = { 0: null };
 /** End Global Constants **/
 
 // Shard setup
@@ -180,7 +179,7 @@ process.on('unhandledRejection', rejection => {
   console.log(chalk.red('[ERR]'), `${rejection}|${rejection.message}\nStack:${rejection.stack}`);
 });
 // Messenger events
-Messager.on('eval', ({ evalContent, vars, timestamp }) => {
+global.Messager.on('eval', ({ evalContent, vars, timestamp }) => {
   const { msg, message, channel, guild, send, reply, content, noprefix, prefix, c, author, member, delay, loadingBar } = vars;
   console.log(`Messager received some eval of ${evalContent}`);
   try {
@@ -254,6 +253,6 @@ function msgStatus() {
 
 require('./setup/events/Ready')(send);
 require('./setup/events/ClientMessage')();
-global.permissions = require('./handlers/Permissions.js');
+
 setInterval(selfping, 1000 * 60 * 10);
 // SetInterval(msgStatus, 1000*60*30);
