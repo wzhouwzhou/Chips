@@ -16,11 +16,13 @@ module.exports = {
         cache.set(hash, buffer);
       }
 
+      let mom = (msg.mentions.users.first() || author).tag;
+
       send(new Discord.MessageEmbed()
         .setColor(member ? member.displayColor : 134984)
         .attachFiles([{ attachment: cache.get(hash), name: 'image.png' }])
         .setImage('attachment://image.png')
-        .setTitle(`${(msg.mentions.users.first() || author).tag}, you ok there buddy?`)
+        .setTitle(`Mister ${mom}, I'm not feeling so good?`)
         .setFooter(`Requested by: ${author.tag}`));
       return channel.stopTyping();
     } catch (err) {
