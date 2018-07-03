@@ -3,10 +3,6 @@
 This is the source for Chips, a discord bot by William Zhou.
 A public version of this bot can be added with https://invite.chipsbot.me/ but to run it yourself, node.js/npm is required
 
-<a href="https://discordbots.org/bot/296855425255473154">
-  <img src="https://discordbots.org/api/widget/servers/296855425255473154.svg" alt="Discord Bots" />
-</a>
-
 ## Useful Links
  • [Homepage](https://chipsbot.me)
  
