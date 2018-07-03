@@ -3,6 +3,7 @@ let rm = require('./rmembers');
 let cm = require('./cmembers');
 let si = require('./serverinfo');
 let ci = require('./channelinfo');
+let ui = require('./userinfo');
 
 console.log('[CPSCMD][INFO][info] Building objects...');
 info.metadata = {
@@ -60,6 +61,15 @@ ci.metadata = {
   customperm: ['SEND_MESSAGES'],
 };
 
+ui.metadata = {
+  category: require('../').category,
+  description: 'Shows member/user info.',
+  usage: 'userinfo (optional mention, id, or fuzzy search)',
+  example: 'userinfo',
+  perm: [['global.info.user']],
+  customperm: ['SEND_MESSAGES'],
+};
+
 console.log('[CPSCMD][INFO][info] Build objects complete!');
 module.exports = [
   [info.name, info],
@@ -74,4 +84,8 @@ module.exports = [
   ['channelmember', cm],
   ['channelmembers', cm],
   ['cm', cm],
+  [ui.name, ui],
+  ['userinfo', ui],
+  ['uinfo', ui],
+  ['whois', ui],
 ];
