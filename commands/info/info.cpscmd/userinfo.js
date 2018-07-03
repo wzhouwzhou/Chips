@@ -155,7 +155,7 @@ const get_mention = (args$n, match, clientorguild) => {
 
 const search_member = (args$n, guild) => {
   let ref;
-  const searcher = (ref = guild.client.searchers[guild.id]) ? ref : searcher[guild.id] = new Searcher(guild);
+  const searcher = (ref = guild.client.searchers[guild.id]) ? ref : guild.client.searchers[guild.id] = new Searcher(guild);
   const list = searcher.searchMember(args$n);
   if (list.length < 1) return [];
   return [list[0], list.length > 0];
