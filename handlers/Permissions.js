@@ -591,14 +591,14 @@ ex.updatePermission = async({ type, userid = null, guildid = null, roleid = null
 
       default:
         // Console.log("Unknown permission received!");
-        return reject('Invalid Permissions Type');
+        return reject(new Error('Invalid Permissions Type'));
     }
     return reject(new Error('Unknown Error occured'));
   });
 
-ex.checkPermission = (msg, perm) => 
+ex.checkPermission = (msg, perm) =>
   // Console.log('Entering check permissions');
-   new Promise((resolve, reject) => {
+  new Promise((resolve, reject) => {
     let guild = msg.guild,
       id = msg.author.id,
       cid = msg.channel.id;
