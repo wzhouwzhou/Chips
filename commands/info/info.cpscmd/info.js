@@ -217,6 +217,8 @@ const ex = {
       }
       // /await reply(`Server info`, {embed: infobad});
     } else if (action === 'user') {
+      return send(new Discord.MessageEmbed().addField('Info user is under maintenance',
+        `In the meantime, replace "info user" with "whois" (ie ${prefix}whois William Zhou).`));
       const waitingE = new Discord.MessageEmbed().attachFiles(['loading.gif']).setAuthor('Loading...', 'attachment://loading.gif', 'http://chipsbot.tk')
         .setColor(msg.member ? msg.member.displayColor : `#${((1 << 24) * Math.random() | 0).toString(16)}`);
       const waiting = await send(' ', { embed: waitingE });

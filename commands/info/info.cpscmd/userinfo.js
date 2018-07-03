@@ -158,7 +158,7 @@ const search_member = (args$n, guild) => {
   const searcher = (ref = guild.client.searchers[guild.id]) ? ref : guild.client.searchers[guild.id] = new Searcher(guild);
   const list = searcher.searchMember(args$n);
   if (list.length < 1) return [];
-  return [list[0], list.length > 0];
+  return [list[0], list.length > 1];
 };
 
 const get_target_type = (target, Discord) => {
