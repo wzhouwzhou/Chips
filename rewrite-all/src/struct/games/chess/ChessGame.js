@@ -127,7 +127,7 @@ const ChessGame = class ChessGame extends require('../BoardGame').BoardGame {
     this.embed.setDescription(this.toString());
     this.embed.setAuthor('Chess');
     this.embed.setTitle(`${this.movers.get('white').username}⬜ vs ⬛${this.movers.get('black').username}`);
-    this.embed.setFooter('Type quit when it is your turn to quit');
+    this.embed.setFooter('Type a2a3 to move a piece from a2 to a3, and quit when it is your turn to quit');
     return this.embed;
   }
 
