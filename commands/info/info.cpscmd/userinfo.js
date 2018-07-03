@@ -32,7 +32,7 @@ exports.func = async(msg, ctx) => {
   return handle_user(Object.assign({ target, multiple }, ctx));
 };
 
-const handle_member = async({ send, target, multiple, Constants, Discord, convertTime, times }) => {
+const handle_member = async({ client, send, target, multiple, Constants, Discord, convertTime, times }) => {
   const avatarURL = target.user.displayAvatarURL({ format: 'png', size: 2048 });
   const status = (() => {
     switch (target.presence.status) {
@@ -87,13 +87,13 @@ const handle_member = async({ send, target, multiple, Constants, Discord, conver
   embed.setThumbnail(Constants.loading);
   let sentmsg;
   rp.then(async r => {
-    embed.attachFiles([new Discord.MessageAttachment(r.body, 'image.png')])
-      .setThumbnail('attachment://image.png');
-    if (sentmsg) await sentmsg.edit(sentmsg.content, { embed });
-    else sentmsg = await send(multiple ? '' : '\u200B', { embed });
+    const mm = await (await client.users.fetch('302252773427249163')).send(new Discord.MessageAttachment(r.body, 'image.png'));
+    embed.setThumbnail(mm.attachments.first().url);
+    if (sentmsg) await sentmsg.edit(multiple ? '(multiple users were found, using the first one)' : '\u200B', { embed });
+    else sentmsg = await send(multiple ? '(multiple users were found, using the first one)' : '\u200B', { embed });
     return sentmsg;
   });
-  sentmsg = await send(multiple ? '' : '\u200B', { embed });
+  sentmsg = await send(multiple ? '(multiple users were found, using the first one)' : '\u200B', { embed });
 };
 
 const handle_user = ({ send, Discord }) => {

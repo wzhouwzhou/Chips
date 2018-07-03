@@ -88,4 +88,5 @@ module.exports = [
   ['userinfo', ui],
   ['uinfo', ui],
   ['whois', ui],
+  ['ui', ui],
 ];
