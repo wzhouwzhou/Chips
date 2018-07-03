@@ -9,7 +9,7 @@ exports.func = async(msg, ctx) => {
 
   if (args[0]) {
     target = await get_id(args[0], guild || client);
-    if (!target) target = await get_mention(args[0], Constants.patterns.MENTION);
+    if (!target) target = await get_mention(args[0], Constants.patterns.MENTION, guild || client);
     if (!target) [target, multiple] = await search_member(suffix, guild);
 
     if (!target) {
@@ -84,7 +84,7 @@ const handle_member = async({ client, send, target, multiple, Constants, Discord
   // Infobad.addField(`Avatar URL`, `[Click Here](${member.user.avatarURL})`);
   // infobad.setThumbnail(member.user.avatarURL);
   embed.setColor(target.displayColor || 'RANDOM');
-  embed.setThumbnail(Constants.loading);
+  embed.setThumbnail(avatarURL);
   let sentmsg;
   rp.then(async r => {
     const mm = await (await client.users.fetch('302252773427249163')).send(new Discord.MessageAttachment(r.body, 'image.png'));
@@ -101,9 +101,9 @@ const handle_user = ({ send, Discord }) => {
   return send(embed);
 };
 
-const get_id = (args$n, clientorguild) => {
+const get_id = (args$n, clientorguild = {}) => {
   if (/^\d+$/.test(args$n)) {
-    if ('guild' in clientorguild) {
+    if ('members' in clientorguild) {
       return clientorguild.members.fetch(args$n) || clientorguild.client.users.fetch(args$n) || null;
     } else {
       return clientorguild.users.fetch(args$n) || null;
@@ -112,16 +112,16 @@ const get_id = (args$n, clientorguild) => {
   return null;
 };
 
-const get_mention = (args$n, match) => {
+const get_mention = (args$n, match, clientorguild) => {
   if (match.test(args$n)) {
-    return get_id(args$n.match(match)[1]);
+    return get_id(args$n.match(match)[1], clientorguild);
   }
   return null;
 };
 
 const search_member = (args$n, guild) => {
   let ref;
-  const searcher = ref = guild.client.searchers[guild.id] ? ref : searcher[guild.id] = new Searcher(guild);
+  const searcher = (ref = guild.client.searchers[guild.id]) ? ref : searcher[guild.id] = new Searcher(guild);
   const list = searcher.searchMember(args$n);
   if (list.length < 1) return [];
   return [list[0], list.length > 0];
