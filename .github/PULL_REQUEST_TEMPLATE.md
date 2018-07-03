@@ -13,4 +13,4 @@
 **Make sure you have done these, if you haven't we will automatically reject the PR:**
 - [ ] I have verified that my linter works properly
 - [ ] I have fixed any and all issues that my linter may have alerted me.
-- [ ] I have verified that my code is consistent with surrounding and dependent code (e.g. in command files I do not use msg.send instead of importing send unless send is being overriden).
+- [ ] I have verified that my code is consistent with surrounding and dependent code (e.g. in command files I do not use msg.send instead of importing send unless send is being overridden).
