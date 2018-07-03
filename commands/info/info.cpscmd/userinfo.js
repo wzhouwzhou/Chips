@@ -16,7 +16,7 @@ exports.func = async(msg, ctx) => {
     if (!target) {
       return send(new Discord.MessageEmbed()
         .setColor(member.displayColor || guild.me.displayColor || 1)
-        .setDescription(`User [${member}] not found!`)
+        .setDescription(`User [${suffix}] not found!`)
       );
     }
 
@@ -138,12 +138,12 @@ const get_id = (args$n, clientorguild = {}) => new Promise(res => {
   if (/^\d+$/.test(args$n)) {
     if ('members' in clientorguild) {
       const [mp, up] = [clientorguild.members.fetch(args$n), clientorguild.client.users.fetch(args$n)];
-      mp.then(res).catch(() => up.then(res).catch(() => res(null)));
+      return mp.then(res).catch(() => up.then(res).catch(() => res(null)));
     } else {
-      return clientorguild.users.fetch(args$n) || null;
+      return clientorguild.users.fetch(args$n).then(res).catch(() => res(null));
     }
   }
-  return null;
+  return res(null);
 });
 
 const get_mention = (args$n, match, clientorguild) => {
