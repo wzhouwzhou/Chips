@@ -1,6 +1,7 @@
 let stats = require('./stats');
 const botguilds = require('./botguilds');
 const uptime = require('./uptime');
+const shardid = require('./shardid');
 
 console.log('[CPSCMD][INFO][stats] Building objects...');
 stats.metadata = {
@@ -27,6 +28,14 @@ uptime.metadata = {
   perm: [['public.info.stats.stats']],
   customperm: ['SEND_MESSAGES'],
 };
+shardid.metadata = {
+  category: require('../').category,
+  description: 'Gives the shard this server is on!',
+  usage: 'shardid <no args>',
+  example: 'shardid',
+  perm: [['public.info.stats.stats']],
+  customperm: ['SEND_MESSAGES'],
+}
 
 console.log('[CPSCMD][INFO][stats] Build objects complete!');
 module.exports = [
@@ -34,4 +43,5 @@ module.exports = [
   [botguilds.name, botguilds],
   ['botguild', botguilds],
   [uptime.name, uptime],
+  [shardid.name, shardid],
 ];

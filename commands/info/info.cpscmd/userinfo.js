@@ -33,7 +33,7 @@ exports.func = async(msg, ctx) => {
 };
 
 const handle_member = async({ client, send, target, multiple, Constants, Discord, convertTime, times }) => {
-  const avatarURL = target.user.displayAvatarURL({ format: 'png', size: 2048 });
+  const avatarURL = target.user.displayAvatarURL({ format: 'png', size: 1024 });
   const status = (() => {
     switch (target.presence.status) {
       case 'online': return 'online';
