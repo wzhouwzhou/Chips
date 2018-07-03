@@ -84,7 +84,7 @@ const handle_member = async({ client, send, target, multiple, Constants, Discord
   // Infobad.addField(`Avatar URL`, `[Click Here](${member.user.avatarURL})`);
   // infobad.setThumbnail(member.user.avatarURL);
   embed.setColor(target.displayColor || 'RANDOM');
-  embed.setThumbnail(Constants.loading);
+  embed.setThumbnail(Constants.loading[2]);
   let sentmsg;
   rp.then(async r => {
     const mm = await (await client.users.fetch('302252773427249163')).send(new Discord.MessageAttachment(r.body, 'image.png'));

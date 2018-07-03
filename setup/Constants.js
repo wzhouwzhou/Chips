@@ -48,7 +48,10 @@ ex.channels = {
   SUPPORT_STAFFAPPLICATIONLOGS: '319248463940550656',
   SBKCHIPSLOGS: '320752455178780672',
 };
-ex.loading = 'https://cdn.discordapp.com/attachments/297582971488174096/461217279179358238/chipsloading.gif';
+ex.loading = {
+  1: 'https://cdn.discordapp.com/attachments/297582971488174096/461217279179358238/chipsloading.gif',
+  2: 'https://cdn.discordapp.com/attachments/307624059984674816/463589098322526208/chipsloading.gif',
+};
 ex.servers = {
   SUCKX: '252525368865456130',
   SURSKIT: '257889450850254848',
