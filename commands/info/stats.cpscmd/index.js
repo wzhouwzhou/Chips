@@ -2,6 +2,7 @@ let stats = require('./stats');
 const botguilds = require('./botguilds');
 const uptime = require('./uptime');
 const shardid = require('./shardid');
+const quickstats = require('./quickstats');
 
 console.log('[CPSCMD][INFO][stats] Building objects...');
 stats.metadata = {
@@ -35,7 +36,15 @@ shardid.metadata = {
   example: 'shardid',
   perm: [['public.info.stats.stats']],
   customperm: ['SEND_MESSAGES'],
-}
+};
+quickstats.metadata = {
+  category: require('../').category,
+  description: 'Gives quick stats!',
+  usage: 'quickstats <no args>',
+  example: 'quickstats',
+  perm: [['public.info.stats.stats']],
+  customperm: ['SEND_MESSAGES'],
+};
 
 console.log('[CPSCMD][INFO][stats] Build objects complete!');
 module.exports = [
@@ -44,4 +53,6 @@ module.exports = [
   ['botguild', botguilds],
   [uptime.name, uptime],
   [shardid.name, shardid],
+  [quickstats.name, quickstats],
+  ['qstats', quickstats],
 ];
