@@ -11,6 +11,8 @@ A public version of this bot can be added with https://invite.chipsbot.me/, runn
  • [Support Server](https://support.chipsbot.me)
 
  • [Donate](https://paypal.me/wzhouwzhou)
+ 
+ • [Uptime](https://uptime.chipsbot.me)
 
 ## Innovative yet easy-to-use features with hundreds of commands.
 
