@@ -35,3 +35,5 @@ Having issues? Want to contact us? Feel free to join our support server at https
 
 ### Contributing
 We are not hiring developers at this point.
+
+![](https://cdn.discordapp.com/attachments/307625071420375040/486915259743862804/Chips_Banner.png)
